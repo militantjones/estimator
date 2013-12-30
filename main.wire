@@ -1,5 +1,4 @@
 <wire> 
-<wire>
 
   <!-- GAF Estimator -->
   <!-- iOS iPad -->
@@ -3384,5 +3383,4 @@
     <action name="null"></action>
    
   </actions>
-	
 </wire>
