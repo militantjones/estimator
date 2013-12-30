@@ -1,0 +1,58 @@
+<provinces>
+  <province>
+    <name>Alberta</name>
+    <code>AB</code>
+  </province>
+  <province>
+    <name>British Columbia</name>
+    <code>BC</code>
+  </province>
+  <province>
+    <name>Labrador</name>
+    <code>LB</code>
+  </province>
+  <province>
+    <name>Manitoba</name>
+    <code>MB</code>
+  </province>
+  <province>
+    <name>New Brunswick</name>
+    <code>NB</code>
+  </province>
+  <province>
+    <name>Newfoundland</name>
+    <code>NF</code>
+  </province>
+  <province>
+    <name>Nova Scotia</name>
+    <code>NS</code>
+  </province>
+  <province>
+    <name>Nunavut</name>
+    <code>NU</code>
+  </province>
+  <province>
+    <name>North West Terr.</name>
+    <code>NW</code>
+  </province>
+  <province>
+    <name>Ontario</name>
+    <code>ON</code>
+  </province>
+  <province>
+    <name>Prince Edward Is.</name>
+    <code>PE</code>
+  </province>
+  <province>
+    <name>Quebec</name>
+    <code>QC</code>
+  </province>
+  <province>
+    <name>Saskatchewen</name>
+    <code>SK</code>
+  </province>
+  <province>
+    <name>Yukon</name>
+    <code>YU</code>
+  </province>
+</provinces>
