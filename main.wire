@@ -1,5 +1,5 @@
-<wire>
-	<!-- comment -->
+<wire> 
+
   <!-- GAF Estimator -->
   <!-- iOS iPad -->
   <!-- App #7562 -->
@@ -31,7 +31,7 @@
 	<httpheader name="get" Content-Type="application/json" Token="[preferences:token]" ContractorId="[preferences:contractorId]" />
 	<httpheader name="formSubmit" Token="[preferences:token]" ContractorId="[preferences:contractorId]" Content-Type="multipart/form-data" Content-Disposition="form-data; name='File'; filename='test.jpg'"/>
 
-    <datasource name="photos" source="adsf" query="Camera Roll" providertype="camera"/>
+    <datasource name="camera-roll" source="adsf" query="Camera Roll" providertype="camera"/>
     <datasource name="states" source="" query="//state" providertype="xml" parsenamespaces="yes" />
     <datasource name="provinces" source="" query="//province" providertype="xml" parsenamespaces="yes" />
     
@@ -224,14 +224,14 @@
           <panel name="username" alias="USERNAME" width="100%" height="50" ypos="50" style="textinput">
             <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
             <!--<text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Username"></text>-->
-            <textfield name="input" width="100%" height="100%" align="right" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Username" onreturnkeypressed="next" returnkeytype="Next" kbtype="emailaddress" _next="PASSWORD"></textfield>
+            <textfield name="input" width="100%" height="100%" align="right" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Username" onreturnkeypressed="next" returnkeytype="next" kbtype="emailaddress" _next="PASSWORD"></textfield>
             <panel name="active" style="100" onclickup="labelactive" _field="USERNAME"></panel>
           </panel>
       
           <panel name="password" alias="PASSWORD" width="100%" height="50" align="center" bottomof="USERNAME" margin-top="20" style="textinput">
             <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
             <!--<text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Password"></text>-->
-            <textfield name="input" width="100%" height="100%" align="right" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Password" onreturnkeypressed="next" returnkeytype="Next" _next="none" _action="signin" password="yes"></textfield>
+            <textfield name="input" width="100%" height="100%" align="right" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Password" onreturnkeypressed="next" returnkeytype="go" _next="none" _action="signin" password="yes" autocorrect="no" ></textfield>
             <panel name="active" style="100" onclickup="labelactive" _field="PASSWORD"></panel>
           </panel>
       
@@ -257,17 +257,27 @@
     <class name="choice">
       <!-- !choice -->
       <panel name="choice" alias="CHOICE" width="100%" height="[eval: [object:CONTAINER.height] - 74]" ypos="74" background="#e3e3e3" alpha="1">
-        <panel name="column" width="60%" height="45%" align="center" valign="center">
+        <panel name="column" width="60%" height="55%" align="center" valign="center">
           
           <panel name="search-box" alias="SEARCH-BOX" width="100%" height="200">
             <text name="label" width="100%" height="40" style="lighttext" size="30" alignment="center" text="Search for an existing estimate."></text>
-            <panel name="search" alias="SEARCH" width="[eval: [object:SEARCH-BOX.width] - 130]" height="50" align="left" bottomof="label" margin-top="20" style="textinput">
+            <panel name="search-lastname" alias="SEARCH-LASTNAME" width="[eval: [object:SEARCH-BOX.width] - 130]" height="50" align="center" bottomof="label" margin-top="20" style="textinput">
               <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
-              <textfield name="input" width="100%" height="100%" align="right" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Last Name, Address, or Customer ID" onreturnkeypressed="next" _next="none" _action="search" ></textfield>
-              <panel name="active" style="100" onclickup="labelactive" _field="SEARCH"></panel>
+              <textfield name="input" width="100%" height="100%" align="right" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Last Name" onreturnkeypressed="next" returnkeytype="search" _next="none" _action="search"  autocorrect="no" ></textfield>
+              <panel name="active" style="100" onclickup="labelactive" _field="SEARCH-LASTNAME"></panel>
             </panel>
+            <panel name="search-address" alias="SEARCH-ADDRESS" width="[eval: [object:SEARCH-BOX.width] - 130]" height="50" align="center" bottomof="search-lastname" margin-top="20" style="textinput">
+              <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
+              <textfield name="input" width="100%" height="100%" align="right" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Address" onreturnkeypressed="next" returnkeytype="search" _next="none" _action="search"  autocorrect="no" ></textfield>
+              <panel name="active" style="100" onclickup="labelactive" _field="SEARCH-ADDRESS"></panel>
+            </panel>
+            <!--<panel name="search-custnumber" alias="SEARCH-CUSTNUMBER" width="[eval: [object:SEARCH-BOX.width] - 130]" height="50" align="center" bottomof="search-address" margin-top="20" style="textinput">
+              <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
+              <textfield name="input" width="100%" height="100%" align="right" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Customer ID" onreturnkeypressed="next" returnkeytype="search" _next="none" _action="search"  autocorrect="no" ></textfield>
+              <panel name="active" style="100" onclickup="labelactive" _field="SEARCH-CUSTNUMBER"></panel>
+            </panel>-->
             
-            <panel name="search-btn" width="110" height="50" align="right" bottomof="label" margin-top="20">
+            <panel name="search-btn" width="110" height="50" align="center" bottomof="search-address" margin-top="20">
               <object class="button" name="test" size="20" label="Search" action="search" />
             </panel>
           </panel>
@@ -284,6 +294,33 @@
       </panel><!-- end of choice -->
     </class>
     
+    <!-- !search refults -->
+    <class name="searchresult">
+      <panel name="result-item[param:index]" width="100%" height="100">
+        <text name="name" width="65%" height="30" xpos="20" ypos="20" style="darktext" size="24" alignment="left" text="[param:lastname], [param:firstname]" ></text>
+        <text name="address" width="65%" height="30" xpos="20" bottomof="name" style="darktext" size="20" alignment="left" text="[param:street], [param:city], [param:state] [param:zip]" ></text>
+        <panel name="edit-btn" width="100" height="50" ypos="22" align="right" bottomof="search-address" margin-right="20">
+          <object class="button" name="test" size="20" label="Edit" action="edit" value="" />
+        </panel>
+        <panel name="view-btn" width="100" height="50" ypos="22" leftof="edit-btn" margin-right="20" bottomof="search-address">
+          <object class="button" name="test" size="20" label="View" action="viewestimate" value="" />
+        </panel>
+        <panel name="divider" width="728" height="5" align="center" valign="bottom" background="#343434"></panel>
+      </panel>
+    </class>
+    
+    <class name="results">
+      <panel name="searchresults" alias="SEARCHRESULTS" width="100%" height="100%" ypos="101%" background="#e3e3e3">
+        <panel name="searchhead" width="100%" height="74" background="#343434" >
+          <text name="label" width="100%" height="100%" color="#ffffff" font="Futura-Medium" size="24" alignment="center" text="Search Results"></text>
+          <text name="close" width="100" height="100%" color="#ffffff" font="Futura-Medium" size="20" alignment="left" leftinset="20" text="Close" onclickup="closeresults" clickuptarget="CONTAINER"></text>
+        </panel>
+        <pager name="resultlist" width="100%" height="[eval: [object:SEARCHRESULTS.height] - 74]" ypos="74" orientation="vertical" paginate="no">
+          <object class="searchresult" index="1" lastname="Reaves" firstname="Keanu" street="15 Matrix Way" city="Zion" state="CA" zip="90210" />
+        </pager>
+      </panel>
+    </class>
+    
     <!-- !Roof info classes -->
     <class name="roof area">
       <panel name="roof-area[param:index]" alias="ROOF-AREA[param:index]" width="100%" height="220">
@@ -292,7 +329,7 @@
           <panel name="rl[param:index]" alias="RL[param:index]" width="226" height="50" align="left" style="textinput">
             <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
             <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Length"></text>
-            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" _next="RW[param:index]" _action="null"></textfield>
+            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="RW[param:index]" _action="null" autocorrect="no" ></textfield>
             <panel name="active" style="100" onclickup="labelactive" _field="RL[param:index]"></panel>
           </panel>
           <text name="measure" width="30" height="100%" align="right" style="darktext" size="20" alignment="center" text="ft"></text>
@@ -301,7 +338,7 @@
           <panel name="rw[param:index]" alias="RW[param:index]" width="226" height="50" align="left" style="textinput">
             <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
             <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Width"></text>
-            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" _next="none" _action="null"></textfield>
+            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null" autocorrect="no" ></textfield>
             <panel name="active" style="100" onclickup="labelactive" _field="RW[param:index]"></panel>
           </panel>
           <text name="measure" width="30" height="100%" align="right" style="darktext" size="20" alignment="center" text="ft"></text>
@@ -309,7 +346,7 @@
         <panel name="slope[param:index]" alias="SLOPE[param:index]" width="226" height="50" align="left" bottomof="width" margin-top="10" style="textinput">
           <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
           <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Slope"></text>
-          <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" _next="none" _action="null"></textfield>
+          <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" _next="none" _action="null" autocorrect="no" ></textfield>
           <panel name="active" style="100" onclickup="dropon" _field="SLOPE[param:index]" _drop="ROOF-AREA[param:index]" _droptype="SLOPEDROP[param:index]"></panel>
         </panel>
         <panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
@@ -381,19 +418,19 @@
         <panel name="rooftype" alias="ROOFTYPE" width="226" height="50" align="left" bottomof="subtitle" style="textinput">
           <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
           <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Roof Type"></text>
-          <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" _next="none" _action="null"></textfield>
+          <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" _next="none" _action="null" autocorrect="no" ></textfield>
           <panel name="active" style="100" onclickup="dropon" _field="ROOFTYPE" _drop="INSPECTION" _droptype="ROOFTYPEDROP"></panel>
         </panel>
         <panel name="floors" alias="FLOORS" width="226" height="50" align="left" bottomof="rooftype" margin-top="10" style="textinput">
           <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
           <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Floors"></text>
-          <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="1 - 3" onreturnkeypressed="next" _next="none" _action="null"></textfield>
+          <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="1 - 3" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null" autocorrect="no" ></textfield>
           <panel name="active" style="100" onclickup="labelactive" _field="FLOORS" _drop="INSPECTION"></panel>
         </panel>
         <!--<panel name="difficulty" alias="DIFFICULTY" width="226" height="50" align="left" bottomof="floors" margin-top="10" style="textinput">
           <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
           <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Difficulty"></text>
-          <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" _next="none" _action="null"></textfield>
+          <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" _next="none" _action="null" autocorrect="no" ></textfield>
           <panel name="active" style="100" onclickup="dropon" _field="DIFFICULTY" _drop="INSPECTION"></panel>
         </panel>-->
         <panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
@@ -438,14 +475,14 @@
         <panel name="fasciacolor" alias="FASCIACOLOR" width="226" height="50" align="left" bottomof="subtitle" style="textinput">
           <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
           <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Facia Color"></text>
-          <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" _next="FASCIASIZE" _action="null"></textfield>
+          <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" _next="FASCIASIZE" _action="null" autocorrect="no" ></textfield>
           <panel name="active" style="100" onclickup="labelactive" _field="FASCIACOLOR"></panel>
         </panel>
         <panel name="fs" width="256" height="50" bottomof="fasciacolor" margin-top="10">
           <panel name="fasciasize" alias="FASCIASIZE" width="226" height="50" align="left" style="textinput">
             <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
             <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Fascia Size"></text>
-            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" _next="none" _action="null"></textfield>
+            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" _next="none" _action="null" autocorrect="no" ></textfield>
             <panel name="active" style="100" onclickup="labelactive" _field="FASCIASIZE"></panel>
           </panel>
           <text name="measure" width="30" height="100%" align="right" style="darktext" size="20" alignment="center" text="in"></text>
@@ -453,7 +490,7 @@
         <panel name="fasciatype" alias="FASCIATYPE" width="226" height="50" align="left" bottomof="fs" margin-top="10" style="textinput">
           <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
           <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Fascia Type"></text>
-          <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" _next="none" _action="null"></textfield>
+          <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" _next="none" _action="null" autocorrect="no" ></textfield>
           <panel name="active" style="100" onclickup="dropon" _field="FASCIATYPE" _drop="FASCIA"></panel>
         </panel>
         <panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
@@ -468,7 +505,7 @@
           <panel name="wastepercent" alias="WASTEPERCENT" width="226" height="50" align="left" style="textinput">
             <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
             <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Waste"></text>
-            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" _next="none" _action="null"></textfield>
+            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" kbtype="numberpad" _next="none" _action="null" autocorrect="no" ></textfield>
             <panel name="active" style="100" onclickup="labelactive" _field="WASTEPERCENT"></panel>
           </panel>
           <text name="measure" width="30" height="100%" align="right" style="darktext" size="20" alignment="center" text="%"></text>
@@ -484,7 +521,7 @@
           <panel name="ridgelength[param:index]" alias="RIDGELENGTH[param:index]" width="226" height="50" align="left" style="textinput">
             <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
             <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Length"></text>
-            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" _next="none" _action="null"></textfield>
+            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null" autocorrect="no" ></textfield>
             <panel name="active" style="100" onclickup="labelactive" _field="RIDGELENGTH[param:index]"></panel>
           </panel>
           <text name="measure" width="30" height="100%" align="right" style="darktext" size="20" alignment="center" text="ft"></text>
@@ -504,7 +541,7 @@
           <panel name="hiplength[param:index]" alias="HIPLENGTH[param:index]" width="226" height="50" align="left" style="textinput">
             <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
             <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Length"></text>
-            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" _next="none" _action="null"></textfield>
+            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null" autocorrect="no" ></textfield>
             <panel name="active" style="100" onclickup="labelactive" _field="HIPLENGTH[param:index]"></panel>
           </panel>
           <text name="measure" width="30" height="100%" align="right" style="darktext" size="20" alignment="center" text="ft"></text>
@@ -520,7 +557,7 @@
           <panel name="valleylength[param:index]" alias="VALLEYLENGTH[param:index]" width="226" height="50" align="left" style="textinput">
             <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
             <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Length"></text>
-            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" _next="none" _action="null"></textfield>
+            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null" autocorrect="no" ></textfield>
             <panel name="active" style="100" onclickup="labelactive" _field="VALLEYLENGTH[param:index]"></panel>
           </panel>
           <text name="measure" width="30" height="100%" align="right" style="darktext" size="20" alignment="center" text="ft"></text>
@@ -536,7 +573,7 @@
           <panel name="rakelength[param:index]" alias="RAKELENGTH[param:index]" width="226" height="50" align="left" style="textinput">
             <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
             <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Length"></text>
-            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" _next="none" _action="null"></textfield>
+            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null" autocorrect="no" ></textfield>
             <panel name="active" style="100" onclickup="labelactive" _field="RAKELENGTH[param:index]"></panel>
           </panel>
           <text name="measure" width="30" height="100%" align="right" style="darktext" size="20" alignment="center" text="ft"></text>
@@ -552,7 +589,7 @@
           <panel name="eavelength[param:index]" alias="EAVELENGTH[param:index]" width="226" height="50" align="left" style="textinput">
             <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
             <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Length"></text>
-            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" _next="none" _action="null"></textfield>
+            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null" autocorrect="no" ></textfield>
             <panel name="active" style="100" onclickup="labelactive" _field="EAVELENGTH[param:index]"></panel>
           </panel>
           <text name="measure" width="30" height="100%" align="right" style="darktext" size="20" alignment="center" text="ft"></text>
@@ -568,7 +605,7 @@
           <panel name="protrusionlength[param:pindex]" alias="PROTRUSIONLENGTH[param:pindex]" width="226" height="50" align="left" style="textinput">
             <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
             <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Length"></text>
-            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" _next="PROTRUSIONWIDTH[param:pindex]" _action="null"></textfield>
+            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="PROTRUSIONWIDTH[param:pindex]" _action="null" autocorrect="no" ></textfield>
             <panel name="active" style="100" onclickup="labelactive" _field="PROTRUSIONLENGTH[param:pindex]"></panel>
           </panel>
           <text name="measure" width="30" height="100%" align="right" style="darktext" size="20" alignment="center" text="ft"></text>
@@ -577,7 +614,7 @@
           <panel name="protrusiontwidth[param:pindex]" alias="PROTRUSIONWIDTH[param:pindex]" width="226" height="50" align="left" style="textinput">
             <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
             <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Width"></text>
-            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" _next="none" _action="null"></textfield>
+            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null" autocorrect="no" ></textfield>
             <panel name="active" style="100" onclickup="labelactive" _field="PROTRUSIONWIDTH[param:pindex]"></panel>
           </panel>
           <text name="measure" width="30" height="100%" align="right" style="darktext" size="20" alignment="center" text="ft"></text>
@@ -594,7 +631,7 @@
           <panel name="protrusionlength[param:pindex]" alias="PROTRUSIONLENGTH[param:pindex]" width="226" height="50" align="left" style="textinput">
             <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
             <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Length"></text>
-            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" _next="PROTRUSIONWIDTH[param:pindex]" _action="null"></textfield>
+            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="PROTRUSIONWIDTH[param:pindex]" _action="null" autocorrect="no" ></textfield>
             <panel name="active" style="100" onclickup="labelactive" _field="PROTRUSIONLENGTH[param:pindex]"></panel>
           </panel>
           <text name="measure" width="30" height="100%" align="right" style="darktext" size="20" alignment="center" text="ft"></text>
@@ -603,7 +640,7 @@
           <panel name="protrusiontwidth[param:pindex]" alias="PROTRUSIONWIDTH[param:pindex]" width="226" height="50" align="left" style="textinput">
             <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
             <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Width"></text>
-            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" _next="none" _action="null"></textfield>
+            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null" autocorrect="no" ></textfield>
             <panel name="active" style="100" onclickup="labelactive" _field="PROTRUSIONWIDTH[param:pindex]"></panel>
           </panel>
           <text name="measure" width="30" height="100%" align="right" style="darktext" size="20" alignment="center" text="ft"></text>
@@ -623,8 +660,8 @@
           <panel name="ventquantity[param:index]" alias="VENTQUANTITY[param:index]" width="226" height="50" align="left" style="textinput">
             <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
             <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Quantity"></text>
-            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" _next="none" _action="null"></textfield>
-            <panel name="active" style="100" onclickup="labelactive" _field="3VENTLENGTH"></panel>
+            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null" autocorrect="no" ></textfield>
+            <panel name="active" style="100" onclickup="labelactive" _field="VENTQUANTITY[param:index]"></panel>
           </panel>
         </panel>
         <panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
@@ -641,8 +678,8 @@
           <panel name="ventquantity[param:index]" alias="VENTQUANTITY[param:index]" width="226" height="50" align="left" style="textinput">
             <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
             <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Quantity"></text>
-            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" _next="none" _action="null"></textfield>
-            <panel name="active" style="100" onclickup="labelactive" _field="2VENTLENGTH"></panel>
+            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null" autocorrect="no" ></textfield>
+            <panel name="active" style="100" onclickup="labelactive" _field="VENTQUANTITY[param:index]"></panel>
           </panel>
         </panel>
         <panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
@@ -659,8 +696,8 @@
           <panel name="ventquantity[param:index]" alias="VENTQUANTITY[param:index]" width="226" height="50" align="left" style="textinput">
             <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
             <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Quantity"></text>
-            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" _next="none" _action="null"></textfield>
-            <panel name="active" style="100" onclickup="labelactive" _field="1VENTLENGTH"></panel>
+            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null" autocorrect="no" ></textfield>
+            <panel name="active" style="100" onclickup="labelactive" _field="VENTQUANTITY[param:index]"></panel>
           </panel>
         </panel>
         <panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
@@ -674,7 +711,7 @@
           <panel name="ventsize[param:index]" alias="VENTSIZE[param:index]" width="226" height="50" align="left" style="textinput">
             <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
             <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Size"></text>
-            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" _next="VENTQUANTITY[param:index]" _action="null"></textfield>
+            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="VENTQUANTITY[param:index]" _action="null" autocorrect="no" ></textfield>
             <panel name="active" style="100" onclickup="labelactive" _field="VENTSIZE[param:index]"></panel>
           </panel>
           <text name="measure" width="30" height="100%" align="right" style="darktext" size="20" alignment="center" text="in"></text>
@@ -683,7 +720,7 @@
           <panel name="ventquantity[param:index]" alias="VENTQUANTITY[param:index]" width="226" height="50" align="left" style="textinput">
             <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
             <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Quantity"></text>
-            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" _next="none" _action="null"></textfield>
+            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null" autocorrect="no" ></textfield>
             <panel name="active" style="100" onclickup="labelactive" _field="VENTQUANTITY[param:index]"></panel>
           </panel>
         </panel>
@@ -846,19 +883,19 @@
         <panel name="layers" alias="LAYERS" width="226" height="50" align="left" bottomof="tearoffservice" margin-top="10" style="textinput">
           <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
           <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Layers"></text>
-          <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" _next="none" _action="null"></textfield>
+          <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" _next="none" _action="null" autocorrect="no" ></textfield>
           <panel name="active" style="100" onclickup="dropon" _field="LAYERS" _drop="TEAROFF" _droptype="LAYERSDROP"></panel>
         </panel>
         <panel name="type" alias="TYPE" width="226" height="50" align="left" bottomof="layers" margin-top="10" style="textinput">
           <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
           <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Type"></text>
-          <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" _next="none" _action="null"></textfield>
+          <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" _next="none" _action="null" autocorrect="no" ></textfield>
           <panel name="active" style="100" onclickup="dropon" _field="TYPE" _drop="TEAROFF" _droptype="TEAROFFTYPEDROP"></panel>
         </panel>
         <!--<panel name="difficulty" alias="DIFFICULTY" width="226" height="50" align="left" bottomof="type" margin-top="10" style="textinput">
           <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
           <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Difficulty"></text>
-          <textfield name="input" text="test" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" _next="none" _action="null"></textfield>
+          <textfield name="input" text="test" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" _next="none" _action="null" autocorrect="no" ></textfield>
           <panel name="active" style="100" onclickup="dropon" _field="DIFFICULTY" _drop="TEAROFF"></panel>
         </panel>-->
         <panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
@@ -956,7 +993,7 @@
           <panel name="adjustmentamount[param:aindex]" alias="ADJUSTMENTAMOUNT[param:aindex]" width="226" height="50" align="left" style="textinput">
             <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
             <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Amount"></text>
-            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="ADJUSTMENTAMOUNTNOTES[param:aindex]" _next="none" _action="null"></textfield>
+            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="ADJUSTMENTAMOUNTNOTES[param:aindex]" kbtype="numberpad" _next="none" _action="null" autocorrect="no" ></textfield>
             <panel name="active" style="100" onclickup="labelactive" _field="ADJUSTMENTAMOUNT[param:aindex]"></panel>
           </panel>
           <!--<text name="measure" width="30" height="100%" align="right" style="darktext" size="20" alignment="center" text="ft"></text>-->
@@ -964,7 +1001,7 @@
         
         <panel name="adjustmentnotes[param:aindex]" alias="ADJUSTMENTAMOUNTNOTES[param:aindex]" width="100%" height="115" bottomof="adjustment" margin-top="10" align="left" style="textinput">
           <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
-          <textfield name="input" width="100%" height="100%" align="left" leftinset="20" style="darktext" size="20" alignment="left" valignment="center" placeholder="Notes" onreturnkeypressed="next" _next="none" _action="null" multiline="yes"></textfield>
+          <textfield name="input" width="100%" height="100%" align="left" leftinset="20" style="darktext" size="20" alignment="left" valignment="center" placeholder="Notes" onreturnkeypressed="next" _next="none" _action="null" multiline="yes" autocorrect="no" ></textfield>
           <panel name="active" style="100" onclickup="labelactive" _field="ADJUSTMENTAMOUNTNOTES"></panel>
         </panel>
         
@@ -992,7 +1029,7 @@
           <panel name="adjustmentamount[param:aindex]" alias="ADJUSTMENTAMOUNT[param:aindex]" width="226" height="50" align="left" style="textinput">
             <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
             <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Amount"></text>
-            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="ADJUSTMENTAMOUNTNOTES[param:aindex]" _next="none" _action="null"></textfield>
+            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="ADJUSTMENTAMOUNTNOTES[param:aindex]" kbtype="numberpad" _next="none" _action="null" autocorrect="no" ></textfield>
             <panel name="active" style="100" onclickup="labelactive" _field="ADJUSTMENTAMOUNT[param:aindex]"></panel>
           </panel>
           <!--<text name="measure" width="30" height="100%" align="right" style="darktext" size="20" alignment="center" text="ft"></text>-->
@@ -1000,7 +1037,7 @@
         
         <panel name="adjustmentnotes[param:aindex]" alias="ADJUSTMENTAMOUNTNOTES[param:aindex]" width="100%" height="115" bottomof="adjustment" margin-top="10" align="left" style="textinput">
           <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
-          <textfield name="input" width="100%" height="100%" align="left" leftinset="20" style="darktext" size="20" alignment="left" valignment="center" placeholder="Notes" onreturnkeypressed="next" _next="none" _action="null" multiline="yes"></textfield>
+          <textfield name="input" width="100%" height="100%" align="left" leftinset="20" style="darktext" size="20" alignment="left" valignment="center" placeholder="Notes" onreturnkeypressed="next" _next="none" _action="null" multiline="yes" autocorrect="no" ></textfield>
           <panel name="active" style="100" onclickup="labelactive" _field="ADJUSTMENTAMOUNTNOTES"></panel>
         </panel>
         
@@ -1011,23 +1048,75 @@
     </class><!-- <object class="additionalcost" index="1" /> -->
     
     <!-- !camera classes -->
+    <class name="camera-view">
+      <camera name="view" alias="CAMERA-VIEW" width="100%" height="100%" face="[param:face]" outputfile="dump/capture.png" photoquality="high" oncapture="output" />
+    </class>
     <class name="camera">
-      <panel name="camera" alias="CAMERA" width="100%" height="100%" background="#343434">
-        <camera name="device" alias="DEVICE" height="[eval: [object:CONTAINER.height] - 60]" width="100%" type="photo" outputfile="dump/capture.png" photoquality="high" oncapture="output"></camera>
-        <text name="cancel" width="100" height="60" valign="bottom" color="#ffffff" font="Futura-Medium" size="20" alignment="center" text="Cancel" onclickup="cancelcamera" clickuptarget="CAMERABOX" ></text>
-        <panel name="capture" width="80" height="60" align="center" valign="bottom" onclickup="capture" clickuptarget="CAMERABOX" > 
-          <panel name="button" width="50" height="50" align="center" valign="center" cornerradius="25" background="ffffff"></panel>
+        <panel name="camera" alias="CAMERA" width="100%" height="100%" clip="yes">
+            <panel name="camera-container" alias="CAMERA-CONTAINER" width="100%" height="100%">
+                <object class="camera-view" face="back" />
+            </panel>
+            <panel name="toolbar" alias="CAMERA-TOOLBAR" width="100%" style="ios-toolbar" background="#ffffff" ypos="-70">
+                <panel name="wrapper" width="100%" height="100%" valign="bottom" clip="yes">
+                    <panel name="capture-cancel" width="100" height="100%" padding-left="15" alpha="1" onclickup="capture-cancel" clickuptarget="CONTAINER" _type="">
+                        <text name="label" height="100%" width="100%" font="Futura-Medium" size="18" alignment="left" color="#0a84c8" text="Retake" />
+                    </panel>
+                    <panel name="capture-submit" width="100" height="100%" padding-right="15" alpha="1" align="right" onclickup="capture-submit" clickuptarget="CONTAINER" _type="">
+                        <text name="label" height="100%" width="100%" font="Futura-Medium" size="18" alignment="right" color="#0a84c8" text="Save" />
+                    </panel>
+                </panel>
+            </panel>
+            <panel name="controlCenter" alias="CAMERA-CONTROLCENTER" width="100%" height="100" align="center" valign="bottom">
+                <panel name="wrapper" width="100%" height="100%" valign="center" padding-right="20" padding-left="20">
+                    <panel name="flip" width="55" height="55" align="right" valign="center" _face="front" onclickup="flip-photo" alpha="0">
+                        <image name="icon" source="graphics/icon.flip.png" align="right" valign="center" shadowradius="1" shadowxoffset="1" shadowyoffset="0" shadowopacity=".7" ignoretouches="yes" />
+                    </panel>
+                    <panel name="dismiss" width="55" height="55" align="left" valign="center" onclickup="cancelcamera" clickuptarget="CONTAINER">
+                        <image name="icon" source="graphics/icon.dismiss.white.png" align="left" valign="center" shadowradius="1" shadowxoffset="1" shadowyoffset="0" shadowopacity=".7" ignoretouches="yes" />
+                    </panel>
+                </panel>
+                <panel name="snap" width="74" height="74" background="ffffff" cornerradius="37" align="center" valign="center" onclickup="snap-photo" onclick="snap-down" clickuptarget="CONTAINER">
+                    <panel name="inner" width="60" height="60" cornerradius="30" background="ed1c24" align="center" valign="center" borderwidth="3" bordercolor="#252525" />
+                </panel>
+            </panel>
         </panel>
-      </panel>
     </class>
     
-    <class name="preview">
-      <panel name="preview" alias="PREVIEW" width="100%" height="100%">
-        <image name="img" source="dump/capture.png" width="100%"></image>
-      </panel>
+    <class name="capture-preview">
+        <image name="capture-preview" height="100%" alias="CAPTURE-PREVIEW" source="dump/capture.png" />
+    </class>
+
+    <class name="camera-roll-row">
+        <panel width="100%" height="150">
+            <panel name="1" width="20%" height="100%" clip="yes">
+                <image name="img" width="100%" height="100%" maxresolution="100" url="[param:url1]" assetthumb="[param:url1]" _url="[param:url1]" onclickup="select-feature-photo" clickuptarget="CONTAINER" />
+            </panel>
+            <panel name="2" width="20%" height="100%" clip="yes" rightof="1">
+                <image name="img" width="100%" height="100%" maxresolution="100" url="[param:url2]" assetthumb="[param:url2]" _url="[param:url2]" onclickup="select-feature-photo" clickuptarget="CONTAINER" />
+            </panel>
+            <panel name="3" width="20%" height="100%" clip="yes" rightof="2">
+                <image name="img" width="100%" height="100%" maxresolution="100" url="[param:url3]" assetthumb="[param:url3]" _url="[param:url3]" onclickup="select-feature-photo" clickuptarget="CONTAINER" />
+            </panel>
+            <panel name="4" width="20%" height="100%" clip="yes" rightof="3">
+                <image name="img" width="100%" height="100%" maxresolution="100" url="[param:url4]" assetthumb="[param:url4]" _url="[param:url4]" onclickup="select-feature-photo" clickuptarget="CONTAINER" />
+            </panel>
+            <panel name="5" width="20%" height="100%" clip="yes" rightof="4">
+                <image name="img" width="100%" height="100%" maxresolution="100" url="[param:url5]" assetthumb="[param:url5]" _url="[param:url5]" onclickup="select-feature-photo" clickuptarget="CONTAINER" />
+            </panel>
+        </panel>
+    </class>
+    <class name="camera-roll">
+        <panel name="camera-roll" alias="CAMERA-ROLL" width="100%" height="100%" >
+            <list name="roll" datasource="camera-roll" width="100%" height="100%" step="5" paginate="no" orientation="vertical" align="center">
+                <object class="camera-roll-row" row="[datasource:dataSourceIndex]" url1="[datasource:camera-roll.[param:dataSourceIndex].url]" url2="[datasource:camera-roll.[eval:[param:dataSourceIndex] + 1].url]" url3="[datasource:camera-roll.[eval:[param:dataSourceIndex] + 2].url]" url4="[datasource:camera-roll.[eval:[param:dataSourceIndex] + 3].url]" url5="[datasource:camera-roll.[eval:[param:dataSourceIndex] + 4].url]"/>
+            </list>
+        </panel>
     </class>
     
-	<class name="container">
+  </classes>
+ 
+  <!-- !MAIN -->
+  <main>
     <panel name="container" alias="CONTAINER" style="100" background="#e3e3e3">
       
       <!-- !customer -->
@@ -1041,24 +1130,24 @@
               <panel name="col1" width="50%" height="100%" padding-right="10" bottomof="subtitle">
                 <panel name="cust1-fname" alias="CUST1-FNAME" width="100%" height="50" align="left" style="textinput">
                   <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
-                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="First Name" onreturnkeypressed="next" _next="CUST1-LNAME" _action="null"></textfield>
+                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="First Name" onreturnkeypressed="next" returnkeytype="next" _next="CUST1-LNAME" _action="null" ></textfield>
                   <panel name="active" style="100" onclickup="labelactive" _field="CUST1-FNAME"></panel>
                 </panel>
                 <panel name="cust1-email" alias="CUST1-EMAIL" width="100%" height="50" align="left" bottomof="CUST1-FNAME" margin-top="10" style="textinput">
                   <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
-                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Email" onreturnkeypressed="next" _next="CUST1-PHONE" _action="null" kbtype="emailaddress" ></textfield>
+                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Email" onreturnkeypressed="next" returnkeytype="next" _next="CUST1-PHONE" _action="null" kbtype="emailaddress"  autocorrect="no" ></textfield>
                   <panel name="active" style="100" onclickup="labelactive" _field="CUST1-EMAIL"></panel>
                 </panel>
               </panel>
               <panel name="col2" width="50%" height="100%" padding-left="10" align="right" bottomof="subtitle">
                 <panel name="cust1-lname" alias="CUST1-LNAME" width="100%" height="50" align="right" style="textinput">
                   <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
-                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Last Name" onreturnkeypressed="next" _next="CUST1-EMAIL" _action="null" ></textfield>
+                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Last Name" onreturnkeypressed="next" returnkeytype="next" _next="CUST1-EMAIL" _action="null" ></textfield>
                   <panel name="active" style="100" onclickup="labelactive" _field="CUST1-LNAME"></panel>
                 </panel>
                 <panel name="cust1-phone" alias="CUST1-PHONE" width="100%" height="50" align="right" bottomof="CUST1-LNAME" margin-top="10" style="textinput">
                   <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
-                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Phone" onreturnkeypressed="next" _next="CUST2-FNAME" _action="null" kytype="numberpad" ></textfield>
+                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Phone" onreturnkeypressed="next" returnkeytype="next" _next="CUST2-FNAME" kbtype="numberpad" _action="null" kytype="numberpad"  autocorrect="no" ></textfield>
                   <panel name="active" style="100" onclickup="labelactive" _field="CUST1-PHONE"></panel>
                 </panel>
               </panel>
@@ -1070,24 +1159,24 @@
               <panel name="col1" width="50%" height="100%" padding-right="10" bottomof="subtitle">
                 <panel name="cust2-fname" alias="CUST2-FNAME" width="100%" height="50" align="left" style="textinput">
                   <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
-                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="First Name" onreturnkeypressed="next" _next="CUST2-LNAME" _action="null"></textfield>
+                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="First Name" onreturnkeypressed="next" returnkeytype="next" _next="CUST2-LNAME" _action="null" autocorrect="no" ></textfield>
                   <panel name="active" style="100" onclickup="labelactive" _field="CUST2-FNAME"></panel>
                 </panel>
                 <panel name="cust2-email" alias="CUST2-EMAIL" width="100%" height="50" align="left" bottomof="CUST2-FNAME" margin-top="10" style="textinput">
                   <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
-                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Email" onreturnkeypressed="next" _next="CUST2-PHONE" _action="null" kbtype="emailaddress" ></textfield>
+                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Email" onreturnkeypressed="next" returnkeytype="next" _next="CUST2-PHONE" _action="null" kbtype="emailaddress"  autocorrect="no" ></textfield>
                   <panel name="active" style="100" onclickup="labelactive" _field="CUST2-EMAIL"></panel>
                 </panel>
               </panel>
               <panel name="col2" width="50%" height="100%" padding-left="10" align="right" bottomof="subtitle">
                 <panel name="cust2-lname" alias="CUST2-LNAME" width="100%" height="50" align="right" style="textinput">
                   <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
-                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Last Name" onreturnkeypressed="next" _next="CUST2-EMAIL" _action="null" ></textfield>
+                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Last Name" onreturnkeypressed="next" returnkeytype="next" _next="CUST2-EMAIL" _action="null"  autocorrect="no" ></textfield>
                   <panel name="active" style="100" onclickup="labelactive" _field="CUST2-LNAME"></panel>
                 </panel>
                 <panel name="cust2-phone" alias="CUST2-PHONE" width="100%" height="50" align="right" bottomof="CUST1-LNAME" margin-top="10" style="textinput">
                   <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
-                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Phone" onreturnkeypressed="next" _next="STREET" _action="null" kytype="numberpad" ></textfield>
+                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Phone" onreturnkeypressed="next" returnkeytype="next" _next="STREET" _action="null" kbtype="numberpad"  autocorrect="no" ></textfield>
                   <panel name="active" style="100" onclickup="labelactive" _field="CUST2-PHONE"></panel>
                 </panel>
               </panel>
@@ -1098,7 +1187,7 @@
               <text name="subtitle" width="100%" height="35" style="darktext" size="20" alignment="left" text="Property Address"></text>
               <!--<panel name="country" alias="COUNTRY" width="230" height="50" bottomof="subtitle" align="left" style="textinput">
                 <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
-                <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Country" onreturnkeypressed="next" _next="STREET" _action="null"></textfield>
+                <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Country" onreturnkeypressed="next" _next="STREET" _action="null" autocorrect="no" ></textfield>
                 <panel name="active" style="100" onclickup="labelactive" _field="COUNTRY"></panel>
               </panel>-->
               <panel name="usa" alias="USA" width="50" height="50" align="left" bottomof="subtitle" background="f3f3f3" cornerradius="2" borderwidth="1" bordercolor="#888888" clip="yes" onclickup="countryus"  >
@@ -1112,36 +1201,36 @@
               <panel name="col2" width="50%" height="110" padding-right="10" align="left" bottomof="USA" margin-top="10">
                 <panel name="street" alias="STREET" width="100%" height="50" align="left" style="textinput">
                   <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
-                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Street" onreturnkeypressed="next" _next="CITY" _action="null" ></textfield>
+                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Street" onreturnkeypressed="next" returnkeytype="next" _next="CITY" _action="null" ></textfield>
                   <panel name="active" style="100" onclickup="labelactive" _field="STREET"></panel>
                 </panel>
                 <panel name="city" alias="CITY" width="100%" height="50" align="left" bottomof="STREET" margin-top="10" style="textinput">
                   <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
-                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="City" onreturnkeypressed="next" _next="none" _action="null" kytype="numberpad" ></textfield>
+                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="City" onreturnkeypressed="next" returnkeytype="next" _next="none" _action="null" kytype="numberpad" ></textfield>
                   <panel name="active" style="100" onclickup="labelactive" _field="CITY"></panel>
                 </panel>
               </panel>
               <panel name="us" alias="US" width="66%" height="50" bottomof="col2" margin-top="10">
                 <panel name="state" alias="STATE" width="230" height="50" align="left" style="textinput">
                   <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
-                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="State" onreturnkeypressed="next" _next="none" _action="null"></textfield>
+                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="State" onreturnkeypressed="next" returnkeytype="next" _next="none" _action="null" autocorrect="no" ></textfield>
                   <panel name="active" style="100" onclickup="dropon" _field="STATE" _drop="ADDRESS" _droptype="STATESLIST"></panel>
                 </panel>
                 <panel name="zip" alias="ZIP" width="230" height="50" align="right" style="textinput">
                   <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
-                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="ZIP" onreturnkeypressed="next" _next="none" _action="null"></textfield>
+                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="ZIP" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null" autocorrect="no" ></textfield>
                   <panel name="active" style="100" onclickup="labelactive" _field="ZIP"></panel>
                 </panel>
               </panel>
               <panel name="can" alias="CAN" width="66%" height="50" bottomof="col2" margin-top="10" alpha="0">
                 <panel name="province" alias="PROVINCE" width="230" height="50" align="left" style="textinput">
                   <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
-                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Province" onreturnkeypressed="next" _next="none" _action="null"></textfield>
+                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Province" onreturnkeypressed="next" returnkeytype="next" _next="none" _action="null" autocorrect="no" ></textfield>
                   <panel name="active" style="100" onclickup="dropon" _field="PROVINCE" _drop="ADDRESS" _droptype="PROVINCESLIST"></panel>
                 </panel>
                 <panel name="postal" alias="POSTAL" width="230" height="50" align="right" style="textinput">
                   <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
-                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Postal Code" onreturnkeypressed="next" _next="none" _action="null"></textfield>
+                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Postal Code" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null" autocorrect="no" ></textfield>
                   <panel name="active" style="100" onclickup="labelactive" _field="POSTAL"></panel>
                 </panel>
               </panel>
@@ -1168,7 +1257,7 @@
               <text name="subtitle" width="100%" height="35" style="darktext" size="20" alignment="left" text="Notes"></text>
               <panel name="notes" alias="NOTES" width="100%" height="114" bottomof="subtitle" align="left" style="textinput">
                 <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
-                <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="" onreturnkeypressed="next" _next="none" _action="null" multiline="yes"></textfield>
+                <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="" onreturnkeypressed="next" _next="none" _action="null" multiline="yes" autocorrect="no" ></textfield>
                 <panel name="active" style="100" onclickup="labelactive" _field="NOTES"></panel>
               </panel>
               <panel name="search-btn" width="110" height="50" align="right" bottomof="NOTES" margin-top="10">
@@ -1423,19 +1512,19 @@
               <panel name="summary-customer" width="100%" height="148">
                 <text name="subtitle" width="100%" height="40" font="Futura-Medium" color="#343434" size="25" alignment="left" text="Customer Info"></text>
                 <panel name="col1" width="33.33%" height="93" bottomof="subtitle">
-                  <text name="cust1-name" width="100%" height="35" style="darktext" size="20" alignment="left" text="Bilbo Baggins"></text>
-                  <text name="cust1-phone" width="100%" height="30" bottomof="cust1-name" style="darktext" size="15" alignment="left" text="816 888 7733"></text>
-                  <text name="cust1-email" width="100%" height="30" bottomof="cust1-phone" style="darktext" size="15" alignment="left" text="bilbo@theshire.com"></text>
+                  <text name="sum-cust1-name" alias="SUM-CUST1-NAME" width="100%" height="35" style="darktext" size="20" alignment="left" text="[object:CUST1-FNAME/input.text] [object:CUST1-LNAME/input.text]"></text>
+                  <text name="sum-cust1-phone" alias="SUM-CUST1-PHONE" width="100%" height="30" bottomof="cust1-name" style="darktext" size="15" alignment="left" text="[object:CUST1-PHONE/input.text]"></text>
+                  <text name="sum-cust1-email" alias="SUM-CUST1-EMAIL" width="100%" height="30" bottomof="cust1-phone" style="darktext" size="15" alignment="left" text="[object:CUST1-EMAIL/input.text]"></text>
                 </panel>
                 <panel name="col2" width="33.33%" height="93" rightof="col1" bottomof="subtitle" >
-                  <text name="cust2-name" width="100%" height="35" style="darktext" size="20" alignment="left" text="Frodo Baggins"></text>
-                  <text name="cust2-phone" width="100%" height="30" bottomof="cust2-name" style="darktext" size="15" alignment="left" text="816 888 7733"></text>
-                  <text name="cust2-email" width="100%" height="30" bottomof="cust2-phone" style="darktext" size="15" alignment="left" text="frodo@theshire.com"></text>
+                  <text name="sum-cust2-name" alias="SUM-CUST2-NAME" width="100%" height="35" style="darktext" size="20" alignment="left" text="[object:CUST2-FNAME/input.text] [object:CUST2-LNAME/input.text]"></text>
+                  <text name="sum-cust2-phone" alias="SUM-CUST2-PHONE" width="100%" height="30" bottomof="cust2-name" style="darktext" size="15" alignment="left" text="[object:CUST2-PHONE/input.text]"></text>
+                  <text name="sum-cust2-email" alias="SUM-CUST2-EMAIL" width="100%" height="30" bottomof="cust2-phone" style="darktext" size="15" alignment="left" text="[object:CUST2-EMAIL/input.text]"></text>
                 </panel>
                 <panel name="col3" width="33.33%" height="93" rightof="col2" bottomof="subtitle">
-                  <text name="label" width="100%" height="35" style="darktext" size="20" alignment="left" text="Property Address"></text>
-                  <text name="address1" width="100%" height="30" bottomof="label" style="darktext" size="15" alignment="left" text="132 Underhill Ln"></text>
-                  <text name="address2" width="100%" height="30" bottomof="address1" style="darktext" size="15" alignment="left" text="The Shire, NZ 219387"></text>
+                  <text name="sum-label" width="100%" height="35" style="darktext" size="20" alignment="left" text="Property Address"></text>
+                  <text name="sum-address1" alias="SUM-ADDRESS1" width="100%" height="30" bottomof="label" style="darktext" size="15" alignment="left" text="132 Underhill Ln"></text>
+                  <text name="sum-address2" alias="SUM-ADDRESS2" width="100%" height="30" bottomof="address1" style="darktext" size="15" alignment="left" text="The Shire, NZ 219387"></text>
                 </panel>
                 <panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
               </panel>
@@ -1563,8 +1652,8 @@
       <panel name="navblock" alias="NAVBLOCK" width="100%" height="53" ypos="74" xpos="101%"></panel>
       
       <!-- !header -->
-      <panel name="header" alias="HEADER" width="100%" height="74" padding-right="10" alpha="1" >
-        <image name="logo" source="images/logo.png" width="53" xpos="10" valign="center"></image>
+      <panel name="header" width="100%" height="74" padding-right="10" alpha="1" >
+        <image name="logo" source="images/logo.png" height="48" xpos="10" valign="center"></image>
         <panel name="profile" width="50%" height="100%" align="right" onclickup="profiledrop">
           <!--<image name="avatar" source="images/avatar.png" width="36" align="left" valign="center"></image>-->
           <image name="down" source="images/header-down.png" width="29" align="right" valign="center"></image>
@@ -1579,6 +1668,8 @@
         <panel name="toolbar" width="100%" height="60" background="#343434">
           <text name="close" width="100" height="100%" xpos="20" color="#ffffff" font="Futura-Medium" size="20" alignment="left" text="close" onclickup="closeroll"></text>
         </panel>
+        <wait name="wait" width="100%" height="[eval:[object:CAMERAROLL.height] - [object:CAMERAROLL/toolbar.height]]" valign="bottom" alpha="0" color="#ed1c24"/>
+        <panel name="camera-list" width="100%" height="[eval:[object:CAMERAROLL.height] - [object:CAMERAROLL/toolbar.height]]" valign="bottom"></panel>
       </panel>
       
       <panel name="camerabox" alias="CAMERABOX" width="100%" height="100%" ypos="101%" background="#e3e3e3">
@@ -1586,16 +1677,6 @@
       </panel>
      
     </panel><!-- end of container -->
-    
-	</class>
-
-  </classes>
- 
-  <!-- !MAIN -->
-  <main>
-  	<panel name="main" alias="MAIN" style="100" background="#e3e3e3" >
-  		<object class="container" />
-  	</panel>
     
     <!-- !curtain -->
     <panel name="curtain" alias="CURTAIN" style="100" alpha="0" onclickup="curtainaction" >
@@ -1905,10 +1986,10 @@
       <if lhs="[object:USERNAME/input.text]" operator="ne" rhs="">
         <if lhs="[object:PASSWORD/input.text]" operator="ne" rhs="">
           <sync>
-			<assign property="var:username" value="[object:USERNAME/input.text]" />
-			<assign property="var:password" value="[object:PASSWORD/input.text]" />
-			<assign property="datasource:login.postContent" value="[template:login.content]" />
-			<assign property="datasource:login.source" value="https://162.209.101.177/api/AuthenticateUser" />
+            <assign property="var:username" value="[object:USERNAME/input.text]" />
+            <assign property="var:password" value="[object:PASSWORD/input.text]" />
+            <assign property="datasource:login.postContent" value="[template:login.content]" />
+            <assign property="datasource:login.source" value="https://162.209.101.177/api/AuthenticateUser" />
             <keyboard visible="no" target="USERNAME/input"/>
             <keyboard visible="no" target="PASSWORD/input"/>
 <!--
@@ -1937,20 +2018,20 @@
 			<assign property="preferences:trueSlate" value="[datasource:login.1.TrueSlate]" />
 			<assign property="httpheader:get.Token" value="[preferences:token]" />
 			<assign property="httpheader:get.ContractorId" value="[preferences:contractorId]" />
-			<assign property="object:HEADER/profile/username.text" value="[preferences:username]" />
+            
             <create class="choice" target="CONTAINER" />
-            <alpha value="1" time=".2" target="CHOICE" />
-            <alpha value="0" time=".2" target="SIGNIN" />
-            <alert message="you have signed in username:[preferences:username] password:[preferences:password] remembered:[preferences:remember]" />
+            <alpha value="1" time=".3" target="CHOICE" />
+            <alpha value="0" time=".3" target="SIGNIN" />
+<!--             <alert message="you have signed in username:[preferences:username] password:[preferences:password] remembered:[preferences:remember]" /> -->
 			<else>
 				<alert message="There was a problem signing you in, please try again later." />
 			</else>
 		</if>
     </action>
     
-	<action name="login-error" datasource="login" datasourceevent="datasourceerror" >
-		<alert message="login-complete error is [datasource:login.0.content]" />
-	</action>
+    <action name="login-error" datasource="login" datasourceevent="datasourceerror" >
+      <alert message="login-complete error is [datasource:login.0.content]" />
+    </action>
 		
     <action name="remember">
       <assign property="preferences:remember" value="_value" />
@@ -1972,6 +2053,10 @@
       <assign property="var:hvac" value="[eval: ('[var:hvac]' == 'no' ? 'yes' : 'no')]" />
     </action>
     
+    <action name="pool">
+      <assign property="var:pool" value="[eval: ('[var:pool]' == 'no' ? 'yes' : 'no')]" />
+    </action>
+    
     <action name="misc">
       <assign property="var:misc" value="[eval: ('[var:misc]' == 'no' ? 'yes' : 'no')]" />
     </action>
@@ -1980,19 +2065,38 @@
     <action name="search">
       <sync>
         <play action="released" />
-		<assign encoding="url" property="var:lastName" value="[object:SEARCH/input.text]" />
-		<alert message="get-estimate preferences:token is [preferences:token] preferences:contractorId is [preferences:contractorId] header is [template:get.content] ]url is https://162.209.101.177/api/GetCustomerEstimate?customerLastName=[var:lastName]&amp;address1=[var:address1]&amp;city=[var:city]&amp;stateProvince=[var:state]&amp;postalCode=[var:postalCode]&amp;country=[var:country]" />
-		<assign property="datasource:getEstimate.source" value="https://162.209.101.177/api/GetCustomerEstimate?CustomerLastName=[object:SEARCH/input.text]" />
+        <assign encoding="url" property="var:lastName" value="[object:SEARCH/input.text]" />
+        <create class="results" target="CONTAINER" />
+        <translate ypos="0" time=".25" curve="easeout" target="SEARCHRESULTS" />
+        <!--<alert message="get-estimate preferences:token is [preferences:token] preferences:contractorId is [preferences:contractorId] header is [template:get.content] ]url is https://162.209.101.177/api/GetCustomerEstimate?customerLastName=[var:lastName]&amp;address1=[var:address1]&amp;city=[var:city]&amp;stateProvince=[var:state]&amp;postalCode=[var:postalCode]&amp;country=[var:country]" />
+        <assign property="datasource:getEstimate.source" value="https://162.209.101.177/api/GetCustomerEstimate?CustomerLastName=[object:SEARCH/input.text]" />-->
       </sync>
     </action>
     
-	<action name="get-estimate-complete" datasource="getEstimate" datasourceevent="querycomplete" >
-		<alert message="get-estimate-complete count [datasource:getEstimate.dataSourceResultCount] content [datasource:getEstimate.0.content]" />
-	</action>
-	
-	<action name="get-estimate-error" datasource="getEstimate" datasourceevent="datasourceerror" >
-		<alert message="get-estimate-error [datasource:getEstimate.0.content]" />
-	</action>
+    <action name="get-estimate-complete" datasource="getEstimate" datasourceevent="querycomplete" >
+      <alert message="get-estimate-complete count [datasource:getEstimate.dataSourceResultCount] content [datasource:getEstimate.0.content]" />
+    </action>
+    
+    <action name="get-estimate-error" datasource="getEstimate" datasourceevent="datasourceerror" >
+      <alert message="get-estimate-error [datasource:getEstimate.0.content]" />
+    </action>
+    
+    <action name="closeresults">
+      <sync>
+        <translate ypos="101%" time=".25" curve="easeout" target="SEARCHRESULTS" />
+        <delete target="SEARCHRESULTS" />
+      </sync>
+    </action>
+    
+    <action name="viewestimate">
+      <play action="released" />
+      <alert message="view estimate" />
+    </action>
+    
+    <action name="edit">
+      <play action="released" />
+      <alert message="edit" />
+    </action>
     
     <!-- ! create actions -->
     <action name="create">
@@ -2004,7 +2108,6 @@
     </action>
     
     <action name="newestimate">
-<!--       <alpha value="0" time=".25" target="SIGNIN" /> -->
       <alpha value="0" time=".25" target="CHOICE" />
       <assign property="datasource:states.source" value="res://states.xml" />
       <assign property="datasource:provinces.source" value="res://provinces.xml" />
@@ -2184,28 +2287,56 @@
       <sync>
         <alpha value="0" time=".25" target="CAMERAMENU" />
         <translate ypos="0" time=".25" curve="easeout" target="CAMERAROLL" />
+        <create class="camera-roll" target="CAMERAROLL/camera-list" />
+        <alpha value="1" time=".1" target="CAMERAROLL/wait" />
+        <assign property="datasource:camera-roll.source" value="asd" />
         <play action="hideclearcurtain" />
       </sync>
+    </action>
+
+    <action name="roll-queryComplete" datasource="camera-roll">
+      <alpha value="0" time=".1" target="CAMERAROLL/wait" />
     </action>
     
     <action name="addcamera">
       <sync>
+        <create class="camera" target="CAMERABOX" />
         <alpha value="0" time=".25" target="CAMERAMENU" />
         <translate ypos="0" time=".25" curve="easeout" target="CAMERABOX" />
-        <create class="camera" target="CAMERABOX" />
         <play action="hideclearcurtain" />
       </sync>
     </action>
     
     <action name="closeroll">
-      <translate ypos="101%" time=".25" curve="easeout" target="CAMERAROLL" />
+      <sync>
+        <translate ypos="101%" time=".25" curve="easeout" target="CAMERAROLL" />
+        <delete target="CAMERA-ROLL" />
+      </sync>
     </action>
     
     <action name="cancelcamera">
       <sync>
-        <delete target="CAMERA" />
         <translate ypos="101%" time=".25" curve="easeout" target="CAMERABOX" />
+        <delete target="CAMERA" />
       </sync>
+    </action>
+
+    <action name="snap-down">
+        <assign property="object:inner.background" value="#252525" />
+    </action>
+    <action name="snap-photo">
+        <sync>
+            <event type="captureStillImage" target="CAMERA-VIEW" />
+            <assign property="object:CAMERA-CONTROLCENTER/snap/inner.background" value="#ed1c24" />
+        </sync>
+    </action>
+    <action name="output">
+        <translate ypos="100%" time=".15" target="CAMERA-CONTROLCENTER" />
+        <sync>
+          <create class="capture-preview" target="CAMERA-CONTAINER" />
+          <translate ypos="0" time=".15" target="CAMERA-TOOLBAR" />
+          <delete target="CAMERA-VIEW" />
+        </sync>
     </action>
     
     <action name="capture">
@@ -2213,11 +2344,6 @@
         <!--<event type="captureStillImage" target="CAMERA" />-->
         <capture tofile="dump" target="CAMERA" />
       </sync>
-    </action>
-    
-    <action name="output">
-      <delete target="CAMERA" />
-      <create class="preview" target="CAMERABOX" />
     </action>
     
     <!-- !add adjustments -->
@@ -2267,14 +2393,14 @@
         <play action="saved[var:nav]" />
         <translate xpos="0" curve="linear" target="NAVBLOCK" />
         <alpha value="0" time=".2" target="[var:nav]" />
-        <!--<alert message="_this" />-->
+        <!--<alert title="this" message="_this" />-->
         <alpha value="1" time=".2" target="_this" />
         <assign property="var:nav" value="_this" />
         <translate xpos="101%" curve="linear" target="NAVBLOCK" />
         <if lhs="_this" operator="e" rhs="PRODUCTS">
           <if lhs="[var:product]" operator="e" rhs="">
 <!-- 			<alert message="get-products preferences:token is [preferences:token] preferences:contractorId is [preferences:contractorId]" /> -->
-			<assign property="datasource:getProducts.source" value="https://162.209.101.177/api/GetProducts?AppSource=1" />
+			      <assign property="datasource:getProducts.source" value="https://162.209.101.177/api/GetProducts?AppSource=1" />
             <play action="sidebar-products" _alias="SHINGLES" _form="Shingles" />
           </if>
         </if>
@@ -2302,7 +2428,7 @@
     <action name="tearoffquery" datasource="tearoffdb" datasourceevent="querycomplete">
       <sync>
         <assign property="datasource:tearoffdb-list.query" value="SELECT * FROM TEAROFF;" />
-        <alert message="tear off saved [datasource:tearoffdb-list.dataSourceResultCount]" />
+        <!--<alert message="tear off saved [datasource:tearoffdb-list.dataSourceResultCount]" />-->
       </sync>
     </action>
     
@@ -2333,9 +2459,11 @@
       </sync>
     </action>
     
-    <action name="saveSUMMARY"></action>
+    <action name="savedSUMMARY">
+      <!--<alert title="save" message="[var:nav]" />-->
+    </action>
     
-    <!-- !customer actions -->
+    <!-- !save customer actions -->
     <action name="saveCustomer">
       <sync>
         <play action="released" />
@@ -2358,6 +2486,7 @@
       <sync>
 	  	<assign property="var:db-action" value="save" />
         <assign property="datasource:customersdb.query" value="INSERT INTO CUSTOMERS (FNAME,LNAME,EMAIL,PHONE,FNAME2,LNAME2,EMAIL2,PHONE2,COUNTRY,STREET,CITY,STATE,POSTAL,NOTES) values ('[object:CUST1-FNAME/input.text]', '[object:CUST1-LNAME/input.text]', '[object:CUST1-EMAIL/input.text]', '[object:CUST1-PHONE/input.text]', '[object:CUST2-FNAME/input.text]', '[object:CUST2-LNAME/input.text]', '[object:CUST2-EMAIL/input.text]', '[object:CUST2-PHONE/input.text]', '[var:country]', '[object:STREET/input.text]', '[object:CITY/input.text]', '[object:STATE/input.text]', '[object:ZIP/input.text]', '[object:NOTES/input.text]');" />
+          <alert message="'[object:CUST1-FNAME/input.text]', '[object:CUST1-LNAME/input.text]', '[object:CUST1-EMAIL/input.text]', '[object:CUST1-PHONE/input.text]', '[object:CUST2-FNAME/input.text]', '[object:CUST2-LNAME/input.text]', '[object:CUST2-EMAIL/input.text]', '[object:CUST2-PHONE/input.text]', '[var:country]', '[object:STREET/input.text]', '[object:CITY/input.text]', '[object:STATE/input.text]', '[object:ZIP/input.text]', '[object:NOTES/input.text]'" />
 <!--         <assign property="datasource:customersdb.query" value="INSERT INTO CUSTOMERS (FNAME,LNAME,EMAIL,PHONE,FNAME2,LNAME2,EMAIL2,PHONE2) values ('[object:CUST1-FNAME/input.text]', '[object:CUST1-LNAME/input.text]', '[object:CUST1-EMAIL/input.text]', '[object:CUST1-PHONE/input.text]')" /> -->
         <!--<assign property="datasource:customersdb.query" value="INSERT INTO CUSTOMERS (FNAME,LNAME,EMAIL,PHONE) values ('[object:CUST2-FNAME/input.text]', '[object:CUST2-LNAME/input.text]', '[object:CUST2-EMAIL/input.text]', '[object:CUST2-PHONE/input.text]')" />-->
         <!--<assign property="datasource:customersdb-list.query" value="SELECT * FROM CUSTOMERS" />-->
@@ -2395,20 +2524,40 @@
 
 
     <action name="customercount" datasourceevent="querycomplete" datasource="customersdb-list">
-		<if lhs="[var:db-action]" operator="e" rhs="save">
-			<assign property="var:firstName" value="[datasource:customersdb-list.1.FNAME]" />
-			<assign property="var:lastName" value="[datasource:customersdb-list.1.LNAME]" />
-			<assign property="var:address1" value="[datasource:customersdb-list.1.STREET]" />
-			<assign property="var:city" value="[datasource:customersdb-list.1.CITY]" />
-			<assign property="var:state" value="[datasource:customersdb-list.1.STATE]" />
-			<assign property="var:postalCode" value="[datasource:customersdb-list.1.POSTAL]" />
-			<assign property="var:country" value="[datasource:customersdb-list.1.COUNTRY]" />
-			<assign property="var:notes" value="[datasource:customersdb-list.1.NOTES]" />
-			<assign property="datasource:createCustomer.postContent" value="[template:createCustomer.content]" />
-			<alert message="sending [template:createCustomer.content]" />
-			<assign property="datasource:createCustomer.source" value="https://162.209.101.177/api/CreateCustomer" />
-<!-- 	      <alert message="customer [datasource:customersdb-list.dataSourceResultCount], fname [datasource:customersdb-list.1.FNAME], lname [datasource:customersdb-list.1.LNAME], email [datasource:customersdb-list.1.EMAIL], phone [datasource:customersdb-list.1.PHONE], fname2 [datasource:customersdb-list.1.FNAME2], lname2 [datasource:customersdb-list.1.LNAME2], email2 [datasource:customersdb-list.1.EMAIL2], phone2 [datasource:customersdb-list.1.PHONE2], country [datasource:customersdb-list.1.COUNTRY], street [datasource:customersdb-list.1.STREET], city [datasource:customersdb-list.1.CITY], state [datasource:customersdb-list.1.STATE], postal [datasource:customersdb-list.1.POSTAL], notes [datasource:customersdb-list.1.NOTES]" /> -->
-		</if>
+		  <if lhs="[var:db-action]" operator="e" rhs="save">
+		  	<sync>
+		  	  <assign property="var:firstName" value="[datasource:customersdb-list.1.FNAME]" />
+		  	  <assign property="var:lastName" value="[datasource:customersdb-list.1.LNAME]" />
+		  	  <assign property="var:email" value="[datasource:customersdb-list.1.EMAIL]" />
+		  	  <assign property="var:phone" value="[datasource:customersdb-list.1.PHONE]" />
+		  	  <assign property="var:firstName2" value="[datasource:customersdb-list.1.FNAME2]" />
+		  	  <assign property="var:lastName2" value="[datasource:customersdb-list.1.LNAME2]" />
+		  	  <assign property="var:email2" value="[datasource:customersdb-list.1.EMAIL2]" />
+		  	  <assign property="var:phone2" value="[datasource:customersdb-list.1.PHONE2]" />
+		  	  <assign property="var:address1" value="[datasource:customersdb-list.1.STREET]" />
+		  	  <assign property="var:city" value="[datasource:customersdb-list.1.CITY]" />
+		  	  <assign property="var:state" value="[datasource:customersdb-list.1.STATE]" />
+		  	  <assign property="var:postalCode" value="[datasource:customersdb-list.1.POSTAL]" />
+		  	  <assign property="var:country" value="[datasource:customersdb-list.1.COUNTRY]" />
+		  	  <assign property="var:notes" value="[datasource:customersdb-list.1.NOTES]" />
+		  	  
+          <assign property="object:SUM-CUST1-NAME.text" value="[var:firstName2] [var:lastName2]" />
+          <assign property="object:SUM-CUST1-PHONE.text" value="[var:phone2]" />
+          <assign property="object:SUM-CUST1-EMAIL.text" value="[var:email2]" />
+          
+          <assign property="object:SUM-CUST2-NAME.text" value="[var:firstName] [var:lastName]" />
+          <assign property="object:SUM-CUST2-PHONE.text" value="[var:phone]" />
+          <assign property="object:SUM-CUST2-EMAIL.text" value="[var:email]" />
+          
+          <assign property="object:SUM-ADDRESS1.text" value="[var:address1]" />
+          <assign property="object:SUM-ADDRESS2.text" value="[var:city], [var:state] [var:zip]" />
+          
+          <assign property="datasource:createCustomer.postContent" value="[template:createCustomer.content]" />
+          <alert message="sending [template:createCustomer.content]" />
+          <assign property="datasource:createCustomer.source" value="https://162.209.101.177/api/CreateCustomer" />
+          <!--  <alert message="customer [datasource:customersdb-list.dataSourceResultCount], fname [datasource:customersdb-list.1.FNAME], lname [datasource:customersdb-list.1.LNAME], email [datasource:customersdb-list.1.EMAIL], phone [datasource:customersdb-list.1.PHONE], fname2 [datasource:customersdb-list.1.FNAME2], lname2 [datasource:customersdb-list.1.LNAME2], email2 [datasource:customersdb-list.1.EMAIL2], phone2 [datasource:customersdb-list.1.PHONE2], country [datasource:customersdb-list.1.COUNTRY], street [datasource:customersdb-list.1.STREET], city [datasource:customersdb-list.1.CITY], state [datasource:customersdb-list.1.STATE], postal [datasource:customersdb-list.1.POSTAL], notes [datasource:customersdb-list.1.NOTES]" /> -->
+        </sync>
+		  </if>
     </action>
     
 	<action name="create-customer-complete" datasource="createCustomer" datasourceevent="querycomplete">
@@ -3228,50 +3377,7 @@
       <sync>
         <alpha value="0" time=".25" target="PROFILEMENU" />
         <play action="hideclearcurtain" />
-        <play action="clear-data" />
-        <delete target="CONTAINER" />
-        <create class="container" target="MAIN" />
-		<create class="signin" target="CONTAINER" />
       </sync>
-    </action>
-     
-    <action name="clear-data" >
-		<assign property="var:accessoryCount" value="0" />
-	      <assign property="var:tearoff" value="no" />
-	      <assign property="var:landscaping" value="no" />
-	      <assign property="var:hardscaping" value="no" />
-	      <assign property="var:hvac" value="no" />
-	      <assign property="var:pool" value="no" />
-	      <assign property="var:misc" value="no" />
-	      <assign property="var:country" value="US" />
-	      <assign property="var:prevfield" value="0" />
-	      <assign property="var:nav" value="CUSTOMER" />
-		<assign property="preferences:username" value="" />
-		<assign property="preferences:password" value="" />
-		<assign property="preferences:token" value="" />
-		<assign property="preferences:contractorId" value="" />
-		<assign property="preferences:contractorType" value="" />
-		<assign property="preferences:trueSlate" value="" />
-		<assign property="httpheader:get.Token" value="" />
-		<assign property="httpheader:get.ContractorId" value="" />
-		<assign property="var:db-action" value="delete" />
-		<assign property="datasource:customersdb.query" value="DELETE FROM CUSTOMERS;" />
-		<assign property="datasource:inspectiondb.query" value="DELETE FROM INSPECTION;" />
-		<assign property="datasource:roofareasdb.query" value="DELETE FROM ROOFAREAS;" />
-		<assign property="datasource:wastedb.query" value="DELETE FROM WASTE;" />
-		<assign property="datasource:ridgesdb.query" value="DELETE FROM RIDGES;" />
-		<assign property="datasource:hipsdb.query" value="DELETE FROM HIPS;" />
-		<assign property="datasource:valleysdb.query" value="DELETE FROM VALLEYS;" />
-		<assign property="datasource:rakesdb.query" value="DELETE FROM RAKES;" />
-		<assign property="datasource:eavesdb.query" value="DELETE FROM EAVES;" />
-		<assign property="datasource:protrusionsdb.query" value="DELETE FROM PROTRUSIONS;" />
-		<assign property="datasource:ventsdb.query" value="DELETE FROM VENTS;" />
-		<assign property="datasource:photosdb.query" value="DELETE FROM PHOTOS;" />
-		<assign property="datasource:productsdb.query" value="DELETE FROM PRODUCTS;" />
-		<assign property="datasource:accessoriesdb.query" value="DELETE FROM ACCESSORIES;" />
-		<assign property="datasource:tearoffdb.query" value="DELETE FROM TEAROFF;" />
-		<assign property="datasource:assetprotectiondb.query" value="DELETE FROM PROTECTION;" />
-		<assign property="datasource:adjustmentsdb.query" value="DELETE FROM ADJUSTMENTS;" />
     </action>
     
     <!-- !curtain action -->
@@ -3298,5 +3404,4 @@
     <action name="null"></action>
    
   </actions>
-	
 </wire>
