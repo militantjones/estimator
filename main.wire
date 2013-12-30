@@ -223,15 +223,15 @@
           
           <panel name="username" alias="USERNAME" width="100%" height="50" ypos="50" style="textinput">
             <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
-            <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Username"></text>
-            <textfield name="input" width="100%" height="100%" align="right" margin-right="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" _next="PASSWORD"></textfield>
+            <!--<text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Username"></text>-->
+            <textfield name="input" width="100%" height="100%" align="right" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Username" onreturnkeypressed="next" returnkeytype="Next" _next="PASSWORD"></textfield>
             <panel name="active" style="100" onclickup="labelactive" _field="USERNAME"></panel>
           </panel>
       
           <panel name="password" alias="PASSWORD" width="100%" height="50" align="center" bottomof="USERNAME" margin-top="20" style="textinput">
             <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
-            <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Password"></text>
-            <textfield name="input" width="100%" height="100%" align="right" margin-right="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" _next="none" _action="signin" password="yes"></textfield>
+            <!--<text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Password"></text>-->
+            <textfield name="input" width="100%" height="100%" align="right" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Password" onreturnkeypressed="next" returnkeytype="Next" _next="none" _action="signin" password="yes"></textfield>
             <panel name="active" style="100" onclickup="labelactive" _field="PASSWORD"></panel>
           </panel>
       
