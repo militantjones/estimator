@@ -1978,9 +1978,9 @@
 		</if>
     </action>
     
-	<action name="login-error" datasource="login" datasourceevent="datasourceerror" >
-		<alert message="login-complete error is [datasource:login.0.content]" />
-	</action>
+    <action name="login-error" datasource="login" datasourceevent="datasourceerror" >
+      <alert message="login-complete error is [datasource:login.0.content]" />
+    </action>
 		
     <action name="remember">
       <assign property="preferences:remember" value="_value" />
@@ -2000,6 +2000,10 @@
     
     <action name="hvac">
       <assign property="var:hvac" value="[eval: ('[var:hvac]' == 'no' ? 'yes' : 'no')]" />
+    </action>
+    
+    <action name="pool">
+      <assign property="var:pool" value="[eval: ('[var:pool]' == 'no' ? 'yes' : 'no')]" />
     </action>
     
     <action name="misc">
@@ -2315,7 +2319,7 @@
         <play action="saved[var:nav]" />
         <translate xpos="0" curve="linear" target="NAVBLOCK" />
         <alpha value="0" time=".2" target="[var:nav]" />
-        <!--<alert message="_this" />-->
+        <!--<alert title="this" message="_this" />-->
         <alpha value="1" time=".2" target="_this" />
         <assign property="var:nav" value="_this" />
         <translate xpos="101%" curve="linear" target="NAVBLOCK" />
@@ -2381,7 +2385,9 @@
       </sync>
     </action>
     
-    <action name="saveSUMMARY"></action>
+    <action name="savedSUMMARY">
+      <!--<alert title="save" message="[var:nav]" />-->
+    </action>
     
     <!-- !customer actions -->
     <action name="saveCustomer">
