@@ -1,4 +1,4 @@
-<wire>
+<wire> 
 	<!-- comment -->
   <!-- GAF Estimator -->
   <!-- iOS iPad -->
@@ -31,7 +31,7 @@
 	<httpheader name="get" Content-Type="application/json" Token="[preferences:token]" ContractorId="[preferences:contractorId]" />
 	<httpheader name="formSubmit" Token="[preferences:token]" ContractorId="[preferences:contractorId]" Content-Type="multipart/form-data" Content-Disposition="form-data; name='File'; filename='test.jpg'"/>
 
-    <datasource name="photos" source="adsf" query="Camera Roll" providertype="camera"/>
+    <datasource name="camera-roll" source="adsf" query="Camera Roll" providertype="camera"/>
     <datasource name="states" source="" query="//state" providertype="xml" parsenamespaces="yes" />
     <datasource name="provinces" source="" query="//province" providertype="xml" parsenamespaces="yes" />
     
@@ -1011,20 +1011,69 @@
     </class><!-- <object class="additionalcost" index="1" /> -->
     
     <!-- !camera classes -->
+    <class name="camera-view">
+      <camera name="view" alias="CAMERA-VIEW" width="100%" height="100%" face="[param:face]" outputfile="dump/capture.png" photoquality="high" oncapture="output" />
+    </class>
     <class name="camera">
-      <panel name="camera" alias="CAMERA" width="100%" height="100%" background="#343434">
-        <camera name="device" alias="DEVICE" height="[eval: [object:CONTAINER.height] - 60]" width="100%" type="photo" outputfile="dump/capture.png" photoquality="high" oncapture="output"></camera>
-        <text name="cancel" width="100" height="60" valign="bottom" color="#ffffff" font="Futura-Medium" size="20" alignment="center" text="Cancel" onclickup="cancelcamera" clickuptarget="CAMERABOX" ></text>
-        <panel name="capture" width="80" height="60" align="center" valign="bottom" onclickup="capture" clickuptarget="CAMERABOX" > 
-          <panel name="button" width="50" height="50" align="center" valign="center" cornerradius="25" background="ffffff"></panel>
+        <panel name="camera" alias="CAMERA" width="100%" height="100%" clip="yes">
+            <panel name="camera-container" alias="CAMERA-CONTAINER" width="100%" height="100%">
+                <object class="camera-view" face="back" />
+            </panel>
+            <panel name="toolbar" alias="CAMERA-TOOLBAR" width="100%" style="ios-toolbar" background="#ffffff" ypos="-70">
+                <panel name="wrapper" width="100%" height="100%" valign="bottom" clip="yes">
+                    <panel name="capture-cancel" width="100" height="100%" padding-left="15" alpha="1" onclickup="capture-cancel" clickuptarget="CONTAINER" _type="">
+                        <text name="label" height="100%" width="100%" font="Futura-Medium" size="18" alignment="left" color="#0a84c8" text="Retake" />
+                    </panel>
+                    <panel name="capture-submit" width="100" height="100%" padding-right="15" alpha="1" align="right" onclickup="capture-submit" clickuptarget="CONTAINER" _type="">
+                        <text name="label" height="100%" width="100%" font="Futura-Medium" size="18" alignment="right" color="#0a84c8" text="Save" />
+                    </panel>
+                </panel>
+            </panel>
+            <panel name="controlCenter" alias="CAMERA-CONTROLCENTER" width="100%" height="100" align="center" valign="bottom">
+                <panel name="wrapper" width="100%" height="100%" valign="center" padding-right="20" padding-left="20">
+                    <panel name="flip" width="55" height="55" align="right" valign="center" _face="front" onclickup="flip-photo" alpha="0">
+                        <image name="icon" source="graphics/icon.flip.png" align="right" valign="center" shadowradius="1" shadowxoffset="1" shadowyoffset="0" shadowopacity=".7" ignoretouches="yes" />
+                    </panel>
+                    <panel name="dismiss" width="55" height="55" align="left" valign="center" onclickup="cancelcamera" clickuptarget="CONTAINER">
+                        <image name="icon" source="graphics/icon.dismiss.white.png" align="left" valign="center" shadowradius="1" shadowxoffset="1" shadowyoffset="0" shadowopacity=".7" ignoretouches="yes" />
+                    </panel>
+                </panel>
+                <panel name="snap" width="74" height="74" background="ffffff" cornerradius="37" align="center" valign="center" onclickup="snap-photo" onclick="snap-down" clickuptarget="CONTAINER">
+                    <panel name="inner" width="60" height="60" cornerradius="30" background="ed1c24" align="center" valign="center" borderwidth="3" bordercolor="#252525" />
+                </panel>
+            </panel>
         </panel>
-      </panel>
     </class>
     
-    <class name="preview">
-      <panel name="preview" alias="PREVIEW" width="100%" height="100%">
-        <image name="img" source="dump/capture.png" width="100%"></image>
-      </panel>
+    <class name="capture-preview">
+        <image name="capture-preview" height="100%" alias="CAPTURE-PREVIEW" source="dump/capture.png" />
+    </class>
+
+    <class name="camera-roll-row">
+        <panel width="100%" height="150">
+            <panel name="1" width="20%" height="100%" clip="yes">
+                <image name="img" width="100%" height="100%" maxresolution="100" url="[param:url1]" assetthumb="[param:url1]" _url="[param:url1]" onclickup="select-feature-photo" clickuptarget="CONTAINER" />
+            </panel>
+            <panel name="2" width="20%" height="100%" clip="yes" rightof="1">
+                <image name="img" width="100%" height="100%" maxresolution="100" url="[param:url2]" assetthumb="[param:url2]" _url="[param:url2]" onclickup="select-feature-photo" clickuptarget="CONTAINER" />
+            </panel>
+            <panel name="3" width="20%" height="100%" clip="yes" rightof="2">
+                <image name="img" width="100%" height="100%" maxresolution="100" url="[param:url3]" assetthumb="[param:url3]" _url="[param:url3]" onclickup="select-feature-photo" clickuptarget="CONTAINER" />
+            </panel>
+            <panel name="4" width="20%" height="100%" clip="yes" rightof="3">
+                <image name="img" width="100%" height="100%" maxresolution="100" url="[param:url4]" assetthumb="[param:url4]" _url="[param:url4]" onclickup="select-feature-photo" clickuptarget="CONTAINER" />
+            </panel>
+            <panel name="5" width="20%" height="100%" clip="yes" rightof="4">
+                <image name="img" width="100%" height="100%" maxresolution="100" url="[param:url5]" assetthumb="[param:url5]" _url="[param:url5]" onclickup="select-feature-photo" clickuptarget="CONTAINER" />
+            </panel>
+        </panel>
+    </class>
+    <class name="camera-roll">
+        <panel name="camera-roll" alias="CAMERA-ROLL" width="100%" height="100%" >
+            <list name="roll" datasource="camera-roll" width="100%" height="100%" step="5" paginate="no" orientation="vertical" align="center">
+                <object class="camera-roll-row" row="[datasource:dataSourceIndex]" url1="[datasource:camera-roll.[param:dataSourceIndex].url]" url2="[datasource:camera-roll.[eval:[param:dataSourceIndex] + 1].url]" url3="[datasource:camera-roll.[eval:[param:dataSourceIndex] + 2].url]" url4="[datasource:camera-roll.[eval:[param:dataSourceIndex] + 3].url]" url5="[datasource:camera-roll.[eval:[param:dataSourceIndex] + 4].url]"/>
+            </list>
+        </panel>
     </class>
     
   </classes>
@@ -1581,6 +1630,8 @@
         <panel name="toolbar" width="100%" height="60" background="#343434">
           <text name="close" width="100" height="100%" xpos="20" color="#ffffff" font="Futura-Medium" size="20" alignment="left" text="close" onclickup="closeroll"></text>
         </panel>
+        <wait name="wait" width="100%" height="[eval:[object:CAMERAROLL.height] - [object:CAMERAROLL/toolbar.height]]" valign="bottom" alpha="0" color="#ed1c24"/>
+        <panel name="camera-list" width="100%" height="[eval:[object:CAMERAROLL.height] - [object:CAMERAROLL/toolbar.height]]" valign="bottom"></panel>
       </panel>
       
       <panel name="camerabox" alias="CAMERABOX" width="100%" height="100%" ypos="101%" background="#e3e3e3">
@@ -2156,28 +2207,56 @@
       <sync>
         <alpha value="0" time=".25" target="CAMERAMENU" />
         <translate ypos="0" time=".25" curve="easeout" target="CAMERAROLL" />
+        <create class="camera-roll" target="CAMERAROLL/camera-list" />
+        <alpha value="1" time=".1" target="CAMERAROLL/wait" />
+        <assign property="datasource:camera-roll.source" value="asd" />
         <play action="hideclearcurtain" />
       </sync>
+    </action>
+
+    <action name="roll-queryComplete" datasource="camera-roll">
+      <alpha value="0" time=".1" target="CAMERAROLL/wait" />
     </action>
     
     <action name="addcamera">
       <sync>
+        <create class="camera" target="CAMERABOX" />
         <alpha value="0" time=".25" target="CAMERAMENU" />
         <translate ypos="0" time=".25" curve="easeout" target="CAMERABOX" />
-        <create class="camera" target="CAMERABOX" />
         <play action="hideclearcurtain" />
       </sync>
     </action>
     
     <action name="closeroll">
-      <translate ypos="101%" time=".25" curve="easeout" target="CAMERAROLL" />
+      <sync>
+        <translate ypos="101%" time=".25" curve="easeout" target="CAMERAROLL" />
+        <delete target="CAMERA-ROLL" />
+      </sync>
     </action>
     
     <action name="cancelcamera">
       <sync>
-        <delete target="CAMERA" />
         <translate ypos="101%" time=".25" curve="easeout" target="CAMERABOX" />
+        <delete target="CAMERA" />
       </sync>
+    </action>
+
+    <action name="snap-down">
+        <assign property="object:inner.background" value="#252525" />
+    </action>
+    <action name="snap-photo">
+        <sync>
+            <event type="captureStillImage" target="CAMERA-VIEW" />
+            <assign property="object:CAMERA-CONTROLCENTER/snap/inner.background" value="#ed1c24" />
+        </sync>
+    </action>
+    <action name="output">
+        <translate ypos="100%" time=".15" target="CAMERA-CONTROLCENTER" />
+        <sync>
+          <create class="capture-preview" target="CAMERA-CONTAINER" />
+          <translate ypos="0" time=".15" target="CAMERA-TOOLBAR" />
+          <delete target="CAMERA-VIEW" />
+        </sync>
     </action>
     
     <action name="capture">
@@ -2185,11 +2264,6 @@
         <!--<event type="captureStillImage" target="CAMERA" />-->
         <capture tofile="dump" target="CAMERA" />
       </sync>
-    </action>
-    
-    <action name="output">
-      <delete target="CAMERA" />
-      <create class="preview" target="CAMERABOX" />
     </action>
     
     <!-- !add adjustments -->
