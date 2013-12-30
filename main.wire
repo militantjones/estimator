@@ -1,5 +1,5 @@
 <wire>
-	<!-- comment -->
+
   <!-- GAF Estimator -->
   <!-- iOS iPad -->
   <!-- App #7562 -->
@@ -224,14 +224,14 @@
           <panel name="username" alias="USERNAME" width="100%" height="50" ypos="50" style="textinput">
             <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
             <!--<text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Username"></text>-->
-            <textfield name="input" width="100%" height="100%" align="right" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Username" onreturnkeypressed="next" returnkeytype="Next" kbtype="emailaddress" _next="PASSWORD"></textfield>
+            <textfield name="input" width="100%" height="100%" align="right" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Username" onreturnkeypressed="next" returnkeytype="next" kbtype="emailaddress" _next="PASSWORD"></textfield>
             <panel name="active" style="100" onclickup="labelactive" _field="USERNAME"></panel>
           </panel>
       
           <panel name="password" alias="PASSWORD" width="100%" height="50" align="center" bottomof="USERNAME" margin-top="20" style="textinput">
             <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
             <!--<text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Password"></text>-->
-            <textfield name="input" width="100%" height="100%" align="right" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Password" onreturnkeypressed="next" returnkeytype="Next" _next="none" _action="signin" password="yes"></textfield>
+            <textfield name="input" width="100%" height="100%" align="right" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Password" onreturnkeypressed="next" returnkeytype="go" _next="none" _action="signin" password="yes"></textfield>
             <panel name="active" style="100" onclickup="labelactive" _field="PASSWORD"></panel>
           </panel>
       
@@ -257,17 +257,27 @@
     <class name="choice">
       <!-- !choice -->
       <panel name="choice" alias="CHOICE" width="100%" height="[eval: [object:CONTAINER.height] - 74]" ypos="74" background="#e3e3e3" alpha="1">
-        <panel name="column" width="60%" height="45%" align="center" valign="center">
+        <panel name="column" width="60%" height="55%" align="center" valign="center">
           
           <panel name="search-box" alias="SEARCH-BOX" width="100%" height="200">
             <text name="label" width="100%" height="40" style="lighttext" size="30" alignment="center" text="Search for an existing estimate."></text>
-            <panel name="search" alias="SEARCH" width="[eval: [object:SEARCH-BOX.width] - 130]" height="50" align="left" bottomof="label" margin-top="20" style="textinput">
+            <panel name="search-lastname" alias="SEARCH-LASTNAME" width="[eval: [object:SEARCH-BOX.width] - 130]" height="50" align="center" bottomof="label" margin-top="20" style="textinput">
               <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
-              <textfield name="input" width="100%" height="100%" align="right" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Last Name, Address, or Customer ID" onreturnkeypressed="next" _next="none" _action="search" ></textfield>
-              <panel name="active" style="100" onclickup="labelactive" _field="SEARCH"></panel>
+              <textfield name="input" width="100%" height="100%" align="right" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Last Name" onreturnkeypressed="next" returnkeytype="search" _next="none" _action="search" ></textfield>
+              <panel name="active" style="100" onclickup="labelactive" _field="SEARCH-LASTNAME"></panel>
             </panel>
+            <panel name="search-address" alias="SEARCH-ADDRESS" width="[eval: [object:SEARCH-BOX.width] - 130]" height="50" align="center" bottomof="search-lastname" margin-top="20" style="textinput">
+              <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
+              <textfield name="input" width="100%" height="100%" align="right" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Address" onreturnkeypressed="next" returnkeytype="search" _next="none" _action="search" ></textfield>
+              <panel name="active" style="100" onclickup="labelactive" _field="SEARCH-ADDRESS"></panel>
+            </panel>
+            <!--<panel name="search-custnumber" alias="SEARCH-CUSTNUMBER" width="[eval: [object:SEARCH-BOX.width] - 130]" height="50" align="center" bottomof="search-address" margin-top="20" style="textinput">
+              <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
+              <textfield name="input" width="100%" height="100%" align="right" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Customer ID" onreturnkeypressed="next" returnkeytype="search" _next="none" _action="search" ></textfield>
+              <panel name="active" style="100" onclickup="labelactive" _field="SEARCH-CUSTNUMBER"></panel>
+            </panel>-->
             
-            <panel name="search-btn" width="110" height="50" align="right" bottomof="label" margin-top="20">
+            <panel name="search-btn" width="110" height="50" align="center" bottomof="search-address" margin-top="20">
               <object class="button" name="test" size="20" label="Search" action="search" />
             </panel>
           </panel>
@@ -282,6 +292,44 @@
           
         </panel>
       </panel><!-- end of choice -->
+    </class>
+    
+    <!-- !search refults -->
+    <class name="searchresult">
+      <panel name="result-item[param:index]" width="100%" height="100">
+        <text name="name" width="65%" height="30" xpos="20" ypos="20" style="darktext" size="24" alignment="left" text="[param:lastname], [param:firstname]" ></text>
+        <text name="address" width="65%" height="30" xpos="20" bottomof="name" style="darktext" size="20" alignment="left" text="[param:street], [param:city], [param:state] [param:zip]" ></text>
+        <panel name="edit-btn" width="100" height="50" ypos="22" align="right" bottomof="search-address" margin-right="20">
+          <object class="button" name="test" size="20" label="Edit" action="edit" value="" />
+        </panel>
+        <panel name="view-btn" width="100" height="50" ypos="22" leftof="edit-btn" margin-right="20" bottomof="search-address">
+          <object class="button" name="test" size="20" label="View" action="viewestimate" value="" />
+        </panel>
+        <panel name="divider" width="728" height="5" align="center" valign="bottom" background="#343434"></panel>
+      </panel>
+    </class>
+    
+    <class name="results">
+      <panel name="searchresults" alias="SEARCHRESULTS" width="100%" height="100%" ypos="101%" background="#e3e3e3">
+        <panel name="searchhead" width="100%" height="74" background="#343434" >
+          <text name="label" width="100%" height="100%" color="#ffffff" font="Futura-Medium" size="24" alignment="center" text="Search Results"></text>
+          <text name="close" width="100" height="100%" color="#ffffff" font="Futura-Medium" size="20" alignment="left" leftinset="20" text="Close" onclickup="closeresults" clickuptarget="CONTAINER"></text>
+        </panel>
+        <pager name="resultlist" width="100%" height="[eval: [object:SEARCHRESULTS.height] - 74]" ypos="74" orientation="vertical" paginate="no">
+          <!--<panel name="result-item1" width="100%" height="100">
+            <text name="name" width="65%" height="30" xpos="20" ypos="20" style="darktext" size="24" alignment="left" text="Lastname, Firstname" ></text>
+            <text name="address" width="65%" height="30" xpos="20" bottomof="name" style="darktext" size="20" alignment="left" text="Street, City, State zip" ></text>
+            <panel name="edit-btn" width="100" height="50" ypos="22" align="right" bottomof="search-address" margin-right="20">
+              <object class="button" name="test" size="20" label="Edit" action="edit" value="" />
+            </panel>
+            <panel name="view-btn" width="100" height="50" ypos="22" leftof="edit-btn" margin-right="20" bottomof="search-address">
+              <object class="button" name="test" size="20" label="View" action="viewestimate" value="" />
+            </panel>
+            <panel name="divider" width="728" height="5" align="center" valign="bottom" background="#343434"></panel>
+          </panel>-->
+          <object class="searchresult" index="1" lastname="Reaves" firstname="Keanu" street="15 Matrix Way" city="Zion" state="CA" zip="90210" />
+        </pager>
+      </panel>
     </class>
     
     <!-- !Roof info classes -->
@@ -1898,10 +1946,10 @@
       <if lhs="[object:USERNAME/input.text]" operator="ne" rhs="">
         <if lhs="[object:PASSWORD/input.text]" operator="ne" rhs="">
           <sync>
-			<assign property="var:username" value="[object:USERNAME/input.text]" />
-			<assign property="var:password" value="[object:PASSWORD/input.text]" />
-			<assign property="datasource:login.postContent" value="[template:login.content]" />
-			<assign property="datasource:login.source" value="https://162.209.101.177/api/AuthenticateUser" />
+            <assign property="var:username" value="[object:USERNAME/input.text]" />
+            <assign property="var:password" value="[object:PASSWORD/input.text]" />
+            <assign property="datasource:login.postContent" value="[template:login.content]" />
+            <assign property="datasource:login.source" value="https://162.209.101.177/api/AuthenticateUser" />
             <keyboard visible="no" target="USERNAME/input"/>
             <keyboard visible="no" target="PASSWORD/input"/>
 <!--
@@ -1930,9 +1978,10 @@
 			<assign property="preferences:trueSlate" value="[datasource:login.1.TrueSlate]" />
 			<assign property="httpheader:get.Token" value="[preferences:token]" />
 			<assign property="httpheader:get.ContractorId" value="[preferences:contractorId]" />
-            <alpha value="0" time=".3" target="SIGNIN" />
+            
             <create class="choice" target="CONTAINER" />
-            <alpha value="1" time=".2" target="CHOICE" />
+            <alpha value="1" time=".3" target="CHOICE" />
+            <alpha value="0" time=".3" target="SIGNIN" />
 <!--             <alert message="you have signed in username:[preferences:username] password:[preferences:password] remembered:[preferences:remember]" /> -->
 			<else>
 				<alert message="There was a problem signing you in, please try again later." />
@@ -1972,19 +2021,38 @@
     <action name="search">
       <sync>
         <play action="released" />
-		<assign encoding="url" property="var:lastName" value="[object:SEARCH/input.text]" />
-		<alert message="get-estimate preferences:token is [preferences:token] preferences:contractorId is [preferences:contractorId] header is [template:get.content] ]url is https://162.209.101.177/api/GetCustomerEstimate?customerLastName=[var:lastName]&amp;address1=[var:address1]&amp;city=[var:city]&amp;stateProvince=[var:state]&amp;postalCode=[var:postalCode]&amp;country=[var:country]" />
-		<assign property="datasource:getEstimate.source" value="https://162.209.101.177/api/GetCustomerEstimate?CustomerLastName=[object:SEARCH/input.text]" />
+        <assign encoding="url" property="var:lastName" value="[object:SEARCH/input.text]" />
+        <create class="results" target="CONTAINER" />
+        <translate ypos="0" time=".25" curve="easeout" target="SEARCHRESULTS" />
+        <!--<alert message="get-estimate preferences:token is [preferences:token] preferences:contractorId is [preferences:contractorId] header is [template:get.content] ]url is https://162.209.101.177/api/GetCustomerEstimate?customerLastName=[var:lastName]&amp;address1=[var:address1]&amp;city=[var:city]&amp;stateProvince=[var:state]&amp;postalCode=[var:postalCode]&amp;country=[var:country]" />
+        <assign property="datasource:getEstimate.source" value="https://162.209.101.177/api/GetCustomerEstimate?CustomerLastName=[object:SEARCH/input.text]" />-->
       </sync>
     </action>
     
-	<action name="get-estimate-complete" datasource="getEstimate" datasourceevent="querycomplete" >
-		<alert message="get-estimate-complete count [datasource:getEstimate.dataSourceResultCount] content [datasource:getEstimate.0.content]" />
-	</action>
-	
-	<action name="get-estimate-error" datasource="getEstimate" datasourceevent="datasourceerror" >
-		<alert message="get-estimate-error [datasource:getEstimate.0.content]" />
-	</action>
+    <action name="get-estimate-complete" datasource="getEstimate" datasourceevent="querycomplete" >
+      <alert message="get-estimate-complete count [datasource:getEstimate.dataSourceResultCount] content [datasource:getEstimate.0.content]" />
+    </action>
+    
+    <action name="get-estimate-error" datasource="getEstimate" datasourceevent="datasourceerror" >
+      <alert message="get-estimate-error [datasource:getEstimate.0.content]" />
+    </action>
+    
+    <action name="closeresults">
+      <sync>
+        <translate ypos="101%" time=".25" curve="easeout" target="SEARCHRESULTS" />
+        <delete target="SEARCHRESULTS" />
+      </sync>
+    </action>
+    
+    <action name="viewestimate">
+      <play action="released" />
+      <alert message="view estimate" />
+    </action>
+    
+    <action name="edit">
+      <play action="released" />
+      <alert message="edit" />
+    </action>
     
     <!-- ! create actions -->
     <action name="create">
