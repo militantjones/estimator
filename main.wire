@@ -18,18 +18,22 @@
   <datasources>
     
   	<!-- !27 Global Web Services -->
+
   	<datasource name="login" source="" query="/" providertype="json" httpmethod="post" httpheader="login"/>
 	<datasource name="createCustomer" source="" query="/" providertype="json" httpmethod="post" httpheader="token-contractorid"/>
 	<datasource name="getEstimate" source="" query="/CustomerDetails" providertype="json" httpmethod="get" httpheader="token-contractorid"/>
 	<datasource name="getProducts" source="" query="/Products" providertype="json" httpmethod="get" httpheader="token-contractorid"/>
 	<datasource name="getAccessories" source="" query="/Accessories" providertype="json" httpmethod="get" httpheader="token-contractorid"/>
 	<datasource name="getWarranties" source="" query="/Warranties" providertype="json" httpmethod="get" httpheader="token-contractorid"/>
+
 	<datasource name="uploadPhoto" source="" query="/" providertype="json" httpmethod="post" httpheader="formSubmit" />
 	<datasource name="updateMeasurements" source="" query="/" providertype="json" httpmethod="put" httpheader="token-contractorid" />
 	<datasource name="generateEstimate" source="" query="/" providertype="json" httpmethod="post" httpheader="token-contractorid" />
 
+
 	<httpheader name="login" Content-Type="application/json" />
 	<httpheader name="token-contractorid" Content-Type="application/json" Token="[preferences:token]" ContractorId="[preferences:contractorId]" />
+
 	<httpheader name="formSubmit" Token="[preferences:token]" ContractorId="[preferences:contractorId]" Content-Type="multipart/form-data" Content-Disposition="form-data; name='File'; filename='test.jpg'"/>
 
     <datasource name="camera-roll" source="adsf" query="Camera Roll" providertype="camera"/>
@@ -38,11 +42,6 @@
     
     <datasource name="customersdb" source="sql://CUSTOMERS" query="CREATE TABLE IF NOT EXISTS CUSTOMERS (ID INTEGER PRIMARY KEY AUTOINCREMENT, FNAME, LNAME, EMAIL, PHONE, FNAME2, LNAME2, EMAIL2, PHONE2, COUNTRY, STREET, CITY, STATE, POSTAL, NOTES);" providertype="sql" />
     <datasource name="customersdb-list" source="sql://CUSTOMERS" query="SELECT * FROM CUSTOMERS ORDER BY ID DESC;" providertype="sql" />
-    
-<!--
-    <datasource name="addressdb" source="sql://ADDRESS" query="CREATE TABLE IF NOT EXISTS ADDRESS (ID INTEGER PRIMARY KEY AUTOINCREMENT, COUNTRY, STREET, CITY, STATE, POSTAL, NOTES);" providertype="sql" />
-    <datasource name="addressdb-list" source="sql://ADDRESS" query="SELECT * FROM ADDRESS ORDER BY ID DESC;" providertype="sql" />
--->
     
     <datasource name="inspectiondb" source="sql://INSPECTION" query="CREATE TABLE IF NOT EXISTS INSPECTION (ID INTEGER PRIMARY KEY AUTOINCREMENT, ROOFTYPE, FLOORS);" providertype="sql" />
     <datasource name="inspectiondb-list" source="sql://INSPECTION" query="SELECT * FROM INSPECTION ORDER BY ID DESC;" providertype="sql" />
@@ -1048,6 +1047,49 @@
       </panel>
     </class><!-- <object class="additionalcost" index="1" /> -->
     
+    <!-- !Summary classes -->
+    <class name="summary-cust">
+      <panel name="summary-customer" alias="SUMMARY-CUSTOMER" width="100%" height="148">
+        <text name="subtitle" width="100%" height="40" font="Futura-Medium" color="#343434" size="25" alignment="left" text="Customer Info"></text>
+        <panel name="col1" width="33.33%" height="93" bottomof="subtitle">
+          <text name="cust1-name" width="100%" height="35" style="darktext" size="20" alignment="left" text="[param:cust1name]"></text>
+          <text name="cust1-phone" width="100%" height="30" bottomof="cust1-name" style="darktext" size="15" alignment="left" text="[param:cust1phone]"></text>
+          <text name="cust1-email" width="100%" height="30" bottomof="cust1-phone" style="darktext" size="15" alignment="left" text="[param:cust1email]"></text>
+        </panel>
+        <panel name="col2" width="33.33%" height="93" rightof="col1" bottomof="subtitle" >
+          <text name="cust2-name" width="100%" height="35" style="darktext" size="20" alignment="left" text="[param:cust2name]"></text>
+          <text name="cust2-phone" width="100%" height="30" bottomof="cust2-name" style="darktext" size="15" alignment="left" text="[param:cust2phone]"></text>
+          <text name="cust2-email" width="100%" height="30" bottomof="cust2-phone" style="darktext" size="15" alignment="left" text="[param:cust2email]"></text>
+        </panel>
+        <panel name="col3" width="33.33%" height="93" rightof="col2" bottomof="subtitle">
+          <text name="label" width="100%" height="35" style="darktext" size="20" alignment="left" text="Property Address"></text>
+          <text name="address1" width="100%" height="30" bottomof="label" style="darktext" size="15" alignment="left" text="[param:street]"></text>
+          <text name="address2" width="100%" height="30" bottomof="address1" style="darktext" size="15" alignment="left" text="[param:city], [param:state] [param:zip]"></text>
+        </panel>
+        <panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
+      </panel>
+    </class> <!-- <object class="summary-cust" cust1name="" cust1phone="" cust1email="" cust2name="" cust2phone="" cust2email="" street="" city="" state="" zip="" /> -->
+    
+    <class name="summary-roof">
+      <panel name="summary-roof" width="100%" height="158">
+        <text name="subtitle" width="100%" height="40" font="Futura-Medium" color="#343434" size="25" alignment="left" text="Roof Info"></text>
+        <panel name="col1" width="33.33%" height="108" bottomof="subtitle">
+          <text name="roof-area" width="100%" height="35" style="darktext" size="20" alignment="left" text="Total Area: [param:area] sq ft"></text>
+          <text name="roof-squares" width="100%" height="35" bottomof="roof-area" style="darktext" size="20" alignment="left" text="Squares Needed: [param:area]"></text>
+          <text name="roof-ridges" width="100%" height="35" bottomof="roof-squares" style="darktext" size="20" alignment="left" text="Ridges: [param:squares] ft"></text>
+        </panel>
+        <panel name="col2" width="33.33%" height="108" rightof="col1" bottomof="subtitle" >
+          <text name="roof-hips" width="100%" height="35" style="darktext" size="20" alignment="left" text="Hips: [param:hips] ft"></text>
+          <text name="roof-rake" width="100%" height="35" bottomof="roof-hips" style="darktext" size="20" alignment="left" text="Rake: [param:rakes] ft"></text>
+          <text name="roof-eaves" width="100%" height="35" bottomof="roof-rake" style="darktext" size="20" alignment="left" text="Eaves: [param:eaves] ft"></text>
+        </panel>
+        <panel name="col3" width="33.33%" height="108" rightof="col2" bottomof="subtitle">
+          <text name="roof-valleys" width="100%" height="35" style="darktext" size="20" alignment="left" text="Valleys: [param:valleys] ft"></text>
+        </panel>
+        <panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
+      </panel>
+    </class> <!-- <object class="summary-roof" area="" squares="" ridges="" hips="" rakes="" eaves="" valleys="" />-->
+    
     <!-- !camera classes -->
     <class name="camera-view">
       <camera name="view" alias="CAMERA-VIEW" width="100%" height="100%" outputfile="dump/capture.png" oncapture="output" />
@@ -1507,9 +1549,9 @@
         <panel name="summarybox" alias="SUMMARYBOX" width="100%" height="100%" align="right" padding-left="20" padding-right="20" alpha="1">
           <object class="title" title="Summary"  />
           <panel name="summarypagerbox" width="100%" height="[eval: [object:SUMMARY.height] - 146]" ypos="79" >
-            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no">
+            <pager name="summary-pager" alias="SUMMARY-PAGER" width="100%" height="100%" orientation="vertical" paginate="no">
             
-              <panel name="summary-customer" width="100%" height="148">
+              <!--<panel name="summary-customer" width="100%" height="148">
                 <text name="subtitle" width="100%" height="40" font="Futura-Medium" color="#343434" size="25" alignment="left" text="Customer Info"></text>
                 <panel name="col1" width="33.33%" height="93" bottomof="subtitle">
                   <text name="cust1-name" width="100%" height="35" style="darktext" size="20" alignment="left" text="Bilbo Baggins"></text>
@@ -1598,8 +1640,7 @@
                   <text name="pool" width="100%" height="20" bottomof="hvac" size="15" alignment="left" text="Pool: no"></text>
                   <text name="misc" width="100%" height="20" bottomof="pool" size="15" alignment="left" text="Misc: no"></text>
                 </panel>
-                <!--<panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>  -->
-              </panel>
+              </panel>-->
               
             </pager>
           </panel>
@@ -2451,6 +2492,11 @@
             <play action="sidebar-services" _alias="TEAROFF" _form="Tear Off" />
           </if>
         </if>
+        <if lhs="_this" operator="e" rhs="SUMMARY">
+          
+          <create class="summary-cust" target="SUMMARY-PAGER" cust1name="[datasource:customersdb-list.1.FNAME] [datasource:customersdb-list.1.LNAME]" cust1phone="[datasource:customersdb-list.1.PHONE]" cust1email="[datasource:customersdb-list.1.EMAIL]" cust2name="[datasource:customersdb-list.1.FNAME2] [datasource:customersdb-list.1.LNAME2]" cust2phone="[datasource:customersdb-list.1.PHONE2]" cust2email="[datasource:customersdb-list.1.EMAIL2]" street="[datasource:customersdb-list.1.STREET]" city="[datasource:customersdb-list.1.CITY]" state="[datasource:customersdb-list.1.STATE]" zip="[datasource:customersdb-list.1.POSTAL]"  />
+          <create class="summary-roof" target="SUMMARY-PAGER" area="" squares="" ridges="" hips="" rakes="" eaves="" valleys=""  />
+        </if>
       </sync>
     </action>
     
@@ -2505,7 +2551,7 @@
       <!--<alert title="save" message="[var:nav]" />-->
     </action>
     
-    <!-- !customer actions -->
+     <!-- !customer actions -->
     <action name="saveCustomer">
       <sync>
         <play action="released" />
@@ -2530,12 +2576,14 @@
     </action>
 
 	<action name="customersdone" datasource="customersdb" datasourceevent="querycomplete" >
-<!-- 		<alert message="customer saved" /> -->
+		<alert message="customer saved" />
         <assign property="datasource:customersdb-list.query" value="SELECT * FROM CUSTOMERS" />
 	</action>
 
     <action name="customercount" datasourceevent="querycomplete" datasource="customersdb-list">
-<!-- 		<alert message="list done [datasource:customersdb-list.dataSourceResultCount] [datasource:customersdb-list.6.FNAME] [datasource:customersdb-list.6.FNAME2]" /> -->
+		<!--<alert message="list done [datasource:customersdb-list.dataSourceResultCount] [datasource:customersdb-list.6.FNAME] [datasource:customersdb-list.6.FNAME2]" />-->
+<!-- 	      <alert message="customer [datasource:customersdb-list.dataSourceResultCount], fname [datasource:customersdb-list.1.FNAME], lname [datasource:customersdb-list.1.LNAME], email [datasource:customersdb-list.1.EMAIL], phone [datasource:customersdb-list.1.PHONE], fname2 [datasource:customersdb-list.1.FNAME2], lname2 [datasource:customersdb-list.1.LNAME2], email2 [datasource:customersdb-list.1.EMAIL2], phone2 [datasource:customersdb-list.1.PHONE2], country [datasource:customersdb-list.1.COUNTRY], street [datasource:customersdb-list.1.STREET], city [datasource:customersdb-list.1.CITY], state [datasource:customersdb-list.1.STATE], postal [datasource:customersdb-list.1.POSTAL], notes [datasource:customersdb-list.1.NOTES]" /> -->
+<!--
 		<if lhs="[var:db-action]" operator="e" rhs="save">
 			<assign property="var:firstName" value="[datasource:customersdb-list.1.FNAME]" />
 			<assign property="var:lastName" value="[datasource:customersdb-list.1.LNAME]" />
@@ -2545,11 +2593,11 @@
 			<assign property="var:postalCode" value="[datasource:customersdb-list.1.POSTAL]" />
 			<assign property="var:country" value="[datasource:customersdb-list.1.COUNTRY]" />
 			<assign property="var:notes" value="[datasource:customersdb-list.1.NOTES]" />
-			<assign property="datasource:createCustomer.postContent" value="[template:createCustomer.content]" />
+			<assign property="datasource:createCustomer.postContent" value="[template:createCustomer.content]" />-->
 <!-- 			<alert message="sending [template:createCustomer.content]" /> -->
-			<assign property="datasource:createCustomer.source" value="https://162.209.101.177/api/CreateCustomer" />
-<!-- 	      <alert message="customer [datasource:customersdb-list.dataSourceResultCount], fname [datasource:customersdb-list.1.FNAME], lname [datasource:customersdb-list.1.LNAME], email [datasource:customersdb-list.1.EMAIL], phone [datasource:customersdb-list.1.PHONE], fname2 [datasource:customersdb-list.1.FNAME2], lname2 [datasource:customersdb-list.1.LNAME2], email2 [datasource:customersdb-list.1.EMAIL2], phone2 [datasource:customersdb-list.1.PHONE2], country [datasource:customersdb-list.1.COUNTRY], street [datasource:customersdb-list.1.STREET], city [datasource:customersdb-list.1.CITY], state [datasource:customersdb-list.1.STATE], postal [datasource:customersdb-list.1.POSTAL], notes [datasource:customersdb-list.1.NOTES]" /> -->
+			<!--<assign property="datasource:createCustomer.source" value="https://162.209.101.177/api/CreateCustomer" />
 		</if>
+-->
     </action>
     
 	<action name="create-customer-complete" datasource="createCustomer" datasourceevent="querycomplete">
@@ -3103,17 +3151,17 @@
       <play action="released" />
       <sync>
 
-		<assign property="var:existingRoofType" value="[datasource:inspectiondb-list.1.ROOFTYPE]" />
-		<assign property="var:numberOfFloors" value="[datasource:inspectiondb-list.1.FLOORS]" />
-		<assign property="var:wasteFactor" value="[eval:[datasource:wastedb-list.1.PERCENT]/100]" />
-		<if lhs="[datasource:roofareasdb-list.dataSourceResultCount]" operator="gt" rhs="0">
-			<assign property="var:roofMeasurementsIterateCount" value="1" />
-			<play action="formatRoofMeasurements" />
-			<else>
-				<assign property="var:roofMeasurementsObject" value="&quot;RoofMeasurements&quot;: []" />
-				<play action="prepRidgeMeasurements" />
-			</else>
-		</if>
+        <assign property="var:existingRoofType" value="[datasource:inspectiondb-list.1.ROOFTYPE]" />
+        <assign property="var:numberOfFloors" value="[datasource:inspectiondb-list.1.FLOORS]" />
+        <assign property="var:wasteFactor" value="[eval:[datasource:wastedb-list.1.PERCENT]/100]" />
+        <if lhs="[datasource:roofareasdb-list.dataSourceResultCount]" operator="gt" rhs="0">
+          <assign property="var:roofMeasurementsIterateCount" value="1" />
+          <play action="formatRoofMeasurements" />
+          <else>
+          	<assign property="var:roofMeasurementsObject" value="&quot;RoofMeasurements&quot;: []" />
+          	<play action="prepRidgeMeasurements" />
+          </else>
+        </if>
       </sync>
     </action>
     
