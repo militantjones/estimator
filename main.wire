@@ -2363,14 +2363,14 @@
         <sync>
           <create class="capture-preview" target="CAMERA-CONTAINER" />
           <translate ypos="0" time=".15" target="CAMERA-TOOLBAR" />
-          <delete target="CAMERA-VIEW" />
+          <!-- <delete target="CAMERA-VIEW" /> -->
         </sync>
     </action>
     
     <action name="capture-cancel">
         <translate ypos="-70" time=".15" target="CAMERA-TOOLBAR" />
         <sync>
-            <create class="camera-view" face="back" target="CAMERA-CONTAINER" />
+            <!-- <create class="camera-view" face="back" target="CAMERA-CONTAINER" /> -->
             <translate valign="bottom" time=".15" target="CAMERA-CONTROLCENTER" />
             <delete target="CAPTURE-PREVIEW" />
         </sync>
@@ -2379,10 +2379,11 @@
     <action name="capture-submit">
         <sync>
             <assign property="var:photoActive" value="1" />
+            <assign property="var:photo-url" value="[object:CAMERA-VIEW.photo]" />
             <capture toalbum="GAF" target="CAPTURE-PREVIEW" />
             <translate ypos="101%" time=".25" curve="easeout" target="CAMERABOX" />
             <delete target="CAMERA" />
-            <alert title="last photo?" message="[datasource:camera-roll.photo]" />
+            <play action="db-that-photo" />
         </sync>
     </action>
     
