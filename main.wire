@@ -18,7 +18,7 @@
   <datasources>
     
   	<!-- !27 Global Web Services -->
-  	<datasource name="login" source="" query="/" providertype="json" httpmethod="post" httpheader="post"/>
+  	<datasource name="login" source="" query="/" providertype="json" httpmethod="post" httpheader="login"/>
 	<datasource name="createCustomer" source="" query="/" providertype="json" httpmethod="post" httpheader="post"/>
 	<datasource name="getEstimate" source="" query="/CustomerDetails" providertype="json" httpmethod="get" httpheader="get"/>
 	<datasource name="getProducts" source="" query="/Products" providertype="json" httpmethod="get" httpheader="get"/>
@@ -27,7 +27,8 @@
 	<datasource name="uploadPhoto" source="" query="/" providertype="json" httpmethod="post" httpheader="formSubmit" />
 	<datasource name="updateMeasurements" source="" query="/" providertype="json" httpmethod="put" httpheader="post" />
 
-	<httpheader name="post" Content-Type="application/json" />
+	<httpheader name="login" Content-Type="application/json" />
+	<httpheader name="post" Content-Type="application/json" Token="[preferences:token]" ContractorId="[preferences:contractorId]" />
 	<httpheader name="get" Content-Type="application/json" Token="[preferences:token]" ContractorId="[preferences:contractorId]" />
 	<httpheader name="formSubmit" Token="[preferences:token]" ContractorId="[preferences:contractorId]" Content-Type="multipart/form-data" Content-Disposition="form-data; name='File'; filename='test.jpg'"/>
 
