@@ -18,7 +18,7 @@
   <datasources>
     
   	<!-- !27 Global Web Services -->
-  	<datasource name="login" source="" query="/" providertype="json" httpmethod="post" httpheader="post"/>
+  	<datasource name="login" source="" query="/" providertype="json" httpmethod="post" httpheader="login"/>
 	<datasource name="createCustomer" source="" query="/" providertype="json" httpmethod="post" httpheader="post"/>
 	<datasource name="getEstimate" source="" query="/CustomerDetails" providertype="json" httpmethod="get" httpheader="get"/>
 	<datasource name="getProducts" source="" query="/Products" providertype="json" httpmethod="get" httpheader="get"/>
@@ -27,7 +27,8 @@
 	<datasource name="uploadPhoto" source="" query="/" providertype="json" httpmethod="post" httpheader="formSubmit" />
 	<datasource name="updateMeasurements" source="" query="/" providertype="json" httpmethod="put" httpheader="post" />
 
-	<httpheader name="post" Content-Type="application/json" />
+	<httpheader name="login" Content-Type="application/json" />
+	<httpheader name="post" Content-Type="application/json" Token="[preferences:token]" ContractorId="[preferences:contractorId]" />
 	<httpheader name="get" Content-Type="application/json" Token="[preferences:token]" ContractorId="[preferences:contractorId]" />
 	<httpheader name="formSubmit" Token="[preferences:token]" ContractorId="[preferences:contractorId]" Content-Type="multipart/form-data" Content-Disposition="form-data; name='File'; filename='test.jpg'"/>
 
@@ -73,7 +74,7 @@
     <datasource name="ventsdb" source="sql://VENTS" query="CREATE TABLE IF NOT EXISTS VENTS (ID INTEGER PRIMARY KEY AUTOINCREMENT, SIZE, QUANTITY);" providertype="sql" />
     <datasource name="ventsdb-list" source="sql://VENTS" query="SELECT * FROM VENTS ORDER BY ID DESC;" providertype="sql" />
     
-    <datasource name="photosdb" source="sql://PHOTOS" query="CREATE TABLE IF NOT EXISTS PHOTOS (ID INTEGER PRIMARY KEY AUTOINCREMENT, PHOTO, NOTE);" providertype="sql" />
+    <datasource name="photosdb" source="sql://PHOTOS" query="CREATE TABLE IF NOT EXISTS PHOTOS (ID INTEGER PRIMARY KEY AUTOINCREMENT, PHOTO, ORIGIN, NOTE);" providertype="sql" />
     <datasource name="photosdb-list" source="sql://PHOTOS" query="SELECT * FROM PHOTOS ORDER BY ID DESC;" providertype="sql" />
     
 <!--     <datasource name="productsdb" source="sql://PRODUCTS" query="DELETE FROM PRODUCTS;" providertype="sql" /> -->
@@ -730,11 +731,12 @@
     
     <class name="photo">
       <panel name="photo[param:index]" width="100%" height="215">
-        <panel name="imgbox" width="226" height="190" ypos="10" clip="yes" background="000000">
-          <!-- image will go here -->
+        <panel name="imgbox" width="226" height="190" ypos="10" clip="yes" >
+          <image name="rollphoto" asset="[param:photo]" height="100%"></image>
+          <image name="cameraphoto" fullpath="[param:photo]" height="100%"></image>
         </panel>
         <panel name="notbox" width="47%" height="200" align="right" ypos="10" clip="yes">
-          <text name="note" width="100%" height="fit" style="darktext" size="16" alignment="left" text="Donec ullamcorper nulla non metus auctor fringilla. Cras justo odio, dapibus ac facilisis in, egestas eget quam."></text>
+          <text name="note" width="100%" height="fit" style="darktext" size="16" alignment="left" text="[param:note]"></text>
         </panel>
         <panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
       </panel>
@@ -753,18 +755,22 @@
           <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="20" alignment="left" text="Shingle Group"></text>
           <panel name="col1" width="217" height="100%" bottomof="subtitle" >
             <text name="name" width="100%" height="30" style="darktext" size="20" alignment="left" text="[datasource:getProducts.[param:index].ProductName]"></text>
-            <panel name="imgholder" width="108" height="108" bottomof="name" background="#000000"></panel>
+            <panel name="imgholder" width="108" height="108" bottomof="name" background="#000000">
+            	<image name="shingle" url="http://www.gaf.com/All_Images/[datasource:getProducts.[param:index].Color[0]/Image]?w=108&amp;h=108"></image>
+            </panel>
             <text name="desc" width="100" height="fit" bottomof="name" align="right" style="darktext" size="12" alignment="left" text="[datasource:getProducts.[param:index].Description]"></text>
             <panel name="shingle-btn" width="108" height="50" bottomof="imgholder" margin-top="10">
-              <object class="button" name="test" size="20" label="Select" action="selectshingle" value="[datasource:getProducts.[param:index].ProductId]" />
+              <object class="button" name="test" size="20" label="Select" action="selectshingle" value="[param:index]" />
             </panel>
           </panel>
           <panel name="col2" width="217" height="100%" align="right" bottomof="subtitle" >
             <text name="name" width="100%" height="30" style="darktext" size="20" alignment="left" text="[datasource:getProducts.[eval:[param:index]+1].ProductName]"></text>
-            <panel name="imgholder" width="108" height="108" bottomof="name" background="#000000"></panel>
+            <panel name="imgholder" width="108" height="108" bottomof="name" background="#000000">
+            	<image name="shingle" url="http://www.gaf.com/All_Images/[datasource:getProducts.[eval:[param:index]+1].Color[0]/Image]?w=108&amp;h=108"></image>
+            </panel>
             <text name="desc" width="100" height="fit" bottomof="name" align="right" style="darktext" size="12" alignment="left" text="[datasource:getProducts.[eval:[param:index]+1].Description]"></text>
             <panel name="shingle-btn" width="108" height="50" bottomof="imgholder" margin-top="10">
-              <object class="button" name="test" size="20" label="Select" action="selectshingle" value="[datasource:getProducts.[eval:[param:index]+1].ProductId]" />
+              <object class="button" name="test" size="20" label="Select" action="selectshingle" value="[eval:[param:index]+1]" />
             </panel>
           </panel>
         </panel>
@@ -777,16 +783,107 @@
         <panel name="[param:index]" width="100%" height="213" >
           <panel name="col1" width="217" height="100%" >
             <text name="name" width="100%" height="30" style="darktext" size="20" alignment="left" text="[datasource:getProducts.[param:index].ProductName]"></text>
-            <panel name="imgholder" width="108" height="108" bottomof="name" background="#000000"></panel>
+            <panel name="imgholder" width="108" height="108" bottomof="name" background="#000000">
+            	<image name="shingle" url="http://www.gaf.com/All_Images/[datasource:getProducts.[param:index].Color[0]/Image]?w=108&amp;h=108"></image>
+            </panel>
             <text name="desc" width="100" height="fit" bottomof="name" align="right" style="darktext" size="12" alignment="left" text="[datasource:getProducts.[param:index].Description]"></text>
             <panel name="shingle-btn" width="108" height="50" bottomof="imgholder" margin-top="10">
-              <object class="button" name="test" size="20" label="Select" action="selectshingle" value="[datasource:getProducts.[param:index].ProductId]" />
+              <object class="button" name="test" size="20" label="Select" action="selectshingle" value="[param:index]" />
             </panel>
           </panel>
           <panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
         </panel>
     </class><!-- <object class="shingles"  /> -->
     
+	<class name="color-pager">
+      <pager name="colorpager" alias="COLORPAGER" width="100%" height="100%" orientation="vertical" paginate="no" >
+      </pager>
+	</class>
+	
+	<class name="three-colors" >
+            <panel name="[param:index]" width="100%" height="320">
+              <panel name="1" width="33.33%" height="100%" align="left">
+                <panel name="marginer" width="200" height="100%" align="left" >
+                  <panel name="imgholder" width="200" height="200" background="000000">
+				  	<image name="shingle" url="http://www.gaf.com/All_Images/[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Image]?w=200&amp;h=200"></image>
+                  </panel>
+                  <text name="colorlabel" width="100%" height="40" bottomof="imgholder" style="darktext" size="20" alignment="left" text="[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Name]"></text>
+                  <panel name="search-btn" width="200" height="50" align="right" bottomof="colorlabel">
+                    <object class="button" name="test" size="20" label="Select" action="setcolor" value="[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Name]" />
+                  </panel>
+                </panel>
+              </panel>
+              
+              <panel name="2" width="33.33%" height="100%" align="center" >
+                <panel name="marginer" width="200" height="100%" align="center">
+                  <panel name="imgholder" width="200" height="200" background="000000">
+				  	<image name="shingle" url="http://www.gaf.com/All_Images/[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+1]]/Image]?w=200&amp;h=200"></image>
+                  </panel>
+                  <text name="colorlabel" width="100%" height="40" bottomof="imgholder" style="darktext" size="20" alignment="left" text="[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+1]]/Name]"></text>
+                  <panel name="search-btn" width="200" height="50" align="right" bottomof="colorlabel">
+                    <object class="button" name="test" size="20" label="Select" action="setcolor" value="[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+1]]/Name]" />
+                  </panel>
+                </panel>
+              </panel>
+              <panel name="3" width="33.33%" height="100%" align="right" >
+                <panel name="marginer" width="200" height="100%" align="right">
+                  <panel name="imgholder" width="200" height="200" background="000000">
+				  	<image name="shingle" url="http://www.gaf.com/All_Images/[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+2]]/Image]?w=200&amp;h=200"></image>
+                  </panel>
+                  <text name="colorlabel" width="100%" height="40" bottomof="imgholder" style="darktext" size="20" alignment="left" text="[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+2]]/Name]"></text>
+                  <panel name="search-btn" width="200" height="50" align="right" bottomof="colorlabel">
+                    <object class="button" name="test" size="20" label="Select" action="setcolor" value="[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+2]]/Name]" />
+                  </panel>
+                </panel>
+              </panel>
+            </panel>
+            <!-- <panel name="row3" width="100%" height="300" background="#0000ff"></panel> -->
+	</class>
+	
+	<class name="two-colors">
+            <panel name="[param:index]" width="100%" height="320" >
+              <panel name="1" width="33.33%" height="100%" align="left">
+                <panel name="marginer" width="200" height="100%" align="left" >
+                  <panel name="imgholder" width="200" height="200" background="000000">
+				  	<image name="shingle" url="http://www.gaf.com/All_Images/[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Image]?w=200&amp;h=200"></image>
+                  </panel>
+                  <text name="colorlabel" width="100%" height="40" bottomof="imgholder" style="darktext" size="20" alignment="left" text="[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Name]"></text>
+                  <panel name="search-btn" width="200" height="50" align="right" bottomof="colorlabel">
+                    <object class="button" name="test" size="20" label="Select" action="setcolor" value="[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Name]" />
+                  </panel>
+                </panel>
+              </panel>
+              
+              <panel name="2" width="33.33%" height="100%" align="center" >
+                <panel name="marginer" width="200" height="100%" align="center">
+                  <panel name="imgholder" width="200" height="200" background="000000">
+				  	<image name="shingle" url="http://www.gaf.com/All_Images/[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+1]]/Image]?w=200&amp;h=200"></image>
+                  </panel>
+                  <text name="colorlabel" width="100%" height="40" bottomof="imgholder" style="darktext" size="20" alignment="left" text="[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+1]]/Name]"></text>
+                  <panel name="search-btn" width="200" height="50" align="right" bottomof="colorlabel">
+                    <object class="button" name="test" size="20" label="Select" action="setcolor" value="[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+1]]/Name]" />
+                  </panel>
+                </panel>
+              </panel>
+            </panel>
+	</class>
+	
+	<class name="one-color">
+            <panel name="[param:index]" width="100%" height="320" >
+              <panel name="1" width="33.33%" height="100%" align="left">
+                <panel name="marginer" width="200" height="100%" align="left" >
+                  <panel name="imgholder" width="200" height="200" background="000000">
+				  	<image name="shingle" url="http://www.gaf.com/All_Images/[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Image]?w=200&amp;h=200"></image>
+                  </panel>
+                  <text name="colorlabel" width="100%" height="40" bottomof="imgholder" style="darktext" size="20" alignment="left" text="[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Name]"></text>
+                  <panel name="search-btn" width="200" height="50" align="right" bottomof="colorlabel">
+                    <object class="button" name="test" size="20" label="Select" action="setcolor" value="[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Name]" />
+                  </panel>
+                </panel>
+              </panel>
+            </panel>
+	</class>
+
     <class name="warranty">
       <panel name="[param:index]" width="100%" height="71">
         <text name="subtitle" width="[eval: [object:WARRANTY-PAGER-BOX.width] - 95]" height="66" font="Futura-Medium" color="#343434" size="fit" maxsize="25" alignment="left" text="[param:title]"></text>
@@ -1112,6 +1209,28 @@
         </panel>
     </class>
     
+    <class name="rollphoto">
+      <image name="thephoto" alias="THEPHOTO" asset="" height="100%" align="center" ></image>
+    </class>
+    
+    <class name="cameraphoto">
+      <image name="thephoto" alias="THEPHOTO" fullpath="[param:photo]" height="100%" align="center" ></image>
+    </class>
+    
+    <class name="addnote">
+      <panel name="addnote" alias="ADDNOTE" width="100%" height="100%" ypos="101%" background="#e3e3e3">
+        <panel name="toolbar" width="100%" height="74" background="#343434">
+          <text name="title" width="100%" height="100%" color="#ffffff" font="Futura-Medium" size="30" alignment="center" text="Add a Note"></text>
+          <text name="save" width="100" height="100%" align="right" color="#ffffff" font="Futura-Medium" size="24" alignment="center" text="Save" onclickup="savenote" clickuptarget="CONTAINER" ></text>
+          <text name="cancel" width="100" height="100%" color="#ffffff" font="Futura-Medium" size="24" alignment="center" text="Cancel"></text>
+        </panel>
+        <panel name="photolanding" alias="PHOTOLANDING" width="100%" height="40%" ypos="80"></panel>
+        <panel name="notewrap" width="80%" height="230" align="center" bottomof="PHOTOLANDING" margin-top="20" padding="10" background="ffffff" cornerradius="2" borderwidth="1" bordercolor="#343434" >
+          <textfield name="thenote" alias="THENOTE" width="100%" height="100%" font="Futura-Medium" size="20" color="#343434" alignment="left" valignment="top" multiline="yes" placeholder="Your Note Here."></textfield>
+        </panel>
+      </panel>
+    </class>
+    
   </classes>
  
   <!-- !MAIN -->
@@ -1397,9 +1516,9 @@
         <panel name="roof-Photo" alias="ROOF-PHOTO" width="512" height="100%" align="right" padding-left="20" padding-right="20" alpha="0">
           <object class="titlebutton" title="Photos &amp; Notes" action="addphoto" />
           <panel name="roofpagerbox" width="100%" height="[eval: [object:ROOF-PHOTO.height] - 146]" ypos="79" >
-            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no">
-              <object class="photo" index="1" />
-            </pager>
+            <list name="pager" datasource="photosdb-list" width="100%" height="100%" orientation="vertical" paginate="no">
+              <object class="photo" index="1" photo="[param:PHOTO]" note="[param:NOTE]" origin="[param:ORIGIN]" />
+            </list>
           </panel>
         </panel>
         
@@ -1718,67 +1837,6 @@
         <text name="shingle" width="100%" height="60" bottomof="label" style="darktext" leftinset="20" size="30" alignment="left" text="Slateline"></text>
         <panel name="inner" width="100%" height="[eval: [object:SHINGLECOLOR.height] - 150]" ypos="150" padding-left="20" padding-right="20" padding-bottom="20" >
           <pager name="colorpager" alias="COLORPAGER" width="100%" height="100%" orientation="vertical" paginate="no" >
-            <panel name="row1" width="100%" height="320">
-              <panel name="1" width="33.33%" height="100%" align="left">
-                <panel name="marginer" width="200" height="100%" align="left" >
-                  <panel name="imgholder" width="200" height="200" background="000000"></panel>
-                  <text name="colorlabel" width="100%" height="40" bottomof="imgholder" style="darktext" size="20" alignment="left" text="red"></text>
-                  <panel name="search-btn" width="200" height="50" align="right" bottomof="colorlabel">
-                    <object class="button" name="test" size="20" label="Select" action="setcolor" value="red" />
-                  </panel>
-                </panel>
-              </panel>
-              
-              <panel name="2" width="33.33%" height="100%" align="center" >
-                <panel name="marginer" width="200" height="100%" align="center">
-                  <panel name="imgholder" width="200" height="200" background="000000"></panel>
-                  <text name="colorlabel" width="100%" height="40" bottomof="imgholder" style="darktext" size="20" alignment="left" text="blue"></text>
-                  <panel name="search-btn" width="200" height="50" align="right" bottomof="colorlabel">
-                    <object class="button" name="test" size="20" label="Select" action="setcolor" value="blue" />
-                  </panel>
-                </panel>
-              </panel>
-              <panel name="3" width="33.33%" height="100%" align="right" >
-                <panel name="marginer" width="200" height="100%" align="right">
-                  <panel name="imgholder" width="200" height="200" background="000000"></panel>
-                  <text name="colorlabel" width="100%" height="40" bottomof="imgholder" style="darktext" size="20" alignment="left" text="green"></text>
-                  <panel name="search-btn" width="200" height="50" align="right" bottomof="colorlabel">
-                    <object class="button" name="test" size="20" label="Select" action="setcolor" value="green" />
-                  </panel>
-                </panel>
-              </panel>
-            </panel>
-            <panel name="row2" width="100%" height="320" >
-              <panel name="1" width="33.33%" height="100%" align="left">
-                <panel name="marginer" width="200" height="100%" align="left" >
-                  <panel name="imgholder" width="200" height="200" background="000000"></panel>
-                  <text name="colorlabel" width="100%" height="40" bottomof="imgholder" style="darktext" size="20" alignment="left" text="purple"></text>
-                  <panel name="search-btn" width="200" height="50" align="right" bottomof="colorlabel">
-                    <object class="button" name="test" size="20" label="Select" action="setcolor" value="purple" />
-                  </panel>
-                </panel>
-              </panel>
-              
-              <panel name="2" width="33.33%" height="100%" align="center" >
-                <panel name="marginer" width="200" height="100%" align="center">
-                  <panel name="imgholder" width="200" height="200" background="000000"></panel>
-                  <text name="colorlabel" width="100%" height="40" bottomof="imgholder" style="darktext" size="20" alignment="left" text="yellow"></text>
-                  <panel name="search-btn" width="200" height="50" align="right" bottomof="colorlabel">
-                    <object class="button" name="test" size="20" label="Select" action="setcolor" value="yellow" />
-                  </panel>
-                </panel>
-              </panel>
-              <panel name="3" width="33.33%" height="100%" align="right" >
-                <panel name="marginer" width="200" height="100%" align="right">
-                  <panel name="imgholder" width="200" height="200" background="000000"></panel>
-                  <text name="colorlabel" width="100%" height="40" bottomof="imgholder" style="darktext" size="20" alignment="left" text="orange"></text>
-                  <panel name="search-btn" width="200" height="50" align="right" bottomof="colorlabel">
-                    <object class="button" name="test" size="20" label="Select" action="setcolor" value="orange" />
-                  </panel>
-                </panel>
-              </panel>
-            </panel>
-            <!-- <panel name="row3" width="100%" height="300" background="#0000ff"></panel> -->
           </pager>
         </panel>
       </panel>
@@ -2291,6 +2349,7 @@
         <alpha value="1" time=".1" target="CAMERAROLL/wait" />
         <assign property="datasource:camera-roll.source" value="asd" />
         <play action="hideclearcurtain" />
+        <assign property="var:photolocation" value="roll" />
       </sync>
     </action>
 
@@ -2320,12 +2379,40 @@
         <alert title="Hi, I'm photo..." message="[var:photo-url]" />
         <translate ypos="101%" time=".25" curve="easeout" target="CAMERAROLL" />
         <delete target="CAMERA-ROLL" />
+        <play action="addnote" />
+      </sync>
+    </action>
+    
+    <action name="addnote">
+      <sync>
+        <create class="addnote" target="CONTAINER" />
+        <if lhs="[var:photolocation]" operator="e" rhs="roll">
+          <create class="rollphoto" target="PHOTOLANDING" />
+          <assign property="object:THEPHOTO.asset" value="[var:photo-url]" />
+          <alert message="roll" />
+        </if>
+        <if lhs="[var:photolocation]" operator="e" rhs="camera">
+          <create class="cameraphoto" target="PHOTOLANDING" photo="[var:photo-url]" />
+          <!--<assign property="object:THEPHOTO.fullpath" value="" />-->
+          <alert message="camera" />
+        </if>
+        <translate ypos="0" time=".25" curve="easeout" target="ADDNOTE" />
+        <keyboard visible="yes" target="THENOTE" />
+      </sync>
+    </action>
+    
+    <action name="savenote">
+      <sync>
+        <assign property="var:thenote" value="[object:THENOTE.text]" />
         <play action="db-that-photo" />
+        <translate ypos="101%" time=".25" curve="easeout" target="ADDNOTE" />
+        <delete target="ADDNOTE" />
       </sync>
     </action>
 
     <action name="db-that-photo"> <!-- holla!* Rachael Goldberg Voice -->
-        <assign property="datasource:photosdb.query" value="INSERT INTO PHOTOS (PHOTO, NOTE) values ('[var:photo-url]', 'I am a note')" />
+      <alert message="[var:thenote]" />
+      <assign property="datasource:photosdb.query" value="INSERT INTO PHOTOS (PHOTO, NOTE) values ('[var:photo-url]', '[var:thenote]')" />
     </action>
 
     <action name="photo-db-save-confirm-the-magic-fuck-yes" datasource="photosdb">
@@ -2350,41 +2437,47 @@
     </action>
 
     <action name="snap-down">
-        <assign property="object:inner.background" value="#252525" />
+      <assign property="object:inner.background" value="#252525" />
     </action>
+    
     <action name="snap-photo">
-        <sync>
-            <event type="captureStillImage" target="CAMERA-VIEW" />
-            <assign property="object:CAMERA-CONTROLCENTER/snap/inner.background" value="#ed1c24" />
-        </sync>
+      <sync>
+        <event type="captureStillImage" target="CAMERA-VIEW" />
+        <assign property="object:CAMERA-CONTROLCENTER/snap/inner.background" value="#ed1c24" />
+      </sync>
     </action>
+    
     <action name="output">
-        <translate ypos="100%" time=".15" target="CAMERA-CONTROLCENTER" />
-        <sync>
-          <create class="capture-preview" target="CAMERA-CONTAINER" />
-          <translate ypos="0" time=".15" target="CAMERA-TOOLBAR" />
-          <!-- <delete target="CAMERA-VIEW" /> -->
-        </sync>
+      <translate ypos="100%" time=".15" target="CAMERA-CONTROLCENTER" />
+      <sync>
+        <create class="capture-preview" target="CAMERA-CONTAINER" />
+        <translate ypos="0" time=".15" target="CAMERA-TOOLBAR" />
+        <!-- <delete target="CAMERA-VIEW" /> -->
+      </sync>
     </action>
     
     <action name="capture-cancel">
-        <translate ypos="-70" time=".15" target="CAMERA-TOOLBAR" />
-        <sync>
-            <!-- <create class="camera-view" face="back" target="CAMERA-CONTAINER" /> -->
-            <translate valign="bottom" time=".15" target="CAMERA-CONTROLCENTER" />
-            <delete target="CAPTURE-PREVIEW" />
-        </sync>
+      <translate ypos="-70" time=".15" target="CAMERA-TOOLBAR" />
+      <sync>
+        <!-- <create class="camera-view" face="back" target="CAMERA-CONTAINER" /> -->
+        <translate valign="bottom" time=".15" target="CAMERA-CONTROLCENTER" />
+        <delete target="CAPTURE-PREVIEW" />
+      </sync>
     </action>
 
     <action name="capture-submit">
-        <sync>
-            <assign property="var:photoActive" value="1" />
-            <assign property="var:photo-url" value="[object:CAMERA-VIEW.photo]" />
-            <capture toalbum="GAF" target="CAPTURE-PREVIEW" />
-            <translate ypos="101%" time=".25" curve="easeout" target="CAMERABOX" />
-            <delete target="CAMERA" />
-            <play action="db-that-photo" />
-        </sync>
+      <sync>
+        <assign property="var:photoActive" value="1" />
+        <assign property="var:photo-url" value="[object:CAMERA-VIEW.photo]" />
+        <capture toalbum="GAF" target="CAPTURE-PREVIEW" />
+        <assign property="var:photolocation" value="camera" />
+        <play action="addnote" />
+        <translate ypos="101%" time=".25" curve="easeout" target="CAMERABOX" />
+        <delete target="CAMERA" />
+        <alert message="[var:photo-url]" />
+        <!--<play action="db-that-photo" />-->
+        
+      </sync>
     </action>
     
     <!-- !add adjustments -->
@@ -2661,17 +2754,11 @@
       <play action="released" />
       <!--<alert message="[var:roof]" />-->
       <play action="[var:roof]" />
-      <alert message="[var:roof]" />
     </action>
     
     <action name="INSPECTION">
       <!--<alert title="inspection" message="rooftype [object:ROOFTYPE/input.text] floors [object:FLOORS/input.text]" />-->
-      <if lhs="[eval:'[object:ROOFTYPE/input.text]' != '' &amp;&amp; '[object:FLOORS/input.text]' != '']" operator="e" rhs="true">
-        <assign property="datasource:inspectiondb.query" value="INSERT INTO INSPECTION (ROOFTYPE, FLOORS) VALUES ('[object:ROOFTYPE/input.text]', '[object:FLOORS/input.text]');" />
-        <else>
-          <alert title="Incomplete Form" message="Please feel out all fields" />
-        </else> 
-      </if>
+      <assign property="datasource:inspectiondb.query" value="INSERT INTO INSPECTION (ROOFTYPE, FLOORS) VALUES ('[object:ROOFTYPE/input.text]', '[object:FLOORS/input.text]');" />
     </action>
     
     <action name="inspection-query" datasource="inspectiondb" datasourceevent="querycomplete">
@@ -2684,17 +2771,11 @@
     
     <action name="ROOF AREA">
       <sync>
-        <if lhs="[var:areaindex]" operator="gt" rhs="0">
-          <if lhs="[eval:'[object:RL[var:areaindexloop]/input.text]' != '' &amp;&amp; '[object:RW[var:areaindexloop]/input.text]' != '' &amp;&amp; '[var:slope-[var:areaindexloop]]' != '']" operator="e" rhs="true">
-            <assign property="var:areaindexloop" value="[eval: [var:areaindexloop] + 1]" />
-  		      <alert message="var:slope-[var:areaindexloop] is [var:slope-[var:areaindexloop]]" />
-            <assign property="datasource:roofareasdb.query" value="INSERT INTO ROOFAREAS (LENGTH, WIDTH, SLOPE) values ('[object:RL[var:areaindexloop]/input.text]', '[object:RW[var:areaindexloop]/input.text]', '[var:slope-[var:areaindexloop]]');" />
-              <else>
-                <alert title="Incomplete Form" message="Please feel out all fields" />
-              </else>
-          </if>
-        </if>
-        <!--<if lhs="[var:areaindex]" operator="gt" rhs="1">
+        <!--<if lhs="[var:areaindexloop]" operator="lt" rhs="[var:areaindex]">-->
+          <assign property="var:areaindexloop" value="[eval: [var:areaindexloop] + 1]" />
+		  <alert message="var:slope-[var:areaindexloop] is [var:slope-[var:areaindexloop]]" />
+          <assign property="datasource:roofareasdb.query" value="INSERT INTO ROOFAREAS (LENGTH, WIDTH, SLOPE) values ('[object:RL[var:areaindexloop]/input.text]', '[object:RW[var:areaindexloop]/input.text]', '[var:slope-[var:areaindexloop]]');" />
+          <!--<if lhs="[var:areaindex]" operator="gt" rhs="1">
             <play action="roofarealoop" />
           </if>
           <else>
@@ -2738,12 +2819,7 @@
     
     <action name="WASTE">
       <!--<alert message="[object:WASTEPERCENT/input.text]" />-->
-      <if lhs="[eval:'[object:WASTEPERCENT/input.text]' != '']" operator="e" rhs="true">
-        <assign property="datasource:wastedb.query" value="INSERT INTO WASTE (PERCENT) values ('[object:WASTEPERCENT/input.text]');" />
-        <else>
-          <alert title="Incomplete Form" message="Please feel out all fields" />
-        </else> 
-      </if>
+      <assign property="datasource:wastedb.query" value="INSERT INTO WASTE (PERCENT) values ('[object:WASTEPERCENT/input.text]');" />
     </action>
     
     <action name="wastequery" datasource="wastedb" datasourceevent="querycomplete">
@@ -2981,15 +3057,40 @@
 		</action>
     
     <action name="selectshingle">
-      <play action="released" />
-      <play action="blur" />
-      <sync>
-        <assign property="var:shingle" value="_value" />
-        <alert message="[var:shingle]" />
-      </sync>
-      <alpha value="1" time=".25" target="SHINGLECOLOR" />
-      <translate valign="center" time=".25" curve="easeout" target="SHINGLECOLOR" />
-      <assign property="var:curtainaction" value="colordismiss" />
+<!-- 		<assign property="var:colorCount" value="4" /> -->
+		<assign property="var:shingle" value="[datasource:getProducts._value.ProductId]" />
+		<play action="released" />
+		<delete target="COLORPAGER" />
+		<assign property="var:shingleSelected" value="_value" />
+		<assign property="var:colorCount" value="[eval:JSON.parse('[datasource:getProducts._value.Color]').length]" />
+		<if lhs="[eval:JSON.parse('[datasource:getProducts._value.Color]').length]" operator="ne" rhs="">
+			<assign property="var:colorCreateCount" value="0" />
+			<create class="color-pager" target="SHINGLECOLOR/inner" /> 
+			<loop lhs="[var:colorCreateCount]" operator="lt" rhs="[var:colorCount]" >
+				<if lhs="[eval: [var:colorCount]-[var:colorCreateCount]]" operator="e" rhs="1">
+					<create class="one-color" target="COLORPAGER" index="[var:colorCreateCount]"/>
+					<assign property="var:colorCreateCount" value="[eval: [var:colorCreateCount]+1]" />
+				</if>
+				<if lhs="[eval: [var:colorCount]-[var:colorCreateCount]]" operator="e" rhs="2">
+					<create class="two-colors" target="COLORPAGER" index="[var:colorCreateCount]"/>
+					<assign property="var:colorCreateCount" value="[eval: [var:colorCreateCount]+2]" />
+				</if>
+				<if lhs="[eval: [var:colorCount]-[var:colorCreateCount]]" operator="gte" rhs="3">
+					<create class="three-colors" target="COLORPAGER" index="[var:colorCreateCount]"  />
+					<assign property="var:colorCreateCount" value="[eval: [var:colorCreateCount]+3]" />
+				</if>
+			</loop>
+		      <play action="blur" />
+		      <alpha value="1" time=".25" target="SHINGLECOLOR" />
+		      <translate valign="center" time=".25" curve="easeout" target="SHINGLECOLOR" />
+		      <assign property="var:curtainaction" value="colordismiss" />
+			<else>
+		        <assign property="var:color" value="N/A" />
+		        <alert message="[var:shingle] [var:color]" />
+				<assign property="datasource:getWarranties.source" value="https://162.209.101.177/api/GetWarranties?productId=[var:shingle]" />
+				<play action="sidebar-products" _alias="WARRANTY" _form="Warranty" />
+			</else>
+		</if>
     </action>
     
     <action name="colordismiss">
