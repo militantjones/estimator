@@ -2685,27 +2685,42 @@
     <action name="ROOF AREA">
       <sync>
         <if lhs="[var:areaindex]" operator="gt" rhs="0">
-          <if lhs="[eval:'[object:RL[var:areaindexloop]/input.text]' != '' &amp;&amp; '[object:RW[var:areaindexloop]/input.text]' != '' &amp;&amp; '[var:slope-[var:areaindexloop]]' != '']" operator="e" rhs="true">
+          <play action="areaValidationLoop" />
+          <else>
+            <alert title="Incomplete Form" message="Please feel out all fields" />
+          </else>
+          <!-- <if lhs="[eval:'[object:RL[var:areaindexloop]/input.text]' != '' &amp;&amp; '[object:RW[var:areaindexloop]/input.text]' != '' &amp;&amp; '[var:slope-[var:areaindexloop]]' != '']" operator="e" rhs="true">
             <assign property="var:areaindexloop" value="[eval: [var:areaindexloop] + 1]" />
   		      <alert message="var:slope-[var:areaindexloop] is [var:slope-[var:areaindexloop]]" />
             <assign property="datasource:roofareasdb.query" value="INSERT INTO ROOFAREAS (LENGTH, WIDTH, SLOPE) values ('[object:RL[var:areaindexloop]/input.text]', '[object:RW[var:areaindexloop]/input.text]', '[var:slope-[var:areaindexloop]]');" />
               <else>
                 <alert title="Incomplete Form" message="Please feel out all fields" />
               </else>
-          </if>
+          </if> -->
         </if>
-        <!--<if lhs="[var:areaindex]" operator="gt" rhs="1">
-            <play action="roofarealoop" />
-          </if>
-          <else>
-            <alert title="Complete" message="played [var:areaindexloop]" />
-            <assign property="datasource:roofareasdb.query" value="INSERT INTO ROOFAREAS (LENGTH, WIDTH, SLOPE) values ('[object:RL1/input.text]', '[object:RW1/input.text]', '[object:SLOPE1/input.text]')[var:areaquerys];" />
-            
-            <alert message="INSERT INTO ROOFAREAS (LENGTH, WIDTH, SLOPE) values ('[object:RL1/input.text]', '[object:RW1/input.text]', '[object:SLOPE1/input.text]')[var:areaquerys];" />
-            <assign property="var:areaquerys" value="" />
-            <assign property="var:areaindexloop" value="0" />
-          </else>
-        </if>-->
+      </sync>
+    </action>
+
+    <action name="areaValidationLoop">
+      <if lhs="[var:areaValidationIndex]" operator="lt" rhs="[var:areaindex]">
+        <assign property="var:areaValidationIndex" value="[eval: [var:areaValidationIndex] + 1]" />
+        <if lhs="[eval:'[object:RL[var:areaValidationIndex]/input.text]' != '' &amp;&amp; '[object:RW[var:areaValidationIndex]/input.text]' != '' &amp;&amp; '[var:slope-[var:areaValidationIndex]]' != '']" operator="e" rhs="true">
+            <play action="areaValidationLoop" />
+            <else>
+              <alert title="Incomplete Form" message="Please feel out all fields" />
+            </else>
+        </if>
+        <else>
+          <play action="roofareas-db-add" />
+        </else>
+      </if>
+    </action>
+
+    <action name="roofareas-db-add">
+      <sync>
+        <assign property="var:areaindexloop" value="[eval: [var:areaindexloop] + 1]" />
+        <alert message="var:slope-[var:areaindexloop] is [var:slope-[var:areaindexloop]]" />
+        <assign property="datasource:roofareasdb.query" value="INSERT INTO ROOFAREAS (LENGTH, WIDTH, SLOPE) values ('[object:RL[var:areaindexloop]/input.text]', '[object:RW[var:areaindexloop]/input.text]', '[var:slope-[var:areaindexloop]]');" />
       </sync>
     </action>
     
