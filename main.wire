@@ -18,17 +18,22 @@
   <datasources>
     
   	<!-- !27 Global Web Services -->
-  	<datasource name="login" source="" query="/" providertype="json" httpmethod="post" httpheader="post"/>
-	<datasource name="createCustomer" source="" query="/" providertype="json" httpmethod="post" httpheader="post"/>
-	<datasource name="getEstimate" source="" query="/CustomerDetails" providertype="json" httpmethod="get" httpheader="get"/>
-	<datasource name="getProducts" source="" query="/Products" providertype="json" httpmethod="get" httpheader="get"/>
-	<datasource name="getAccessories" source="" query="/Accessories" providertype="json" httpmethod="get" httpheader="get"/>
-	<datasource name="getWarranties" source="" query="/Warranties" providertype="json" httpmethod="get" httpheader="get"/>
-	<datasource name="uploadPhoto" source="" query="/" providertype="json" httpmethod="post" httpheader="formSubmit" />
-	<datasource name="updateMeasurements" source="" query="/" providertype="json" httpmethod="put" httpheader="post" />
 
-	<httpheader name="post" Content-Type="application/json" />
-	<httpheader name="get" Content-Type="application/json" Token="[preferences:token]" ContractorId="[preferences:contractorId]" />
+  	<datasource name="login" source="" query="/" providertype="json" httpmethod="post" httpheader="login"/>
+	<datasource name="createCustomer" source="" query="/" providertype="json" httpmethod="post" httpheader="token-contractorid"/>
+	<datasource name="getEstimate" source="" query="/CustomerDetails" providertype="json" httpmethod="get" httpheader="token-contractorid"/>
+	<datasource name="getProducts" source="" query="/Products" providertype="json" httpmethod="get" httpheader="token-contractorid"/>
+	<datasource name="getAccessories" source="" query="/Accessories" providertype="json" httpmethod="get" httpheader="token-contractorid"/>
+	<datasource name="getWarranties" source="" query="/Warranties" providertype="json" httpmethod="get" httpheader="token-contractorid"/>
+
+	<datasource name="uploadPhoto" source="" query="/" providertype="json" httpmethod="post" httpheader="formSubmit" />
+	<datasource name="updateMeasurements" source="" query="/" providertype="json" httpmethod="put" httpheader="token-contractorid" />
+	<datasource name="generateEstimate" source="" query="/" providertype="json" httpmethod="post" httpheader="token-contractorid" />
+
+
+	<httpheader name="login" Content-Type="application/json" />
+	<httpheader name="token-contractorid" Content-Type="application/json" Token="[preferences:token]" ContractorId="[preferences:contractorId]" />
+
 	<httpheader name="formSubmit" Token="[preferences:token]" ContractorId="[preferences:contractorId]" Content-Type="multipart/form-data" Content-Disposition="form-data; name='File'; filename='test.jpg'"/>
 
     <datasource name="camera-roll" source="adsf" query="Camera Roll" providertype="camera"/>
@@ -94,40 +99,40 @@
 	{"Token":"[preferences:token]","ContractorId":"[preferences:contractorId]","CustomerDetails":{"CustomerFirstName":"[var:firstName]","CustomerMiddleName":"[var:middleName]","CustomerLastName":"[var:lastName]","Address1":"[var:address1]","Address2":"[var:address2]","City":"[var:city]","StateProvince":"[var:state]","PostalCode":"[var:postalCode]","Country":"[var:country]","Notes":"[var:notes]"}}
 	]]></texttemplate>
 	<texttemplate name="roofMeasurements"><![CDATA[
-		{"field":"[eval:[var:roofMeasurementsIterateCount]-1]","length":"[datasource:roofareasdb-list.[var:roofMeasurementsIterateCount].LENGTH]","width":"[datasource:roofareasdb-list.[var:roofMeasurementsIterateCount].WIDTH]","pitch":"[datasource:roofareasdb-list.[var:roofMeasurementsIterateCount].SLOPE]"}
+		{"Field":"[eval:[var:roofMeasurementsIterateCount]-1]","Length":"[datasource:roofareasdb-list.[var:roofMeasurementsIterateCount].LENGTH]","Width":"[datasource:roofareasdb-list.[var:roofMeasurementsIterateCount].WIDTH]","Pitch":"[datasource:roofareasdb-list.[var:roofMeasurementsIterateCount].SLOPE]"}
 	]]></texttemplate>
 	<texttemplate name="ridgeMeasurements"><![CDATA[
-		{"ridge":"[eval:[var:ridgeMeasurementsIterateCount]-1]","length":"[datasource:ridgesdb-list.[var:ridgeMeasurementsIterateCount].LENGTH]"}		
+		{"Order":"[eval:[var:ridgeMeasurementsIterateCount]-1]","Length":"[datasource:ridgesdb-list.[var:ridgeMeasurementsIterateCount].LENGTH]"}		
 	]]></texttemplate>
 	<texttemplate name="hips"><![CDATA[
-		{&quot;hip":"[eval:[var:hipsIterateCount]-1]","length":"[datasource:hipsdb-list.[var:hipsIterateCount].LENGTH]"}
+		{"Order":"[eval:[var:hipsIterateCount]-1]","Length":"[datasource:hipsdb-list.[var:hipsIterateCount].LENGTH]"}
 	]]></texttemplate>
 	<texttemplate name="valleys"><![CDATA[
-		{"valley":"[eval:[var:valleysIterateCount]-1]","length":"[datasource:valleysdb-list.[var:valleysIterateCount].LENGTH]"}
+		{"Order":"[eval:[var:valleysIterateCount]-1]","Length":"[datasource:valleysdb-list.[var:valleysIterateCount].LENGTH]"}
 	]]></texttemplate>
 	<texttemplate name="rakes"><![CDATA[
-		{"rake":"[eval:[var:rakesIterateCount]-1]","length":"[datasource:rakesdb-list.[var:rakesIterateCount].LENGTH]"}
+		{"Order":"[eval:[var:rakesIterateCount]-1]","Length":"[datasource:rakesdb-list.[var:rakesIterateCount].LENGTH]"}
 	]]></texttemplate>
 	<texttemplate name="eaves"><![CDATA[
-		{"eave":"[eval:[var:eavesIterateCount]-1]","length":"[datasource:eavesdb-list.[var:eavesIterateCount].LENGTH]"}
+		{"Order":"[eval:[var:eavesIterateCount]-1]","Length":"[datasource:eavesdb-list.[var:eavesIterateCount].LENGTH]"}
 	]]></texttemplate>
 	<texttemplate name="skylights"><![CDATA[
-		{"skylight":"[eval:[var:skylightsIterateCount]-1]","length":"[datasource:protrusionsdb-list.[var:skylightsIterateCount].LENGTH]","width":"[datasource:protrusionsdb-list.[var:skylightsIterateCount].WIDTH]"}
+		{"Order":"[eval:[var:skylightsIterateCount]-1]","Length":"[datasource:protrusionsdb-list.[var:skylightsIterateCount].LENGTH]","Width":"[datasource:protrusionsdb-list.[var:skylightsIterateCount].WIDTH]"}
 	]]></texttemplate>
 	<texttemplate name="plumbingVents"><![CDATA[
-		{"PlumbingVent":"[eval:[var:plumbingVentsIterateCount]-1]","type":"[datasource:ventsdb-list.[var:plumbingVentsIterateCount].SIZE]"}
+		{"Order":"[eval:[var:plumbingVentsIterateCount]-1]","Type":"[datasource:ventsdb-list.[var:plumbingVentsIterateCount].SIZE]"}
 	]]></texttemplate>
 	<texttemplate name="measurementsJSON"><![CDATA[
-		{"CustomerId":1,"Measurements":{"MeasurementId":1,"ExistingRoofType":"[var:existingRoofType]","NumberOfFloors":[var:numberOfFloors],[var:roofMeasurementsObject],"WasteFactor":"[var:wasteFactor]",[var:ridgeMeasurementsObject],[var:hipsObject],[var:valleysObject],[var:rakesObject],[var:eavesObject],[var:skylightsObject],[var:plumbingVentsObject]},"Token":"[pref:token]","ContractorId":[pref:contractorId]}
+		{"CustomerId":28,"Measurements":{"MeasurementId":1,"ExistingRoofType":"[var:existingRoofType]","NumberOfFloors":[var:numberOfFloors],[var:roofMeasurementsObject],"WasteFactor":"[var:wasteFactor]",[var:ridgeMeasurementsObject],[var:hipsObject],[var:valleysObject],[var:rakesObject],[var:eavesObject],[var:skylightsObject],[var:plumbingVentsObject]}}
 	]]></texttemplate>
 	<texttemplate name="accessories"><![CDATA[
-		{"AccessoryId":"[datasource:accessoriesdb-list.[var:accessoriesIterateCount].ACCESSORY]","count":"5"}
+		{"AccessoryId":"[datasource:accessoriesdb-list.[var:accessoriesIterateCount].ACCESSORY]","Quantity":"5"}
 	]]></texttemplate>
 	<texttemplate name="adjustments"><![CDATA[
-		{"PriceAdjustment":"[eval:[var:adjustmentsIterateCount]-1]","description":"[datasource:adjustmentsdb-list.[var:adjustmentsIterateCount].NOTES]","price":"[datasource:adjustmentsdb-list.[var:adjustmentsIterateCount].AMOUNT]"}
+		{"PriceAjustmentsId":"[eval:[var:adjustmentsIterateCount]-1]","Description":"[datasource:adjustmentsdb-list.[var:adjustmentsIterateCount].NOTES]","Price":"[datasource:adjustmentsdb-list.[var:adjustmentsIterateCount].AMOUNT]"}
 	]]></texttemplate>
 	<texttemplate name="estimateJSON"><![CDATA[
-		{"CustomerId":"1","Product":"[var:shingle]","Warranties":"[var:warranty]",[var:accessoriesObject],[var:adjustmentsObject],"AdditionalCost":{"TearOffLayers":[var:tearOffLayers],"TearOffType":"[var:tearOffType]","NumberOfStories":[var:numberOfFloors]}}
+		{"customerId":"28","productId":"[var:shingle]","warrantyId":"[var:warranty]",[var:accessoriesObject],[var:adjustmentsObject],"AdditionalCost":{"TearOffLayers":[var:tearOffLayers],"TearOffType":"[var:tearOffType]","NumberOfStories":[var:numberOfFloors]}}
 	]]></texttemplate>
 
   </datasources>
@@ -725,12 +730,11 @@
     
     <class name="photo">
       <panel name="photo[param:index]" width="100%" height="215">
-        <panel name="imgbox" width="226" height="190" ypos="10" clip="yes" >
-          <image name="rollphoto" asset="[param:photo]" height="100%"></image>
-          <image name="cameraphoto" fullpath="[param:photo]" height="100%"></image>
+        <panel name="imgbox" width="226" height="190" ypos="10" clip="yes" background="000000">
+          <!-- image will go here -->
         </panel>
         <panel name="notbox" width="47%" height="200" align="right" ypos="10" clip="yes">
-          <text name="note" width="100%" height="fit" style="darktext" size="16" alignment="left" text="[param:note]"></text>
+          <text name="note" width="100%" height="fit" style="darktext" size="16" alignment="left" text="Donec ullamcorper nulla non metus auctor fringilla. Cras justo odio, dapibus ac facilisis in, egestas eget quam."></text>
         </panel>
         <panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
       </panel>
@@ -1151,28 +1155,6 @@
         </panel>
     </class>
     
-    <class name="rollphoto">
-      <image name="thephoto" alias="THEPHOTO" asset="" height="100%" align="center" ></image>
-    </class>
-    
-    <class name="cameraphoto">
-      <image name="thephoto" alias="THEPHOTO" fullpath="[param:photo]" height="100%" align="center" ></image>
-    </class>
-    
-    <class name="addnote">
-      <panel name="addnote" alias="ADDNOTE" width="100%" height="100%" ypos="101%" background="#e3e3e3">
-        <panel name="toolbar" width="100%" height="74" background="#343434">
-          <text name="title" width="100%" height="100%" color="#ffffff" font="Futura-Medium" size="30" alignment="center" text="Add a Note"></text>
-          <text name="save" width="100" height="100%" align="right" color="#ffffff" font="Futura-Medium" size="24" alignment="center" text="Save" onclickup="savenote" clickuptarget="CONTAINER" ></text>
-          <text name="cancel" width="100" height="100%" color="#ffffff" font="Futura-Medium" size="24" alignment="center" text="Cancel"></text>
-        </panel>
-        <panel name="photolanding" alias="PHOTOLANDING" width="100%" height="40%" ypos="80"></panel>
-        <panel name="notewrap" width="80%" height="230" align="center" bottomof="PHOTOLANDING" margin-top="20" padding="10" background="ffffff" cornerradius="2" borderwidth="1" bordercolor="#343434" >
-          <textfield name="thenote" alias="THENOTE" width="100%" height="100%" font="Futura-Medium" size="20" color="#343434" alignment="left" valignment="top" multiline="yes" placeholder="Your Note Here."></textfield>
-        </panel>
-      </panel>
-    </class>
-    
   </classes>
  
   <!-- !MAIN -->
@@ -1458,9 +1440,9 @@
         <panel name="roof-Photo" alias="ROOF-PHOTO" width="512" height="100%" align="right" padding-left="20" padding-right="20" alpha="0">
           <object class="titlebutton" title="Photos &amp; Notes" action="addphoto" />
           <panel name="roofpagerbox" width="100%" height="[eval: [object:ROOF-PHOTO.height] - 146]" ypos="79" >
-            <list name="pager" datasource="photosdb-list" width="100%" height="100%" orientation="vertical" paginate="no">
-              <object class="photo" index="1" photo="[param:PHOTO]" note="[param:NOTE]" origin="[param:ORIGIN]" />
-            </list>
+            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no">
+              <object class="photo" index="1" />
+            </pager>
           </panel>
         </panel>
         
@@ -2075,8 +2057,8 @@
 			<assign property="preferences:contractorId" value="[datasource:login.1.ContractorId]" />
 			<assign property="preferences:contractorType" value="[datasource:login.1.ContractorType]" />
 			<assign property="preferences:trueSlate" value="[datasource:login.1.TrueSlate]" />
-			<assign property="httpheader:get.Token" value="[preferences:token]" />
-			<assign property="httpheader:get.ContractorId" value="[preferences:contractorId]" />
+			<assign property="httpheader:token-contractorid.Token" value="[preferences:token]" />
+			<assign property="httpheader:token-contractorid.ContractorId" value="[preferences:contractorId]" />
             
             <create class="choice" target="CONTAINER" />
             <alpha value="1" time=".3" target="CHOICE" />
@@ -2351,7 +2333,6 @@
         <alpha value="1" time=".1" target="CAMERAROLL/wait" />
         <assign property="datasource:camera-roll.source" value="asd" />
         <play action="hideclearcurtain" />
-        <assign property="var:photolocation" value="roll" />
       </sync>
     </action>
 
@@ -2381,40 +2362,12 @@
         <alert title="Hi, I'm photo..." message="[var:photo-url]" />
         <translate ypos="101%" time=".25" curve="easeout" target="CAMERAROLL" />
         <delete target="CAMERA-ROLL" />
-        <play action="addnote" />
-      </sync>
-    </action>
-    
-    <action name="addnote">
-      <sync>
-        <create class="addnote" target="CONTAINER" />
-        <if lhs="[var:photolocation]" operator="e" rhs="roll">
-          <create class="rollphoto" target="PHOTOLANDING" />
-          <assign property="object:THEPHOTO.asset" value="[var:photo-url]" />
-          <alert message="roll" />
-        </if>
-        <if lhs="[var:photolocation]" operator="e" rhs="camera">
-          <create class="cameraphoto" target="PHOTOLANDING" photo="[var:photo-url]" />
-          <!--<assign property="object:THEPHOTO.fullpath" value="" />-->
-          <alert message="camera" />
-        </if>
-        <translate ypos="0" time=".25" curve="easeout" target="ADDNOTE" />
-        <keyboard visible="yes" target="THENOTE" />
-      </sync>
-    </action>
-    
-    <action name="savenote">
-      <sync>
-        <assign property="var:thenote" value="[object:THENOTE.text]" />
         <play action="db-that-photo" />
-        <translate ypos="101%" time=".25" curve="easeout" target="ADDNOTE" />
-        <delete target="ADDNOTE" />
       </sync>
     </action>
 
     <action name="db-that-photo"> <!-- holla!* Rachael Goldberg Voice -->
-      <alert message="[var:thenote]" />
-      <assign property="datasource:photosdb.query" value="INSERT INTO PHOTOS (PHOTO, NOTE) values ('[var:photo-url]', '[var:thenote]')" />
+        <assign property="datasource:photosdb.query" value="INSERT INTO PHOTOS (PHOTO, NOTE) values ('[var:photo-url]', 'I am a note')" />
     </action>
 
     <action name="photo-db-save-confirm-the-magic-fuck-yes" datasource="photosdb">
@@ -2439,47 +2392,41 @@
     </action>
 
     <action name="snap-down">
-      <assign property="object:inner.background" value="#252525" />
+        <assign property="object:inner.background" value="#252525" />
     </action>
-    
     <action name="snap-photo">
-      <sync>
-        <event type="captureStillImage" target="CAMERA-VIEW" />
-        <assign property="object:CAMERA-CONTROLCENTER/snap/inner.background" value="#ed1c24" />
-      </sync>
+        <sync>
+            <event type="captureStillImage" target="CAMERA-VIEW" />
+            <assign property="object:CAMERA-CONTROLCENTER/snap/inner.background" value="#ed1c24" />
+        </sync>
     </action>
-    
     <action name="output">
-      <translate ypos="100%" time=".15" target="CAMERA-CONTROLCENTER" />
-      <sync>
-        <create class="capture-preview" target="CAMERA-CONTAINER" />
-        <translate ypos="0" time=".15" target="CAMERA-TOOLBAR" />
-        <!-- <delete target="CAMERA-VIEW" /> -->
-      </sync>
+        <translate ypos="100%" time=".15" target="CAMERA-CONTROLCENTER" />
+        <sync>
+          <create class="capture-preview" target="CAMERA-CONTAINER" />
+          <translate ypos="0" time=".15" target="CAMERA-TOOLBAR" />
+          <!-- <delete target="CAMERA-VIEW" /> -->
+        </sync>
     </action>
     
     <action name="capture-cancel">
-      <translate ypos="-70" time=".15" target="CAMERA-TOOLBAR" />
-      <sync>
-        <!-- <create class="camera-view" face="back" target="CAMERA-CONTAINER" /> -->
-        <translate valign="bottom" time=".15" target="CAMERA-CONTROLCENTER" />
-        <delete target="CAPTURE-PREVIEW" />
-      </sync>
+        <translate ypos="-70" time=".15" target="CAMERA-TOOLBAR" />
+        <sync>
+            <!-- <create class="camera-view" face="back" target="CAMERA-CONTAINER" /> -->
+            <translate valign="bottom" time=".15" target="CAMERA-CONTROLCENTER" />
+            <delete target="CAPTURE-PREVIEW" />
+        </sync>
     </action>
 
     <action name="capture-submit">
-      <sync>
-        <assign property="var:photoActive" value="1" />
-        <assign property="var:photo-url" value="[object:CAMERA-VIEW.photo]" />
-        <capture toalbum="GAF" target="CAPTURE-PREVIEW" />
-        <assign property="var:photolocation" value="camera" />
-        <play action="addnote" />
-        <translate ypos="101%" time=".25" curve="easeout" target="CAMERABOX" />
-        <delete target="CAMERA" />
-        <alert message="[var:photo-url]" />
-        <!--<play action="db-that-photo" />-->
-        
-      </sync>
+        <sync>
+            <assign property="var:photoActive" value="1" />
+            <assign property="var:photo-url" value="[object:CAMERA-VIEW.photo]" />
+            <capture toalbum="GAF" target="CAPTURE-PREVIEW" />
+            <translate ypos="101%" time=".25" curve="easeout" target="CAMERABOX" />
+            <delete target="CAMERA" />
+            <play action="db-that-photo" />
+        </sync>
     </action>
     
     <!-- !add adjustments -->
@@ -2646,9 +2593,9 @@
 			<assign property="var:postalCode" value="[datasource:customersdb-list.1.POSTAL]" />
 			<assign property="var:country" value="[datasource:customersdb-list.1.COUNTRY]" />
 			<assign property="var:notes" value="[datasource:customersdb-list.1.NOTES]" />
-			<assign property="datasource:createCustomer.postContent" value="[template:createCustomer.content]" />
-			<alert message="sending [template:createCustomer.content]" />
-			<assign property="datasource:createCustomer.source" value="https://162.209.101.177/api/CreateCustomer" />
+			<assign property="datasource:createCustomer.postContent" value="[template:createCustomer.content]" />-->
+<!-- 			<alert message="sending [template:createCustomer.content]" /> -->
+			<!--<assign property="datasource:createCustomer.source" value="https://162.209.101.177/api/CreateCustomer" />
 		</if>
 -->
     </action>
@@ -2734,11 +2681,17 @@
       <play action="released" />
       <!--<alert message="[var:roof]" />-->
       <play action="[var:roof]" />
+      <alert message="[var:roof]" />
     </action>
     
     <action name="INSPECTION">
       <!--<alert title="inspection" message="rooftype [object:ROOFTYPE/input.text] floors [object:FLOORS/input.text]" />-->
-      <assign property="datasource:inspectiondb.query" value="INSERT INTO INSPECTION (ROOFTYPE, FLOORS) VALUES ('[object:ROOFTYPE/input.text]', '[object:FLOORS/input.text]');" />
+      <if lhs="[eval:'[object:ROOFTYPE/input.text]' != '' &amp;&amp; '[object:FLOORS/input.text]' != '']" operator="e" rhs="true">
+        <assign property="datasource:inspectiondb.query" value="INSERT INTO INSPECTION (ROOFTYPE, FLOORS) VALUES ('[object:ROOFTYPE/input.text]', '[object:FLOORS/input.text]');" />
+        <else>
+          <alert title="Incomplete Form" message="Please feel out all fields" />
+        </else> 
+      </if>
     </action>
     
     <action name="inspection-query" datasource="inspectiondb" datasourceevent="querycomplete">
@@ -2751,22 +2704,43 @@
     
     <action name="ROOF AREA">
       <sync>
-        <!--<if lhs="[var:areaindexloop]" operator="lt" rhs="[var:areaindex]">-->
-          <assign property="var:areaindexloop" value="[eval: [var:areaindexloop] + 1]" />
-		  <alert message="var:slope-[var:areaindexloop] is [var:slope-[var:areaindexloop]]" />
-          <assign property="datasource:roofareasdb.query" value="INSERT INTO ROOFAREAS (LENGTH, WIDTH, SLOPE) values ('[object:RL[var:areaindexloop]/input.text]', '[object:RW[var:areaindexloop]/input.text]', '[var:slope-[var:areaindexloop]]');" />
-          <!--<if lhs="[var:areaindex]" operator="gt" rhs="1">
-            <play action="roofarealoop" />
-          </if>
+        <if lhs="[var:areaindex]" operator="gt" rhs="0">
+          <play action="areaValidationLoop" />
           <else>
-            <alert title="Complete" message="played [var:areaindexloop]" />
-            <assign property="datasource:roofareasdb.query" value="INSERT INTO ROOFAREAS (LENGTH, WIDTH, SLOPE) values ('[object:RL1/input.text]', '[object:RW1/input.text]', '[object:SLOPE1/input.text]')[var:areaquerys];" />
-            
-            <alert message="INSERT INTO ROOFAREAS (LENGTH, WIDTH, SLOPE) values ('[object:RL1/input.text]', '[object:RW1/input.text]', '[object:SLOPE1/input.text]')[var:areaquerys];" />
-            <assign property="var:areaquerys" value="" />
-            <assign property="var:areaindexloop" value="0" />
+            <alert title="Incomplete Form" message="Please feel out all fields" />
           </else>
-        </if>-->
+          <!-- <if lhs="[eval:'[object:RL[var:areaindexloop]/input.text]' != '' &amp;&amp; '[object:RW[var:areaindexloop]/input.text]' != '' &amp;&amp; '[var:slope-[var:areaindexloop]]' != '']" operator="e" rhs="true">
+            <assign property="var:areaindexloop" value="[eval: [var:areaindexloop] + 1]" />
+  		      <alert message="var:slope-[var:areaindexloop] is [var:slope-[var:areaindexloop]]" />
+            <assign property="datasource:roofareasdb.query" value="INSERT INTO ROOFAREAS (LENGTH, WIDTH, SLOPE) values ('[object:RL[var:areaindexloop]/input.text]', '[object:RW[var:areaindexloop]/input.text]', '[var:slope-[var:areaindexloop]]');" />
+              <else>
+                <alert title="Incomplete Form" message="Please feel out all fields" />
+              </else>
+          </if> -->
+        </if>
+      </sync>
+    </action>
+
+    <action name="areaValidationLoop">
+      <if lhs="[var:areaValidationIndex]" operator="lt" rhs="[var:areaindex]">
+        <assign property="var:areaValidationIndex" value="[eval: [var:areaValidationIndex] + 1]" />
+        <if lhs="[eval:'[object:RL[var:areaValidationIndex]/input.text]' != '' &amp;&amp; '[object:RW[var:areaValidationIndex]/input.text]' != '' &amp;&amp; '[var:slope-[var:areaValidationIndex]]' != '']" operator="e" rhs="true">
+            <play action="areaValidationLoop" />
+            <else>
+              <alert title="Incomplete Form" message="Please feel out all fields" />
+            </else>
+        </if>
+        <else>
+          <play action="roofareas-db-add" />
+        </else>
+      </if>
+    </action>
+
+    <action name="roofareas-db-add">
+      <sync>
+        <assign property="var:areaindexloop" value="[eval: [var:areaindexloop] + 1]" />
+        <alert message="var:slope-[var:areaindexloop] is [var:slope-[var:areaindexloop]]" />
+        <assign property="datasource:roofareasdb.query" value="INSERT INTO ROOFAREAS (LENGTH, WIDTH, SLOPE) values ('[object:RL[var:areaindexloop]/input.text]', '[object:RW[var:areaindexloop]/input.text]', '[var:slope-[var:areaindexloop]]');" />
       </sync>
     </action>
     
@@ -2799,7 +2773,12 @@
     
     <action name="WASTE">
       <!--<alert message="[object:WASTEPERCENT/input.text]" />-->
-      <assign property="datasource:wastedb.query" value="INSERT INTO WASTE (PERCENT) values ('[object:WASTEPERCENT/input.text]');" />
+      <if lhs="[eval:'[object:WASTEPERCENT/input.text]' != '']" operator="e" rhs="true">
+        <assign property="datasource:wastedb.query" value="INSERT INTO WASTE (PERCENT) values ('[object:WASTEPERCENT/input.text]');" />
+        <else>
+          <alert title="Incomplete Form" message="Please feel out all fields" />
+        </else> 
+      </if>
     </action>
     
     <action name="wastequery" datasource="wastedb" datasourceevent="querycomplete">
@@ -3338,7 +3317,6 @@
 
 		<action name="sendMeasurements" >
 			<assign property="var:measurementsJSON" value="[template:measurementsJSON.content]"/>
-				<play action="formatEstimate" />
 			<assign property="datasource:updateMeasurements.postContent" value="[var:measurementsJSON]" />
 			<assign property="datasource:updateMeasurements.source" value="https://162.209.101.177/api/UpdateMeasurements" />
 <!-- 			<assign property="object:JSON.text" value="[var:measurementsJSON]" /> -->
@@ -3347,6 +3325,7 @@
 		
 		<action name="updateMeasurements-complete" datasource="updateMeasurements" datasourceevent="querycomplete" >
 			<alert message="updateMeasurements-complete content [datasource:updateMeasurements.0.content]" />
+				<play action="formatEstimate" />
 <!-- 				<play action="formatEstimate" /> -->
 <!--
 			<if lhs="[datasource:updateMeasurements.1.ResponseCode]" operator="e" rhs="100">
@@ -3391,7 +3370,7 @@
 				<assign property="var:adjustmentsIterateCount" value="1" />
 				<play action="formatAdjustments" />
 				<else>
-					<assign property="var:adjustmentsObject" value="&quot;PriceAdjustments&quot;: []" />
+					<assign property="var:adjustmentsObject" value="&quot;PriceAjustments&quot;: []" />
 <!-- 					<alert message="var:accessoriesObject is [var:accessoriesObject] var:adjustmentsObject is [var:adjustmentsObject]" /> -->
 					<play action="finishEstimate" />
 				</else>
@@ -3404,15 +3383,34 @@
 				<assign property="var:adjustmentsJSON" value="[var:adjustmentsJSON][eval:[var:adjustmentsIterateCount] == 1 ? '':','][template:adjustments.content]" />
 				<assign property="var:adjustmentsIterateCount" value="[eval: [var:adjustmentsIterateCount] +1]" />
 			</loop>
-			<assign property="var:adjustmentsObject" value="&quot;PriceAdjustments&quot;: [[var:adjustmentsJSON]]" />
+			<assign property="var:adjustmentsObject" value="&quot;PriceAjustments&quot;: [[var:adjustmentsJSON]]" />
 <!-- 			<alert message="var:accessoriesJSON is [var:accessoriesJSON] var:adjustmentsJSON is [var:adjustmentsJSON]" /> -->
 			<play action="finishEstimate" />
 		</action>
 		
 		<action name="finishEstimate" >
 			<assign property="var:estimateJSON" value="[template:estimateJSON.content]" />
+			<assign property="datasource:generateEstimate.postContent" value="[var:estimateJSON]" />
+			<assign property="datasource:generateEstimate.source" value="https://162.209.101.177/api/GenerateEstimate" />
 			<email subject="estimate and measurements json" body="measurements\n\n[var:measurementsJSON]\n\n\n estimate\n\n[var:estimateJSON]" toaddress="mlong@rarewire.com" />
 		</action>
+		
+		<action name="estimate-complete" datasource="generateEstimate" datasourceevent="querycomplete">
+			<if lhs="[datasource:generateEstimate.1.ResponseCode]" operator="e" rhs="100">
+				<alert message="estimate received" />
+<!-- 				<play action="show-pdf" /> -->
+			</if>
+		</action>
+
+		<action name="estimate-error" datasource="generateEstimate" datasourceevent="datasourceerror">
+			<alert message="estimate error [datasource:generateEstimate.0.content]" />
+		</action>
+		
+<!--
+		<action name="show-pdf" >
+			
+		</action>
+-->
 
         <!--<alert title="customer1" message="[datasource:customersdb-list.1.FNAME]" />
         <alert title="customer2" message="[datasource:customersdb-list.2.FNAME]" />-->
