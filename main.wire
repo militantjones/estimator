@@ -730,11 +730,12 @@
     
     <class name="photo">
       <panel name="photo[param:index]" width="100%" height="215">
-        <panel name="imgbox" width="226" height="190" ypos="10" clip="yes" background="000000">
-          <!-- image will go here -->
+        <panel name="imgbox" width="226" height="190" ypos="10" clip="yes" >
+          <image name="rollphoto" asset="[param:photo]" height="100%"></image>
+          <image name="cameraphoto" fullpath="[param:photo]" height="100%"></image>
         </panel>
         <panel name="notbox" width="47%" height="200" align="right" ypos="10" clip="yes">
-          <text name="note" width="100%" height="fit" style="darktext" size="16" alignment="left" text="Donec ullamcorper nulla non metus auctor fringilla. Cras justo odio, dapibus ac facilisis in, egestas eget quam."></text>
+          <text name="note" width="100%" height="fit" style="darktext" size="16" alignment="left" text="[param:note]"></text>
         </panel>
         <panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
       </panel>
@@ -1147,12 +1148,35 @@
             </panel>
         </panel>
     </class>
+    
     <class name="camera-roll">
         <panel name="camera-roll" alias="CAMERA-ROLL" width="100%" height="100%" >
             <list name="roll" datasource="camera-roll" width="100%" height="100%" step="5" paginate="no" orientation="vertical" align="center">
                 <object class="camera-roll-row" row="[datasource:dataSourceIndex]" url1="[datasource:camera-roll.[param:dataSourceIndex].url]" url2="[datasource:camera-roll.[eval:[param:dataSourceIndex] + 1].url]" url3="[datasource:camera-roll.[eval:[param:dataSourceIndex] + 2].url]" url4="[datasource:camera-roll.[eval:[param:dataSourceIndex] + 3].url]" url5="[datasource:camera-roll.[eval:[param:dataSourceIndex] + 4].url]"/>
             </list>
         </panel>
+    </class>
+    
+    <class name="rollphoto">
+      <image name="thephoto" alias="THEPHOTO" asset="" height="100%" align="center" ></image>
+    </class>
+    
+    <class name="cameraphoto">
+      <image name="thephoto" alias="THEPHOTO" fullpath="[param:photo]" height="100%" align="center" ></image>
+    </class>
+    
+    <class name="addnote">
+      <panel name="addnote" alias="ADDNOTE" width="100%" height="100%" ypos="101%" background="#e3e3e3">
+        <panel name="toolbar" width="100%" height="74" background="#343434">
+          <text name="title" width="100%" height="100%" color="#ffffff" font="Futura-Medium" size="30" alignment="center" text="Add a Note"></text>
+          <text name="save" width="100" height="100%" align="right" color="#ffffff" font="Futura-Medium" size="24" alignment="center" text="Save" onclickup="savenote" clickuptarget="CONTAINER" ></text>
+          <text name="cancel" width="100" height="100%" color="#ffffff" font="Futura-Medium" size="24" alignment="center" text="Cancel"></text>
+        </panel>
+        <panel name="photolanding" alias="PHOTOLANDING" width="100%" height="40%" ypos="80"></panel>
+        <panel name="notewrap" width="80%" height="230" align="center" bottomof="PHOTOLANDING" margin-top="20" padding="10" background="ffffff" cornerradius="2" borderwidth="1" bordercolor="#343434" >
+          <textfield name="thenote" alias="THENOTE" width="100%" height="100%" font="Futura-Medium" size="20" color="#343434" alignment="left" valignment="top" multiline="yes" placeholder="Your Note Here."></textfield>
+        </panel>
+      </panel>
     </class>
     
   </classes>
@@ -1337,9 +1361,9 @@
         <panel name="roof-Inspection" alias="ROOF-INSPECTION" width="512" height="100%" align="right" padding-left="20" padding-right="20" alpha="0">
           <object class="title" title="Inspection"  />
           <panel name="roofpagerbox" width="100%" height="[eval: [object:ROOF-INSPECTION.height] - 146]" ypos="79" >
-            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no">
-              <object class="inspection" />
-            </pager>
+            <list name="pager" datasource="photosdb-list" width="100%" height="100%" orientation="vertical" paginate="no">
+              <object class="photo" index="1" photo="[param:PHOTO]" note="[param:NOTE]" origin="[param:ORIGIN]" />
+            </list>
           </panel>
         </panel>
         
@@ -1440,9 +1464,9 @@
         <panel name="roof-Photo" alias="ROOF-PHOTO" width="512" height="100%" align="right" padding-left="20" padding-right="20" alpha="0">
           <object class="titlebutton" title="Photos &amp; Notes" action="addphoto" />
           <panel name="roofpagerbox" width="100%" height="[eval: [object:ROOF-PHOTO.height] - 146]" ypos="79" >
-            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no">
-              <object class="photo" index="1" />
-            </pager>
+            <list name="pager" datasource="photosdb-list" width="100%" height="100%" orientation="vertical" paginate="no">
+              <object class="photo" index="1" photo="[param:PHOTO]" note="[param:NOTE]" origin="[param:ORIGIN]" />
+            </list>
           </panel>
         </panel>
         
@@ -2333,6 +2357,7 @@
         <alpha value="1" time=".1" target="CAMERAROLL/wait" />
         <assign property="datasource:camera-roll.source" value="asd" />
         <play action="hideclearcurtain" />
+        <assign property="var:photolocation" value="roll" />
       </sync>
     </action>
 
@@ -2362,12 +2387,40 @@
         <alert title="Hi, I'm photo..." message="[var:photo-url]" />
         <translate ypos="101%" time=".25" curve="easeout" target="CAMERAROLL" />
         <delete target="CAMERA-ROLL" />
+        <play action="addnote" />
+      </sync>
+    </action>
+    
+    <action name="addnote">
+      <sync>
+        <create class="addnote" target="CONTAINER" />
+        <if lhs="[var:photolocation]" operator="e" rhs="roll">
+          <create class="rollphoto" target="PHOTOLANDING" />
+          <assign property="object:THEPHOTO.asset" value="[var:photo-url]" />
+          <alert message="roll" />
+        </if>
+        <if lhs="[var:photolocation]" operator="e" rhs="camera">
+          <create class="cameraphoto" target="PHOTOLANDING" photo="[var:photo-url]" />
+          <!--<assign property="object:THEPHOTO.fullpath" value="" />-->
+          <alert message="camera" />
+        </if>
+        <translate ypos="0" time=".25" curve="easeout" target="ADDNOTE" />
+        <keyboard visible="yes" target="THENOTE" />
+      </sync>
+    </action>
+    
+    <action name="savenote">
+      <sync>
+        <assign property="var:thenote" value="[object:THENOTE.text]" />
         <play action="db-that-photo" />
+        <translate ypos="101%" time=".25" curve="easeout" target="ADDNOTE" />
+        <delete target="ADDNOTE" />
       </sync>
     </action>
 
     <action name="db-that-photo"> <!-- holla!* Rachael Goldberg Voice -->
-        <assign property="datasource:photosdb.query" value="INSERT INTO PHOTOS (PHOTO, NOTE) values ('[var:photo-url]', 'I am a note')" />
+      <alert message="[var:thenote]" />
+      <assign property="datasource:photosdb.query" value="INSERT INTO PHOTOS (PHOTO, NOTE) values ('[var:photo-url]', '[var:thenote]')" />
     </action>
 
     <action name="photo-db-save-confirm-the-magic-fuck-yes" datasource="photosdb">
@@ -2392,41 +2445,46 @@
     </action>
 
     <action name="snap-down">
-        <assign property="object:inner.background" value="#252525" />
+      <assign property="object:inner.background" value="#252525" />
     </action>
+    
     <action name="snap-photo">
-        <sync>
-            <event type="captureStillImage" target="CAMERA-VIEW" />
-            <assign property="object:CAMERA-CONTROLCENTER/snap/inner.background" value="#ed1c24" />
-        </sync>
+      <sync>
+        <event type="captureStillImage" target="CAMERA-VIEW" />
+        <assign property="object:CAMERA-CONTROLCENTER/snap/inner.background" value="#ed1c24" />
+      </sync>
     </action>
+    
     <action name="output">
-        <translate ypos="100%" time=".15" target="CAMERA-CONTROLCENTER" />
-        <sync>
-          <create class="capture-preview" target="CAMERA-CONTAINER" />
-          <translate ypos="0" time=".15" target="CAMERA-TOOLBAR" />
-          <!-- <delete target="CAMERA-VIEW" /> -->
-        </sync>
+      <translate ypos="100%" time=".15" target="CAMERA-CONTROLCENTER" />
+      <sync>
+        <create class="capture-preview" target="CAMERA-CONTAINER" />
+        <translate ypos="0" time=".15" target="CAMERA-TOOLBAR" />
+        <!-- <delete target="CAMERA-VIEW" /> -->
+      </sync>
     </action>
     
     <action name="capture-cancel">
-        <translate ypos="-70" time=".15" target="CAMERA-TOOLBAR" />
-        <sync>
-            <!-- <create class="camera-view" face="back" target="CAMERA-CONTAINER" /> -->
-            <translate valign="bottom" time=".15" target="CAMERA-CONTROLCENTER" />
-            <delete target="CAPTURE-PREVIEW" />
-        </sync>
+      <translate ypos="-70" time=".15" target="CAMERA-TOOLBAR" />
+      <sync>
+        <!-- <create class="camera-view" face="back" target="CAMERA-CONTAINER" /> -->
+        <translate valign="bottom" time=".15" target="CAMERA-CONTROLCENTER" />
+        <delete target="CAPTURE-PREVIEW" />
+      </sync>
     </action>
 
     <action name="capture-submit">
-        <sync>
-            <assign property="var:photoActive" value="1" />
-            <assign property="var:photo-url" value="[object:CAMERA-VIEW.photo]" />
-            <capture toalbum="GAF" target="CAPTURE-PREVIEW" />
-            <translate ypos="101%" time=".25" curve="easeout" target="CAMERABOX" />
-            <delete target="CAMERA" />
-            <play action="db-that-photo" />
-        </sync>
+      <sync>
+        <assign property="var:photoActive" value="1" />
+        <assign property="var:photo-url" value="[object:CAMERA-VIEW.photo]" />
+        <capture toalbum="GAF" target="CAPTURE-PREVIEW" />
+        <assign property="var:photolocation" value="camera" />
+        <play action="addnote" />
+        <translate ypos="101%" time=".25" curve="easeout" target="CAMERABOX" />
+        <delete target="CAMERA" />
+        <alert message="[var:photo-url]" />
+        <!--<play action="db-that-photo" />-->
+      </sync>
     </action>
     
     <!-- !add adjustments -->
