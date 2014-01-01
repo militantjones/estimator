@@ -1,4 +1,4 @@
-<wire> 
+<wire>   
 
   <!-- GAF Estimator -->
   <!-- iOS iPad -->
@@ -2878,7 +2878,6 @@
       <play action="released" />
       <!--<alert message="[var:roof]" />-->
       <play action="[var:roof]" />
-      <alert message="[var:roof]" />
     </action>
     
     <action name="INSPECTION">
@@ -2904,16 +2903,8 @@
         <if lhs="[var:areaindex]" operator="gt" rhs="0">
           <play action="areaValidationLoop" />
           <else>
-            <alert title="Incomplete Form" message="Please feel out all fields" />
+            <alert title="No Roof Areas Available" message="There have not been any Roof Areas added to save." />
           </else>
-          <!-- <if lhs="[eval:'[object:RL[var:areaindexloop]/input.text]' != '' &amp;&amp; '[object:RW[var:areaindexloop]/input.text]' != '' &amp;&amp; '[var:slope-[var:areaindexloop]]' != '']" operator="e" rhs="true">
-            <assign property="var:areaindexloop" value="[eval: [var:areaindexloop] + 1]" />
-  		      <alert message="var:slope-[var:areaindexloop] is [var:slope-[var:areaindexloop]]" />
-            <assign property="datasource:roofareasdb.query" value="INSERT INTO ROOFAREAS (LENGTH, WIDTH, SLOPE) values ('[object:RL[var:areaindexloop]/input.text]', '[object:RW[var:areaindexloop]/input.text]', '[var:slope-[var:areaindexloop]]');" />
-              <else>
-                <alert title="Incomplete Form" message="Please feel out all fields" />
-              </else>
-          </if> -->
         </if>
       </sync>
     </action>
@@ -2925,12 +2916,14 @@
             <play action="areaValidationLoop" />
             <else>
               <alert title="Incomplete Form" message="Please feel out all fields" />
+              <assign property="var:areaValidationIndex" value="0" />
             </else>
         </if>
         <else>
           <play action="roofareas-db-add" />
         </else>
       </if>
+
     </action>
 
     <action name="roofareas-db-add">
@@ -2962,6 +2955,7 @@
           <else>
             <assign property="datasource:roofareasdb-list.query" value="SELECT * FROM ROOFAREAS;" />
             <assign property="var:areaindexloop" value="0" />
+            <assign property="var:areaValidationIndex" value="0" />
           </else>
         </if>
         <!--<alert message="[var:areaindexloop]" />-->
@@ -2984,11 +2978,38 @@
     
     <action name="RIDGE">
       <sync>
+        <if lhs="[var:ridgeindex]" operator="gt" rhs="0">
+          <play action="ridgeValidationLoop" />
+          <else>
+            <alert title="No Ridges Available" message="There have not been any Ridges added to save." />
+          </else>
+        </if>
+      </sync>
+    </action>
+
+    <action name="ridgeValidationLoop">
+      <if lhs="[var:ridgeValidationIndex]" operator="lt" rhs="[var:ridgeindex]">
+        <assign property="var:ridgeValidationIndex" value="[eval: [var:ridgeValidationIndex] + 1]" />
+        <if lhs="[eval:'[object:RIDGELENGTH[var:ridgeValidationIndex]/input.text]' != '' &amp;&amp; '[var:ridgevent-[var:ridgeValidationIndex]]' != '']" operator="e" rhs="true">
+            <play action="ridgeValidationLoop" />
+            <else>
+              <alert title="Incomplete Form" message="Please feel out all fields" />
+              <assign property="var:ridgeValidationIndex" value="0" />
+            </else>
+        </if>
+        <else>
+          <play action="ridge-db-add" />
+        </else>
+      </if>
+    </action>
+
+    <action name="ridge-db-add">
+      <sync>
         <assign property="var:ridgeindexloop" value="[eval: [var:ridgeindexloop] + 1]" />
         <alert message="[object:RIDGELENGTH[var:ridgeindexloop]/input.text] ridgevent: [var:ridgevent-[var:ridgeindexloop]] " />
         <assign property="datasource:ridgesdb.query" value="INSERT INTO RIDGES (LENGTH, VENTS) values ('[object:RIDGELENGTH[var:ridgeindexloop]/input.text]', '[var:ridgevent-[var:ridgeindexloop]]');" />
       </sync>
-    </action>
+    </action>    
     
     <action name="ridgequery" datasource="ridgesdb" datasourceevent="querycomplete">
       <sync>
@@ -2997,6 +3018,7 @@
           <else>
             <assign property="datasource:ridgesdb-list.query" value="SELECT * FROM RIDGES;" />
             <assign property="var:ridgeindexloop" value="0" />
+            <assign property="var:ridgeValidationIndex" value="0" />
           </else>
         </if>
       </sync>
@@ -3004,11 +3026,37 @@
     
     <action name="HIP">
       <sync>
-        <assign property="var:hipindexloop" value="[eval: [var:hipindexloop] + 1]" />
-        <!--<alert message="[object:HIPLENGTH[var:hipindexloop]/input.text]" />-->
-        <assign property="datasource:hipsdb.query" value="INSERT INTO HIPS (LENGTH) values ('[object:HIPLENGTH[var:hipindexloop]/input.text]');" />
+        <if lhs="[var:hipindex]" operator="gt" rhs="0">
+          <play action="hipValidationLoop" />
+          <else>
+            <alert title="No Hips Available" message="There have not been any Hips added to save." />
+          </else>
+        </if>
       </sync>
     </action>
+
+    <action name="hipValidationLoop">
+      <if lhs="[var:hipValidationIndex]" operator="lt" rhs="[var:hipindex]">
+        <assign property="var:hipValidationIndex" value="[eval: [var:hipValidationIndex] + 1]" />
+        <if lhs="[eval:'[object:HIPLENGTH[var:hipValidationIndex]/input.text]' != '']" operator="e" rhs="true">
+            <play action="hipValidationLoop" />
+            <else>
+              <alert title="Incomplete Form" message="Please feel out all fields" />
+              <assign property="var:hipValidationIndex" value="0" />
+            </else>
+        </if>
+        <else>
+          <play action="hip-db-add" />
+        </else>
+      </if>
+    </action>
+
+    <action name="hip-db-add">
+      <sync>
+        <assign property="var:hipindexloop" value="[eval: [var:hipindexloop] + 1]" />
+        <assign property="datasource:hipsdb.query" value="INSERT INTO HIPS (LENGTH) values ('[object:HIPLENGTH[var:hipindexloop]/input.text]');" />
+      </sync>
+    </action>  
     
     <action name="hipquery" datasource="hipsdb" datasourceevent="querycomplete">
       <sync>
@@ -3017,6 +3065,7 @@
           <else>
             <assign property="datasource:hipsdb-list.query" value="SELECT * FROM HIPS;" />
             <assign property="var:hipindexloop" value="0" />
+            <assign property="var:hipValidationIndex" value="0" />
           </else>
         </if>
       </sync>
@@ -3024,11 +3073,38 @@
     
     <action name="VALLEY">
       <sync>
+        <if lhs="[var:valleyindex]" operator="gt" rhs="0">
+          <play action="valleyValidationLoop" />
+          <else>
+            <alert title="No Valleys Available" message="There have not been any Valleys added to save." />
+          </else>
+        </if>
+      </sync>
+    </action>
+
+    <action name="valleyValidationLoop">
+      <if lhs="[var:valleyValidationIndex]" operator="lt" rhs="[var:valleyindex]">
+        <assign property="var:valleyValidationIndex" value="[eval: [var:valleyValidationIndex] + 1]" />
+        <if lhs="[eval:'[object:VALLEYLENGTH[var:valleyValidationIndex]/input.text]' != '']" operator="e" rhs="true">
+            <play action="ridgeValidationLoop" />
+            <else>
+              <alert title="Incomplete Form" message="Please feel out all fields" />
+              <assign property="var:valleyValidationIndex" value="0" />
+            </else>
+        </if>
+        <else>
+          <play action="valley-db-add" />
+        </else>
+      </if>
+    </action>
+
+    <action name="valley-db-add">
+      <sync>
         <assign property="var:valleyindexloop" value="[eval: [var:valleyindexloop] + 1]" />
         <alert message="[object:VALLEYLENGTH[var:valleyindexloop]/input.text]" />
         <assign property="datasource:valleysdb.query" value="INSERT INTO VALLEYS (LENGTH) values ('[object:VALLEYLENGTH[var:valleyindexloop]/input.text]')" />
       </sync>
-    </action>
+    </action>  
     
     <action name="valleyquery" datasource="valleysdb" datasourceevent="querycomplete">
       <sync>
@@ -3037,6 +3113,7 @@
           <else>
             <assign property="datasource:valleysdb-list.query" value="SELECT * FROM VALLEYS;" />
             <assign property="var:valleyindexloop" value="0" />
+            <assign property="var:valleyValidationIndex" value="0" />
           </else>
         </if>
       </sync>
@@ -3044,11 +3121,38 @@
     
     <action name="RAKE">
       <sync>
-        <assign property="var:rakeindexloop" value="[eval: [var:rakeindexloop] + 1]" />
-        <!--<alert message="[object:RAKELENGTH[var:rakeindexloop]/input.text]" />-->
-        <assign property="datasource:rakesdb.query" value="INSERT INTO RAKES (LENGTH) values ('[object:RAKELENGTH[var:rakeindexloop]/input.text]')" />
+        <if lhs="[var:rakeindex]" operator="gt" rhs="0">
+          <play action="rakeValidationLoop" />
+          <else>
+            <alert title="No Rakes Available" message="There have not been any Rakes added to save." />
+          </else>
+        </if>
       </sync>
     </action>
+
+    <action name="rakeValidationLoop">
+      <if lhs="[var:rakeValidationIndex]" operator="lt" rhs="[var:rakeindex]">
+        <assign property="var:rakeValidationIndex" value="[eval: [var:rakeValidationIndex] + 1]" />
+        <if lhs="[eval:'[object:RAKELENGTH[var:rakeValidationIndex]/input.text]' != '']" operator="e" rhs="true">
+            <play action="rakeValidationLoop" />
+            <else>
+              <alert title="Incomplete Form" message="Please feel out all fields" />
+              <assign property="var:rakeValidationIndex" value="0" />
+            </else>
+        </if>
+        <else>
+          <play action="rake-db-add" />
+        </else>
+      </if>
+    </action>
+
+    <action name="rake-db-add">
+      <sync>
+        <assign property="var:rakeindexloop" value="[eval: [var:rakeindexloop] + 1]" />
+        <alert message="[object:RAKELENGTH[var:rakeindexloop]/input.text]" />
+        <assign property="datasource:rakesdb.query" value="INSERT INTO RAKES (LENGTH) values ('[object:RAKELENGTH[var:rakeindexloop]/input.text]')" />
+      </sync>
+    </action> 
     
     <action name="rakequery" datasource="rakesdb" datasourceevent="querycomplete">
       <sync>
@@ -3057,6 +3161,7 @@
           <else>
             <assign property="datasource:rakesdb-list.query" value="SELECT * FROM RAKES;" />
             <assign property="var:rakeindexloop" value="0" />
+            <assign property="var:rakeValidationIndex" value="0" />
           </else>
         </if>
       </sync>
@@ -3064,11 +3169,38 @@
     
     <action name="EAVE">
       <sync>
-        <assign property="var:eaveindexloop" value="[eval: [var:eaveindexloop] + 1]" />
-        <!--<alert message="[object:EAVELENGTH[var:eaveindexloop]/input.text]" />-->
-        <assign property="datasource:eavesdb.query" value="INSERT INTO EAVES (LENGTH) values ('[object:EAVELENGTH[var:eaveindexloop]/input.text]')" />
+        <if lhs="[var:eaveindex]" operator="gt" rhs="0">
+          <play action="eaveValidationLoop" />
+          <else>
+            <alert title="No Eaves Available" message="There have not been any Eaves added to save." />
+          </else>
+        </if>
       </sync>
     </action>
+
+    <action name="eaveValidationLoop">
+      <if lhs="[var:eaveValidationIndex]" operator="lt" rhs="[var:eaveindex]">
+        <assign property="var:eaveValidationIndex" value="[eval: [var:eaveValidationIndex] + 1]" />
+        <if lhs="[eval:'[object:EAVELENGTH[var:eaveValidationIndex]/input.text]' != '']" operator="e" rhs="true">
+            <play action="eaveValidationLoop" />
+            <else>
+              <alert title="Incomplete Form" message="Please feel out all fields" />
+              <assign property="var:eaveValidationIndex" value="0" />
+            </else>
+        </if>
+        <else>
+          <play action="eave-db-add" />
+        </else>
+      </if>
+    </action>
+
+    <action name="eave-db-add">
+      <sync>
+        <assign property="var:eaveindexloop" value="[eval: [var:eaveindexloop] + 1]" />
+        <alert message="[object:EAVELENGTH[var:eaveindexloop]/input.text]" />
+        <assign property="datasource:eavesdb.query" value="INSERT INTO EAVES (LENGTH) values ('[object:EAVELENGTH[var:eaveindexloop]/input.text]')" />
+      </sync>
+    </action> 
     
     <action name="eavequery" datasource="eavesdb" datasourceevent="querycomplete">
       <sync>
@@ -3077,6 +3209,7 @@
           <else>
             <assign property="datasource:eavesdb-list.query" value="SELECT * FROM EAVES;" />
             <assign property="var:eaveindexloop" value="0" />
+            <assign property="var:eaveValidationIndex" value="0" />
           </else>
         </if>
       </sync>
@@ -3084,11 +3217,38 @@
     
     <action name="CHIMNEY">
       <sync>
-        <assign property="var:protrusionindexloop" value="[eval: [var:protrusionindexloop] + 1]" />
-        <assign property="datasource:protrusionsdb.query" value="INSERT INTO PROTRUSIONS (LENGTH, WIDTH, TYPE) values ('[object:PROTRUSIONLENGTH[var:protrusionindexloop]/input.text]', '[object:PROTRUSIONWIDTH[var:protrusionindexloop]/input.text]', '[object:TYPE[var:protrusionindexloop].text]');" />
-        <!--<alert message="Type:[object:TYPE[var:protrusionindexloop].text] Length:[object:PROTRUSIONLENGTH[var:protrusionindexloop]/input.text] Width:[object:PROTRUSIONWIDTH[var:protrusionindexloop]/input.text]" />-->
+        <if lhs="[var:protrusionindex]" operator="gt" rhs="0">
+          <play action="chimneyValidationLoop" />
+          <else>
+            <alert title="No Chimneys Available" message="There have not been any Chimneys added to save." />
+          </else>
+        </if>
       </sync>
     </action>
+
+    <action name="chimneyValidationLoop">
+      <if lhs="[var:chimneyValidationIndex]" operator="lt" rhs="[var:protrusionindex]">
+        <assign property="var:chimneyValidationIndex" value="[eval: [var:chimneyValidationIndex] + 1]" />
+        <if lhs="[eval:'[object:PROTRUSIONLENGTH[var:chimneyValidationIndex]/input.text]' != '' &amp;&amp; '[object:PROTRUSIONWIDTH[var:chimneyValidationIndex]/input.text]' != '']" operator="e" rhs="true">
+            <play action="chimneyValidationLoop" />
+            <else>
+              <alert title="Incomplete Form" message="Please feel out all fields" />
+              <assign property="var:chimneyValidationIndex" value="0" />
+            </else>
+        </if>
+        <else>
+          <play action="chimney-db-add" />
+        </else>
+      </if>
+    </action>
+
+    <action name="chimney-db-add">
+      <sync>
+        <assign property="var:protrusionindexloop" value="[eval: [var:protrusionindexloop] + 1]" />
+        <assign property="datasource:protrusionsdb.query" value="INSERT INTO PROTRUSIONS (LENGTH, WIDTH, TYPE) values ('[object:PROTRUSIONLENGTH[var:protrusionindexloop]/input.text]', '[object:PROTRUSIONWIDTH[var:protrusionindexloop]/input.text]', '[object:TYPE[var:protrusionindexloop].text]');" />
+        <alert message="Type:[object:TYPE[var:protrusionindexloop].text] Length:[object:PROTRUSIONLENGTH[var:protrusionindexloop]/input.text] Width:[object:PROTRUSIONWIDTH[var:protrusionindexloop]/input.text]" />
+      </sync>
+    </action> 
     
     <action name="chimneyquery" datasource="protrusionsdb" datasourceevent="querycomplete">
       <sync>
@@ -3097,6 +3257,7 @@
           <else>
             <assign property="datasource:protrusionsdb-list.query" value="SELECT * FROM PROTRUSIONS;" />
             <assign property="var:protrusionindexloop" value="0" />
+            <assign property="var:chimneyValidationIndex" value="0" />
           </else>
         </if>
       </sync>
@@ -3104,11 +3265,38 @@
     
     <action name="VENT">
       <sync>
+        <if lhs="[var:ventindex]" operator="gt" rhs="0">
+          <play action="ventValidationLoop" />
+          <else>
+            <alert title="No Vents Available" message="There have not been any Vents added to save." />
+          </else>
+        </if>
+      </sync>
+    </action>
+
+    <action name="ventValidationLoop">
+      <if lhs="[var:ventValidationIndex]" operator="lt" rhs="[var:ventindex]">
+        <assign property="var:ventValidationIndex" value="[eval: [var:ventValidationIndex] + 1]" />
+        <if lhs="[eval:'[object:VENTQUANTITY[var:ventValidationIndex]/input.text]' != '']" operator="e" rhs="true">
+            <play action="ventValidationLoop" />
+            <else>
+              <alert title="Incomplete Form" message="Please feel out all fields" />
+              <assign property="var:ventValidationIndex" value="0" />
+            </else>
+        </if>
+        <else>
+          <play action="vent-db-add" />
+        </else>
+      </if>
+    </action>
+
+    <action name="vent-db-add">
+      <sync>
         <assign property="var:ventindexloop" value="[eval: [var:ventindexloop] + 1]" />
         <alert message="Size:[object:VENTSIZE[var:ventindexloop]/input.text] Quantity:[object:VENTQUANTITY[var:ventindexloop]/input.text]" />
         <assign property="datasource:ventsdb.query" value="INSERT INTO VENTS (SIZE, QUANTITY) values ('[object:VENTSIZE[var:ventindexloop]/input.text]', '[object:VENTQUANTITY[var:ventindexloop]/input.text]');" />
       </sync>
-    </action>
+    </action>  
     
     <action name="ventquery" datasource="ventsdb" datasourceevent="querycomplete">
       <sync>
@@ -3117,6 +3305,7 @@
           <else>
             <assign property="datasource:ventsdb-list.query" value="SELECT * FROM VENTS;" />
             <assign property="var:ventindexloop" value="0" />
+            <assign property="var:ventValidationIndex" value="0" />
           </else>
         </if>
       </sync>
