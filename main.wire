@@ -81,7 +81,7 @@
     <datasource name="productsdb-list" source="sql://PRODUCTS" query="SELECT * FROM PRODUCTS ORDER BY ID DESC;" providertype="sql" />
     
 <!--     <datasource name="accessoriesdb" source="sql://ACCESSORIES" query="DELETE FROM ACCESSORIES;" providertype="sql" /> -->
-    <datasource name="accessoriesdb" source="sql://ACCESSORIES" query="CREATE TABLE IF NOT EXISTS ACCESSORIES (ID INTEGER PRIMARY KEY AUTOINCREMENT, LEAKBARRIER, ROOFDECK, STARTER, RIDGECAP, VENTILATION, ACCESSORY);" providertype="sql" />
+    <datasource name="accessoriesdb" source="sql://ACCESSORIES" query="CREATE TABLE IF NOT EXISTS ACCESSORIES (ID INTEGER PRIMARY KEY AUTOINCREMENT, LEAKBARRIER, ROOFDECK, STARTER, RIDGECAP, VENTILATION, ACCESSORY, QUANTITY);" providertype="sql" />
     <datasource name="accessoriesdb-list" source="sql://ACCESSORIES" query="SELECT * FROM ACCESSORIES ORDER BY ID DESC;" providertype="sql" />
     
     <datasource name="tearoffdb" source="sql://TEAROFF" query="CREATE TABLE IF NOT EXISTS TEAROFF (ID INTEGER PRIMARY KEY AUTOINCREMENT, TEAROFF, LAYERS, MATERIAL);" providertype="sql" />
@@ -129,7 +129,7 @@
 		{"AccessoryId":"[datasource:accessoriesdb-list.[var:accessoriesIterateCount].ACCESSORY]","Quantity":"5"}
 	]]></texttemplate>
 	<texttemplate name="adjustments"><![CDATA[
-		{"PriceAjustmentsId":"[eval:[var:adjustmentsIterateCount]-1]","Description":"[datasource:adjustmentsdb-list.[var:adjustmentsIterateCount].NOTES]","Price":"[datasource:adjustmentsdb-list.[var:adjustmentsIterateCount].AMOUNT]"}
+		{"PriceAjustmentsId":"[eval:[var:adjustmentsIterateCount]-1]","Description":"[datasource:adjustmentsdb-list.[var:adjustmentsIterateCount].NOTES]","Price":"[eval:'[datasource:adjustmentsdb-list.[var:adjustmentsIterateCount].TYPE]' == 'Discount' ? '-':''][datasource:adjustmentsdb-list.[var:adjustmentsIterateCount].AMOUNT]"}
 	]]></texttemplate>
 	<texttemplate name="estimateJSON"><![CDATA[
 		{"customerId":"28","productId":"[var:shingle]","warrantyId":"[var:warranty]",[var:accessoriesObject],[var:adjustmentsObject],"AdditionalCost":{"TearOffLayers":[var:tearOffLayers],"TearOffType":"[var:tearOffType]","NumberOfStories":[var:numberOfFloors]}}
@@ -259,7 +259,7 @@
       <panel name="choice" alias="CHOICE" width="100%" height="[eval: [object:CONTAINER.height] - 74]" ypos="74" background="#e3e3e3" alpha="1">
         <panel name="column" width="60%" height="55%" align="center" valign="center">
           
-          <panel name="search-box" alias="SEARCH-BOX" width="100%" height="200">
+          <panel name="search-box" alias="SEARCH-BOX" width="100%" height="300" >
             <text name="label" width="100%" height="40" style="lighttext" size="30" alignment="center" text="Search for an existing estimate."></text>
             <panel name="search-lastname" alias="SEARCH-LASTNAME" width="[eval: [object:SEARCH-BOX.width] - 130]" height="50" align="center" bottomof="label" margin-top="20" style="textinput">
               <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
@@ -315,9 +315,9 @@
           <text name="label" width="100%" height="100%" color="#ffffff" font="Futura-Medium" size="24" alignment="center" text="Search Results"></text>
           <text name="close" width="100" height="100%" color="#ffffff" font="Futura-Medium" size="20" alignment="left" leftinset="20" text="Close" onclickup="closeresults" clickuptarget="CONTAINER"></text>
         </panel>
-        <pager name="resultlist" width="100%" height="[eval: [object:SEARCHRESULTS.height] - 74]" ypos="74" orientation="vertical" paginate="no">
-          <object class="searchresult" index="1" lastname="Reaves" firstname="Keanu" street="15 Matrix Way" city="Zion" state="CA" zip="90210" />
-        </pager>
+        <list name="resultlist" width="100%" height="[eval: [object:SEARCHRESULTS.height] - 74]" datasource="getEstimate" ypos="74" orientation="vertical" paginate="no">
+          <object class="searchresult" index="1" lastname="[ds:CustomerLastName]" firstname="[ds:CustomerFirstName]" street="[ds:Address1]" city="[ds:City]" state="[ds:StateProvince]" zip="[ds:PostalCode]" />
+        </list>
       </panel>
     </class>
     
@@ -894,6 +894,23 @@
       </panel>
     </class>
     
+	<class name="accessory-category">
+		<panel name="category[panel:index]" width="100%" height="100">
+			<text name="cat" width="100%" height="fit" font="Futura-Medium" color="#343434" size="35" alignment="left" text="[param:category]"></text>
+		</panel>
+	</class>
+
+    <class name="accessory">
+      <panel name="accessory[param:index]" width="100%" height="71">
+        <text name="subtitle" width="[eval: [object:ACCESSORIES-PAGER-BOX.width] - 95]" height="66" font="Futura-Medium" color="#343434" size="fit" maxsize="25" alignment="left" text="[param:title]"></text>
+        <!--<text name="bullet1" width="307" height="fit" xpos="20" bottomof="subtitle" style="darktext" size="15" alignment="left" text="Sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus."></text>-->
+        <panel name="warranty-btn" width="108" height="50" align="right" ypos="8">
+          <object class="button" name="test" size="20" label="Select" action="selectaccessories" value="[param:index]" />
+        </panel>
+        <panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
+      </panel>
+    </class>
+    
     <class name="accessories">
       <!--two column-->
       <panel name="[param:index]" width="100%" fitheight="yes" >
@@ -1078,12 +1095,14 @@
         <panel name="dollars-[param:aindex]" alias="DOLLARS-[param:aindex]" width="50" height="50" align="left" bottomof="subtitle" background="f3f3f3" cornerradius="2" borderwidth="1" bordercolor="#888888" clip="yes" onclickup="dollars" _index="[param:aindex]" _type="ADJUSTMENT[param:aindex]" >
           <panel name="check" width="40" height="40" align="center" valign="center" background="#888888" cornerradius="20" alpha="1" ></panel>
         </panel>
-        <text name="checklabel" width="150" height="50" bottomof="subtitle" rightof="dollars-[param:aindex]" style="darktext" size="20" leftinset="10" alignment="left" text="$"></text>
+        <text name="checklabel-dollar" width="150" height="50" bottomof="subtitle" rightof="dollars-[param:aindex]" style="darktext" size="20" leftinset="10" alignment="left" text="$"></text>
         
+<!--
         <panel name="percent-[param:aindex]" alias="PERCENT-[param:aindex]" width="50" height="50" xpos="100" bottomof="subtitle" background="f3f3f3" cornerradius="2" borderwidth="1" bordercolor="#888888" clip="yes" onclickup="percent" _index="[param:aindex]" _type="ADJUSTMENT[param:aindex]" >
           <panel name="check" width="40" height="40" align="center" valign="center" background="#888888" cornerradius="20" alpha="0" ></panel>
         </panel>
-        <text name="checklabel" width="150" height="50" bottomof="subtitle" rightof="percent-[param:aindex]" style="darktext" size="20" leftinset="10" alignment="left" text="%"></text>
+        <text name="checklabel-percent" width="150" height="50" bottomof="subtitle" rightof="percent-[param:aindex]" style="darktext" size="20" leftinset="10" alignment="left" text="%"></text>
+-->
         
         <panel name="adjustment" width="256" height="50" bottomof="dollars-[param:aindex]" margin-top="10">
           <panel name="adjustmentamount[param:aindex]" alias="ADJUSTMENTAMOUNT[param:aindex]" width="226" height="50" align="left" style="textinput">
@@ -1114,12 +1133,14 @@
         <panel name="dollars-[param:aindex]" alias="DOLLARS-[param:aindex]" width="50" height="50" align="left" bottomof="subtitle" background="f3f3f3" cornerradius="2" borderwidth="1" bordercolor="#888888" clip="yes" onclickup="dollars" _index="[param:aindex]" _type="ADJUSTMENT[param:aindex]" >
           <panel name="check" width="40" height="40" align="center" valign="center" background="#888888" cornerradius="20" alpha="1" ></panel>
         </panel>
-        <text name="checklabel" width="150" height="50" bottomof="subtitle" rightof="dollars-[param:aindex]" style="darktext" size="20" leftinset="10" alignment="left" text="$"></text>
+        <text name="checklabel-dollar" width="150" height="50" bottomof="subtitle" rightof="dollars-[param:aindex]" style="darktext" size="20" leftinset="10" alignment="left" text="$"></text>
         
+<!--
         <panel name="percent-[param:aindex]" alias="PERCENT-[param:aindex]" width="50" height="50" xpos="100" bottomof="subtitle" background="f3f3f3" cornerradius="2" borderwidth="1" bordercolor="#888888" clip="yes" onclickup="percent" _index="[param:aindex]" _type="ADJUSTMENT[param:aindex]" >
           <panel name="check" width="40" height="40" align="center" valign="center" background="#888888" cornerradius="20" alpha="0" ></panel>
         </panel>
-        <text name="checklabel" width="150" height="50" bottomof="subtitle" rightof="percent-[param:aindex]" style="darktext" size="20" leftinset="10" alignment="left" text="%"></text>
+        <text name="checklabel-percent" width="150" height="50" bottomof="subtitle" rightof="percent-[param:aindex]" style="darktext" size="20" leftinset="10" alignment="left" text="%"></text>
+-->
         
         <panel name="adjustment" width="256" height="50" bottomof="dollars-[param:aindex]" margin-top="10">
           <panel name="adjustmentamount[param:aindex]" alias="ADJUSTMENTAMOUNT[param:aindex]" width="226" height="50" align="left" style="textinput">
@@ -1456,9 +1477,9 @@
         <panel name="roof-Inspection" alias="ROOF-INSPECTION" width="512" height="100%" align="right" padding-left="20" padding-right="20" alpha="0">
           <object class="title" title="Inspection"  />
           <panel name="roofpagerbox" width="100%" height="[eval: [object:ROOF-INSPECTION.height] - 146]" ypos="79" >
-            <list name="pager" datasource="photosdb-list" width="100%" height="100%" orientation="vertical" paginate="no">
-              <object class="photo" index="1" photo="[param:PHOTO]" note="[param:NOTE]" origin="[param:ORIGIN]" />
-            </list>
+            <pager name="pager" datasource="photosdb-list" width="100%" height="100%" orientation="vertical" paginate="no">
+              <object class="inspection" />
+            </pager>
           </panel>
         </panel>
         
@@ -1605,9 +1626,11 @@
         <panel name="products-Accessories" alias="PRODUCTS-ACCESSORIES" width="512" height="100%" align="right" padding-left="20" padding-right="20" alpha="0">
           <object class="title" title="Accessories"  />
           <panel name="productpagerbox" alias="ACCESSORIES-PAGER-BOX" width="100%" height="[eval: [object:PRODUCTS-ACCESSORIES.height] - 79]" ypos="79" >
-            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no">
-              <object class="accessories"  />
-            </pager>
+            <list name="pager" width="100%" datasource="getAccessories" height="100%" orientation="vertical" paginate="no">
+			<object class="accessory-category" index="[ds:dataSourceIndex]" category="[ds:AccessoryCategory]" lhs="[eval: ('[ds:dataSourceIndex]' == '1') || ('[datasource:getAccessories.[eval:[ds:dataSourceIndex]-1].AccessoryCategory]' != '[datasource:getAccessories.[ds:dataSourceIndex].AccessoryCategory]')]" operator="e" rhs="true" />
+<!-- 			<object class="accessory-category" index="[ds:dataSourceIndex]" category="[ds:AccessoryCategory]" lhs="[eval: '[ds:dataSourceIndex]' == '1' || '[ds:AccessoryCategory]' != '[datasource:getAccessories.[eval:[ds:dataSourceIndex]-1].AccessoryCategory]]'" operator="e" rhs="true" /> -->
+              <object class="accessory" index="[ds:dataSourceIndex]" title="[ds:AccessoryName]" />
+            </list>
           </panel>
         </panel>
         
@@ -1858,14 +1881,14 @@
         <panel name="divide" width="100%" height="1" valign="center" background="ffffff" alpha=".7"></panel>
       </panel>
       
-      <panel name="ventmenu" alias="VENTMENU" width="200" height="200" xpos="548" ypos="200" style="brand" alpha="0" cornerradius="2">
+      <panel name="ventmenu" alias="VENTMENU" width="200" height="150" xpos="548" ypos="200" style="brand" alpha="0" cornerradius="2">
         <text name="3-btn" width="100%" height="50" leftinset="10" color="#ffffff" font="Futura-Medium" size="20" alignment="left" text="3 Inch Vent" onclickup="add3vent"></text>
         <text name="2-btn" width="100%" height="50" bottomof="3-btn" leftinset="10" color="#ffffff" font="Futura-Medium" size="20" alignment="left" text="2 Inch Vent" onclickup="add2vent"></text>
         <text name="15-btn" width="100%" height="50" bottomof="2-btn" leftinset="10" color="#ffffff" font="Futura-Medium" size="20" alignment="left" text="1.5 Inch Vent" onclickup="add15vent"></text>
-        <text name="custom-btn" width="100%" height="50" bottomof="15-btn" leftinset="10" color="#ffffff" font="Futura-Medium" size="20" alignment="left" text="Custom Vent" onclickup="addcustomvent"></text>
+<!--         <text name="custom-btn" width="100%" height="50" bottomof="15-btn" leftinset="10" color="#ffffff" font="Futura-Medium" size="20" alignment="left" text="Custom Vent" onclickup="addcustomvent"></text> -->
         <panel name="divide" width="100%" height="1" bottomof="3-btn" background="ffffff" alpha=".7"></panel>
         <panel name="divide" width="100%" height="1" bottomof="2-btn" background="ffffff" alpha=".7"></panel>
-        <panel name="divide" width="100%" height="1" bottomof="15-btn" background="ffffff" alpha=".7"></panel>
+<!--         <panel name="divide" width="100%" height="1" bottomof="15-btn" background="ffffff" alpha=".7"></panel> -->
       </panel>
       
       <panel name="cameramenu" alias="CAMERAMENU" width="200" height="100" xpos="548" ypos="200" style="brand" alpha="0" cornerradius="2">
@@ -1955,6 +1978,12 @@
               <panel name="create" width="110" height="50" align="right" bottomof="description" margin-top="20">
                 <object class="button" name="test" size="20" label="Select" action="selectaccessory" value="product id" />
               </panel>
+	          <panel name="accessoryquantity" alias="ACCESSORYQUANTITY" width="200" height="50" style="textinput" leftof="create" bottomof="description" margin-right="25" >
+	            <panel name="bg" style="100" background="f3f3f3" alpha="1"></panel>
+	            <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Quantity"></text>
+	            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null"></textfield>
+	            <panel name="active" style="100" onclickup="labelactive" _field="ACCESSORYQUANTITY"></panel>
+	          </panel>
             </panel>
           </pager>
         </panel>
@@ -2225,11 +2254,24 @@
     <action name="search">
       <sync>
         <play action="released" />
-        <assign encoding="url" property="var:lastName" value="[object:SEARCH/input.text]" />
+        <assign encoding="url" property="var:lastName" value="[object:SEARCH-LASTNAME/input.text]" />
+		<keyboard visible="no" target="SEARCH-LASTNAME/input" />
+		<keyboard visible="no" target="SEARCH-ADDRESS/input" />
         <create class="results" target="CONTAINER" />
         <translate ypos="0" time=".25" curve="easeout" target="SEARCHRESULTS" />
-        <!--<alert message="get-estimate preferences:token is [preferences:token] preferences:contractorId is [preferences:contractorId] header is [template:get.content] ]url is https://162.209.101.177/api/GetCustomerEstimate?customerLastName=[var:lastName]&amp;address1=[var:address1]&amp;city=[var:city]&amp;stateProvince=[var:state]&amp;postalCode=[var:postalCode]&amp;country=[var:country]" />
-        <assign property="datasource:getEstimate.source" value="https://162.209.101.177/api/GetCustomerEstimate?CustomerLastName=[object:SEARCH/input.text]" />-->
+        <alert message="get-estimate preferences:token is [preferences:token] preferences:contractorId is [preferences:contractorId] url is https://162.209.101.177/api/GetCustomerEstimate?customerLastName=[var:lastName]&amp;address1=[var:address1]&amp;city=[var:city]&amp;stateProvince=[var:state]&amp;postalCode=[var:postalCode]&amp;country=[var:country]" />
+		<if lhs="[eval: ('[object:SEARCH-LASTNAME/input.text]' != '' ) &amp;&amp; ('[object:SEARCH-ADDRESS/input.text]' != '')]" operator="e" rhs="true">
+			<alert message="search by both" />
+        	<assign property="datasource:getEstimate.source" value="https://162.209.101.177/api/GetCustomerEstimate?CustomerLastName=[object:SEARCH-LASTNAME/input.text]" />
+		</if>
+		<if lhs="[eval: ('[object:SEARCH-LASTNAME/input.text]' != '' ) &amp;&amp; ('[object:SEARCH-ADDRESS/input.text]' == '')]" operator="e" rhs="true">
+			<alert message="search by last name" />
+	        <assign property="datasource:getEstimate.source" value="https://162.209.101.177/api/GetCustomerEstimate?CustomerLastName=[object:SEARCH-LASTNAME/input.text]" />
+		</if>
+		<if lhs="[eval: ('[object:SEARCH-LASTNAME/input.text]' == '' ) &amp;&amp; ('[object:SEARCH-ADDRESS/input.text]' != '')]" operator="e" rhs="true">
+			<alert message="search by address" />
+        	<assign property="datasource:getEstimate.source" value="https://162.209.101.177/api/GetCustomerEstimate?CustomerLastName=[object:SEARCH-LASTNAME/input.text]&amp;address1=[object:SEARCH-ADDRESS/input.text]" />
+		</if>
       </sync>
     </action>
     
@@ -2599,6 +2641,7 @@
     
     <action name="adddiscount">
       <sync>
+	  	<assign property="var:adjustment" value="discount" />
         <alpha value="0" time=".25" target="ADJUSTMENU" />
         <assign property="var:discountindex" value="[eval: [var:discountindex] + 1]" />
         <assign property="var:adjustmentindex" value="[eval: [var:adjustmentindex] + 1]" />
@@ -2610,6 +2653,7 @@
     
     <action name="addcost">
       <sync>
+	  	<assign property="var:adjustment" value="cost" />
         <alpha value="0" time=".25" target="ADJUSTMENU" />
         <assign property="var:costindex" value="[eval: [var:costindex] + 1]" />
         <assign property="var:adjustmentindex" value="[eval: [var:adjustmentindex] + 1]" />
@@ -2711,9 +2755,9 @@
         <translate ypos="101%" time=".1" curve="linear" target="NAV-CUSTOMER/sel" />
         <assign property="var:roofarrow" value="Inspection" />
         <translate align="right" time=".1" curve="linear" target="ROOF-SIDEBAR-PAGER/[var:roofarrow]/arrow" />
-        <alpha value="1" target="ROOF-INSPECTION" />
         <assign property="var:roof" value="INSPECTION" />
         <translate valign="bottom" time=".1" curve="linear" target="NAV-ROOF/sel" />
+        <alpha value="1" target="ROOF-INSPECTION" />
       </sync>
       <sync>
         <translate xpos="0" curve="linear" target="NAVBLOCK" />
@@ -2762,9 +2806,9 @@
         <translate ypos="101%" time=".1" curve="linear" target="NAV-CUSTOMER/sel" />
         <assign property="var:roofarrow" value="Inspection" />
         <translate align="right" time=".1" curve="linear" target="ROOF-SIDEBAR-PAGER/[var:roofarrow]/arrow" />
-        <alpha value="1" target="ROOF-INSPECTION" />
         <assign property="var:roof" value="INSPECTION" />
         <translate valign="bottom" time=".1" curve="linear" target="NAV-ROOF/sel" />
+        <alpha value="1" target="ROOF-INSPECTION" />
       </sync>
       <sync>
         <translate xpos="0" curve="linear" target="NAVBLOCK" />
@@ -3253,23 +3297,23 @@
     
     <!-- !accessory actions -->
 	<action name="accessories-done" datasource="getAccessories" datasourceevent="querycomplete" >
+<!--
 		<delete target="ACCESSORIES-PAGER-BOX/pager" />
 		<create class="product-pager" target="ACCESSORIES-PAGER-BOX" />
 		<assign property="var:accessoriesCount" value="[datasource:getAccessories.dataSourceResultCount]" />
 		<assign property="var:accessoriesIterateCount" value="1" />
 		<loop lhs="[var:accessoriesIterateCount]" operator="lte" rhs="[var:accessoriesCount]" >
 			<if lhs="[eval:[var:accessoriesCount]-[var:accessoriesIterateCount]]" operator="ne" rhs="0">
-<!-- 					<alert message="creating with two items" /> -->
 				<create class="accessories" index="[var:accessoriesIterateCount]" target="ACCESSORIES-PAGER-BOX/pager" />
 				<else>
-<!-- 						<alert message="creating with one item" /> -->
 					<create class="accessory-single" index="[var:accessoriesIterateCount]" target="ACCESSORIES-PAGER-BOX/pager" />
 				</else>
 			</if>
 			<assign property="var:accessoriesIterateCount" value="[eval: [var:accessoriesIterateCount]+2]" />
 		</loop>
+-->
 		<play action="sidebar-products" _alias="ACCESSORIES" _form="Accessories" />
-<!-- 		<alert message="accessories done content [datasource:getAccessories.0.content]" /> -->
+		<alert message="accessories-done" />
 	</action>
 
 	<action name="accessories-error" datasource="getAccessories" datasourceevent="datasourceerror" >
@@ -3290,10 +3334,12 @@
     
     <action name="selectaccessory">
       <play action="released" />
+	  <if lhs="[object:ACCESSORYQUANTITY/input.text]" operator="ne" rhs="">
 	  <assign property="var:accessoryCount" value="[eval:[var:accessoryCount]+1]" />
+		<assign property="var:accessory-[var:accessoryCount]-Quantity" value="[object:ACCESSORYQUANTITY/input.text]" />			  
 	  <assign property="var:accessory-[var:accessoryCount]" value="[datasource:getAccessories.[var:accessorySelected].AccessoryId]" />
 <!-- 	  <alert message="var:accessory-[var:accessoryCount] is [var:accessory-[var:accessoryCount]]" /> -->
-	  <assign property="datasource:accessoriesdb.query" value="INSERT INTO ACCESSORIES (LEAKBARRIER, ROOFDECK, STARTER, RIDGECAP, VENTILATION, ACCESSORY) VALUES ('leak', 'roof', 'starter', 'ridgecacp', 'ventilation', '[var:accessory-[var:accessoryCount]]');" />
+	  <assign property="datasource:accessoriesdb.query" value="INSERT INTO ACCESSORIES (LEAKBARRIER, ROOFDECK, STARTER, RIDGECAP, VENTILATION, ACCESSORY, QUANTITY) VALUES ('leak', 'roof', 'starter', 'ridgecacp', 'ventilation', '[var:accessory-[var:accessoryCount]]', '[var:accessory-[var:accessoryCount]-Quantity]');" />
 	  <if lhs="[eval:[var:accessories]-[var:accessoryCount]]" operator="gt" rhs="0">
 	  	<alert message="accessory selected. you must select [eval:[var:accessories]-[var:accessoryCount]] more accessories for the warranty you have chosen" />
 	  	<else>
@@ -3301,12 +3347,19 @@
 	  	</else>
 	  </if>
       <play action="accessorydismiss" />
+	  <else>
+	  	<alert message="please select a quantity" />
+	  </else>
+	  </if>
     </action>
     
     <action name="accessorydismiss">
       <translate ypos="18%" time=".25" curve="easeout" target="ACCESSORYLIST" />
       <sync>
         <alpha value="0" time=".20" target="ACCESSORYLIST" />
+        <alpha value="1" target="ACCESSORYQUANTITY/bg" />
+        <alpha value="1" target="ACCESSORYQUANTITY/active" />
+        <assign property="object:ACCESSORYQUANTITY/input.text" value="" />
         <play action="focus" />
       </sync>
     </action>
@@ -3317,7 +3370,7 @@
     </action>
     
     <action name="accessoriesdb-list-complete" datasource="accessoriesdb-list" datasourceevent="querycomplete" >
-<!-- 		<alert message="accessoriesdb-list count is [datasource:accessoriesdb-list.dataSourceResultCount]" /> -->
+<!-- 		<alert message="accessoriesdb-list count is [datasource:accessoriesdb-list.dataSourceResultCount] quantity for 1 is [datasource:accessoriesdb-list.1.QUANTITY]" /> -->
     </action>
     <!-- !options actions -->
     <action name="selectoptions">
@@ -3513,6 +3566,40 @@
 	
 		<action name="updateMeasurements-error" datasource="updateMeasurements" datasourceevent="datasourceerror" >
 			<alert message="updateMeasurements-error content [datasource:updateMeasurements.0.content]" />
+		</action>
+		
+		<action name="prepPhotos">
+			<assign property="var:photoCount" value="[datasource:photosdb-list.dataSourceResultCount]" />
+			<assign property="var:photoIterateCount" value="1" />
+			<assign property="httpheader:formSubmit.Token" value="[preferences:token]" />
+			<assign property="httpheader:formSubmit.ContractorId" value="[preferences:contractorId]" />
+		</action>
+		
+		<action name="upload-photo" >
+<!--
+			<loop lhs="[var:photoIterateCount]" operator="lte" rhs="[var:photoCount]" >
+			</loop>
+-->
+			<if lhs="[var:photoIterateCount]" operator="lte" rhs="[var:photoCount]">
+<!--
+				<assign property="datasource:uploadPhoto.postFile" value="[datasource:photosdb-list.[var:photoIterateCount].PHOTO]"/>
+				<assign property="datasource:uploadPhoto.source" value="https://162.209.101.177/api/UploadPhoto" />
+-->
+				<else>
+					<play action="all photos have been uploaded." />
+				</else>
+			</if>
+		</action>
+		
+		<action name="photoupload-complete" datasource="uploadPhoto" datasourceevent="querycomplete" >
+			<alert message="upload complete [datasource:uploadPhoto.0.content]" />
+			<if lhs="[datasource:uploadPhoto.0.content]" operator="e" rhs="100">
+				<assign property="var:photoIterateCount" value="[eval: [var:photoIterateCount]+1]" />
+				<play action="upload-photo" />
+			</if>
+		</action>
+		<action name="photoupload-error" datasource="uploadPhoto" datasourceevent="datasourceerror" >
+			<alert message="upload error [datasource:uploadPhoto.0.content]" />
 		</action>
 		
 		<action name="formatEstimate" >
