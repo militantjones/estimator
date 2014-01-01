@@ -164,14 +164,14 @@
     </class>
     
     <class name="title">
-      <panel name="titlebox" width="100%" height="79">
+      <panel name="titlebox" width="100%" height="79" padding-left="20" padding-right="20" >
         <text name="title" width="100%" height="60" ypos="10" style="darktext" size="40" alignment="left" text="[param:title]"></text>
         <panel name="divide" width="100%" height="10" valign="bottom" background="#343434"></panel>
       </panel>
     </class>
     
     <class name="titlebutton">
-      <panel name="titlebox" width="100%" height="79">
+      <panel name="titlebox" width="100%" height="79" padding-left="20" padding-right="20">
         <text name="title" width="100%" height="60" ypos="10" style="darktext" size="40" alignment="left" text="[param:title]"></text>
         <panel name="create" width="73" height="50" align="right" valign="center">
           <object class="button" name="test" size="60" label="+" action="create" value="[param:action]" />
@@ -749,7 +749,7 @@
 
     <class name="shingles">
       <!--two column-->
-      <panel name="[param:index]" width="100%" fitheight="yes" >
+      <panel name="[param:index]" width="100%" fitheight="yes" padding-left="20" padding-right="20">
         <panel name="shinglerow1" width="100%" height="242" >
           <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="20" alignment="left" text="Shingle Group"></text>
           <panel name="col1" width="217" height="100%" bottomof="subtitle" >
@@ -1303,10 +1303,9 @@
       
       <!-- !customer -->
       <panel name="customer" alias="CUSTOMER" width="100%" height="[eval: [object:CONTAINER.height] - 127]" ypos="127" alpha="1">
-        <panel name="inner" style="100" padding-left="20" padding-right="20">
+        <panel name="inner" style="100" >
           <object class="title" title="New Customer Set Up" />
-          
-          <pager name="scroller" width="100%" height="[eval: [object:CUSTOMER.height] - 79]" orientation="vertical" bottomof="titlebox" paginate="no">
+          <pager name="scroller" width="100%" height="[eval: [object:CUSTOMER.height] - 79]" orientation="vertical" bottomof="titlebox" paginate="no" padding-left="20" padding-right="20">
             <panel name="customer1" width="100%" height="160">
               <text name="subtitle" width="100%" height="35" style="darktext" size="20" alignment="left" text="Customer 1"></text>
               <panel name="col1" width="50%" height="100%" padding-right="10" bottomof="subtitle">
@@ -1474,101 +1473,101 @@
           <panel name="roof-sidebar-blocker" alias="ROOF-SIDEBAR-BLOCKER" style="100" xpos="-101%"></panel>
         </panel>
         
-        <panel name="roof-Inspection" alias="ROOF-INSPECTION" width="512" height="100%" align="right" padding-left="20" padding-right="20" alpha="0">
-          <object class="title" title="Inspection"  />
+        <panel name="roof-Inspection" alias="ROOF-INSPECTION" width="512" height="100%" align="right" alpha="0">
+          <object class="title" title="Inspection" />
           <panel name="roofpagerbox" width="100%" height="[eval: [object:ROOF-INSPECTION.height] - 146]" ypos="79" >
-            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no">
+            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no" padding-left="20" padding-right="20">
               <object class="inspection" />
             </pager>
           </panel>
         </panel>
         
-        <panel name="roof-Fascia" alias="ROOF-FASCIA" width="512" height="100%" align="right" padding-left="20" padding-right="20" alpha="0">
+        <panel name="roof-Fascia" alias="ROOF-FASCIA" width="512" height="100%" align="right" alpha="0">
           <object class="title" title="Fascia"  />
           <panel name="roofpagerbox" width="100%" height="[eval: [object:ROOF-FASCIA.height] - 146]" ypos="79" >
-            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no">
+            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no" padding-left="20" padding-right="20">
               <object class="fascia" />
             </pager>
           </panel>
         </panel>
         
-        <panel name="roof-Roof Area" alias="ROOF-ROOF AREA" width="512" height="100%" align="right" padding-left="20" padding-right="20" alpha="0">
+        <panel name="roof-Roof Area" alias="ROOF-ROOF AREA" width="512" height="100%" align="right" alpha="0">
           <object class="titlebutton" title="Roof Areas" action="addarea" />
           <panel name="roofpagerbox" width="100%" height="[eval: [object:ROOF-ROOF AREA.height] - 146]" ypos="79" >
-            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no">
+            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no" padding-left="20" padding-right="20">
               <!--<object class="roof area" index="1" />-->
             </pager>
           </panel>
         </panel>
         
-        <panel name="roof-Waste" alias="ROOF-WASTE" width="512" height="100%" align="right" padding-left="20" padding-right="20" alpha="0">
+        <panel name="roof-Waste" alias="ROOF-WASTE" width="512" height="100%" align="right" alpha="0">
           <object class="title" title="Waste"  />
           <panel name="roofpagerbox" width="100%" height="[eval: [object:ROOF-WASTE.height] - 146]" ypos="79" >
-            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no">
+            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no" padding-left="20" padding-right="20"> 
               <object class="waste" />
             </pager>
           </panel>
         </panel>
         
-        <panel name="roof-Ridge" alias="ROOF-RIDGE" width="512" height="100%" align="right" padding-left="20" padding-right="20" alpha="0">
+        <panel name="roof-Ridge" alias="ROOF-RIDGE" width="512" height="100%" align="right" alpha="0">
           <object class="titlebutton" title="Ridges" action="addridge" />
           <panel name="roofpagerbox" width="100%" height="[eval: [object:ROOF-RIDGE.height] - 146]" ypos="79" >
-            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no">
+            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no" padding-left="20" padding-right="20">
               <!--<object class="ridge" index="1" />-->
             </pager>
           </panel>
         </panel>
         
-        <panel name="roof-Hip" alias="ROOF-HIP" width="512" height="100%" align="right" padding-left="20" padding-right="20" alpha="0">
+        <panel name="roof-Hip" alias="ROOF-HIP" width="512" height="100%" align="right" alpha="0">
           <object class="titlebutton" title="Hips" action="addhip" />
           <panel name="roofpagerbox" width="100%" height="[eval: [object:ROOF-HIP.height] - 146]" ypos="79" >
-            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no">
+            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no" padding-left="20" padding-right="20">
               <!--<object class="hip" index="1" />-->
             </pager>
           </panel>
         </panel>
         
-        <panel name="roof-Valley" alias="ROOF-VALLEY" width="512" height="100%" align="right" padding-left="20" padding-right="20" alpha="0">
+        <panel name="roof-Valley" alias="ROOF-VALLEY" width="512" height="100%" align="right" alpha="0">
           <object class="titlebutton" title="Valley" action="addvalley" />
           <panel name="roofpagerbox" width="100%" height="[eval: [object:ROOF-VALLEY.height] - 146]" ypos="79" >
-            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no">
+            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no" padding-left="20" padding-right="20">
               <!--<object class="valley" index="1" />-->
             </pager>
           </panel>
         </panel>
         
-        <panel name="roof-Rake" alias="ROOF-RAKE" width="512" height="100%" align="right" padding-left="20" padding-right="20" alpha="0">
+        <panel name="roof-Rake" alias="ROOF-RAKE" width="512" height="100%" align="right" alpha="0">
           <object class="titlebutton" title="Rakes" action="addrake" />
           <panel name="roofpagerbox" width="100%" height="[eval: [object:ROOF-RAKE.height] - 146]" ypos="79" >
-            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no">
+            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no" padding-left="20" padding-right="20">
               <!--<object class="rake" index="1" />-->
             </pager>
           </panel>
         </panel>
         
-        <panel name="roof-Eave" alias="ROOF-EAVE" width="512" height="100%" align="right" padding-left="20" padding-right="20" alpha="0">
+        <panel name="roof-Eave" alias="ROOF-EAVE" width="512" height="100%" align="right" alpha="0">
           <object class="titlebutton" title="Eaves" action="addeave" />
           <panel name="roofpagerbox" width="100%" height="[eval: [object:ROOF-EAVE.height] - 146]" ypos="79" >
-            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no">
+            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no" padding-left="20" padding-right="20">
               <!--<object class="eave" index="1" />-->
             </pager>
           </panel>
         </panel>
         
-        <panel name="roof-Chimney" alias="ROOF-CHIMNEY" width="512" height="100%" align="right" padding-left="20" padding-right="20" alpha="0">
+        <panel name="roof-Chimney" alias="ROOF-CHIMNEY" width="512" height="100%" align="right" alpha="0">
           <object class="titlebutton" title="Chimneys &amp; Skylights" action="addprotrusion" />
           <panel name="roofpagerbox" width="100%" height="[eval: [object:ROOF-CHIMNEY.height] - 146]" ypos="79" >
-            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no">
+            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no" padding-left="20" padding-right="20">
               <!--<object class="chimney" index="1" />
               <object class="skylight" index="1" />-->
             </pager>
           </panel>
         </panel>
         
-        <panel name="roof-vent" alias="ROOF-VENT" width="512" height="100%" align="right" padding-left="20" padding-right="20" alpha="0">
+        <panel name="roof-vent" alias="ROOF-VENT" width="512" height="100%" align="right" alpha="0">
           <object class="titlebutton" title="Plumbing Vents" action="addvent" />
           <panel name="roofpagerbox" width="100%" height="[eval: [object:ROOF-VENT.height] - 146]" ypos="79" >
-            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no">
+            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no" padding-left="20" padding-right="20">
               <!--<object class="3vent" />
               <object class="2vent" />
               <object class="15vent" />
@@ -1577,10 +1576,10 @@
           </panel>
         </panel>
         
-        <panel name="roof-Photo" alias="ROOF-PHOTO" width="512" height="100%" align="right" padding-left="20" padding-right="20" alpha="0">
+        <panel name="roof-Photo" alias="ROOF-PHOTO" width="512" height="100%" align="right" alpha="0">
           <object class="titlebutton" title="Photos &amp; Notes" action="addphoto" />
           <panel name="roofpagerbox" width="100%" height="[eval: [object:ROOF-PHOTO.height] - 146]" ypos="79" >
-            <list name="pager" datasource="photosdb-list" width="100%" height="100%" orientation="vertical" paginate="no">
+            <list name="pager" datasource="photosdb-list" width="100%" height="100%" orientation="vertical" paginate="no" padding-left="20" padding-right="20">
               <object class="photo" index="1" photo="[param:PHOTO]" note="[param:NOTE]" origin="[param:ORIGIN]" />
             </list>
           </panel>
@@ -1606,27 +1605,27 @@
           <panel name="products-sidebar-blocker" alias="PRODUCTS-SIDEBAR-BLOCKER" style="100" xpos="-101%"></panel>
         </panel>
         
-        <panel name="products-Shingle" alias="PRODUCTS-SHINGLES" width="512" height="100%" align="right" padding-left="20" padding-right="20" alpha="0">
+        <panel name="products-Shingle" alias="PRODUCTS-SHINGLES" width="512" height="100%" align="right" padding-bottom="20" alpha="0">
           <object class="title" title="Shingles"  />
           <panel name="productpagerbox" alias="PRODUCT-PAGER-BOX" width="100%" height="[eval: [object:PRODUCTS-SHINGLES.height] - 79]" ypos="79" >
-            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no" >
+            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no" padding-left="20" padding-right="20" >
             </pager>
           </panel>
         </panel>
         
-        <panel name="products-Warranty" alias="PRODUCTS-WARRANTY" width="512" height="100%" align="right" padding-left="20" padding-right="20" alpha="0">
+        <panel name="products-Warranty" alias="PRODUCTS-WARRANTY" width="512" height="100%" align="right" alpha="0">
           <object class="title" title="Select a Warranty"  />
           <panel name="warrantypagerbox" alias="WARRANTY-PAGER-BOX" width="100%" height="[eval: [object:PRODUCTS-WARRANTY.height] - 79]" ypos="79" >
-            <list name="pager" width="100%" height="100%" datasource="getWarranties" orientation="vertical" paginate="no">
+            <list name="pager" width="100%" height="100%" datasource="getWarranties" orientation="vertical" paginate="no" padding-left="20" padding-right="20" >
 				<object class="warranty" index="[ds:dataSourceIndex]" title="[ds:WarrantyName]" warrantyId="[ds:WarrantyId]" accessories="[ds:GAFAccessoriesRequired]"  />
             </list>
           </panel>
         </panel>
         
-        <panel name="products-Accessories" alias="PRODUCTS-ACCESSORIES" width="512" height="100%" align="right" padding-left="20" padding-right="20" alpha="0">
+        <panel name="products-Accessories" alias="PRODUCTS-ACCESSORIES" width="512" height="100%" align="right" alpha="0">
           <object class="title" title="Accessories"  />
           <panel name="productpagerbox" alias="ACCESSORIES-PAGER-BOX" width="100%" height="[eval: [object:PRODUCTS-ACCESSORIES.height] - 79]" ypos="79" >
-            <list name="pager" width="100%" datasource="getAccessories" height="100%" orientation="vertical" paginate="no">
+            <list name="pager" width="100%" datasource="getAccessories" height="100%" orientation="vertical" paginate="no" padding-left="20" padding-right="20" >
 			<object class="accessory-category" index="[ds:dataSourceIndex]" category="[ds:AccessoryCategory]" lhs="[eval: ('[ds:dataSourceIndex]' == '1') || ('[datasource:getAccessories.[eval:[ds:dataSourceIndex]-1].AccessoryCategory]' != '[datasource:getAccessories.[ds:dataSourceIndex].AccessoryCategory]')]" operator="e" rhs="true" />
 <!-- 			<object class="accessory-category" index="[ds:dataSourceIndex]" category="[ds:AccessoryCategory]" lhs="[eval: '[ds:dataSourceIndex]' == '1' || '[ds:AccessoryCategory]' != '[datasource:getAccessories.[eval:[ds:dataSourceIndex]-1].AccessoryCategory]]'" operator="e" rhs="true" /> -->
               <object class="accessory" index="[ds:dataSourceIndex]" title="[ds:AccessoryName]" />
@@ -1654,19 +1653,19 @@
           <panel name="products-sidebar-blocker" alias="SERVICES-SIDEBAR-BLOCKER" style="100" xpos="-101%"></panel>
         </panel>
         
-        <panel name="services-Tear Off" alias="SERVICES-TEAROFF" width="512" height="100%" align="right" padding-left="20" padding-right="20" alpha="0">
+        <panel name="services-Tear Off" alias="SERVICES-TEAROFF" width="512" height="100%" align="right" alpha="0">
           <object class="title" title="Tear Off"  />
           <panel name="servicespagerbox" width="100%" height="[eval: [object:SERVICES-TEAROFF.height] - 79]" ypos="79" >
-            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no">
+            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no" padding-left="20" padding-right="20" >
               <object class="tearoff" />
             </pager>
           </panel>
         </panel>
         
-        <panel name="services-Asset Protection" alias="SERVICES-ASSETPROTECTION" width="512" height="100%" align="right" padding-left="20" padding-right="20" alpha="0">
+        <panel name="services-Asset Protection" alias="SERVICES-ASSETPROTECTION" width="512" height="100%" align="right" alpha="0">
           <object class="title" title="Asset Protection"  />
           <panel name="servicespagerbox" width="100%" height="[eval: [object:SERVICES-ASSETPROTECTION.height] - 79]" ypos="79" >
-            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no">
+            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no" padding-left="20" padding-right="20" >
               <object class="assetprotection" />
             </pager>
           </panel>
@@ -1675,10 +1674,10 @@
       
       <!-- !adjustments -->
       <panel name="adjustments" alias="ADJUSTMENTS" width="100%" height="[eval: [object:CONTAINER.height] - 127]" ypos="127" alpha="0">
-        <panel name="adjustmentsbox" alias="ADJUSTMENTSBOX" width="100%" height="100%" align="right" padding-left="20" padding-right="20" alpha="1">
+        <panel name="adjustmentsbox" alias="ADJUSTMENTSBOX" width="100%" height="100%" align="right" alpha="1">
           <object class="titlebutton" title="Adjustments" action="addadjustment"  />
           <panel name="adjustmentspagerbox" width="100%" height="[eval: [object:ADJUSTMENTS.height] - 79]" ypos="79" >
-            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no">
+            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no" padding-left="20" padding-right="20" >
               <!--<object class="discount" index="1" />
               <object class="additionalcost" index="2" />-->
             </pager>
@@ -1900,8 +1899,8 @@
       <panel name="shinglecolor" alias="SHINGLECOLOR" width="90%" height="70%" alpha="0" align="center" ypos="18%" background="#e3e3e3" onclickup="colordismiss" borderwidth="2" bordercolor="#343434" shadowradius="3" shadowxoffset="0" shadowyoffset="0" shadowopacity=".3">
         <text name="label" width="100%" height="80" leftinset="20" background="#343434" color="#ffffff" font="Futura-Medium" size="40" alignment="left" text="Select a Color"></text>
         <text name="shingle" width="100%" height="60" bottomof="label" style="darktext" leftinset="20" size="30" alignment="left" text="Slateline"></text>
-        <panel name="inner" width="100%" height="[eval: [object:SHINGLECOLOR.height] - 150]" ypos="150" padding-left="20" padding-right="20" padding-bottom="20" >
-          <pager name="colorpager" alias="COLORPAGER" width="100%" height="100%" orientation="vertical" paginate="no" >
+        <panel name="inner" width="100%" height="[eval: [object:SHINGLECOLOR.height] - 150]" ypos="150" padding-left="20">
+          <pager name="colorpager" alias="COLORPAGER" width="100%" height="100%" orientation="vertical" paginate="no" padding-right="20" padding-bottom="20" >
             <panel name="row1" width="100%" height="320">
               <panel name="1" width="33.33%" height="100%" align="left">
                 <panel name="marginer" width="200" height="100%" align="left" >
@@ -1912,7 +1911,6 @@
                   </panel>
                 </panel>
               </panel>
-              
               <panel name="2" width="33.33%" height="100%" align="center" >
                 <panel name="marginer" width="200" height="100%" align="center">
                   <panel name="imgholder" width="200" height="200" background="000000"></panel>
