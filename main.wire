@@ -77,7 +77,7 @@
     <datasource name="photosdb-list" source="sql://PHOTOS" query="SELECT * FROM PHOTOS ORDER BY ID DESC;" providertype="sql" />
     
 <!--     <datasource name="productsdb" source="sql://PRODUCTS" query="DELETE FROM PRODUCTS;" providertype="sql" /> -->
-    <datasource name="productsdb" source="sql://PRODUCTS" query="CREATE TABLE IF NOT EXISTS PRODUCTS (ID INTEGER PRIMARY KEY AUTOINCREMENT, SHINGLE, COLOR, WARRANTY);" providertype="sql" />
+    <datasource name="productsdb" source="sql://PRODUCTS" query="CREATE TABLE IF NOT EXISTS PRODUCTS (ID INTEGER PRIMARY KEY AUTOINCREMENT, SHINGLE, COLOR, WARRANTY, IMAGE);" providertype="sql" />
     <datasource name="productsdb-list" source="sql://PRODUCTS" query="SELECT * FROM PRODUCTS ORDER BY ID DESC;" providertype="sql" />
     
 <!--     <datasource name="accessoriesdb" source="sql://ACCESSORIES" query="DELETE FROM ACCESSORIES;" providertype="sql" /> -->
@@ -157,7 +157,7 @@
   <classes>
     
     <class name="button">
-      <panel name="[param:name]" width="100%" height="100%" onclick="touched" onclickup="[param:action]" _value="[param:value]" _accessories="[param:accessories]" cornerradius="2" clip="yes">
+      <panel name="[param:name]" width="100%" height="100%" onclick="touched" onclickup="[param:action]" _value="[param:value]" _accessories="[param:accessories]" _image="[param:image]" cornerradius="2" clip="yes">
         <text name="button" style="button" size="[param:size]" text="[param:label]"></text>
         <panel name="bg" style="100" background="ffffff" alpha="0"></panel>
       </panel>
@@ -808,7 +808,7 @@
                   </panel>
                   <text name="colorlabel" width="100%" height="40" bottomof="imgholder" style="darktext" size="fit" maxsize="20" alignment="left" text="[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Name]"></text>
                   <panel name="search-btn" width="200" height="50" align="right" bottomof="colorlabel">
-                    <object class="button" name="test" size="20" label="Select" action="setcolor" value="[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Name]" />
+                    <object class="button" name="test" size="20" label="Select" action="setcolor" value="[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Name]" image="http://www.gaf.com/All_Images/[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Image]" />
                   </panel>
                 </panel>
               </panel>
@@ -820,7 +820,7 @@
                   </panel>
                   <text name="colorlabel" width="100%" height="40" bottomof="imgholder" style="darktext" size="fit" maxsize="20" alignment="left" text="[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+1]]/Name]"></text>
                   <panel name="search-btn" width="200" height="50" align="right" bottomof="colorlabel">
-                    <object class="button" name="test" size="20" label="Select" action="setcolor" value="[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+1]]/Name]" />
+                    <object class="button" name="test" size="20" label="Select" action="setcolor" value="[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+1]]/Name]" image="http://www.gaf.com/All_Images/[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+1]]/Image]" />
                   </panel>
                 </panel>
               </panel>
@@ -831,7 +831,7 @@
                   </panel>
                   <text name="colorlabel" width="100%" height="40" bottomof="imgholder" style="darktext" size="fit" maxsize="20" alignment="left" text="[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+2]]/Name]"></text>
                   <panel name="search-btn" width="200" height="50" align="right" bottomof="colorlabel">
-                    <object class="button" name="test" size="20" label="Select" action="setcolor" value="[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+2]]/Name]" />
+                    <object class="button" name="test" size="20" label="Select" action="setcolor" value="[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+2]]/Name]" image="http://www.gaf.com/All_Images/[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+2]]/Image]" />
                   </panel>
                 </panel>
               </panel>
@@ -848,7 +848,7 @@
                   </panel>
                   <text name="colorlabel" width="100%" height="40" bottomof="imgholder" style="darktext" size="20" alignment="left" text="[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Name]"></text>
                   <panel name="search-btn" width="200" height="50" align="right" bottomof="colorlabel">
-                    <object class="button" name="test" size="20" label="Select" action="setcolor" value="[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Name]" />
+                    <object class="button" name="test" size="20" label="Select" action="setcolor" value="[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Name]" image="http://www.gaf.com/All_Images/[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Image]" />
                   </panel>
                 </panel>
               </panel>
@@ -860,7 +860,7 @@
                   </panel>
                   <text name="colorlabel" width="100%" height="40" bottomof="imgholder" style="darktext" size="20" alignment="left" text="[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+1]]/Name]"></text>
                   <panel name="search-btn" width="200" height="50" align="right" bottomof="colorlabel">
-                    <object class="button" name="test" size="20" label="Select" action="setcolor" value="[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+1]]/Name]" />
+                    <object class="button" name="test" size="20" label="Select" action="setcolor" value="[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+1]]/Name]" image="http://www.gaf.com/All_Images/[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+1]]/Image]"/>
                   </panel>
                 </panel>
               </panel>
@@ -876,7 +876,7 @@
                   </panel>
                   <text name="colorlabel" width="100%" height="40" bottomof="imgholder" style="darktext" size="20" alignment="left" text="[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Name]"></text>
                   <panel name="search-btn" width="200" height="50" align="right" bottomof="colorlabel">
-                    <object class="button" name="test" size="20" label="Select" action="setcolor" value="[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Name]" />
+                    <object class="button" name="test" size="20" label="Select" action="setcolor" value="[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Name]" image="http://www.gaf.com/All_Images/[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+2]]/Image]"/>
                   </panel>
                 </panel>
               </panel>
@@ -3447,6 +3447,8 @@
     <action name="setcolor">
       <play action="released" />
       <sync>
+	  	<assign property="var:productImage" value="_image" />
+	  	<alert message="var:productImage is [var:productImage]" />
         <assign property="var:color" value="_value" />
         <alert message="[var:shingle] [var:color]" />
 		<assign property="datasource:getWarranties.source" value="https://162.209.101.177/api/GetWarranties?productId=[var:shingle]" />
@@ -3471,15 +3473,16 @@
       <assign property="var:warranty" value="_value" />
       <assign property="var:accessories" value="_accessories" />
       <alert message="warranty id [var:warranty] accessories required [var:accessories]" />
-      <assign property="datasource:productsdb.query" value="INSERT INTO PRODUCTS (SHINGLE, COLOR, WARRANTY) VALUES ('[var:shingle]', '[var:color]', '[var:warranty]');" />
+      <assign property="datasource:productsdb.query" value="INSERT INTO PRODUCTS (SHINGLE, COLOR, WARRANTY, IMAGE) VALUES ('[var:shingle]', '[var:color]', '[var:warranty]', '[var:productImage]');" />
 	  <assign property="datasource:getAccessories.source" value="https://162.209.101.177/api/GetAccessoryByProduct?productId=[var:shingle]" />
     </action>
     
     <action name="productquery" datasource="productsdb" datasourceevent="querycomplete">
-      <sync>
-        <assign property="datasource:productsdb-list.query" value="SELECT * FROM PRODUCTS;" />
-<!--         <alert message="products saved" /> -->
-      </sync>
+        <assign property="datasource:productsdb-list.query" value="SELECT * FROM PRODUCTS ORDER BY ID DESC;" />
+    </action>
+    
+    <action name="productlistquery" datasource="productsdb-list" datasourceevent="querycomplete" >
+<!--         <alert message="products-list complete image is [database:productsdb-list.1.IMAGE], shingle is [database:productsdb-list.1.SHINGLE] color is [database:productsdb-list.1.COLOR] warranty is [database:productsdb-list.1.WARRANTY]" /> -->
     </action>
     
     <!-- !accessory actions -->
@@ -3874,7 +3877,7 @@
 			<assign property="var:estimateJSON" value="[template:estimateJSON.content]" />
 			<assign property="datasource:generateEstimate.postContent" value="[var:estimateJSON]" />
 			<assign property="datasource:generateEstimate.source" value="https://162.209.101.177/api/GenerateEstimate" />
-<!-- 			<email subject="estimate and measurements json" body="measurements\n\n[var:measurementsJSON]\n\n\n estimate\n\n[var:estimateJSON]" toaddress="mlong@rarewire.com" /> -->
+			<email subject="estimate and measurements json" body="measurements\n\n[var:measurementsJSON]\n\n\n estimate\n\n[var:estimateJSON]" toaddress="mlong@rarewire.com" />
 		</action>
 		
 		<action name="estimate-complete" datasource="generateEstimate" datasourceevent="querycomplete">
