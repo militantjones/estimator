@@ -896,13 +896,14 @@
     
 	<class name="accessory-category">
 		<panel name="category[panel:index]" width="100%" height="100">
-			<text name="cat" width="100%" height="fit" font="Futura-Medium" color="#343434" size="35" alignment="left" text="[param:category]"></text>
+			<panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
+			<text name="cat" width="100%" height="fit" topof="divider" font="Futura-Medium" color="#343434" size="35" alignment="left" text="[param:category]"></text>
 		</panel>
 	</class>
 
     <class name="accessory">
       <panel name="accessory[param:index]" width="100%" height="71">
-        <text name="subtitle" width="[eval: [object:ACCESSORIES-PAGER-BOX.width] - 95]" height="66" font="Futura-Medium" color="#343434" size="fit" maxsize="25" alignment="left" text="[param:title]"></text>
+        <text name="subtitle" width="[eval: [object:ACCESSORIES-PAGER-BOX.width] - 128]" height="66" font="Futura-Medium" color="#343434" size="fit" maxsize="25" alignment="left" text="[param:title]"></text>
         <!--<text name="bullet1" width="307" height="fit" xpos="20" bottomof="subtitle" style="darktext" size="15" alignment="left" text="Sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus."></text>-->
         <panel name="warranty-btn" width="108" height="50" align="right" ypos="8">
           <object class="button" name="test" size="20" label="Select" action="selectaccessories" value="[param:index]" />
@@ -2002,7 +2003,7 @@
         </panel>
       </panel>
       
-      <panel name="accessorylist" alias="ACCESSORYLIST" width="90%" height="70%" alpha="0" align="center" ypos="18%" background="#e3e3e3" onclickup="accessorydismiss" borderwidth="2" bordercolor="#343434" shadowradius="3" shadowxoffset="0" shadowyoffset="0" shadowopacity=".3">
+      <panel name="accessorylist" alias="ACCESSORYLIST" width="60%" height="40%" alpha="0" align="center" ypos="18%" background="#e3e3e3" onclickup="accessorydismiss" borderwidth="2" bordercolor="#343434" shadowradius="3" shadowxoffset="0" shadowyoffset="0" shadowopacity=".3">
         <text name="label" width="100%" height="80" leftinset="20" background="#343434" color="#ffffff" font="Futura-Medium" size="40" alignment="left" text="Select an Accessory"></text>
         <text name="accessorytype" width="100%" height="60" bottomof="label" style="darktext" leftinset="20" size="30" alignment="left" text="Ventilation"></text>
         <panel name="inner" width="100%" height="[eval: [object:ACCESSORYLIST.height] - 150]" ypos="150" padding-left="20" padding-right="20" padding-bottom="20" >
@@ -2010,15 +2011,15 @@
             <panel name="acessory1" width="100%" fitheight="yes" >
               <text name="item" width="100%" height="fit" style="darktext" size="25" alignment="left" text="Example product"></text>
               <text name="description" width="100%" height="fit" bottomof="item" style="darktext" size="20" alignment="left" text="Maecenas sed diam eget risus varius blandit sit amet non magna. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit."></text>
+              <panel name="accessoryquantity" alias="ACCESSORYQUANTITY" width="200" height="50" style="textinput" bottomof="description" margin-top="20"  >
+                <panel name="bg" style="100" background="f3f3f3" alpha="1"></panel>
+                <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Quantity"></text>
+                <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null"></textfield>
+                <panel name="active" style="100" onclickup="labelactive" _field="ACCESSORYQUANTITY"></panel>
+              </panel>
               <panel name="create" width="110" height="50" align="right" bottomof="description" margin-top="20">
                 <object class="button" name="test" size="20" label="Select" action="selectaccessory" value="product id" />
               </panel>
-	          <panel name="accessoryquantity" alias="ACCESSORYQUANTITY" width="200" height="50" style="textinput" leftof="create" bottomof="description" margin-right="25" >
-	            <panel name="bg" style="100" background="f3f3f3" alpha="1"></panel>
-	            <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Quantity"></text>
-	            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null"></textfield>
-	            <panel name="active" style="100" onclickup="labelactive" _field="ACCESSORYQUANTITY"></panel>
-	          </panel>
             </panel>
           </pager>
         </panel>
