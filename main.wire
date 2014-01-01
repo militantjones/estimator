@@ -1,4 +1,4 @@
-<wire> 
+<wire>   
 
   <!-- GAF Estimator -->
   <!-- iOS iPad -->
@@ -81,7 +81,7 @@
     <datasource name="productsdb-list" source="sql://PRODUCTS" query="SELECT * FROM PRODUCTS ORDER BY ID DESC;" providertype="sql" />
     
 <!--     <datasource name="accessoriesdb" source="sql://ACCESSORIES" query="DELETE FROM ACCESSORIES;" providertype="sql" /> -->
-    <datasource name="accessoriesdb" source="sql://ACCESSORIES" query="CREATE TABLE IF NOT EXISTS ACCESSORIES (ID INTEGER PRIMARY KEY AUTOINCREMENT, LEAKBARRIER, ROOFDECK, STARTER, RIDGECAP, VENTILATION, ACCESSORY);" providertype="sql" />
+    <datasource name="accessoriesdb" source="sql://ACCESSORIES" query="CREATE TABLE IF NOT EXISTS ACCESSORIES (ID INTEGER PRIMARY KEY AUTOINCREMENT, LEAKBARRIER, ROOFDECK, STARTER, RIDGECAP, VENTILATION, ACCESSORY, QUANTITY);" providertype="sql" />
     <datasource name="accessoriesdb-list" source="sql://ACCESSORIES" query="SELECT * FROM ACCESSORIES ORDER BY ID DESC;" providertype="sql" />
     
     <datasource name="tearoffdb" source="sql://TEAROFF" query="CREATE TABLE IF NOT EXISTS TEAROFF (ID INTEGER PRIMARY KEY AUTOINCREMENT, TEAROFF, LAYERS, MATERIAL);" providertype="sql" />
@@ -129,7 +129,7 @@
 		{"AccessoryId":"[datasource:accessoriesdb-list.[var:accessoriesIterateCount].ACCESSORY]","Quantity":"5"}
 	]]></texttemplate>
 	<texttemplate name="adjustments"><![CDATA[
-		{"PriceAjustmentsId":"[eval:[var:adjustmentsIterateCount]-1]","Description":"[datasource:adjustmentsdb-list.[var:adjustmentsIterateCount].NOTES]","Price":"[datasource:adjustmentsdb-list.[var:adjustmentsIterateCount].AMOUNT]"}
+		{"PriceAjustmentsId":"[eval:[var:adjustmentsIterateCount]-1]","Description":"[datasource:adjustmentsdb-list.[var:adjustmentsIterateCount].NOTES]","Price":"[eval:'[datasource:adjustmentsdb-list.[var:adjustmentsIterateCount].TYPE]' == 'Discount' ? '-':''][datasource:adjustmentsdb-list.[var:adjustmentsIterateCount].AMOUNT]"}
 	]]></texttemplate>
 	<texttemplate name="estimateJSON"><![CDATA[
 		{"customerId":"28","productId":"[var:shingle]","warrantyId":"[var:warranty]",[var:accessoriesObject],[var:adjustmentsObject],"AdditionalCost":{"TearOffLayers":[var:tearOffLayers],"TearOffType":"[var:tearOffType]","NumberOfStories":[var:numberOfFloors]}}
@@ -259,7 +259,7 @@
       <panel name="choice" alias="CHOICE" width="100%" height="[eval: [object:CONTAINER.height] - 74]" ypos="74" background="#e3e3e3" alpha="1">
         <panel name="column" width="60%" height="55%" align="center" valign="center">
           
-          <panel name="search-box" alias="SEARCH-BOX" width="100%" height="200">
+          <panel name="search-box" alias="SEARCH-BOX" width="100%" height="300" >
             <text name="label" width="100%" height="40" style="lighttext" size="30" alignment="center" text="Search for an existing estimate."></text>
             <panel name="search-lastname" alias="SEARCH-LASTNAME" width="[eval: [object:SEARCH-BOX.width] - 130]" height="50" align="center" bottomof="label" margin-top="20" style="textinput">
               <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
@@ -315,9 +315,9 @@
           <text name="label" width="100%" height="100%" color="#ffffff" font="Futura-Medium" size="24" alignment="center" text="Search Results"></text>
           <text name="close" width="100" height="100%" color="#ffffff" font="Futura-Medium" size="20" alignment="left" leftinset="20" text="Close" onclickup="closeresults" clickuptarget="CONTAINER"></text>
         </panel>
-        <pager name="resultlist" width="100%" height="[eval: [object:SEARCHRESULTS.height] - 74]" ypos="74" orientation="vertical" paginate="no">
-          <object class="searchresult" index="1" lastname="Reaves" firstname="Keanu" street="15 Matrix Way" city="Zion" state="CA" zip="90210" />
-        </pager>
+        <list name="resultlist" width="100%" height="[eval: [object:SEARCHRESULTS.height] - 74]" datasource="getEstimate" ypos="74" orientation="vertical" paginate="no">
+          <object class="searchresult" index="1" lastname="[ds:CustomerLastName]" firstname="[ds:CustomerFirstName]" street="[ds:Address1]" city="[ds:City]" state="[ds:StateProvince]" zip="[ds:PostalCode]" />
+        </list>
       </panel>
     </class>
     
@@ -799,6 +799,23 @@
       </panel>
     </class>
     
+	<class name="accessory-category">
+		<panel name="category[panel:index]" width="100%" height="100">
+			<text name="cat" width="100%" height="fit" font="Futura-Medium" color="#343434" size="35" alignment="left" text="[param:category]"></text>
+		</panel>
+	</class>
+
+    <class name="accessory">
+      <panel name="accessory[param:index]" width="100%" height="71">
+        <text name="subtitle" width="[eval: [object:ACCESSORIES-PAGER-BOX.width] - 95]" height="66" font="Futura-Medium" color="#343434" size="fit" maxsize="25" alignment="left" text="[param:title]"></text>
+        <!--<text name="bullet1" width="307" height="fit" xpos="20" bottomof="subtitle" style="darktext" size="15" alignment="left" text="Sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus."></text>-->
+        <panel name="warranty-btn" width="108" height="50" align="right" ypos="8">
+          <object class="button" name="test" size="20" label="Select" action="selectaccessories" value="[param:index]" />
+        </panel>
+        <panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
+      </panel>
+    </class>
+    
     <class name="accessories">
       <!--two column-->
       <panel name="[param:index]" width="100%" fitheight="yes" >
@@ -983,12 +1000,14 @@
         <panel name="dollars-[param:aindex]" alias="DOLLARS-[param:aindex]" width="50" height="50" align="left" bottomof="subtitle" background="f3f3f3" cornerradius="2" borderwidth="1" bordercolor="#888888" clip="yes" onclickup="dollars" _index="[param:aindex]" _type="ADJUSTMENT[param:aindex]" >
           <panel name="check" width="40" height="40" align="center" valign="center" background="#888888" cornerradius="20" alpha="1" ></panel>
         </panel>
-        <text name="checklabel" width="150" height="50" bottomof="subtitle" rightof="dollars-[param:aindex]" style="darktext" size="20" leftinset="10" alignment="left" text="$"></text>
+        <text name="checklabel-dollar" width="150" height="50" bottomof="subtitle" rightof="dollars-[param:aindex]" style="darktext" size="20" leftinset="10" alignment="left" text="$"></text>
         
+<!--
         <panel name="percent-[param:aindex]" alias="PERCENT-[param:aindex]" width="50" height="50" xpos="100" bottomof="subtitle" background="f3f3f3" cornerradius="2" borderwidth="1" bordercolor="#888888" clip="yes" onclickup="percent" _index="[param:aindex]" _type="ADJUSTMENT[param:aindex]" >
           <panel name="check" width="40" height="40" align="center" valign="center" background="#888888" cornerradius="20" alpha="0" ></panel>
         </panel>
-        <text name="checklabel" width="150" height="50" bottomof="subtitle" rightof="percent-[param:aindex]" style="darktext" size="20" leftinset="10" alignment="left" text="%"></text>
+        <text name="checklabel-percent" width="150" height="50" bottomof="subtitle" rightof="percent-[param:aindex]" style="darktext" size="20" leftinset="10" alignment="left" text="%"></text>
+-->
         
         <panel name="adjustment" width="256" height="50" bottomof="dollars-[param:aindex]" margin-top="10">
           <panel name="adjustmentamount[param:aindex]" alias="ADJUSTMENTAMOUNT[param:aindex]" width="226" height="50" align="left" style="textinput">
@@ -1019,12 +1038,14 @@
         <panel name="dollars-[param:aindex]" alias="DOLLARS-[param:aindex]" width="50" height="50" align="left" bottomof="subtitle" background="f3f3f3" cornerradius="2" borderwidth="1" bordercolor="#888888" clip="yes" onclickup="dollars" _index="[param:aindex]" _type="ADJUSTMENT[param:aindex]" >
           <panel name="check" width="40" height="40" align="center" valign="center" background="#888888" cornerradius="20" alpha="1" ></panel>
         </panel>
-        <text name="checklabel" width="150" height="50" bottomof="subtitle" rightof="dollars-[param:aindex]" style="darktext" size="20" leftinset="10" alignment="left" text="$"></text>
+        <text name="checklabel-dollar" width="150" height="50" bottomof="subtitle" rightof="dollars-[param:aindex]" style="darktext" size="20" leftinset="10" alignment="left" text="$"></text>
         
+<!--
         <panel name="percent-[param:aindex]" alias="PERCENT-[param:aindex]" width="50" height="50" xpos="100" bottomof="subtitle" background="f3f3f3" cornerradius="2" borderwidth="1" bordercolor="#888888" clip="yes" onclickup="percent" _index="[param:aindex]" _type="ADJUSTMENT[param:aindex]" >
           <panel name="check" width="40" height="40" align="center" valign="center" background="#888888" cornerradius="20" alpha="0" ></panel>
         </panel>
-        <text name="checklabel" width="150" height="50" bottomof="subtitle" rightof="percent-[param:aindex]" style="darktext" size="20" leftinset="10" alignment="left" text="%"></text>
+        <text name="checklabel-percent" width="150" height="50" bottomof="subtitle" rightof="percent-[param:aindex]" style="darktext" size="20" leftinset="10" alignment="left" text="%"></text>
+-->
         
         <panel name="adjustment" width="256" height="50" bottomof="dollars-[param:aindex]" margin-top="10">
           <panel name="adjustmentamount[param:aindex]" alias="ADJUSTMENTAMOUNT[param:aindex]" width="226" height="50" align="left" style="textinput">
@@ -1510,9 +1531,11 @@
         <panel name="products-Accessories" alias="PRODUCTS-ACCESSORIES" width="512" height="100%" align="right" padding-left="20" padding-right="20" alpha="0">
           <object class="title" title="Accessories"  />
           <panel name="productpagerbox" alias="ACCESSORIES-PAGER-BOX" width="100%" height="[eval: [object:PRODUCTS-ACCESSORIES.height] - 79]" ypos="79" >
-            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no">
-              <object class="accessories"  />
-            </pager>
+            <list name="pager" width="100%" datasource="getAccessories" height="100%" orientation="vertical" paginate="no">
+			<object class="accessory-category" index="[ds:dataSourceIndex]" category="[ds:AccessoryCategory]" lhs="[eval: ('[ds:dataSourceIndex]' == '1') || ('[datasource:getAccessories.[eval:[ds:dataSourceIndex]-1].AccessoryCategory]' != '[datasource:getAccessories.[ds:dataSourceIndex].AccessoryCategory]')]" operator="e" rhs="true" />
+<!-- 			<object class="accessory-category" index="[ds:dataSourceIndex]" category="[ds:AccessoryCategory]" lhs="[eval: '[ds:dataSourceIndex]' == '1' || '[ds:AccessoryCategory]' != '[datasource:getAccessories.[eval:[ds:dataSourceIndex]-1].AccessoryCategory]]'" operator="e" rhs="true" /> -->
+              <object class="accessory" index="[ds:dataSourceIndex]" title="[ds:AccessoryName]" />
+            </list>
           </panel>
         </panel>
         
@@ -1763,14 +1786,14 @@
         <panel name="divide" width="100%" height="1" valign="center" background="ffffff" alpha=".7"></panel>
       </panel>
       
-      <panel name="ventmenu" alias="VENTMENU" width="200" height="200" xpos="548" ypos="200" style="brand" alpha="0" cornerradius="2">
+      <panel name="ventmenu" alias="VENTMENU" width="200" height="150" xpos="548" ypos="200" style="brand" alpha="0" cornerradius="2">
         <text name="3-btn" width="100%" height="50" leftinset="10" color="#ffffff" font="Futura-Medium" size="20" alignment="left" text="3 Inch Vent" onclickup="add3vent"></text>
         <text name="2-btn" width="100%" height="50" bottomof="3-btn" leftinset="10" color="#ffffff" font="Futura-Medium" size="20" alignment="left" text="2 Inch Vent" onclickup="add2vent"></text>
         <text name="15-btn" width="100%" height="50" bottomof="2-btn" leftinset="10" color="#ffffff" font="Futura-Medium" size="20" alignment="left" text="1.5 Inch Vent" onclickup="add15vent"></text>
-        <text name="custom-btn" width="100%" height="50" bottomof="15-btn" leftinset="10" color="#ffffff" font="Futura-Medium" size="20" alignment="left" text="Custom Vent" onclickup="addcustomvent"></text>
+<!--         <text name="custom-btn" width="100%" height="50" bottomof="15-btn" leftinset="10" color="#ffffff" font="Futura-Medium" size="20" alignment="left" text="Custom Vent" onclickup="addcustomvent"></text> -->
         <panel name="divide" width="100%" height="1" bottomof="3-btn" background="ffffff" alpha=".7"></panel>
         <panel name="divide" width="100%" height="1" bottomof="2-btn" background="ffffff" alpha=".7"></panel>
-        <panel name="divide" width="100%" height="1" bottomof="15-btn" background="ffffff" alpha=".7"></panel>
+<!--         <panel name="divide" width="100%" height="1" bottomof="15-btn" background="ffffff" alpha=".7"></panel> -->
       </panel>
       
       <panel name="cameramenu" alias="CAMERAMENU" width="200" height="100" xpos="548" ypos="200" style="brand" alpha="0" cornerradius="2">
@@ -1860,6 +1883,12 @@
               <panel name="create" width="110" height="50" align="right" bottomof="description" margin-top="20">
                 <object class="button" name="test" size="20" label="Select" action="selectaccessory" value="product id" />
               </panel>
+	          <panel name="accessoryquantity" alias="ACCESSORYQUANTITY" width="200" height="50" style="textinput" leftof="create" bottomof="description" margin-right="25" >
+	            <panel name="bg" style="100" background="f3f3f3" alpha="1"></panel>
+	            <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Quantity"></text>
+	            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null"></textfield>
+	            <panel name="active" style="100" onclickup="labelactive" _field="ACCESSORYQUANTITY"></panel>
+	          </panel>
             </panel>
           </pager>
         </panel>
@@ -2130,11 +2159,24 @@
     <action name="search">
       <sync>
         <play action="released" />
-        <assign encoding="url" property="var:lastName" value="[object:SEARCH/input.text]" />
+        <assign encoding="url" property="var:lastName" value="[object:SEARCH-LASTNAME/input.text]" />
+		<keyboard visible="no" target="SEARCH-LASTNAME/input" />
+		<keyboard visible="no" target="SEARCH-ADDRESS/input" />
         <create class="results" target="CONTAINER" />
         <translate ypos="0" time=".25" curve="easeout" target="SEARCHRESULTS" />
-        <!--<alert message="get-estimate preferences:token is [preferences:token] preferences:contractorId is [preferences:contractorId] header is [template:get.content] ]url is https://162.209.101.177/api/GetCustomerEstimate?customerLastName=[var:lastName]&amp;address1=[var:address1]&amp;city=[var:city]&amp;stateProvince=[var:state]&amp;postalCode=[var:postalCode]&amp;country=[var:country]" />
-        <assign property="datasource:getEstimate.source" value="https://162.209.101.177/api/GetCustomerEstimate?CustomerLastName=[object:SEARCH/input.text]" />-->
+        <alert message="get-estimate preferences:token is [preferences:token] preferences:contractorId is [preferences:contractorId] url is https://162.209.101.177/api/GetCustomerEstimate?customerLastName=[var:lastName]&amp;address1=[var:address1]&amp;city=[var:city]&amp;stateProvince=[var:state]&amp;postalCode=[var:postalCode]&amp;country=[var:country]" />
+		<if lhs="[eval: ('[object:SEARCH-LASTNAME/input.text]' != '' ) &amp;&amp; ('[object:SEARCH-ADDRESS/input.text]' != '')]" operator="e" rhs="true">
+			<alert message="search by both" />
+        	<assign property="datasource:getEstimate.source" value="https://162.209.101.177/api/GetCustomerEstimate?CustomerLastName=[object:SEARCH-LASTNAME/input.text]" />
+		</if>
+		<if lhs="[eval: ('[object:SEARCH-LASTNAME/input.text]' != '' ) &amp;&amp; ('[object:SEARCH-ADDRESS/input.text]' == '')]" operator="e" rhs="true">
+			<alert message="search by last name" />
+	        <assign property="datasource:getEstimate.source" value="https://162.209.101.177/api/GetCustomerEstimate?CustomerLastName=[object:SEARCH-LASTNAME/input.text]" />
+		</if>
+		<if lhs="[eval: ('[object:SEARCH-LASTNAME/input.text]' == '' ) &amp;&amp; ('[object:SEARCH-ADDRESS/input.text]' != '')]" operator="e" rhs="true">
+			<alert message="search by address" />
+        	<assign property="datasource:getEstimate.source" value="https://162.209.101.177/api/GetCustomerEstimate?CustomerLastName=[object:SEARCH-LASTNAME/input.text]&amp;address1=[object:SEARCH-ADDRESS/input.text]" />
+		</if>
       </sync>
     </action>
     
@@ -2504,6 +2546,7 @@
     
     <action name="adddiscount">
       <sync>
+	  	<assign property="var:adjustment" value="discount" />
         <alpha value="0" time=".25" target="ADJUSTMENU" />
         <assign property="var:discountindex" value="[eval: [var:discountindex] + 1]" />
         <assign property="var:adjustmentindex" value="[eval: [var:adjustmentindex] + 1]" />
@@ -2515,6 +2558,7 @@
     
     <action name="addcost">
       <sync>
+	  	<assign property="var:adjustment" value="cost" />
         <alpha value="0" time=".25" target="ADJUSTMENU" />
         <assign property="var:costindex" value="[eval: [var:costindex] + 1]" />
         <assign property="var:adjustmentindex" value="[eval: [var:adjustmentindex] + 1]" />
@@ -2616,9 +2660,9 @@
         <translate ypos="101%" time=".1" curve="linear" target="NAV-CUSTOMER/sel" />
         <assign property="var:roofarrow" value="Inspection" />
         <translate align="right" time=".1" curve="linear" target="ROOF-SIDEBAR-PAGER/[var:roofarrow]/arrow" />
-        <alpha value="1" target="ROOF-INSPECTION" />
         <assign property="var:roof" value="INSPECTION" />
         <translate valign="bottom" time=".1" curve="linear" target="NAV-ROOF/sel" />
+        <alpha value="1" target="ROOF-INSPECTION" />
       </sync>
       <sync>
         <translate xpos="0" curve="linear" target="NAVBLOCK" />
@@ -2667,9 +2711,9 @@
         <translate ypos="101%" time=".1" curve="linear" target="NAV-CUSTOMER/sel" />
         <assign property="var:roofarrow" value="Inspection" />
         <translate align="right" time=".1" curve="linear" target="ROOF-SIDEBAR-PAGER/[var:roofarrow]/arrow" />
-        <alpha value="1" target="ROOF-INSPECTION" />
         <assign property="var:roof" value="INSPECTION" />
         <translate valign="bottom" time=".1" curve="linear" target="NAV-ROOF/sel" />
+        <alpha value="1" target="ROOF-INSPECTION" />
       </sync>
       <sync>
         <translate xpos="0" curve="linear" target="NAVBLOCK" />
@@ -2739,7 +2783,6 @@
       <play action="released" />
       <!--<alert message="[var:roof]" />-->
       <play action="[var:roof]" />
-      <alert message="[var:roof]" />
     </action>
     
     <action name="INSPECTION">
@@ -2765,16 +2808,8 @@
         <if lhs="[var:areaindex]" operator="gt" rhs="0">
           <play action="areaValidationLoop" />
           <else>
-            <alert title="Incomplete Form" message="Please feel out all fields" />
+            <alert title="No Roof Areas Available" message="There have not been any Roof Areas added to save." />
           </else>
-          <!-- <if lhs="[eval:'[object:RL[var:areaindexloop]/input.text]' != '' &amp;&amp; '[object:RW[var:areaindexloop]/input.text]' != '' &amp;&amp; '[var:slope-[var:areaindexloop]]' != '']" operator="e" rhs="true">
-            <assign property="var:areaindexloop" value="[eval: [var:areaindexloop] + 1]" />
-  		      <alert message="var:slope-[var:areaindexloop] is [var:slope-[var:areaindexloop]]" />
-            <assign property="datasource:roofareasdb.query" value="INSERT INTO ROOFAREAS (LENGTH, WIDTH, SLOPE) values ('[object:RL[var:areaindexloop]/input.text]', '[object:RW[var:areaindexloop]/input.text]', '[var:slope-[var:areaindexloop]]');" />
-              <else>
-                <alert title="Incomplete Form" message="Please feel out all fields" />
-              </else>
-          </if> -->
         </if>
       </sync>
     </action>
@@ -2786,12 +2821,14 @@
             <play action="areaValidationLoop" />
             <else>
               <alert title="Incomplete Form" message="Please feel out all fields" />
+              <assign property="var:areaValidationIndex" value="0" />
             </else>
         </if>
         <else>
           <play action="roofareas-db-add" />
         </else>
       </if>
+
     </action>
 
     <action name="roofareas-db-add">
@@ -2823,6 +2860,7 @@
           <else>
             <assign property="datasource:roofareasdb-list.query" value="SELECT * FROM ROOFAREAS;" />
             <assign property="var:areaindexloop" value="0" />
+            <assign property="var:areaValidationIndex" value="0" />
           </else>
         </if>
         <!--<alert message="[var:areaindexloop]" />-->
@@ -2845,11 +2883,38 @@
     
     <action name="RIDGE">
       <sync>
+        <if lhs="[var:ridgeindex]" operator="gt" rhs="0">
+          <play action="ridgeValidationLoop" />
+          <else>
+            <alert title="No Ridges Available" message="There have not been any Ridges added to save." />
+          </else>
+        </if>
+      </sync>
+    </action>
+
+    <action name="ridgeValidationLoop">
+      <if lhs="[var:ridgeValidationIndex]" operator="lt" rhs="[var:ridgeindex]">
+        <assign property="var:ridgeValidationIndex" value="[eval: [var:ridgeValidationIndex] + 1]" />
+        <if lhs="[eval:'[object:RIDGELENGTH[var:ridgeValidationIndex]/input.text]' != '' &amp;&amp; '[var:ridgevent-[var:ridgeValidationIndex]]' != '']" operator="e" rhs="true">
+            <play action="ridgeValidationLoop" />
+            <else>
+              <alert title="Incomplete Form" message="Please feel out all fields" />
+              <assign property="var:ridgeValidationIndex" value="0" />
+            </else>
+        </if>
+        <else>
+          <play action="ridge-db-add" />
+        </else>
+      </if>
+    </action>
+
+    <action name="ridge-db-add">
+      <sync>
         <assign property="var:ridgeindexloop" value="[eval: [var:ridgeindexloop] + 1]" />
         <alert message="[object:RIDGELENGTH[var:ridgeindexloop]/input.text] ridgevent: [var:ridgevent-[var:ridgeindexloop]] " />
         <assign property="datasource:ridgesdb.query" value="INSERT INTO RIDGES (LENGTH, VENTS) values ('[object:RIDGELENGTH[var:ridgeindexloop]/input.text]', '[var:ridgevent-[var:ridgeindexloop]]');" />
       </sync>
-    </action>
+    </action>    
     
     <action name="ridgequery" datasource="ridgesdb" datasourceevent="querycomplete">
       <sync>
@@ -2858,6 +2923,7 @@
           <else>
             <assign property="datasource:ridgesdb-list.query" value="SELECT * FROM RIDGES;" />
             <assign property="var:ridgeindexloop" value="0" />
+            <assign property="var:ridgeValidationIndex" value="0" />
           </else>
         </if>
       </sync>
@@ -2865,11 +2931,37 @@
     
     <action name="HIP">
       <sync>
-        <assign property="var:hipindexloop" value="[eval: [var:hipindexloop] + 1]" />
-        <!--<alert message="[object:HIPLENGTH[var:hipindexloop]/input.text]" />-->
-        <assign property="datasource:hipsdb.query" value="INSERT INTO HIPS (LENGTH) values ('[object:HIPLENGTH[var:hipindexloop]/input.text]');" />
+        <if lhs="[var:hipindex]" operator="gt" rhs="0">
+          <play action="hipValidationLoop" />
+          <else>
+            <alert title="No Hips Available" message="There have not been any Hips added to save." />
+          </else>
+        </if>
       </sync>
     </action>
+
+    <action name="hipValidationLoop">
+      <if lhs="[var:hipValidationIndex]" operator="lt" rhs="[var:hipindex]">
+        <assign property="var:hipValidationIndex" value="[eval: [var:hipValidationIndex] + 1]" />
+        <if lhs="[eval:'[object:HIPLENGTH[var:hipValidationIndex]/input.text]' != '']" operator="e" rhs="true">
+            <play action="hipValidationLoop" />
+            <else>
+              <alert title="Incomplete Form" message="Please feel out all fields" />
+              <assign property="var:hipValidationIndex" value="0" />
+            </else>
+        </if>
+        <else>
+          <play action="hip-db-add" />
+        </else>
+      </if>
+    </action>
+
+    <action name="hip-db-add">
+      <sync>
+        <assign property="var:hipindexloop" value="[eval: [var:hipindexloop] + 1]" />
+        <assign property="datasource:hipsdb.query" value="INSERT INTO HIPS (LENGTH) values ('[object:HIPLENGTH[var:hipindexloop]/input.text]');" />
+      </sync>
+    </action>  
     
     <action name="hipquery" datasource="hipsdb" datasourceevent="querycomplete">
       <sync>
@@ -2878,6 +2970,7 @@
           <else>
             <assign property="datasource:hipsdb-list.query" value="SELECT * FROM HIPS;" />
             <assign property="var:hipindexloop" value="0" />
+            <assign property="var:hipValidationIndex" value="0" />
           </else>
         </if>
       </sync>
@@ -2885,11 +2978,38 @@
     
     <action name="VALLEY">
       <sync>
+        <if lhs="[var:valleyindex]" operator="gt" rhs="0">
+          <play action="valleyValidationLoop" />
+          <else>
+            <alert title="No Valleys Available" message="There have not been any Valleys added to save." />
+          </else>
+        </if>
+      </sync>
+    </action>
+
+    <action name="valleyValidationLoop">
+      <if lhs="[var:valleyValidationIndex]" operator="lt" rhs="[var:valleyindex]">
+        <assign property="var:valleyValidationIndex" value="[eval: [var:valleyValidationIndex] + 1]" />
+        <if lhs="[eval:'[object:VALLEYLENGTH[var:valleyValidationIndex]/input.text]' != '']" operator="e" rhs="true">
+            <play action="ridgeValidationLoop" />
+            <else>
+              <alert title="Incomplete Form" message="Please feel out all fields" />
+              <assign property="var:valleyValidationIndex" value="0" />
+            </else>
+        </if>
+        <else>
+          <play action="valley-db-add" />
+        </else>
+      </if>
+    </action>
+
+    <action name="valley-db-add">
+      <sync>
         <assign property="var:valleyindexloop" value="[eval: [var:valleyindexloop] + 1]" />
         <alert message="[object:VALLEYLENGTH[var:valleyindexloop]/input.text]" />
         <assign property="datasource:valleysdb.query" value="INSERT INTO VALLEYS (LENGTH) values ('[object:VALLEYLENGTH[var:valleyindexloop]/input.text]')" />
       </sync>
-    </action>
+    </action>  
     
     <action name="valleyquery" datasource="valleysdb" datasourceevent="querycomplete">
       <sync>
@@ -2898,6 +3018,7 @@
           <else>
             <assign property="datasource:valleysdb-list.query" value="SELECT * FROM VALLEYS;" />
             <assign property="var:valleyindexloop" value="0" />
+            <assign property="var:valleyValidationIndex" value="0" />
           </else>
         </if>
       </sync>
@@ -2905,11 +3026,38 @@
     
     <action name="RAKE">
       <sync>
-        <assign property="var:rakeindexloop" value="[eval: [var:rakeindexloop] + 1]" />
-        <!--<alert message="[object:RAKELENGTH[var:rakeindexloop]/input.text]" />-->
-        <assign property="datasource:rakesdb.query" value="INSERT INTO RAKES (LENGTH) values ('[object:RAKELENGTH[var:rakeindexloop]/input.text]')" />
+        <if lhs="[var:rakeindex]" operator="gt" rhs="0">
+          <play action="rakeValidationLoop" />
+          <else>
+            <alert title="No Rakes Available" message="There have not been any Rakes added to save." />
+          </else>
+        </if>
       </sync>
     </action>
+
+    <action name="rakeValidationLoop">
+      <if lhs="[var:rakeValidationIndex]" operator="lt" rhs="[var:rakeindex]">
+        <assign property="var:rakeValidationIndex" value="[eval: [var:rakeValidationIndex] + 1]" />
+        <if lhs="[eval:'[object:RAKELENGTH[var:rakeValidationIndex]/input.text]' != '']" operator="e" rhs="true">
+            <play action="rakeValidationLoop" />
+            <else>
+              <alert title="Incomplete Form" message="Please feel out all fields" />
+              <assign property="var:rakeValidationIndex" value="0" />
+            </else>
+        </if>
+        <else>
+          <play action="rake-db-add" />
+        </else>
+      </if>
+    </action>
+
+    <action name="rake-db-add">
+      <sync>
+        <assign property="var:rakeindexloop" value="[eval: [var:rakeindexloop] + 1]" />
+        <alert message="[object:RAKELENGTH[var:rakeindexloop]/input.text]" />
+        <assign property="datasource:rakesdb.query" value="INSERT INTO RAKES (LENGTH) values ('[object:RAKELENGTH[var:rakeindexloop]/input.text]')" />
+      </sync>
+    </action> 
     
     <action name="rakequery" datasource="rakesdb" datasourceevent="querycomplete">
       <sync>
@@ -2918,6 +3066,7 @@
           <else>
             <assign property="datasource:rakesdb-list.query" value="SELECT * FROM RAKES;" />
             <assign property="var:rakeindexloop" value="0" />
+            <assign property="var:rakeValidationIndex" value="0" />
           </else>
         </if>
       </sync>
@@ -2925,11 +3074,38 @@
     
     <action name="EAVE">
       <sync>
-        <assign property="var:eaveindexloop" value="[eval: [var:eaveindexloop] + 1]" />
-        <!--<alert message="[object:EAVELENGTH[var:eaveindexloop]/input.text]" />-->
-        <assign property="datasource:eavesdb.query" value="INSERT INTO EAVES (LENGTH) values ('[object:EAVELENGTH[var:eaveindexloop]/input.text]')" />
+        <if lhs="[var:eaveindex]" operator="gt" rhs="0">
+          <play action="eaveValidationLoop" />
+          <else>
+            <alert title="No Eaves Available" message="There have not been any Eaves added to save." />
+          </else>
+        </if>
       </sync>
     </action>
+
+    <action name="eaveValidationLoop">
+      <if lhs="[var:eaveValidationIndex]" operator="lt" rhs="[var:eaveindex]">
+        <assign property="var:eaveValidationIndex" value="[eval: [var:eaveValidationIndex] + 1]" />
+        <if lhs="[eval:'[object:EAVELENGTH[var:eaveValidationIndex]/input.text]' != '']" operator="e" rhs="true">
+            <play action="eaveValidationLoop" />
+            <else>
+              <alert title="Incomplete Form" message="Please feel out all fields" />
+              <assign property="var:eaveValidationIndex" value="0" />
+            </else>
+        </if>
+        <else>
+          <play action="eave-db-add" />
+        </else>
+      </if>
+    </action>
+
+    <action name="eave-db-add">
+      <sync>
+        <assign property="var:eaveindexloop" value="[eval: [var:eaveindexloop] + 1]" />
+        <alert message="[object:EAVELENGTH[var:eaveindexloop]/input.text]" />
+        <assign property="datasource:eavesdb.query" value="INSERT INTO EAVES (LENGTH) values ('[object:EAVELENGTH[var:eaveindexloop]/input.text]')" />
+      </sync>
+    </action> 
     
     <action name="eavequery" datasource="eavesdb" datasourceevent="querycomplete">
       <sync>
@@ -2938,6 +3114,7 @@
           <else>
             <assign property="datasource:eavesdb-list.query" value="SELECT * FROM EAVES;" />
             <assign property="var:eaveindexloop" value="0" />
+            <assign property="var:eaveValidationIndex" value="0" />
           </else>
         </if>
       </sync>
@@ -2945,11 +3122,38 @@
     
     <action name="CHIMNEY">
       <sync>
-        <assign property="var:protrusionindexloop" value="[eval: [var:protrusionindexloop] + 1]" />
-        <assign property="datasource:protrusionsdb.query" value="INSERT INTO PROTRUSIONS (LENGTH, WIDTH, TYPE) values ('[object:PROTRUSIONLENGTH[var:protrusionindexloop]/input.text]', '[object:PROTRUSIONWIDTH[var:protrusionindexloop]/input.text]', '[object:TYPE[var:protrusionindexloop].text]');" />
-        <!--<alert message="Type:[object:TYPE[var:protrusionindexloop].text] Length:[object:PROTRUSIONLENGTH[var:protrusionindexloop]/input.text] Width:[object:PROTRUSIONWIDTH[var:protrusionindexloop]/input.text]" />-->
+        <if lhs="[var:protrusionindex]" operator="gt" rhs="0">
+          <play action="chimneyValidationLoop" />
+          <else>
+            <alert title="No Chimneys Available" message="There have not been any Chimneys added to save." />
+          </else>
+        </if>
       </sync>
     </action>
+
+    <action name="chimneyValidationLoop">
+      <if lhs="[var:chimneyValidationIndex]" operator="lt" rhs="[var:protrusionindex]">
+        <assign property="var:chimneyValidationIndex" value="[eval: [var:chimneyValidationIndex] + 1]" />
+        <if lhs="[eval:'[object:PROTRUSIONLENGTH[var:chimneyValidationIndex]/input.text]' != '' &amp;&amp; '[object:PROTRUSIONWIDTH[var:chimneyValidationIndex]/input.text]' != '']" operator="e" rhs="true">
+            <play action="chimneyValidationLoop" />
+            <else>
+              <alert title="Incomplete Form" message="Please feel out all fields" />
+              <assign property="var:chimneyValidationIndex" value="0" />
+            </else>
+        </if>
+        <else>
+          <play action="chimney-db-add" />
+        </else>
+      </if>
+    </action>
+
+    <action name="chimney-db-add">
+      <sync>
+        <assign property="var:protrusionindexloop" value="[eval: [var:protrusionindexloop] + 1]" />
+        <assign property="datasource:protrusionsdb.query" value="INSERT INTO PROTRUSIONS (LENGTH, WIDTH, TYPE) values ('[object:PROTRUSIONLENGTH[var:protrusionindexloop]/input.text]', '[object:PROTRUSIONWIDTH[var:protrusionindexloop]/input.text]', '[object:TYPE[var:protrusionindexloop].text]');" />
+        <alert message="Type:[object:TYPE[var:protrusionindexloop].text] Length:[object:PROTRUSIONLENGTH[var:protrusionindexloop]/input.text] Width:[object:PROTRUSIONWIDTH[var:protrusionindexloop]/input.text]" />
+      </sync>
+    </action> 
     
     <action name="chimneyquery" datasource="protrusionsdb" datasourceevent="querycomplete">
       <sync>
@@ -2958,6 +3162,7 @@
           <else>
             <assign property="datasource:protrusionsdb-list.query" value="SELECT * FROM PROTRUSIONS;" />
             <assign property="var:protrusionindexloop" value="0" />
+            <assign property="var:chimneyValidationIndex" value="0" />
           </else>
         </if>
       </sync>
@@ -2965,11 +3170,38 @@
     
     <action name="VENT">
       <sync>
+        <if lhs="[var:ventindex]" operator="gt" rhs="0">
+          <play action="ventValidationLoop" />
+          <else>
+            <alert title="No Vents Available" message="There have not been any Vents added to save." />
+          </else>
+        </if>
+      </sync>
+    </action>
+
+    <action name="ventValidationLoop">
+      <if lhs="[var:ventValidationIndex]" operator="lt" rhs="[var:ventindex]">
+        <assign property="var:ventValidationIndex" value="[eval: [var:ventValidationIndex] + 1]" />
+        <if lhs="[eval:'[object:VENTQUANTITY[var:ventValidationIndex]/input.text]' != '']" operator="e" rhs="true">
+            <play action="ventValidationLoop" />
+            <else>
+              <alert title="Incomplete Form" message="Please feel out all fields" />
+              <assign property="var:ventValidationIndex" value="0" />
+            </else>
+        </if>
+        <else>
+          <play action="vent-db-add" />
+        </else>
+      </if>
+    </action>
+
+    <action name="vent-db-add">
+      <sync>
         <assign property="var:ventindexloop" value="[eval: [var:ventindexloop] + 1]" />
         <alert message="Size:[object:VENTSIZE[var:ventindexloop]/input.text] Quantity:[object:VENTQUANTITY[var:ventindexloop]/input.text]" />
         <assign property="datasource:ventsdb.query" value="INSERT INTO VENTS (SIZE, QUANTITY) values ('[object:VENTSIZE[var:ventindexloop]/input.text]', '[object:VENTQUANTITY[var:ventindexloop]/input.text]');" />
       </sync>
-    </action>
+    </action>  
     
     <action name="ventquery" datasource="ventsdb" datasourceevent="querycomplete">
       <sync>
@@ -2978,6 +3210,7 @@
           <else>
             <assign property="datasource:ventsdb-list.query" value="SELECT * FROM VENTS;" />
             <assign property="var:ventindexloop" value="0" />
+            <assign property="var:ventValidationIndex" value="0" />
           </else>
         </if>
       </sync>
@@ -3133,23 +3366,23 @@
     
     <!-- !accessory actions -->
 	<action name="accessories-done" datasource="getAccessories" datasourceevent="querycomplete" >
+<!--
 		<delete target="ACCESSORIES-PAGER-BOX/pager" />
 		<create class="product-pager" target="ACCESSORIES-PAGER-BOX" />
 		<assign property="var:accessoriesCount" value="[datasource:getAccessories.dataSourceResultCount]" />
 		<assign property="var:accessoriesIterateCount" value="1" />
 		<loop lhs="[var:accessoriesIterateCount]" operator="lte" rhs="[var:accessoriesCount]" >
 			<if lhs="[eval:[var:accessoriesCount]-[var:accessoriesIterateCount]]" operator="ne" rhs="0">
-<!-- 					<alert message="creating with two items" /> -->
 				<create class="accessories" index="[var:accessoriesIterateCount]" target="ACCESSORIES-PAGER-BOX/pager" />
 				<else>
-<!-- 						<alert message="creating with one item" /> -->
 					<create class="accessory-single" index="[var:accessoriesIterateCount]" target="ACCESSORIES-PAGER-BOX/pager" />
 				</else>
 			</if>
 			<assign property="var:accessoriesIterateCount" value="[eval: [var:accessoriesIterateCount]+2]" />
 		</loop>
+-->
 		<play action="sidebar-products" _alias="ACCESSORIES" _form="Accessories" />
-<!-- 		<alert message="accessories done content [datasource:getAccessories.0.content]" /> -->
+		<alert message="accessories-done" />
 	</action>
 
 	<action name="accessories-error" datasource="getAccessories" datasourceevent="datasourceerror" >
@@ -3170,10 +3403,12 @@
     
     <action name="selectaccessory">
       <play action="released" />
+	  <if lhs="[object:ACCESSORYQUANTITY/input.text]" operator="ne" rhs="">
 	  <assign property="var:accessoryCount" value="[eval:[var:accessoryCount]+1]" />
+		<assign property="var:accessory-[var:accessoryCount]-Quantity" value="[object:ACCESSORYQUANTITY/input.text]" />			  
 	  <assign property="var:accessory-[var:accessoryCount]" value="[datasource:getAccessories.[var:accessorySelected].AccessoryId]" />
 <!-- 	  <alert message="var:accessory-[var:accessoryCount] is [var:accessory-[var:accessoryCount]]" /> -->
-	  <assign property="datasource:accessoriesdb.query" value="INSERT INTO ACCESSORIES (LEAKBARRIER, ROOFDECK, STARTER, RIDGECAP, VENTILATION, ACCESSORY) VALUES ('leak', 'roof', 'starter', 'ridgecacp', 'ventilation', '[var:accessory-[var:accessoryCount]]');" />
+	  <assign property="datasource:accessoriesdb.query" value="INSERT INTO ACCESSORIES (LEAKBARRIER, ROOFDECK, STARTER, RIDGECAP, VENTILATION, ACCESSORY, QUANTITY) VALUES ('leak', 'roof', 'starter', 'ridgecacp', 'ventilation', '[var:accessory-[var:accessoryCount]]', '[var:accessory-[var:accessoryCount]-Quantity]');" />
 	  <if lhs="[eval:[var:accessories]-[var:accessoryCount]]" operator="gt" rhs="0">
 	  	<alert message="accessory selected. you must select [eval:[var:accessories]-[var:accessoryCount]] more accessories for the warranty you have chosen" />
 	  	<else>
@@ -3181,12 +3416,19 @@
 	  	</else>
 	  </if>
       <play action="accessorydismiss" />
+	  <else>
+	  	<alert message="please select a quantity" />
+	  </else>
+	  </if>
     </action>
     
     <action name="accessorydismiss">
       <translate ypos="18%" time=".25" curve="easeout" target="ACCESSORYLIST" />
       <sync>
         <alpha value="0" time=".20" target="ACCESSORYLIST" />
+        <alpha value="1" target="ACCESSORYQUANTITY/bg" />
+        <alpha value="1" target="ACCESSORYQUANTITY/active" />
+        <assign property="object:ACCESSORYQUANTITY/input.text" value="" />
         <play action="focus" />
       </sync>
     </action>
@@ -3197,7 +3439,7 @@
     </action>
     
     <action name="accessoriesdb-list-complete" datasource="accessoriesdb-list" datasourceevent="querycomplete" >
-<!-- 		<alert message="accessoriesdb-list count is [datasource:accessoriesdb-list.dataSourceResultCount]" /> -->
+<!-- 		<alert message="accessoriesdb-list count is [datasource:accessoriesdb-list.dataSourceResultCount] quantity for 1 is [datasource:accessoriesdb-list.1.QUANTITY]" /> -->
     </action>
     <!-- !options actions -->
     <action name="selectoptions">
@@ -3393,6 +3635,40 @@
 	
 		<action name="updateMeasurements-error" datasource="updateMeasurements" datasourceevent="datasourceerror" >
 			<alert message="updateMeasurements-error content [datasource:updateMeasurements.0.content]" />
+		</action>
+		
+		<action name="prepPhotos">
+			<assign property="var:photoCount" value="[datasource:photosdb-list.dataSourceResultCount]" />
+			<assign property="var:photoIterateCount" value="1" />
+			<assign property="httpheader:formSubmit.Token" value="[preferences:token]" />
+			<assign property="httpheader:formSubmit.ContractorId" value="[preferences:contractorId]" />
+		</action>
+		
+		<action name="upload-photo" >
+<!--
+			<loop lhs="[var:photoIterateCount]" operator="lte" rhs="[var:photoCount]" >
+			</loop>
+-->
+			<if lhs="[var:photoIterateCount]" operator="lte" rhs="[var:photoCount]">
+<!--
+				<assign property="datasource:uploadPhoto.postFile" value="[datasource:photosdb-list.[var:photoIterateCount].PHOTO]"/>
+				<assign property="datasource:uploadPhoto.source" value="https://162.209.101.177/api/UploadPhoto" />
+-->
+				<else>
+					<play action="all photos have been uploaded." />
+				</else>
+			</if>
+		</action>
+		
+		<action name="photoupload-complete" datasource="uploadPhoto" datasourceevent="querycomplete" >
+			<alert message="upload complete [datasource:uploadPhoto.0.content]" />
+			<if lhs="[datasource:uploadPhoto.0.content]" operator="e" rhs="100">
+				<assign property="var:photoIterateCount" value="[eval: [var:photoIterateCount]+1]" />
+				<play action="upload-photo" />
+			</if>
+		</action>
+		<action name="photoupload-error" datasource="uploadPhoto" datasourceevent="datasourceerror" >
+			<alert message="upload error [datasource:uploadPhoto.0.content]" />
 		</action>
 		
 		<action name="formatEstimate" >
