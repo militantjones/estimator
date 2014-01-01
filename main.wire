@@ -2882,6 +2882,7 @@
       <!--<alert title="inspection" message="rooftype [object:ROOFTYPE/input.text] floors [object:FLOORS/input.text]" />-->
       <if lhs="[eval:'[object:ROOFTYPE/input.text]' != '' &amp;&amp; '[object:FLOORS/input.text]' != '']" operator="e" rhs="true">
         <assign property="datasource:inspectiondb.query" value="INSERT INTO INSPECTION (ROOFTYPE, FLOORS) VALUES ('[object:ROOFTYPE/input.text]', '[object:FLOORS/input.text]');" />
+        <alert message="[object:ROOFTYPE/input.text] : [object:FLOORS/input.text]" />
         <else>
           <alert title="Incomplete Form" message="Please feel out all fields" />
         </else> 
@@ -2964,6 +2965,7 @@
       <!--<alert message="[object:WASTEPERCENT/input.text]" />-->
       <if lhs="[eval:'[object:WASTEPERCENT/input.text]' != '']" operator="e" rhs="true">
         <assign property="datasource:wastedb.query" value="INSERT INTO WASTE (PERCENT) values ('[object:WASTEPERCENT/input.text]');" />
+        <alert message="[object:WASTEPERCENT/input.text]" />
         <else>
           <alert title="Incomplete Form" message="Please feel out all fields" />
         </else> 
@@ -3052,6 +3054,7 @@
     <action name="hip-db-add">
       <sync>
         <assign property="var:hipindexloop" value="[eval: [var:hipindexloop] + 1]" />
+        <alert message="[object:HIPLENGTH[var:hipindexloop]/input.text]" />
         <assign property="datasource:hipsdb.query" value="INSERT INTO HIPS (LENGTH) values ('[object:HIPLENGTH[var:hipindexloop]/input.text]');" />
       </sync>
     </action>  
@@ -3084,7 +3087,7 @@
       <if lhs="[var:valleyValidationIndex]" operator="lt" rhs="[var:valleyindex]">
         <assign property="var:valleyValidationIndex" value="[eval: [var:valleyValidationIndex] + 1]" />
         <if lhs="[eval:'[object:VALLEYLENGTH[var:valleyValidationIndex]/input.text]' != '']" operator="e" rhs="true">
-            <play action="ridgeValidationLoop" />
+            <play action="valleyValidationLoop" />
             <else>
               <alert title="Incomplete Form" message="Please feel out all fields" />
               <assign property="var:valleyValidationIndex" value="0" />
