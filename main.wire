@@ -1093,7 +1093,7 @@
     </class> <!-- <object class="summary-cust" cust1name="" cust1phone="" cust1email="" cust2name="" cust2phone="" cust2email="" street="" city="" state="" zip="" /> -->
     
     <class name="summary-roof">
-      <panel name="summary-roof" width="100%" height="158">
+      <panel name="summary-roof" alias="SUMMARY-ROOF" width="100%" height="158">
         <text name="subtitle" width="100%" height="40" font="Futura-Medium" color="#343434" size="25" alignment="left" text="Roof Info"></text>
         <panel name="col1" width="33.33%" height="108" bottomof="subtitle">
           <text name="roof-area" width="100%" height="35" style="darktext" size="20" alignment="left" text="Total Area: [param:area] sq ft"></text>
@@ -1111,6 +1111,24 @@
         <panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
       </panel>
     </class> <!-- <object class="summary-roof" area="" squares="" ridges="" hips="" rakes="" eaves="" valleys="" />-->
+    
+    <class name="summary-products">
+      <panel name="summary-products" alias="SUMMARY-PRODUCTS" width="100%" height="210">
+        <text name="subtitle" width="100%" height="40" font="Futura-Medium" color="#343434" size="25" alignment="left" text="Shingles"></text>
+        <text name="subtitle2" width="50%" height="40" xpos="50%" font="Futura-Medium" color="#343434" size="25" alignment="left" text="Warranty"></text>
+        <panel name="col1" width="50%" height="150" ypos="45">
+          <panel name="shingletile" width="150" height="100%" background="#000000">
+            <image name="swatch" url="[param:swatch]" width="100%"></image>
+          </panel>
+          <text name="shingle-type" width="200" height="30" xpos="160" style="darktext" size="20" alignment="left" text="[param:name]"></text>
+          <text name="shingle-color" width="200" height="30" xpos="160" bottomof="shingle-type" style="darktext" size="20" alignment="left" text="[param:color]"></text>
+        </panel>
+        <panel name="col2" width="50%" height="150" ypos="45" xpos="50%">
+          <text name="warranty" width="100%" height="fit" style="darktext" size="20" alignment="left" text="[param:warranty]"></text>
+        </panel>
+        <panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
+      </panel> <!--<object class="summary-products" swatch="" name="" color="" warranty=""  />-->
+    </class>
     
     <!-- !camera classes -->
     <class name="camera-view">
@@ -2582,6 +2600,10 @@
         <alpha value="1" time=".2" target="_this" />
         <assign property="var:nav" value="_this" />
         <translate xpos="101%" curve="linear" target="NAVBLOCK" />
+        <if lhs="[var:navwas]" operator="e" rhs="ROOF">
+          <alert message="[var:navwas]" />
+          <play action="[var:roof]" />
+        </if>
         <if lhs="_this" operator="e" rhs="PRODUCTS">
           <if lhs="[var:product]" operator="e" rhs="">
 <!-- 			<alert message="get-products preferences:token is [preferences:token] preferences:contractorId is [preferences:contractorId]" /> -->
@@ -2595,10 +2617,30 @@
           </if>
         </if>
         <if lhs="_this" operator="e" rhs="SUMMARY">
-          
+          <play action="summarycalc" />
           <create class="summary-cust" target="SUMMARY-PAGER" cust1name="[datasource:customersdb-list.1.FNAME] [datasource:customersdb-list.1.LNAME]" cust1phone="[datasource:customersdb-list.1.PHONE]" cust1email="[datasource:customersdb-list.1.EMAIL]" cust2name="[datasource:customersdb-list.1.FNAME2] [datasource:customersdb-list.1.LNAME2]" cust2phone="[datasource:customersdb-list.1.PHONE2]" cust2email="[datasource:customersdb-list.1.EMAIL2]" street="[datasource:customersdb-list.1.STREET]" city="[datasource:customersdb-list.1.CITY]" state="[datasource:customersdb-list.1.STATE]" zip="[datasource:customersdb-list.1.POSTAL]"  />
-          <create class="summary-roof" target="SUMMARY-PAGER" area="" squares="" ridges="" hips="" rakes="" eaves="" valleys=""  />
+          
         </if>
+        <assign property="var:navwas" value="_this" />
+      </sync>
+    </action>
+    
+    <action name="summarycalc">
+      <sync>
+        <loop lhs="[var:summaryarea]" operator="lt" rhs="[var:areaindex]">
+          <assign property="var:summaryarea" value="[eval: [var:summaryarea] + 1]" />
+          <assign property="var:totalarea" value="[eval: [var:totalarea] + [var:area[var:summaryarea]total] ]" />
+          <alert title="total area" message="[var:totalarea]" />
+        </loop>
+        <assign property="var:squarestotal" value="[eval: [var:totalarea] / 100 ]" />
+        <alert title="total squares needed" message="[var:squarestotal]" />
+        <alert title="ridges total" message="[var:ridgestotal]" />
+        <alert title="hips total" message="[var:hipstotal]" />
+        <alert title="rakes total" message="[var:rakestotal]" />
+        <alert title="eaves total" message="[var:eavestotal]" />
+        <alert title="valleys total" message="[var:valleystotal]" />
+        
+        <create class="summary-roof" target="SUMMARY-PAGER" area="[var:totalarea]" squares="[var:squarestotal]" ridges="[var:ridgestotal]" hips="[var:hipstotal]" rakes="[var:rakestotal]" eaves="[var:eavestotal]" valleys="[var:valleystotal]"  />
       </sync>
     </action>
     
@@ -2733,6 +2775,7 @@
     <!-- !sidebar-roof actions -->
     <action name="sidebar-roof">
       <sync>
+        <!--<play action="[var:roof]" />-->
         <translate xpos="0" curve="linear" target="ROOF-SIDEBAR-BLOCKER" />
         <alpha value="0" time=".1" target="ROOF-[var:roof]" />
         <alpha value="1" time=".25" target="ROOF-_alias" />
@@ -2819,8 +2862,13 @@
         <assign property="var:areaValidationIndex" value="[eval: [var:areaValidationIndex] + 1]" />
         <if lhs="[eval:'[object:RL[var:areaValidationIndex]/input.text]' != '' &amp;&amp; '[object:RW[var:areaValidationIndex]/input.text]' != '' &amp;&amp; '[var:slope-[var:areaValidationIndex]]' != '']" operator="e" rhs="true">
             <play action="areaValidationLoop" />
+            <sync>
+              <assign property="var:area[var:areaValidationIndex]total" value="[eval: '[object:RW[var:areaValidationIndex]/input.text]' * '[object:RL[var:areaValidationIndex]/input.text]' ]" />
+              <assign property="var:area[var:areaValidationIndex]total" value="[eval: '[var:area[var:areaValidationIndex]total]' * '[var:slope-[var:areaValidationIndex]]' ]" />
+              <!--<alert title="total area" message="[var:area[var:areaValidationIndex]total]" />-->
+            </sync>
             <else>
-              <alert title="Incomplete Form" message="Please feel out all fields" />
+              <alert title="Incomplete Form" message="Please fill out all fields" />
               <assign property="var:areaValidationIndex" value="0" />
             </else>
         </if>
@@ -2896,6 +2944,7 @@
       <if lhs="[var:ridgeValidationIndex]" operator="lt" rhs="[var:ridgeindex]">
         <assign property="var:ridgeValidationIndex" value="[eval: [var:ridgeValidationIndex] + 1]" />
         <if lhs="[eval:'[object:RIDGELENGTH[var:ridgeValidationIndex]/input.text]' != '' &amp;&amp; '[var:ridgevent-[var:ridgeValidationIndex]]' != '']" operator="e" rhs="true">
+            <assign property="var:ridgestotal" value="[eval: [var:ridgestotal] + [object:RIDGELENGTH[var:ridgeValidationIndex]/input.text]]" />
             <play action="ridgeValidationLoop" />
             <else>
               <alert title="Incomplete Form" message="Please feel out all fields" />
@@ -2944,6 +2993,7 @@
       <if lhs="[var:hipValidationIndex]" operator="lt" rhs="[var:hipindex]">
         <assign property="var:hipValidationIndex" value="[eval: [var:hipValidationIndex] + 1]" />
         <if lhs="[eval:'[object:HIPLENGTH[var:hipValidationIndex]/input.text]' != '']" operator="e" rhs="true">
+            <assign property="var:hipstotal" value="[eval: [var:hipstotal] + [object:HIPLENGTH[var:hipValidationIndex]/input.text]]" />
             <play action="hipValidationLoop" />
             <else>
               <alert title="Incomplete Form" message="Please feel out all fields" />
@@ -2991,6 +3041,7 @@
       <if lhs="[var:valleyValidationIndex]" operator="lt" rhs="[var:valleyindex]">
         <assign property="var:valleyValidationIndex" value="[eval: [var:valleyValidationIndex] + 1]" />
         <if lhs="[eval:'[object:VALLEYLENGTH[var:valleyValidationIndex]/input.text]' != '']" operator="e" rhs="true">
+            <assign property="var:valleystotal" value="[eval: [var:valleystotal] + [object:VALLEYLENGTH[var:valleyValidationIndex]/input.text]]" />
             <play action="ridgeValidationLoop" />
             <else>
               <alert title="Incomplete Form" message="Please feel out all fields" />
@@ -3039,6 +3090,7 @@
       <if lhs="[var:rakeValidationIndex]" operator="lt" rhs="[var:rakeindex]">
         <assign property="var:rakeValidationIndex" value="[eval: [var:rakeValidationIndex] + 1]" />
         <if lhs="[eval:'[object:RAKELENGTH[var:rakeValidationIndex]/input.text]' != '']" operator="e" rhs="true">
+            <assign property="var:rakestotal" value="[eval: [var:rakestotal] + [object:RAKELENGTH[var:rakeValidationIndex]/input.text]]" />
             <play action="rakeValidationLoop" />
             <else>
               <alert title="Incomplete Form" message="Please feel out all fields" />
@@ -3087,6 +3139,7 @@
       <if lhs="[var:eaveValidationIndex]" operator="lt" rhs="[var:eaveindex]">
         <assign property="var:eaveValidationIndex" value="[eval: [var:eaveValidationIndex] + 1]" />
         <if lhs="[eval:'[object:EAVELENGTH[var:eaveValidationIndex]/input.text]' != '']" operator="e" rhs="true">
+            <assign property="var:eavestotal" value="[eval: [var:eavestotal] + [object:EAVELENGTH[var:eaveValidationIndex]/input.text]]" />
             <play action="eaveValidationLoop" />
             <else>
               <alert title="Incomplete Form" message="Please feel out all fields" />
