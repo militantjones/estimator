@@ -1,4 +1,4 @@
-<wire> 
+<wire>   
 
   <!-- GAF Estimator -->
   <!-- iOS iPad -->
@@ -730,9 +730,9 @@
     
     <class name="photo">
       <panel name="photo[param:index]" width="100%" height="215">
-        <panel name="imgbox" width="226" height="190" ypos="10" clip="yes" >
-          <image name="rollphoto" asset="[param:photo]" height="100%"></image>
-          <image name="cameraphoto" fullpath="[param:photo]" height="100%"></image>
+        <panel name="imgbox" width="226" height="190" ypos="10" clip="yes" background="000000">
+          <image name="rollphoto" asset="[param:photo]" height="100%" contain="yes"></image>
+          <image name="cameraphoto" fullpath="[param:photo]" height="100%" contain="yes"></image>
         </panel>
         <panel name="notbox" width="47%" height="200" align="right" ypos="10" clip="yes">
           <text name="note" width="100%" height="fit" style="darktext" size="16" alignment="left" text="[param:note]"></text>
@@ -754,9 +754,7 @@
           <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="20" alignment="left" text="Shingle Group"></text>
           <panel name="col1" width="217" height="100%" bottomof="subtitle" >
             <text name="name" width="100%" height="30" style="darktext" size="20" alignment="left" text="[datasource:getProducts.[param:index].ProductName]"></text>
-            <panel name="imgholder" width="108" height="108" bottomof="name" background="#000000">
-            	<image name="shingle" url="http://www.gaf.com/All_Images/[datasource:getProducts.[param:index].Color[0]/Image]?w=108&amp;h=108"></image>
-            </panel>
+            <panel name="imgholder" width="108" height="108" bottomof="name" background="#000000"></panel>
             <text name="desc" width="100" height="fit" bottomof="name" align="right" style="darktext" size="12" alignment="left" text="[datasource:getProducts.[param:index].Description]"></text>
             <panel name="shingle-btn" width="108" height="50" bottomof="imgholder" margin-top="10">
               <object class="button" name="test" size="20" label="Select" action="selectshingle" value="[datasource:getProducts.[param:index].ProductId]" />
@@ -764,9 +762,7 @@
           </panel>
           <panel name="col2" width="217" height="100%" align="right" bottomof="subtitle" >
             <text name="name" width="100%" height="30" style="darktext" size="20" alignment="left" text="[datasource:getProducts.[eval:[param:index]+1].ProductName]"></text>
-            <panel name="imgholder" width="108" height="108" bottomof="name" background="#000000">
-            	<image name="shingle" url="http://www.gaf.com/All_Images/[datasource:getProducts.[eval:[param:index]+1].Color[0]/Image]?w=108&amp;h=108"></image>
-            </panel>
+            <panel name="imgholder" width="108" height="108" bottomof="name" background="#000000"></panel>
             <text name="desc" width="100" height="fit" bottomof="name" align="right" style="darktext" size="12" alignment="left" text="[datasource:getProducts.[eval:[param:index]+1].Description]"></text>
             <panel name="shingle-btn" width="108" height="50" bottomof="imgholder" margin-top="10">
               <object class="button" name="test" size="20" label="Select" action="selectshingle" value="[datasource:getProducts.[eval:[param:index]+1].ProductId]" />
@@ -782,9 +778,7 @@
         <panel name="[param:index]" width="100%" height="213" >
           <panel name="col1" width="217" height="100%" >
             <text name="name" width="100%" height="30" style="darktext" size="20" alignment="left" text="[datasource:getProducts.[param:index].ProductName]"></text>
-            <panel name="imgholder" width="108" height="108" bottomof="name" background="#000000">
-            	<image name="shingle" url="http://www.gaf.com/All_Images/[datasource:getProducts.[param:index].Color[0]/Image]?w=108&amp;h=108"></image>
-            </panel>
+            <panel name="imgholder" width="108" height="108" bottomof="name" background="#000000"></panel>
             <text name="desc" width="100" height="fit" bottomof="name" align="right" style="darktext" size="12" alignment="left" text="[datasource:getProducts.[param:index].Description]"></text>
             <panel name="shingle-btn" width="108" height="50" bottomof="imgholder" margin-top="10">
               <object class="button" name="test" size="20" label="Select" action="selectshingle" value="[datasource:getProducts.[param:index].ProductId]" />
@@ -794,95 +788,6 @@
         </panel>
     </class><!-- <object class="shingles"  /> -->
     
-	<class name="color-pager">
-      <pager name="colorpager" alias="COLORPAGER" width="100%" height="100%" orientation="vertical" paginate="no" >
-      </pager>
-	</class>
-	
-	<class name="three-colors" >
-            <panel name="[param:index]" width="100%" height="320">
-              <panel name="1" width="33.33%" height="100%" align="left">
-                <panel name="marginer" width="200" height="100%" align="left" >
-                  <panel name="imgholder" width="200" height="200" background="000000">
-				  	<image name="shingle" url="http://www.gaf.com/All_Images/[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Image]?w=200&amp;h=200"></image>
-                  </panel>
-                  <text name="colorlabel" width="100%" height="40" bottomof="imgholder" style="darktext" size="fit" maxsize="20" alignment="left" text="[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Name]"></text>
-                  <panel name="search-btn" width="200" height="50" align="right" bottomof="colorlabel">
-                    <object class="button" name="test" size="20" label="Select" action="setcolor" value="[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Name]" />
-                  </panel>
-                </panel>
-              </panel>
-              
-              <panel name="2" width="33.33%" height="100%" align="center" >
-                <panel name="marginer" width="200" height="100%" align="center">
-                  <panel name="imgholder" width="200" height="200" background="000000">
-				  	<image name="shingle" url="http://www.gaf.com/All_Images/[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+1]]/Image]?w=200&amp;h=200"></image>
-                  </panel>
-                  <text name="colorlabel" width="100%" height="40" bottomof="imgholder" style="darktext" size="fit" maxsize="20" alignment="left" text="[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+1]]/Name]"></text>
-                  <panel name="search-btn" width="200" height="50" align="right" bottomof="colorlabel">
-                    <object class="button" name="test" size="20" label="Select" action="setcolor" value="[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+1]]/Name]" />
-                  </panel>
-                </panel>
-              </panel>
-              <panel name="3" width="33.33%" height="100%" align="right" >
-                <panel name="marginer" width="200" height="100%" align="right">
-                  <panel name="imgholder" width="200" height="200" background="000000">
-				  	<image name="shingle" url="http://www.gaf.com/All_Images/[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+2]]/Image]?w=200&amp;h=200"></image>
-                  </panel>
-                  <text name="colorlabel" width="100%" height="40" bottomof="imgholder" style="darktext" size="fit" maxsize="20" alignment="left" text="[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+2]]/Name]"></text>
-                  <panel name="search-btn" width="200" height="50" align="right" bottomof="colorlabel">
-                    <object class="button" name="test" size="20" label="Select" action="setcolor" value="[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+2]]/Name]" />
-                  </panel>
-                </panel>
-              </panel>
-            </panel>
-            <!-- <panel name="row3" width="100%" height="300" background="#0000ff"></panel> -->
-	</class>
-	
-	<class name="two-colors">
-            <panel name="[param:index]" width="100%" height="320" >
-              <panel name="1" width="33.33%" height="100%" align="left">
-                <panel name="marginer" width="200" height="100%" align="left" >
-                  <panel name="imgholder" width="200" height="200" background="000000">
-				  	<image name="shingle" url="http://www.gaf.com/All_Images/[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Image]?w=200&amp;h=200"></image>
-                  </panel>
-                  <text name="colorlabel" width="100%" height="40" bottomof="imgholder" style="darktext" size="20" alignment="left" text="[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Name]"></text>
-                  <panel name="search-btn" width="200" height="50" align="right" bottomof="colorlabel">
-                    <object class="button" name="test" size="20" label="Select" action="setcolor" value="[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Name]" />
-                  </panel>
-                </panel>
-              </panel>
-              
-              <panel name="2" width="33.33%" height="100%" align="center" >
-                <panel name="marginer" width="200" height="100%" align="center">
-                  <panel name="imgholder" width="200" height="200" background="000000">
-				  	<image name="shingle" url="http://www.gaf.com/All_Images/[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+1]]/Image]?w=200&amp;h=200"></image>
-                  </panel>
-                  <text name="colorlabel" width="100%" height="40" bottomof="imgholder" style="darktext" size="20" alignment="left" text="[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+1]]/Name]"></text>
-                  <panel name="search-btn" width="200" height="50" align="right" bottomof="colorlabel">
-                    <object class="button" name="test" size="20" label="Select" action="setcolor" value="[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+1]]/Name]" />
-                  </panel>
-                </panel>
-              </panel>
-            </panel>
-	</class>
-	
-	<class name="one-color">
-            <panel name="[param:index]" width="100%" height="320" >
-              <panel name="1" width="33.33%" height="100%" align="left">
-                <panel name="marginer" width="200" height="100%" align="left" >
-                  <panel name="imgholder" width="200" height="200" background="000000">
-				  	<image name="shingle" url="http://www.gaf.com/All_Images/[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Image]?w=200&amp;h=200"></image>
-                  </panel>
-                  <text name="colorlabel" width="100%" height="40" bottomof="imgholder" style="darktext" size="20" alignment="left" text="[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Name]"></text>
-                  <panel name="search-btn" width="200" height="50" align="right" bottomof="colorlabel">
-                    <object class="button" name="test" size="20" label="Select" action="setcolor" value="[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Name]" />
-                  </panel>
-                </panel>
-              </panel>
-            </panel>
-	</class>
-
     <class name="warranty">
       <panel name="[param:index]" width="100%" height="71">
         <text name="subtitle" width="[eval: [object:WARRANTY-PAGER-BOX.width] - 95]" height="66" font="Futura-Medium" color="#343434" size="fit" maxsize="25" alignment="left" text="[param:title]"></text>
@@ -1477,7 +1382,7 @@
         <panel name="roof-Inspection" alias="ROOF-INSPECTION" width="512" height="100%" align="right" padding-left="20" padding-right="20" alpha="0">
           <object class="title" title="Inspection"  />
           <panel name="roofpagerbox" width="100%" height="[eval: [object:ROOF-INSPECTION.height] - 146]" ypos="79" >
-            <pager name="pager" datasource="photosdb-list" width="100%" height="100%" orientation="vertical" paginate="no">
+            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no">
               <object class="inspection" />
             </pager>
           </panel>
@@ -2878,7 +2783,6 @@
       <play action="released" />
       <!--<alert message="[var:roof]" />-->
       <play action="[var:roof]" />
-      <alert message="[var:roof]" />
     </action>
     
     <action name="INSPECTION">
@@ -2904,16 +2808,8 @@
         <if lhs="[var:areaindex]" operator="gt" rhs="0">
           <play action="areaValidationLoop" />
           <else>
-            <alert title="Incomplete Form" message="Please feel out all fields" />
+            <alert title="No Roof Areas Available" message="There have not been any Roof Areas added to save." />
           </else>
-          <!-- <if lhs="[eval:'[object:RL[var:areaindexloop]/input.text]' != '' &amp;&amp; '[object:RW[var:areaindexloop]/input.text]' != '' &amp;&amp; '[var:slope-[var:areaindexloop]]' != '']" operator="e" rhs="true">
-            <assign property="var:areaindexloop" value="[eval: [var:areaindexloop] + 1]" />
-  		      <alert message="var:slope-[var:areaindexloop] is [var:slope-[var:areaindexloop]]" />
-            <assign property="datasource:roofareasdb.query" value="INSERT INTO ROOFAREAS (LENGTH, WIDTH, SLOPE) values ('[object:RL[var:areaindexloop]/input.text]', '[object:RW[var:areaindexloop]/input.text]', '[var:slope-[var:areaindexloop]]');" />
-              <else>
-                <alert title="Incomplete Form" message="Please feel out all fields" />
-              </else>
-          </if> -->
         </if>
       </sync>
     </action>
@@ -2925,12 +2821,14 @@
             <play action="areaValidationLoop" />
             <else>
               <alert title="Incomplete Form" message="Please feel out all fields" />
+              <assign property="var:areaValidationIndex" value="0" />
             </else>
         </if>
         <else>
           <play action="roofareas-db-add" />
         </else>
       </if>
+
     </action>
 
     <action name="roofareas-db-add">
@@ -2962,6 +2860,7 @@
           <else>
             <assign property="datasource:roofareasdb-list.query" value="SELECT * FROM ROOFAREAS;" />
             <assign property="var:areaindexloop" value="0" />
+            <assign property="var:areaValidationIndex" value="0" />
           </else>
         </if>
         <!--<alert message="[var:areaindexloop]" />-->
@@ -2984,11 +2883,38 @@
     
     <action name="RIDGE">
       <sync>
+        <if lhs="[var:ridgeindex]" operator="gt" rhs="0">
+          <play action="ridgeValidationLoop" />
+          <else>
+            <alert title="No Ridges Available" message="There have not been any Ridges added to save." />
+          </else>
+        </if>
+      </sync>
+    </action>
+
+    <action name="ridgeValidationLoop">
+      <if lhs="[var:ridgeValidationIndex]" operator="lt" rhs="[var:ridgeindex]">
+        <assign property="var:ridgeValidationIndex" value="[eval: [var:ridgeValidationIndex] + 1]" />
+        <if lhs="[eval:'[object:RIDGELENGTH[var:ridgeValidationIndex]/input.text]' != '' &amp;&amp; '[var:ridgevent-[var:ridgeValidationIndex]]' != '']" operator="e" rhs="true">
+            <play action="ridgeValidationLoop" />
+            <else>
+              <alert title="Incomplete Form" message="Please feel out all fields" />
+              <assign property="var:ridgeValidationIndex" value="0" />
+            </else>
+        </if>
+        <else>
+          <play action="ridge-db-add" />
+        </else>
+      </if>
+    </action>
+
+    <action name="ridge-db-add">
+      <sync>
         <assign property="var:ridgeindexloop" value="[eval: [var:ridgeindexloop] + 1]" />
         <alert message="[object:RIDGELENGTH[var:ridgeindexloop]/input.text] ridgevent: [var:ridgevent-[var:ridgeindexloop]] " />
         <assign property="datasource:ridgesdb.query" value="INSERT INTO RIDGES (LENGTH, VENTS) values ('[object:RIDGELENGTH[var:ridgeindexloop]/input.text]', '[var:ridgevent-[var:ridgeindexloop]]');" />
       </sync>
-    </action>
+    </action>    
     
     <action name="ridgequery" datasource="ridgesdb" datasourceevent="querycomplete">
       <sync>
@@ -2997,6 +2923,7 @@
           <else>
             <assign property="datasource:ridgesdb-list.query" value="SELECT * FROM RIDGES;" />
             <assign property="var:ridgeindexloop" value="0" />
+            <assign property="var:ridgeValidationIndex" value="0" />
           </else>
         </if>
       </sync>
@@ -3004,11 +2931,37 @@
     
     <action name="HIP">
       <sync>
-        <assign property="var:hipindexloop" value="[eval: [var:hipindexloop] + 1]" />
-        <!--<alert message="[object:HIPLENGTH[var:hipindexloop]/input.text]" />-->
-        <assign property="datasource:hipsdb.query" value="INSERT INTO HIPS (LENGTH) values ('[object:HIPLENGTH[var:hipindexloop]/input.text]');" />
+        <if lhs="[var:hipindex]" operator="gt" rhs="0">
+          <play action="hipValidationLoop" />
+          <else>
+            <alert title="No Hips Available" message="There have not been any Hips added to save." />
+          </else>
+        </if>
       </sync>
     </action>
+
+    <action name="hipValidationLoop">
+      <if lhs="[var:hipValidationIndex]" operator="lt" rhs="[var:hipindex]">
+        <assign property="var:hipValidationIndex" value="[eval: [var:hipValidationIndex] + 1]" />
+        <if lhs="[eval:'[object:HIPLENGTH[var:hipValidationIndex]/input.text]' != '']" operator="e" rhs="true">
+            <play action="hipValidationLoop" />
+            <else>
+              <alert title="Incomplete Form" message="Please feel out all fields" />
+              <assign property="var:hipValidationIndex" value="0" />
+            </else>
+        </if>
+        <else>
+          <play action="hip-db-add" />
+        </else>
+      </if>
+    </action>
+
+    <action name="hip-db-add">
+      <sync>
+        <assign property="var:hipindexloop" value="[eval: [var:hipindexloop] + 1]" />
+        <assign property="datasource:hipsdb.query" value="INSERT INTO HIPS (LENGTH) values ('[object:HIPLENGTH[var:hipindexloop]/input.text]');" />
+      </sync>
+    </action>  
     
     <action name="hipquery" datasource="hipsdb" datasourceevent="querycomplete">
       <sync>
@@ -3017,6 +2970,7 @@
           <else>
             <assign property="datasource:hipsdb-list.query" value="SELECT * FROM HIPS;" />
             <assign property="var:hipindexloop" value="0" />
+            <assign property="var:hipValidationIndex" value="0" />
           </else>
         </if>
       </sync>
@@ -3024,11 +2978,38 @@
     
     <action name="VALLEY">
       <sync>
+        <if lhs="[var:valleyindex]" operator="gt" rhs="0">
+          <play action="valleyValidationLoop" />
+          <else>
+            <alert title="No Valleys Available" message="There have not been any Valleys added to save." />
+          </else>
+        </if>
+      </sync>
+    </action>
+
+    <action name="valleyValidationLoop">
+      <if lhs="[var:valleyValidationIndex]" operator="lt" rhs="[var:valleyindex]">
+        <assign property="var:valleyValidationIndex" value="[eval: [var:valleyValidationIndex] + 1]" />
+        <if lhs="[eval:'[object:VALLEYLENGTH[var:valleyValidationIndex]/input.text]' != '']" operator="e" rhs="true">
+            <play action="ridgeValidationLoop" />
+            <else>
+              <alert title="Incomplete Form" message="Please feel out all fields" />
+              <assign property="var:valleyValidationIndex" value="0" />
+            </else>
+        </if>
+        <else>
+          <play action="valley-db-add" />
+        </else>
+      </if>
+    </action>
+
+    <action name="valley-db-add">
+      <sync>
         <assign property="var:valleyindexloop" value="[eval: [var:valleyindexloop] + 1]" />
         <alert message="[object:VALLEYLENGTH[var:valleyindexloop]/input.text]" />
         <assign property="datasource:valleysdb.query" value="INSERT INTO VALLEYS (LENGTH) values ('[object:VALLEYLENGTH[var:valleyindexloop]/input.text]')" />
       </sync>
-    </action>
+    </action>  
     
     <action name="valleyquery" datasource="valleysdb" datasourceevent="querycomplete">
       <sync>
@@ -3037,6 +3018,7 @@
           <else>
             <assign property="datasource:valleysdb-list.query" value="SELECT * FROM VALLEYS;" />
             <assign property="var:valleyindexloop" value="0" />
+            <assign property="var:valleyValidationIndex" value="0" />
           </else>
         </if>
       </sync>
@@ -3044,11 +3026,38 @@
     
     <action name="RAKE">
       <sync>
-        <assign property="var:rakeindexloop" value="[eval: [var:rakeindexloop] + 1]" />
-        <!--<alert message="[object:RAKELENGTH[var:rakeindexloop]/input.text]" />-->
-        <assign property="datasource:rakesdb.query" value="INSERT INTO RAKES (LENGTH) values ('[object:RAKELENGTH[var:rakeindexloop]/input.text]')" />
+        <if lhs="[var:rakeindex]" operator="gt" rhs="0">
+          <play action="rakeValidationLoop" />
+          <else>
+            <alert title="No Rakes Available" message="There have not been any Rakes added to save." />
+          </else>
+        </if>
       </sync>
     </action>
+
+    <action name="rakeValidationLoop">
+      <if lhs="[var:rakeValidationIndex]" operator="lt" rhs="[var:rakeindex]">
+        <assign property="var:rakeValidationIndex" value="[eval: [var:rakeValidationIndex] + 1]" />
+        <if lhs="[eval:'[object:RAKELENGTH[var:rakeValidationIndex]/input.text]' != '']" operator="e" rhs="true">
+            <play action="rakeValidationLoop" />
+            <else>
+              <alert title="Incomplete Form" message="Please feel out all fields" />
+              <assign property="var:rakeValidationIndex" value="0" />
+            </else>
+        </if>
+        <else>
+          <play action="rake-db-add" />
+        </else>
+      </if>
+    </action>
+
+    <action name="rake-db-add">
+      <sync>
+        <assign property="var:rakeindexloop" value="[eval: [var:rakeindexloop] + 1]" />
+        <alert message="[object:RAKELENGTH[var:rakeindexloop]/input.text]" />
+        <assign property="datasource:rakesdb.query" value="INSERT INTO RAKES (LENGTH) values ('[object:RAKELENGTH[var:rakeindexloop]/input.text]')" />
+      </sync>
+    </action> 
     
     <action name="rakequery" datasource="rakesdb" datasourceevent="querycomplete">
       <sync>
@@ -3057,6 +3066,7 @@
           <else>
             <assign property="datasource:rakesdb-list.query" value="SELECT * FROM RAKES;" />
             <assign property="var:rakeindexloop" value="0" />
+            <assign property="var:rakeValidationIndex" value="0" />
           </else>
         </if>
       </sync>
@@ -3064,11 +3074,38 @@
     
     <action name="EAVE">
       <sync>
-        <assign property="var:eaveindexloop" value="[eval: [var:eaveindexloop] + 1]" />
-        <!--<alert message="[object:EAVELENGTH[var:eaveindexloop]/input.text]" />-->
-        <assign property="datasource:eavesdb.query" value="INSERT INTO EAVES (LENGTH) values ('[object:EAVELENGTH[var:eaveindexloop]/input.text]')" />
+        <if lhs="[var:eaveindex]" operator="gt" rhs="0">
+          <play action="eaveValidationLoop" />
+          <else>
+            <alert title="No Eaves Available" message="There have not been any Eaves added to save." />
+          </else>
+        </if>
       </sync>
     </action>
+
+    <action name="eaveValidationLoop">
+      <if lhs="[var:eaveValidationIndex]" operator="lt" rhs="[var:eaveindex]">
+        <assign property="var:eaveValidationIndex" value="[eval: [var:eaveValidationIndex] + 1]" />
+        <if lhs="[eval:'[object:EAVELENGTH[var:eaveValidationIndex]/input.text]' != '']" operator="e" rhs="true">
+            <play action="eaveValidationLoop" />
+            <else>
+              <alert title="Incomplete Form" message="Please feel out all fields" />
+              <assign property="var:eaveValidationIndex" value="0" />
+            </else>
+        </if>
+        <else>
+          <play action="eave-db-add" />
+        </else>
+      </if>
+    </action>
+
+    <action name="eave-db-add">
+      <sync>
+        <assign property="var:eaveindexloop" value="[eval: [var:eaveindexloop] + 1]" />
+        <alert message="[object:EAVELENGTH[var:eaveindexloop]/input.text]" />
+        <assign property="datasource:eavesdb.query" value="INSERT INTO EAVES (LENGTH) values ('[object:EAVELENGTH[var:eaveindexloop]/input.text]')" />
+      </sync>
+    </action> 
     
     <action name="eavequery" datasource="eavesdb" datasourceevent="querycomplete">
       <sync>
@@ -3077,6 +3114,7 @@
           <else>
             <assign property="datasource:eavesdb-list.query" value="SELECT * FROM EAVES;" />
             <assign property="var:eaveindexloop" value="0" />
+            <assign property="var:eaveValidationIndex" value="0" />
           </else>
         </if>
       </sync>
@@ -3084,11 +3122,38 @@
     
     <action name="CHIMNEY">
       <sync>
-        <assign property="var:protrusionindexloop" value="[eval: [var:protrusionindexloop] + 1]" />
-        <assign property="datasource:protrusionsdb.query" value="INSERT INTO PROTRUSIONS (LENGTH, WIDTH, TYPE) values ('[object:PROTRUSIONLENGTH[var:protrusionindexloop]/input.text]', '[object:PROTRUSIONWIDTH[var:protrusionindexloop]/input.text]', '[object:TYPE[var:protrusionindexloop].text]');" />
-        <!--<alert message="Type:[object:TYPE[var:protrusionindexloop].text] Length:[object:PROTRUSIONLENGTH[var:protrusionindexloop]/input.text] Width:[object:PROTRUSIONWIDTH[var:protrusionindexloop]/input.text]" />-->
+        <if lhs="[var:protrusionindex]" operator="gt" rhs="0">
+          <play action="chimneyValidationLoop" />
+          <else>
+            <alert title="No Chimneys Available" message="There have not been any Chimneys added to save." />
+          </else>
+        </if>
       </sync>
     </action>
+
+    <action name="chimneyValidationLoop">
+      <if lhs="[var:chimneyValidationIndex]" operator="lt" rhs="[var:protrusionindex]">
+        <assign property="var:chimneyValidationIndex" value="[eval: [var:chimneyValidationIndex] + 1]" />
+        <if lhs="[eval:'[object:PROTRUSIONLENGTH[var:chimneyValidationIndex]/input.text]' != '' &amp;&amp; '[object:PROTRUSIONWIDTH[var:chimneyValidationIndex]/input.text]' != '']" operator="e" rhs="true">
+            <play action="chimneyValidationLoop" />
+            <else>
+              <alert title="Incomplete Form" message="Please feel out all fields" />
+              <assign property="var:chimneyValidationIndex" value="0" />
+            </else>
+        </if>
+        <else>
+          <play action="chimney-db-add" />
+        </else>
+      </if>
+    </action>
+
+    <action name="chimney-db-add">
+      <sync>
+        <assign property="var:protrusionindexloop" value="[eval: [var:protrusionindexloop] + 1]" />
+        <assign property="datasource:protrusionsdb.query" value="INSERT INTO PROTRUSIONS (LENGTH, WIDTH, TYPE) values ('[object:PROTRUSIONLENGTH[var:protrusionindexloop]/input.text]', '[object:PROTRUSIONWIDTH[var:protrusionindexloop]/input.text]', '[object:TYPE[var:protrusionindexloop].text]');" />
+        <alert message="Type:[object:TYPE[var:protrusionindexloop].text] Length:[object:PROTRUSIONLENGTH[var:protrusionindexloop]/input.text] Width:[object:PROTRUSIONWIDTH[var:protrusionindexloop]/input.text]" />
+      </sync>
+    </action> 
     
     <action name="chimneyquery" datasource="protrusionsdb" datasourceevent="querycomplete">
       <sync>
@@ -3097,6 +3162,7 @@
           <else>
             <assign property="datasource:protrusionsdb-list.query" value="SELECT * FROM PROTRUSIONS;" />
             <assign property="var:protrusionindexloop" value="0" />
+            <assign property="var:chimneyValidationIndex" value="0" />
           </else>
         </if>
       </sync>
@@ -3104,11 +3170,38 @@
     
     <action name="VENT">
       <sync>
+        <if lhs="[var:ventindex]" operator="gt" rhs="0">
+          <play action="ventValidationLoop" />
+          <else>
+            <alert title="No Vents Available" message="There have not been any Vents added to save." />
+          </else>
+        </if>
+      </sync>
+    </action>
+
+    <action name="ventValidationLoop">
+      <if lhs="[var:ventValidationIndex]" operator="lt" rhs="[var:ventindex]">
+        <assign property="var:ventValidationIndex" value="[eval: [var:ventValidationIndex] + 1]" />
+        <if lhs="[eval:'[object:VENTQUANTITY[var:ventValidationIndex]/input.text]' != '']" operator="e" rhs="true">
+            <play action="ventValidationLoop" />
+            <else>
+              <alert title="Incomplete Form" message="Please feel out all fields" />
+              <assign property="var:ventValidationIndex" value="0" />
+            </else>
+        </if>
+        <else>
+          <play action="vent-db-add" />
+        </else>
+      </if>
+    </action>
+
+    <action name="vent-db-add">
+      <sync>
         <assign property="var:ventindexloop" value="[eval: [var:ventindexloop] + 1]" />
         <alert message="Size:[object:VENTSIZE[var:ventindexloop]/input.text] Quantity:[object:VENTQUANTITY[var:ventindexloop]/input.text]" />
         <assign property="datasource:ventsdb.query" value="INSERT INTO VENTS (SIZE, QUANTITY) values ('[object:VENTSIZE[var:ventindexloop]/input.text]', '[object:VENTQUANTITY[var:ventindexloop]/input.text]');" />
       </sync>
-    </action>
+    </action>  
     
     <action name="ventquery" datasource="ventsdb" datasourceevent="querycomplete">
       <sync>
@@ -3117,6 +3210,7 @@
           <else>
             <assign property="datasource:ventsdb-list.query" value="SELECT * FROM VENTS;" />
             <assign property="var:ventindexloop" value="0" />
+            <assign property="var:ventValidationIndex" value="0" />
           </else>
         </if>
       </sync>
@@ -3213,40 +3307,15 @@
 		</action>
     
     <action name="selectshingle">
-<!-- 		<assign property="var:colorCount" value="4" /> -->
-		<assign property="var:shingle" value="[datasource:getProducts._value.ProductId]" />
-		<play action="released" />
-		<delete target="COLORPAGER" />
-		<assign property="var:shingleSelected" value="_value" />
-		<assign property="var:colorCount" value="[eval:JSON.parse('[datasource:getProducts._value.Color]').length]" />
-		<if lhs="[eval:JSON.parse('[datasource:getProducts._value.Color]').length]" operator="ne" rhs="">
-			<assign property="var:colorCreateCount" value="0" />
-			<create class="color-pager" target="SHINGLECOLOR/inner" /> 
-			<loop lhs="[var:colorCreateCount]" operator="lt" rhs="[var:colorCount]" >
-				<if lhs="[eval: [var:colorCount]-[var:colorCreateCount]]" operator="e" rhs="1">
-					<create class="one-color" target="COLORPAGER" index="[var:colorCreateCount]"/>
-					<assign property="var:colorCreateCount" value="[eval: [var:colorCreateCount]+1]" />
-				</if>
-				<if lhs="[eval: [var:colorCount]-[var:colorCreateCount]]" operator="e" rhs="2">
-					<create class="two-colors" target="COLORPAGER" index="[var:colorCreateCount]"/>
-					<assign property="var:colorCreateCount" value="[eval: [var:colorCreateCount]+2]" />
-				</if>
-				<if lhs="[eval: [var:colorCount]-[var:colorCreateCount]]" operator="gte" rhs="3">
-					<create class="three-colors" target="COLORPAGER" index="[var:colorCreateCount]"  />
-					<assign property="var:colorCreateCount" value="[eval: [var:colorCreateCount]+3]" />
-				</if>
-			</loop>
-		      <play action="blur" />
-		      <alpha value="1" time=".25" target="SHINGLECOLOR" />
-		      <translate valign="center" time=".25" curve="easeout" target="SHINGLECOLOR" />
-		      <assign property="var:curtainaction" value="colordismiss" />
-			<else>
-		        <assign property="var:color" value="N/A" />
-		        <alert message="[var:shingle] [var:color]" />
-				<assign property="datasource:getWarranties.source" value="https://162.209.101.177/api/GetWarranties?productId=[var:shingle]" />
-				<play action="sidebar-products" _alias="WARRANTY" _form="Warranty" />
-			</else>
-		</if>
+      <play action="released" />
+      <play action="blur" />
+      <sync>
+        <assign property="var:shingle" value="_value" />
+        <alert message="[var:shingle]" />
+      </sync>
+      <alpha value="1" time=".25" target="SHINGLECOLOR" />
+      <translate valign="center" time=".25" curve="easeout" target="SHINGLECOLOR" />
+      <assign property="var:curtainaction" value="colordismiss" />
     </action>
     
     <action name="colordismiss">
@@ -3657,15 +3726,12 @@
 			<assign property="var:estimateJSON" value="[template:estimateJSON.content]" />
 			<assign property="datasource:generateEstimate.postContent" value="[var:estimateJSON]" />
 			<assign property="datasource:generateEstimate.source" value="https://162.209.101.177/api/GenerateEstimate" />
-<!-- 			<email subject="estimate and measurements json" body="measurements\n\n[var:measurementsJSON]\n\n\n estimate\n\n[var:estimateJSON]" toaddress="mlong@rarewire.com" /> -->
+			<email subject="estimate and measurements json" body="measurements\n\n[var:measurementsJSON]\n\n\n estimate\n\n[var:estimateJSON]" toaddress="mlong@rarewire.com" />
 		</action>
 		
 		<action name="estimate-complete" datasource="generateEstimate" datasourceevent="querycomplete">
 			<if lhs="[datasource:generateEstimate.1.ResponseCode]" operator="e" rhs="100">
 				<alert message="estimate received" />
-				<else>
-					<alert message="there was an error generating your estimate.  please try again later." />
-				</else>
 <!-- 				<play action="show-pdf" /> -->
 			</if>
 		</action>
