@@ -2773,7 +2773,7 @@
     </action>
 
 	<action name="customersdone" datasource="customersdb" datasourceevent="querycomplete" >
-		<alert message="customer saved" />
+<!-- 		<alert message="customer saved" /> -->
         <assign property="datasource:customersdb-list.query" value="SELECT * FROM CUSTOMERS" />
 	</action>
 
@@ -3572,17 +3572,29 @@
       <sync>
 
 	  
+<!-- 	  	<alert message="[datasource:inspectiondb-list.dataSourceResultCount]" /> -->
 	  	<if lhs="[datasource:inspectiondb-list.dataSourceResultCount]" operator="gt" rhs="0">
 	        <assign property="var:existingRoofType" value="[datasource:inspectiondb-list.1.ROOFTYPE]" />
 	        <assign property="var:numberOfFloors" value="[datasource:inspectiondb-list.1.FLOORS]" />
+<!--
+			<else>
+				<alert message="inspectiondb-list is empty" />
+			</else>
+-->
 	  	</if>
 	  	<if lhs="[datasource:wastedb-list.dataSourceResultCount]" operator="gt" rhs="0">
         	<assign property="var:wasteFactor" value="[eval:[datasource:wastedb-list.1.PERCENT]/100]" />
+<!--
+			<else>
+				<alert message="wastedb-list is empty" />
+			</else>
+-->
 	  	</if>
         <if lhs="[datasource:roofareasdb-list.dataSourceResultCount]" operator="gt" rhs="0">
           <assign property="var:roofMeasurementsIterateCount" value="1" />
           <play action="formatRoofMeasurements" />
           <else>
+<!-- 		  	<alert message="roofareasdb-list is empty" /> -->
           	<assign property="var:roofMeasurementsObject" value="&quot;RoofMeasurements&quot;: []" />
           	<play action="prepRidgeMeasurements" />
           </else>
@@ -3605,6 +3617,7 @@
 				<play action="formatRidgeMeasurements" />
 				<else>
 					<assign property="var:ridgeMeasurementsObject" value="&quot;RidgeMeasurements&quot;: []" />
+<!-- 					<alert message="ridgesdb-list is empty" /> -->
 					<play action="prepHips" />
 				</else>
 			</if>
@@ -3625,6 +3638,7 @@
 				<play action="formatHips" />
 				<else>
 					<assign property="var:hipsObject" value="&quot;Hips&quot;: []" />
+<!-- 					<alert message="hipsdb-list is empty" /> -->
 					<play action="prepValleys" />
 				</else>
 			</if>
@@ -3645,6 +3659,7 @@
 				<play action="formatValleys" />
 				<else>
 					<assign property="var:valleysObject" value="&quot;Valleys&quot;: []" />
+<!-- 					<alert message="valleysdb-list is empty" /> -->
 					<play action="prepRakes" />
 				</else>
 			</if>
@@ -3665,6 +3680,7 @@
 				<play action="formatRakes" />
 				<else>
 					<assign property="var:rakesObject" value="&quot;Rakes&quot;: []" />
+<!-- 					<alert message="rakesdb-list is empty" /> -->
 					<play action="prepEaves" />
 				</else>
 			</if>
@@ -3685,6 +3701,7 @@
 				<play action="formatEaves" />
 				<else>
 					<assign property="var:eavesObject" value="&quot;Eaves&quot;: []" />
+<!-- 					<alert message="eavesdb-list is empty" /> -->
 					<play action="prepSkylights" />
 				</else>
 			</if>
@@ -3704,6 +3721,7 @@
 				<assign property="var:skylightsIterateCount" value="1" />
 				<play action="formatSkylights" />
 				<else>
+<!-- 					<alert message="protrusionsdb-list is empty" /> -->
 					<assign property="var:skylightsObject" value="&quot;Skylights&quot;: []" />
 					<play action="prepPlumbingVents" />
 				</else>
@@ -3724,8 +3742,9 @@
 				<assign property="var:plumbingVentsIterateCount" value="1" />
 				<play action="formatPlumbingVents" />
 				<else>
+<!-- 					<alert message="ventsdb is empty" /> -->
 					<assign property="var:plumbingVentsObject" value="&quot;PlumbingVents&quot;: []" />
-					<play action="formatMeasurementsJSON" />
+					<play action="sendMeasurements" />
 				</else>
 			</if>
 		</action>
@@ -3750,8 +3769,7 @@
 		
 		<action name="updateMeasurements-complete" datasource="updateMeasurements" datasourceevent="querycomplete" >
 			<alert message="updateMeasurements-complete content [datasource:updateMeasurements.0.content]" />
-				<play action="formatEstimate" />
-<!-- 				<play action="formatEstimate" /> -->
+				<play action="prepPhotos" />
 <!--
 			<if lhs="[datasource:updateMeasurements.1.ResponseCode]" operator="e" rhs="100">
 			</if>
@@ -3767,13 +3785,16 @@
 			<assign property="var:photoIterateCount" value="1" />
 			<assign property="httpheader:formSubmit.Token" value="[preferences:token]" />
 			<assign property="httpheader:formSubmit.ContractorId" value="[preferences:contractorId]" />
+			<if lhs="[var:photoCount]" operator="gt" rhs="0">
+				<play action="upload-photo" />
+				<else>
+					<alert message="photosdb empty" />
+					<play action="formatEstimate" />
+				</else>
+			</if>
 		</action>
 		
 		<action name="upload-photo" >
-<!--
-			<loop lhs="[var:photoIterateCount]" operator="lte" rhs="[var:photoCount]" >
-			</loop>
--->
 			<if lhs="[var:photoIterateCount]" operator="lte" rhs="[var:photoCount]">
 <!--
 				<assign property="datasource:uploadPhoto.postFile" value="[datasource:photosdb-list.[var:photoIterateCount].PHOTO]"/>
@@ -3797,10 +3818,14 @@
 		</action>
 		
 		<action name="formatEstimate" >
-			<assign property="var:shingle" value="[datasource:productsdb-list.1.SHINGLE]" />
-			<assign property="var:warranty" value="[datasource:productsdb-list.1.WARRANTY]" />
-			<assign property="var:tearOffLayers" value="[datasource:tearoffdb-list.1.LAYERS]" />
-			<assign property="var:tearOffType" value="[datasource:tearoffdb-list.1.MATERIAL]" />	
+			<if lhs="[datasource:productsdb-list.dataSourceResultCount]" operator="gt" rhs="0">
+				<assign property="var:shingle" value="[datasource:productsdb-list.1.SHINGLE]" />
+				<assign property="var:warranty" value="[datasource:productsdb-list.1.WARRANTY]" />
+			</if>
+			<if lhs="[datasource:tearoffdb-list.dataSourceResultCount]" operator="gt" rhs="0">
+				<assign property="var:tearOffLayers" value="[datasource:tearoffdb-list.1.LAYERS]" />
+				<assign property="var:tearOffType" value="[datasource:tearoffdb-list.1.MATERIAL]" />	
+			</if>
 			<alert message="var:shingle is [var:shingle], var:warranty is [var:warranty] var:tearOffLayers is [var:tearOffLayers] var:tearOffType is [var:tearOffType] var:numberOfFloors is [var:numberOfFloors]" />
 			<if lhs="[datasource:accessoriesdb-list.dataSourceResultCount]" operator="gt" rhs="0">
 				<assign property="var:accessoriesIterateCount" value="1" />
@@ -3858,7 +3883,7 @@
 			<if lhs="[datasource:generateEstimate.1.ResponseCode]" operator="e" rhs="100">
 				<alert message="estimate received" />
 				<else>
-					<alert message="there was an error generating your estimate.  please try again later." />
+					<alert message="there was an error generating your estimate.  please try again later. [datasource:generateEstimate.0.content]" />
 				</else>
 <!-- 				<play action="show-pdf" /> -->
 			</if>
