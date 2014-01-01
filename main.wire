@@ -77,7 +77,7 @@
     <datasource name="photosdb-list" source="sql://PHOTOS" query="SELECT * FROM PHOTOS ORDER BY ID DESC;" providertype="sql" />
     
 <!--     <datasource name="productsdb" source="sql://PRODUCTS" query="DELETE FROM PRODUCTS;" providertype="sql" /> -->
-    <datasource name="productsdb" source="sql://PRODUCTS" query="CREATE TABLE IF NOT EXISTS PRODUCTS (ID INTEGER PRIMARY KEY AUTOINCREMENT, SHINGLE, COLOR, WARRANTY);" providertype="sql" />
+    <datasource name="productsdb" source="sql://PRODUCTS" query="CREATE TABLE IF NOT EXISTS PRODUCTS (ID INTEGER PRIMARY KEY AUTOINCREMENT, SHINGLE, COLOR, WARRANTY, IMAGE);" providertype="sql" />
     <datasource name="productsdb-list" source="sql://PRODUCTS" query="SELECT * FROM PRODUCTS ORDER BY ID DESC;" providertype="sql" />
     
 <!--     <datasource name="accessoriesdb" source="sql://ACCESSORIES" query="DELETE FROM ACCESSORIES;" providertype="sql" /> -->
@@ -126,7 +126,7 @@
 		{"CustomerId":28,"Measurements":{"MeasurementId":1,"ExistingRoofType":"[var:existingRoofType]","NumberOfFloors":[var:numberOfFloors],[var:roofMeasurementsObject],"WasteFactor":"[var:wasteFactor]",[var:ridgeMeasurementsObject],[var:hipsObject],[var:valleysObject],[var:rakesObject],[var:eavesObject],[var:skylightsObject],[var:plumbingVentsObject]}}
 	]]></texttemplate>
 	<texttemplate name="accessories"><![CDATA[
-		{"AccessoryId":"[datasource:accessoriesdb-list.[var:accessoriesIterateCount].ACCESSORY]","Quantity":"5"}
+		{"AccessoryId":"[datasource:accessoriesdb-list.[var:accessoriesIterateCount].ACCESSORY]","Quantity":"[datasource:accessoriesdb-list.[var:accessoriesIterateCount].QUANTITY]"}
 	]]></texttemplate>
 	<texttemplate name="adjustments"><![CDATA[
 		{"PriceAjustmentsId":"[eval:[var:adjustmentsIterateCount]-1]","Description":"[datasource:adjustmentsdb-list.[var:adjustmentsIterateCount].NOTES]","Price":"[eval:'[datasource:adjustmentsdb-list.[var:adjustmentsIterateCount].TYPE]' == 'Discount' ? '-':''][datasource:adjustmentsdb-list.[var:adjustmentsIterateCount].AMOUNT]"}
@@ -157,21 +157,21 @@
   <classes>
     
     <class name="button">
-      <panel name="[param:name]" width="100%" height="100%" onclick="touched" onclickup="[param:action]" _value="[param:value]" _accessories="[param:accessories]" cornerradius="2" clip="yes">
+      <panel name="[param:name]" width="100%" height="100%" onclick="touched" onclickup="[param:action]" _value="[param:value]" _accessories="[param:accessories]" _image="[param:image]" cornerradius="2" clip="yes">
         <text name="button" style="button" size="[param:size]" text="[param:label]"></text>
         <panel name="bg" style="100" background="ffffff" alpha="0"></panel>
       </panel>
     </class>
     
     <class name="title">
-      <panel name="titlebox" width="100%" height="79">
+      <panel name="titlebox" width="100%" height="79" padding-left="20" padding-right="20" >
         <text name="title" width="100%" height="60" ypos="10" style="darktext" size="40" alignment="left" text="[param:title]"></text>
         <panel name="divide" width="100%" height="10" valign="bottom" background="#343434"></panel>
       </panel>
     </class>
     
     <class name="titlebutton">
-      <panel name="titlebox" width="100%" height="79">
+      <panel name="titlebox" width="100%" height="79" padding-left="20" padding-right="20">
         <text name="title" width="100%" height="60" ypos="10" style="darktext" size="40" alignment="left" text="[param:title]"></text>
         <panel name="create" width="73" height="50" align="right" valign="center">
           <object class="button" name="test" size="60" label="+" action="create" value="[param:action]" />
@@ -329,7 +329,7 @@
           <panel name="rl[param:index]" alias="RL[param:index]" width="226" height="50" align="left" style="textinput">
             <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
             <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Length"></text>
-            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="RW[param:index]" _action="null"></textfield>
+            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="RW[param:index]" _action="null" onchange="isNaN"></textfield>
             <panel name="active" style="100" onclickup="labelactive" _field="RL[param:index]"></panel>
           </panel>
           <text name="measure" width="30" height="100%" align="right" style="darktext" size="20" alignment="center" text="ft"></text>
@@ -338,7 +338,7 @@
           <panel name="rw[param:index]" alias="RW[param:index]" width="226" height="50" align="left" style="textinput">
             <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
             <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Width"></text>
-            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null"></textfield>
+            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null" onchange="isNaN"></textfield>
             <panel name="active" style="100" onclickup="labelactive" _field="RW[param:index]"></panel>
           </panel>
           <text name="measure" width="30" height="100%" align="right" style="darktext" size="20" alignment="center" text="ft"></text>
@@ -424,7 +424,7 @@
         <panel name="floors" alias="FLOORS" width="226" height="50" align="left" bottomof="rooftype" margin-top="10" style="textinput">
           <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
           <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Floors"></text>
-          <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="1 - 3" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null"></textfield>
+          <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="1 - 3" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null" onchange="isNaN"></textfield>
           <panel name="active" style="100" onclickup="labelactive" _field="FLOORS" _drop="INSPECTION"></panel>
         </panel>
         <!--<panel name="difficulty" alias="DIFFICULTY" width="226" height="50" align="left" bottomof="floors" margin-top="10" style="textinput">
@@ -505,7 +505,7 @@
           <panel name="wastepercent" alias="WASTEPERCENT" width="226" height="50" align="left" style="textinput">
             <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
             <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Waste"></text>
-            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" kbtype="numberpad" _next="none" _action="null"></textfield>
+            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" kbtype="numberpad" _next="none" _action="null" onchange="isNaN"></textfield>
             <panel name="active" style="100" onclickup="labelactive" _field="WASTEPERCENT"></panel>
           </panel>
           <text name="measure" width="30" height="100%" align="right" style="darktext" size="20" alignment="center" text="%"></text>
@@ -521,7 +521,7 @@
           <panel name="ridgelength[param:index]" alias="RIDGELENGTH[param:index]" width="226" height="50" align="left" style="textinput">
             <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
             <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Length"></text>
-            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null"></textfield>
+            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null" onchange="isNaN"></textfield>
             <panel name="active" style="100" onclickup="labelactive" _field="RIDGELENGTH[param:index]"></panel>
           </panel>
           <text name="measure" width="30" height="100%" align="right" style="darktext" size="20" alignment="center" text="ft"></text>
@@ -541,7 +541,7 @@
           <panel name="hiplength[param:index]" alias="HIPLENGTH[param:index]" width="226" height="50" align="left" style="textinput">
             <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
             <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Length"></text>
-            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null"></textfield>
+            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null" onchange="isNaN"></textfield>
             <panel name="active" style="100" onclickup="labelactive" _field="HIPLENGTH[param:index]"></panel>
           </panel>
           <text name="measure" width="30" height="100%" align="right" style="darktext" size="20" alignment="center" text="ft"></text>
@@ -557,7 +557,7 @@
           <panel name="valleylength[param:index]" alias="VALLEYLENGTH[param:index]" width="226" height="50" align="left" style="textinput">
             <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
             <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Length"></text>
-            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null"></textfield>
+            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null" onchange="isNaN"></textfield>
             <panel name="active" style="100" onclickup="labelactive" _field="VALLEYLENGTH[param:index]"></panel>
           </panel>
           <text name="measure" width="30" height="100%" align="right" style="darktext" size="20" alignment="center" text="ft"></text>
@@ -573,7 +573,7 @@
           <panel name="rakelength[param:index]" alias="RAKELENGTH[param:index]" width="226" height="50" align="left" style="textinput">
             <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
             <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Length"></text>
-            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null"></textfield>
+            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null" onchange="isNaN"></textfield>
             <panel name="active" style="100" onclickup="labelactive" _field="RAKELENGTH[param:index]"></panel>
           </panel>
           <text name="measure" width="30" height="100%" align="right" style="darktext" size="20" alignment="center" text="ft"></text>
@@ -589,7 +589,7 @@
           <panel name="eavelength[param:index]" alias="EAVELENGTH[param:index]" width="226" height="50" align="left" style="textinput">
             <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
             <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Length"></text>
-            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null"></textfield>
+            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null" onchange="isNaN"></textfield>
             <panel name="active" style="100" onclickup="labelactive" _field="EAVELENGTH[param:index]"></panel>
           </panel>
           <text name="measure" width="30" height="100%" align="right" style="darktext" size="20" alignment="center" text="ft"></text>
@@ -605,7 +605,7 @@
           <panel name="protrusionlength[param:pindex]" alias="PROTRUSIONLENGTH[param:pindex]" width="226" height="50" align="left" style="textinput">
             <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
             <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Length"></text>
-            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="PROTRUSIONWIDTH[param:pindex]" _action="null"></textfield>
+            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="PROTRUSIONWIDTH[param:pindex]" _action="null" onchange="isNaN"></textfield>
             <panel name="active" style="100" onclickup="labelactive" _field="PROTRUSIONLENGTH[param:pindex]"></panel>
           </panel>
           <text name="measure" width="30" height="100%" align="right" style="darktext" size="20" alignment="center" text="ft"></text>
@@ -614,7 +614,7 @@
           <panel name="protrusiontwidth[param:pindex]" alias="PROTRUSIONWIDTH[param:pindex]" width="226" height="50" align="left" style="textinput">
             <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
             <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Width"></text>
-            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null"></textfield>
+            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null" onchange="isNaN"></textfield>
             <panel name="active" style="100" onclickup="labelactive" _field="PROTRUSIONWIDTH[param:pindex]"></panel>
           </panel>
           <text name="measure" width="30" height="100%" align="right" style="darktext" size="20" alignment="center" text="ft"></text>
@@ -631,7 +631,7 @@
           <panel name="protrusionlength[param:pindex]" alias="PROTRUSIONLENGTH[param:pindex]" width="226" height="50" align="left" style="textinput">
             <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
             <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Length"></text>
-            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="PROTRUSIONWIDTH[param:pindex]" _action="null"></textfield>
+            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="PROTRUSIONWIDTH[param:pindex]" _action="null" onchange="isNaN"></textfield>
             <panel name="active" style="100" onclickup="labelactive" _field="PROTRUSIONLENGTH[param:pindex]"></panel>
           </panel>
           <text name="measure" width="30" height="100%" align="right" style="darktext" size="20" alignment="center" text="ft"></text>
@@ -640,7 +640,7 @@
           <panel name="protrusiontwidth[param:pindex]" alias="PROTRUSIONWIDTH[param:pindex]" width="226" height="50" align="left" style="textinput">
             <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
             <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Width"></text>
-            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null"></textfield>
+            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null" onchange="isNaN"></textfield>
             <panel name="active" style="100" onclickup="labelactive" _field="PROTRUSIONWIDTH[param:pindex]"></panel>
           </panel>
           <text name="measure" width="30" height="100%" align="right" style="darktext" size="20" alignment="center" text="ft"></text>
@@ -660,7 +660,7 @@
           <panel name="ventquantity[param:index]" alias="VENTQUANTITY[param:index]" width="226" height="50" align="left" style="textinput">
             <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
             <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Quantity"></text>
-            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null"></textfield>
+            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null" onchange="isNaN"></textfield>
             <panel name="active" style="100" onclickup="labelactive" _field="VENTQUANTITY[param:index]"></panel>
           </panel>
         </panel>
@@ -678,7 +678,7 @@
           <panel name="ventquantity[param:index]" alias="VENTQUANTITY[param:index]" width="226" height="50" align="left" style="textinput">
             <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
             <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Quantity"></text>
-            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null"></textfield>
+            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null" onchange="isNaN"></textfield>
             <panel name="active" style="100" onclickup="labelactive" _field="VENTQUANTITY[param:index]"></panel>
           </panel>
         </panel>
@@ -696,7 +696,7 @@
           <panel name="ventquantity[param:index]" alias="VENTQUANTITY[param:index]" width="226" height="50" align="left" style="textinput">
             <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
             <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Quantity"></text>
-            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null"></textfield>
+            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null" onchange="isNaN"></textfield>
             <panel name="active" style="100" onclickup="labelactive" _field="VENTQUANTITY[param:index]"></panel>
           </panel>
         </panel>
@@ -749,12 +749,14 @@
 
     <class name="shingles">
       <!--two column-->
-      <panel name="[param:index]" width="100%" fitheight="yes" >
+      <panel name="[param:index]" width="100%" fitheight="yes" padding-left="20" padding-right="20">
         <panel name="shinglerow1" width="100%" height="242" >
           <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="20" alignment="left" text="Shingle Group"></text>
           <panel name="col1" width="217" height="100%" bottomof="subtitle" >
             <text name="name" width="100%" height="30" style="darktext" size="20" alignment="left" text="[datasource:getProducts.[param:index].ProductName]"></text>
-            <panel name="imgholder" width="108" height="108" bottomof="name" background="#000000"></panel>
+            <panel name="imgholder" width="108" height="108" bottomof="name" background="#000000">
+            	<image name="shingle" url="http://www.gaf.com/All_Images/[datasource:getProducts.[param:index].Color[0]/Image]?w=108&amp;h=108"></image>
+            </panel>
             <text name="desc" width="100" height="fit" bottomof="name" align="right" style="darktext" size="12" alignment="left" text="[datasource:getProducts.[param:index].Description]"></text>
             <panel name="shingle-btn" width="108" height="50" bottomof="imgholder" margin-top="10">
               <object class="button" name="test" size="20" label="Select" action="selectshingle" value="[datasource:getProducts.[param:index].ProductId]" />
@@ -762,7 +764,9 @@
           </panel>
           <panel name="col2" width="217" height="100%" align="right" bottomof="subtitle" >
             <text name="name" width="100%" height="30" style="darktext" size="20" alignment="left" text="[datasource:getProducts.[eval:[param:index]+1].ProductName]"></text>
-            <panel name="imgholder" width="108" height="108" bottomof="name" background="#000000"></panel>
+            <panel name="imgholder" width="108" height="108" bottomof="name" background="#000000">
+            	<image name="shingle" url="http://www.gaf.com/All_Images/[datasource:getProducts.[eval:[param:index]+1].Color[0]/Image]?w=108&amp;h=108"></image>
+            </panel>
             <text name="desc" width="100" height="fit" bottomof="name" align="right" style="darktext" size="12" alignment="left" text="[datasource:getProducts.[eval:[param:index]+1].Description]"></text>
             <panel name="shingle-btn" width="108" height="50" bottomof="imgholder" margin-top="10">
               <object class="button" name="test" size="20" label="Select" action="selectshingle" value="[datasource:getProducts.[eval:[param:index]+1].ProductId]" />
@@ -778,7 +782,9 @@
         <panel name="[param:index]" width="100%" height="213" >
           <panel name="col1" width="217" height="100%" >
             <text name="name" width="100%" height="30" style="darktext" size="20" alignment="left" text="[datasource:getProducts.[param:index].ProductName]"></text>
-            <panel name="imgholder" width="108" height="108" bottomof="name" background="#000000"></panel>
+            <panel name="imgholder" width="108" height="108" bottomof="name" background="#000000">
+            	<image name="shingle" url="http://www.gaf.com/All_Images/[datasource:getProducts.[param:index].Color[0]/Image]?w=108&amp;h=108"></image>
+            </panel>
             <text name="desc" width="100" height="fit" bottomof="name" align="right" style="darktext" size="12" alignment="left" text="[datasource:getProducts.[param:index].Description]"></text>
             <panel name="shingle-btn" width="108" height="50" bottomof="imgholder" margin-top="10">
               <object class="button" name="test" size="20" label="Select" action="selectshingle" value="[datasource:getProducts.[param:index].ProductId]" />
@@ -788,6 +794,95 @@
         </panel>
     </class><!-- <object class="shingles"  /> -->
     
+	<class name="color-pager">
+      <pager name="colorpager" alias="COLORPAGER" width="100%" height="100%" orientation="vertical" paginate="no">
+      </pager>
+	</class>
+	
+	<class name="three-colors" >
+            <panel name="[param:index]" width="100%" height="320" padding-left="20" padding-right="20">
+              <panel name="1" width="33.33%" height="100%" align="left">
+                <panel name="marginer" width="200" height="100%" align="left" >
+                  <panel name="imgholder" width="200" height="200" background="000000">
+				  	<image name="shingle" url="http://www.gaf.com/All_Images/[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Image]?w=200&amp;h=200"></image>
+                  </panel>
+                  <text name="colorlabel" width="100%" height="40" bottomof="imgholder" style="darktext" size="fit" maxsize="20" alignment="left" text="[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Name]"></text>
+                  <panel name="search-btn" width="200" height="50" align="right" bottomof="colorlabel">
+                    <object class="button" name="test" size="20" label="Select" action="setcolor" value="[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Name]" image="http://www.gaf.com/All_Images/[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Image]" />
+                  </panel>
+                </panel>
+              </panel>
+              
+              <panel name="2" width="33.33%" height="100%" align="center" >
+                <panel name="marginer" width="200" height="100%" align="center">
+                  <panel name="imgholder" width="200" height="200" background="000000">
+				  	<image name="shingle" url="http://www.gaf.com/All_Images/[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+1]]/Image]?w=200&amp;h=200"></image>
+                  </panel>
+                  <text name="colorlabel" width="100%" height="40" bottomof="imgholder" style="darktext" size="fit" maxsize="20" alignment="left" text="[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+1]]/Name]"></text>
+                  <panel name="search-btn" width="200" height="50" align="right" bottomof="colorlabel">
+                    <object class="button" name="test" size="20" label="Select" action="setcolor" value="[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+1]]/Name]" image="http://www.gaf.com/All_Images/[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+1]]/Image]" />
+                  </panel>
+                </panel>
+              </panel>
+              <panel name="3" width="33.33%" height="100%" align="right" >
+                <panel name="marginer" width="200" height="100%" align="right">
+                  <panel name="imgholder" width="200" height="200" background="000000">
+				  	<image name="shingle" url="http://www.gaf.com/All_Images/[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+2]]/Image]?w=200&amp;h=200"></image>
+                  </panel>
+                  <text name="colorlabel" width="100%" height="40" bottomof="imgholder" style="darktext" size="fit" maxsize="20" alignment="left" text="[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+2]]/Name]"></text>
+                  <panel name="search-btn" width="200" height="50" align="right" bottomof="colorlabel">
+                    <object class="button" name="test" size="20" label="Select" action="setcolor" value="[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+2]]/Name]" image="http://www.gaf.com/All_Images/[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+2]]/Image]" />
+                  </panel>
+                </panel>
+              </panel>
+            </panel>
+            <!-- <panel name="row3" width="100%" height="300" background="#0000ff"></panel> -->
+	</class>
+	
+	<class name="two-colors">
+            <panel name="[param:index]" width="100%" height="320" padding-left="20" padding-right="20">
+              <panel name="1" width="33.33%" height="100%" align="left">
+                <panel name="marginer" width="200" height="100%" align="left" >
+                  <panel name="imgholder" width="200" height="200" background="000000">
+				  	<image name="shingle" url="http://www.gaf.com/All_Images/[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Image]?w=200&amp;h=200"></image>
+                  </panel>
+                  <text name="colorlabel" width="100%" height="40" bottomof="imgholder" style="darktext" size="20" alignment="left" text="[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Name]"></text>
+                  <panel name="search-btn" width="200" height="50" align="right" bottomof="colorlabel">
+                    <object class="button" name="test" size="20" label="Select" action="setcolor" value="[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Name]" image="http://www.gaf.com/All_Images/[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Image]" />
+                  </panel>
+                </panel>
+              </panel>
+              
+              <panel name="2" width="33.33%" height="100%" align="center" >
+                <panel name="marginer" width="200" height="100%" align="center">
+                  <panel name="imgholder" width="200" height="200" background="000000">
+				  	<image name="shingle" url="http://www.gaf.com/All_Images/[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+1]]/Image]?w=200&amp;h=200"></image>
+                  </panel>
+                  <text name="colorlabel" width="100%" height="40" bottomof="imgholder" style="darktext" size="20" alignment="left" text="[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+1]]/Name]"></text>
+                  <panel name="search-btn" width="200" height="50" align="right" bottomof="colorlabel">
+                    <object class="button" name="test" size="20" label="Select" action="setcolor" value="[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+1]]/Name]" image="http://www.gaf.com/All_Images/[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+1]]/Image]"/>
+                  </panel>
+                </panel>
+              </panel>
+            </panel>
+	</class>
+	
+	<class name="one-color">
+            <panel name="[param:index]" width="100%" height="320" padding-left="20" padding-right="20">
+              <panel name="1" width="33.33%" height="100%" align="left">
+                <panel name="marginer" width="200" height="100%" align="left" >
+                  <panel name="imgholder" width="200" height="200" background="000000">
+				  	<image name="shingle" url="http://www.gaf.com/All_Images/[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Image]?w=200&amp;h=200"></image>
+                  </panel>
+                  <text name="colorlabel" width="100%" height="40" bottomof="imgholder" style="darktext" size="20" alignment="left" text="[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Name]"></text>
+                  <panel name="search-btn" width="200" height="50" align="right" bottomof="colorlabel">
+                    <object class="button" name="test" size="20" label="Select" action="setcolor" value="[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Name]" image="http://www.gaf.com/All_Images/[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+2]]/Image]"/>
+                  </panel>
+                </panel>
+              </panel>
+            </panel>
+	</class>
+
     <class name="warranty">
       <panel name="[param:index]" width="100%" height="71">
         <text name="subtitle" width="[eval: [object:WARRANTY-PAGER-BOX.width] - 95]" height="66" font="Futura-Medium" color="#343434" size="fit" maxsize="25" alignment="left" text="[param:title]"></text>
@@ -1226,10 +1321,9 @@
       
       <!-- !customer -->
       <panel name="customer" alias="CUSTOMER" width="100%" height="[eval: [object:CONTAINER.height] - 127]" ypos="127" alpha="1">
-        <panel name="inner" style="100" padding-left="20" padding-right="20">
+        <panel name="inner" style="100" >
           <object class="title" title="New Customer Set Up" />
-          
-          <pager name="scroller" width="100%" height="[eval: [object:CUSTOMER.height] - 79]" orientation="vertical" bottomof="titlebox" paginate="no">
+          <pager name="scroller" width="100%" height="[eval: [object:CUSTOMER.height] - 79]" orientation="vertical" bottomof="titlebox" paginate="no" padding-left="20" padding-right="20">
             <panel name="customer1" width="100%" height="160">
               <text name="subtitle" width="100%" height="35" style="darktext" size="20" alignment="left" text="Customer 1"></text>
               <panel name="col1" width="50%" height="100%" padding-right="10" bottomof="subtitle">
@@ -1397,101 +1491,101 @@
           <panel name="roof-sidebar-blocker" alias="ROOF-SIDEBAR-BLOCKER" style="100" xpos="-101%"></panel>
         </panel>
         
-        <panel name="roof-Inspection" alias="ROOF-INSPECTION" width="512" height="100%" align="right" padding-left="20" padding-right="20" alpha="0">
-          <object class="title" title="Inspection"  />
+        <panel name="roof-Inspection" alias="ROOF-INSPECTION" width="512" height="100%" align="right" alpha="0">
+          <object class="title" title="Inspection" />
           <panel name="roofpagerbox" width="100%" height="[eval: [object:ROOF-INSPECTION.height] - 146]" ypos="79" >
-            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no">
+            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no" padding-left="20" padding-right="20">
               <object class="inspection" />
             </pager>
           </panel>
         </panel>
         
-        <panel name="roof-Fascia" alias="ROOF-FASCIA" width="512" height="100%" align="right" padding-left="20" padding-right="20" alpha="0">
+        <panel name="roof-Fascia" alias="ROOF-FASCIA" width="512" height="100%" align="right" alpha="0">
           <object class="title" title="Fascia"  />
           <panel name="roofpagerbox" width="100%" height="[eval: [object:ROOF-FASCIA.height] - 146]" ypos="79" >
-            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no">
+            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no" padding-left="20" padding-right="20">
               <object class="fascia" />
             </pager>
           </panel>
         </panel>
         
-        <panel name="roof-Roof Area" alias="ROOF-ROOF AREA" width="512" height="100%" align="right" padding-left="20" padding-right="20" alpha="0">
+        <panel name="roof-Roof Area" alias="ROOF-ROOF AREA" width="512" height="100%" align="right" alpha="0">
           <object class="titlebutton" title="Roof Areas" action="addarea" />
           <panel name="roofpagerbox" width="100%" height="[eval: [object:ROOF-ROOF AREA.height] - 146]" ypos="79" >
-            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no">
+            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no" padding-left="20" padding-right="20">
               <!--<object class="roof area" index="1" />-->
             </pager>
           </panel>
         </panel>
         
-        <panel name="roof-Waste" alias="ROOF-WASTE" width="512" height="100%" align="right" padding-left="20" padding-right="20" alpha="0">
+        <panel name="roof-Waste" alias="ROOF-WASTE" width="512" height="100%" align="right" alpha="0">
           <object class="title" title="Waste"  />
           <panel name="roofpagerbox" width="100%" height="[eval: [object:ROOF-WASTE.height] - 146]" ypos="79" >
-            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no">
+            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no" padding-left="20" padding-right="20"> 
               <object class="waste" />
             </pager>
           </panel>
         </panel>
         
-        <panel name="roof-Ridge" alias="ROOF-RIDGE" width="512" height="100%" align="right" padding-left="20" padding-right="20" alpha="0">
+        <panel name="roof-Ridge" alias="ROOF-RIDGE" width="512" height="100%" align="right" alpha="0">
           <object class="titlebutton" title="Ridges" action="addridge" />
           <panel name="roofpagerbox" width="100%" height="[eval: [object:ROOF-RIDGE.height] - 146]" ypos="79" >
-            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no">
+            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no" padding-left="20" padding-right="20">
               <!--<object class="ridge" index="1" />-->
             </pager>
           </panel>
         </panel>
         
-        <panel name="roof-Hip" alias="ROOF-HIP" width="512" height="100%" align="right" padding-left="20" padding-right="20" alpha="0">
+        <panel name="roof-Hip" alias="ROOF-HIP" width="512" height="100%" align="right" alpha="0">
           <object class="titlebutton" title="Hips" action="addhip" />
           <panel name="roofpagerbox" width="100%" height="[eval: [object:ROOF-HIP.height] - 146]" ypos="79" >
-            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no">
+            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no" padding-left="20" padding-right="20">
               <!--<object class="hip" index="1" />-->
             </pager>
           </panel>
         </panel>
         
-        <panel name="roof-Valley" alias="ROOF-VALLEY" width="512" height="100%" align="right" padding-left="20" padding-right="20" alpha="0">
+        <panel name="roof-Valley" alias="ROOF-VALLEY" width="512" height="100%" align="right" alpha="0">
           <object class="titlebutton" title="Valley" action="addvalley" />
           <panel name="roofpagerbox" width="100%" height="[eval: [object:ROOF-VALLEY.height] - 146]" ypos="79" >
-            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no">
+            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no" padding-left="20" padding-right="20">
               <!--<object class="valley" index="1" />-->
             </pager>
           </panel>
         </panel>
         
-        <panel name="roof-Rake" alias="ROOF-RAKE" width="512" height="100%" align="right" padding-left="20" padding-right="20" alpha="0">
+        <panel name="roof-Rake" alias="ROOF-RAKE" width="512" height="100%" align="right" alpha="0">
           <object class="titlebutton" title="Rakes" action="addrake" />
           <panel name="roofpagerbox" width="100%" height="[eval: [object:ROOF-RAKE.height] - 146]" ypos="79" >
-            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no">
+            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no" padding-left="20" padding-right="20">
               <!--<object class="rake" index="1" />-->
             </pager>
           </panel>
         </panel>
         
-        <panel name="roof-Eave" alias="ROOF-EAVE" width="512" height="100%" align="right" padding-left="20" padding-right="20" alpha="0">
+        <panel name="roof-Eave" alias="ROOF-EAVE" width="512" height="100%" align="right" alpha="0">
           <object class="titlebutton" title="Eaves" action="addeave" />
           <panel name="roofpagerbox" width="100%" height="[eval: [object:ROOF-EAVE.height] - 146]" ypos="79" >
-            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no">
+            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no" padding-left="20" padding-right="20">
               <!--<object class="eave" index="1" />-->
             </pager>
           </panel>
         </panel>
         
-        <panel name="roof-Chimney" alias="ROOF-CHIMNEY" width="512" height="100%" align="right" padding-left="20" padding-right="20" alpha="0">
+        <panel name="roof-Chimney" alias="ROOF-CHIMNEY" width="512" height="100%" align="right" alpha="0">
           <object class="titlebutton" title="Chimneys &amp; Skylights" action="addprotrusion" />
           <panel name="roofpagerbox" width="100%" height="[eval: [object:ROOF-CHIMNEY.height] - 146]" ypos="79" >
-            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no">
+            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no" padding-left="20" padding-right="20">
               <!--<object class="chimney" index="1" />
               <object class="skylight" index="1" />-->
             </pager>
           </panel>
         </panel>
         
-        <panel name="roof-vent" alias="ROOF-VENT" width="512" height="100%" align="right" padding-left="20" padding-right="20" alpha="0">
+        <panel name="roof-vent" alias="ROOF-VENT" width="512" height="100%" align="right" alpha="0">
           <object class="titlebutton" title="Plumbing Vents" action="addvent" />
           <panel name="roofpagerbox" width="100%" height="[eval: [object:ROOF-VENT.height] - 146]" ypos="79" >
-            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no">
+            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no" padding-left="20" padding-right="20">
               <!--<object class="3vent" />
               <object class="2vent" />
               <object class="15vent" />
@@ -1500,10 +1594,10 @@
           </panel>
         </panel>
         
-        <panel name="roof-Photo" alias="ROOF-PHOTO" width="512" height="100%" align="right" padding-left="20" padding-right="20" alpha="0">
+        <panel name="roof-Photo" alias="ROOF-PHOTO" width="512" height="100%" align="right" alpha="0">
           <object class="titlebutton" title="Photos &amp; Notes" action="addphoto" />
           <panel name="roofpagerbox" width="100%" height="[eval: [object:ROOF-PHOTO.height] - 146]" ypos="79" >
-            <list name="pager" datasource="photosdb-list" width="100%" height="100%" orientation="vertical" paginate="no">
+            <list name="pager" datasource="photosdb-list" width="100%" height="100%" orientation="vertical" paginate="no" padding-left="20" padding-right="20">
               <object class="photo" index="1" photo="[param:PHOTO]" note="[param:NOTE]" origin="[param:ORIGIN]" />
             </list>
           </panel>
@@ -1529,27 +1623,27 @@
           <panel name="products-sidebar-blocker" alias="PRODUCTS-SIDEBAR-BLOCKER" style="100" xpos="-101%"></panel>
         </panel>
         
-        <panel name="products-Shingle" alias="PRODUCTS-SHINGLES" width="512" height="100%" align="right" padding-left="20" padding-right="20" alpha="0">
+        <panel name="products-Shingle" alias="PRODUCTS-SHINGLES" width="512" height="100%" align="right" padding-bottom="20" alpha="0">
           <object class="title" title="Shingles"  />
           <panel name="productpagerbox" alias="PRODUCT-PAGER-BOX" width="100%" height="[eval: [object:PRODUCTS-SHINGLES.height] - 79]" ypos="79" >
-            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no" >
+            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no" padding-left="20" padding-right="20" >
             </pager>
           </panel>
         </panel>
         
-        <panel name="products-Warranty" alias="PRODUCTS-WARRANTY" width="512" height="100%" align="right" padding-left="20" padding-right="20" alpha="0">
+        <panel name="products-Warranty" alias="PRODUCTS-WARRANTY" width="512" height="100%" align="right" alpha="0">
           <object class="title" title="Select a Warranty"  />
           <panel name="warrantypagerbox" alias="WARRANTY-PAGER-BOX" width="100%" height="[eval: [object:PRODUCTS-WARRANTY.height] - 79]" ypos="79" >
-            <list name="pager" width="100%" height="100%" datasource="getWarranties" orientation="vertical" paginate="no">
+            <list name="pager" width="100%" height="100%" datasource="getWarranties" orientation="vertical" paginate="no" padding-left="20" padding-right="20" >
 				<object class="warranty" index="[ds:dataSourceIndex]" title="[ds:WarrantyName]" warrantyId="[ds:WarrantyId]" accessories="[ds:GAFAccessoriesRequired]"  />
             </list>
           </panel>
         </panel>
         
-        <panel name="products-Accessories" alias="PRODUCTS-ACCESSORIES" width="512" height="100%" align="right" padding-left="20" padding-right="20" alpha="0">
+        <panel name="products-Accessories" alias="PRODUCTS-ACCESSORIES" width="512" height="100%" align="right" alpha="0">
           <object class="title" title="Accessories"  />
           <panel name="productpagerbox" alias="ACCESSORIES-PAGER-BOX" width="100%" height="[eval: [object:PRODUCTS-ACCESSORIES.height] - 79]" ypos="79" >
-            <list name="pager" width="100%" datasource="getAccessories" height="100%" orientation="vertical" paginate="no">
+            <list name="pager" width="100%" datasource="getAccessories" height="100%" orientation="vertical" paginate="no" padding-left="20" padding-right="20" >
 			<object class="accessory-category" index="[ds:dataSourceIndex]" category="[ds:AccessoryCategory]" lhs="[eval: ('[ds:dataSourceIndex]' == '1') || ('[datasource:getAccessories.[eval:[ds:dataSourceIndex]-1].AccessoryCategory]' != '[datasource:getAccessories.[ds:dataSourceIndex].AccessoryCategory]')]" operator="e" rhs="true" />
 <!-- 			<object class="accessory-category" index="[ds:dataSourceIndex]" category="[ds:AccessoryCategory]" lhs="[eval: '[ds:dataSourceIndex]' == '1' || '[ds:AccessoryCategory]' != '[datasource:getAccessories.[eval:[ds:dataSourceIndex]-1].AccessoryCategory]]'" operator="e" rhs="true" /> -->
               <object class="accessory" index="[ds:dataSourceIndex]" title="[ds:AccessoryName]" />
@@ -1577,19 +1671,19 @@
           <panel name="products-sidebar-blocker" alias="SERVICES-SIDEBAR-BLOCKER" style="100" xpos="-101%"></panel>
         </panel>
         
-        <panel name="services-Tear Off" alias="SERVICES-TEAROFF" width="512" height="100%" align="right" padding-left="20" padding-right="20" alpha="0">
+        <panel name="services-Tear Off" alias="SERVICES-TEAROFF" width="512" height="100%" align="right" alpha="0">
           <object class="title" title="Tear Off"  />
           <panel name="servicespagerbox" width="100%" height="[eval: [object:SERVICES-TEAROFF.height] - 79]" ypos="79" >
-            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no">
+            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no" padding-left="20" padding-right="20" >
               <object class="tearoff" />
             </pager>
           </panel>
         </panel>
         
-        <panel name="services-Asset Protection" alias="SERVICES-ASSETPROTECTION" width="512" height="100%" align="right" padding-left="20" padding-right="20" alpha="0">
+        <panel name="services-Asset Protection" alias="SERVICES-ASSETPROTECTION" width="512" height="100%" align="right" alpha="0">
           <object class="title" title="Asset Protection"  />
           <panel name="servicespagerbox" width="100%" height="[eval: [object:SERVICES-ASSETPROTECTION.height] - 79]" ypos="79" >
-            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no">
+            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no" padding-left="20" padding-right="20" >
               <object class="assetprotection" />
             </pager>
           </panel>
@@ -1598,10 +1692,10 @@
       
       <!-- !adjustments -->
       <panel name="adjustments" alias="ADJUSTMENTS" width="100%" height="[eval: [object:CONTAINER.height] - 127]" ypos="127" alpha="0">
-        <panel name="adjustmentsbox" alias="ADJUSTMENTSBOX" width="100%" height="100%" align="right" padding-left="20" padding-right="20" alpha="1">
+        <panel name="adjustmentsbox" alias="ADJUSTMENTSBOX" width="100%" height="100%" align="right" alpha="1">
           <object class="titlebutton" title="Adjustments" action="addadjustment"  />
           <panel name="adjustmentspagerbox" width="100%" height="[eval: [object:ADJUSTMENTS.height] - 79]" ypos="79" >
-            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no">
+            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no" padding-left="20" padding-right="20" >
               <!--<object class="discount" index="1" />
               <object class="additionalcost" index="2" />-->
             </pager>
@@ -1823,8 +1917,8 @@
       <panel name="shinglecolor" alias="SHINGLECOLOR" width="90%" height="70%" alpha="0" align="center" ypos="18%" background="#e3e3e3" onclickup="colordismiss" borderwidth="2" bordercolor="#343434" shadowradius="3" shadowxoffset="0" shadowyoffset="0" shadowopacity=".3">
         <text name="label" width="100%" height="80" leftinset="20" background="#343434" color="#ffffff" font="Futura-Medium" size="40" alignment="left" text="Select a Color"></text>
         <text name="shingle" width="100%" height="60" bottomof="label" style="darktext" leftinset="20" size="30" alignment="left" text="Slateline"></text>
-        <panel name="inner" width="100%" height="[eval: [object:SHINGLECOLOR.height] - 150]" ypos="150" padding-left="20" padding-right="20" padding-bottom="20" >
-          <pager name="colorpager" alias="COLORPAGER" width="100%" height="100%" orientation="vertical" paginate="no" >
+        <panel name="inner" width="100%" height="[eval: [object:SHINGLECOLOR.height] - 150]" ypos="150" >
+          <pager name="colorpager" alias="COLORPAGER" width="100%" height="100%" orientation="vertical" paginate="no" padding-right="20" padding-bottom="20" >
             <panel name="row1" width="100%" height="320">
               <panel name="1" width="33.33%" height="100%" align="left">
                 <panel name="marginer" width="200" height="100%" align="left" >
@@ -1835,7 +1929,6 @@
                   </panel>
                 </panel>
               </panel>
-              
               <panel name="2" width="33.33%" height="100%" align="center" >
                 <panel name="marginer" width="200" height="100%" align="center">
                   <panel name="imgholder" width="200" height="200" background="000000"></panel>
@@ -2720,7 +2813,7 @@
     </action>
 
 	<action name="customersdone" datasource="customersdb" datasourceevent="querycomplete" >
-		<alert message="customer saved" />
+<!-- 		<alert message="customer saved" /> -->
         <assign property="datasource:customersdb-list.query" value="SELECT * FROM CUSTOMERS" />
 	</action>
 
@@ -3360,15 +3453,40 @@
 		</action>
     
     <action name="selectshingle">
-      <play action="released" />
-      <play action="blur" />
-      <sync>
-        <assign property="var:shingle" value="_value" />
-        <alert message="[var:shingle]" />
-      </sync>
-      <alpha value="1" time=".25" target="SHINGLECOLOR" />
-      <translate valign="center" time=".25" curve="easeout" target="SHINGLECOLOR" />
-      <assign property="var:curtainaction" value="colordismiss" />
+<!-- 		<assign property="var:colorCount" value="4" /> -->
+		<assign property="var:shingle" value="[datasource:getProducts._value.ProductId]" />
+		<play action="released" />
+		<delete target="COLORPAGER" />
+		<assign property="var:shingleSelected" value="_value" />
+		<assign property="var:colorCount" value="[eval:JSON.parse('[datasource:getProducts._value.Color]').length]" />
+		<if lhs="[eval:JSON.parse('[datasource:getProducts._value.Color]').length]" operator="ne" rhs="">
+			<assign property="var:colorCreateCount" value="0" />
+			<create class="color-pager" target="SHINGLECOLOR/inner" /> 
+			<loop lhs="[var:colorCreateCount]" operator="lt" rhs="[var:colorCount]" >
+				<if lhs="[eval: [var:colorCount]-[var:colorCreateCount]]" operator="e" rhs="1">
+					<create class="one-color" target="COLORPAGER" index="[var:colorCreateCount]"/>
+					<assign property="var:colorCreateCount" value="[eval: [var:colorCreateCount]+1]" />
+				</if>
+				<if lhs="[eval: [var:colorCount]-[var:colorCreateCount]]" operator="e" rhs="2">
+					<create class="two-colors" target="COLORPAGER" index="[var:colorCreateCount]"/>
+					<assign property="var:colorCreateCount" value="[eval: [var:colorCreateCount]+2]" />
+				</if>
+				<if lhs="[eval: [var:colorCount]-[var:colorCreateCount]]" operator="gte" rhs="3">
+					<create class="three-colors" target="COLORPAGER" index="[var:colorCreateCount]"  />
+					<assign property="var:colorCreateCount" value="[eval: [var:colorCreateCount]+3]" />
+				</if>
+			</loop>
+		      <play action="blur" />
+		      <alpha value="1" time=".25" target="SHINGLECOLOR" />
+		      <translate valign="center" time=".25" curve="easeout" target="SHINGLECOLOR" />
+		      <assign property="var:curtainaction" value="colordismiss" />
+			<else>
+		        <assign property="var:color" value="N/A" />
+		        <alert message="[var:shingle] [var:color]" />
+				<assign property="datasource:getWarranties.source" value="https://162.209.101.177/api/GetWarranties?productId=[var:shingle]" />
+				<play action="sidebar-products" _alias="WARRANTY" _form="Warranty" />
+			</else>
+		</if>
     </action>
     
     <action name="colordismiss">
@@ -3382,6 +3500,8 @@
     <action name="setcolor">
       <play action="released" />
       <sync>
+	  	<assign property="var:productImage" value="_image" />
+	  	<alert message="var:productImage is [var:productImage]" />
         <assign property="var:color" value="_value" />
         <alert message="[var:shingle] [var:color]" />
 		<assign property="datasource:getWarranties.source" value="https://162.209.101.177/api/GetWarranties?productId=[var:shingle]" />
@@ -3406,15 +3526,16 @@
       <assign property="var:warranty" value="_value" />
       <assign property="var:accessories" value="_accessories" />
       <alert message="warranty id [var:warranty] accessories required [var:accessories]" />
-      <assign property="datasource:productsdb.query" value="INSERT INTO PRODUCTS (SHINGLE, COLOR, WARRANTY) VALUES ('[var:shingle]', '[var:color]', '[var:warranty]');" />
+      <assign property="datasource:productsdb.query" value="INSERT INTO PRODUCTS (SHINGLE, COLOR, WARRANTY, IMAGE) VALUES ('[var:shingle]', '[var:color]', '[var:warranty]', '[var:productImage]');" />
 	  <assign property="datasource:getAccessories.source" value="https://162.209.101.177/api/GetAccessoryByProduct?productId=[var:shingle]" />
     </action>
     
     <action name="productquery" datasource="productsdb" datasourceevent="querycomplete">
-      <sync>
-        <assign property="datasource:productsdb-list.query" value="SELECT * FROM PRODUCTS;" />
-<!--         <alert message="products saved" /> -->
-      </sync>
+        <assign property="datasource:productsdb-list.query" value="SELECT * FROM PRODUCTS ORDER BY ID DESC;" />
+    </action>
+    
+    <action name="productlistquery" datasource="productsdb-list" datasourceevent="querycomplete" >
+<!--         <alert message="products-list complete image is [database:productsdb-list.1.IMAGE], shingle is [database:productsdb-list.1.SHINGLE] color is [database:productsdb-list.1.COLOR] warranty is [database:productsdb-list.1.WARRANTY]" /> -->
     </action>
     
     <!-- !accessory actions -->
@@ -3504,13 +3625,30 @@
       <play action="released" />
       <sync>
 
-        <assign property="var:existingRoofType" value="[datasource:inspectiondb-list.1.ROOFTYPE]" />
-        <assign property="var:numberOfFloors" value="[datasource:inspectiondb-list.1.FLOORS]" />
-        <assign property="var:wasteFactor" value="[eval:[datasource:wastedb-list.1.PERCENT]/100]" />
+	  
+<!-- 	  	<alert message="[datasource:inspectiondb-list.dataSourceResultCount]" /> -->
+	  	<if lhs="[datasource:inspectiondb-list.dataSourceResultCount]" operator="gt" rhs="0">
+	        <assign property="var:existingRoofType" value="[datasource:inspectiondb-list.1.ROOFTYPE]" />
+	        <assign property="var:numberOfFloors" value="[datasource:inspectiondb-list.1.FLOORS]" />
+<!--
+			<else>
+				<alert message="inspectiondb-list is empty" />
+			</else>
+-->
+	  	</if>
+	  	<if lhs="[datasource:wastedb-list.dataSourceResultCount]" operator="gt" rhs="0">
+        	<assign property="var:wasteFactor" value="[eval:[datasource:wastedb-list.1.PERCENT]/100]" />
+<!--
+			<else>
+				<alert message="wastedb-list is empty" />
+			</else>
+-->
+	  	</if>
         <if lhs="[datasource:roofareasdb-list.dataSourceResultCount]" operator="gt" rhs="0">
           <assign property="var:roofMeasurementsIterateCount" value="1" />
           <play action="formatRoofMeasurements" />
           <else>
+<!-- 		  	<alert message="roofareasdb-list is empty" /> -->
           	<assign property="var:roofMeasurementsObject" value="&quot;RoofMeasurements&quot;: []" />
           	<play action="prepRidgeMeasurements" />
           </else>
@@ -3533,6 +3671,7 @@
 				<play action="formatRidgeMeasurements" />
 				<else>
 					<assign property="var:ridgeMeasurementsObject" value="&quot;RidgeMeasurements&quot;: []" />
+<!-- 					<alert message="ridgesdb-list is empty" /> -->
 					<play action="prepHips" />
 				</else>
 			</if>
@@ -3553,6 +3692,7 @@
 				<play action="formatHips" />
 				<else>
 					<assign property="var:hipsObject" value="&quot;Hips&quot;: []" />
+<!-- 					<alert message="hipsdb-list is empty" /> -->
 					<play action="prepValleys" />
 				</else>
 			</if>
@@ -3573,6 +3713,7 @@
 				<play action="formatValleys" />
 				<else>
 					<assign property="var:valleysObject" value="&quot;Valleys&quot;: []" />
+<!-- 					<alert message="valleysdb-list is empty" /> -->
 					<play action="prepRakes" />
 				</else>
 			</if>
@@ -3593,6 +3734,7 @@
 				<play action="formatRakes" />
 				<else>
 					<assign property="var:rakesObject" value="&quot;Rakes&quot;: []" />
+<!-- 					<alert message="rakesdb-list is empty" /> -->
 					<play action="prepEaves" />
 				</else>
 			</if>
@@ -3613,6 +3755,7 @@
 				<play action="formatEaves" />
 				<else>
 					<assign property="var:eavesObject" value="&quot;Eaves&quot;: []" />
+<!-- 					<alert message="eavesdb-list is empty" /> -->
 					<play action="prepSkylights" />
 				</else>
 			</if>
@@ -3632,6 +3775,7 @@
 				<assign property="var:skylightsIterateCount" value="1" />
 				<play action="formatSkylights" />
 				<else>
+<!-- 					<alert message="protrusionsdb-list is empty" /> -->
 					<assign property="var:skylightsObject" value="&quot;Skylights&quot;: []" />
 					<play action="prepPlumbingVents" />
 				</else>
@@ -3652,8 +3796,9 @@
 				<assign property="var:plumbingVentsIterateCount" value="1" />
 				<play action="formatPlumbingVents" />
 				<else>
+<!-- 					<alert message="ventsdb is empty" /> -->
 					<assign property="var:plumbingVentsObject" value="&quot;PlumbingVents&quot;: []" />
-					<play action="formatMeasurementsJSON" />
+					<play action="sendMeasurements" />
 				</else>
 			</if>
 		</action>
@@ -3678,8 +3823,7 @@
 		
 		<action name="updateMeasurements-complete" datasource="updateMeasurements" datasourceevent="querycomplete" >
 			<alert message="updateMeasurements-complete content [datasource:updateMeasurements.0.content]" />
-				<play action="formatEstimate" />
-<!-- 				<play action="formatEstimate" /> -->
+				<play action="prepPhotos" />
 <!--
 			<if lhs="[datasource:updateMeasurements.1.ResponseCode]" operator="e" rhs="100">
 			</if>
@@ -3695,13 +3839,16 @@
 			<assign property="var:photoIterateCount" value="1" />
 			<assign property="httpheader:formSubmit.Token" value="[preferences:token]" />
 			<assign property="httpheader:formSubmit.ContractorId" value="[preferences:contractorId]" />
+			<if lhs="[var:photoCount]" operator="gt" rhs="0">
+				<play action="upload-photo" />
+				<else>
+					<alert message="photosdb empty" />
+					<play action="formatEstimate" />
+				</else>
+			</if>
 		</action>
 		
 		<action name="upload-photo" >
-<!--
-			<loop lhs="[var:photoIterateCount]" operator="lte" rhs="[var:photoCount]" >
-			</loop>
--->
 			<if lhs="[var:photoIterateCount]" operator="lte" rhs="[var:photoCount]">
 <!--
 				<assign property="datasource:uploadPhoto.postFile" value="[datasource:photosdb-list.[var:photoIterateCount].PHOTO]"/>
@@ -3725,10 +3872,14 @@
 		</action>
 		
 		<action name="formatEstimate" >
-			<assign property="var:shingle" value="[datasource:productsdb-list.1.SHINGLE]" />
-			<assign property="var:warranty" value="[datasource:productsdb-list.1.WARRANTY]" />
-			<assign property="var:tearOffLayers" value="[datasource:tearoffdb-list.1.LAYERS]" />
-			<assign property="var:tearOffType" value="[datasource:tearoffdb-list.1.MATERIAL]" />	
+			<if lhs="[datasource:productsdb-list.dataSourceResultCount]" operator="gt" rhs="0">
+				<assign property="var:shingle" value="[datasource:productsdb-list.1.SHINGLE]" />
+				<assign property="var:warranty" value="[datasource:productsdb-list.1.WARRANTY]" />
+			</if>
+			<if lhs="[datasource:tearoffdb-list.dataSourceResultCount]" operator="gt" rhs="0">
+				<assign property="var:tearOffLayers" value="[datasource:tearoffdb-list.1.LAYERS]" />
+				<assign property="var:tearOffType" value="[datasource:tearoffdb-list.1.MATERIAL]" />	
+			</if>
 			<alert message="var:shingle is [var:shingle], var:warranty is [var:warranty] var:tearOffLayers is [var:tearOffLayers] var:tearOffType is [var:tearOffType] var:numberOfFloors is [var:numberOfFloors]" />
 			<if lhs="[datasource:accessoriesdb-list.dataSourceResultCount]" operator="gt" rhs="0">
 				<assign property="var:accessoriesIterateCount" value="1" />
@@ -3785,6 +3936,9 @@
 		<action name="estimate-complete" datasource="generateEstimate" datasourceevent="querycomplete">
 			<if lhs="[datasource:generateEstimate.1.ResponseCode]" operator="e" rhs="100">
 				<alert message="estimate received" />
+				<else>
+					<alert message="there was an error generating your estimate.  please try again later. [datasource:generateEstimate.0.content]" />
+				</else>
 <!-- 				<play action="show-pdf" /> -->
 			</if>
 		</action>
@@ -3877,6 +4031,12 @@
       <alpha value="0" time=".25" target="CURTAIN" />
       <focus time=".25" target="CONTAINER" />
       <alpha value="0" time=".25" target="CURTAIN/color" />
+    </action>
+
+    <action name="isNaN">
+      <if lhs="[eval:isNaN(&#39;[object:text]&#39;)]" operator="==" rhs="true">
+        <alert title="Input Error" message="Please only enter numeric values [eval:[object:text].slice(-1);]" />
+      </if>
     </action>
     
     <action name="null"></action>
