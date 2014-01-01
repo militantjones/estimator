@@ -730,9 +730,9 @@
     
     <class name="photo">
       <panel name="photo[param:index]" width="100%" height="215">
-        <panel name="imgbox" width="226" height="190" ypos="10" clip="yes" >
-          <image name="rollphoto" asset="[param:photo]" height="100%"></image>
-          <image name="cameraphoto" fullpath="[param:photo]" height="100%"></image>
+        <panel name="imgbox" width="226" height="190" ypos="10" clip="yes" background="000000">
+          <image name="rollphoto" asset="[param:photo]" height="100%" contain="yes"></image>
+          <image name="cameraphoto" fullpath="[param:photo]" height="100%" contain="yes"></image>
         </panel>
         <panel name="notbox" width="47%" height="200" align="right" ypos="10" clip="yes">
           <text name="note" width="100%" height="fit" style="darktext" size="16" alignment="left" text="[param:note]"></text>
@@ -754,9 +754,7 @@
           <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="20" alignment="left" text="Shingle Group"></text>
           <panel name="col1" width="217" height="100%" bottomof="subtitle" >
             <text name="name" width="100%" height="30" style="darktext" size="20" alignment="left" text="[datasource:getProducts.[param:index].ProductName]"></text>
-            <panel name="imgholder" width="108" height="108" bottomof="name" background="#000000">
-            	<image name="shingle" url="http://www.gaf.com/All_Images/[datasource:getProducts.[param:index].Color[0]/Image]?w=108&amp;h=108"></image>
-            </panel>
+            <panel name="imgholder" width="108" height="108" bottomof="name" background="#000000"></panel>
             <text name="desc" width="100" height="fit" bottomof="name" align="right" style="darktext" size="12" alignment="left" text="[datasource:getProducts.[param:index].Description]"></text>
             <panel name="shingle-btn" width="108" height="50" bottomof="imgholder" margin-top="10">
               <object class="button" name="test" size="20" label="Select" action="selectshingle" value="[datasource:getProducts.[param:index].ProductId]" />
@@ -764,9 +762,7 @@
           </panel>
           <panel name="col2" width="217" height="100%" align="right" bottomof="subtitle" >
             <text name="name" width="100%" height="30" style="darktext" size="20" alignment="left" text="[datasource:getProducts.[eval:[param:index]+1].ProductName]"></text>
-            <panel name="imgholder" width="108" height="108" bottomof="name" background="#000000">
-            	<image name="shingle" url="http://www.gaf.com/All_Images/[datasource:getProducts.[eval:[param:index]+1].Color[0]/Image]?w=108&amp;h=108"></image>
-            </panel>
+            <panel name="imgholder" width="108" height="108" bottomof="name" background="#000000"></panel>
             <text name="desc" width="100" height="fit" bottomof="name" align="right" style="darktext" size="12" alignment="left" text="[datasource:getProducts.[eval:[param:index]+1].Description]"></text>
             <panel name="shingle-btn" width="108" height="50" bottomof="imgholder" margin-top="10">
               <object class="button" name="test" size="20" label="Select" action="selectshingle" value="[datasource:getProducts.[eval:[param:index]+1].ProductId]" />
@@ -782,9 +778,7 @@
         <panel name="[param:index]" width="100%" height="213" >
           <panel name="col1" width="217" height="100%" >
             <text name="name" width="100%" height="30" style="darktext" size="20" alignment="left" text="[datasource:getProducts.[param:index].ProductName]"></text>
-            <panel name="imgholder" width="108" height="108" bottomof="name" background="#000000">
-            	<image name="shingle" url="http://www.gaf.com/All_Images/[datasource:getProducts.[param:index].Color[0]/Image]?w=108&amp;h=108"></image>
-            </panel>
+            <panel name="imgholder" width="108" height="108" bottomof="name" background="#000000"></panel>
             <text name="desc" width="100" height="fit" bottomof="name" align="right" style="darktext" size="12" alignment="left" text="[datasource:getProducts.[param:index].Description]"></text>
             <panel name="shingle-btn" width="108" height="50" bottomof="imgholder" margin-top="10">
               <object class="button" name="test" size="20" label="Select" action="selectshingle" value="[datasource:getProducts.[param:index].ProductId]" />
@@ -794,95 +788,6 @@
         </panel>
     </class><!-- <object class="shingles"  /> -->
     
-	<class name="color-pager">
-      <pager name="colorpager" alias="COLORPAGER" width="100%" height="100%" orientation="vertical" paginate="no" >
-      </pager>
-	</class>
-	
-	<class name="three-colors" >
-            <panel name="[param:index]" width="100%" height="320">
-              <panel name="1" width="33.33%" height="100%" align="left">
-                <panel name="marginer" width="200" height="100%" align="left" >
-                  <panel name="imgholder" width="200" height="200" background="000000">
-				  	<image name="shingle" url="http://www.gaf.com/All_Images/[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Image]?w=200&amp;h=200"></image>
-                  </panel>
-                  <text name="colorlabel" width="100%" height="40" bottomof="imgholder" style="darktext" size="fit" maxsize="20" alignment="left" text="[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Name]"></text>
-                  <panel name="search-btn" width="200" height="50" align="right" bottomof="colorlabel">
-                    <object class="button" name="test" size="20" label="Select" action="setcolor" value="[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Name]" />
-                  </panel>
-                </panel>
-              </panel>
-              
-              <panel name="2" width="33.33%" height="100%" align="center" >
-                <panel name="marginer" width="200" height="100%" align="center">
-                  <panel name="imgholder" width="200" height="200" background="000000">
-				  	<image name="shingle" url="http://www.gaf.com/All_Images/[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+1]]/Image]?w=200&amp;h=200"></image>
-                  </panel>
-                  <text name="colorlabel" width="100%" height="40" bottomof="imgholder" style="darktext" size="fit" maxsize="20" alignment="left" text="[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+1]]/Name]"></text>
-                  <panel name="search-btn" width="200" height="50" align="right" bottomof="colorlabel">
-                    <object class="button" name="test" size="20" label="Select" action="setcolor" value="[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+1]]/Name]" />
-                  </panel>
-                </panel>
-              </panel>
-              <panel name="3" width="33.33%" height="100%" align="right" >
-                <panel name="marginer" width="200" height="100%" align="right">
-                  <panel name="imgholder" width="200" height="200" background="000000">
-				  	<image name="shingle" url="http://www.gaf.com/All_Images/[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+2]]/Image]?w=200&amp;h=200"></image>
-                  </panel>
-                  <text name="colorlabel" width="100%" height="40" bottomof="imgholder" style="darktext" size="fit" maxsize="20" alignment="left" text="[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+2]]/Name]"></text>
-                  <panel name="search-btn" width="200" height="50" align="right" bottomof="colorlabel">
-                    <object class="button" name="test" size="20" label="Select" action="setcolor" value="[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+2]]/Name]" />
-                  </panel>
-                </panel>
-              </panel>
-            </panel>
-            <!-- <panel name="row3" width="100%" height="300" background="#0000ff"></panel> -->
-	</class>
-	
-	<class name="two-colors">
-            <panel name="[param:index]" width="100%" height="320" >
-              <panel name="1" width="33.33%" height="100%" align="left">
-                <panel name="marginer" width="200" height="100%" align="left" >
-                  <panel name="imgholder" width="200" height="200" background="000000">
-				  	<image name="shingle" url="http://www.gaf.com/All_Images/[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Image]?w=200&amp;h=200"></image>
-                  </panel>
-                  <text name="colorlabel" width="100%" height="40" bottomof="imgholder" style="darktext" size="20" alignment="left" text="[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Name]"></text>
-                  <panel name="search-btn" width="200" height="50" align="right" bottomof="colorlabel">
-                    <object class="button" name="test" size="20" label="Select" action="setcolor" value="[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Name]" />
-                  </panel>
-                </panel>
-              </panel>
-              
-              <panel name="2" width="33.33%" height="100%" align="center" >
-                <panel name="marginer" width="200" height="100%" align="center">
-                  <panel name="imgholder" width="200" height="200" background="000000">
-				  	<image name="shingle" url="http://www.gaf.com/All_Images/[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+1]]/Image]?w=200&amp;h=200"></image>
-                  </panel>
-                  <text name="colorlabel" width="100%" height="40" bottomof="imgholder" style="darktext" size="20" alignment="left" text="[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+1]]/Name]"></text>
-                  <panel name="search-btn" width="200" height="50" align="right" bottomof="colorlabel">
-                    <object class="button" name="test" size="20" label="Select" action="setcolor" value="[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+1]]/Name]" />
-                  </panel>
-                </panel>
-              </panel>
-            </panel>
-	</class>
-	
-	<class name="one-color">
-            <panel name="[param:index]" width="100%" height="320" >
-              <panel name="1" width="33.33%" height="100%" align="left">
-                <panel name="marginer" width="200" height="100%" align="left" >
-                  <panel name="imgholder" width="200" height="200" background="000000">
-				  	<image name="shingle" url="http://www.gaf.com/All_Images/[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Image]?w=200&amp;h=200"></image>
-                  </panel>
-                  <text name="colorlabel" width="100%" height="40" bottomof="imgholder" style="darktext" size="20" alignment="left" text="[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Name]"></text>
-                  <panel name="search-btn" width="200" height="50" align="right" bottomof="colorlabel">
-                    <object class="button" name="test" size="20" label="Select" action="setcolor" value="[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Name]" />
-                  </panel>
-                </panel>
-              </panel>
-            </panel>
-	</class>
-
     <class name="warranty">
       <panel name="[param:index]" width="100%" height="71">
         <text name="subtitle" width="[eval: [object:WARRANTY-PAGER-BOX.width] - 95]" height="66" font="Futura-Medium" color="#343434" size="fit" maxsize="25" alignment="left" text="[param:title]"></text>
@@ -1456,9 +1361,9 @@
         <panel name="roof-Inspection" alias="ROOF-INSPECTION" width="512" height="100%" align="right" padding-left="20" padding-right="20" alpha="0">
           <object class="title" title="Inspection"  />
           <panel name="roofpagerbox" width="100%" height="[eval: [object:ROOF-INSPECTION.height] - 146]" ypos="79" >
-            <list name="pager" datasource="photosdb-list" width="100%" height="100%" orientation="vertical" paginate="no">
-              <object class="photo" index="1" photo="[param:PHOTO]" note="[param:NOTE]" origin="[param:ORIGIN]" />
-            </list>
+            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no">
+              <object class="inspection" />
+            </pager>
           </panel>
         </panel>
         
@@ -3169,40 +3074,15 @@
 		</action>
     
     <action name="selectshingle">
-<!-- 		<assign property="var:colorCount" value="4" /> -->
-		<assign property="var:shingle" value="[datasource:getProducts._value.ProductId]" />
-		<play action="released" />
-		<delete target="COLORPAGER" />
-		<assign property="var:shingleSelected" value="_value" />
-		<assign property="var:colorCount" value="[eval:JSON.parse('[datasource:getProducts._value.Color]').length]" />
-		<if lhs="[eval:JSON.parse('[datasource:getProducts._value.Color]').length]" operator="ne" rhs="">
-			<assign property="var:colorCreateCount" value="0" />
-			<create class="color-pager" target="SHINGLECOLOR/inner" /> 
-			<loop lhs="[var:colorCreateCount]" operator="lt" rhs="[var:colorCount]" >
-				<if lhs="[eval: [var:colorCount]-[var:colorCreateCount]]" operator="e" rhs="1">
-					<create class="one-color" target="COLORPAGER" index="[var:colorCreateCount]"/>
-					<assign property="var:colorCreateCount" value="[eval: [var:colorCreateCount]+1]" />
-				</if>
-				<if lhs="[eval: [var:colorCount]-[var:colorCreateCount]]" operator="e" rhs="2">
-					<create class="two-colors" target="COLORPAGER" index="[var:colorCreateCount]"/>
-					<assign property="var:colorCreateCount" value="[eval: [var:colorCreateCount]+2]" />
-				</if>
-				<if lhs="[eval: [var:colorCount]-[var:colorCreateCount]]" operator="gte" rhs="3">
-					<create class="three-colors" target="COLORPAGER" index="[var:colorCreateCount]"  />
-					<assign property="var:colorCreateCount" value="[eval: [var:colorCreateCount]+3]" />
-				</if>
-			</loop>
-		      <play action="blur" />
-		      <alpha value="1" time=".25" target="SHINGLECOLOR" />
-		      <translate valign="center" time=".25" curve="easeout" target="SHINGLECOLOR" />
-		      <assign property="var:curtainaction" value="colordismiss" />
-			<else>
-		        <assign property="var:color" value="N/A" />
-		        <alert message="[var:shingle] [var:color]" />
-				<assign property="datasource:getWarranties.source" value="https://162.209.101.177/api/GetWarranties?productId=[var:shingle]" />
-				<play action="sidebar-products" _alias="WARRANTY" _form="Warranty" />
-			</else>
-		</if>
+      <play action="released" />
+      <play action="blur" />
+      <sync>
+        <assign property="var:shingle" value="_value" />
+        <alert message="[var:shingle]" />
+      </sync>
+      <alpha value="1" time=".25" target="SHINGLECOLOR" />
+      <translate valign="center" time=".25" curve="easeout" target="SHINGLECOLOR" />
+      <assign property="var:curtainaction" value="colordismiss" />
     </action>
     
     <action name="colordismiss">
@@ -3570,15 +3450,12 @@
 			<assign property="var:estimateJSON" value="[template:estimateJSON.content]" />
 			<assign property="datasource:generateEstimate.postContent" value="[var:estimateJSON]" />
 			<assign property="datasource:generateEstimate.source" value="https://162.209.101.177/api/GenerateEstimate" />
-<!-- 			<email subject="estimate and measurements json" body="measurements\n\n[var:measurementsJSON]\n\n\n estimate\n\n[var:estimateJSON]" toaddress="mlong@rarewire.com" /> -->
+			<email subject="estimate and measurements json" body="measurements\n\n[var:measurementsJSON]\n\n\n estimate\n\n[var:estimateJSON]" toaddress="mlong@rarewire.com" />
 		</action>
 		
 		<action name="estimate-complete" datasource="generateEstimate" datasourceevent="querycomplete">
 			<if lhs="[datasource:generateEstimate.1.ResponseCode]" operator="e" rhs="100">
 				<alert message="estimate received" />
-				<else>
-					<alert message="there was an error generating your estimate.  please try again later." />
-				</else>
 <!-- 				<play action="show-pdf" /> -->
 			</if>
 		</action>
