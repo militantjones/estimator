@@ -157,7 +157,7 @@
   <classes>
     
     <class name="button">
-      <panel name="[param:name]" width="100%" height="100%" onclick="touched" onclickup="[param:action]" _value="[param:value]" _accessories="[param:accessories]" _image="[param:image]" cornerradius="2" clip="yes">
+      <panel name="[param:name]" width="100%" height="100%" onclick="touched" onclickup="[param:action]" _value="[param:value]" _accessories="[param:accessories]" _image="[param:image]" _title="[param:title]" cornerradius="2" clip="yes">
         <text name="button" style="button" size="[param:size]" text="[param:label]"></text>
         <panel name="bg" style="100" background="ffffff" alpha="0"></panel>
       </panel>
@@ -888,7 +888,7 @@
         <text name="subtitle" width="[eval: [object:WARRANTY-PAGER-BOX.width] - 95]" height="66" font="Futura-Medium" color="#343434" size="fit" maxsize="25" alignment="left" text="[param:title]"></text>
         <!--<text name="bullet1" width="307" height="fit" xpos="20" bottomof="subtitle" style="darktext" size="15" alignment="left" text="Sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus."></text>-->
         <panel name="warranty-btn" width="108" height="50" align="right" ypos="8">
-          <object class="button" name="test" size="20" label="Select" action="selectwarranty" value="[param:warrantyId]" accessories="[param:accessories]"/>
+          <object class="button" name="test" size="20" label="Select" action="selectwarranty" value="[param:warrantyId]" accessories="[param:accessories]" title="[param:title]"/>
         </panel>
         <panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
       </panel>
@@ -1213,10 +1213,9 @@
         <text name="subtitle2" width="50%" height="40" xpos="50%" font="Futura-Medium" color="#343434" size="25" alignment="left" text="Warranty"></text>
         <panel name="col1" width="50%" height="150" ypos="45">
           <panel name="shingletile" width="150" height="100%" background="#000000">
-            <image name="swatch" url="[param:swatch]" width="100%"></image>
+            <image name="swatch" url="[param:swatch]?w=300&amp;h=300" width="100%"></image>
           </panel>
-          <text name="shingle-type" width="200" height="30" xpos="160" style="darktext" size="20" alignment="left" text="[param:name]"></text>
-          <text name="shingle-color" width="200" height="30" xpos="160" bottomof="shingle-type" style="darktext" size="20" alignment="left" text="[param:color]"></text>
+          <text name="shingle-color" width="200" height="fit" xpos="160" style="darktext" size="20" alignment="left" text="[param:color]"></text>
         </panel>
         <panel name="col2" width="50%" height="150" ypos="45" xpos="50%">
           <text name="warranty" width="100%" height="fit" style="darktext" size="20" alignment="left" text="[param:warranty]"></text>
@@ -1224,6 +1223,26 @@
         <panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
       </panel> <!--<object class="summary-products" swatch="" name="" color="" warranty=""  />-->
     </class>
+    
+    <class name="summary-services">
+      <panel name="summary-services" alias="SUMMARY-SERVICES" width="100%" height="192">
+        <text name="subtitle" width="100%" height="40" font="Futura-Medium" color="#343434" size="25" alignment="left" text="Services"></text>
+        <panel name="col1" width="50%" height="90" ypos="45">
+          <text name="tearoff-label" width="100%" height="30" style="darktext" size="20" alignment="left" text="Tear Off"></text>
+          <text name="layers" width="100%" height="20" bottomof="tearoff-label" size="15" alignment="left" text="Layers: [param:layers]"></text>
+          <text name="type" width="100%" height="20" bottomof="layers" size="15" alignment="left" text="Type: [param:type]"></text>
+          <!--<text name="difficulty" width="100%" height="20" bottomof="type" size="15" alignment="left" text="Difficulty: Hard"></text>-->
+        </panel>
+        <panel name="col2" width="50%" height="90" ypos="45" xpos="50%">
+          <text name="assetprotection" width="100%" height="fit" style="darktext" size="20" alignment="left" text="Asset Protection"></text>
+          <text name="landscape" width="100%" height="20" bottomof="assetprotection" size="15" alignment="left" text="Landscaping: [param:landscape]"></text>
+          <text name="hardscape" width="100%" height="20" bottomof="landscape" size="15" alignment="left" text="Hardscaping: [param:hardscape]"></text>
+          <text name="hvac" width="100%" height="20" bottomof="hardscape" size="15" alignment="left" text="HVAC: [param:hvac]"></text>
+          <text name="pool" width="100%" height="20" bottomof="hvac" size="15" alignment="left" text="Pool: [param:pool]"></text>
+          <text name="misc" width="100%" height="20" bottomof="pool" size="15" alignment="left" text="Misc: [param:misc]"></text>
+        </panel>
+      </panel>
+    </class> <!--<object class="summary-services" layers="" type="" landscape="" hardscape="" hvac="" pool="" misc="" />-->
     
     <!-- !camera classes -->
     <class name="camera-view">
@@ -2719,7 +2738,12 @@
         <if lhs="_this" operator="e" rhs="SUMMARY">
           <play action="summarycalc" />
           <create class="summary-cust" target="SUMMARY-PAGER" cust1name="[datasource:customersdb-list.1.FNAME] [datasource:customersdb-list.1.LNAME]" cust1phone="[datasource:customersdb-list.1.PHONE]" cust1email="[datasource:customersdb-list.1.EMAIL]" cust2name="[datasource:customersdb-list.1.FNAME2] [datasource:customersdb-list.1.LNAME2]" cust2phone="[datasource:customersdb-list.1.PHONE2]" cust2email="[datasource:customersdb-list.1.EMAIL2]" street="[datasource:customersdb-list.1.STREET]" city="[datasource:customersdb-list.1.CITY]" state="[datasource:customersdb-list.1.STATE]" zip="[datasource:customersdb-list.1.POSTAL]"  />
-          
+        </if>
+        <if lhs="[var:navwas]" operator="e" rhs="SUMMARY">
+          <delete target="SUMMARY-CUSTOMER" />
+          <delete target="SUMMARY-ROOF" />
+          <delete target="SUMMARY-PRODUCTS" />
+          <delete target="SUMMARY-SERVICES" />
         </if>
         <assign property="var:navwas" value="_this" />
       </sync>
@@ -2733,14 +2757,35 @@
           <alert title="total area" message="[var:totalarea]" />
         </loop>
         <assign property="var:squarestotal" value="[eval: [var:totalarea] / 100 ]" />
-        <alert title="total squares needed" message="[var:squarestotal]" />
+        <!--<alert title="total squares needed" message="[var:squarestotal]" />
         <alert title="ridges total" message="[var:ridgestotal]" />
         <alert title="hips total" message="[var:hipstotal]" />
         <alert title="rakes total" message="[var:rakestotal]" />
         <alert title="eaves total" message="[var:eavestotal]" />
-        <alert title="valleys total" message="[var:valleystotal]" />
-        
+        <alert title="valleys total" message="[var:valleystotal]" />-->
         <create class="summary-roof" target="SUMMARY-PAGER" area="[var:totalarea]" squares="[var:squarestotal]" ridges="[var:ridgestotal]" hips="[var:hipstotal]" rakes="[var:rakestotal]" eaves="[var:eavestotal]" valleys="[var:valleystotal]"  />
+        <play action="summaryproducts" />
+      </sync>
+    </action>
+    
+    <action name="summaryproducts">
+      <sync>
+        <create target="SUMMARY-PAGER" class="summary-products" swatch="[datasource:productsdb-list.1.IMAGE]" color="[datasource:productsdb-list.1.COLOR]" warranty="[var:warrantyname]" />
+        <play action="summaryaccessories" />
+      </sync>
+    </action>
+    
+    <action name="summaryaccessories">
+      <sync>
+        <alert message="summary accessories" />
+        <play action="summaryservices" />
+      </sync>
+    </action>
+    
+    <action name="summaryservices">
+      <sync>
+        <alert message="summary services" />
+        <create target="SUMMARY-PAGER" class="summary-services" layers="[datasource:tearoffdb-list.1.LAYERS]" type="[datasource:tearoffdb-list.1.MATERIAL]" landscape="[datasource:assetprotectiondb-list.1.LANDSCAPING]" hardscape="[datasource:assetprotectiondb-list.1.HARDSCAPING]" hvac="[datasource:assetprotectiondb-list.1.HVAC]" pool="[datasource:assetprotectiondb-list.1.POOL]" misc="[datasource:assetprotectiondb-list.1.MISC]"  />
       </sync>
     </action>
     
@@ -2948,6 +2993,7 @@
       <!--<alert title="inspection" message="rooftype [object:ROOFTYPE/input.text] floors [object:FLOORS/input.text]" />-->
       <if lhs="[eval:'[object:ROOFTYPE/input.text]' != '' &amp;&amp; '[object:FLOORS/input.text]' != '']" operator="e" rhs="true">
         <assign property="datasource:inspectiondb.query" value="INSERT INTO INSPECTION (ROOFTYPE, FLOORS) VALUES ('[object:ROOFTYPE/input.text]', '[object:FLOORS/input.text]');" />
+        <alert message="[object:ROOFTYPE/input.text] : [object:FLOORS/input.text]" />
         <else>
           <alert title="Incomplete Form" message="Please feel out all fields" />
         </else> 
@@ -3035,6 +3081,7 @@
       <!--<alert message="[object:WASTEPERCENT/input.text]" />-->
       <if lhs="[eval:'[object:WASTEPERCENT/input.text]' != '']" operator="e" rhs="true">
         <assign property="datasource:wastedb.query" value="INSERT INTO WASTE (PERCENT) values ('[object:WASTEPERCENT/input.text]');" />
+        <alert message="[object:WASTEPERCENT/input.text]" />
         <else>
           <alert title="Incomplete Form" message="Please feel out all fields" />
         </else> 
@@ -3125,6 +3172,7 @@
     <action name="hip-db-add">
       <sync>
         <assign property="var:hipindexloop" value="[eval: [var:hipindexloop] + 1]" />
+        <alert message="[object:HIPLENGTH[var:hipindexloop]/input.text]" />
         <assign property="datasource:hipsdb.query" value="INSERT INTO HIPS (LENGTH) values ('[object:HIPLENGTH[var:hipindexloop]/input.text]');" />
       </sync>
     </action>  
@@ -3548,6 +3596,7 @@
       <play action="released" />
       <assign property="var:warranty" value="_value" />
       <assign property="var:accessories" value="_accessories" />
+      <assign property="var:warrantyname" value="_title" />
       <alert message="warranty id [var:warranty] accessories required [var:accessories]" />
       <assign property="datasource:productsdb.query" value="INSERT INTO PRODUCTS (SHINGLE, COLOR, WARRANTY, IMAGE) VALUES ('[var:shingle]', '[var:color]', '[var:warranty]', '[var:productImage]');" />
 	  <assign property="datasource:getAccessories.source" value="https://162.209.101.177/api/GetAccessoryByProduct?productId=[var:shingle]" />
