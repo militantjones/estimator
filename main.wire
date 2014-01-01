@@ -96,7 +96,7 @@
 	<!-- !TEXTTEMPLATES -->
 	<texttemplate name="login"><![CDATA[{"UserName":"[var:username]","Password":"[var:password]"}]]></texttemplate>
 	<texttemplate name="createCustomer"><![CDATA[
-	{"Token":"[preferences:token]","ContractorId":"[preferences:contractorId]","CustomerDetails":{"CustomerFirstName":"[var:firstName]","CustomerMiddleName":"[var:middleName]","CustomerLastName":"[var:lastName]","Address1":"[var:address1]","Address2":"[var:address2]","City":"[var:city]","StateProvince":"[var:state]","PostalCode":"[var:postalCode]","Country":"[var:country]","Notes":"[var:notes]"}}
+	{"CustomerFirstName":"[var:firstName]","CustomerMiddleName":"[var:middleName]","CustomerLastName":"[var:lastName]","Address1":"[var:address1]","Address2":"[var:address2]","City":"[var:city]","StateProvince":"[var:state]","PostalCode":"[var:postalCode]","Country":"[var:country]","Notes":"[var:notes]"}
 	]]></texttemplate>
 	<texttemplate name="roofMeasurements"><![CDATA[
 		{"Field":"[eval:[var:roofMeasurementsIterateCount]-1]","Length":"[datasource:roofareasdb-list.[var:roofMeasurementsIterateCount].LENGTH]","Width":"[datasource:roofareasdb-list.[var:roofMeasurementsIterateCount].WIDTH]","Pitch":"[datasource:roofareasdb-list.[var:roofMeasurementsIterateCount].SLOPE]"}
@@ -132,7 +132,7 @@
 		{"PriceAjustmentsId":"[eval:[var:adjustmentsIterateCount]-1]","Description":"[datasource:adjustmentsdb-list.[var:adjustmentsIterateCount].NOTES]","Price":"[eval:'[datasource:adjustmentsdb-list.[var:adjustmentsIterateCount].TYPE]' == 'Discount' ? '-':''][datasource:adjustmentsdb-list.[var:adjustmentsIterateCount].AMOUNT]"}
 	]]></texttemplate>
 	<texttemplate name="estimateJSON"><![CDATA[
-		{"customerId":"28","productId":"[var:shingle]","warrantyId":"[var:warranty]",[var:accessoriesObject],[var:adjustmentsObject],"AdditionalCost":{"TearOffLayers":[var:tearOffLayers],"TearOffType":"[var:tearOffType]","NumberOfStories":[var:numberOfFloors]}}
+		{"customerId":"[var:customerId]","productId":"[var:shingle]","warrantyId":"[var:warranty]",[var:accessoriesObject],[var:adjustmentsObject],"AdditionalCost":{"TearOffLayers":[var:tearOffLayers],"TearOffType":"[var:tearOffType]","NumberOfStories":[var:numberOfFloors]}}
 	]]></texttemplate>
 
   </datasources>
@@ -199,7 +199,7 @@
     </class>
     
     <class name="state">
-      <panel name="state[param:index]" width="100%" height="40" _abbr="[param:abbr]" _state="[param:name]" onclickup="setstate">
+      <panel name="state[param:index]" width="100%" height="40" _abbr="[param:abbr]" _state="[param:name]" _code="[param:code]" onclickup="setstate">
         <text name="name" width="100%" height="100%" style="darktext" size="18" alignment="center" text="[param:name]"></text>
         <panel name="border" width="100%" height="1" valign="bottom" background="#888888"></panel>
       </panel>
@@ -1334,7 +1334,7 @@
                 </panel>
                 <panel name="cust1-email" alias="CUST1-EMAIL" width="100%" height="50" align="left" bottomof="CUST1-FNAME" margin-top="10" style="textinput">
                   <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
-                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Email" onreturnkeypressed="next" returnkeytype="next" _next="CUST1-PHONE" _action="null" kbtype="emailaddress" ></textfield>
+                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Email" onreturnkeypressed="next" returnkeytype="next" _next="CUST1-PHONE" _action="null" kbtype="emailaddress" autocorrect="no" ></textfield>
                   <panel name="active" style="100" onclickup="labelactive" _field="CUST1-EMAIL"></panel>
                 </panel>
               </panel>
@@ -1363,7 +1363,7 @@
                 </panel>
                 <panel name="cust2-email" alias="CUST2-EMAIL" width="100%" height="50" align="left" bottomof="CUST2-FNAME" margin-top="10" style="textinput">
                   <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
-                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Email" onreturnkeypressed="next" returnkeytype="next" _next="CUST2-PHONE" _action="null" kbtype="emailaddress" ></textfield>
+                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Email" onreturnkeypressed="next" returnkeytype="next" _next="CUST2-PHONE" _action="null" kbtype="emailaddress" autocorrect="no" ></textfield>
                   <panel name="active" style="100" onclickup="labelactive" _field="CUST2-EMAIL"></panel>
                 </panel>
               </panel>
@@ -1438,7 +1438,7 @@
                   <text name="drophead" width="100%" height="30" style="lighttext" size="18" alignment="center" text="States"></text>
                   <panel name="border" width="100%" height="1" background="#888888" ypos="30"></panel>
                   <list name="statelist" width="100%" height="200" ypos="30" datasource="states" orientation="vertical" paginate="no">
-                    <object class="state" index="[param:dataSourceIndex]" abbr="[param:code]" name="[param:name]" />
+                    <object class="state" index="[param:dataSourceIndex]" abbr="[param:code]" name="[param:name]"/>
                   </list>
                 </panel>
                 <panel name="provinceslist" alias="PROVINCESLIST" width="100%" height="100%" alpha="0">
@@ -2275,24 +2275,31 @@
 		<keyboard visible="no" target="SEARCH-ADDRESS/input" />
         <create class="results" target="CONTAINER" />
         <translate ypos="0" time=".25" curve="easeout" target="SEARCHRESULTS" />
-        <alert message="get-estimate preferences:token is [preferences:token] preferences:contractorId is [preferences:contractorId] url is https://162.209.101.177/api/GetCustomerEstimate?customerLastName=[var:lastName]&amp;address1=[var:address1]&amp;city=[var:city]&amp;stateProvince=[var:state]&amp;postalCode=[var:postalCode]&amp;country=[var:country]" />
+<!--         <alert message="get-estimate preferences:token is [preferences:token] preferences:contractorId is [preferences:contractorId] url is https://162.209.101.177/api/GetCustomerEstimate?customerLastName=[var:lastName]&amp;address1=[var:address1]&amp;city=[var:city]&amp;stateProvince=[var:state]&amp;postalCode=[var:postalCode]&amp;country=[var:country]" /> -->
 		<if lhs="[eval: ('[object:SEARCH-LASTNAME/input.text]' != '' ) &amp;&amp; ('[object:SEARCH-ADDRESS/input.text]' != '')]" operator="e" rhs="true">
-			<alert message="search by both" />
+<!-- 			<alert message="search by both" /> -->
         	<assign property="datasource:getEstimate.source" value="https://162.209.101.177/api/GetCustomerEstimate?CustomerLastName=[object:SEARCH-LASTNAME/input.text]" />
 		</if>
 		<if lhs="[eval: ('[object:SEARCH-LASTNAME/input.text]' != '' ) &amp;&amp; ('[object:SEARCH-ADDRESS/input.text]' == '')]" operator="e" rhs="true">
-			<alert message="search by last name" />
+<!-- 			<alert message="search by last name" /> -->
 	        <assign property="datasource:getEstimate.source" value="https://162.209.101.177/api/GetCustomerEstimate?CustomerLastName=[object:SEARCH-LASTNAME/input.text]" />
 		</if>
 		<if lhs="[eval: ('[object:SEARCH-LASTNAME/input.text]' == '' ) &amp;&amp; ('[object:SEARCH-ADDRESS/input.text]' != '')]" operator="e" rhs="true">
-			<alert message="search by address" />
+<!-- 			<alert message="search by address" /> -->
         	<assign property="datasource:getEstimate.source" value="https://162.209.101.177/api/GetCustomerEstimate?CustomerLastName=[object:SEARCH-LASTNAME/input.text]&amp;address1=[object:SEARCH-ADDRESS/input.text]" />
 		</if>
       </sync>
     </action>
     
     <action name="get-estimate-complete" datasource="getEstimate" datasourceevent="querycomplete" >
-      <alert message="get-estimate-complete count [datasource:getEstimate.dataSourceResultCount] content [datasource:getEstimate.0.content]" />
+		<if lhs="[var:customerAction]" operator="e" rhs="create">
+			<alert message="search after customer creation done [datasource:getEstimate.0.content]" />
+			<assign property="var:customerId" value="[datasource:getEstimate.1.CustomerId]" />
+			<play action="finish-customer-create" />
+			<else>
+				<alert message="get-estimate-complete search results count [datasource:getEstimate.dataSourceResultCount] content [datasource:getEstimate.0.content]" />
+			</else>
+		</if>
     </action>
     
     <action name="get-estimate-error" datasource="getEstimate" datasourceevent="datasourceerror" >
@@ -2814,34 +2821,55 @@
 
 	<action name="customersdone" datasource="customersdb" datasourceevent="querycomplete" >
 <!-- 		<alert message="customer saved" /> -->
-        <assign property="datasource:customersdb-list.query" value="SELECT * FROM CUSTOMERS" />
+        <assign property="datasource:customersdb-list.query" value="SELECT * FROM CUSTOMERS ORDER BY ID DESC;" />
 	</action>
 
     <action name="customercount" datasourceevent="querycomplete" datasource="customersdb-list">
 		<!--<alert message="list done [datasource:customersdb-list.dataSourceResultCount] [datasource:customersdb-list.6.FNAME] [datasource:customersdb-list.6.FNAME2]" />-->
 <!-- 	      <alert message="customer [datasource:customersdb-list.dataSourceResultCount], fname [datasource:customersdb-list.1.FNAME], lname [datasource:customersdb-list.1.LNAME], email [datasource:customersdb-list.1.EMAIL], phone [datasource:customersdb-list.1.PHONE], fname2 [datasource:customersdb-list.1.FNAME2], lname2 [datasource:customersdb-list.1.LNAME2], email2 [datasource:customersdb-list.1.EMAIL2], phone2 [datasource:customersdb-list.1.PHONE2], country [datasource:customersdb-list.1.COUNTRY], street [datasource:customersdb-list.1.STREET], city [datasource:customersdb-list.1.CITY], state [datasource:customersdb-list.1.STATE], postal [datasource:customersdb-list.1.POSTAL], notes [datasource:customersdb-list.1.NOTES]" /> -->
-<!--
 		<if lhs="[var:db-action]" operator="e" rhs="save">
-			<assign property="var:firstName" value="[datasource:customersdb-list.1.FNAME]" />
-			<assign property="var:lastName" value="[datasource:customersdb-list.1.LNAME]" />
-			<assign property="var:address1" value="[datasource:customersdb-list.1.STREET]" />
-			<assign property="var:city" value="[datasource:customersdb-list.1.CITY]" />
-			<assign property="var:state" value="[datasource:customersdb-list.1.STATE]" />
-			<assign property="var:postalCode" value="[datasource:customersdb-list.1.POSTAL]" />
-			<assign property="var:country" value="[datasource:customersdb-list.1.COUNTRY]" />
-			<assign property="var:notes" value="[datasource:customersdb-list.1.NOTES]" />
-			<assign property="datasource:createCustomer.postContent" value="[template:createCustomer.content]" />-->
+			<assign property="var:firstName"  value="[datasource:customersdb-list.1.FNAME]" />
+			<assign property="var:lastName"  value="[datasource:customersdb-list.1.LNAME]" />
+			<assign property="var:address1"  value="[datasource:customersdb-list.1.STREET]" />
+			<assign property="var:city"  value="[datasource:customersdb-list.1.CITY]" />
+			<assign property="var:state"  value="[datasource:customersdb-list.1.STATE]" />
+			<assign property="var:postalCode"  value="[datasource:customersdb-list.1.POSTAL]" />
+			<assign property="var:country"  value="[datasource:customersdb-list.1.COUNTRY]" />
+			<assign property="var:notes"  value="[datasource:customersdb-list.1.NOTES]" />
+			<assign property="datasource:createCustomer.postContent" value="[template:createCustomer.content]" />
 <!-- 			<alert message="sending [template:createCustomer.content]" /> -->
-			<!--<assign property="datasource:createCustomer.source" value="https://162.209.101.177/api/CreateCustomer" />
+			<assign property="datasource:createCustomer.source" value="https://162.209.101.177/api/CreateCustomer" />
 		</if>
--->
     </action>
     
 	<action name="create-customer-complete" datasource="createCustomer" datasourceevent="querycomplete">
-<!-- 		<if lhs="[datasource:createCustomer.1.ResponseCode]" operator="e" rhs="100"> -->
-			<alert message="customer created [datasource:createCustomer.0.content]" />
+		<if lhs="[datasource:createCustomer.1.ResponseCode]" operator="e" rhs="100">
+			<assign property="var:firstName" encoding="url" value="[datasource:customersdb-list.1.FNAME]" />
+			<assign property="var:lastName" encoding="url" value="[datasource:customersdb-list.1.LNAME]" />
+			<assign property="var:address1" encoding="url" value="[datasource:customersdb-list.1.STREET]" />
+			<assign property="var:city" encoding="url" value="[datasource:customersdb-list.1.CITY]" />
+			<assign property="var:state" encoding="url" value="[datasource:customersdb-list.1.STATE]" />
+			<assign property="var:postalCode" encoding="url" value="[datasource:customersdb-list.1.POSTAL]" />
+			<assign property="var:country" encoding="url" value="[datasource:customersdb-list.1.COUNTRY]" />
+			<assign property="var:notes" encoding="url" value="[datasource:customersdb-list.1.NOTES]" />
+			<assign property="var:customerAction" value="create" />
+<!-- 			<alert message="var:customerAction is [var:customerAction]" /> -->
+			<assign property="datasource:getEstimate.source" value="https://162.209.101.177/api/GetCustomerEstimate?customerLastName=[var:lastName]&amp;address1=[var:address1]&amp;address2=&amp;city=[var:city]&amp;stateProvince=[var:state]&amp;postalCode=[var:postalCode]&amp;country=[var:country]" />
+			<alert message="create customer complete response [datasource:createCustomer.0.content] search request url https://162.209.101.177/api/GetCustomerEstimate?customerLastName=[var:lastName]&amp;address1=[var:address1]&amp;address2=&amp;city=[var:city]&amp;stateProvince=[var:state]&amp;postalCode=[var:postalCode]&amp;country=[var:country]" />
+			<else>
+				<alert message="There was an error creating the customer.  Please verify that all information is correct and try again." />
+			</else>
+		</if>
+	</action>
 
+	<action name="create-customer-error" datasource="createCustomer" datasourceevent="datasourceerror">
+		<alert message="create-customer-error [datasource:createCustomer.0.content]" />
+	</action>
+	
+	<action name="finish-customer-create" >
       <sync>
+	  	<assign property="var:customerAction" value="" />
+	  	<alert message="customer created, var:customerId is [var:customerId]" />
         <play action="released" />
         <translate ypos="101%" time=".1" curve="linear" target="NAV-CUSTOMER/sel" />
         <assign property="var:roofarrow" value="Inspection" />
@@ -2858,11 +2886,6 @@
         <translate xpos="101%" curve="linear" target="NAVBLOCK" />
       </sync>
 
-<!-- 		</if> -->
-	</action>
-
-	<action name="create-customer-error" datasource="createCustomer" datasourceevent="datasourceerror">
-		<alert message="create-customer-error [datasource:createCustomer.0.content]" />
 	</action>
 
     <!-- !sidebar-roof actions -->
@@ -3385,14 +3408,14 @@
     
     <action name="setstate">
       <sync>
-        <assign property="object:STATE/input.text" value="_state" />
+        <assign property="object:STATE/input.text" value="_abbr" />
         <play action="dropoff" _drop="ADDRESS" />
       </sync>
     </action>
     
     <action name="setprovince">
       <sync>
-        <assign property="object:PROVINCE/input.text" value="_province" />
+        <assign property="object:PROVINCE/input.text" value="_abbr" />
         <play action="dropoff" _drop="ADDRESS" />
       </sync>
     </action>
