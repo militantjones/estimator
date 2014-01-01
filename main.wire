@@ -126,7 +126,7 @@
 		{"CustomerId":28,"Measurements":{"MeasurementId":1,"ExistingRoofType":"[var:existingRoofType]","NumberOfFloors":[var:numberOfFloors],[var:roofMeasurementsObject],"WasteFactor":"[var:wasteFactor]",[var:ridgeMeasurementsObject],[var:hipsObject],[var:valleysObject],[var:rakesObject],[var:eavesObject],[var:skylightsObject],[var:plumbingVentsObject]}}
 	]]></texttemplate>
 	<texttemplate name="accessories"><![CDATA[
-		{"AccessoryId":"[datasource:accessoriesdb-list.[var:accessoriesIterateCount].ACCESSORY]","Quantity":"5"}
+		{"AccessoryId":"[datasource:accessoriesdb-list.[var:accessoriesIterateCount].ACCESSORY]","Quantity":"[datasource:accessoriesdb-list.[var:accessoriesIterateCount].QUANTITY]"}
 	]]></texttemplate>
 	<texttemplate name="adjustments"><![CDATA[
 		{"PriceAjustmentsId":"[eval:[var:adjustmentsIterateCount]-1]","Description":"[datasource:adjustmentsdb-list.[var:adjustmentsIterateCount].NOTES]","Price":"[eval:'[datasource:adjustmentsdb-list.[var:adjustmentsIterateCount].TYPE]' == 'Discount' ? '-':''][datasource:adjustmentsdb-list.[var:adjustmentsIterateCount].AMOUNT]"}
@@ -3451,9 +3451,14 @@
       <play action="released" />
       <sync>
 
-        <assign property="var:existingRoofType" value="[datasource:inspectiondb-list.1.ROOFTYPE]" />
-        <assign property="var:numberOfFloors" value="[datasource:inspectiondb-list.1.FLOORS]" />
-        <assign property="var:wasteFactor" value="[eval:[datasource:wastedb-list.1.PERCENT]/100]" />
+	  
+	  	<if lhs="[datasource:inspectiondb-list.dataSourceResultCount]" operator="gt" rhs="0">
+	        <assign property="var:existingRoofType" value="[datasource:inspectiondb-list.1.ROOFTYPE]" />
+	        <assign property="var:numberOfFloors" value="[datasource:inspectiondb-list.1.FLOORS]" />
+	  	</if>
+	  	<if lhs="[datasource:wastedb-list.dataSourceResultCount]" operator="gt" rhs="0">
+        	<assign property="var:wasteFactor" value="[eval:[datasource:wastedb-list.1.PERCENT]/100]" />
+	  	</if>
         <if lhs="[datasource:roofareasdb-list.dataSourceResultCount]" operator="gt" rhs="0">
           <assign property="var:roofMeasurementsIterateCount" value="1" />
           <play action="formatRoofMeasurements" />
