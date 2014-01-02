@@ -42,47 +42,36 @@
     
     <datasource name="customersdb" source="sql://CUSTOMERS" query="CREATE TABLE IF NOT EXISTS CUSTOMERS (ID INTEGER PRIMARY KEY AUTOINCREMENT, FNAME, LNAME, EMAIL, PHONE, FNAME2, LNAME2, EMAIL2, PHONE2, COUNTRY, STREET, CITY, STATE, POSTAL, NOTES);" providertype="sql" />
     <datasource name="customersdb-list" source="sql://CUSTOMERS" query="SELECT * FROM CUSTOMERS ORDER BY ID DESC;" providertype="sql" />
-    <datasource name="customersdb-delete" source="sql://CUSTOMERS" query="" providertype="sql" />
     
     <datasource name="inspectiondb" source="sql://INSPECTION" query="CREATE TABLE IF NOT EXISTS INSPECTION (ID INTEGER PRIMARY KEY AUTOINCREMENT, ROOFTYPE, FLOORS);" providertype="sql" />
     <datasource name="inspectiondb-list" source="sql://INSPECTION" query="SELECT * FROM INSPECTION ORDER BY ID DESC;" providertype="sql" />
-    <datasource name="inspectiondb-delete" source="sql://INSPECTION" query="" providertype="sql" />
     
     <datasource name="roofareasdb" source="sql://ROOFAREAS" query="CREATE TABLE IF NOT EXISTS ROOFAREAS (ID INTEGER PRIMARY KEY AUTOINCREMENT, LENGTH, WIDTH, SLOPE);" providertype="sql" />
     <datasource name="roofareasdb-list" source="sql://ROOFAREAS" query="SELECT * FROM ROOFAREAS ORDER BY ID DESC;" providertype="sql" />
-    <datasource name="roofareadb-delete" source="sql://ROOFAREAS" query="" providertype="sql" />
     
     <datasource name="wastedb" source="sql://WASTE" query="CREATE TABLE IF NOT EXISTS WASTE (ID INTEGER PRIMARY KEY AUTOINCREMENT, PERCENT);" providertype="sql" />
     <datasource name="wastedb-list" source="sql://WASTE" query="SELECT * FROM WASTE ORDER BY ID DESC;" providertype="sql" />
-    <datasource name="wastedb-delete" source="sql://WASTE" query="" providertype="sql" />
     
     <datasource name="ridgesdb" source="sql://RIDGES" query="CREATE TABLE IF NOT EXISTS RIDGES (ID INTEGER PRIMARY KEY AUTOINCREMENT, LENGTH, VENTS);" providertype="sql" />
     <datasource name="ridgesdb-list" source="sql://RIDGES" query="SELECT * FROM RIDGES ORDER BY ID DESC;" providertype="sql" />
-    <datasource name="ridgesdb-delete" source="sql://RIDGES" query="" providertype="sql" />
     
     <datasource name="hipsdb" source="sql://HIPS" query="CREATE TABLE IF NOT EXISTS HIPS (ID INTEGER PRIMARY KEY AUTOINCREMENT, LENGTH);" providertype="sql" />
     <datasource name="hipsdb-list" source="sql://HIPS" query="SELECT * FROM HIPS ORDER BY ID DESC;" providertype="sql" />
-    <datasource name="hipsdb-delete" source="sql://HIPS" query="" providertype="sql" />
     
     <datasource name="valleysdb" source="sql://VALLEYS" query="CREATE TABLE IF NOT EXISTS VALLEYS (ID INTEGER PRIMARY KEY AUTOINCREMENT, LENGTH);" providertype="sql" />
     <datasource name="valleysdb-list" source="sql://VALLEYS" query="SELECT * FROM VALLEYS ORDER BY ID DESC;" providertype="sql" />
-    <datasource name="valleysdb-delete" source="sql://VALLEYS" query="" providertype="sql" />
     
     <datasource name="rakesdb" source="sql://RAKES" query="CREATE TABLE IF NOT EXISTS RAKES (ID INTEGER PRIMARY KEY AUTOINCREMENT, LENGTH);" providertype="sql" />
     <datasource name="rakesdb-list" source="sql://RAKES" query="SELECT * FROM RAKES ORDER BY ID DESC;" providertype="sql" />
-    <datasource name="rakesdb-delete" source="sql://RAKES" query="" providertype="sql" />
     
     <datasource name="eavesdb" source="sql://EAVES" query="CREATE TABLE IF NOT EXISTS EAVES (ID INTEGER PRIMARY KEY AUTOINCREMENT, LENGTH);" providertype="sql" />
     <datasource name="eavesdb-list" source="sql://EAVES" query="SELECT * FROM EAVES ORDER BY ID DESC;" providertype="sql" />
-    <datasource name="eavesdb-delete" source="sql://EAVES" query="" providertype="sql" />
     
     <datasource name="protrusionsdb" source="sql://PROTRUSIONS" query="CREATE TABLE IF NOT EXISTS PROTRUSIONS (ID INTEGER PRIMARY KEY AUTOINCREMENT, LENGTH, WIDTH, TYPE);" providertype="sql" />
     <datasource name="protrusionsdb-list" source="sql://PROTRUSIONS" query="SELECT * FROM PROTRUSIONS ORDER BY ID DESC;" providertype="sql" />
-    <datasource name="protrusionsdb-delete" source="sql://PROTRUSIONS" query="" providertype="sql" />
     
     <datasource name="ventsdb" source="sql://VENTS" query="CREATE TABLE IF NOT EXISTS VENTS (ID INTEGER PRIMARY KEY AUTOINCREMENT, SIZE, QUANTITY);" providertype="sql" />
     <datasource name="ventsdb-list" source="sql://VENTS" query="SELECT * FROM VENTS ORDER BY ID DESC;" providertype="sql" />
-    <datasource name="ventsdb-delete" source="sql://VENTS" query="" providertype="sql" />
     
     <datasource name="photosdb" source="sql://PHOTOS" query="CREATE TABLE IF NOT EXISTS PHOTOS (ID INTEGER PRIMARY KEY AUTOINCREMENT, PHOTO, NOTE);" providertype="sql" />
     <datasource name="photosdb-list" source="sql://PHOTOS" query="SELECT * FROM PHOTOS ORDER BY ID DESC;" providertype="sql" />
@@ -235,7 +224,7 @@
           <panel name="username" alias="USERNAME" width="100%" height="50" ypos="50" style="textinput">
             <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
             <!--<text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Username"></text>-->
-            <textfield name="input" width="100%" height="100%" align="right" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Username" onreturnkeypressed="next" returnkeytype="next" kbtype="emailaddress" _next="PASSWORD"></textfield>
+            <textfield name="input" width="100%" height="100%" align="right" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Username" onreturnkeypressed="next" autocorrect="no" returnkeytype="next" kbtype="emailaddress" _next="PASSWORD"></textfield>
             <panel name="active" style="100" onclickup="labelactive" _field="USERNAME"></panel>
           </panel>
       
@@ -1344,40 +1333,38 @@
       </panel>
     </class>
     
-  </classes>
- 
-  <!-- !MAIN -->
-  <main>
+	<class name="container">
     <panel name="container" alias="CONTAINER" style="100" background="#e3e3e3">
       
       <!-- !customer -->
       <panel name="customer" alias="CUSTOMER" width="100%" height="[eval: [object:CONTAINER.height] - 127]" ypos="127" alpha="1">
-        <panel name="inner" style="100" >
+        <panel name="inner" style="100" padding-left="20" padding-right="20">
           <object class="title" title="New Customer Set Up" />
-          <pager name="scroller" width="100%" height="[eval: [object:CUSTOMER.height] - 79]" orientation="vertical" bottomof="titlebox" paginate="no" padding-left="20" padding-right="20">
+          
+          <pager name="scroller" width="100%" height="[eval: [object:CUSTOMER.height] - 79]" orientation="vertical" bottomof="titlebox" paginate="no">
             <panel name="customer1" width="100%" height="160">
               <text name="subtitle" width="100%" height="35" style="darktext" size="20" alignment="left" text="Customer 1"></text>
               <panel name="col1" width="50%" height="100%" padding-right="10" bottomof="subtitle">
                 <panel name="cust1-fname" alias="CUST1-FNAME" width="100%" height="50" align="left" style="textinput">
                   <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
-                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="First Name" onreturnkeypressed="next" returnkeytype="next" _next="CUST1-LNAME" _action="null"></textfield>
+                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="First Name" onreturnkeypressed="next" _next="CUST1-LNAME" _action="null"></textfield>
                   <panel name="active" style="100" onclickup="labelactive" _field="CUST1-FNAME"></panel>
                 </panel>
                 <panel name="cust1-email" alias="CUST1-EMAIL" width="100%" height="50" align="left" bottomof="CUST1-FNAME" margin-top="10" style="textinput">
                   <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
-                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Email" onreturnkeypressed="next" returnkeytype="next" _next="CUST1-PHONE" _action="null" kbtype="emailaddress" autocorrect="no" ></textfield>
+                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Email" onreturnkeypressed="next" _next="CUST1-PHONE" _action="null" kbtype="emailaddress" ></textfield>
                   <panel name="active" style="100" onclickup="labelactive" _field="CUST1-EMAIL"></panel>
                 </panel>
               </panel>
               <panel name="col2" width="50%" height="100%" padding-left="10" align="right" bottomof="subtitle">
                 <panel name="cust1-lname" alias="CUST1-LNAME" width="100%" height="50" align="right" style="textinput">
                   <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
-                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Last Name" onreturnkeypressed="next" returnkeytype="next" _next="CUST1-EMAIL" _action="null" ></textfield>
+                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Last Name" onreturnkeypressed="next" _next="CUST1-EMAIL" _action="null" ></textfield>
                   <panel name="active" style="100" onclickup="labelactive" _field="CUST1-LNAME"></panel>
                 </panel>
                 <panel name="cust1-phone" alias="CUST1-PHONE" width="100%" height="50" align="right" bottomof="CUST1-LNAME" margin-top="10" style="textinput">
                   <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
-                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Phone" onreturnkeypressed="next" returnkeytype="next" _next="CUST2-FNAME" kbtype="numberpad" _action="null" kytype="numberpad" ></textfield>
+                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Phone" onreturnkeypressed="next" _next="CUST2-FNAME" _action="null" kytype="numberpad" ></textfield>
                   <panel name="active" style="100" onclickup="labelactive" _field="CUST1-PHONE"></panel>
                 </panel>
               </panel>
@@ -1389,24 +1376,24 @@
               <panel name="col1" width="50%" height="100%" padding-right="10" bottomof="subtitle">
                 <panel name="cust2-fname" alias="CUST2-FNAME" width="100%" height="50" align="left" style="textinput">
                   <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
-                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="First Name" onreturnkeypressed="next" returnkeytype="next" _next="CUST2-LNAME" _action="null"></textfield>
+                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="First Name" onreturnkeypressed="next" _next="CUST2-LNAME" _action="null"></textfield>
                   <panel name="active" style="100" onclickup="labelactive" _field="CUST2-FNAME"></panel>
                 </panel>
                 <panel name="cust2-email" alias="CUST2-EMAIL" width="100%" height="50" align="left" bottomof="CUST2-FNAME" margin-top="10" style="textinput">
                   <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
-                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Email" onreturnkeypressed="next" returnkeytype="next" _next="CUST2-PHONE" _action="null" kbtype="emailaddress" autocorrect="no" ></textfield>
+                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Email" onreturnkeypressed="next" _next="CUST2-PHONE" _action="null" kbtype="emailaddress" ></textfield>
                   <panel name="active" style="100" onclickup="labelactive" _field="CUST2-EMAIL"></panel>
                 </panel>
               </panel>
               <panel name="col2" width="50%" height="100%" padding-left="10" align="right" bottomof="subtitle">
                 <panel name="cust2-lname" alias="CUST2-LNAME" width="100%" height="50" align="right" style="textinput">
                   <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
-                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Last Name" onreturnkeypressed="next" returnkeytype="next" _next="CUST2-EMAIL" _action="null" ></textfield>
+                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Last Name" onreturnkeypressed="next" _next="CUST2-EMAIL" _action="null" ></textfield>
                   <panel name="active" style="100" onclickup="labelactive" _field="CUST2-LNAME"></panel>
                 </panel>
                 <panel name="cust2-phone" alias="CUST2-PHONE" width="100%" height="50" align="right" bottomof="CUST1-LNAME" margin-top="10" style="textinput">
                   <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
-                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Phone" onreturnkeypressed="next" returnkeytype="next" _next="STREET" _action="null" kbtype="numberpad" ></textfield>
+                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Phone" onreturnkeypressed="next" _next="STREET" _action="null" kytype="numberpad" ></textfield>
                   <panel name="active" style="100" onclickup="labelactive" _field="CUST2-PHONE"></panel>
                 </panel>
               </panel>
@@ -1431,36 +1418,36 @@
               <panel name="col2" width="50%" height="110" padding-right="10" align="left" bottomof="USA" margin-top="10">
                 <panel name="street" alias="STREET" width="100%" height="50" align="left" style="textinput">
                   <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
-                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Street" onreturnkeypressed="next" returnkeytype="next" _next="CITY" _action="null" ></textfield>
+                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Street" onreturnkeypressed="next" _next="CITY" _action="null" ></textfield>
                   <panel name="active" style="100" onclickup="labelactive" _field="STREET"></panel>
                 </panel>
                 <panel name="city" alias="CITY" width="100%" height="50" align="left" bottomof="STREET" margin-top="10" style="textinput">
                   <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
-                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="City" onreturnkeypressed="next" returnkeytype="next" _next="none" _action="null" kytype="numberpad" ></textfield>
+                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="City" onreturnkeypressed="next" _next="none" _action="null" kytype="numberpad" ></textfield>
                   <panel name="active" style="100" onclickup="labelactive" _field="CITY"></panel>
                 </panel>
               </panel>
               <panel name="us" alias="US" width="66%" height="50" bottomof="col2" margin-top="10">
                 <panel name="state" alias="STATE" width="230" height="50" align="left" style="textinput">
                   <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
-                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="State" onreturnkeypressed="next" returnkeytype="next" _next="none" _action="null"></textfield>
+                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="State" onreturnkeypressed="next" _next="none" _action="null"></textfield>
                   <panel name="active" style="100" onclickup="dropon" _field="STATE" _drop="ADDRESS" _droptype="STATESLIST"></panel>
                 </panel>
                 <panel name="zip" alias="ZIP" width="230" height="50" align="right" style="textinput">
                   <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
-                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="ZIP" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null"></textfield>
+                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="ZIP" onreturnkeypressed="next" _next="none" _action="null"></textfield>
                   <panel name="active" style="100" onclickup="labelactive" _field="ZIP"></panel>
                 </panel>
               </panel>
               <panel name="can" alias="CAN" width="66%" height="50" bottomof="col2" margin-top="10" alpha="0">
                 <panel name="province" alias="PROVINCE" width="230" height="50" align="left" style="textinput">
                   <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
-                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Province" onreturnkeypressed="next" returnkeytype="next" _next="none" _action="null"></textfield>
+                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Province" onreturnkeypressed="next" _next="none" _action="null"></textfield>
                   <panel name="active" style="100" onclickup="dropon" _field="PROVINCE" _drop="ADDRESS" _droptype="PROVINCESLIST"></panel>
                 </panel>
                 <panel name="postal" alias="POSTAL" width="230" height="50" align="right" style="textinput">
                   <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
-                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Postal Code" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null"></textfield>
+                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Postal Code" onreturnkeypressed="next" _next="none" _action="null"></textfield>
                   <panel name="active" style="100" onclickup="labelactive" _field="POSTAL"></panel>
                 </panel>
               </panel>
@@ -1469,7 +1456,7 @@
                   <text name="drophead" width="100%" height="30" style="lighttext" size="18" alignment="center" text="States"></text>
                   <panel name="border" width="100%" height="1" background="#888888" ypos="30"></panel>
                   <list name="statelist" width="100%" height="200" ypos="30" datasource="states" orientation="vertical" paginate="no">
-                    <object class="state" index="[param:dataSourceIndex]" abbr="[param:code]" name="[param:name]"/>
+                    <object class="state" index="[param:dataSourceIndex]" abbr="[param:code]" name="[param:name]" />
                   </list>
                 </panel>
                 <panel name="provinceslist" alias="PROVINCESLIST" width="100%" height="100%" alpha="0">
@@ -1522,101 +1509,101 @@
           <panel name="roof-sidebar-blocker" alias="ROOF-SIDEBAR-BLOCKER" style="100" xpos="-101%"></panel>
         </panel>
         
-        <panel name="roof-Inspection" alias="ROOF-INSPECTION" width="512" height="100%" align="right" alpha="0">
-          <object class="title" title="Inspection" />
+        <panel name="roof-Inspection" alias="ROOF-INSPECTION" width="512" height="100%" align="right" padding-left="20" padding-right="20" alpha="0">
+          <object class="title" title="Inspection"  />
           <panel name="roofpagerbox" width="100%" height="[eval: [object:ROOF-INSPECTION.height] - 146]" ypos="79" >
-            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no" padding-left="20" padding-right="20">
+            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no">
               <object class="inspection" />
             </pager>
           </panel>
         </panel>
         
-        <panel name="roof-Fascia" alias="ROOF-FASCIA" width="512" height="100%" align="right" alpha="0">
+        <panel name="roof-Fascia" alias="ROOF-FASCIA" width="512" height="100%" align="right" padding-left="20" padding-right="20" alpha="0">
           <object class="title" title="Fascia"  />
           <panel name="roofpagerbox" width="100%" height="[eval: [object:ROOF-FASCIA.height] - 146]" ypos="79" >
-            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no" padding-left="20" padding-right="20">
+            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no">
               <object class="fascia" />
             </pager>
           </panel>
         </panel>
         
-        <panel name="roof-Roof Area" alias="ROOF-ROOF AREA" width="512" height="100%" align="right" alpha="0">
+        <panel name="roof-Roof Area" alias="ROOF-ROOF AREA" width="512" height="100%" align="right" padding-left="20" padding-right="20" alpha="0">
           <object class="titlebutton" title="Roof Areas" action="addarea" />
           <panel name="roofpagerbox" width="100%" height="[eval: [object:ROOF-ROOF AREA.height] - 146]" ypos="79" >
-            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no" padding-left="20" padding-right="20">
+            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no">
               <!--<object class="roof area" index="1" />-->
             </pager>
           </panel>
         </panel>
         
-        <panel name="roof-Waste" alias="ROOF-WASTE" width="512" height="100%" align="right" alpha="0">
+        <panel name="roof-Waste" alias="ROOF-WASTE" width="512" height="100%" align="right" padding-left="20" padding-right="20" alpha="0">
           <object class="title" title="Waste"  />
           <panel name="roofpagerbox" width="100%" height="[eval: [object:ROOF-WASTE.height] - 146]" ypos="79" >
-            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no" padding-left="20" padding-right="20"> 
+            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no">
               <object class="waste" />
             </pager>
           </panel>
         </panel>
         
-        <panel name="roof-Ridge" alias="ROOF-RIDGE" width="512" height="100%" align="right" alpha="0">
+        <panel name="roof-Ridge" alias="ROOF-RIDGE" width="512" height="100%" align="right" padding-left="20" padding-right="20" alpha="0">
           <object class="titlebutton" title="Ridges" action="addridge" />
           <panel name="roofpagerbox" width="100%" height="[eval: [object:ROOF-RIDGE.height] - 146]" ypos="79" >
-            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no" padding-left="20" padding-right="20">
+            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no">
               <!--<object class="ridge" index="1" />-->
             </pager>
           </panel>
         </panel>
         
-        <panel name="roof-Hip" alias="ROOF-HIP" width="512" height="100%" align="right" alpha="0">
+        <panel name="roof-Hip" alias="ROOF-HIP" width="512" height="100%" align="right" padding-left="20" padding-right="20" alpha="0">
           <object class="titlebutton" title="Hips" action="addhip" />
           <panel name="roofpagerbox" width="100%" height="[eval: [object:ROOF-HIP.height] - 146]" ypos="79" >
-            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no" padding-left="20" padding-right="20">
+            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no">
               <!--<object class="hip" index="1" />-->
             </pager>
           </panel>
         </panel>
         
-        <panel name="roof-Valley" alias="ROOF-VALLEY" width="512" height="100%" align="right" alpha="0">
+        <panel name="roof-Valley" alias="ROOF-VALLEY" width="512" height="100%" align="right" padding-left="20" padding-right="20" alpha="0">
           <object class="titlebutton" title="Valley" action="addvalley" />
           <panel name="roofpagerbox" width="100%" height="[eval: [object:ROOF-VALLEY.height] - 146]" ypos="79" >
-            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no" padding-left="20" padding-right="20">
+            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no">
               <!--<object class="valley" index="1" />-->
             </pager>
           </panel>
         </panel>
         
-        <panel name="roof-Rake" alias="ROOF-RAKE" width="512" height="100%" align="right" alpha="0">
+        <panel name="roof-Rake" alias="ROOF-RAKE" width="512" height="100%" align="right" padding-left="20" padding-right="20" alpha="0">
           <object class="titlebutton" title="Rakes" action="addrake" />
           <panel name="roofpagerbox" width="100%" height="[eval: [object:ROOF-RAKE.height] - 146]" ypos="79" >
-            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no" padding-left="20" padding-right="20">
+            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no">
               <!--<object class="rake" index="1" />-->
             </pager>
           </panel>
         </panel>
         
-        <panel name="roof-Eave" alias="ROOF-EAVE" width="512" height="100%" align="right" alpha="0">
+        <panel name="roof-Eave" alias="ROOF-EAVE" width="512" height="100%" align="right" padding-left="20" padding-right="20" alpha="0">
           <object class="titlebutton" title="Eaves" action="addeave" />
           <panel name="roofpagerbox" width="100%" height="[eval: [object:ROOF-EAVE.height] - 146]" ypos="79" >
-            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no" padding-left="20" padding-right="20">
+            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no">
               <!--<object class="eave" index="1" />-->
             </pager>
           </panel>
         </panel>
         
-        <panel name="roof-Chimney" alias="ROOF-CHIMNEY" width="512" height="100%" align="right" alpha="0">
+        <panel name="roof-Chimney" alias="ROOF-CHIMNEY" width="512" height="100%" align="right" padding-left="20" padding-right="20" alpha="0">
           <object class="titlebutton" title="Chimneys &amp; Skylights" action="addprotrusion" />
           <panel name="roofpagerbox" width="100%" height="[eval: [object:ROOF-CHIMNEY.height] - 146]" ypos="79" >
-            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no" padding-left="20" padding-right="20">
+            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no">
               <!--<object class="chimney" index="1" />
               <object class="skylight" index="1" />-->
             </pager>
           </panel>
         </panel>
         
-        <panel name="roof-vent" alias="ROOF-VENT" width="512" height="100%" align="right" alpha="0">
+        <panel name="roof-vent" alias="ROOF-VENT" width="512" height="100%" align="right" padding-left="20" padding-right="20" alpha="0">
           <object class="titlebutton" title="Plumbing Vents" action="addvent" />
           <panel name="roofpagerbox" width="100%" height="[eval: [object:ROOF-VENT.height] - 146]" ypos="79" >
-            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no" padding-left="20" padding-right="20">
+            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no">
               <!--<object class="3vent" />
               <object class="2vent" />
               <object class="15vent" />
@@ -1625,12 +1612,12 @@
           </panel>
         </panel>
         
-        <panel name="roof-Photo" alias="ROOF-PHOTO" width="512" height="100%" align="right" alpha="0">
+        <panel name="roof-Photo" alias="ROOF-PHOTO" width="512" height="100%" align="right" padding-left="20" padding-right="20" alpha="0">
           <object class="titlebutton" title="Photos &amp; Notes" action="addphoto" />
           <panel name="roofpagerbox" width="100%" height="[eval: [object:ROOF-PHOTO.height] - 146]" ypos="79" >
-            <list name="pager" datasource="photosdb-list" width="100%" height="100%" orientation="vertical" paginate="no" padding-left="20" padding-right="20">
-              <object class="photo" index="1" photo="[param:PHOTO]" note="[param:NOTE]" origin="[param:ORIGIN]" />
-            </list>
+            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no">
+              <object class="photo" index="1" />
+            </pager>
           </panel>
         </panel>
         
@@ -1654,31 +1641,29 @@
           <panel name="products-sidebar-blocker" alias="PRODUCTS-SIDEBAR-BLOCKER" style="100" xpos="-101%"></panel>
         </panel>
         
-        <panel name="products-Shingle" alias="PRODUCTS-SHINGLES" width="512" height="100%" align="right" padding-bottom="20" alpha="0">
+        <panel name="products-Shingle" alias="PRODUCTS-SHINGLES" width="512" height="100%" align="right" padding-left="20" padding-right="20" alpha="0">
           <object class="title" title="Shingles"  />
           <panel name="productpagerbox" alias="PRODUCT-PAGER-BOX" width="100%" height="[eval: [object:PRODUCTS-SHINGLES.height] - 79]" ypos="79" >
-            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no" padding-left="20" padding-right="20" >
+            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no" >
             </pager>
           </panel>
         </panel>
         
-        <panel name="products-Warranty" alias="PRODUCTS-WARRANTY" width="512" height="100%" align="right" alpha="0">
+        <panel name="products-Warranty" alias="PRODUCTS-WARRANTY" width="512" height="100%" align="right" padding-left="20" padding-right="20" alpha="0">
           <object class="title" title="Select a Warranty"  />
           <panel name="warrantypagerbox" alias="WARRANTY-PAGER-BOX" width="100%" height="[eval: [object:PRODUCTS-WARRANTY.height] - 79]" ypos="79" >
-            <list name="pager" width="100%" height="100%" datasource="getWarranties" orientation="vertical" paginate="no" padding-left="20" padding-right="20" >
+            <list name="pager" width="100%" height="100%" datasource="getWarranties" orientation="vertical" paginate="no">
 				<object class="warranty" index="[ds:dataSourceIndex]" title="[ds:WarrantyName]" warrantyId="[ds:WarrantyId]" accessories="[ds:GAFAccessoriesRequired]"  />
             </list>
           </panel>
         </panel>
         
-        <panel name="products-Accessories" alias="PRODUCTS-ACCESSORIES" width="512" height="100%" align="right" alpha="0">
+        <panel name="products-Accessories" alias="PRODUCTS-ACCESSORIES" width="512" height="100%" align="right" padding-left="20" padding-right="20" alpha="0">
           <object class="title" title="Accessories"  />
           <panel name="productpagerbox" alias="ACCESSORIES-PAGER-BOX" width="100%" height="[eval: [object:PRODUCTS-ACCESSORIES.height] - 79]" ypos="79" >
-            <list name="pager" width="100%" datasource="getAccessories" height="100%" orientation="vertical" paginate="no" padding-left="20" padding-right="20" >
-			<object class="accessory-category" index="[ds:dataSourceIndex]" category="[ds:AccessoryCategory]" lhs="[eval: ('[ds:dataSourceIndex]' == '1') || ('[datasource:getAccessories.[eval:[ds:dataSourceIndex]-1].AccessoryCategory]' != '[datasource:getAccessories.[ds:dataSourceIndex].AccessoryCategory]')]" operator="e" rhs="true" />
-<!-- 			<object class="accessory-category" index="[ds:dataSourceIndex]" category="[ds:AccessoryCategory]" lhs="[eval: '[ds:dataSourceIndex]' == '1' || '[ds:AccessoryCategory]' != '[datasource:getAccessories.[eval:[ds:dataSourceIndex]-1].AccessoryCategory]]'" operator="e" rhs="true" /> -->
-              <object class="accessory" index="[ds:dataSourceIndex]" title="[ds:AccessoryName]" />
-            </list>
+            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no">
+              <object class="accessories"  />
+            </pager>
           </panel>
         </panel>
         
@@ -1702,19 +1687,19 @@
           <panel name="products-sidebar-blocker" alias="SERVICES-SIDEBAR-BLOCKER" style="100" xpos="-101%"></panel>
         </panel>
         
-        <panel name="services-Tear Off" alias="SERVICES-TEAROFF" width="512" height="100%" align="right" alpha="0">
+        <panel name="services-Tear Off" alias="SERVICES-TEAROFF" width="512" height="100%" align="right" padding-left="20" padding-right="20" alpha="0">
           <object class="title" title="Tear Off"  />
           <panel name="servicespagerbox" width="100%" height="[eval: [object:SERVICES-TEAROFF.height] - 79]" ypos="79" >
-            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no" padding-left="20" padding-right="20" >
+            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no">
               <object class="tearoff" />
             </pager>
           </panel>
         </panel>
         
-        <panel name="services-Asset Protection" alias="SERVICES-ASSETPROTECTION" width="512" height="100%" align="right" alpha="0">
+        <panel name="services-Asset Protection" alias="SERVICES-ASSETPROTECTION" width="512" height="100%" align="right" padding-left="20" padding-right="20" alpha="0">
           <object class="title" title="Asset Protection"  />
           <panel name="servicespagerbox" width="100%" height="[eval: [object:SERVICES-ASSETPROTECTION.height] - 79]" ypos="79" >
-            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no" padding-left="20" padding-right="20" >
+            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no">
               <object class="assetprotection" />
             </pager>
           </panel>
@@ -1723,10 +1708,10 @@
       
       <!-- !adjustments -->
       <panel name="adjustments" alias="ADJUSTMENTS" width="100%" height="[eval: [object:CONTAINER.height] - 127]" ypos="127" alpha="0">
-        <panel name="adjustmentsbox" alias="ADJUSTMENTSBOX" width="100%" height="100%" align="right" alpha="1">
+        <panel name="adjustmentsbox" alias="ADJUSTMENTSBOX" width="100%" height="100%" align="right" padding-left="20" padding-right="20" alpha="1">
           <object class="titlebutton" title="Adjustments" action="addadjustment"  />
           <panel name="adjustmentspagerbox" width="100%" height="[eval: [object:ADJUSTMENTS.height] - 79]" ypos="79" >
-            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no" padding-left="20" padding-right="20" >
+            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no">
               <!--<object class="discount" index="1" />
               <object class="additionalcost" index="2" />-->
             </pager>
@@ -1739,9 +1724,9 @@
         <panel name="summarybox" alias="SUMMARYBOX" width="100%" height="100%" align="right" padding-left="20" padding-right="20" alpha="1">
           <object class="title" title="Summary"  />
           <panel name="summarypagerbox" width="100%" height="[eval: [object:SUMMARY.height] - 146]" ypos="79" >
-            <pager name="summary-pager" alias="SUMMARY-PAGER" width="100%" height="100%" orientation="vertical" paginate="no">
+            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no">
             
-              <!--<panel name="summary-customer" width="100%" height="148">
+              <panel name="summary-customer" width="100%" height="148">
                 <text name="subtitle" width="100%" height="40" font="Futura-Medium" color="#343434" size="25" alignment="left" text="Customer Info"></text>
                 <panel name="col1" width="33.33%" height="93" bottomof="subtitle">
                   <text name="cust1-name" width="100%" height="35" style="darktext" size="20" alignment="left" text="Bilbo Baggins"></text>
@@ -1830,7 +1815,8 @@
                   <text name="pool" width="100%" height="20" bottomof="hvac" size="15" alignment="left" text="Pool: no"></text>
                   <text name="misc" width="100%" height="20" bottomof="pool" size="15" alignment="left" text="Misc: no"></text>
                 </panel>
-              </panel>-->
+                <!--<panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>  -->
+              </panel>
               
             </pager>
           </panel>
@@ -1889,7 +1875,7 @@
           <!--<image name="avatar" source="images/avatar.png" width="36" align="left" valign="center"></image>-->
           <image name="down" source="images/header-down.png" width="29" align="right" valign="center"></image>
           <text name="welcome" width="130" height="16" xpos="46" ypos="15" leftof="down" margin-right="10" style="darktext" size="15" alignment="right" text="Welcome,"></text>
-          <text name="username" width="200" height="20" xpos="46" bottomof="welcome" margin-top="5" leftof="down" margin-right="10" style="darktext" size="15" alignment="right" text="Hingle McCringleberry"></text>
+          <text name="username" width="160" height="20" xpos="46" bottomof="welcome" margin-top="5" leftof="down" margin-right="10" style="darktext" size="15" alignment="right" text="Hingle McCringleberry"></text>
           
         </panel>
       </panel>
@@ -1899,8 +1885,6 @@
         <panel name="toolbar" width="100%" height="60" background="#343434">
           <text name="close" width="100" height="100%" xpos="20" color="#ffffff" font="Futura-Medium" size="20" alignment="left" text="close" onclickup="closeroll"></text>
         </panel>
-        <wait name="wait" width="100%" height="[eval:[object:CAMERAROLL.height] - [object:CAMERAROLL/toolbar.height]]" valign="bottom" alpha="0" color="#ed1c24"/>
-        <panel name="camera-list" width="100%" height="[eval:[object:CAMERAROLL.height] - [object:CAMERAROLL/toolbar.height]]" valign="bottom"></panel>
       </panel>
       
       <panel name="camerabox" alias="CAMERABOX" width="100%" height="100%" ypos="101%" background="#e3e3e3">
@@ -1908,6 +1892,15 @@
       </panel>
      
     </panel><!-- end of container -->
+    
+	</class>
+  </classes>
+ 
+  <!-- !MAIN -->
+  <main>
+  	<panel name="main" alias="MAIN" style="100" background="#e3e3e3">
+  		<object class="container" />
+  	</panel>
     
     <!-- !curtain -->
     <panel name="curtain" alias="CURTAIN" style="100" alpha="0" onclickup="curtainaction" >
@@ -2857,37 +2850,8 @@
       <!--<alert title="save" message="[var:nav]" />-->
     </action>
     
-    <!-- !customer actions -->
+     <!-- !customer actions -->
     <action name="saveCustomer">
-      <sync>
-        <if lhs="[datasource:customersdb-list.dataSourceResultCount]" operator="gt" rhs="0">
-          <assign property="datasource:customersdb-delete.query" value="DELETE FROM CUSTOMERS;" />
-          <alert message="from the if and deleting [datasource:customersdb-list.dataSourceResultCount]" />
-          <else>
-            <play action="saveCustomer-save" />
-            <alert message="from the else, nothing to delete" />
-          </else>
-        </if>
-      </sync>
-    </action>
-    
-    <action name="saveCustomer-save" datasource="customersdb-delete" datasourceevent="querycomplete">
-      <sync>
-        <play action="released" />
-        <translate ypos="101%" time=".1" curve="linear" target="NAV-CUSTOMER/sel" />
-        <assign property="var:roofarrow" value="Inspection" />
-        <translate align="right" time=".1" curve="linear" target="ROOF-SIDEBAR-PAGER/[var:roofarrow]/arrow" />
-        <assign property="var:roof" value="INSPECTION" />
-        <translate valign="bottom" time=".1" curve="linear" target="NAV-ROOF/sel" />
-        <alpha value="1" target="ROOF-INSPECTION" />
-      </sync>
-      <sync>
-        <translate xpos="0" curve="linear" target="NAVBLOCK" />
-        <alpha value="0" time=".2" target="CUSTOMER" />
-        <alpha value="1" time=".2" target="ROOF" />
-        <assign property="var:nav" value="ROOF" />
-        <translate xpos="101%" curve="linear" target="NAVBLOCK" />
-      </sync>
       <sync>
 	  	<assign property="var:db-action" value="save" />
         <assign property="datasource:customersdb.query" value="INSERT INTO CUSTOMERS (FNAME,LNAME,EMAIL,PHONE,FNAME2,LNAME2,EMAIL2,PHONE2,COUNTRY,STREET,CITY,STATE,POSTAL,NOTES) values ('[object:CUST1-FNAME/input.text]', '[object:CUST1-LNAME/input.text]', '[object:CUST1-EMAIL/input.text]', '[object:CUST1-PHONE/input.text]', '[object:CUST2-FNAME/input.text]', '[object:CUST2-LNAME/input.text]', '[object:CUST2-EMAIL/input.text]', '[object:CUST2-PHONE/input.text]', '[var:country]', '[object:STREET/input.text]', '[object:CITY/input.text]', '[object:STATE/input.text]', '[object:ZIP/input.text]', '[object:NOTES/input.text]');" />
@@ -3021,26 +2985,13 @@
     </action>
     
     <action name="INSPECTION">
-      <sync>
-        <if lhs="[datasource:inspectiondb-list.dataSourceResultCount]" operator="gt" rhs="0">
-          <assign property="datasource:inspectiondb-delete.query" value="DELETE FROM INSPECTION;" />
-          <alert message="from the if and deleting [datasource:inspectiondb-list.dataSourceResultCount]" />
-          <else>
-            <play action="INSPECTION-save" />
-            <alert message="from the else, nothing to delete" />
-          </else>
-        </if>
-      </sync>
-    </action>
-    
-    <action name="INSPECTION-save" datasource="inspectiondb-delete" datasourceevent="querycomplete">
       <!--<alert title="inspection" message="rooftype [object:ROOFTYPE/input.text] floors [object:FLOORS/input.text]" />-->
       <if lhs="[eval:'[object:ROOFTYPE/input.text]' != '' &amp;&amp; '[object:FLOORS/input.text]' != '']" operator="e" rhs="true">
         <assign property="datasource:inspectiondb.query" value="INSERT INTO INSPECTION (ROOFTYPE, FLOORS) VALUES ('[object:ROOFTYPE/input.text]', '[object:FLOORS/input.text]');" />
         <alert message="[object:ROOFTYPE/input.text] : [object:FLOORS/input.text]" />
         <else>
-          <alert title="Incomplete Form" message="Please fill out all fields" />
-        </else>
+          <alert title="Incomplete Form" message="Please feel out all fields" />
+        </else> 
       </if>
     </action>
     
@@ -3054,18 +3005,7 @@
     
     <action name="ROOF AREA">
       <sync>
-        <if lhs="[datasource:roofareasdb-list.dataSourceResultCount]" operator="gt" rhs="0">
-          <assign property="datasource:roofareadb-delete.query" value="DELETE FROM ROOFAREAS;" />
-          <else>
-            <play action="ROOF AREA-save" />
-          </else>
-        </if>
-      </sync>
-    </action>
-    
-    <action name="ROOF AREA-save" datasource="roofareadb-delete" datasourceevent="querycomplete">
-      <sync>
-        <if lhs="[var:areaindex]" operator="gte" rhs="1">
+        <if lhs="[var:areaindex]" operator="gt" rhs="0">
           <play action="areaValidationLoop" />
           <else>
             <alert title="No Roof Areas Available" message="There have not been any Roof Areas added to save." />
@@ -3121,7 +3061,7 @@
     <action name="roofareaquery" datasource="roofareasdb" datasourceevent="querycomplete">
       <sync>
         <if lhs="[var:areaindexloop]" operator="lt" rhs="[var:areaindex]">
-          <play action="ROOF AREA-save" />
+          <play action="ROOF AREA" />
           <else>
             <assign property="datasource:roofareasdb-list.query" value="SELECT * FROM ROOFAREAS;" />
             <assign property="var:areaindexloop" value="0" />
@@ -3133,25 +3073,12 @@
     </action>
     
     <action name="WASTE">
-      <sync>
-        <if lhs="[datasource:wastedb-list.dataSourceResultCount]" operator="gt" rhs="0">
-          <assign property="datasource:wastedb-delete.query" value="DELETE FROM WASTE;" />
-          <alert message="from the if and deleting [datasource:wastedb-list.dataSourceResultCount]" />
-          <else>
-            <play action="WASTE-save" />
-            <alert message="from the else, nothing to delete" />
-          </else>
-        </if>
-      </sync>
-    </action>
-    
-    <action name="WASTE-save" datasource="wastedb-delete" datasourceevent="querycomplete">
       <!--<alert message="[object:WASTEPERCENT/input.text]" />-->
       <if lhs="[eval:'[object:WASTEPERCENT/input.text]' != '']" operator="e" rhs="true">
         <assign property="datasource:wastedb.query" value="INSERT INTO WASTE (PERCENT) values ('[object:WASTEPERCENT/input.text]');" />
         <alert message="[object:WASTEPERCENT/input.text]" />
         <else>
-          <alert title="Incomplete Form" message="Please fill out all fields" />
+          <alert title="Incomplete Form" message="Please feel out all fields" />
         </else> 
       </if>
     </action>
@@ -3161,17 +3088,6 @@
     </action>
     
     <action name="RIDGE">
-      <sync>
-        <if lhs="[datasource:ridgesdb-list.dataSourceResultCount]" operator="gt" rhs="0">
-          <assign property="datasource:ridgesdb-delete.query" value="DELETE FROM RIDGES;" />
-          <else>
-            <play action="RIDGE-save" />
-          </else>
-        </if>
-      </sync>
-    </action>
-    
-    <action name="RIDGE-save" datasource="ridgesdb-delete" datasourceevent="querycomplete">
       <sync>
         <if lhs="[var:ridgeindex]" operator="gt" rhs="0">
           <play action="ridgeValidationLoop" />
@@ -3189,7 +3105,7 @@
             <assign property="var:ridgestotal" value="[eval: [var:ridgestotal] + [object:RIDGELENGTH[var:ridgeValidationIndex]/input.text]]" />
             <play action="ridgeValidationLoop" />
             <else>
-              <alert title="Incomplete Form" message="Please fill out all fields" />
+              <alert title="Incomplete Form" message="Please feel out all fields" />
               <assign property="var:ridgeValidationIndex" value="0" />
             </else>
         </if>
@@ -3210,7 +3126,7 @@
     <action name="ridgequery" datasource="ridgesdb" datasourceevent="querycomplete">
       <sync>
         <if lhs="[var:ridgeindexloop]" operator="lt" rhs="[var:ridgeindex]">
-          <play action="RIDGE-save" />
+          <play action="RIDGE" />
           <else>
             <assign property="datasource:ridgesdb-list.query" value="SELECT * FROM RIDGES;" />
             <assign property="var:ridgeindexloop" value="0" />
@@ -3221,20 +3137,6 @@
     </action>
     
     <action name="HIP">
-      <sync>
-        <alert message="pre-saved removed [datasource:hipsdb-list.dataSourceResultCount]" />
-        <if lhs="[datasource:hipsdb-list.dataSourceResultCount]" operator="gt" rhs="0">
-          <assign property="datasource:hipsdb-delete.query" value="DELETE FROM HIPS;" />
-          <alert message="if to delete" />
-          <else>
-            <play action="HIP-save" />
-            <alert message="in the else, did not delete anything" />
-          </else>
-        </if>
-      </sync>
-    </action>
-    
-    <action name="HIP-save" datasource="hipsdb-delete" datasourceevent="querycomplete">
       <sync>
         <if lhs="[var:hipindex]" operator="gt" rhs="0">
           <play action="hipValidationLoop" />
@@ -3252,7 +3154,7 @@
             <assign property="var:hipstotal" value="[eval: [var:hipstotal] + [object:HIPLENGTH[var:hipValidationIndex]/input.text]]" />
             <play action="hipValidationLoop" />
             <else>
-              <alert title="Incomplete Form" message="Please fill out all fields" />
+              <alert title="Incomplete Form" message="Please feel out all fields" />
               <assign property="var:hipValidationIndex" value="0" />
             </else>
         </if>
@@ -3273,7 +3175,7 @@
     <action name="hipquery" datasource="hipsdb" datasourceevent="querycomplete">
       <sync>
         <if lhs="[var:hipindexloop]" operator="lt" rhs="[var:hipindex]">
-          <play action="HIP-save" />
+          <play action="HIP" />
           <else>
             <assign property="datasource:hipsdb-list.query" value="SELECT * FROM HIPS;" />
             <assign property="var:hipindexloop" value="0" />
@@ -3284,20 +3186,6 @@
     </action>
     
     <action name="VALLEY">
-      <sync>
-        <alert message="pre-saved removed [datasource:valleysdb-list.dataSourceResultCount]" />
-        <if lhs="[datasource:valleysdb-list.dataSourceResultCount]" operator="gt" rhs="0">
-          <assign property="datasource:valleysdb-delete.query" value="DELETE FROM VALLEYS;" />
-          <alert message="if to delete" />
-          <else>
-            <play action="VALLEY-save" />
-            <alert message="in the else, did not delete anything" />
-          </else>
-        </if>
-      </sync>
-    </action>
-    
-    <action name="VALLEY-save" datasource="valleysdb-delete" datasourceevent="querycomplete">
       <sync>
         <if lhs="[var:valleyindex]" operator="gt" rhs="0">
           <play action="valleyValidationLoop" />
@@ -3313,9 +3201,9 @@
         <assign property="var:valleyValidationIndex" value="[eval: [var:valleyValidationIndex] + 1]" />
         <if lhs="[eval:'[object:VALLEYLENGTH[var:valleyValidationIndex]/input.text]' != '']" operator="e" rhs="true">
             <assign property="var:valleystotal" value="[eval: [var:valleystotal] + [object:VALLEYLENGTH[var:valleyValidationIndex]/input.text]]" />
-            <play action="valleyValidationLoop" />
+            <play action="ridgeValidationLoop" />
             <else>
-              <alert title="Incomplete Form" message="Please fill out all fields" />
+              <alert title="Incomplete Form" message="Please feel out all fields" />
               <assign property="var:valleyValidationIndex" value="0" />
             </else>
         </if>
@@ -3336,7 +3224,7 @@
     <action name="valleyquery" datasource="valleysdb" datasourceevent="querycomplete">
       <sync>
         <if lhs="[var:valleyindexloop]" operator="lt" rhs="[var:valleyindex]">
-          <play action="VALLEY-save" />
+          <play action="VALLEY" />
           <else>
             <assign property="datasource:valleysdb-list.query" value="SELECT * FROM VALLEYS;" />
             <assign property="var:valleyindexloop" value="0" />
@@ -3347,20 +3235,6 @@
     </action>
     
     <action name="RAKE">
-      <sync>
-        <alert message="pre-saved removed [datasource:rakesdb-list.dataSourceResultCount]" />
-        <if lhs="[datasource:rakesdb-list.dataSourceResultCount]" operator="gt" rhs="0">
-          <assign property="datasource:rakesdb-delete.query" value="DELETE FROM RAKES;" />
-          <alert message="if to delete" />
-          <else>
-            <play action="RAKE-save" />
-            <alert message="in the else, did not delete anything" />
-          </else>
-        </if>
-      </sync>
-    </action>
-    
-    <action name="RAKE-save" datasource="rakesdb-delete" datasourceevent="querycomplete">
       <sync>
         <if lhs="[var:rakeindex]" operator="gt" rhs="0">
           <play action="rakeValidationLoop" />
@@ -3378,7 +3252,7 @@
             <assign property="var:rakestotal" value="[eval: [var:rakestotal] + [object:RAKELENGTH[var:rakeValidationIndex]/input.text]]" />
             <play action="rakeValidationLoop" />
             <else>
-              <alert title="Incomplete Form" message="Please fill out all fields" />
+              <alert title="Incomplete Form" message="Please feel out all fields" />
               <assign property="var:rakeValidationIndex" value="0" />
             </else>
         </if>
@@ -3399,7 +3273,7 @@
     <action name="rakequery" datasource="rakesdb" datasourceevent="querycomplete">
       <sync>
         <if lhs="[var:rakeindexloop]" operator="lt" rhs="[var:rakeindex]">
-          <play action="RAKE-save" />
+          <play action="RAKE" />
           <else>
             <assign property="datasource:rakesdb-list.query" value="SELECT * FROM RAKES;" />
             <assign property="var:rakeindexloop" value="0" />
@@ -3410,20 +3284,6 @@
     </action>
     
     <action name="EAVE">
-      <sync>
-        <alert message="pre-saved removed [datasource:eavesdb-list.dataSourceResultCount]" />
-        <if lhs="[datasource:eavesdb-list.dataSourceResultCount]" operator="gt" rhs="0">
-          <assign property="datasource:eavesdb-delete.query" value="DELETE FROM EAVES;" />
-          <alert message="if to delete" />
-          <else>
-            <play action="EAVE-save" />
-            <alert message="in the else, did not delete anything" />
-          </else>
-        </if>
-      </sync>
-    </action>
-    
-    <action name="EAVE-save" datasource="eavesdb-delete" datasourceevent="querycomplete">
       <sync>
         <if lhs="[var:eaveindex]" operator="gt" rhs="0">
           <play action="eaveValidationLoop" />
@@ -3441,7 +3301,7 @@
             <assign property="var:eavestotal" value="[eval: [var:eavestotal] + [object:EAVELENGTH[var:eaveValidationIndex]/input.text]]" />
             <play action="eaveValidationLoop" />
             <else>
-              <alert title="Incomplete Form" message="Please fill out all fields" />
+              <alert title="Incomplete Form" message="Please feel out all fields" />
               <assign property="var:eaveValidationIndex" value="0" />
             </else>
         </if>
@@ -3462,7 +3322,7 @@
     <action name="eavequery" datasource="eavesdb" datasourceevent="querycomplete">
       <sync>
         <if lhs="[var:eaveindexloop]" operator="lt" rhs="[var:eaveindex]">
-          <play action="EAVE-save" />
+          <play action="EAVE" />
           <else>
             <assign property="datasource:eavesdb-list.query" value="SELECT * FROM EAVES;" />
             <assign property="var:eaveindexloop" value="0" />
@@ -3473,20 +3333,6 @@
     </action>
     
     <action name="CHIMNEY">
-      <sync>
-        <alert message="pre-saved removed [datasource:protrusionsdb-list.dataSourceResultCount]" />
-        <if lhs="[datasource:protrusionsdb-list.dataSourceResultCount]" operator="gt" rhs="0">
-          <assign property="datasource:protrusionsdb-delete.query" value="DELETE FROM PROTRUSIONS;" />
-          <alert message="if to delete" />
-          <else>
-            <play action="CHIMNEY-save" />
-            <alert message="in the else, did not delete anything" />
-          </else>
-        </if>
-      </sync>
-    </action>
-    
-    <action name="CHIMNEY-save" datasource="protrusionsdb-delete" datasourceevent="querycomplete">
       <sync>
         <if lhs="[var:protrusionindex]" operator="gt" rhs="0">
           <play action="chimneyValidationLoop" />
@@ -3503,7 +3349,7 @@
         <if lhs="[eval:'[object:PROTRUSIONLENGTH[var:chimneyValidationIndex]/input.text]' != '' &amp;&amp; '[object:PROTRUSIONWIDTH[var:chimneyValidationIndex]/input.text]' != '']" operator="e" rhs="true">
             <play action="chimneyValidationLoop" />
             <else>
-              <alert title="Incomplete Form" message="Please fill out all fields" />
+              <alert title="Incomplete Form" message="Please feel out all fields" />
               <assign property="var:chimneyValidationIndex" value="0" />
             </else>
         </if>
@@ -3524,7 +3370,7 @@
     <action name="chimneyquery" datasource="protrusionsdb" datasourceevent="querycomplete">
       <sync>
         <if lhs="[var:protrusionindexloop]" operator="lt" rhs="[var:protrusionindex]">
-          <play action="CHIMNEY-save" />
+          <play action="CHIMNEY" />
           <else>
             <assign property="datasource:protrusionsdb-list.query" value="SELECT * FROM PROTRUSIONS;" />
             <assign property="var:protrusionindexloop" value="0" />
@@ -3535,20 +3381,6 @@
     </action>
     
     <action name="VENT">
-      <sync>
-        <alert message="pre-saved removed [datasource:ventsdb-list.dataSourceResultCount]" />
-        <if lhs="[datasource:ventsdb-list.dataSourceResultCount]" operator="gt" rhs="0">
-          <assign property="datasource:ventsdb-delete.query" value="DELETE FROM VENTS;" />
-          <alert message="if to delete" />
-          <else>
-            <play action="VENT-save" />
-            <alert message="in the else, did not delete anything" />
-          </else>
-        </if>
-      </sync>
-    </action>
-    
-    <action name="VENT-save" datasource="ventsdb-delete" datasourceevent="querycomplete">
       <sync>
         <if lhs="[var:ventindex]" operator="gt" rhs="0">
           <play action="ventValidationLoop" />
@@ -3565,7 +3397,7 @@
         <if lhs="[eval:'[object:VENTQUANTITY[var:ventValidationIndex]/input.text]' != '']" operator="e" rhs="true">
             <play action="ventValidationLoop" />
             <else>
-              <alert title="Incomplete Form" message="Please fill out all fields" />
+              <alert title="Incomplete Form" message="Please feel out all fields" />
               <assign property="var:ventValidationIndex" value="0" />
             </else>
         </if>
@@ -3586,7 +3418,7 @@
     <action name="ventquery" datasource="ventsdb" datasourceevent="querycomplete">
       <sync>
         <if lhs="[var:ventindexloop]" operator="lt" rhs="[var:ventindex]">
-          <play action="VENT-save" />
+          <play action="VENT" />
           <else>
             <assign property="datasource:ventsdb-list.query" value="SELECT * FROM VENTS;" />
             <assign property="var:ventindexloop" value="0" />
@@ -3669,17 +3501,17 @@
 			<assign property="var:productIterateCount" value="1" />
 			<loop lhs="[var:productIterateCount]" operator="lte" rhs="[var:productCount]" >
 				<if lhs="[eval:[var:productCount]-[var:productIterateCount]]" operator="ne" rhs="0">
-          <!-- <alert message="creating with two items" /> -->
+<!-- 					<alert message="creating with two items" /> -->
 					<create class="shingles" index="[var:productIterateCount]" target="PRODUCT-PAGER-BOX/pager" />
 					<else>
-            <!-- <alert message="creating with one item" /> -->
+<!-- 						<alert message="creating with one item" /> -->
 						<create class="shingle-single" index="[var:productIterateCount]" target="PRODUCT-PAGER-BOX/pager" />
 					</else>
 				</if>
 				<assign property="var:productIterateCount" value="[eval: [var:productIterateCount]+2]" />
 			</loop>
-      <!-- <alert message="get-products-complete count [datasource:getProducts.dataSourceResultCount] content [datasource:getProducts.0.content]" /> -->
-      <play action="sidebar-products" _alias="SHINGLES" _form="Shingles" />
+<!-- 			<alert message="get-products-complete count [datasource:getProducts.dataSourceResultCount] content [datasource:getProducts.0.content]" /> -->
+            <play action="sidebar-products" _alias="SHINGLES" _form="Shingles" />
 		</action>
 		
 		<action name="get-products-error" datasource="getProducts" datasourceevent="datasourceerror" >
@@ -3687,40 +3519,40 @@
 		</action>
     
     <action name="selectshingle">
-      <!-- 		<assign property="var:colorCount" value="4" /> -->
-      <assign property="var:shingle" value="[datasource:getProducts._value.ProductId]" />
-      <play action="released" />
-      <delete target="COLORPAGER" />
-      <assign property="var:shingleSelected" value="_value" />
-      <assign property="var:colorCount" value="[eval:JSON.parse('[datasource:getProducts._value.Color]').length]" />
-      <if lhs="[eval:JSON.parse('[datasource:getProducts._value.Color]').length]" operator="ne" rhs="">
-        <assign property="var:colorCreateCount" value="0" />
-        <create class="color-pager" target="SHINGLECOLOR/inner" /> 
-        <loop lhs="[var:colorCreateCount]" operator="lt" rhs="[var:colorCount]" >
-        	<if lhs="[eval: [var:colorCount]-[var:colorCreateCount]]" operator="e" rhs="1">
-        		<create class="one-color" target="COLORPAGER" index="[var:colorCreateCount]"/>
-        		<assign property="var:colorCreateCount" value="[eval: [var:colorCreateCount]+1]" />
-        	</if>
-        	<if lhs="[eval: [var:colorCount]-[var:colorCreateCount]]" operator="e" rhs="2">
-        		<create class="two-colors" target="COLORPAGER" index="[var:colorCreateCount]"/>
-        		<assign property="var:colorCreateCount" value="[eval: [var:colorCreateCount]+2]" />
-        	</if>
-        	<if lhs="[eval: [var:colorCount]-[var:colorCreateCount]]" operator="gte" rhs="3">
-        		<create class="three-colors" target="COLORPAGER" index="[var:colorCreateCount]"  />
-        		<assign property="var:colorCreateCount" value="[eval: [var:colorCreateCount]+3]" />
-        	</if>
-        </loop>
-        <play action="blur" />
-        <alpha value="1" time=".25" target="SHINGLECOLOR" />
-        <translate valign="center" time=".25" curve="easeout" target="SHINGLECOLOR" />
-        <assign property="var:curtainaction" value="colordismiss" />
-        <else>
-          <assign property="var:color" value="N/A" />
-          <alert message="[var:shingle] [var:color]" />
-        	<assign property="datasource:getWarranties.source" value="https://162.209.101.177/api/GetWarranties?productId=[var:shingle]" />
-        	<play action="sidebar-products" _alias="WARRANTY" _form="Warranty" />
-        </else>
-      </if>
+<!-- 		<assign property="var:colorCount" value="4" /> -->
+		<assign property="var:shingle" value="[datasource:getProducts._value.ProductId]" />
+		<play action="released" />
+		<delete target="COLORPAGER" />
+		<assign property="var:shingleSelected" value="_value" />
+		<assign property="var:colorCount" value="[eval:JSON.parse('[datasource:getProducts._value.Color]').length]" />
+		<if lhs="[eval:JSON.parse('[datasource:getProducts._value.Color]').length]" operator="ne" rhs="">
+			<assign property="var:colorCreateCount" value="0" />
+			<create class="color-pager" target="SHINGLECOLOR/inner" /> 
+			<loop lhs="[var:colorCreateCount]" operator="lt" rhs="[var:colorCount]" >
+				<if lhs="[eval: [var:colorCount]-[var:colorCreateCount]]" operator="e" rhs="1">
+					<create class="one-color" target="COLORPAGER" index="[var:colorCreateCount]"/>
+					<assign property="var:colorCreateCount" value="[eval: [var:colorCreateCount]+1]" />
+				</if>
+				<if lhs="[eval: [var:colorCount]-[var:colorCreateCount]]" operator="e" rhs="2">
+					<create class="two-colors" target="COLORPAGER" index="[var:colorCreateCount]"/>
+					<assign property="var:colorCreateCount" value="[eval: [var:colorCreateCount]+2]" />
+				</if>
+				<if lhs="[eval: [var:colorCount]-[var:colorCreateCount]]" operator="gte" rhs="3">
+					<create class="three-colors" target="COLORPAGER" index="[var:colorCreateCount]"  />
+					<assign property="var:colorCreateCount" value="[eval: [var:colorCreateCount]+3]" />
+				</if>
+			</loop>
+		      <play action="blur" />
+		      <alpha value="1" time=".25" target="SHINGLECOLOR" />
+		      <translate valign="center" time=".25" curve="easeout" target="SHINGLECOLOR" />
+		      <assign property="var:curtainaction" value="colordismiss" />
+			<else>
+		        <assign property="var:color" value="N/A" />
+		        <alert message="[var:shingle] [var:color]" />
+				<assign property="datasource:getWarranties.source" value="https://162.209.101.177/api/GetWarranties?productId=[var:shingle]" />
+				<play action="sidebar-products" _alias="WARRANTY" _form="Warranty" />
+			</else>
+		</if>
     </action>
     
     <action name="colordismiss">
@@ -3762,7 +3594,7 @@
       <assign property="var:warrantyname" value="_title" />
       <alert message="warranty id [var:warranty] accessories required [var:accessories]" />
       <assign property="datasource:productsdb.query" value="INSERT INTO PRODUCTS (SHINGLE, COLOR, WARRANTY, IMAGE) VALUES ('[var:shingle]', '[var:color]', '[var:warranty]', '[var:productImage]');" />
-      <assign property="datasource:getAccessories.source" value="https://162.209.101.177/api/GetAccessoryByProduct?productId=[var:shingle]" />
+	  <assign property="datasource:getAccessories.source" value="https://162.209.101.177/api/GetAccessoryByProduct?productId=[var:shingle]" />
     </action>
     
     <action name="productquery" datasource="productsdb" datasourceevent="querycomplete">
@@ -4244,7 +4076,74 @@
       <sync>
         <alpha value="0" time=".25" target="PROFILEMENU" />
         <play action="hideclearcurtain" />
+        <play action="clear-data" />
+        <delete target="CONTAINER" />
+        <create class="container" target="MAIN" />
+		<create class="signin" target="CONTAINER" />
       </sync>
+    </action>
+     
+    <action name="clear-data" >
+		<assign property="var:accessoryCount" value="0" />
+		<assign property="var:tearoff" value="no" />
+		<assign property="var:landscaping" value="no" />
+		<assign property="var:hardscaping" value="no" />
+		<assign property="var:hvac" value="no" />
+		<assign property="var:pool" value="no" />
+		<assign property="var:misc" value="no" />
+		<assign property="var:country" value="US" />
+		<assign property="var:prevfield" value="0" />
+		<assign property="var:nav" value="CUSTOMER" />
+		<assign property="var:areaindex" value="" />
+		<assign property="var:areaValidationIndex" value="" />
+		<assign property="var:areaindexloop" value="" />
+		<assign property="var:ridgeindex" value="" />
+		<assign property="var:ridgeValidationIndex" value="" />
+		<assign property="var:ridgeindexloop" value="" />
+		<assign property="var:hipindex" value="" />
+		<assign property="var:hipValidationIndex" value="" />
+		<assign property="var:hipindexloop" value="" />
+		<assign property="var:valleyindex" value="" />
+		<assign property="var:valleyValidationIndex" value="" />
+		<assign property="var:valleyindexloop" value="" />
+		<assign property="var:rakeindex" value="" />
+		<assign property="var:rakeValidationIndex" value="" />
+		<assign property="var:rakeindexloop" value="" />
+		<assign property="var:eaveindex" value="" />
+		<assign property="var:eaveValidationIndex" value="" />
+		<assign property="var:eaveindexloop" value="" />
+		<assign property="var:protrusionindex" value="" />
+		<assign property="var:chimneyValidationIndex" value="" />
+		<assign property="var:protrusionindexloop" value="" />
+		<assign property="var:ventindex" value="" />
+		<assign property="var:ventValidationIndex" value="" />
+		<assign property="var:ventindexloop" value="" />
+        <assign property="object:USERNAME/input.text" value="[preferences:username]" />
+		<assign property="preferences:password" value="" />
+		<assign property="preferences:token" value="" />
+		<assign property="preferences:contractorId" value="" />
+		<assign property="preferences:contractorType" value="" />
+		<assign property="preferences:trueSlate" value="" />
+		<assign property="httpheader:get.Token" value="" />
+		<assign property="httpheader:get.ContractorId" value="" />
+		<assign property="var:db-action" value="delete" />
+		<assign property="datasource:customersdb.query" value="DELETE FROM CUSTOMERS;" />
+		<assign property="datasource:inspectiondb.query" value="DELETE FROM INSPECTION;" />
+		<assign property="datasource:roofareasdb.query" value="DELETE FROM ROOFAREAS;" />
+		<assign property="datasource:wastedb.query" value="DELETE FROM WASTE;" />
+		<assign property="datasource:ridgesdb.query" value="DELETE FROM RIDGES;" />
+		<assign property="datasource:hipsdb.query" value="DELETE FROM HIPS;" />
+		<assign property="datasource:valleysdb.query" value="DELETE FROM VALLEYS;" />
+		<assign property="datasource:rakesdb.query" value="DELETE FROM RAKES;" />
+		<assign property="datasource:eavesdb.query" value="DELETE FROM EAVES;" />
+		<assign property="datasource:protrusionsdb.query" value="DELETE FROM PROTRUSIONS;" />
+		<assign property="datasource:ventsdb.query" value="DELETE FROM VENTS;" />
+		<assign property="datasource:photosdb.query" value="DELETE FROM PHOTOS;" />
+		<assign property="datasource:productsdb.query" value="DELETE FROM PRODUCTS;" />
+		<assign property="datasource:accessoriesdb.query" value="DELETE FROM ACCESSORIES;" />
+		<assign property="datasource:tearoffdb.query" value="DELETE FROM TEAROFF;" />
+		<assign property="datasource:assetprotectiondb.query" value="DELETE FROM PROTECTION;" />
+		<assign property="datasource:adjustmentsdb.query" value="DELETE FROM ADJUSTMENTS;" />
     </action>
     
     <!-- !curtain action -->
