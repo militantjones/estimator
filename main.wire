@@ -1344,40 +1344,38 @@
       </panel>
     </class>
     
-  </classes>
- 
-  <!-- !MAIN -->
-  <main>
+	<class name="container">
     <panel name="container" alias="CONTAINER" style="100" background="#e3e3e3">
       
       <!-- !customer -->
       <panel name="customer" alias="CUSTOMER" width="100%" height="[eval: [object:CONTAINER.height] - 127]" ypos="127" alpha="1">
-        <panel name="inner" style="100" >
+        <panel name="inner" style="100" padding-left="20" padding-right="20">
           <object class="title" title="New Customer Set Up" />
-          <pager name="scroller" width="100%" height="[eval: [object:CUSTOMER.height] - 79]" orientation="vertical" bottomof="titlebox" paginate="no" padding-left="20" padding-right="20">
+          
+          <pager name="scroller" width="100%" height="[eval: [object:CUSTOMER.height] - 79]" orientation="vertical" bottomof="titlebox" paginate="no">
             <panel name="customer1" width="100%" height="160">
               <text name="subtitle" width="100%" height="35" style="darktext" size="20" alignment="left" text="Customer 1"></text>
               <panel name="col1" width="50%" height="100%" padding-right="10" bottomof="subtitle">
                 <panel name="cust1-fname" alias="CUST1-FNAME" width="100%" height="50" align="left" style="textinput">
                   <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
-                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="First Name" onreturnkeypressed="next" returnkeytype="next" _next="CUST1-LNAME" _action="null"></textfield>
+                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="First Name" onreturnkeypressed="next" _next="CUST1-LNAME" _action="null"></textfield>
                   <panel name="active" style="100" onclickup="labelactive" _field="CUST1-FNAME"></panel>
                 </panel>
                 <panel name="cust1-email" alias="CUST1-EMAIL" width="100%" height="50" align="left" bottomof="CUST1-FNAME" margin-top="10" style="textinput">
                   <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
-                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Email" onreturnkeypressed="next" returnkeytype="next" _next="CUST1-PHONE" _action="null" kbtype="emailaddress" autocorrect="no" ></textfield>
+                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Email" onreturnkeypressed="next" _next="CUST1-PHONE" _action="null" kbtype="emailaddress" ></textfield>
                   <panel name="active" style="100" onclickup="labelactive" _field="CUST1-EMAIL"></panel>
                 </panel>
               </panel>
               <panel name="col2" width="50%" height="100%" padding-left="10" align="right" bottomof="subtitle">
                 <panel name="cust1-lname" alias="CUST1-LNAME" width="100%" height="50" align="right" style="textinput">
                   <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
-                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Last Name" onreturnkeypressed="next" returnkeytype="next" _next="CUST1-EMAIL" _action="null" ></textfield>
+                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Last Name" onreturnkeypressed="next" _next="CUST1-EMAIL" _action="null" ></textfield>
                   <panel name="active" style="100" onclickup="labelactive" _field="CUST1-LNAME"></panel>
                 </panel>
                 <panel name="cust1-phone" alias="CUST1-PHONE" width="100%" height="50" align="right" bottomof="CUST1-LNAME" margin-top="10" style="textinput">
                   <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
-                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Phone" onreturnkeypressed="next" returnkeytype="next" _next="CUST2-FNAME" kbtype="numberpad" _action="null" kytype="numberpad" ></textfield>
+                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Phone" onreturnkeypressed="next" _next="CUST2-FNAME" _action="null" kytype="numberpad" ></textfield>
                   <panel name="active" style="100" onclickup="labelactive" _field="CUST1-PHONE"></panel>
                 </panel>
               </panel>
@@ -1389,24 +1387,24 @@
               <panel name="col1" width="50%" height="100%" padding-right="10" bottomof="subtitle">
                 <panel name="cust2-fname" alias="CUST2-FNAME" width="100%" height="50" align="left" style="textinput">
                   <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
-                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="First Name" onreturnkeypressed="next" returnkeytype="next" _next="CUST2-LNAME" _action="null"></textfield>
+                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="First Name" onreturnkeypressed="next" _next="CUST2-LNAME" _action="null"></textfield>
                   <panel name="active" style="100" onclickup="labelactive" _field="CUST2-FNAME"></panel>
                 </panel>
                 <panel name="cust2-email" alias="CUST2-EMAIL" width="100%" height="50" align="left" bottomof="CUST2-FNAME" margin-top="10" style="textinput">
                   <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
-                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Email" onreturnkeypressed="next" returnkeytype="next" _next="CUST2-PHONE" _action="null" kbtype="emailaddress" autocorrect="no" ></textfield>
+                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Email" onreturnkeypressed="next" _next="CUST2-PHONE" _action="null" kbtype="emailaddress" ></textfield>
                   <panel name="active" style="100" onclickup="labelactive" _field="CUST2-EMAIL"></panel>
                 </panel>
               </panel>
               <panel name="col2" width="50%" height="100%" padding-left="10" align="right" bottomof="subtitle">
                 <panel name="cust2-lname" alias="CUST2-LNAME" width="100%" height="50" align="right" style="textinput">
                   <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
-                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Last Name" onreturnkeypressed="next" returnkeytype="next" _next="CUST2-EMAIL" _action="null" ></textfield>
+                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Last Name" onreturnkeypressed="next" _next="CUST2-EMAIL" _action="null" ></textfield>
                   <panel name="active" style="100" onclickup="labelactive" _field="CUST2-LNAME"></panel>
                 </panel>
                 <panel name="cust2-phone" alias="CUST2-PHONE" width="100%" height="50" align="right" bottomof="CUST1-LNAME" margin-top="10" style="textinput">
                   <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
-                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Phone" onreturnkeypressed="next" returnkeytype="next" _next="STREET" _action="null" kbtype="numberpad" ></textfield>
+                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Phone" onreturnkeypressed="next" _next="STREET" _action="null" kytype="numberpad" ></textfield>
                   <panel name="active" style="100" onclickup="labelactive" _field="CUST2-PHONE"></panel>
                 </panel>
               </panel>
@@ -1431,36 +1429,36 @@
               <panel name="col2" width="50%" height="110" padding-right="10" align="left" bottomof="USA" margin-top="10">
                 <panel name="street" alias="STREET" width="100%" height="50" align="left" style="textinput">
                   <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
-                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Street" onreturnkeypressed="next" returnkeytype="next" _next="CITY" _action="null" ></textfield>
+                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Street" onreturnkeypressed="next" _next="CITY" _action="null" ></textfield>
                   <panel name="active" style="100" onclickup="labelactive" _field="STREET"></panel>
                 </panel>
                 <panel name="city" alias="CITY" width="100%" height="50" align="left" bottomof="STREET" margin-top="10" style="textinput">
                   <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
-                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="City" onreturnkeypressed="next" returnkeytype="next" _next="none" _action="null" kytype="numberpad" ></textfield>
+                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="City" onreturnkeypressed="next" _next="none" _action="null" kytype="numberpad" ></textfield>
                   <panel name="active" style="100" onclickup="labelactive" _field="CITY"></panel>
                 </panel>
               </panel>
               <panel name="us" alias="US" width="66%" height="50" bottomof="col2" margin-top="10">
                 <panel name="state" alias="STATE" width="230" height="50" align="left" style="textinput">
                   <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
-                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="State" onreturnkeypressed="next" returnkeytype="next" _next="none" _action="null"></textfield>
+                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="State" onreturnkeypressed="next" _next="none" _action="null"></textfield>
                   <panel name="active" style="100" onclickup="dropon" _field="STATE" _drop="ADDRESS" _droptype="STATESLIST"></panel>
                 </panel>
                 <panel name="zip" alias="ZIP" width="230" height="50" align="right" style="textinput">
                   <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
-                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="ZIP" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null"></textfield>
+                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="ZIP" onreturnkeypressed="next" _next="none" _action="null"></textfield>
                   <panel name="active" style="100" onclickup="labelactive" _field="ZIP"></panel>
                 </panel>
               </panel>
               <panel name="can" alias="CAN" width="66%" height="50" bottomof="col2" margin-top="10" alpha="0">
                 <panel name="province" alias="PROVINCE" width="230" height="50" align="left" style="textinput">
                   <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
-                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Province" onreturnkeypressed="next" returnkeytype="next" _next="none" _action="null"></textfield>
+                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Province" onreturnkeypressed="next" _next="none" _action="null"></textfield>
                   <panel name="active" style="100" onclickup="dropon" _field="PROVINCE" _drop="ADDRESS" _droptype="PROVINCESLIST"></panel>
                 </panel>
                 <panel name="postal" alias="POSTAL" width="230" height="50" align="right" style="textinput">
                   <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
-                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Postal Code" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null"></textfield>
+                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Postal Code" onreturnkeypressed="next" _next="none" _action="null"></textfield>
                   <panel name="active" style="100" onclickup="labelactive" _field="POSTAL"></panel>
                 </panel>
               </panel>
@@ -1469,7 +1467,7 @@
                   <text name="drophead" width="100%" height="30" style="lighttext" size="18" alignment="center" text="States"></text>
                   <panel name="border" width="100%" height="1" background="#888888" ypos="30"></panel>
                   <list name="statelist" width="100%" height="200" ypos="30" datasource="states" orientation="vertical" paginate="no">
-                    <object class="state" index="[param:dataSourceIndex]" abbr="[param:code]" name="[param:name]"/>
+                    <object class="state" index="[param:dataSourceIndex]" abbr="[param:code]" name="[param:name]" />
                   </list>
                 </panel>
                 <panel name="provinceslist" alias="PROVINCESLIST" width="100%" height="100%" alpha="0">
@@ -1522,101 +1520,101 @@
           <panel name="roof-sidebar-blocker" alias="ROOF-SIDEBAR-BLOCKER" style="100" xpos="-101%"></panel>
         </panel>
         
-        <panel name="roof-Inspection" alias="ROOF-INSPECTION" width="512" height="100%" align="right" alpha="0">
-          <object class="title" title="Inspection" />
+        <panel name="roof-Inspection" alias="ROOF-INSPECTION" width="512" height="100%" align="right" padding-left="20" padding-right="20" alpha="0">
+          <object class="title" title="Inspection"  />
           <panel name="roofpagerbox" width="100%" height="[eval: [object:ROOF-INSPECTION.height] - 146]" ypos="79" >
-            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no" padding-left="20" padding-right="20">
+            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no">
               <object class="inspection" />
             </pager>
           </panel>
         </panel>
         
-        <panel name="roof-Fascia" alias="ROOF-FASCIA" width="512" height="100%" align="right" alpha="0">
+        <panel name="roof-Fascia" alias="ROOF-FASCIA" width="512" height="100%" align="right" padding-left="20" padding-right="20" alpha="0">
           <object class="title" title="Fascia"  />
           <panel name="roofpagerbox" width="100%" height="[eval: [object:ROOF-FASCIA.height] - 146]" ypos="79" >
-            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no" padding-left="20" padding-right="20">
+            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no">
               <object class="fascia" />
             </pager>
           </panel>
         </panel>
         
-        <panel name="roof-Roof Area" alias="ROOF-ROOF AREA" width="512" height="100%" align="right" alpha="0">
+        <panel name="roof-Roof Area" alias="ROOF-ROOF AREA" width="512" height="100%" align="right" padding-left="20" padding-right="20" alpha="0">
           <object class="titlebutton" title="Roof Areas" action="addarea" />
           <panel name="roofpagerbox" width="100%" height="[eval: [object:ROOF-ROOF AREA.height] - 146]" ypos="79" >
-            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no" padding-left="20" padding-right="20">
+            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no">
               <!--<object class="roof area" index="1" />-->
             </pager>
           </panel>
         </panel>
         
-        <panel name="roof-Waste" alias="ROOF-WASTE" width="512" height="100%" align="right" alpha="0">
+        <panel name="roof-Waste" alias="ROOF-WASTE" width="512" height="100%" align="right" padding-left="20" padding-right="20" alpha="0">
           <object class="title" title="Waste"  />
           <panel name="roofpagerbox" width="100%" height="[eval: [object:ROOF-WASTE.height] - 146]" ypos="79" >
-            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no" padding-left="20" padding-right="20"> 
+            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no">
               <object class="waste" />
             </pager>
           </panel>
         </panel>
         
-        <panel name="roof-Ridge" alias="ROOF-RIDGE" width="512" height="100%" align="right" alpha="0">
+        <panel name="roof-Ridge" alias="ROOF-RIDGE" width="512" height="100%" align="right" padding-left="20" padding-right="20" alpha="0">
           <object class="titlebutton" title="Ridges" action="addridge" />
           <panel name="roofpagerbox" width="100%" height="[eval: [object:ROOF-RIDGE.height] - 146]" ypos="79" >
-            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no" padding-left="20" padding-right="20">
+            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no">
               <!--<object class="ridge" index="1" />-->
             </pager>
           </panel>
         </panel>
         
-        <panel name="roof-Hip" alias="ROOF-HIP" width="512" height="100%" align="right" alpha="0">
+        <panel name="roof-Hip" alias="ROOF-HIP" width="512" height="100%" align="right" padding-left="20" padding-right="20" alpha="0">
           <object class="titlebutton" title="Hips" action="addhip" />
           <panel name="roofpagerbox" width="100%" height="[eval: [object:ROOF-HIP.height] - 146]" ypos="79" >
-            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no" padding-left="20" padding-right="20">
+            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no">
               <!--<object class="hip" index="1" />-->
             </pager>
           </panel>
         </panel>
         
-        <panel name="roof-Valley" alias="ROOF-VALLEY" width="512" height="100%" align="right" alpha="0">
+        <panel name="roof-Valley" alias="ROOF-VALLEY" width="512" height="100%" align="right" padding-left="20" padding-right="20" alpha="0">
           <object class="titlebutton" title="Valley" action="addvalley" />
           <panel name="roofpagerbox" width="100%" height="[eval: [object:ROOF-VALLEY.height] - 146]" ypos="79" >
-            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no" padding-left="20" padding-right="20">
+            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no">
               <!--<object class="valley" index="1" />-->
             </pager>
           </panel>
         </panel>
         
-        <panel name="roof-Rake" alias="ROOF-RAKE" width="512" height="100%" align="right" alpha="0">
+        <panel name="roof-Rake" alias="ROOF-RAKE" width="512" height="100%" align="right" padding-left="20" padding-right="20" alpha="0">
           <object class="titlebutton" title="Rakes" action="addrake" />
           <panel name="roofpagerbox" width="100%" height="[eval: [object:ROOF-RAKE.height] - 146]" ypos="79" >
-            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no" padding-left="20" padding-right="20">
+            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no">
               <!--<object class="rake" index="1" />-->
             </pager>
           </panel>
         </panel>
         
-        <panel name="roof-Eave" alias="ROOF-EAVE" width="512" height="100%" align="right" alpha="0">
+        <panel name="roof-Eave" alias="ROOF-EAVE" width="512" height="100%" align="right" padding-left="20" padding-right="20" alpha="0">
           <object class="titlebutton" title="Eaves" action="addeave" />
           <panel name="roofpagerbox" width="100%" height="[eval: [object:ROOF-EAVE.height] - 146]" ypos="79" >
-            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no" padding-left="20" padding-right="20">
+            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no">
               <!--<object class="eave" index="1" />-->
             </pager>
           </panel>
         </panel>
         
-        <panel name="roof-Chimney" alias="ROOF-CHIMNEY" width="512" height="100%" align="right" alpha="0">
+        <panel name="roof-Chimney" alias="ROOF-CHIMNEY" width="512" height="100%" align="right" padding-left="20" padding-right="20" alpha="0">
           <object class="titlebutton" title="Chimneys &amp; Skylights" action="addprotrusion" />
           <panel name="roofpagerbox" width="100%" height="[eval: [object:ROOF-CHIMNEY.height] - 146]" ypos="79" >
-            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no" padding-left="20" padding-right="20">
+            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no">
               <!--<object class="chimney" index="1" />
               <object class="skylight" index="1" />-->
             </pager>
           </panel>
         </panel>
         
-        <panel name="roof-vent" alias="ROOF-VENT" width="512" height="100%" align="right" alpha="0">
+        <panel name="roof-vent" alias="ROOF-VENT" width="512" height="100%" align="right" padding-left="20" padding-right="20" alpha="0">
           <object class="titlebutton" title="Plumbing Vents" action="addvent" />
           <panel name="roofpagerbox" width="100%" height="[eval: [object:ROOF-VENT.height] - 146]" ypos="79" >
-            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no" padding-left="20" padding-right="20">
+            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no">
               <!--<object class="3vent" />
               <object class="2vent" />
               <object class="15vent" />
@@ -1625,12 +1623,12 @@
           </panel>
         </panel>
         
-        <panel name="roof-Photo" alias="ROOF-PHOTO" width="512" height="100%" align="right" alpha="0">
+        <panel name="roof-Photo" alias="ROOF-PHOTO" width="512" height="100%" align="right" padding-left="20" padding-right="20" alpha="0">
           <object class="titlebutton" title="Photos &amp; Notes" action="addphoto" />
           <panel name="roofpagerbox" width="100%" height="[eval: [object:ROOF-PHOTO.height] - 146]" ypos="79" >
-            <list name="pager" datasource="photosdb-list" width="100%" height="100%" orientation="vertical" paginate="no" padding-left="20" padding-right="20">
-              <object class="photo" index="1" photo="[param:PHOTO]" note="[param:NOTE]" origin="[param:ORIGIN]" />
-            </list>
+            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no">
+              <object class="photo" index="1" />
+            </pager>
           </panel>
         </panel>
         
@@ -1654,31 +1652,29 @@
           <panel name="products-sidebar-blocker" alias="PRODUCTS-SIDEBAR-BLOCKER" style="100" xpos="-101%"></panel>
         </panel>
         
-        <panel name="products-Shingle" alias="PRODUCTS-SHINGLES" width="512" height="100%" align="right" padding-bottom="20" alpha="0">
+        <panel name="products-Shingle" alias="PRODUCTS-SHINGLES" width="512" height="100%" align="right" padding-left="20" padding-right="20" alpha="0">
           <object class="title" title="Shingles"  />
           <panel name="productpagerbox" alias="PRODUCT-PAGER-BOX" width="100%" height="[eval: [object:PRODUCTS-SHINGLES.height] - 79]" ypos="79" >
-            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no" padding-left="20" padding-right="20" >
+            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no" >
             </pager>
           </panel>
         </panel>
         
-        <panel name="products-Warranty" alias="PRODUCTS-WARRANTY" width="512" height="100%" align="right" alpha="0">
+        <panel name="products-Warranty" alias="PRODUCTS-WARRANTY" width="512" height="100%" align="right" padding-left="20" padding-right="20" alpha="0">
           <object class="title" title="Select a Warranty"  />
           <panel name="warrantypagerbox" alias="WARRANTY-PAGER-BOX" width="100%" height="[eval: [object:PRODUCTS-WARRANTY.height] - 79]" ypos="79" >
-            <list name="pager" width="100%" height="100%" datasource="getWarranties" orientation="vertical" paginate="no" padding-left="20" padding-right="20" >
+            <list name="pager" width="100%" height="100%" datasource="getWarranties" orientation="vertical" paginate="no">
 				<object class="warranty" index="[ds:dataSourceIndex]" title="[ds:WarrantyName]" warrantyId="[ds:WarrantyId]" accessories="[ds:GAFAccessoriesRequired]"  />
             </list>
           </panel>
         </panel>
         
-        <panel name="products-Accessories" alias="PRODUCTS-ACCESSORIES" width="512" height="100%" align="right" alpha="0">
+        <panel name="products-Accessories" alias="PRODUCTS-ACCESSORIES" width="512" height="100%" align="right" padding-left="20" padding-right="20" alpha="0">
           <object class="title" title="Accessories"  />
           <panel name="productpagerbox" alias="ACCESSORIES-PAGER-BOX" width="100%" height="[eval: [object:PRODUCTS-ACCESSORIES.height] - 79]" ypos="79" >
-            <list name="pager" width="100%" datasource="getAccessories" height="100%" orientation="vertical" paginate="no" padding-left="20" padding-right="20" >
-			<object class="accessory-category" index="[ds:dataSourceIndex]" category="[ds:AccessoryCategory]" lhs="[eval: ('[ds:dataSourceIndex]' == '1') || ('[datasource:getAccessories.[eval:[ds:dataSourceIndex]-1].AccessoryCategory]' != '[datasource:getAccessories.[ds:dataSourceIndex].AccessoryCategory]')]" operator="e" rhs="true" />
-<!-- 			<object class="accessory-category" index="[ds:dataSourceIndex]" category="[ds:AccessoryCategory]" lhs="[eval: '[ds:dataSourceIndex]' == '1' || '[ds:AccessoryCategory]' != '[datasource:getAccessories.[eval:[ds:dataSourceIndex]-1].AccessoryCategory]]'" operator="e" rhs="true" /> -->
-              <object class="accessory" index="[ds:dataSourceIndex]" title="[ds:AccessoryName]" />
-            </list>
+            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no">
+              <object class="accessories"  />
+            </pager>
           </panel>
         </panel>
         
@@ -1702,19 +1698,19 @@
           <panel name="products-sidebar-blocker" alias="SERVICES-SIDEBAR-BLOCKER" style="100" xpos="-101%"></panel>
         </panel>
         
-        <panel name="services-Tear Off" alias="SERVICES-TEAROFF" width="512" height="100%" align="right" alpha="0">
+        <panel name="services-Tear Off" alias="SERVICES-TEAROFF" width="512" height="100%" align="right" padding-left="20" padding-right="20" alpha="0">
           <object class="title" title="Tear Off"  />
           <panel name="servicespagerbox" width="100%" height="[eval: [object:SERVICES-TEAROFF.height] - 79]" ypos="79" >
-            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no" padding-left="20" padding-right="20" >
+            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no">
               <object class="tearoff" />
             </pager>
           </panel>
         </panel>
         
-        <panel name="services-Asset Protection" alias="SERVICES-ASSETPROTECTION" width="512" height="100%" align="right" alpha="0">
+        <panel name="services-Asset Protection" alias="SERVICES-ASSETPROTECTION" width="512" height="100%" align="right" padding-left="20" padding-right="20" alpha="0">
           <object class="title" title="Asset Protection"  />
           <panel name="servicespagerbox" width="100%" height="[eval: [object:SERVICES-ASSETPROTECTION.height] - 79]" ypos="79" >
-            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no" padding-left="20" padding-right="20" >
+            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no">
               <object class="assetprotection" />
             </pager>
           </panel>
@@ -1723,10 +1719,10 @@
       
       <!-- !adjustments -->
       <panel name="adjustments" alias="ADJUSTMENTS" width="100%" height="[eval: [object:CONTAINER.height] - 127]" ypos="127" alpha="0">
-        <panel name="adjustmentsbox" alias="ADJUSTMENTSBOX" width="100%" height="100%" align="right" alpha="1">
+        <panel name="adjustmentsbox" alias="ADJUSTMENTSBOX" width="100%" height="100%" align="right" padding-left="20" padding-right="20" alpha="1">
           <object class="titlebutton" title="Adjustments" action="addadjustment"  />
           <panel name="adjustmentspagerbox" width="100%" height="[eval: [object:ADJUSTMENTS.height] - 79]" ypos="79" >
-            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no" padding-left="20" padding-right="20" >
+            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no">
               <!--<object class="discount" index="1" />
               <object class="additionalcost" index="2" />-->
             </pager>
@@ -1739,9 +1735,9 @@
         <panel name="summarybox" alias="SUMMARYBOX" width="100%" height="100%" align="right" padding-left="20" padding-right="20" alpha="1">
           <object class="title" title="Summary"  />
           <panel name="summarypagerbox" width="100%" height="[eval: [object:SUMMARY.height] - 146]" ypos="79" >
-            <pager name="summary-pager" alias="SUMMARY-PAGER" width="100%" height="100%" orientation="vertical" paginate="no">
+            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no">
             
-              <!--<panel name="summary-customer" width="100%" height="148">
+              <panel name="summary-customer" width="100%" height="148">
                 <text name="subtitle" width="100%" height="40" font="Futura-Medium" color="#343434" size="25" alignment="left" text="Customer Info"></text>
                 <panel name="col1" width="33.33%" height="93" bottomof="subtitle">
                   <text name="cust1-name" width="100%" height="35" style="darktext" size="20" alignment="left" text="Bilbo Baggins"></text>
@@ -1830,7 +1826,8 @@
                   <text name="pool" width="100%" height="20" bottomof="hvac" size="15" alignment="left" text="Pool: no"></text>
                   <text name="misc" width="100%" height="20" bottomof="pool" size="15" alignment="left" text="Misc: no"></text>
                 </panel>
-              </panel>-->
+                <!--<panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>  -->
+              </panel>
               
             </pager>
           </panel>
@@ -1889,7 +1886,7 @@
           <!--<image name="avatar" source="images/avatar.png" width="36" align="left" valign="center"></image>-->
           <image name="down" source="images/header-down.png" width="29" align="right" valign="center"></image>
           <text name="welcome" width="130" height="16" xpos="46" ypos="15" leftof="down" margin-right="10" style="darktext" size="15" alignment="right" text="Welcome,"></text>
-          <text name="username" width="200" height="20" xpos="46" bottomof="welcome" margin-top="5" leftof="down" margin-right="10" style="darktext" size="15" alignment="right" text="Hingle McCringleberry"></text>
+          <text name="username" width="160" height="20" xpos="46" bottomof="welcome" margin-top="5" leftof="down" margin-right="10" style="darktext" size="15" alignment="right" text="Hingle McCringleberry"></text>
           
         </panel>
       </panel>
@@ -1899,8 +1896,6 @@
         <panel name="toolbar" width="100%" height="60" background="#343434">
           <text name="close" width="100" height="100%" xpos="20" color="#ffffff" font="Futura-Medium" size="20" alignment="left" text="close" onclickup="closeroll"></text>
         </panel>
-        <wait name="wait" width="100%" height="[eval:[object:CAMERAROLL.height] - [object:CAMERAROLL/toolbar.height]]" valign="bottom" alpha="0" color="#ed1c24"/>
-        <panel name="camera-list" width="100%" height="[eval:[object:CAMERAROLL.height] - [object:CAMERAROLL/toolbar.height]]" valign="bottom"></panel>
       </panel>
       
       <panel name="camerabox" alias="CAMERABOX" width="100%" height="100%" ypos="101%" background="#e3e3e3">
@@ -1909,6 +1904,15 @@
      
     </panel><!-- end of container -->
     
+	</class>
+  </classes>
+ 
+  <!-- !MAIN -->
+  <main>
+  	<panel name="main" alias="MAIN" style="100" background="#e3e3e3">
+  		<object class="container" />
+  	</panel>
+        
     <!-- !curtain -->
     <panel name="curtain" alias="CURTAIN" style="100" alpha="0" onclickup="curtainaction" >
       <panel name="color" style="100" background="#ffffff" alpha="0"></panel>
@@ -4239,14 +4243,80 @@
       </sync>
     </action> -->
     
-    <!-- !logout -->
     <action name="logout">
       <sync>
         <alpha value="0" time=".25" target="PROFILEMENU" />
         <play action="hideclearcurtain" />
+        <play action="clear-data" />
+        <delete target="CONTAINER" />
+        <create class="container" target="MAIN" />
+		<create class="signin" target="CONTAINER" />
       </sync>
     </action>
-    
+     
+    <action name="clear-data" >
+		<assign property="var:accessoryCount" value="0" />
+		<assign property="var:tearoff" value="no" />
+		<assign property="var:landscaping" value="no" />
+		<assign property="var:hardscaping" value="no" />
+		<assign property="var:hvac" value="no" />
+		<assign property="var:pool" value="no" />
+		<assign property="var:misc" value="no" />
+		<assign property="var:country" value="US" />
+		<assign property="var:prevfield" value="0" />
+		<assign property="var:nav" value="CUSTOMER" />
+		<assign property="var:areaindex" value="" />
+		<assign property="var:areaValidationIndex" value="" />
+		<assign property="var:areaindexloop" value="" />
+		<assign property="var:ridgeindex" value="" />
+		<assign property="var:ridgeValidationIndex" value="" />
+		<assign property="var:ridgeindexloop" value="" />
+		<assign property="var:hipindex" value="" />
+		<assign property="var:hipValidationIndex" value="" />
+		<assign property="var:hipindexloop" value="" />
+		<assign property="var:valleyindex" value="" />
+		<assign property="var:valleyValidationIndex" value="" />
+		<assign property="var:valleyindexloop" value="" />
+		<assign property="var:rakeindex" value="" />
+		<assign property="var:rakeValidationIndex" value="" />
+		<assign property="var:rakeindexloop" value="" />
+		<assign property="var:eaveindex" value="" />
+		<assign property="var:eaveValidationIndex" value="" />
+		<assign property="var:eaveindexloop" value="" />
+		<assign property="var:protrusionindex" value="" />
+		<assign property="var:chimneyValidationIndex" value="" />
+		<assign property="var:protrusionindexloop" value="" />
+		<assign property="var:ventindex" value="" />
+		<assign property="var:ventValidationIndex" value="" />
+		<assign property="var:ventindexloop" value="" />
+        <assign property="object:USERNAME/input.text" value="[preferences:username]" />
+		<assign property="preferences:password" value="" />
+		<assign property="preferences:token" value="" />
+		<assign property="preferences:contractorId" value="" />
+		<assign property="preferences:contractorType" value="" />
+		<assign property="preferences:trueSlate" value="" />
+		<assign property="httpheader:get.Token" value="" />
+		<assign property="httpheader:get.ContractorId" value="" />
+		<assign property="var:db-action" value="delete" />
+		<assign property="datasource:customersdb.query" value="DELETE FROM CUSTOMERS;" />
+		<assign property="datasource:inspectiondb.query" value="DELETE FROM INSPECTION;" />
+		<assign property="datasource:roofareasdb.query" value="DELETE FROM ROOFAREAS;" />
+		<assign property="datasource:wastedb.query" value="DELETE FROM WASTE;" />
+		<assign property="datasource:ridgesdb.query" value="DELETE FROM RIDGES;" />
+		<assign property="datasource:hipsdb.query" value="DELETE FROM HIPS;" />
+		<assign property="datasource:valleysdb.query" value="DELETE FROM VALLEYS;" />
+		<assign property="datasource:rakesdb.query" value="DELETE FROM RAKES;" />
+		<assign property="datasource:eavesdb.query" value="DELETE FROM EAVES;" />
+		<assign property="datasource:protrusionsdb.query" value="DELETE FROM PROTRUSIONS;" />
+		<assign property="datasource:ventsdb.query" value="DELETE FROM VENTS;" />
+		<assign property="datasource:photosdb.query" value="DELETE FROM PHOTOS;" />
+		<assign property="datasource:productsdb.query" value="DELETE FROM PRODUCTS;" />
+		<assign property="datasource:accessoriesdb.query" value="DELETE FROM ACCESSORIES;" />
+		<assign property="datasource:tearoffdb.query" value="DELETE FROM TEAROFF;" />
+		<assign property="datasource:assetprotectiondb.query" value="DELETE FROM PROTECTION;" />
+		<assign property="datasource:adjustmentsdb.query" value="DELETE FROM ADJUSTMENTS;" />
+    </action>
+
     <!-- !curtain action -->
     <action name="clearcurtain">
       <alpha value="1" target="CURTAIN" />
