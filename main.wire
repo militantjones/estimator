@@ -755,12 +755,12 @@
     
     <!-- !product classes -->
 	<class name="product-pager" >
-		<pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no" background="#ff0000" >
+		<pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no" >
 		</pager>
 	</class>
 
 	<class name="product-family">
-		<panel name="category[panel:index]" width="100%" height="100" background="#00ff00" >
+		<panel name="category[panel:index]" width="100%" height="100" padding-left="20" padding-right="20">
 			<panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
 			<text name="cat" width="100%" height="fit" topof="divider" font="Futura-Medium" color="#343434" size="35" alignment="left" text="[param:category]"></text>
 		</panel>
@@ -798,7 +798,7 @@
     <class name="shingle-single">
       
       <!--one column-->
-        <panel name="[param:index]" width="100%" height="213" >
+        <panel name="[param:index]" width="100%" height="213" padding-left="20" padding-right="20">
           <panel name="col1" width="217" height="100%" >
             <text name="name" width="100%" height="30" style="darktext" size="20" alignment="left" text="[datasource:getProducts.[param:index].ProductName]"></text>
             <panel name="imgholder" width="108" height="108" bottomof="name" background="#000000">
@@ -809,7 +809,7 @@
               <object class="button" name="test" size="20" label="Select" action="selectshingle" value="[datasource:getProducts.[param:index].ProductId]" />
             </panel>
           </panel>
-          <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
+<!--           <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel> -->
         </panel>
     </class><!-- <object class="shingles"  /> -->
     
@@ -933,7 +933,7 @@
     
     <class name="accessories">
       <!--two column-->
-      <panel name="[param:index]" width="100%" fitheight="yes" >
+      <panel name="[param:index]" width="100%" fitheight="yes" padding-left="20" padding-right="20">
         <panel name="accessoriesrow1" width="100%" height="237" >
           <!--<text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="20" alignment="left" text="Shingle Group"></text>-->
           <panel name="col1" width="217" height="100%" >
@@ -1894,7 +1894,7 @@
       
       <!-- !header -->
       <panel name="header" alias="HEADER" width="100%" height="74" padding-right="10" alpha="1" background="#bfbfbf">
-        <image name="logo" source="images/logo.png" width="53" xpos="10" valign="center"></image>
+        <image name="logo" source="images/logo.png" height="48" xpos="10" valign="center"></image>
         <panel name="profile" width="50%" height="100%" align="right" onclickup="profiledrop">
           <!--<image name="avatar" source="images/avatar.png" width="36" align="left" valign="center"></image>-->
           <panel name="logout" width="50" height="100%" align="right" onclickup="logout">
@@ -2744,7 +2744,7 @@
           <if lhs="[var:product]" operator="e" rhs="">
 <!-- 			<alert message="get-products preferences:token is [preferences:token] preferences:contractorId is [preferences:contractorId]" /> -->
 			      <assign property="datasource:getProducts.source" value="https://162.209.101.177/api/GetProducts?AppSource=1" />
-            <play action="sidebar-products" _alias="SHINGLES" _form="Shingles" />
+<!--             <play action="sidebar-products" _alias="SHINGLES" _form="Shingles" /> -->
           </if>
         </if>
         <if lhs="_this" operator="e" rhs="SERVICES">
@@ -3696,28 +3696,28 @@
 		</action>
 		<action name="prep-products" >
 			<assign property="var:currentCategory" value="[datasource:getProducts.[var:productIterateCount].ProductFamily]" />
-			<alert message="prep-products var:currentCategory is [var:currentCategory] var:productIterateCount is [var:productIterateCount] var:productCount is [var:productCount]" />
+<!-- 			<alert message="prep-products var:currentCategory is [var:currentCategory] var:productIterateCount is [var:productIterateCount] var:productCount is [var:productCount]" /> -->
 			<if lhs="[var:productIterateCount]" operator="lte" rhs="[var:productCount]">
 				<if lhs="[var:productIterateCount]" operator="lt" rhs="[var:productCount]">
 					<if lhs="[eval:[var:productIterateCount]+1]" operator="e" rhs="[var:productCount]">
-						<alert message="creating last two" />
+<!-- 						<alert message="creating last two" /> -->
 						<create class="shingles" index="[var:productIterateCount]" target="PRODUCT-PAGER-BOX/pager" />
 						<play action="sidebar-products" _alias="SHINGLES" _form="Shingles" />
 						<else>
-							<alert message="hi" />
+<!-- 							<alert message="hi" /> -->
 							<if lhs="[eval:('[datasource:getProducts.[var:productIterateCount].ProductFamily]' == '[var:currentCategory]') &amp;&amp; ('[datasource:getProducts.[eval:[var:productIterateCount]+1].ProductFamily]' == '[var:currentCategory]')]" operator="e" rhs="true">
-								<alert message="creating two" />
+<!-- 								<alert message="creating two" /> -->
 								<play action="create-two" />
 							</if>
 							<if lhs="[eval:('[datasource:getProducts.[var:productIterateCount].ProductFamily]' == '[var:currentCategory]') &amp;&amp; ('[datasource:getProducts.[eval:[var:productIterateCount]+1].ProductFamily]' != '[var:currentCategory]')]" operator="e" rhs="true">
-								<alert message="creating one" />
+<!-- 								<alert message="creating one" /> -->
 								<play action="create-one" />
 							</if>
 						</else>
 					</if>
 				</if>
 				<if lhs="[var:productIterateCount]" operator="e" rhs="[var:productCount]">
-					<alert message="creating last one" />
+<!-- 					<alert message="creating last one" /> -->
 					<create class="shingle-single" index="[var:productIterateCount]" target="PRODUCT-PAGER-BOX/pager" />
 					<play action="sidebar-products" _alias="SHINGLES" _form="Shingles" />
 				</if>
