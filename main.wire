@@ -96,7 +96,7 @@
 	<!-- !TEXTTEMPLATES -->
 	<texttemplate name="login"><![CDATA[{"UserName":"[var:username]","Password":"[var:password]"}]]></texttemplate>
 	<texttemplate name="createCustomer"><![CDATA[
-	{"Token":"[preferences:token]","ContractorId":"[preferences:contractorId]","CustomerDetails":{"CustomerFirstName":"[var:firstName]","CustomerMiddleName":"[var:middleName]","CustomerLastName":"[var:lastName]","Address1":"[var:address1]","Address2":"[var:address2]","City":"[var:city]","StateProvince":"[var:state]","PostalCode":"[var:postalCode]","Country":"[var:country]","Notes":"[var:notes]"}}
+	{"CustomerFirstName":"[var:firstName]","CustomerMiddleName":"[var:middleName]","CustomerLastName":"[var:lastName]","Address1":"[var:address1]","Address2":"[var:address2]","City":"[var:city]","StateProvince":"[var:state]","PostalCode":"[var:postalCode]","Country":"[var:country]","Notes":"[var:notes]"}
 	]]></texttemplate>
 	<texttemplate name="roofMeasurements"><![CDATA[
 		{"Field":"[eval:[var:roofMeasurementsIterateCount]-1]","Length":"[datasource:roofareasdb-list.[var:roofMeasurementsIterateCount].LENGTH]","Width":"[datasource:roofareasdb-list.[var:roofMeasurementsIterateCount].WIDTH]","Pitch":"[datasource:roofareasdb-list.[var:roofMeasurementsIterateCount].SLOPE]"}
@@ -123,7 +123,7 @@
 		{"Order":"[eval:[var:plumbingVentsIterateCount]-1]","Type":"[datasource:ventsdb-list.[var:plumbingVentsIterateCount].SIZE]"}
 	]]></texttemplate>
 	<texttemplate name="measurementsJSON"><![CDATA[
-		{"CustomerId":28,"Measurements":{"MeasurementId":1,"ExistingRoofType":"[var:existingRoofType]","NumberOfFloors":[var:numberOfFloors],[var:roofMeasurementsObject],"WasteFactor":"[var:wasteFactor]",[var:ridgeMeasurementsObject],[var:hipsObject],[var:valleysObject],[var:rakesObject],[var:eavesObject],[var:skylightsObject],[var:plumbingVentsObject]}}
+		{"CustomerId":[var:customerId],"Measurements":{"MeasurementId":1,"ExistingRoofType":"[var:existingRoofType]","NumberOfFloors":[var:numberOfFloors],[var:roofMeasurementsObject],"WasteFactor":"[var:wasteFactor]",[var:ridgeMeasurementsObject],[var:hipsObject],[var:valleysObject],[var:rakesObject],[var:eavesObject],[var:skylightsObject],[var:plumbingVentsObject]}}
 	]]></texttemplate>
 	<texttemplate name="accessories"><![CDATA[
 		{"AccessoryId":"[datasource:accessoriesdb-list.[var:accessoriesIterateCount].ACCESSORY]","Quantity":"[datasource:accessoriesdb-list.[var:accessoriesIterateCount].QUANTITY]"}
@@ -132,7 +132,7 @@
 		{"PriceAjustmentsId":"[eval:[var:adjustmentsIterateCount]-1]","Description":"[datasource:adjustmentsdb-list.[var:adjustmentsIterateCount].NOTES]","Price":"[eval:'[datasource:adjustmentsdb-list.[var:adjustmentsIterateCount].TYPE]' == 'Discount' ? '-':''][datasource:adjustmentsdb-list.[var:adjustmentsIterateCount].AMOUNT]"}
 	]]></texttemplate>
 	<texttemplate name="estimateJSON"><![CDATA[
-		{"customerId":"28","productId":"[var:shingle]","warrantyId":"[var:warranty]",[var:accessoriesObject],[var:adjustmentsObject],"AdditionalCost":{"TearOffLayers":[var:tearOffLayers],"TearOffType":"[var:tearOffType]","NumberOfStories":[var:numberOfFloors]}}
+		{"customerId":"[var:customerId]","productId":"[var:shingle]","warrantyId":"[var:warranty]",[var:accessoriesObject],[var:adjustmentsObject],"AdditionalCost":{"TearOffLayers":[var:tearOffLayers],"TearOffType":"[var:tearOffType]","NumberOfStories":[var:numberOfFloors]}}
 	]]></texttemplate>
 
   </datasources>
@@ -157,7 +157,7 @@
   <classes>
     
     <class name="button">
-      <panel name="[param:name]" width="100%" height="100%" onclick="touched" onclickup="[param:action]" _value="[param:value]" _accessories="[param:accessories]" _image="[param:image]" cornerradius="2" clip="yes">
+      <panel name="[param:name]" width="100%" height="100%" onclick="touched" onclickup="[param:action]" _value="[param:value]" _accessories="[param:accessories]" _image="[param:image]" _title="[param:title]" cornerradius="2" clip="yes">
         <text name="button" style="button" size="[param:size]" text="[param:label]"></text>
         <panel name="bg" style="100" background="ffffff" alpha="0"></panel>
       </panel>
@@ -199,7 +199,7 @@
     </class>
     
     <class name="state">
-      <panel name="state[param:index]" width="100%" height="40" _abbr="[param:abbr]" _state="[param:name]" onclickup="setstate">
+      <panel name="state[param:index]" width="100%" height="40" _abbr="[param:abbr]" _state="[param:name]" _code="[param:code]" onclickup="setstate">
         <text name="name" width="100%" height="100%" style="darktext" size="18" alignment="center" text="[param:name]"></text>
         <panel name="border" width="100%" height="1" valign="bottom" background="#888888"></panel>
       </panel>
@@ -294,16 +294,16 @@
       </panel><!-- end of choice -->
     </class>
     
-    <!-- !search refults -->
+    <!-- !search results -->
     <class name="searchresult">
       <panel name="result-item[param:index]" width="100%" height="100">
         <text name="name" width="65%" height="30" xpos="20" ypos="20" style="darktext" size="24" alignment="left" text="[param:lastname], [param:firstname]" ></text>
         <text name="address" width="65%" height="30" xpos="20" bottomof="name" style="darktext" size="20" alignment="left" text="[param:street], [param:city], [param:state] [param:zip]" ></text>
         <panel name="edit-btn" width="100" height="50" ypos="22" align="right" bottomof="search-address" margin-right="20">
-          <object class="button" name="test" size="20" label="Edit" action="edit" value="" />
+          <object class="button" name="test" size="20" label="Edit" action="edit" value="[param:customerId]" />
         </panel>
         <panel name="view-btn" width="100" height="50" ypos="22" leftof="edit-btn" margin-right="20" bottomof="search-address">
-          <object class="button" name="test" size="20" label="View" action="viewestimate" value="" />
+          <object class="button" name="test" size="20" label="View" action="viewestimate" value="[param:estimatePdf]" />
         </panel>
         <panel name="divider" width="728" height="5" align="center" valign="bottom" background="#343434"></panel>
       </panel>
@@ -316,7 +316,7 @@
           <text name="close" width="100" height="100%" color="#ffffff" font="Futura-Medium" size="20" alignment="left" leftinset="20" text="Close" onclickup="closeresults" clickuptarget="CONTAINER"></text>
         </panel>
         <list name="resultlist" width="100%" height="[eval: [object:SEARCHRESULTS.height] - 74]" datasource="getEstimate" ypos="74" orientation="vertical" paginate="no">
-          <object class="searchresult" index="1" lastname="[ds:CustomerLastName]" firstname="[ds:CustomerFirstName]" street="[ds:Address1]" city="[ds:City]" state="[ds:StateProvince]" zip="[ds:PostalCode]" />
+          <object class="searchresult" index="1" lastname="[ds:CustomerLastName]" firstname="[ds:CustomerFirstName]" street="[ds:Address1]" city="[ds:City]" state="[ds:StateProvince]" zip="[ds:PostalCode]" estimateId="test" customerId="[ds:CustomerId]" />
         </list>
       </panel>
     </class>
@@ -888,7 +888,7 @@
         <text name="subtitle" width="[eval: [object:WARRANTY-PAGER-BOX.width] - 95]" height="66" font="Futura-Medium" color="#343434" size="fit" maxsize="25" alignment="left" text="[param:title]"></text>
         <!--<text name="bullet1" width="307" height="fit" xpos="20" bottomof="subtitle" style="darktext" size="15" alignment="left" text="Sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus."></text>-->
         <panel name="warranty-btn" width="108" height="50" align="right" ypos="8">
-          <object class="button" name="test" size="20" label="Select" action="selectwarranty" value="[param:warrantyId]" accessories="[param:accessories]"/>
+          <object class="button" name="test" size="20" label="Select" action="selectwarranty" value="[param:warrantyId]" accessories="[param:accessories]" title="[param:title]"/>
         </panel>
         <panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
       </panel>
@@ -896,13 +896,14 @@
     
 	<class name="accessory-category">
 		<panel name="category[panel:index]" width="100%" height="100">
-			<text name="cat" width="100%" height="fit" font="Futura-Medium" color="#343434" size="35" alignment="left" text="[param:category]"></text>
+			<panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
+			<text name="cat" width="100%" height="fit" topof="divider" font="Futura-Medium" color="#343434" size="35" alignment="left" text="[param:category]"></text>
 		</panel>
 	</class>
 
     <class name="accessory">
       <panel name="accessory[param:index]" width="100%" height="71">
-        <text name="subtitle" width="[eval: [object:ACCESSORIES-PAGER-BOX.width] - 95]" height="66" font="Futura-Medium" color="#343434" size="fit" maxsize="25" alignment="left" text="[param:title]"></text>
+        <text name="subtitle" width="[eval: [object:ACCESSORIES-PAGER-BOX.width] - 128]" height="66" font="Futura-Medium" color="#343434" size="fit" maxsize="25" alignment="left" text="[param:title]"></text>
         <!--<text name="bullet1" width="307" height="fit" xpos="20" bottomof="subtitle" style="darktext" size="15" alignment="left" text="Sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus."></text>-->
         <panel name="warranty-btn" width="108" height="50" align="right" ypos="8">
           <object class="button" name="test" size="20" label="Select" action="selectaccessories" value="[param:index]" />
@@ -1213,10 +1214,9 @@
         <text name="subtitle2" width="50%" height="40" xpos="50%" font="Futura-Medium" color="#343434" size="25" alignment="left" text="Warranty"></text>
         <panel name="col1" width="50%" height="150" ypos="45">
           <panel name="shingletile" width="150" height="100%" background="#000000">
-            <image name="swatch" url="[param:swatch]" width="100%"></image>
+            <image name="swatch" url="[param:swatch]?w=300&amp;h=300" width="100%"></image>
           </panel>
-          <text name="shingle-type" width="200" height="30" xpos="160" style="darktext" size="20" alignment="left" text="[param:name]"></text>
-          <text name="shingle-color" width="200" height="30" xpos="160" bottomof="shingle-type" style="darktext" size="20" alignment="left" text="[param:color]"></text>
+          <text name="shingle-color" width="200" height="fit" xpos="160" style="darktext" size="20" alignment="left" text="[param:color]"></text>
         </panel>
         <panel name="col2" width="50%" height="150" ypos="45" xpos="50%">
           <text name="warranty" width="100%" height="fit" style="darktext" size="20" alignment="left" text="[param:warranty]"></text>
@@ -1224,6 +1224,26 @@
         <panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
       </panel> <!--<object class="summary-products" swatch="" name="" color="" warranty=""  />-->
     </class>
+    
+    <class name="summary-services">
+      <panel name="summary-services" alias="SUMMARY-SERVICES" width="100%" height="192">
+        <text name="subtitle" width="100%" height="40" font="Futura-Medium" color="#343434" size="25" alignment="left" text="Services"></text>
+        <panel name="col1" width="50%" height="90" ypos="45">
+          <text name="tearoff-label" width="100%" height="30" style="darktext" size="20" alignment="left" text="Tear Off"></text>
+          <text name="layers" width="100%" height="20" bottomof="tearoff-label" size="15" alignment="left" text="Layers: [param:layers]"></text>
+          <text name="type" width="100%" height="20" bottomof="layers" size="15" alignment="left" text="Type: [param:type]"></text>
+          <!--<text name="difficulty" width="100%" height="20" bottomof="type" size="15" alignment="left" text="Difficulty: Hard"></text>-->
+        </panel>
+        <panel name="col2" width="50%" height="90" ypos="45" xpos="50%">
+          <text name="assetprotection" width="100%" height="fit" style="darktext" size="20" alignment="left" text="Asset Protection"></text>
+          <text name="landscape" width="100%" height="20" bottomof="assetprotection" size="15" alignment="left" text="Landscaping: [param:landscape]"></text>
+          <text name="hardscape" width="100%" height="20" bottomof="landscape" size="15" alignment="left" text="Hardscaping: [param:hardscape]"></text>
+          <text name="hvac" width="100%" height="20" bottomof="hardscape" size="15" alignment="left" text="HVAC: [param:hvac]"></text>
+          <text name="pool" width="100%" height="20" bottomof="hvac" size="15" alignment="left" text="Pool: [param:pool]"></text>
+          <text name="misc" width="100%" height="20" bottomof="pool" size="15" alignment="left" text="Misc: [param:misc]"></text>
+        </panel>
+      </panel>
+    </class> <!--<object class="summary-services" layers="" type="" landscape="" hardscape="" hvac="" pool="" misc="" />-->
     
     <!-- !camera classes -->
     <class name="camera-view">
@@ -1334,7 +1354,7 @@
                 </panel>
                 <panel name="cust1-email" alias="CUST1-EMAIL" width="100%" height="50" align="left" bottomof="CUST1-FNAME" margin-top="10" style="textinput">
                   <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
-                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Email" onreturnkeypressed="next" returnkeytype="next" _next="CUST1-PHONE" _action="null" kbtype="emailaddress" ></textfield>
+                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Email" onreturnkeypressed="next" returnkeytype="next" _next="CUST1-PHONE" _action="null" kbtype="emailaddress" autocorrect="no" ></textfield>
                   <panel name="active" style="100" onclickup="labelactive" _field="CUST1-EMAIL"></panel>
                 </panel>
               </panel>
@@ -1363,7 +1383,7 @@
                 </panel>
                 <panel name="cust2-email" alias="CUST2-EMAIL" width="100%" height="50" align="left" bottomof="CUST2-FNAME" margin-top="10" style="textinput">
                   <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
-                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Email" onreturnkeypressed="next" returnkeytype="next" _next="CUST2-PHONE" _action="null" kbtype="emailaddress" ></textfield>
+                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Email" onreturnkeypressed="next" returnkeytype="next" _next="CUST2-PHONE" _action="null" kbtype="emailaddress" autocorrect="no" ></textfield>
                   <panel name="active" style="100" onclickup="labelactive" _field="CUST2-EMAIL"></panel>
                 </panel>
               </panel>
@@ -1438,7 +1458,7 @@
                   <text name="drophead" width="100%" height="30" style="lighttext" size="18" alignment="center" text="States"></text>
                   <panel name="border" width="100%" height="1" background="#888888" ypos="30"></panel>
                   <list name="statelist" width="100%" height="200" ypos="30" datasource="states" orientation="vertical" paginate="no">
-                    <object class="state" index="[param:dataSourceIndex]" abbr="[param:code]" name="[param:name]" />
+                    <object class="state" index="[param:dataSourceIndex]" abbr="[param:code]" name="[param:name]"/>
                   </list>
                 </panel>
                 <panel name="provinceslist" alias="PROVINCESLIST" width="100%" height="100%" alpha="0">
@@ -1852,13 +1872,13 @@
       <panel name="navblock" alias="NAVBLOCK" width="100%" height="53" ypos="74" xpos="101%"></panel>
       
       <!-- !header -->
-      <panel name="header" width="100%" height="74" padding-right="10" alpha="1" >
-        <image name="logo" source="images/logo.png" height="48" xpos="10" valign="center"></image>
+      <panel name="header" alias="HEADER" width="100%" height="74" padding-right="10" alpha="1" >
+        <image name="logo" source="images/logo.png" width="53" xpos="10" valign="center"></image>
         <panel name="profile" width="50%" height="100%" align="right" onclickup="profiledrop">
           <!--<image name="avatar" source="images/avatar.png" width="36" align="left" valign="center"></image>-->
           <image name="down" source="images/header-down.png" width="29" align="right" valign="center"></image>
           <text name="welcome" width="130" height="16" xpos="46" ypos="15" leftof="down" margin-right="10" style="darktext" size="15" alignment="right" text="Welcome,"></text>
-          <text name="username" width="160" height="20" xpos="46" bottomof="welcome" margin-top="5" leftof="down" margin-right="10" style="darktext" size="15" alignment="right" text="Hingle McCringleberry"></text>
+          <text name="username" width="200" height="20" xpos="46" bottomof="welcome" margin-top="5" leftof="down" margin-right="10" style="darktext" size="15" alignment="right" text="Hingle McCringleberry"></text>
           
         </panel>
       </panel>
@@ -1983,7 +2003,7 @@
         </panel>
       </panel>
       
-      <panel name="accessorylist" alias="ACCESSORYLIST" width="90%" height="70%" alpha="0" align="center" ypos="18%" background="#e3e3e3" onclickup="accessorydismiss" borderwidth="2" bordercolor="#343434" shadowradius="3" shadowxoffset="0" shadowyoffset="0" shadowopacity=".3">
+      <panel name="accessorylist" alias="ACCESSORYLIST" width="60%" height="40%" alpha="0" align="center" ypos="18%" background="#e3e3e3" onclickup="accessorydismiss" borderwidth="2" bordercolor="#343434" shadowradius="3" shadowxoffset="0" shadowyoffset="0" shadowopacity=".3">
         <text name="label" width="100%" height="80" leftinset="20" background="#343434" color="#ffffff" font="Futura-Medium" size="40" alignment="left" text="Select an Accessory"></text>
         <text name="accessorytype" width="100%" height="60" bottomof="label" style="darktext" leftinset="20" size="30" alignment="left" text="Ventilation"></text>
         <panel name="inner" width="100%" height="[eval: [object:ACCESSORYLIST.height] - 150]" ypos="150" padding-left="20" padding-right="20" padding-bottom="20" >
@@ -1991,15 +2011,15 @@
             <panel name="acessory1" width="100%" fitheight="yes" >
               <text name="item" width="100%" height="fit" style="darktext" size="25" alignment="left" text="Example product"></text>
               <text name="description" width="100%" height="fit" bottomof="item" style="darktext" size="20" alignment="left" text="Maecenas sed diam eget risus varius blandit sit amet non magna. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit."></text>
+              <panel name="accessoryquantity" alias="ACCESSORYQUANTITY" width="200" height="50" style="textinput" bottomof="description" margin-top="20"  >
+                <panel name="bg" style="100" background="f3f3f3" alpha="1"></panel>
+                <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Quantity"></text>
+                <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null"></textfield>
+                <panel name="active" style="100" onclickup="labelactive" _field="ACCESSORYQUANTITY"></panel>
+              </panel>
               <panel name="create" width="110" height="50" align="right" bottomof="description" margin-top="20">
                 <object class="button" name="test" size="20" label="Select" action="selectaccessory" value="product id" />
               </panel>
-	          <panel name="accessoryquantity" alias="ACCESSORYQUANTITY" width="200" height="50" style="textinput" leftof="create" bottomof="description" margin-right="25" >
-	            <panel name="bg" style="100" background="f3f3f3" alpha="1"></panel>
-	            <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Quantity"></text>
-	            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null"></textfield>
-	            <panel name="active" style="100" onclickup="labelactive" _field="ACCESSORYQUANTITY"></panel>
-	          </panel>
             </panel>
           </pager>
         </panel>
@@ -2024,8 +2044,11 @@
       <assign property="var:prevfield" value="0" />
       <assign property="var:nav" value="CUSTOMER" />
       <if lhs="[preferences:remember]" operator="e" rhs="yes">
-		<assign property="object:USERNAME/input.text" value="[preferences:username]" />
-		<assign property="object:PASSWORD/input.text" value="[preferences:password]" />
+        <assign property="var:username" value="[preferences:username]" />
+        <assign property="var:password" value="[preferences:password]" />
+		<assign property="object:HEADER/profile/username.text" value="[preferences:username]" />
+        <assign property="datasource:login.postContent" value="[template:login.content]" />
+        <assign property="datasource:login.source" value="https://162.209.101.177/api/AuthenticateUser" />
         <alpha value="1" time=".1" target="REMEMBER/check" />
         <set onclickup="checkoff" target="REMEMER" />
       </if>
@@ -2223,7 +2246,7 @@
 			<assign property="preferences:trueSlate" value="[datasource:login.1.TrueSlate]" />
 			<assign property="httpheader:token-contractorid.Token" value="[preferences:token]" />
 			<assign property="httpheader:token-contractorid.ContractorId" value="[preferences:contractorId]" />
-            
+			<assign property="object:HEADER/profile/username.text" value="[preferences:username]" />
             <create class="choice" target="CONTAINER" />
             <alpha value="1" time=".3" target="CHOICE" />
             <alpha value="0" time=".3" target="SIGNIN" />
@@ -2275,24 +2298,31 @@
 		<keyboard visible="no" target="SEARCH-ADDRESS/input" />
         <create class="results" target="CONTAINER" />
         <translate ypos="0" time=".25" curve="easeout" target="SEARCHRESULTS" />
-        <alert message="get-estimate preferences:token is [preferences:token] preferences:contractorId is [preferences:contractorId] url is https://162.209.101.177/api/GetCustomerEstimate?customerLastName=[var:lastName]&amp;address1=[var:address1]&amp;city=[var:city]&amp;stateProvince=[var:state]&amp;postalCode=[var:postalCode]&amp;country=[var:country]" />
+<!--         <alert message="get-estimate preferences:token is [preferences:token] preferences:contractorId is [preferences:contractorId] url is https://162.209.101.177/api/GetCustomerEstimate?customerLastName=[var:lastName]&amp;address1=[var:address1]&amp;city=[var:city]&amp;stateProvince=[var:state]&amp;postalCode=[var:postalCode]&amp;country=[var:country]" /> -->
 		<if lhs="[eval: ('[object:SEARCH-LASTNAME/input.text]' != '' ) &amp;&amp; ('[object:SEARCH-ADDRESS/input.text]' != '')]" operator="e" rhs="true">
-			<alert message="search by both" />
+<!-- 			<alert message="search by both" /> -->
         	<assign property="datasource:getEstimate.source" value="https://162.209.101.177/api/GetCustomerEstimate?CustomerLastName=[object:SEARCH-LASTNAME/input.text]" />
 		</if>
 		<if lhs="[eval: ('[object:SEARCH-LASTNAME/input.text]' != '' ) &amp;&amp; ('[object:SEARCH-ADDRESS/input.text]' == '')]" operator="e" rhs="true">
-			<alert message="search by last name" />
+<!-- 			<alert message="search by last name" /> -->
 	        <assign property="datasource:getEstimate.source" value="https://162.209.101.177/api/GetCustomerEstimate?CustomerLastName=[object:SEARCH-LASTNAME/input.text]" />
 		</if>
 		<if lhs="[eval: ('[object:SEARCH-LASTNAME/input.text]' == '' ) &amp;&amp; ('[object:SEARCH-ADDRESS/input.text]' != '')]" operator="e" rhs="true">
-			<alert message="search by address" />
+<!-- 			<alert message="search by address" /> -->
         	<assign property="datasource:getEstimate.source" value="https://162.209.101.177/api/GetCustomerEstimate?CustomerLastName=[object:SEARCH-LASTNAME/input.text]&amp;address1=[object:SEARCH-ADDRESS/input.text]" />
 		</if>
       </sync>
     </action>
     
     <action name="get-estimate-complete" datasource="getEstimate" datasourceevent="querycomplete" >
-      <alert message="get-estimate-complete count [datasource:getEstimate.dataSourceResultCount] content [datasource:getEstimate.0.content]" />
+		<if lhs="[var:customerAction]" operator="e" rhs="create">
+<!-- 			<alert message="search after customer creation done [datasource:getEstimate.0.content]" /> -->
+			<assign property="var:customerId" value="[datasource:getEstimate.1.CustomerId]" />
+			<play action="finish-customer-create" />
+			<else>
+				<alert message="get-estimate-complete search results count [datasource:getEstimate.dataSourceResultCount] content [datasource:getEstimate.0.content]" />
+			</else>
+		</if>
     </action>
     
     <action name="get-estimate-error" datasource="getEstimate" datasourceevent="datasourceerror" >
@@ -2308,12 +2338,12 @@
     
     <action name="viewestimate">
       <play action="released" />
-      <alert message="view estimate" />
+	  <alert message="viewestimate estimatePdf is _value" />
     </action>
     
     <action name="edit">
       <play action="released" />
-      <alert message="edit" />
+	  <alert message="edit customer customerId is _value" />
     </action>
     
     <!-- ! create actions -->
@@ -2712,7 +2742,12 @@
         <if lhs="_this" operator="e" rhs="SUMMARY">
           <play action="summarycalc" />
           <create class="summary-cust" target="SUMMARY-PAGER" cust1name="[datasource:customersdb-list.1.FNAME] [datasource:customersdb-list.1.LNAME]" cust1phone="[datasource:customersdb-list.1.PHONE]" cust1email="[datasource:customersdb-list.1.EMAIL]" cust2name="[datasource:customersdb-list.1.FNAME2] [datasource:customersdb-list.1.LNAME2]" cust2phone="[datasource:customersdb-list.1.PHONE2]" cust2email="[datasource:customersdb-list.1.EMAIL2]" street="[datasource:customersdb-list.1.STREET]" city="[datasource:customersdb-list.1.CITY]" state="[datasource:customersdb-list.1.STATE]" zip="[datasource:customersdb-list.1.POSTAL]"  />
-          
+        </if>
+        <if lhs="[var:navwas]" operator="e" rhs="SUMMARY">
+          <delete target="SUMMARY-CUSTOMER" />
+          <delete target="SUMMARY-ROOF" />
+          <delete target="SUMMARY-PRODUCTS" />
+          <delete target="SUMMARY-SERVICES" />
         </if>
         <assign property="var:navwas" value="_this" />
       </sync>
@@ -2726,14 +2761,35 @@
           <alert title="total area" message="[var:totalarea]" />
         </loop>
         <assign property="var:squarestotal" value="[eval: [var:totalarea] / 100 ]" />
-        <alert title="total squares needed" message="[var:squarestotal]" />
+        <!--<alert title="total squares needed" message="[var:squarestotal]" />
         <alert title="ridges total" message="[var:ridgestotal]" />
         <alert title="hips total" message="[var:hipstotal]" />
         <alert title="rakes total" message="[var:rakestotal]" />
         <alert title="eaves total" message="[var:eavestotal]" />
-        <alert title="valleys total" message="[var:valleystotal]" />
-        
+        <alert title="valleys total" message="[var:valleystotal]" />-->
         <create class="summary-roof" target="SUMMARY-PAGER" area="[var:totalarea]" squares="[var:squarestotal]" ridges="[var:ridgestotal]" hips="[var:hipstotal]" rakes="[var:rakestotal]" eaves="[var:eavestotal]" valleys="[var:valleystotal]"  />
+        <play action="summaryproducts" />
+      </sync>
+    </action>
+    
+    <action name="summaryproducts">
+      <sync>
+        <create target="SUMMARY-PAGER" class="summary-products" swatch="[datasource:productsdb-list.1.IMAGE]" color="[datasource:productsdb-list.1.COLOR]" warranty="[var:warrantyname]" />
+        <play action="summaryaccessories" />
+      </sync>
+    </action>
+    
+    <action name="summaryaccessories">
+      <sync>
+<!--         <alert message="summary accessories" /> -->
+        <play action="summaryservices" />
+      </sync>
+    </action>
+    
+    <action name="summaryservices">
+      <sync>
+<!--         <alert message="summary services" /> -->
+        <create target="SUMMARY-PAGER" class="summary-services" layers="[datasource:tearoffdb-list.1.LAYERS]" type="[datasource:tearoffdb-list.1.MATERIAL]" landscape="[datasource:assetprotectiondb-list.1.LANDSCAPING]" hardscape="[datasource:assetprotectiondb-list.1.HARDSCAPING]" hvac="[datasource:assetprotectiondb-list.1.HVAC]" pool="[datasource:assetprotectiondb-list.1.POOL]" misc="[datasource:assetprotectiondb-list.1.MISC]"  />
       </sync>
     </action>
     
@@ -2744,8 +2800,10 @@
     <action name="savedPRODUCTS"></action>
     
     <action name="savedSERVICES">
+<!--
       <alert title="tear off" message="tear off:[var:tearoff] [object:LAYERS/input.text] [object:TYPE/input.text]" />
       <alert title="asset protection" message="landscaping:[var:landscaping] hardscaping:[var:hardscaping] hvac:[var:hvac] pool:[var:pool] misc[var:misc]" />
+-->
       <assign property="datasource:tearoffdb.query" value="INSERT INTO TEAROFF (TEAROFF, LAYERS, MATERIAL) VALUES ('[var:tearoff]', '[object:LAYERS/input.text]', '[object:TYPE/input.text]');" />
       <assign property="datasource:assetprotectiondb.query" value="INSERT INTO PROTECTION (LANDSCAPING, HARDSCAPING, HVAC, POOL, MISC) VALUES ('[var:landscaping]', '[var:hardscaping]', '[var:hvac]', '[var:pool]', '[var:misc]');" />
     </action>
@@ -2791,22 +2849,6 @@
      <!-- !customer actions -->
     <action name="saveCustomer">
       <sync>
-        <play action="released" />
-        <translate ypos="101%" time=".1" curve="linear" target="NAV-CUSTOMER/sel" />
-        <assign property="var:roofarrow" value="Inspection" />
-        <translate align="right" time=".1" curve="linear" target="ROOF-SIDEBAR-PAGER/[var:roofarrow]/arrow" />
-        <assign property="var:roof" value="INSPECTION" />
-        <translate valign="bottom" time=".1" curve="linear" target="NAV-ROOF/sel" />
-        <alpha value="1" target="ROOF-INSPECTION" />
-      </sync>
-      <sync>
-        <translate xpos="0" curve="linear" target="NAVBLOCK" />
-        <alpha value="0" time=".2" target="CUSTOMER" />
-        <alpha value="1" time=".2" target="ROOF" />
-        <assign property="var:nav" value="ROOF" />
-        <translate xpos="101%" curve="linear" target="NAVBLOCK" />
-      </sync>
-      <sync>
 	  	<assign property="var:db-action" value="save" />
         <assign property="datasource:customersdb.query" value="INSERT INTO CUSTOMERS (FNAME,LNAME,EMAIL,PHONE,FNAME2,LNAME2,EMAIL2,PHONE2,COUNTRY,STREET,CITY,STATE,POSTAL,NOTES) values ('[object:CUST1-FNAME/input.text]', '[object:CUST1-LNAME/input.text]', '[object:CUST1-EMAIL/input.text]', '[object:CUST1-PHONE/input.text]', '[object:CUST2-FNAME/input.text]', '[object:CUST2-LNAME/input.text]', '[object:CUST2-EMAIL/input.text]', '[object:CUST2-PHONE/input.text]', '[var:country]', '[object:STREET/input.text]', '[object:CITY/input.text]', '[object:STATE/input.text]', '[object:ZIP/input.text]', '[object:NOTES/input.text]');" />
       </sync>
@@ -2814,34 +2856,56 @@
 
 	<action name="customersdone" datasource="customersdb" datasourceevent="querycomplete" >
 <!-- 		<alert message="customer saved" /> -->
-        <assign property="datasource:customersdb-list.query" value="SELECT * FROM CUSTOMERS" />
+        <assign property="datasource:customersdb-list.query" value="SELECT * FROM CUSTOMERS ORDER BY ID DESC;" />
 	</action>
 
     <action name="customercount" datasourceevent="querycomplete" datasource="customersdb-list">
 		<!--<alert message="list done [datasource:customersdb-list.dataSourceResultCount] [datasource:customersdb-list.6.FNAME] [datasource:customersdb-list.6.FNAME2]" />-->
 <!-- 	      <alert message="customer [datasource:customersdb-list.dataSourceResultCount], fname [datasource:customersdb-list.1.FNAME], lname [datasource:customersdb-list.1.LNAME], email [datasource:customersdb-list.1.EMAIL], phone [datasource:customersdb-list.1.PHONE], fname2 [datasource:customersdb-list.1.FNAME2], lname2 [datasource:customersdb-list.1.LNAME2], email2 [datasource:customersdb-list.1.EMAIL2], phone2 [datasource:customersdb-list.1.PHONE2], country [datasource:customersdb-list.1.COUNTRY], street [datasource:customersdb-list.1.STREET], city [datasource:customersdb-list.1.CITY], state [datasource:customersdb-list.1.STATE], postal [datasource:customersdb-list.1.POSTAL], notes [datasource:customersdb-list.1.NOTES]" /> -->
-<!--
 		<if lhs="[var:db-action]" operator="e" rhs="save">
-			<assign property="var:firstName" value="[datasource:customersdb-list.1.FNAME]" />
-			<assign property="var:lastName" value="[datasource:customersdb-list.1.LNAME]" />
-			<assign property="var:address1" value="[datasource:customersdb-list.1.STREET]" />
-			<assign property="var:city" value="[datasource:customersdb-list.1.CITY]" />
-			<assign property="var:state" value="[datasource:customersdb-list.1.STATE]" />
-			<assign property="var:postalCode" value="[datasource:customersdb-list.1.POSTAL]" />
-			<assign property="var:country" value="[datasource:customersdb-list.1.COUNTRY]" />
-			<assign property="var:notes" value="[datasource:customersdb-list.1.NOTES]" />
-			<assign property="datasource:createCustomer.postContent" value="[template:createCustomer.content]" />-->
+			<assign property="var:firstName"  value="[datasource:customersdb-list.1.FNAME]" />
+			<assign property="var:lastName"  value="[datasource:customersdb-list.1.LNAME]" />
+			<assign property="var:address1"  value="[datasource:customersdb-list.1.STREET]" />
+			<assign property="var:city"  value="[datasource:customersdb-list.1.CITY]" />
+			<assign property="var:state"  value="[datasource:customersdb-list.1.STATE]" />
+			<assign property="var:postalCode"  value="[datasource:customersdb-list.1.POSTAL]" />
+			<assign property="var:country"  value="[datasource:customersdb-list.1.COUNTRY]" />
+			<assign property="var:notes"  value="[datasource:customersdb-list.1.NOTES]" />
+			<assign property="datasource:createCustomer.postContent" value="[template:createCustomer.content]" />
 <!-- 			<alert message="sending [template:createCustomer.content]" /> -->
-			<!--<assign property="datasource:createCustomer.source" value="https://162.209.101.177/api/CreateCustomer" />
+			<assign property="datasource:createCustomer.source" value="https://162.209.101.177/api/CreateCustomer" />
 		</if>
--->
     </action>
     
 	<action name="create-customer-complete" datasource="createCustomer" datasourceevent="querycomplete">
-<!-- 		<if lhs="[datasource:createCustomer.1.ResponseCode]" operator="e" rhs="100"> -->
-			<alert message="customer created [datasource:createCustomer.0.content]" />
+		<if lhs="[datasource:createCustomer.1.ResponseCode]" operator="e" rhs="100">
+			<assign property="var:firstName" encoding="url" value="[datasource:customersdb-list.1.FNAME]" />
+			<assign property="var:lastName" encoding="url" value="[datasource:customersdb-list.1.LNAME]" />
+			<assign property="var:address1" encoding="url" value="[datasource:customersdb-list.1.STREET]" />
+			<assign property="var:city" encoding="url" value="[datasource:customersdb-list.1.CITY]" />
+			<assign property="var:state" encoding="url" value="[datasource:customersdb-list.1.STATE]" />
+			<assign property="var:postalCode" encoding="url" value="[datasource:customersdb-list.1.POSTAL]" />
+			<assign property="var:country" encoding="url" value="[datasource:customersdb-list.1.COUNTRY]" />
+			<assign property="var:notes" encoding="url" value="[datasource:customersdb-list.1.NOTES]" />
+			<assign property="var:customerAction" value="create" />
+<!-- 			<alert message="var:customerAction is [var:customerAction]" /> -->
+			<assign property="datasource:getEstimate.source" value="https://162.209.101.177/api/GetCustomerEstimate?customerLastName=[var:lastName]&amp;address1=[var:address1]&amp;address2=&amp;city=[var:city]&amp;stateProvince=[var:state]&amp;postalCode=[var:postalCode]&amp;country=[var:country]" />
+<!-- 			<alert message="create customer complete response [datasource:createCustomer.0.content] search request url https://162.209.101.177/api/GetCustomerEstimate?customerLastName=[var:lastName]&amp;address1=[var:address1]&amp;address2=&amp;city=[var:city]&amp;stateProvince=[var:state]&amp;postalCode=[var:postalCode]&amp;country=[var:country]" /> -->
+			<else>
+				<alert message="There was an error creating the customer.  Please verify that all information is correct and try again." />
+			</else>
+		</if>
+	</action>
 
+	<action name="create-customer-error" datasource="createCustomer" datasourceevent="datasourceerror">
+		<alert message="create-customer-error [datasource:createCustomer.0.content]" />
+	</action>
+	
+	<action name="finish-customer-create" >
       <sync>
+<!-- 	  	<alert message="customer created" /> -->
+	  	<assign property="var:customerAction" value="" />
+	  	<alert message="customer created, var:customerId is [var:customerId]" />
         <play action="released" />
         <translate ypos="101%" time=".1" curve="linear" target="NAV-CUSTOMER/sel" />
         <assign property="var:roofarrow" value="Inspection" />
@@ -2858,11 +2922,6 @@
         <translate xpos="101%" curve="linear" target="NAVBLOCK" />
       </sync>
 
-<!-- 		</if> -->
-	</action>
-
-	<action name="create-customer-error" datasource="createCustomer" datasourceevent="datasourceerror">
-		<alert message="create-customer-error [datasource:createCustomer.0.content]" />
 	</action>
 
     <!-- !sidebar-roof actions -->
@@ -3388,14 +3447,14 @@
     
     <action name="setstate">
       <sync>
-        <assign property="object:STATE/input.text" value="_state" />
+        <assign property="object:STATE/input.text" value="_abbr" />
         <play action="dropoff" _drop="ADDRESS" />
       </sync>
     </action>
     
     <action name="setprovince">
       <sync>
-        <assign property="object:PROVINCE/input.text" value="_province" />
+        <assign property="object:PROVINCE/input.text" value="_abbr" />
         <play action="dropoff" _drop="ADDRESS" />
       </sync>
     </action>
@@ -3528,6 +3587,7 @@
       <play action="released" />
       <assign property="var:warranty" value="_value" />
       <assign property="var:accessories" value="_accessories" />
+      <assign property="var:warrantyname" value="_title" />
       <alert message="warranty id [var:warranty] accessories required [var:accessories]" />
       <assign property="datasource:productsdb.query" value="INSERT INTO PRODUCTS (SHINGLE, COLOR, WARRANTY, IMAGE) VALUES ('[var:shingle]', '[var:color]', '[var:warranty]', '[var:productImage]');" />
 	  <assign property="datasource:getAccessories.source" value="https://162.209.101.177/api/GetAccessoryByProduct?productId=[var:shingle]" />
@@ -3933,7 +3993,7 @@
 			<assign property="var:estimateJSON" value="[template:estimateJSON.content]" />
 			<assign property="datasource:generateEstimate.postContent" value="[var:estimateJSON]" />
 			<assign property="datasource:generateEstimate.source" value="https://162.209.101.177/api/GenerateEstimate" />
-			<email subject="estimate and measurements json" body="measurements\n\n[var:measurementsJSON]\n\n\n estimate\n\n[var:estimateJSON]" toaddress="mlong@rarewire.com" />
+<!-- 			<email subject="estimate and measurements json" body="measurements\n\n[var:measurementsJSON]\n\n\n estimate\n\n[var:estimateJSON]" toaddress="mlong@rarewire.com" /> -->
 		</action>
 		
 		<action name="estimate-complete" datasource="generateEstimate" datasourceevent="querycomplete">
