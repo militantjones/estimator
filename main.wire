@@ -755,8 +755,15 @@
     
     <!-- !product classes -->
 	<class name="product-pager" >
-		<pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no"  >
+		<pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no" background="#ff0000" >
 		</pager>
+	</class>
+
+	<class name="product-family">
+		<panel name="category[panel:index]" width="100%" height="100" background="#00ff00" >
+			<panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
+			<text name="cat" width="100%" height="fit" topof="divider" font="Futura-Medium" color="#343434" size="35" alignment="left" text="[param:category]"></text>
+		</panel>
 	</class>
 
     <class name="shingles">
@@ -1890,7 +1897,7 @@
         <image name="logo" source="images/logo.png" height="48" xpos="10" valign="center"></image>
         <panel name="profile" width="50%" height="100%" align="right" onclickup="profiledrop">
           <!--<image name="avatar" source="images/avatar.png" width="36" align="left" valign="center"></image>-->
-          <image name="down" source="images/header-down.png" align="right" valign="center"></image>
+          <image name="down" source="images/header-down.png" width="29" align="right" valign="center"></image>
           <text name="welcome" width="130" height="16" xpos="46" ypos="15" leftof="down" margin-right="10" style="darktext" size="15" alignment="right" text="Welcome,"></text>
           <text name="username" width="200" height="20" xpos="46" bottomof="welcome" margin-top="5" leftof="down" margin-right="10" style="darktext" size="15" alignment="right" text="Hingle McCringleberry"></text>
           
@@ -1916,7 +1923,7 @@
     <panel name="curtain" alias="CURTAIN" style="100" alpha="0" onclickup="curtainaction" >
       <panel name="color" style="100" background="#ffffff" alpha="0"></panel>
       
-      <panel name="profilemenu" alias="PROFILEMENU" width="200" height="50" xpos="548" ypos="70" background="ed1c24" alpha="0" cornerradius="2">
+      <panel name="profilemenu" alias="PROFILEMENU" width="200" height="50" xpos="548" ypos="70" background="343434" alpha="0" cornerradius="2">
         <text name="logout" width="100%" height="100%" leftinset="10" color="#ffffff" font="Futura-Medium" size="20" alignment="left" text="Log Out" onclickup="logout"></text>
       </panel>
       
@@ -3700,20 +3707,51 @@
 			<create class="product-pager" target="PRODUCT-PAGER-BOX" />
 			<assign property="var:productCount" value="[datasource:getProducts.dataSourceResultCount]" />
 			<assign property="var:productIterateCount" value="1" />
-			<loop lhs="[var:productIterateCount]" operator="lte" rhs="[var:productCount]" >
-				<if lhs="[eval:[var:productCount]-[var:productIterateCount]]" operator="ne" rhs="0">
-          <!-- <alert message="creating with two items" /> -->
-					<create class="shingles" index="[var:productIterateCount]" target="PRODUCT-PAGER-BOX/pager" />
-					<else>
-            <!-- <alert message="creating with one item" /> -->
-						<create class="shingle-single" index="[var:productIterateCount]" target="PRODUCT-PAGER-BOX/pager" />
-					</else>
-				</if>
-				<assign property="var:productIterateCount" value="[eval: [var:productIterateCount]+2]" />
-			</loop>
-      <!-- <alert message="get-products-complete count [datasource:getProducts.dataSourceResultCount] content [datasource:getProducts.0.content]" /> -->
-      <play action="sidebar-products" _alias="SHINGLES" _form="Shingles" />
+			<alert message="get-products-complete var:productCount is [var:productCount] var:productIterateCount is [var:productIterateCount]" />
+			<create class="product-family" target="PRODUCT-PAGER-BOX/pager" index="[var:productIterateCount]" category="[datasource:getProducts.[var:productIterateCount].ProductFamily]" />
+			<play action="prep-products" />
 		</action>
+		<action name="prep-products" >
+			<assign property="var:currentCategory" value="[datasource:getProducts.[var:productIterateCount].ProductFamily]" />
+			<if lhs="[var:productIterateCount]" operator="lte" rhs="[var:productCount]">
+				<if lhs="[var:productIterateCount]" operator="lt" rhs="[var:productCount]">
+					<if lhs="[eval:[var:productIterateCount]+1]" operator="e" rhs="[var:productCount]">
+						<create class="shingles" index="[var:productIterateCount]" target="PRODUCT-PAGER-BOX/pager" />
+						<play action="sidebar-products" _alias="SHINGLES" _form="Shingles" />
+						<else>
+							<if lhs="[eval:('[datasource:getProducts.[var:productIterateCount].ProductFamily]' == '[var:currentCategory]') &amp;&amp; ('[datasource:getProducts.[eval:[var:productIterateCount]+1].ProductFamily]' == '[var:currentCategory]')" operator="e" rhs="true">
+								<play action="create-two" />
+							</if>
+							<if lhs="[eval:('[datasource:getProducts.[var:productIterateCount].ProductFamily]' == '[var:currentCategory]') &amp;&amp; ('[datasource:getProducts.[eval:[var:productIterateCount]+1].ProductFamily]' != '[var:currentCategory]')" operator="e" rhs="true">
+								<play action="create-one" />
+							</if>
+						</else>
+					</if>
+				</if>
+				<if lhs="[var:productIterateCount]" operator="e" rhs="[var:productCount]">
+					<create class="shingle-single" index="[var:productIterateCount]" target="PRODUCT-PAGER-BOX/pager" />
+					<play action="sidebar-products" _alias="SHINGLES" _form="Shingles" />
+				</if>
+			</if>
+		</action>
+		<action name="create-two" >
+			<create class="shingles" index="[var:productIterateCount]" target="PRODUCT-PAGER-BOX/pager" />
+			<assign property="var:productIterateCount" value="[eval: [var:productIterateCount]+2]" />
+			<if lhs="[datasource:getProducts.[var:productIterateCount].ProductFamily]" operator="ne" rhs="[datasource:getProducts.[eval:[var:productIterateCount]-1].ProductFamily]">
+				<create class="product-family" target="PRODUCT-PAGER-BOX/pager" index="[var:productIterateCount]" category="[datasource:getProducts.[var:productIterateCount].ProductFamily]" />
+			</if>
+			<play action="prep-products" />
+		</action>
+
+		<action name="create-one" >
+			<create class="shingle-single" index="[var:productIterateCount]" target="PRODUCT-PAGER-BOX/pager" />
+			<assign property="var:productIterateCount" value="[eval: [var:productIterateCount]+1]" />
+			<if lhs="[datasource:getProducts.[var:productIterateCount].ProductFamily]" operator="ne" rhs="[datasource:getProducts.[eval:[var:productIterateCount]-1].ProductFamily]">
+				<create class="product-family" target="PRODUCT-PAGER-BOX/pager" index="[var:productIterateCount]" category="[datasource:getProducts.[var:productIterateCount].ProductFamily]" />
+			</if>
+			<play action="prep-products" />
+		</action>
+		
 		
 		<action name="get-products-error" datasource="getProducts" datasourceevent="datasourceerror" >
 			<alert message="get-products-error [datasource:getProducts.0.content]" />
