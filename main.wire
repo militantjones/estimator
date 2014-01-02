@@ -42,36 +42,47 @@
     
     <datasource name="customersdb" source="sql://CUSTOMERS" query="CREATE TABLE IF NOT EXISTS CUSTOMERS (ID INTEGER PRIMARY KEY AUTOINCREMENT, FNAME, LNAME, EMAIL, PHONE, FNAME2, LNAME2, EMAIL2, PHONE2, COUNTRY, STREET, CITY, STATE, POSTAL, NOTES);" providertype="sql" />
     <datasource name="customersdb-list" source="sql://CUSTOMERS" query="SELECT * FROM CUSTOMERS ORDER BY ID DESC;" providertype="sql" />
+    <datasource name="customersdb-delete" source="sql://CUSTOMERS" query="" providertype="sql" />
     
     <datasource name="inspectiondb" source="sql://INSPECTION" query="CREATE TABLE IF NOT EXISTS INSPECTION (ID INTEGER PRIMARY KEY AUTOINCREMENT, ROOFTYPE, FLOORS);" providertype="sql" />
     <datasource name="inspectiondb-list" source="sql://INSPECTION" query="SELECT * FROM INSPECTION ORDER BY ID DESC;" providertype="sql" />
+    <datasource name="inspectiondb-delete" source="sql://INSPECTION" query="" providertype="sql" />
     
     <datasource name="roofareasdb" source="sql://ROOFAREAS" query="CREATE TABLE IF NOT EXISTS ROOFAREAS (ID INTEGER PRIMARY KEY AUTOINCREMENT, LENGTH, WIDTH, SLOPE);" providertype="sql" />
     <datasource name="roofareasdb-list" source="sql://ROOFAREAS" query="SELECT * FROM ROOFAREAS ORDER BY ID DESC;" providertype="sql" />
+    <datasource name="roofareadb-delete" source="sql://ROOFAREAS" query="" providertype="sql" />
     
     <datasource name="wastedb" source="sql://WASTE" query="CREATE TABLE IF NOT EXISTS WASTE (ID INTEGER PRIMARY KEY AUTOINCREMENT, PERCENT);" providertype="sql" />
     <datasource name="wastedb-list" source="sql://WASTE" query="SELECT * FROM WASTE ORDER BY ID DESC;" providertype="sql" />
+    <datasource name="wastedb-delete" source="sql://WASTE" query="" providertype="sql" />
     
     <datasource name="ridgesdb" source="sql://RIDGES" query="CREATE TABLE IF NOT EXISTS RIDGES (ID INTEGER PRIMARY KEY AUTOINCREMENT, LENGTH, VENTS);" providertype="sql" />
     <datasource name="ridgesdb-list" source="sql://RIDGES" query="SELECT * FROM RIDGES ORDER BY ID DESC;" providertype="sql" />
+    <datasource name="ridgesdb-delete" source="sql://RIDGES" query="" providertype="sql" />
     
     <datasource name="hipsdb" source="sql://HIPS" query="CREATE TABLE IF NOT EXISTS HIPS (ID INTEGER PRIMARY KEY AUTOINCREMENT, LENGTH);" providertype="sql" />
     <datasource name="hipsdb-list" source="sql://HIPS" query="SELECT * FROM HIPS ORDER BY ID DESC;" providertype="sql" />
+    <datasource name="hipsdb-delete" source="sql://HIPS" query="" providertype="sql" />
     
     <datasource name="valleysdb" source="sql://VALLEYS" query="CREATE TABLE IF NOT EXISTS VALLEYS (ID INTEGER PRIMARY KEY AUTOINCREMENT, LENGTH);" providertype="sql" />
     <datasource name="valleysdb-list" source="sql://VALLEYS" query="SELECT * FROM VALLEYS ORDER BY ID DESC;" providertype="sql" />
+    <datasource name="valleysdb-delete" source="sql://VALLEYS" query="" providertype="sql" />
     
     <datasource name="rakesdb" source="sql://RAKES" query="CREATE TABLE IF NOT EXISTS RAKES (ID INTEGER PRIMARY KEY AUTOINCREMENT, LENGTH);" providertype="sql" />
     <datasource name="rakesdb-list" source="sql://RAKES" query="SELECT * FROM RAKES ORDER BY ID DESC;" providertype="sql" />
+    <datasource name="rakesdb-delete" source="sql://RAKES" query="" providertype="sql" />
     
     <datasource name="eavesdb" source="sql://EAVES" query="CREATE TABLE IF NOT EXISTS EAVES (ID INTEGER PRIMARY KEY AUTOINCREMENT, LENGTH);" providertype="sql" />
     <datasource name="eavesdb-list" source="sql://EAVES" query="SELECT * FROM EAVES ORDER BY ID DESC;" providertype="sql" />
+    <datasource name="eavesdb-delete" source="sql://EAVES" query="" providertype="sql" />
     
     <datasource name="protrusionsdb" source="sql://PROTRUSIONS" query="CREATE TABLE IF NOT EXISTS PROTRUSIONS (ID INTEGER PRIMARY KEY AUTOINCREMENT, LENGTH, WIDTH, TYPE);" providertype="sql" />
     <datasource name="protrusionsdb-list" source="sql://PROTRUSIONS" query="SELECT * FROM PROTRUSIONS ORDER BY ID DESC;" providertype="sql" />
+    <datasource name="protrusionsdb-delete" source="sql://PROTRUSIONS" query="" providertype="sql" />
     
     <datasource name="ventsdb" source="sql://VENTS" query="CREATE TABLE IF NOT EXISTS VENTS (ID INTEGER PRIMARY KEY AUTOINCREMENT, SIZE, QUANTITY);" providertype="sql" />
     <datasource name="ventsdb-list" source="sql://VENTS" query="SELECT * FROM VENTS ORDER BY ID DESC;" providertype="sql" />
+    <datasource name="ventsdb-delete" source="sql://VENTS" query="" providertype="sql" />
     
     <datasource name="photosdb" source="sql://PHOTOS" query="CREATE TABLE IF NOT EXISTS PHOTOS (ID INTEGER PRIMARY KEY AUTOINCREMENT, PHOTO, NOTE);" providertype="sql" />
     <datasource name="photosdb-list" source="sql://PHOTOS" query="SELECT * FROM PHOTOS ORDER BY ID DESC;" providertype="sql" />
@@ -123,7 +134,7 @@
 		{"Order":"[eval:[var:plumbingVentsIterateCount]-1]","Type":"[datasource:ventsdb-list.[var:plumbingVentsIterateCount].SIZE]"}
 	]]></texttemplate>
 	<texttemplate name="measurementsJSON"><![CDATA[
-		{"CustomerId":28,"Measurements":{"MeasurementId":1,"ExistingRoofType":"[var:existingRoofType]","NumberOfFloors":[var:numberOfFloors],[var:roofMeasurementsObject],"WasteFactor":"[var:wasteFactor]",[var:ridgeMeasurementsObject],[var:hipsObject],[var:valleysObject],[var:rakesObject],[var:eavesObject],[var:skylightsObject],[var:plumbingVentsObject]}}
+		{"CustomerId":[var:customerId],"Measurements":{"MeasurementId":1,"ExistingRoofType":"[var:existingRoofType]","NumberOfFloors":[var:numberOfFloors],[var:roofMeasurementsObject],"WasteFactor":"[var:wasteFactor]",[var:ridgeMeasurementsObject],[var:hipsObject],[var:valleysObject],[var:rakesObject],[var:eavesObject],[var:skylightsObject],[var:plumbingVentsObject]}}
 	]]></texttemplate>
 	<texttemplate name="accessories"><![CDATA[
 		{"AccessoryId":"[datasource:accessoriesdb-list.[var:accessoriesIterateCount].ACCESSORY]","Quantity":"[datasource:accessoriesdb-list.[var:accessoriesIterateCount].QUANTITY]"}
@@ -157,7 +168,7 @@
   <classes>
     
     <class name="button">
-      <panel name="[param:name]" width="100%" height="100%" onclick="touched" onclickup="[param:action]" _value="[param:value]" _accessories="[param:accessories]" _image="[param:image]" cornerradius="2" clip="yes">
+      <panel name="[param:name]" width="100%" height="100%" onclick="touched" onclickup="[param:action]" _value="[param:value]" _accessories="[param:accessories]" _image="[param:image]" _title="[param:title]" cornerradius="2" clip="yes">
         <text name="button" style="button" size="[param:size]" text="[param:label]"></text>
         <panel name="bg" style="100" background="ffffff" alpha="0"></panel>
       </panel>
@@ -294,16 +305,16 @@
       </panel><!-- end of choice -->
     </class>
     
-    <!-- !search refults -->
+    <!-- !search results -->
     <class name="searchresult">
       <panel name="result-item[param:index]" width="100%" height="100">
         <text name="name" width="65%" height="30" xpos="20" ypos="20" style="darktext" size="24" alignment="left" text="[param:lastname], [param:firstname]" ></text>
         <text name="address" width="65%" height="30" xpos="20" bottomof="name" style="darktext" size="20" alignment="left" text="[param:street], [param:city], [param:state] [param:zip]" ></text>
         <panel name="edit-btn" width="100" height="50" ypos="22" align="right" bottomof="search-address" margin-right="20">
-          <object class="button" name="test" size="20" label="Edit" action="edit" value="" />
+          <object class="button" name="test" size="20" label="Edit" action="edit" value="[param:customerId]" />
         </panel>
         <panel name="view-btn" width="100" height="50" ypos="22" leftof="edit-btn" margin-right="20" bottomof="search-address">
-          <object class="button" name="test" size="20" label="View" action="viewestimate" value="" />
+          <object class="button" name="test" size="20" label="View" action="viewestimate" value="[param:estimatePdf]" />
         </panel>
         <panel name="divider" width="728" height="5" align="center" valign="bottom" background="#343434"></panel>
       </panel>
@@ -316,7 +327,7 @@
           <text name="close" width="100" height="100%" color="#ffffff" font="Futura-Medium" size="20" alignment="left" leftinset="20" text="Close" onclickup="closeresults" clickuptarget="CONTAINER"></text>
         </panel>
         <list name="resultlist" width="100%" height="[eval: [object:SEARCHRESULTS.height] - 74]" datasource="getEstimate" ypos="74" orientation="vertical" paginate="no">
-          <object class="searchresult" index="1" lastname="[ds:CustomerLastName]" firstname="[ds:CustomerFirstName]" street="[ds:Address1]" city="[ds:City]" state="[ds:StateProvince]" zip="[ds:PostalCode]" />
+          <object class="searchresult" index="1" lastname="[ds:CustomerLastName]" firstname="[ds:CustomerFirstName]" street="[ds:Address1]" city="[ds:City]" state="[ds:StateProvince]" zip="[ds:PostalCode]" estimateId="test" customerId="[ds:CustomerId]" />
         </list>
       </panel>
     </class>
@@ -888,7 +899,7 @@
         <text name="subtitle" width="[eval: [object:WARRANTY-PAGER-BOX.width] - 95]" height="66" font="Futura-Medium" color="#343434" size="fit" maxsize="25" alignment="left" text="[param:title]"></text>
         <!--<text name="bullet1" width="307" height="fit" xpos="20" bottomof="subtitle" style="darktext" size="15" alignment="left" text="Sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus."></text>-->
         <panel name="warranty-btn" width="108" height="50" align="right" ypos="8">
-          <object class="button" name="test" size="20" label="Select" action="selectwarranty" value="[param:warrantyId]" accessories="[param:accessories]"/>
+          <object class="button" name="test" size="20" label="Select" action="selectwarranty" value="[param:warrantyId]" accessories="[param:accessories]" title="[param:title]"/>
         </panel>
         <panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
       </panel>
@@ -896,13 +907,14 @@
     
 	<class name="accessory-category">
 		<panel name="category[panel:index]" width="100%" height="100">
-			<text name="cat" width="100%" height="fit" font="Futura-Medium" color="#343434" size="35" alignment="left" text="[param:category]"></text>
+			<panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
+			<text name="cat" width="100%" height="fit" topof="divider" font="Futura-Medium" color="#343434" size="35" alignment="left" text="[param:category]"></text>
 		</panel>
 	</class>
 
     <class name="accessory">
       <panel name="accessory[param:index]" width="100%" height="71">
-        <text name="subtitle" width="[eval: [object:ACCESSORIES-PAGER-BOX.width] - 95]" height="66" font="Futura-Medium" color="#343434" size="fit" maxsize="25" alignment="left" text="[param:title]"></text>
+        <text name="subtitle" width="[eval: [object:ACCESSORIES-PAGER-BOX.width] - 128]" height="66" font="Futura-Medium" color="#343434" size="fit" maxsize="25" alignment="left" text="[param:title]"></text>
         <!--<text name="bullet1" width="307" height="fit" xpos="20" bottomof="subtitle" style="darktext" size="15" alignment="left" text="Sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus."></text>-->
         <panel name="warranty-btn" width="108" height="50" align="right" ypos="8">
           <object class="button" name="test" size="20" label="Select" action="selectaccessories" value="[param:index]" />
@@ -1213,10 +1225,9 @@
         <text name="subtitle2" width="50%" height="40" xpos="50%" font="Futura-Medium" color="#343434" size="25" alignment="left" text="Warranty"></text>
         <panel name="col1" width="50%" height="150" ypos="45">
           <panel name="shingletile" width="150" height="100%" background="#000000">
-            <image name="swatch" url="[param:swatch]" width="100%"></image>
+            <image name="swatch" url="[param:swatch]?w=300&amp;h=300" width="100%"></image>
           </panel>
-          <text name="shingle-type" width="200" height="30" xpos="160" style="darktext" size="20" alignment="left" text="[param:name]"></text>
-          <text name="shingle-color" width="200" height="30" xpos="160" bottomof="shingle-type" style="darktext" size="20" alignment="left" text="[param:color]"></text>
+          <text name="shingle-color" width="200" height="fit" xpos="160" style="darktext" size="20" alignment="left" text="[param:color]"></text>
         </panel>
         <panel name="col2" width="50%" height="150" ypos="45" xpos="50%">
           <text name="warranty" width="100%" height="fit" style="darktext" size="20" alignment="left" text="[param:warranty]"></text>
@@ -1224,6 +1235,26 @@
         <panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
       </panel> <!--<object class="summary-products" swatch="" name="" color="" warranty=""  />-->
     </class>
+    
+    <class name="summary-services">
+      <panel name="summary-services" alias="SUMMARY-SERVICES" width="100%" height="192">
+        <text name="subtitle" width="100%" height="40" font="Futura-Medium" color="#343434" size="25" alignment="left" text="Services"></text>
+        <panel name="col1" width="50%" height="90" ypos="45">
+          <text name="tearoff-label" width="100%" height="30" style="darktext" size="20" alignment="left" text="Tear Off"></text>
+          <text name="layers" width="100%" height="20" bottomof="tearoff-label" size="15" alignment="left" text="Layers: [param:layers]"></text>
+          <text name="type" width="100%" height="20" bottomof="layers" size="15" alignment="left" text="Type: [param:type]"></text>
+          <!--<text name="difficulty" width="100%" height="20" bottomof="type" size="15" alignment="left" text="Difficulty: Hard"></text>-->
+        </panel>
+        <panel name="col2" width="50%" height="90" ypos="45" xpos="50%">
+          <text name="assetprotection" width="100%" height="fit" style="darktext" size="20" alignment="left" text="Asset Protection"></text>
+          <text name="landscape" width="100%" height="20" bottomof="assetprotection" size="15" alignment="left" text="Landscaping: [param:landscape]"></text>
+          <text name="hardscape" width="100%" height="20" bottomof="landscape" size="15" alignment="left" text="Hardscaping: [param:hardscape]"></text>
+          <text name="hvac" width="100%" height="20" bottomof="hardscape" size="15" alignment="left" text="HVAC: [param:hvac]"></text>
+          <text name="pool" width="100%" height="20" bottomof="hvac" size="15" alignment="left" text="Pool: [param:pool]"></text>
+          <text name="misc" width="100%" height="20" bottomof="pool" size="15" alignment="left" text="Misc: [param:misc]"></text>
+        </panel>
+      </panel>
+    </class> <!--<object class="summary-services" layers="" type="" landscape="" hardscape="" hvac="" pool="" misc="" />-->
     
     <!-- !camera classes -->
     <class name="camera-view">
@@ -1852,13 +1883,13 @@
       <panel name="navblock" alias="NAVBLOCK" width="100%" height="53" ypos="74" xpos="101%"></panel>
       
       <!-- !header -->
-      <panel name="header" width="100%" height="74" padding-right="10" alpha="1" >
-        <image name="logo" source="images/logo.png" height="48" xpos="10" valign="center"></image>
+      <panel name="header" alias="HEADER" width="100%" height="74" padding-right="10" alpha="1" >
+        <image name="logo" source="images/logo.png" width="53" xpos="10" valign="center"></image>
         <panel name="profile" width="50%" height="100%" align="right" onclickup="profiledrop">
           <!--<image name="avatar" source="images/avatar.png" width="36" align="left" valign="center"></image>-->
-          <image name="down" source="images/header-down.png" width="29" align="right" valign="center"></image>
+          <image name="down" source="images/header-down.png" align="right" valign="center"></image>
           <text name="welcome" width="130" height="16" xpos="46" ypos="15" leftof="down" margin-right="10" style="darktext" size="15" alignment="right" text="Welcome,"></text>
-          <text name="username" width="160" height="20" xpos="46" bottomof="welcome" margin-top="5" leftof="down" margin-right="10" style="darktext" size="15" alignment="right" text="Hingle McCringleberry"></text>
+          <text name="username" width="200" height="20" xpos="46" bottomof="welcome" margin-top="5" leftof="down" margin-right="10" style="darktext" size="15" alignment="right" text="Hingle McCringleberry"></text>
           
         </panel>
       </panel>
@@ -1882,7 +1913,7 @@
     <panel name="curtain" alias="CURTAIN" style="100" alpha="0" onclickup="curtainaction" >
       <panel name="color" style="100" background="#ffffff" alpha="0"></panel>
       
-      <panel name="profilemenu" alias="PROFILEMENU" width="200" height="50" xpos="548" ypos="70" background="343434" alpha="0" cornerradius="2">
+      <panel name="profilemenu" alias="PROFILEMENU" width="200" height="50" xpos="548" ypos="70" background="ed1c24" alpha="0" cornerradius="2">
         <text name="logout" width="100%" height="100%" leftinset="10" color="#ffffff" font="Futura-Medium" size="20" alignment="left" text="Log Out" onclickup="logout"></text>
       </panel>
       
@@ -1983,7 +2014,7 @@
         </panel>
       </panel>
       
-      <panel name="accessorylist" alias="ACCESSORYLIST" width="90%" height="70%" alpha="0" align="center" ypos="18%" background="#e3e3e3" onclickup="accessorydismiss" borderwidth="2" bordercolor="#343434" shadowradius="3" shadowxoffset="0" shadowyoffset="0" shadowopacity=".3">
+      <panel name="accessorylist" alias="ACCESSORYLIST" width="60%" height="40%" alpha="0" align="center" ypos="18%" background="#e3e3e3" onclickup="accessorydismiss" borderwidth="2" bordercolor="#343434" shadowradius="3" shadowxoffset="0" shadowyoffset="0" shadowopacity=".3">
         <text name="label" width="100%" height="80" leftinset="20" background="#343434" color="#ffffff" font="Futura-Medium" size="40" alignment="left" text="Select an Accessory"></text>
         <text name="accessorytype" width="100%" height="60" bottomof="label" style="darktext" leftinset="20" size="30" alignment="left" text="Ventilation"></text>
         <panel name="inner" width="100%" height="[eval: [object:ACCESSORYLIST.height] - 150]" ypos="150" padding-left="20" padding-right="20" padding-bottom="20" >
@@ -1991,15 +2022,15 @@
             <panel name="acessory1" width="100%" fitheight="yes" >
               <text name="item" width="100%" height="fit" style="darktext" size="25" alignment="left" text="Example product"></text>
               <text name="description" width="100%" height="fit" bottomof="item" style="darktext" size="20" alignment="left" text="Maecenas sed diam eget risus varius blandit sit amet non magna. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit."></text>
+              <panel name="accessoryquantity" alias="ACCESSORYQUANTITY" width="200" height="50" style="textinput" bottomof="description" margin-top="20"  >
+                <panel name="bg" style="100" background="f3f3f3" alpha="1"></panel>
+                <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Quantity"></text>
+                <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null"></textfield>
+                <panel name="active" style="100" onclickup="labelactive" _field="ACCESSORYQUANTITY"></panel>
+              </panel>
               <panel name="create" width="110" height="50" align="right" bottomof="description" margin-top="20">
                 <object class="button" name="test" size="20" label="Select" action="selectaccessory" value="product id" />
               </panel>
-	          <panel name="accessoryquantity" alias="ACCESSORYQUANTITY" width="200" height="50" style="textinput" leftof="create" bottomof="description" margin-right="25" >
-	            <panel name="bg" style="100" background="f3f3f3" alpha="1"></panel>
-	            <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Quantity"></text>
-	            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null"></textfield>
-	            <panel name="active" style="100" onclickup="labelactive" _field="ACCESSORYQUANTITY"></panel>
-	          </panel>
             </panel>
           </pager>
         </panel>
@@ -2024,8 +2055,11 @@
       <assign property="var:prevfield" value="0" />
       <assign property="var:nav" value="CUSTOMER" />
       <if lhs="[preferences:remember]" operator="e" rhs="yes">
-		<assign property="object:USERNAME/input.text" value="[preferences:username]" />
-		<assign property="object:PASSWORD/input.text" value="[preferences:password]" />
+        <assign property="var:username" value="[preferences:username]" />
+        <assign property="var:password" value="[preferences:password]" />
+		<assign property="object:HEADER/profile/username.text" value="[preferences:username]" />
+        <assign property="datasource:login.postContent" value="[template:login.content]" />
+        <assign property="datasource:login.source" value="https://162.209.101.177/api/AuthenticateUser" />
         <alpha value="1" time=".1" target="REMEMBER/check" />
         <set onclickup="checkoff" target="REMEMER" />
       </if>
@@ -2223,7 +2257,7 @@
 			<assign property="preferences:trueSlate" value="[datasource:login.1.TrueSlate]" />
 			<assign property="httpheader:token-contractorid.Token" value="[preferences:token]" />
 			<assign property="httpheader:token-contractorid.ContractorId" value="[preferences:contractorId]" />
-            
+			<assign property="object:HEADER/profile/username.text" value="[preferences:username]" />
             <create class="choice" target="CONTAINER" />
             <alpha value="1" time=".3" target="CHOICE" />
             <alpha value="0" time=".3" target="SIGNIN" />
@@ -2293,7 +2327,7 @@
     
     <action name="get-estimate-complete" datasource="getEstimate" datasourceevent="querycomplete" >
 		<if lhs="[var:customerAction]" operator="e" rhs="create">
-			<alert message="search after customer creation done [datasource:getEstimate.0.content]" />
+<!-- 			<alert message="search after customer creation done [datasource:getEstimate.0.content]" /> -->
 			<assign property="var:customerId" value="[datasource:getEstimate.1.CustomerId]" />
 			<play action="finish-customer-create" />
 			<else>
@@ -2315,12 +2349,12 @@
     
     <action name="viewestimate">
       <play action="released" />
-      <alert message="view estimate" />
+	  <alert message="viewestimate estimatePdf is _value" />
     </action>
     
     <action name="edit">
       <play action="released" />
-      <alert message="edit" />
+	  <alert message="edit customer customerId is _value" />
     </action>
     
     <!-- ! create actions -->
@@ -2719,7 +2753,12 @@
         <if lhs="_this" operator="e" rhs="SUMMARY">
           <play action="summarycalc" />
           <create class="summary-cust" target="SUMMARY-PAGER" cust1name="[datasource:customersdb-list.1.FNAME] [datasource:customersdb-list.1.LNAME]" cust1phone="[datasource:customersdb-list.1.PHONE]" cust1email="[datasource:customersdb-list.1.EMAIL]" cust2name="[datasource:customersdb-list.1.FNAME2] [datasource:customersdb-list.1.LNAME2]" cust2phone="[datasource:customersdb-list.1.PHONE2]" cust2email="[datasource:customersdb-list.1.EMAIL2]" street="[datasource:customersdb-list.1.STREET]" city="[datasource:customersdb-list.1.CITY]" state="[datasource:customersdb-list.1.STATE]" zip="[datasource:customersdb-list.1.POSTAL]"  />
-          
+        </if>
+        <if lhs="[var:navwas]" operator="e" rhs="SUMMARY">
+          <delete target="SUMMARY-CUSTOMER" />
+          <delete target="SUMMARY-ROOF" />
+          <delete target="SUMMARY-PRODUCTS" />
+          <delete target="SUMMARY-SERVICES" />
         </if>
         <assign property="var:navwas" value="_this" />
       </sync>
@@ -2733,14 +2772,35 @@
           <alert title="total area" message="[var:totalarea]" />
         </loop>
         <assign property="var:squarestotal" value="[eval: [var:totalarea] / 100 ]" />
-        <alert title="total squares needed" message="[var:squarestotal]" />
+        <!--<alert title="total squares needed" message="[var:squarestotal]" />
         <alert title="ridges total" message="[var:ridgestotal]" />
         <alert title="hips total" message="[var:hipstotal]" />
         <alert title="rakes total" message="[var:rakestotal]" />
         <alert title="eaves total" message="[var:eavestotal]" />
-        <alert title="valleys total" message="[var:valleystotal]" />
-        
+        <alert title="valleys total" message="[var:valleystotal]" />-->
         <create class="summary-roof" target="SUMMARY-PAGER" area="[var:totalarea]" squares="[var:squarestotal]" ridges="[var:ridgestotal]" hips="[var:hipstotal]" rakes="[var:rakestotal]" eaves="[var:eavestotal]" valleys="[var:valleystotal]"  />
+        <play action="summaryproducts" />
+      </sync>
+    </action>
+    
+    <action name="summaryproducts">
+      <sync>
+        <create target="SUMMARY-PAGER" class="summary-products" swatch="[datasource:productsdb-list.1.IMAGE]" color="[datasource:productsdb-list.1.COLOR]" warranty="[var:warrantyname]" />
+        <play action="summaryaccessories" />
+      </sync>
+    </action>
+    
+    <action name="summaryaccessories">
+      <sync>
+<!--         <alert message="summary accessories" /> -->
+        <play action="summaryservices" />
+      </sync>
+    </action>
+    
+    <action name="summaryservices">
+      <sync>
+<!--         <alert message="summary services" /> -->
+        <create target="SUMMARY-PAGER" class="summary-services" layers="[datasource:tearoffdb-list.1.LAYERS]" type="[datasource:tearoffdb-list.1.MATERIAL]" landscape="[datasource:assetprotectiondb-list.1.LANDSCAPING]" hardscape="[datasource:assetprotectiondb-list.1.HARDSCAPING]" hvac="[datasource:assetprotectiondb-list.1.HVAC]" pool="[datasource:assetprotectiondb-list.1.POOL]" misc="[datasource:assetprotectiondb-list.1.MISC]"  />
       </sync>
     </action>
     
@@ -2751,8 +2811,10 @@
     <action name="savedPRODUCTS"></action>
     
     <action name="savedSERVICES">
+<!--
       <alert title="tear off" message="tear off:[var:tearoff] [object:LAYERS/input.text] [object:TYPE/input.text]" />
       <alert title="asset protection" message="landscaping:[var:landscaping] hardscaping:[var:hardscaping] hvac:[var:hvac] pool:[var:pool] misc[var:misc]" />
+-->
       <assign property="datasource:tearoffdb.query" value="INSERT INTO TEAROFF (TEAROFF, LAYERS, MATERIAL) VALUES ('[var:tearoff]', '[object:LAYERS/input.text]', '[object:TYPE/input.text]');" />
       <assign property="datasource:assetprotectiondb.query" value="INSERT INTO PROTECTION (LANDSCAPING, HARDSCAPING, HVAC, POOL, MISC) VALUES ('[var:landscaping]', '[var:hardscaping]', '[var:hvac]', '[var:pool]', '[var:misc]');" />
     </action>
@@ -2795,8 +2857,21 @@
       <!--<alert title="save" message="[var:nav]" />-->
     </action>
     
-     <!-- !customer actions -->
+    <!-- !customer actions -->
     <action name="saveCustomer">
+      <sync>
+        <if lhs="[datasource:customersdb-list.dataSourceResultCount]" operator="gt" rhs="0">
+          <assign property="datasource:customersdb-delete.query" value="DELETE FROM CUSTOMERS;" />
+          <alert message="from the if and deleting [datasource:customersdb-list.dataSourceResultCount]" />
+          <else>
+            <play action="saveCustomer-save" />
+            <alert message="from the else, nothing to delete" />
+          </else>
+        </if>
+      </sync>
+    </action>
+    
+    <action name="saveCustomer-save" datasource="customersdb-delete" datasourceevent="querycomplete">
       <sync>
         <play action="released" />
         <translate ypos="101%" time=".1" curve="linear" target="NAV-CUSTOMER/sel" />
@@ -2855,7 +2930,7 @@
 			<assign property="var:customerAction" value="create" />
 <!-- 			<alert message="var:customerAction is [var:customerAction]" /> -->
 			<assign property="datasource:getEstimate.source" value="https://162.209.101.177/api/GetCustomerEstimate?customerLastName=[var:lastName]&amp;address1=[var:address1]&amp;address2=&amp;city=[var:city]&amp;stateProvince=[var:state]&amp;postalCode=[var:postalCode]&amp;country=[var:country]" />
-			<alert message="create customer complete response [datasource:createCustomer.0.content] search request url https://162.209.101.177/api/GetCustomerEstimate?customerLastName=[var:lastName]&amp;address1=[var:address1]&amp;address2=&amp;city=[var:city]&amp;stateProvince=[var:state]&amp;postalCode=[var:postalCode]&amp;country=[var:country]" />
+<!-- 			<alert message="create customer complete response [datasource:createCustomer.0.content] search request url https://162.209.101.177/api/GetCustomerEstimate?customerLastName=[var:lastName]&amp;address1=[var:address1]&amp;address2=&amp;city=[var:city]&amp;stateProvince=[var:state]&amp;postalCode=[var:postalCode]&amp;country=[var:country]" /> -->
 			<else>
 				<alert message="There was an error creating the customer.  Please verify that all information is correct and try again." />
 			</else>
@@ -2868,6 +2943,7 @@
 	
 	<action name="finish-customer-create" >
       <sync>
+<!-- 	  	<alert message="customer created" /> -->
 	  	<assign property="var:customerAction" value="" />
 	  	<alert message="customer created, var:customerId is [var:customerId]" />
         <play action="released" />
@@ -2945,12 +3021,26 @@
     </action>
     
     <action name="INSPECTION">
+      <sync>
+        <if lhs="[datasource:inspectiondb-list.dataSourceResultCount]" operator="gt" rhs="0">
+          <assign property="datasource:inspectiondb-delete.query" value="DELETE FROM INSPECTION;" />
+          <alert message="from the if and deleting [datasource:inspectiondb-list.dataSourceResultCount]" />
+          <else>
+            <play action="INSPECTION-save" />
+            <alert message="from the else, nothing to delete" />
+          </else>
+        </if>
+      </sync>
+    </action>
+    
+    <action name="INSPECTION-save" datasource="inspectiondb-delete" datasourceevent="querycomplete">
       <!--<alert title="inspection" message="rooftype [object:ROOFTYPE/input.text] floors [object:FLOORS/input.text]" />-->
       <if lhs="[eval:'[object:ROOFTYPE/input.text]' != '' &amp;&amp; '[object:FLOORS/input.text]' != '']" operator="e" rhs="true">
         <assign property="datasource:inspectiondb.query" value="INSERT INTO INSPECTION (ROOFTYPE, FLOORS) VALUES ('[object:ROOFTYPE/input.text]', '[object:FLOORS/input.text]');" />
+        <alert message="[object:ROOFTYPE/input.text] : [object:FLOORS/input.text]" />
         <else>
-          <alert title="Incomplete Form" message="Please feel out all fields" />
-        </else> 
+          <alert title="Incomplete Form" message="Please fill out all fields" />
+        </else>
       </if>
     </action>
     
@@ -2964,7 +3054,18 @@
     
     <action name="ROOF AREA">
       <sync>
-        <if lhs="[var:areaindex]" operator="gt" rhs="0">
+        <if lhs="[datasource:roofareasdb-list.dataSourceResultCount]" operator="gt" rhs="0">
+          <assign property="datasource:roofareadb-delete.query" value="DELETE FROM ROOFAREAS;" />
+          <else>
+            <play action="ROOF AREA-save" />
+          </else>
+        </if>
+      </sync>
+    </action>
+    
+    <action name="ROOF AREA-save" datasource="roofareadb-delete" datasourceevent="querycomplete">
+      <sync>
+        <if lhs="[var:areaindex]" operator="gte" rhs="1">
           <play action="areaValidationLoop" />
           <else>
             <alert title="No Roof Areas Available" message="There have not been any Roof Areas added to save." />
@@ -3020,7 +3121,7 @@
     <action name="roofareaquery" datasource="roofareasdb" datasourceevent="querycomplete">
       <sync>
         <if lhs="[var:areaindexloop]" operator="lt" rhs="[var:areaindex]">
-          <play action="ROOF AREA" />
+          <play action="ROOF AREA-save" />
           <else>
             <assign property="datasource:roofareasdb-list.query" value="SELECT * FROM ROOFAREAS;" />
             <assign property="var:areaindexloop" value="0" />
@@ -3032,11 +3133,25 @@
     </action>
     
     <action name="WASTE">
+      <sync>
+        <if lhs="[datasource:wastedb-list.dataSourceResultCount]" operator="gt" rhs="0">
+          <assign property="datasource:wastedb-delete.query" value="DELETE FROM WASTE;" />
+          <alert message="from the if and deleting [datasource:wastedb-list.dataSourceResultCount]" />
+          <else>
+            <play action="WASTE-save" />
+            <alert message="from the else, nothing to delete" />
+          </else>
+        </if>
+      </sync>
+    </action>
+    
+    <action name="WASTE-save" datasource="wastedb-delete" datasourceevent="querycomplete">
       <!--<alert message="[object:WASTEPERCENT/input.text]" />-->
       <if lhs="[eval:'[object:WASTEPERCENT/input.text]' != '']" operator="e" rhs="true">
         <assign property="datasource:wastedb.query" value="INSERT INTO WASTE (PERCENT) values ('[object:WASTEPERCENT/input.text]');" />
+        <alert message="[object:WASTEPERCENT/input.text]" />
         <else>
-          <alert title="Incomplete Form" message="Please feel out all fields" />
+          <alert title="Incomplete Form" message="Please fill out all fields" />
         </else> 
       </if>
     </action>
@@ -3046,6 +3161,17 @@
     </action>
     
     <action name="RIDGE">
+      <sync>
+        <if lhs="[datasource:ridgesdb-list.dataSourceResultCount]" operator="gt" rhs="0">
+          <assign property="datasource:ridgesdb-delete.query" value="DELETE FROM RIDGES;" />
+          <else>
+            <play action="RIDGE-save" />
+          </else>
+        </if>
+      </sync>
+    </action>
+    
+    <action name="RIDGE-save" datasource="ridgesdb-delete" datasourceevent="querycomplete">
       <sync>
         <if lhs="[var:ridgeindex]" operator="gt" rhs="0">
           <play action="ridgeValidationLoop" />
@@ -3063,7 +3189,7 @@
             <assign property="var:ridgestotal" value="[eval: [var:ridgestotal] + [object:RIDGELENGTH[var:ridgeValidationIndex]/input.text]]" />
             <play action="ridgeValidationLoop" />
             <else>
-              <alert title="Incomplete Form" message="Please feel out all fields" />
+              <alert title="Incomplete Form" message="Please fill out all fields" />
               <assign property="var:ridgeValidationIndex" value="0" />
             </else>
         </if>
@@ -3084,7 +3210,7 @@
     <action name="ridgequery" datasource="ridgesdb" datasourceevent="querycomplete">
       <sync>
         <if lhs="[var:ridgeindexloop]" operator="lt" rhs="[var:ridgeindex]">
-          <play action="RIDGE" />
+          <play action="RIDGE-save" />
           <else>
             <assign property="datasource:ridgesdb-list.query" value="SELECT * FROM RIDGES;" />
             <assign property="var:ridgeindexloop" value="0" />
@@ -3095,6 +3221,20 @@
     </action>
     
     <action name="HIP">
+      <sync>
+        <alert message="pre-saved removed [datasource:hipsdb-list.dataSourceResultCount]" />
+        <if lhs="[datasource:hipsdb-list.dataSourceResultCount]" operator="gt" rhs="0">
+          <assign property="datasource:hipsdb-delete.query" value="DELETE FROM HIPS;" />
+          <alert message="if to delete" />
+          <else>
+            <play action="HIP-save" />
+            <alert message="in the else, did not delete anything" />
+          </else>
+        </if>
+      </sync>
+    </action>
+    
+    <action name="HIP-save" datasource="hipsdb-delete" datasourceevent="querycomplete">
       <sync>
         <if lhs="[var:hipindex]" operator="gt" rhs="0">
           <play action="hipValidationLoop" />
@@ -3112,7 +3252,7 @@
             <assign property="var:hipstotal" value="[eval: [var:hipstotal] + [object:HIPLENGTH[var:hipValidationIndex]/input.text]]" />
             <play action="hipValidationLoop" />
             <else>
-              <alert title="Incomplete Form" message="Please feel out all fields" />
+              <alert title="Incomplete Form" message="Please fill out all fields" />
               <assign property="var:hipValidationIndex" value="0" />
             </else>
         </if>
@@ -3125,6 +3265,7 @@
     <action name="hip-db-add">
       <sync>
         <assign property="var:hipindexloop" value="[eval: [var:hipindexloop] + 1]" />
+        <alert message="[object:HIPLENGTH[var:hipindexloop]/input.text]" />
         <assign property="datasource:hipsdb.query" value="INSERT INTO HIPS (LENGTH) values ('[object:HIPLENGTH[var:hipindexloop]/input.text]');" />
       </sync>
     </action>  
@@ -3132,7 +3273,7 @@
     <action name="hipquery" datasource="hipsdb" datasourceevent="querycomplete">
       <sync>
         <if lhs="[var:hipindexloop]" operator="lt" rhs="[var:hipindex]">
-          <play action="HIP" />
+          <play action="HIP-save" />
           <else>
             <assign property="datasource:hipsdb-list.query" value="SELECT * FROM HIPS;" />
             <assign property="var:hipindexloop" value="0" />
@@ -3143,6 +3284,20 @@
     </action>
     
     <action name="VALLEY">
+      <sync>
+        <alert message="pre-saved removed [datasource:valleysdb-list.dataSourceResultCount]" />
+        <if lhs="[datasource:valleysdb-list.dataSourceResultCount]" operator="gt" rhs="0">
+          <assign property="datasource:valleysdb-delete.query" value="DELETE FROM VALLEYS;" />
+          <alert message="if to delete" />
+          <else>
+            <play action="VALLEY-save" />
+            <alert message="in the else, did not delete anything" />
+          </else>
+        </if>
+      </sync>
+    </action>
+    
+    <action name="VALLEY-save" datasource="valleysdb-delete" datasourceevent="querycomplete">
       <sync>
         <if lhs="[var:valleyindex]" operator="gt" rhs="0">
           <play action="valleyValidationLoop" />
@@ -3158,9 +3313,9 @@
         <assign property="var:valleyValidationIndex" value="[eval: [var:valleyValidationIndex] + 1]" />
         <if lhs="[eval:'[object:VALLEYLENGTH[var:valleyValidationIndex]/input.text]' != '']" operator="e" rhs="true">
             <assign property="var:valleystotal" value="[eval: [var:valleystotal] + [object:VALLEYLENGTH[var:valleyValidationIndex]/input.text]]" />
-            <play action="ridgeValidationLoop" />
+            <play action="valleyValidationLoop" />
             <else>
-              <alert title="Incomplete Form" message="Please feel out all fields" />
+              <alert title="Incomplete Form" message="Please fill out all fields" />
               <assign property="var:valleyValidationIndex" value="0" />
             </else>
         </if>
@@ -3181,7 +3336,7 @@
     <action name="valleyquery" datasource="valleysdb" datasourceevent="querycomplete">
       <sync>
         <if lhs="[var:valleyindexloop]" operator="lt" rhs="[var:valleyindex]">
-          <play action="VALLEY" />
+          <play action="VALLEY-save" />
           <else>
             <assign property="datasource:valleysdb-list.query" value="SELECT * FROM VALLEYS;" />
             <assign property="var:valleyindexloop" value="0" />
@@ -3192,6 +3347,20 @@
     </action>
     
     <action name="RAKE">
+      <sync>
+        <alert message="pre-saved removed [datasource:rakesdb-list.dataSourceResultCount]" />
+        <if lhs="[datasource:rakesdb-list.dataSourceResultCount]" operator="gt" rhs="0">
+          <assign property="datasource:rakesdb-delete.query" value="DELETE FROM RAKES;" />
+          <alert message="if to delete" />
+          <else>
+            <play action="RAKE-save" />
+            <alert message="in the else, did not delete anything" />
+          </else>
+        </if>
+      </sync>
+    </action>
+    
+    <action name="RAKE-save" datasource="rakesdb-delete" datasourceevent="querycomplete">
       <sync>
         <if lhs="[var:rakeindex]" operator="gt" rhs="0">
           <play action="rakeValidationLoop" />
@@ -3209,7 +3378,7 @@
             <assign property="var:rakestotal" value="[eval: [var:rakestotal] + [object:RAKELENGTH[var:rakeValidationIndex]/input.text]]" />
             <play action="rakeValidationLoop" />
             <else>
-              <alert title="Incomplete Form" message="Please feel out all fields" />
+              <alert title="Incomplete Form" message="Please fill out all fields" />
               <assign property="var:rakeValidationIndex" value="0" />
             </else>
         </if>
@@ -3230,7 +3399,7 @@
     <action name="rakequery" datasource="rakesdb" datasourceevent="querycomplete">
       <sync>
         <if lhs="[var:rakeindexloop]" operator="lt" rhs="[var:rakeindex]">
-          <play action="RAKE" />
+          <play action="RAKE-save" />
           <else>
             <assign property="datasource:rakesdb-list.query" value="SELECT * FROM RAKES;" />
             <assign property="var:rakeindexloop" value="0" />
@@ -3241,6 +3410,20 @@
     </action>
     
     <action name="EAVE">
+      <sync>
+        <alert message="pre-saved removed [datasource:eavesdb-list.dataSourceResultCount]" />
+        <if lhs="[datasource:eavesdb-list.dataSourceResultCount]" operator="gt" rhs="0">
+          <assign property="datasource:eavesdb-delete.query" value="DELETE FROM EAVES;" />
+          <alert message="if to delete" />
+          <else>
+            <play action="EAVE-save" />
+            <alert message="in the else, did not delete anything" />
+          </else>
+        </if>
+      </sync>
+    </action>
+    
+    <action name="EAVE-save" datasource="eavesdb-delete" datasourceevent="querycomplete">
       <sync>
         <if lhs="[var:eaveindex]" operator="gt" rhs="0">
           <play action="eaveValidationLoop" />
@@ -3258,7 +3441,7 @@
             <assign property="var:eavestotal" value="[eval: [var:eavestotal] + [object:EAVELENGTH[var:eaveValidationIndex]/input.text]]" />
             <play action="eaveValidationLoop" />
             <else>
-              <alert title="Incomplete Form" message="Please feel out all fields" />
+              <alert title="Incomplete Form" message="Please fill out all fields" />
               <assign property="var:eaveValidationIndex" value="0" />
             </else>
         </if>
@@ -3279,7 +3462,7 @@
     <action name="eavequery" datasource="eavesdb" datasourceevent="querycomplete">
       <sync>
         <if lhs="[var:eaveindexloop]" operator="lt" rhs="[var:eaveindex]">
-          <play action="EAVE" />
+          <play action="EAVE-save" />
           <else>
             <assign property="datasource:eavesdb-list.query" value="SELECT * FROM EAVES;" />
             <assign property="var:eaveindexloop" value="0" />
@@ -3290,6 +3473,20 @@
     </action>
     
     <action name="CHIMNEY">
+      <sync>
+        <alert message="pre-saved removed [datasource:protrusionsdb-list.dataSourceResultCount]" />
+        <if lhs="[datasource:protrusionsdb-list.dataSourceResultCount]" operator="gt" rhs="0">
+          <assign property="datasource:protrusionsdb-delete.query" value="DELETE FROM PROTRUSIONS;" />
+          <alert message="if to delete" />
+          <else>
+            <play action="CHIMNEY-save" />
+            <alert message="in the else, did not delete anything" />
+          </else>
+        </if>
+      </sync>
+    </action>
+    
+    <action name="CHIMNEY-save" datasource="protrusionsdb-delete" datasourceevent="querycomplete">
       <sync>
         <if lhs="[var:protrusionindex]" operator="gt" rhs="0">
           <play action="chimneyValidationLoop" />
@@ -3306,7 +3503,7 @@
         <if lhs="[eval:'[object:PROTRUSIONLENGTH[var:chimneyValidationIndex]/input.text]' != '' &amp;&amp; '[object:PROTRUSIONWIDTH[var:chimneyValidationIndex]/input.text]' != '']" operator="e" rhs="true">
             <play action="chimneyValidationLoop" />
             <else>
-              <alert title="Incomplete Form" message="Please feel out all fields" />
+              <alert title="Incomplete Form" message="Please fill out all fields" />
               <assign property="var:chimneyValidationIndex" value="0" />
             </else>
         </if>
@@ -3327,7 +3524,7 @@
     <action name="chimneyquery" datasource="protrusionsdb" datasourceevent="querycomplete">
       <sync>
         <if lhs="[var:protrusionindexloop]" operator="lt" rhs="[var:protrusionindex]">
-          <play action="CHIMNEY" />
+          <play action="CHIMNEY-save" />
           <else>
             <assign property="datasource:protrusionsdb-list.query" value="SELECT * FROM PROTRUSIONS;" />
             <assign property="var:protrusionindexloop" value="0" />
@@ -3338,6 +3535,20 @@
     </action>
     
     <action name="VENT">
+      <sync>
+        <alert message="pre-saved removed [datasource:ventsdb-list.dataSourceResultCount]" />
+        <if lhs="[datasource:ventsdb-list.dataSourceResultCount]" operator="gt" rhs="0">
+          <assign property="datasource:ventsdb-delete.query" value="DELETE FROM VENTS;" />
+          <alert message="if to delete" />
+          <else>
+            <play action="VENT-save" />
+            <alert message="in the else, did not delete anything" />
+          </else>
+        </if>
+      </sync>
+    </action>
+    
+    <action name="VENT-save" datasource="ventsdb-delete" datasourceevent="querycomplete">
       <sync>
         <if lhs="[var:ventindex]" operator="gt" rhs="0">
           <play action="ventValidationLoop" />
@@ -3354,7 +3565,7 @@
         <if lhs="[eval:'[object:VENTQUANTITY[var:ventValidationIndex]/input.text]' != '']" operator="e" rhs="true">
             <play action="ventValidationLoop" />
             <else>
-              <alert title="Incomplete Form" message="Please feel out all fields" />
+              <alert title="Incomplete Form" message="Please fill out all fields" />
               <assign property="var:ventValidationIndex" value="0" />
             </else>
         </if>
@@ -3375,7 +3586,7 @@
     <action name="ventquery" datasource="ventsdb" datasourceevent="querycomplete">
       <sync>
         <if lhs="[var:ventindexloop]" operator="lt" rhs="[var:ventindex]">
-          <play action="VENT" />
+          <play action="VENT-save" />
           <else>
             <assign property="datasource:ventsdb-list.query" value="SELECT * FROM VENTS;" />
             <assign property="var:ventindexloop" value="0" />
@@ -3458,17 +3669,17 @@
 			<assign property="var:productIterateCount" value="1" />
 			<loop lhs="[var:productIterateCount]" operator="lte" rhs="[var:productCount]" >
 				<if lhs="[eval:[var:productCount]-[var:productIterateCount]]" operator="ne" rhs="0">
-<!-- 					<alert message="creating with two items" /> -->
+          <!-- <alert message="creating with two items" /> -->
 					<create class="shingles" index="[var:productIterateCount]" target="PRODUCT-PAGER-BOX/pager" />
 					<else>
-<!-- 						<alert message="creating with one item" /> -->
+            <!-- <alert message="creating with one item" /> -->
 						<create class="shingle-single" index="[var:productIterateCount]" target="PRODUCT-PAGER-BOX/pager" />
 					</else>
 				</if>
 				<assign property="var:productIterateCount" value="[eval: [var:productIterateCount]+2]" />
 			</loop>
-<!-- 			<alert message="get-products-complete count [datasource:getProducts.dataSourceResultCount] content [datasource:getProducts.0.content]" /> -->
-            <play action="sidebar-products" _alias="SHINGLES" _form="Shingles" />
+      <!-- <alert message="get-products-complete count [datasource:getProducts.dataSourceResultCount] content [datasource:getProducts.0.content]" /> -->
+      <play action="sidebar-products" _alias="SHINGLES" _form="Shingles" />
 		</action>
 		
 		<action name="get-products-error" datasource="getProducts" datasourceevent="datasourceerror" >
@@ -3476,40 +3687,40 @@
 		</action>
     
     <action name="selectshingle">
-<!-- 		<assign property="var:colorCount" value="4" /> -->
-		<assign property="var:shingle" value="[datasource:getProducts._value.ProductId]" />
-		<play action="released" />
-		<delete target="COLORPAGER" />
-		<assign property="var:shingleSelected" value="_value" />
-		<assign property="var:colorCount" value="[eval:JSON.parse('[datasource:getProducts._value.Color]').length]" />
-		<if lhs="[eval:JSON.parse('[datasource:getProducts._value.Color]').length]" operator="ne" rhs="">
-			<assign property="var:colorCreateCount" value="0" />
-			<create class="color-pager" target="SHINGLECOLOR/inner" /> 
-			<loop lhs="[var:colorCreateCount]" operator="lt" rhs="[var:colorCount]" >
-				<if lhs="[eval: [var:colorCount]-[var:colorCreateCount]]" operator="e" rhs="1">
-					<create class="one-color" target="COLORPAGER" index="[var:colorCreateCount]"/>
-					<assign property="var:colorCreateCount" value="[eval: [var:colorCreateCount]+1]" />
-				</if>
-				<if lhs="[eval: [var:colorCount]-[var:colorCreateCount]]" operator="e" rhs="2">
-					<create class="two-colors" target="COLORPAGER" index="[var:colorCreateCount]"/>
-					<assign property="var:colorCreateCount" value="[eval: [var:colorCreateCount]+2]" />
-				</if>
-				<if lhs="[eval: [var:colorCount]-[var:colorCreateCount]]" operator="gte" rhs="3">
-					<create class="three-colors" target="COLORPAGER" index="[var:colorCreateCount]"  />
-					<assign property="var:colorCreateCount" value="[eval: [var:colorCreateCount]+3]" />
-				</if>
-			</loop>
-		      <play action="blur" />
-		      <alpha value="1" time=".25" target="SHINGLECOLOR" />
-		      <translate valign="center" time=".25" curve="easeout" target="SHINGLECOLOR" />
-		      <assign property="var:curtainaction" value="colordismiss" />
-			<else>
-		        <assign property="var:color" value="N/A" />
-		        <alert message="[var:shingle] [var:color]" />
-				<assign property="datasource:getWarranties.source" value="https://162.209.101.177/api/GetWarranties?productId=[var:shingle]" />
-				<play action="sidebar-products" _alias="WARRANTY" _form="Warranty" />
-			</else>
-		</if>
+      <!-- 		<assign property="var:colorCount" value="4" /> -->
+      <assign property="var:shingle" value="[datasource:getProducts._value.ProductId]" />
+      <play action="released" />
+      <delete target="COLORPAGER" />
+      <assign property="var:shingleSelected" value="_value" />
+      <assign property="var:colorCount" value="[eval:JSON.parse('[datasource:getProducts._value.Color]').length]" />
+      <if lhs="[eval:JSON.parse('[datasource:getProducts._value.Color]').length]" operator="ne" rhs="">
+        <assign property="var:colorCreateCount" value="0" />
+        <create class="color-pager" target="SHINGLECOLOR/inner" /> 
+        <loop lhs="[var:colorCreateCount]" operator="lt" rhs="[var:colorCount]" >
+        	<if lhs="[eval: [var:colorCount]-[var:colorCreateCount]]" operator="e" rhs="1">
+        		<create class="one-color" target="COLORPAGER" index="[var:colorCreateCount]"/>
+        		<assign property="var:colorCreateCount" value="[eval: [var:colorCreateCount]+1]" />
+        	</if>
+        	<if lhs="[eval: [var:colorCount]-[var:colorCreateCount]]" operator="e" rhs="2">
+        		<create class="two-colors" target="COLORPAGER" index="[var:colorCreateCount]"/>
+        		<assign property="var:colorCreateCount" value="[eval: [var:colorCreateCount]+2]" />
+        	</if>
+        	<if lhs="[eval: [var:colorCount]-[var:colorCreateCount]]" operator="gte" rhs="3">
+        		<create class="three-colors" target="COLORPAGER" index="[var:colorCreateCount]"  />
+        		<assign property="var:colorCreateCount" value="[eval: [var:colorCreateCount]+3]" />
+        	</if>
+        </loop>
+        <play action="blur" />
+        <alpha value="1" time=".25" target="SHINGLECOLOR" />
+        <translate valign="center" time=".25" curve="easeout" target="SHINGLECOLOR" />
+        <assign property="var:curtainaction" value="colordismiss" />
+        <else>
+          <assign property="var:color" value="N/A" />
+          <alert message="[var:shingle] [var:color]" />
+        	<assign property="datasource:getWarranties.source" value="https://162.209.101.177/api/GetWarranties?productId=[var:shingle]" />
+        	<play action="sidebar-products" _alias="WARRANTY" _form="Warranty" />
+        </else>
+      </if>
     </action>
     
     <action name="colordismiss">
@@ -3548,9 +3759,10 @@
       <play action="released" />
       <assign property="var:warranty" value="_value" />
       <assign property="var:accessories" value="_accessories" />
+      <assign property="var:warrantyname" value="_title" />
       <alert message="warranty id [var:warranty] accessories required [var:accessories]" />
       <assign property="datasource:productsdb.query" value="INSERT INTO PRODUCTS (SHINGLE, COLOR, WARRANTY, IMAGE) VALUES ('[var:shingle]', '[var:color]', '[var:warranty]', '[var:productImage]');" />
-	  <assign property="datasource:getAccessories.source" value="https://162.209.101.177/api/GetAccessoryByProduct?productId=[var:shingle]" />
+      <assign property="datasource:getAccessories.source" value="https://162.209.101.177/api/GetAccessoryByProduct?productId=[var:shingle]" />
     </action>
     
     <action name="productquery" datasource="productsdb" datasourceevent="querycomplete">
@@ -3953,7 +4165,7 @@
 			<assign property="var:estimateJSON" value="[template:estimateJSON.content]" />
 			<assign property="datasource:generateEstimate.postContent" value="[var:estimateJSON]" />
 			<assign property="datasource:generateEstimate.source" value="https://162.209.101.177/api/GenerateEstimate" />
-			<email subject="estimate and measurements json" body="measurements\n\n[var:measurementsJSON]\n\n\n estimate\n\n[var:estimateJSON]" toaddress="mlong@rarewire.com" />
+<!-- 			<email subject="estimate and measurements json" body="measurements\n\n[var:measurementsJSON]\n\n\n estimate\n\n[var:estimateJSON]" toaddress="mlong@rarewire.com" /> -->
 		</action>
 		
 		<action name="estimate-complete" datasource="generateEstimate" datasourceevent="querycomplete">
