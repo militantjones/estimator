@@ -3754,12 +3754,25 @@
 	<action name="warranties-error" datasource="getWarranties" datasourceevent="datasourceerror" >
 		<alert message="warranties error content is [datasource:getWarranties.0.content]" />
 	</action>
-
-    <action name="selectwarranty">
+	
+	<action name="selectwarranty">
+      <sync>
+        <assign property="var:warranty" value="_value" />
+        <assign property="var:accessories" value="_accessories" />
+        <assign property="var:warrantyname" value="_title" />
+        <if lhs="[datasource:productsdb-list.dataSourceResultCount]" operator="gt" rhs="0">
+          <assign property="datasource:productsdb-delete.query" value="DELETE FROM PRODUCTS;" />
+          <alert message="from the if and deleting [datasource:productsdb-list.dataSourceResultCount]" />
+          <else>
+            <play action="selectwarranty-save" />
+            <alert message="from the else, nothing to delete" />
+          </else>
+        </if>
+      </sync>
+    </action>
+    
+    <action name="selectwarranty-save" datasource="productsdb-delete" datasourceevent="querycomplete">
       <play action="released" />
-      <assign property="var:warranty" value="_value" />
-      <assign property="var:accessories" value="_accessories" />
-      <assign property="var:warrantyname" value="_title" />
       <alert message="warranty id [var:warranty] accessories required [var:accessories]" />
       <assign property="datasource:productsdb.query" value="INSERT INTO PRODUCTS (SHINGLE, COLOR, WARRANTY, IMAGE) VALUES ('[var:shingle]', '[var:color]', '[var:warranty]', '[var:productImage]');" />
       <assign property="datasource:getAccessories.source" value="https://162.209.101.177/api/GetAccessoryByProduct?productId=[var:shingle]" />
