@@ -1918,7 +1918,7 @@
       
       <!-- !header -->
       <panel name="header" alias="HEADER" width="100%" height="74" padding-right="10" alpha="1" background="#bfbfbf">
-        <image name="logo" source="images/logo.png" width="53" xpos="10" valign="center"></image>
+        <image name="logo" source="images/logo.png" height="48" xpos="10" valign="center"></image>
         <panel name="profile" width="50%" height="100%" align="right" onclickup="profiledrop">
           <!--<image name="avatar" source="images/avatar.png" width="36" align="left" valign="center"></image>-->
           <panel name="logout" width="50" height="100%" align="right" onclickup="logout">
@@ -2391,9 +2391,7 @@
       <assign property="datasource:provinces.source" value="res://provinces.xml" />
     </action>
     
-    <action name="curtainaction">
-      <play action="[var:curtainaction]" />
-    </action>
+    
     
     <action name="addarea">
       <sync>
@@ -2513,7 +2511,7 @@
         <set onclickup="null" target="VENTMENU/3-btn" />
         <assign property="var:ventindex" value="[eval: [var:ventindex] + 1]" />
         <create class="3vent" index="[var:ventindex]" target="ROOF-VENT/roofpagerbox/pager" />
-        <play action="hideclearcurtain" />
+        <play action="hidevent" />
       </sync>
     </action>
     
@@ -2523,7 +2521,7 @@
         <set onclickup="null" target="VENTMENU/2-btn" />
         <assign property="var:ventindex" value="[eval: [var:ventindex] + 1]" />
         <create class="2vent" index="[var:ventindex]" target="ROOF-VENT/roofpagerbox/pager" />
-        <play action="hideclearcurtain" />
+        <play action="hidevent" />
       </sync>
     </action>
     
@@ -2533,7 +2531,7 @@
         <set onclickup="null" target="VENTMENU/15-btn" />
         <assign property="var:ventindex" value="[eval: [var:ventindex] + 1]" />
         <create class="15vent" index="[var:ventindex]" target="ROOF-VENT/roofpagerbox/pager" />
-        <play action="hideclearcurtain" />
+        <play action="hidevent" />
       </sync>
     </action>
     
@@ -2542,7 +2540,7 @@
         <alpha value="0" time=".25" target="VENTMENU" />
         <assign property="var:ventindex" value="[eval: [var:ventindex] + 1]" />
         <create class="customvent" index="[var:ventindex]" target="ROOF-VENT/roofpagerbox/pager" />
-        <play action="hideclearcurtain" />
+        <play action="hidevent" />
       </sync>
     </action>
     
@@ -2756,7 +2754,7 @@
         <assign property="var:nav" value="_this" />
         <translate xpos="101%" curve="linear" target="NAVBLOCK" />
         <if lhs="[var:navwas]" operator="e" rhs="ROOF">
-          <alert message="[var:navwas]" />
+          <!-- <alert message="[var:navwas]" /> -->
           <play action="[var:roof]" />
         </if>
         <if lhs="_this" operator="e" rhs="PRODUCTS">
@@ -2901,7 +2899,7 @@
       <if lhs="[var:loaded]" operator="e" rhs="yes">
         <sync>
           <assign property="var:adjustmentindexloop" value="[eval: [var:adjustmentindexloop] + 1]" />
-          <alert message="units:[var:units-[var:adjustmentindexloop]] adjustments type:[object:ADJUSTTYPE[var:adjustmentindexloop].text] amount:[object:ADJUSTMENTAMOUNT[var:adjustmentindexloop]/input.text] notes:[object:ADJUSTMENTAMOUNTNOTES[var:adjustmentindexloop]/input.text] " />
+          <!--<alert message="units:[var:units-[var:adjustmentindexloop]] adjustments type:[object:ADJUSTTYPE[var:adjustmentindexloop].text] amount:[object:ADJUSTMENTAMOUNT[var:adjustmentindexloop]/input.text] notes:[object:ADJUSTMENTAMOUNTNOTES[var:adjustmentindexloop]/input.text] " />-->
           <assign property="datasource:adjustmentsdb.query" value="INSERT INTO ADJUSTMENTS (TYPE, UNITS, AMOUNT, NOTES) values ('[object:ADJUSTTYPE[var:adjustmentindexloop].text]', '[var:units-[var:adjustmentindexloop]]', '[object:ADJUSTMENTAMOUNT[var:adjustmentindexloop]/input.text]', '[object:ADJUSTMENTAMOUNTNOTES[var:adjustmentindexloop]/input.text]');" />
         </sync>
       </if>
@@ -3301,13 +3299,13 @@
     
     <action name="HIP">
       <sync>
-        <alert message="pre-saved removed [datasource:hipsdb-list.dataSourceResultCount]" />
+        <!-- <alert message="pre-saved removed [datasource:hipsdb-list.dataSourceResultCount]" />-->
         <if lhs="[datasource:hipsdb-list.dataSourceResultCount]" operator="gt" rhs="0">
           <assign property="datasource:hipsdb-delete.query" value="DELETE FROM HIPS;" />
-          <alert message="if to delete" />
+          <!--<alert message="if to delete" />-->
           <else>
             <play action="HIP-save" />
-            <alert message="in the else, did not delete anything" />
+            <!-- <alert message="in the else, did not delete anything" /> -->
           </else>
         </if>
       </sync>
@@ -3366,13 +3364,13 @@
     
     <action name="VALLEY">
       <sync>
-        <alert message="pre-saved removed [datasource:valleysdb-list.dataSourceResultCount]" />
+        <!-- <alert message="pre-saved removed [datasource:valleysdb-list.dataSourceResultCount]" />-->
         <if lhs="[datasource:valleysdb-list.dataSourceResultCount]" operator="gt" rhs="0">
           <assign property="datasource:valleysdb-delete.query" value="DELETE FROM VALLEYS;" />
           <alert message="if to delete" />
           <else>
             <play action="VALLEY-save" />
-            <alert message="in the else, did not delete anything" />
+            <!-- <alert message="in the else, did not delete anything" />-->
           </else>
         </if>
       </sync>
@@ -3431,10 +3429,10 @@
     
     <action name="RAKE">
       <sync>
-        <alert message="pre-saved removed [datasource:rakesdb-list.dataSourceResultCount]" />
+        <!-- <alert message="pre-saved removed [datasource:rakesdb-list.dataSourceResultCount]" />-->
         <if lhs="[datasource:rakesdb-list.dataSourceResultCount]" operator="gt" rhs="0">
           <assign property="datasource:rakesdb-delete.query" value="DELETE FROM RAKES;" />
-          <alert message="if to delete" />
+          <!-- <alert message="if to delete" />-->
           <else>
             <play action="RAKE-save" />
             <alert message="in the else, did not delete anything" />
@@ -3496,10 +3494,10 @@
     
     <action name="EAVE">
       <sync>
-        <alert message="pre-saved removed [datasource:eavesdb-list.dataSourceResultCount]" />
+        <!-- <alert message="pre-saved removed [datasource:eavesdb-list.dataSourceResultCount]" />-->
         <if lhs="[datasource:eavesdb-list.dataSourceResultCount]" operator="gt" rhs="0">
           <assign property="datasource:eavesdb-delete.query" value="DELETE FROM EAVES;" />
-          <alert message="if to delete" />
+          <!-- <alert message="if to delete" /> -->
           <else>
             <play action="EAVE-save" />
             <alert message="in the else, did not delete anything" />
@@ -3561,10 +3559,10 @@
     
     <action name="CHIMNEY">
       <sync>
-        <alert message="pre-saved removed [datasource:protrusionsdb-list.dataSourceResultCount]" />
+        <!--<alert message="pre-saved removed [datasource:protrusionsdb-list.dataSourceResultCount]" />-->
         <if lhs="[datasource:protrusionsdb-list.dataSourceResultCount]" operator="gt" rhs="0">
           <assign property="datasource:protrusionsdb-delete.query" value="DELETE FROM PROTRUSIONS;" />
-          <alert message="if to delete" />
+          <!-- <alert message="if to delete" />-->
           <else>
             <play action="CHIMNEY-save" />
             <alert message="in the else, did not delete anything" />
@@ -3625,10 +3623,10 @@
     
     <action name="VENT">
       <sync>
-        <alert message="pre-saved removed [datasource:ventsdb-list.dataSourceResultCount]" />
+        <!--<alert message="pre-saved removed [datasource:ventsdb-list.dataSourceResultCount]" />-->
         <if lhs="[datasource:ventsdb-list.dataSourceResultCount]" operator="gt" rhs="0">
           <assign property="datasource:ventsdb-delete.query" value="DELETE FROM VENTS;" />
-          <alert message="if to delete" />
+          <!--<alert message="if to delete" />-->
           <else>
             <play action="VENT-save" />
             <alert message="in the else, did not delete anything" />
@@ -4392,6 +4390,10 @@
     </action>
     
     <!-- !curtain action -->
+    <action name="curtainaction">
+      <play action="[var:curtainaction]" />
+    </action>
+    
     <action name="clearcurtain">
       <alpha value="1" target="CURTAIN" />
     </action>
