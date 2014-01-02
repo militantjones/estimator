@@ -1887,7 +1887,7 @@
         <image name="logo" source="images/logo.png" width="53" xpos="10" valign="center"></image>
         <panel name="profile" width="50%" height="100%" align="right" onclickup="profiledrop">
           <!--<image name="avatar" source="images/avatar.png" width="36" align="left" valign="center"></image>-->
-          <image name="down" source="images/header-down.png" width="29" align="right" valign="center"></image>
+          <image name="down" source="images/header-down.png" align="right" valign="center"></image>
           <text name="welcome" width="130" height="16" xpos="46" ypos="15" leftof="down" margin-right="10" style="darktext" size="15" alignment="right" text="Welcome,"></text>
           <text name="username" width="200" height="20" xpos="46" bottomof="welcome" margin-top="5" leftof="down" margin-right="10" style="darktext" size="15" alignment="right" text="Hingle McCringleberry"></text>
           
@@ -1913,7 +1913,7 @@
     <panel name="curtain" alias="CURTAIN" style="100" alpha="0" onclickup="curtainaction" >
       <panel name="color" style="100" background="#ffffff" alpha="0"></panel>
       
-      <panel name="profilemenu" alias="PROFILEMENU" width="200" height="50" xpos="548" ypos="70" background="343434" alpha="0" cornerradius="2">
+      <panel name="profilemenu" alias="PROFILEMENU" width="200" height="50" xpos="548" ypos="70" background="ed1c24" alpha="0" cornerradius="2">
         <text name="logout" width="100%" height="100%" leftinset="10" color="#ffffff" font="Futura-Medium" size="20" alignment="left" text="Log Out" onclickup="logout"></text>
       </panel>
       
