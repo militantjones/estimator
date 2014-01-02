@@ -90,6 +90,7 @@
 <!--     <datasource name="productsdb" source="sql://PRODUCTS" query="DELETE FROM PRODUCTS;" providertype="sql" /> -->
     <datasource name="productsdb" source="sql://PRODUCTS" query="CREATE TABLE IF NOT EXISTS PRODUCTS (ID INTEGER PRIMARY KEY AUTOINCREMENT, SHINGLE, COLOR, WARRANTY, IMAGE);" providertype="sql" />
     <datasource name="productsdb-list" source="sql://PRODUCTS" query="SELECT * FROM PRODUCTS ORDER BY ID DESC;" providertype="sql" />
+    <datasource name="productsdb-delete" source="sql://PRODUCTS" query="" providertype="sql" />
     
 <!--     <datasource name="accessoriesdb" source="sql://ACCESSORIES" query="DELETE FROM ACCESSORIES;" providertype="sql" /> -->
     <datasource name="accessoriesdb" source="sql://ACCESSORIES" query="CREATE TABLE IF NOT EXISTS ACCESSORIES (ID INTEGER PRIMARY KEY AUTOINCREMENT, LEAKBARRIER, ROOFDECK, STARTER, RIDGECAP, VENTILATION, ACCESSORY, QUANTITY);" providertype="sql" />
@@ -1884,7 +1885,7 @@
       
       <!-- !header -->
       <panel name="header" alias="HEADER" width="100%" height="74" padding-right="10" alpha="1" >
-        <image name="logo" source="images/logo.png" width="53" xpos="10" valign="center"></image>
+        <image name="logo" source="images/logo.png" height="48" xpos="10" valign="center"></image>
         <panel name="profile" width="50%" height="100%" align="right" onclickup="profiledrop">
           <!--<image name="avatar" source="images/avatar.png" width="36" align="left" valign="center"></image>-->
           <image name="down" source="images/header-down.png" align="right" valign="center"></image>
@@ -2043,7 +2044,8 @@
   <actions>
    
     <action name="oninit" oninit="yes">
-		<assign property="var:accessoryCount" value="0" />
+		  <assign property="var:loaded" value="no" />
+		  <assign property="var:accessoryCount" value="0" />
       <assign property="var:tearoff" value="no" />
       <assign property="var:landscaping" value="no" />
       <assign property="var:hardscaping" value="no" />
@@ -2057,7 +2059,7 @@
       <if lhs="[preferences:remember]" operator="e" rhs="yes">
         <assign property="var:username" value="[preferences:username]" />
         <assign property="var:password" value="[preferences:password]" />
-		<assign property="object:HEADER/profile/username.text" value="[preferences:username]" />
+        <assign property="object:HEADER/profile/username.text" value="[preferences:username]" />
         <assign property="datasource:login.postContent" value="[template:login.content]" />
         <assign property="datasource:login.source" value="https://162.209.101.177/api/AuthenticateUser" />
         <alpha value="1" time=".1" target="REMEMBER/check" />
@@ -2265,6 +2267,7 @@
 			<else>
 				<alert message="There was a problem signing you in, please try again later." />
 			</else>
+			<assign property="var:loaded" value="yes" />
 		</if>
     </action>
     
@@ -2872,26 +2875,28 @@
     </action>
     
     <action name="saveCustomer-save" datasource="customersdb-delete" datasourceevent="querycomplete">
-      <sync>
-        <play action="released" />
-        <translate ypos="101%" time=".1" curve="linear" target="NAV-CUSTOMER/sel" />
-        <assign property="var:roofarrow" value="Inspection" />
-        <translate align="right" time=".1" curve="linear" target="ROOF-SIDEBAR-PAGER/[var:roofarrow]/arrow" />
-        <assign property="var:roof" value="INSPECTION" />
-        <translate valign="bottom" time=".1" curve="linear" target="NAV-ROOF/sel" />
-        <alpha value="1" target="ROOF-INSPECTION" />
-      </sync>
-      <sync>
-        <translate xpos="0" curve="linear" target="NAVBLOCK" />
-        <alpha value="0" time=".2" target="CUSTOMER" />
-        <alpha value="1" time=".2" target="ROOF" />
-        <assign property="var:nav" value="ROOF" />
-        <translate xpos="101%" curve="linear" target="NAVBLOCK" />
-      </sync>
-      <sync>
-	  	<assign property="var:db-action" value="save" />
-        <assign property="datasource:customersdb.query" value="INSERT INTO CUSTOMERS (FNAME,LNAME,EMAIL,PHONE,FNAME2,LNAME2,EMAIL2,PHONE2,COUNTRY,STREET,CITY,STATE,POSTAL,NOTES) values ('[object:CUST1-FNAME/input.text]', '[object:CUST1-LNAME/input.text]', '[object:CUST1-EMAIL/input.text]', '[object:CUST1-PHONE/input.text]', '[object:CUST2-FNAME/input.text]', '[object:CUST2-LNAME/input.text]', '[object:CUST2-EMAIL/input.text]', '[object:CUST2-PHONE/input.text]', '[var:country]', '[object:STREET/input.text]', '[object:CITY/input.text]', '[object:STATE/input.text]', '[object:ZIP/input.text]', '[object:NOTES/input.text]');" />
-      </sync>
+      <if lhs="[var:loaded]" operator="e" rhs="yes">
+        <sync>
+          <play action="released" />
+          <translate ypos="101%" time=".1" curve="linear" target="NAV-CUSTOMER/sel" />
+          <assign property="var:roofarrow" value="Inspection" />
+          <translate align="right" time=".1" curve="linear" target="ROOF-SIDEBAR-PAGER/[var:roofarrow]/arrow" />
+          <assign property="var:roof" value="INSPECTION" />
+          <translate valign="bottom" time=".1" curve="linear" target="NAV-ROOF/sel" />
+          <alpha value="1" target="ROOF-INSPECTION" />
+        </sync>
+        <sync>
+          <translate xpos="0" curve="linear" target="NAVBLOCK" />
+          <alpha value="0" time=".2" target="CUSTOMER" />
+          <alpha value="1" time=".2" target="ROOF" />
+          <assign property="var:nav" value="ROOF" />
+          <translate xpos="101%" curve="linear" target="NAVBLOCK" />
+        </sync>
+        <sync>
+	  	  <assign property="var:db-action" value="save" />
+          <assign property="datasource:customersdb.query" value="INSERT INTO CUSTOMERS (FNAME,LNAME,EMAIL,PHONE,FNAME2,LNAME2,EMAIL2,PHONE2,COUNTRY,STREET,CITY,STATE,POSTAL,NOTES) values ('[object:CUST1-FNAME/input.text]', '[object:CUST1-LNAME/input.text]', '[object:CUST1-EMAIL/input.text]', '[object:CUST1-PHONE/input.text]', '[object:CUST2-FNAME/input.text]', '[object:CUST2-LNAME/input.text]', '[object:CUST2-EMAIL/input.text]', '[object:CUST2-PHONE/input.text]', '[var:country]', '[object:STREET/input.text]', '[object:CITY/input.text]', '[object:STATE/input.text]', '[object:ZIP/input.text]', '[object:NOTES/input.text]');" />
+        </sync>
+      </if>
     </action>
 
 	<action name="customersdone" datasource="customersdb" datasourceevent="querycomplete" >
@@ -3034,13 +3039,15 @@
     </action>
     
     <action name="INSPECTION-save" datasource="inspectiondb-delete" datasourceevent="querycomplete">
-      <!--<alert title="inspection" message="rooftype [object:ROOFTYPE/input.text] floors [object:FLOORS/input.text]" />-->
-      <if lhs="[eval:'[object:ROOFTYPE/input.text]' != '' &amp;&amp; '[object:FLOORS/input.text]' != '']" operator="e" rhs="true">
-        <assign property="datasource:inspectiondb.query" value="INSERT INTO INSPECTION (ROOFTYPE, FLOORS) VALUES ('[object:ROOFTYPE/input.text]', '[object:FLOORS/input.text]');" />
-        <alert message="[object:ROOFTYPE/input.text] : [object:FLOORS/input.text]" />
-        <else>
-          <alert title="Incomplete Form" message="Please fill out all fields" />
-        </else>
+      <if lhs="[var:loaded]" operator="e" rhs="yes">
+        <!--<alert title="inspection" message="rooftype [object:ROOFTYPE/input.text] floors [object:FLOORS/input.text]" />-->
+        <if lhs="[eval:'[object:ROOFTYPE/input.text]' != '' &amp;&amp; '[object:FLOORS/input.text]' != '']" operator="e" rhs="true">
+          <assign property="datasource:inspectiondb.query" value="INSERT INTO INSPECTION (ROOFTYPE, FLOORS) VALUES ('[object:ROOFTYPE/input.text]', '[object:FLOORS/input.text]');" />
+          <alert message="[object:ROOFTYPE/input.text] : [object:FLOORS/input.text]" />
+          <else>
+            <alert title="Incomplete Form" message="Please fill out all fields" />
+          </else>
+        </if>
       </if>
     </action>
     
@@ -3064,14 +3071,16 @@
     </action>
     
     <action name="ROOF AREA-save" datasource="roofareadb-delete" datasourceevent="querycomplete">
-      <sync>
-        <if lhs="[var:areaindex]" operator="gte" rhs="1">
-          <play action="areaValidationLoop" />
-          <else>
-            <alert title="No Roof Areas Available" message="There have not been any Roof Areas added to save." />
-          </else>
-        </if>
-      </sync>
+      <if lhs="[var:loaded]" operator="e" rhs="yes">
+        <sync>
+          <if lhs="[var:areaindex]" operator="gte" rhs="1">
+            <play action="areaValidationLoop" />
+            <else>
+              <alert title="No Roof Areas Available" message="There have not been any Roof Areas added to save." />
+            </else>
+          </if>
+        </sync>
+      </if>
     </action>
 
     <action name="areaValidationLoop">
@@ -3093,7 +3102,6 @@
           <play action="roofareas-db-add" />
         </else>
       </if>
-
     </action>
 
     <action name="roofareas-db-add">
@@ -3147,12 +3155,14 @@
     
     <action name="WASTE-save" datasource="wastedb-delete" datasourceevent="querycomplete">
       <!--<alert message="[object:WASTEPERCENT/input.text]" />-->
-      <if lhs="[eval:'[object:WASTEPERCENT/input.text]' != '']" operator="e" rhs="true">
-        <assign property="datasource:wastedb.query" value="INSERT INTO WASTE (PERCENT) values ('[object:WASTEPERCENT/input.text]');" />
-        <alert message="[object:WASTEPERCENT/input.text]" />
-        <else>
-          <alert title="Incomplete Form" message="Please fill out all fields" />
-        </else> 
+      <if lhs="[var:loaded]" operator="e" rhs="yes">
+        <if lhs="[eval:'[object:WASTEPERCENT/input.text]' != '']" operator="e" rhs="true">
+          <assign property="datasource:wastedb.query" value="INSERT INTO WASTE (PERCENT) values ('[object:WASTEPERCENT/input.text]');" />
+          <alert message="[object:WASTEPERCENT/input.text]" />
+          <else>
+            <alert title="Incomplete Form" message="Please fill out all fields" />
+          </else> 
+        </if>
       </if>
     </action>
     
@@ -3172,14 +3182,16 @@
     </action>
     
     <action name="RIDGE-save" datasource="ridgesdb-delete" datasourceevent="querycomplete">
-      <sync>
-        <if lhs="[var:ridgeindex]" operator="gt" rhs="0">
-          <play action="ridgeValidationLoop" />
-          <else>
-            <alert title="No Ridges Available" message="There have not been any Ridges added to save." />
-          </else>
-        </if>
-      </sync>
+      <if lhs="[var:loaded]" operator="e" rhs="yes">
+        <sync>
+          <if lhs="[var:ridgeindex]" operator="gt" rhs="0">
+            <play action="ridgeValidationLoop" />
+            <else>
+              <alert title="No Ridges Available" message="There have not been any Ridges added to save." />
+            </else>
+          </if>
+        </sync>
+      </if>
     </action>
 
     <action name="ridgeValidationLoop">
@@ -3235,14 +3247,16 @@
     </action>
     
     <action name="HIP-save" datasource="hipsdb-delete" datasourceevent="querycomplete">
-      <sync>
-        <if lhs="[var:hipindex]" operator="gt" rhs="0">
-          <play action="hipValidationLoop" />
-          <else>
-            <alert title="No Hips Available" message="There have not been any Hips added to save." />
-          </else>
-        </if>
-      </sync>
+      <if lhs="[var:loaded]" operator="e" rhs="yes">
+        <sync>
+          <if lhs="[var:hipindex]" operator="gt" rhs="0">
+            <play action="hipValidationLoop" />
+            <else>
+              <alert title="No Hips Available" message="There have not been any Hips added to save." />
+            </else>
+          </if>
+        </sync>
+      </if>
     </action>
 
     <action name="hipValidationLoop">
@@ -3298,14 +3312,16 @@
     </action>
     
     <action name="VALLEY-save" datasource="valleysdb-delete" datasourceevent="querycomplete">
-      <sync>
-        <if lhs="[var:valleyindex]" operator="gt" rhs="0">
-          <play action="valleyValidationLoop" />
-          <else>
-            <alert title="No Valleys Available" message="There have not been any Valleys added to save." />
-          </else>
-        </if>
-      </sync>
+      <if lhs="[var:loaded]" operator="e" rhs="yes">
+        <sync>
+          <if lhs="[var:valleyindex]" operator="gt" rhs="0">
+            <play action="valleyValidationLoop" />
+            <else>
+              <alert title="No Valleys Available" message="There have not been any Valleys added to save." />
+            </else>
+          </if>
+        </sync>
+      </if>
     </action>
 
     <action name="valleyValidationLoop">
@@ -3361,14 +3377,16 @@
     </action>
     
     <action name="RAKE-save" datasource="rakesdb-delete" datasourceevent="querycomplete">
-      <sync>
-        <if lhs="[var:rakeindex]" operator="gt" rhs="0">
-          <play action="rakeValidationLoop" />
-          <else>
-            <alert title="No Rakes Available" message="There have not been any Rakes added to save." />
-          </else>
-        </if>
-      </sync>
+      <if lhs="[var:loaded]" operator="e" rhs="yes">
+        <sync>
+          <if lhs="[var:rakeindex]" operator="gt" rhs="0">
+            <play action="rakeValidationLoop" />
+            <else>
+              <alert title="No Rakes Available" message="There have not been any Rakes added to save." />
+            </else>
+          </if>
+        </sync>
+      </if>
     </action>
 
     <action name="rakeValidationLoop">
@@ -3424,14 +3442,16 @@
     </action>
     
     <action name="EAVE-save" datasource="eavesdb-delete" datasourceevent="querycomplete">
-      <sync>
-        <if lhs="[var:eaveindex]" operator="gt" rhs="0">
-          <play action="eaveValidationLoop" />
-          <else>
-            <alert title="No Eaves Available" message="There have not been any Eaves added to save." />
-          </else>
-        </if>
-      </sync>
+      <if lhs="[var:loaded]" operator="e" rhs="yes">
+        <sync>
+          <if lhs="[var:eaveindex]" operator="gt" rhs="0">
+            <play action="eaveValidationLoop" />
+            <else>
+              <alert title="No Eaves Available" message="There have not been any Eaves added to save." />
+            </else>
+          </if>
+        </sync>
+      </if>
     </action>
 
     <action name="eaveValidationLoop">
@@ -3487,14 +3507,16 @@
     </action>
     
     <action name="CHIMNEY-save" datasource="protrusionsdb-delete" datasourceevent="querycomplete">
-      <sync>
-        <if lhs="[var:protrusionindex]" operator="gt" rhs="0">
-          <play action="chimneyValidationLoop" />
-          <else>
-            <alert title="No Chimneys Available" message="There have not been any Chimneys added to save." />
-          </else>
-        </if>
-      </sync>
+      <if lhs="[var:loaded]" operator="e" rhs="yes">
+        <sync>
+          <if lhs="[var:protrusionindex]" operator="gt" rhs="0">
+            <play action="chimneyValidationLoop" />
+            <else>
+              <alert title="No Chimneys Available" message="There have not been any Chimneys added to save." />
+            </else>
+          </if>
+        </sync>
+      </if>
     </action>
 
     <action name="chimneyValidationLoop">
@@ -3549,14 +3571,16 @@
     </action>
     
     <action name="VENT-save" datasource="ventsdb-delete" datasourceevent="querycomplete">
-      <sync>
-        <if lhs="[var:ventindex]" operator="gt" rhs="0">
-          <play action="ventValidationLoop" />
-          <else>
-            <alert title="No Vents Available" message="There have not been any Vents added to save." />
-          </else>
-        </if>
-      </sync>
+      <if lhs="[var:loaded]" operator="e" rhs="yes">
+        <sync>
+          <if lhs="[var:ventindex]" operator="gt" rhs="0">
+            <play action="ventValidationLoop" />
+            <else>
+              <alert title="No Vents Available" message="There have not been any Vents added to save." />
+            </else>
+          </if>
+        </sync>
+      </if>
     </action>
 
     <action name="ventValidationLoop">
@@ -3755,7 +3779,7 @@
 		<alert message="warranties error content is [datasource:getWarranties.0.content]" />
 	</action>
 	
-	<action name="selectwarranty">
+	  <action name="selectwarranty">
       <sync>
         <assign property="var:warranty" value="_value" />
         <assign property="var:accessories" value="_accessories" />
@@ -3772,10 +3796,12 @@
     </action>
     
     <action name="selectwarranty-save" datasource="productsdb-delete" datasourceevent="querycomplete">
-      <play action="released" />
-      <alert message="warranty id [var:warranty] accessories required [var:accessories]" />
-      <assign property="datasource:productsdb.query" value="INSERT INTO PRODUCTS (SHINGLE, COLOR, WARRANTY, IMAGE) VALUES ('[var:shingle]', '[var:color]', '[var:warranty]', '[var:productImage]');" />
-      <assign property="datasource:getAccessories.source" value="https://162.209.101.177/api/GetAccessoryByProduct?productId=[var:shingle]" />
+      <if lhs="[var:loaded]" operator="e" rhs="yes">
+        <play action="released" />
+        <alert message="warranty id [var:warranty] accessories required [var:accessories]" />
+        <assign property="datasource:productsdb.query" value="INSERT INTO PRODUCTS (SHINGLE, COLOR, WARRANTY, IMAGE) VALUES ('[var:shingle]', '[var:color]', '[var:warranty]', '[var:productImage]');" />
+        <assign property="datasource:getAccessories.source" value="https://162.209.101.177/api/GetAccessoryByProduct?productId=[var:shingle]" />
+      </if>
     </action>
     
     <action name="productquery" datasource="productsdb" datasourceevent="querycomplete">
