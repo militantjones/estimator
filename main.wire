@@ -2860,8 +2860,6 @@
     <!-- !customer actions -->
     <action name="saveCustomer">
       <sync>
-<<<<<<< HEAD
-=======
         <if lhs="[datasource:customersdb-list.dataSourceResultCount]" operator="gt" rhs="0">
           <assign property="datasource:customersdb-delete.query" value="DELETE FROM CUSTOMERS;" />
           <alert message="from the if and deleting [datasource:customersdb-list.dataSourceResultCount]" />
@@ -2891,7 +2889,6 @@
         <translate xpos="101%" curve="linear" target="NAVBLOCK" />
       </sync>
       <sync>
->>>>>>> Dustin
 	  	<assign property="var:db-action" value="save" />
         <assign property="datasource:customersdb.query" value="INSERT INTO CUSTOMERS (FNAME,LNAME,EMAIL,PHONE,FNAME2,LNAME2,EMAIL2,PHONE2,COUNTRY,STREET,CITY,STATE,POSTAL,NOTES) values ('[object:CUST1-FNAME/input.text]', '[object:CUST1-LNAME/input.text]', '[object:CUST1-EMAIL/input.text]', '[object:CUST1-PHONE/input.text]', '[object:CUST2-FNAME/input.text]', '[object:CUST2-LNAME/input.text]', '[object:CUST2-EMAIL/input.text]', '[object:CUST2-PHONE/input.text]', '[var:country]', '[object:STREET/input.text]', '[object:CITY/input.text]', '[object:STATE/input.text]', '[object:ZIP/input.text]', '[object:NOTES/input.text]');" />
       </sync>
