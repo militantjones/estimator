@@ -1,5 +1,4 @@
 <wire>   
-
   <!-- GAF Estimator -->
   <!-- iOS iPad -->
   <!-- App #7562 -->
@@ -1855,39 +1854,63 @@
       <!-- !top level nav -->
       <pager name="nav" alias="NAV" width="100%" height="53" ypos="74" alpha="1" background="#343434" orientation="horizontal" paginate="no">
         <panel name="nav-customer" alias="NAV-CUSTOMER" width="128" height="100%" onclickup="nav" _this="CUSTOMER">
-          <text name="open" width="100%" height="100%" color="#ffffff" font="Futura-Medium" size="20" alignment="center" text="Customer"></text>
+          <text name="open" width="100%" height="100%" color="#ffffff" font="Futura-Medium" size="18" alignment="center" text="Customer" leftinset="20">
+            <panel name="step" width="20" height="20" cornerradius="10" background="#ed1c24" valign="center" xpos="8">
+              <text name="open" width="100%" height="100%" color="#ffffff" font="Futura-Medium" size="10" alignment="center" text="1"></text>
+            </panel>
+          </text>
           <text name="closed" width="100%" height="100%" color="#b0afaf" font="Futura-Medium" size="20" alignment="center" text="Customer" alpha="0"></text>
           <panel name="sel" width="100%" height="6" style="brand" valign="bottom"></panel>
         </panel>
         
         <panel name="nav-roof" alias="NAV-ROOF" width="123" height="100%" onclickup="nav" _this="ROOF">
-          <text name="open" width="100%" height="100%" color="#ffffff" font="Futura-Medium" size="20" alignment="center" text="Roof Info"></text>
+          <text name="open" width="100%" height="100%" color="#ffffff" font="Futura-Medium" size="18" alignment="center" text="Roof Info" leftinset="20">
+            <panel name="step" width="20" height="20" cornerradius="10" background="#666666" valign="center" xpos="8">
+              <text name="open" width="100%" height="100%" color="#ffffff" font="Futura-Medium" size="10" alignment="center" text="2"></text>
+            </panel>
+          </text>
           <text name="closed" width="100%" height="100%" color="#b0afaf" font="Futura-Medium" size="20" alignment="center" text="Roof Info" alpha="0"></text>
-          <panel name="sel" width="100%" height="6" style="brand" ypos="101%"></panel>
+          <panel name="sel" width="100%" height="3" style="brand" ypos="101%"></panel>
         </panel>
         
         <panel name="nav-products" alias="NAV-PRODUCTS" width="123" height="100%" onclickup="nav" _this="PRODUCTS">
-          <text name="open" width="100%" height="100%" color="#ffffff" font="Futura-Medium" size="20" alignment="center" text="Products"></text>
+          <text name="open" width="100%" height="100%" color="#ffffff" font="Futura-Medium" size="18" alignment="center" text="Products" leftinset="20">
+            <panel name="step" width="20" height="20" cornerradius="10" background="#666666" valign="center" xpos="8">
+              <text name="open" width="100%" height="100%" color="#ffffff" font="Futura-Medium" size="10" alignment="center" text="3"></text>
+            </panel>
+          </text>
           <text name="closed" width="100%" height="100%" color="#b0afaf" font="Futura-Medium" size="20" alignment="center" text="Products" alpha="0"></text>
-          <panel name="sel" width="100%" height="6" style="brand" ypos="101%"></panel>
+          <panel name="sel" width="100%" height="3" style="brand" ypos="101%"></panel>
         </panel>
         
         <panel name="nav-services" alias="NAV-SERVICES" width="118" height="100%" onclickup="nav" _this="SERVICES">
-          <text name="open" width="100%" height="100%" color="#ffffff" font="Futura-Medium" size="20" alignment="center" text="Services"></text>
+          <text name="open" width="100%" height="100%" color="#ffffff" font="Futura-Medium" size="18" alignment="center" text="Services" leftinset="20">
+            <panel name="step" width="20" height="20" cornerradius="10" background="#666666" valign="center" xpos="8">
+              <text name="open" width="100%" height="100%" color="#ffffff" font="Futura-Medium" size="10" alignment="center" text="4"></text>
+            </panel>
+          </text>
           <text name="closed" width="100%" height="100%" color="#b0afaf" font="Futura-Medium" size="20" alignment="center" text="Services" alpha="0"></text>
-          <panel name="sel" width="100%" height="6" style="brand" ypos="101%"></panel>
+          <panel name="sel" width="100%" height="3" style="brand" ypos="101%"></panel>
         </panel>
         
         <panel name="nav-adjustments" alias="NAV-ADJUSTMENTS" width="153" height="100%" onclickup="nav" _this="ADJUSTMENTS">
-          <text name="open" width="100%" height="100%" color="#ffffff" font="Futura-Medium" size="20" alignment="center" text="Adjustments"></text>
+          <text name="open" width="100%" height="100%" color="#ffffff" font="Futura-Medium" size="18" alignment="center" text="Adjustments" leftinset="20">
+            <panel name="step" width="20" height="20" cornerradius="10" background="#666666" valign="center" xpos="8">
+              <text name="open" width="100%" height="100%" color="#ffffff" font="Futura-Medium" size="10" alignment="center" text="5"></text>
+            </panel>
+          </text>
           <text name="closed" width="100%" height="100%" color="#b0afaf" font="Futura-Medium" size="20" alignment="center" text="Adjustments" alpha="0"></text>
-          <panel name="sel" width="100%" height="6" style="brand" ypos="101%"></panel>
+          <panel name="sel" width="100%" height="3" style="brand" ypos="101%"></panel>
         </panel>
         
         <panel name="nav-summary" alias="NAV-SUMMARY" width="123" height="100%" onclickup="nav" _this="SUMMARY">
-          <text name="open" width="100%" height="100%" color="#ffffff" font="Futura-Medium" size="20" alignment="center" text="Summary"></text>
+          <text name="open" width="100%" height="100%" color="#ffffff" font="Futura-Medium" size="18" alignment="center" text="Summary" leftinset="20">
+            <panel name="step" width="20" height="20" cornerradius="10" background="#666666" valign="center" xpos="8">
+              <text name="open" width="100%" height="100%" color="#ffffff" font="Futura-Medium" size="10" alignment="center" text="6"></text>
+            </panel>
+          </text>
           <text name="closed" width="100%" height="100%" color="#b0afaf" font="Futura-Medium" size="20" alignment="center" text="Summary" alpha="0"></text>
-          <panel name="sel" width="100%" height="6" style="brand" ypos="101%"></panel>
+          <panel name="sel" width="100%" height="3" style="brand" ypos="101%"></panel>
         </panel>
       </pager>
       <panel name="navblock" alias="NAVBLOCK" width="100%" height="53" ypos="74" xpos="101%"></panel>
@@ -2726,7 +2749,9 @@
     <action name="nav">
       <sync>
         <translate ypos="101%" time=".1" curve="linear" target="NAV-[var:nav]/sel" />
+        <assign property="object:NAV-[var:nav]/open/step.background" value="#666666" />
         <translate valign="bottom" time=".1" curve="linear" target="sel" />
+        <assign property="object:open/step.background" value="#ed1c24" />
       </sync>
       <sync>
         <play action="saved[var:nav]" />
