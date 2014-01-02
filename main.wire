@@ -811,11 +811,7 @@
               <object class="button" name="test" size="20" label="Select" action="selectshingle" value="[datasource:getProducts.[param:index].ProductId]" />
             </panel>
           </panel>
-<<<<<<< HEAD
-          <panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
-=======
 <!--           <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel> -->
->>>>>>> marty
         </panel>
     </class><!-- <object class="shingles"  /> -->
     
