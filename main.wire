@@ -163,6 +163,7 @@
     <style name="lighttext" color="#888888" font="Futura-Medium"/>
     <style name="darktext" color="#343434" font="Futura-Medium"/>
     <style name="button" background="#ed1c24" width="100%" height="100%" color="#ffffff" font="Futura-Medium" alignment="center"/>
+    <style name="button-grey" background="#343434" width="100%" height="100%" color="#ffffff" font="Futura-Medium" alignment="center"/>
     <style name="textinput" background="ffffff" cornerradius="2" borderwidth="1" bordercolor="#888888" clip="yes"/>
    
   </styles>
@@ -252,16 +253,20 @@
           <panel name="signin" width="110" height="50" bottomof="PASSWORD" margin-top="20">
             <object class="button" name="test" size="20" label="Sign In" action="signin" />
           </panel>
-          
-          <panel name="remember" alias="REMEMBER" width="50" height="50" align="right" bottomof="PASSWORD" margin-top="20" background="f3f3f3" cornerradius="2" borderwidth="1" bordercolor="#888888" clip="yes" onclickup="checkon" _action="remember">
-             <panel name="check" width="0" height="0" align="center" valign="center" background="#ed1c24" cornerradius="2" alpha="1" ></panel>
+
+          <text name="radiolabel" width="43%" height="50" bottomof="PASSWORD" margin-top="20" align="right" style="lighttext" leftinset="1" size="18" alignment="right" text="Remember Me"></text>
+
+          <panel name="remember" alias="REMEMBER" width="30" height="30" leftof="radiolabel" bottomof="PASSWORD" margin-top="30" background="f3f3f3" cornerradius="15" borderwidth="1" bordercolor="#888888" clip="yes" onclickup="checkon" _action="remember">
+             <panel name="check" width="0" height="0" align="center" valign="center" background="#ed1c24" cornerradius="12" alpha="1" ></panel>
           </panel>
           
-          <text name="radiolabel" width="40%" height="50" bottomof="PASSWORD" margin-top="20" leftof="REMEMBER" margin-right="20" style="lighttext" size="20" alignment="right" text="Remember"></text>
 
           <text name="noaccountlabel" alias="NOACCOUNTLABEL" width="100%" height="30" ypos="70%" style="lighttext" size="20" alignment="center" text="Don't have an account?"></text>
           <panel name="register" width="150" height="50" align="center" bottomof="NOACCOUNTLABEL" margin-top="20">
-            <object class="button" name="test" size="20" label="Register" action="openregisterview" />
+            <panel name="register" width="100%" height="100%" onclick="touched" onclickup="openregisterview" _value="[param:value]" cornerradius="2" clip="yes">
+              <text name="button" style="button-grey" size="20" text="Register"></text>
+              <panel name="bg" style="100" background="ffffff" alpha="0"></panel>
+            </panel>
           </panel>
         
         </panel><!-- end of column -->
@@ -540,8 +545,8 @@
           </panel>
           <text name="measure" width="30" height="100%" align="right" style="darktext" size="20" alignment="center" text="ft"></text>
         </panel>
-        <panel name="ridgevent[param:index]" alias="RIDGEVENT[param:index]" width="50" height="50" align="left" bottomof="ridge" margin-top="10" background="f3f3f3" cornerradius="2" borderwidth="1" bordercolor="#888888" clip="yes" onclickup="checkonindexed" _action="ridgeradio" _index="[param:index]">
-          <panel name="check" width="0" height="0" align="center" valign="center" background="#ed1c24" cornerradius="2" alpha="1" ></panel>
+        <panel name="ridgevent[param:index]" alias="RIDGEVENT[param:index]" width="50" height="50" align="left" bottomof="ridge" margin-top="10" background="f3f3f3" cornerradius="25" borderwidth="1" bordercolor="#888888" clip="yes" onclickup="checkonindexed" _action="ridgeradio" _index="[param:index]">
+          <panel name="check" width="0" height="0" align="center" valign="center" background="#ed1c24" cornerradius="20" alpha="1" ></panel>
         </panel>
         <text name="checklabel" width="150" height="50" bottomof="ridge" rightof="ridgevent[param:index]" margin-top="10" style="darktext" size="20" leftinset="10" alignment="left" text="Ridge Vent(s)"></text>
         <panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
@@ -1011,8 +1016,8 @@
     <!-- !services classes -->
     <class name="tearoff">
       <panel name="tearoff" alias="TEAROFF" width="100%" height="195">
-        <panel name="tearoffservice" alias="TEAROFFSERVICE" width="50" height="50" align="left" ypos="10" background="f3f3f3" cornerradius="2" borderwidth="1" bordercolor="#888888" clip="yes" onclickup="checkon" _action="tearoff">
-          <panel name="check" width="0" height="0" align="center" valign="center" background="#ed1c24" cornerradius="2" alpha="1" ></panel>
+        <panel name="tearoffservice" alias="TEAROFFSERVICE" width="50" height="50" align="left" ypos="10" background="f3f3f3" cornerradius="25" borderwidth="1" bordercolor="#888888" clip="yes" onclickup="checkon" _action="tearoff">
+          <panel name="check" width="0" height="0" align="center" valign="center" background="#ed1c24" cornerradius="20" alpha="1" ></panel>
         </panel>
         <text name="checklabel" width="150" height="50" ypos="10" rightof="tearoffservice" style="darktext" size="20" leftinset="10" alignment="left" text="Tear Off Service"></text>
         <panel name="layers" alias="LAYERS" width="226" height="50" align="left" bottomof="tearoffservice" margin-top="10" style="textinput">
@@ -1085,24 +1090,24 @@
     
     <class name="assetprotection">
       <panel name="assetprotection" alias="ASSETPROTECTION" width="100%" height="315">
-        <panel name="landscaping" alias="LANDSCAPING" width="50" height="50" align="left" ypos="10" background="f3f3f3" cornerradius="2" borderwidth="1" bordercolor="#888888" clip="yes" onclickup="checkon" _action="landscaping">
-          <panel name="check" width="0" height="0" align="center" valign="center" background="#ed1c24" cornerradius="2" alpha="1" ></panel>
+        <panel name="landscaping" alias="LANDSCAPING" width="50" height="50" align="left" ypos="10" background="f3f3f3" cornerradius="25" borderwidth="1" bordercolor="#888888" clip="yes" onclickup="checkon" _action="landscaping">
+          <panel name="check" width="0" height="0" align="center" valign="center" background="#ed1c24" cornerradius="20" alpha="1" ></panel>
         </panel>
         <text name="checklabel" width="150" height="50" ypos="10" rightof="landscaping" style="darktext" size="20" leftinset="10" alignment="left" text="Landscaping"></text>
-        <panel name="hardscaping" alias="HARDSCAPING" width="50" height="50" align="left" bottomof="landscaping" margin-top="10" background="f3f3f3" cornerradius="2" borderwidth="1" bordercolor="#888888" clip="yes" onclickup="checkon" _action="hardscaping">
-          <panel name="check" width="0" height="0" align="center" valign="center" background="#ed1c24" cornerradius="2" alpha="1" ></panel>
+        <panel name="hardscaping" alias="HARDSCAPING" width="50" height="50" align="left" bottomof="landscaping" margin-top="10" background="f3f3f3" cornerradius="25" borderwidth="1" bordercolor="#888888" clip="yes" onclickup="checkon" _action="hardscaping">
+          <panel name="check" width="0" height="0" align="center" valign="center" background="#ed1c24" cornerradius="20" alpha="1" ></panel>
         </panel>
         <text name="checklabel" width="150" height="50" bottomof="landscaping" margin-top="10" rightof="hardscaping" style="darktext" size="20" leftinset="10" alignment="left" text="Hardscaping"></text>
-        <panel name="hvac" alias="HVAC" width="50" height="50" align="left" bottomof="hardscaping" margin-top="10" background="f3f3f3" cornerradius="2" borderwidth="1" bordercolor="#888888" clip="yes" onclickup="checkon" _action="hvac">
-          <panel name="check" width="0" height="0" align="center" valign="center" background="#ed1c24" cornerradius="2" alpha="1" ></panel>
+        <panel name="hvac" alias="HVAC" width="50" height="50" align="left" bottomof="hardscaping" margin-top="10" background="f3f3f3" cornerradius="25" borderwidth="1" bordercolor="#888888" clip="yes" onclickup="checkon" _action="hvac">
+          <panel name="check" width="0" height="0" align="center" valign="center" background="#ed1c24" cornerradius="20" alpha="1" ></panel>
         </panel>
         <text name="checklabel" width="150" height="50" bottomof="hardscaping" margin-top="10" rightof="hvac" style="darktext" size="20" leftinset="10" alignment="left" text="HVAC"></text>
-        <panel name="pool" alias="POOL" width="50" height="50" align="left" bottomof="hvac" margin-top="10" background="f3f3f3" cornerradius="2" borderwidth="1" bordercolor="#888888" clip="yes" onclickup="checkon" _action="pool">
-          <panel name="check" width="0" height="0" align="center" valign="center" background="#ed1c24" cornerradius="2" alpha="1" ></panel>
+        <panel name="pool" alias="POOL" width="50" height="50" align="left" bottomof="hvac" margin-top="10" background="f3f3f3" cornerradius="25" borderwidth="1" bordercolor="#888888" clip="yes" onclickup="checkon" _action="pool">
+          <panel name="check" width="0" height="0" align="center" valign="center" background="#ed1c24" cornerradius="20" alpha="1" ></panel>
         </panel>
         <text name="checklabel" width="150" height="50" bottomof="hvac" margin-top="10" rightof="pool" style="darktext" size="20" leftinset="10" alignment="left" text="Pool"></text>
-        <panel name="misc" alias="MISC" width="50" height="50" align="left" bottomof="pool" margin-top="10" background="f3f3f3" cornerradius="2" borderwidth="1" bordercolor="#888888" clip="yes" onclickup="checkon" _action="misc">
-          <panel name="check" width="0" height="0" align="center" valign="center" background="#ed1c24" cornerradius="2" alpha="1" ></panel>
+        <panel name="misc" alias="MISC" width="50" height="50" align="left" bottomof="pool" margin-top="10" background="f3f3f3" cornerradius="25" borderwidth="1" bordercolor="#888888" clip="yes" onclickup="checkon" _action="misc">
+          <panel name="check" width="0" height="0" align="center" valign="center" background="#ed1c24" cornerradius="20" alpha="1" ></panel>
         </panel>
         <text name="checklabel" width="150" height="50" bottomof="pool" margin-top="10" rightof="misc" style="darktext" size="20" leftinset="10" alignment="left" text="Misc"></text>
         <panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
@@ -1114,8 +1119,8 @@
       <panel name="adjustment[param:aindex]" alias="ADJUSTMENT[param:aindex]" width="100%" height="287">
         <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="20" alignment="left" text="Discount [param:index]"></text>
         
-        <panel name="dollars-[param:aindex]" alias="DOLLARS-[param:aindex]" width="50" height="50" align="left" bottomof="subtitle" background="f3f3f3" cornerradius="2" borderwidth="1" bordercolor="#888888" clip="yes" onclickup="dollars" _index="[param:aindex]" _type="ADJUSTMENT[param:aindex]" >
-          <panel name="check" width="35" height="35" align="center" valign="center" background="#ed1c24" cornerradius="2" alpha="1" ></panel>
+        <panel name="dollars-[param:aindex]" alias="DOLLARS-[param:aindex]" width="50" height="50" align="left" bottomof="subtitle" background="f3f3f3" cornerradius="25" borderwidth="1" bordercolor="#888888" clip="yes" onclickup="dollars" _index="[param:aindex]" _type="ADJUSTMENT[param:aindex]" >
+          <panel name="check" width="35" height="35" align="center" valign="center" background="#ed1c24" cornerradius="20" alpha="1" ></panel>
         </panel>
         <text name="checklabel-dollar" width="150" height="50" bottomof="subtitle" rightof="dollars-[param:aindex]" style="darktext" size="20" leftinset="10" alignment="left" text="$"></text>
         
@@ -1152,8 +1157,8 @@
       <panel name="adjustment[param:aindex]" alias="ADJUSTMENT[param:aindex]" width="100%" height="287">
         <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="20" alignment="left" text="Additional Cost [param:index]"></text>
         
-        <panel name="dollars-[param:aindex]" alias="DOLLARS-[param:aindex]" width="50" height="50" align="left" bottomof="subtitle" background="f3f3f3" cornerradius="2" borderwidth="1" bordercolor="#888888" clip="yes" onclickup="dollars" _index="[param:aindex]" _type="ADJUSTMENT[param:aindex]" >
-          <panel name="check" width="35" height="35" align="center" valign="center" background="#ed1c24" cornerradius="2" alpha="1" ></panel>
+        <panel name="dollars-[param:aindex]" alias="DOLLARS-[param:aindex]" width="50" height="50" align="left" bottomof="subtitle" background="f3f3f3" cornerradius="25" borderwidth="1" bordercolor="#888888" clip="yes" onclickup="dollars" _index="[param:aindex]" _type="ADJUSTMENT[param:aindex]" >
+          <panel name="check" width="35" height="35" align="center" valign="center" background="#ed1c24" cornerradius="20" alpha="1" ></panel>
         </panel>
         <text name="checklabel-dollar" width="150" height="50" bottomof="subtitle" rightof="dollars-[param:aindex]" style="darktext" size="20" leftinset="10" alignment="left" text="$"></text>
         
@@ -1430,12 +1435,12 @@
                 <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Country" onreturnkeypressed="next" _next="STREET" _action="null"></textfield>
                 <panel name="active" style="100" onclickup="labelactive" _field="COUNTRY"></panel>
               </panel>-->
-              <panel name="usa" alias="USA" width="50" height="50" align="left" bottomof="subtitle" background="f3f3f3" cornerradius="2" borderwidth="1" bordercolor="#888888" clip="yes" onclickup="countryus"  >
-                <panel name="check" width="35" height="35" align="center" valign="center" background="#ed1c24" cornerradius="2" alpha="1" ></panel>
+              <panel name="usa" alias="USA" width="50" height="50" align="left" bottomof="subtitle" background="f3f3f3" cornerradius="25" borderwidth="1" bordercolor="#888888" clip="yes" onclickup="countryus"  >
+                <panel name="check" width="40" height="40" align="center" valign="center" background="#ed1c24" cornerradius="20" alpha="1" ></panel>
               </panel>
               <text name="checklabel" width="150" height="50" bottomof="subtitle" rightof="USA" style="darktext" size="20" leftinset="10" alignment="left" text="US"></text>
-              <panel name="canada" alias="CANADA" width="50" height="50" xpos="120" bottomof="subtitle" background="f3f3f3" cornerradius="2" borderwidth="1" bordercolor="#888888" clip="yes" onclickup="countrycan"  >
-                <panel name="check" width="0" height="0" align="center" valign="center" background="#ed1c24" cornerradius="2" alpha="1" ></panel>
+              <panel name="canada" alias="CANADA" width="50" height="50" xpos="120" bottomof="subtitle" background="f3f3f3" cornerradius="25" borderwidth="1" bordercolor="#888888" clip="yes" onclickup="countrycan"  >
+                <panel name="check" width="0" height="0" align="center" valign="center" background="#ed1c24" cornerradius="20" alpha="1" ></panel>
               </panel>
               <text name="checklabel" width="150" height="50" bottomof="subtitle" rightof="canada" style="darktext" size="20" leftinset="10" alignment="left" text="Canada"></text>
               <panel name="col2" width="50%" height="110" padding-right="10" align="left" bottomof="USA" margin-top="10">
@@ -2156,7 +2161,7 @@
     
     <!-- !radio actions -->
     <action name="checkon">
-      <scale width="35" height="35" align="center" valign="center" time=".1" alpha="1" target="check" />
+      <scale width="[eval: ('_action' == 'remember' ? '24' : '40')]" height="[eval: ('_action' == 'remember' ? '24' : '40')]" align="center" valign="center" time=".1" alpha="1" target="check" />
       <set onclickup="checkoff" />
       <play action="_action" _value="yes" />
     </action>
@@ -2168,7 +2173,7 @@
     </action>
     
     <action name="checkonindexed">
-      <scale width="35" height="35" align="center" valign="center" time=".1" alpha="1" target="check" />
+      <scale width="40" height="40" align="center" valign="center" time=".1" alpha="1" target="check" />
       <set onclickup="checkoffindexed" />
       <play action="_action" _value="yes" _index="_index" />
     </action>
@@ -2181,26 +2186,26 @@
     
     <action name="dollars">
       <scale width="0" height="0" align="center" valign="center" time=".1" alpha="0" target="_type/percent-_index/check" />
-      <scale width="35" height="35" align="center" valign="center" time=".1" alpha="1" target="_type/dollars-_index/check" />
+      <scale width="40" height="40" align="center" valign="center" time=".1" alpha="1" target="_type/dollars-_index/check" />
       <assign property="var:units-_index" value="dollars" />
     </action>
     
     <action name="percent">
-      <scale width="35" height="35" align="center" valign="center" time=".1" alpha="1" target="_type/percent-_index/check" />
+      <scale width="40" height="40" align="center" valign="center" time=".1" alpha="1" target="_type/percent-_index/check" />
       <scale width="0" height="0" align="center" valign="center" time=".1" alpha="0" target="_type/dollars-_index/check" />
       <assign property="var:units-_index" value="percent" />
     </action>
     
     <action name="countryus">
         <scale width="0" height="0" align="center" valign="center" time=".1" alpha="0" target="CANADA/check" />
-        <scale width="35" height="35" align="center" valign="center" time=".1" alpha="1" target="USA/check" />
+        <scale width="40" height="40" align="center" valign="center" time=".1" alpha="1" target="USA/check" />
         <alpha value="0" time=".1" target="CAN" />
         <alpha value="1" time=".1" target="US" />
         <assign property="var:country" value="US" />
     </action>
     
     <action name="countrycan">
-        <scale width="35" height="35" align="center" valign="center" time=".1" alpha="1" target="CANADA/check" />
+        <scale width="40" height="40" align="center" valign="center" time=".1" alpha="1" target="CANADA/check" />
         <scale width="0" height="0" align="center" valign="center" time=".1" alpha="0" target="USA/check" />
         <alpha value="0" time=".1" target="US" />
         <alpha value="1" time=".1" target="CAN" />
@@ -2242,6 +2247,8 @@
       <play action="released" />
       <if lhs="[object:USERNAME/input.text]" operator="ne" rhs="">
         <if lhs="[object:PASSWORD/input.text]" operator="ne" rhs="">
+          <alpha value="0" time=".15" target="SIGNIN/column" />
+          <translate valign="center" time=".25" target="SIGNIN/logo" />
           <sync>
             <assign property="var:username" value="[object:USERNAME/input.text]" />
             <assign property="var:password" value="[object:PASSWORD/input.text]" />
@@ -2276,12 +2283,20 @@
 			<assign property="httpheader:token-contractorid.Token" value="[preferences:token]" />
 			<assign property="httpheader:token-contractorid.ContractorId" value="[preferences:contractorId]" />
 			<assign property="object:HEADER/profile/username.text" value="[preferences:username]" />
-            <create class="choice" target="CONTAINER" />
-            <alpha value="1" time=".3" target="CHOICE" />
-            <alpha value="0" time=".3" target="SIGNIN" />
-<!--             <alert message="you have signed in username:[preferences:username] password:[preferences:password] remembered:[preferences:remember]" /> -->
+      <sync>
+        <alpha value="0" time="0" target="SIGNIN/column" />
+        <translate ypos="101%" time=".25" target="SIGNIN/logo" />
+        <create class="choice" target="CONTAINER" />
+        <alpha value="1" time=".3" target="CHOICE" />
+        <alpha value="0" time=".3" target="SIGNIN" />
+      </sync>
+<!--        <alert message="you have signed in username:[preferences:username] password:[preferences:password] remembered:[preferences:remember]" /> -->
 			<else>
-				<alert message="There was a problem signing you in, please try again later." />
+        <sync>
+				  <alert message="There was a problem signing you in, please try again later." />
+          <translate ypos="134" time=".25" target="SIGNIN/logo" />
+          <alpha value="1" time=".15" target="SIGNIN/column" />
+        </sync>
 			</else>
 			<assign property="var:loaded" value="yes" />
 		</if>
@@ -2391,9 +2406,7 @@
       <assign property="datasource:provinces.source" value="res://provinces.xml" />
     </action>
     
-    <action name="curtainaction">
-      <play action="[var:curtainaction]" />
-    </action>
+    
     
     <action name="addarea">
       <sync>
@@ -2513,7 +2526,7 @@
         <set onclickup="null" target="VENTMENU/3-btn" />
         <assign property="var:ventindex" value="[eval: [var:ventindex] + 1]" />
         <create class="3vent" index="[var:ventindex]" target="ROOF-VENT/roofpagerbox/pager" />
-        <play action="hideclearcurtain" />
+        <play action="hidevent" />
       </sync>
     </action>
     
@@ -2523,7 +2536,7 @@
         <set onclickup="null" target="VENTMENU/2-btn" />
         <assign property="var:ventindex" value="[eval: [var:ventindex] + 1]" />
         <create class="2vent" index="[var:ventindex]" target="ROOF-VENT/roofpagerbox/pager" />
-        <play action="hideclearcurtain" />
+        <play action="hidevent" />
       </sync>
     </action>
     
@@ -2533,7 +2546,7 @@
         <set onclickup="null" target="VENTMENU/15-btn" />
         <assign property="var:ventindex" value="[eval: [var:ventindex] + 1]" />
         <create class="15vent" index="[var:ventindex]" target="ROOF-VENT/roofpagerbox/pager" />
-        <play action="hideclearcurtain" />
+        <play action="hidevent" />
       </sync>
     </action>
     
@@ -2542,7 +2555,7 @@
         <alpha value="0" time=".25" target="VENTMENU" />
         <assign property="var:ventindex" value="[eval: [var:ventindex] + 1]" />
         <create class="customvent" index="[var:ventindex]" target="ROOF-VENT/roofpagerbox/pager" />
-        <play action="hideclearcurtain" />
+        <play action="hidevent" />
       </sync>
     </action>
     
@@ -2756,7 +2769,7 @@
         <assign property="var:nav" value="_this" />
         <translate xpos="101%" curve="linear" target="NAVBLOCK" />
         <if lhs="[var:navwas]" operator="e" rhs="ROOF">
-          <alert message="[var:navwas]" />
+          <!-- <alert message="[var:navwas]" /> -->
           <play action="[var:roof]" />
         </if>
         <if lhs="_this" operator="e" rhs="PRODUCTS">
@@ -2901,7 +2914,7 @@
       <if lhs="[var:loaded]" operator="e" rhs="yes">
         <sync>
           <assign property="var:adjustmentindexloop" value="[eval: [var:adjustmentindexloop] + 1]" />
-          <alert message="units:[var:units-[var:adjustmentindexloop]] adjustments type:[object:ADJUSTTYPE[var:adjustmentindexloop].text] amount:[object:ADJUSTMENTAMOUNT[var:adjustmentindexloop]/input.text] notes:[object:ADJUSTMENTAMOUNTNOTES[var:adjustmentindexloop]/input.text] " />
+          <!--<alert message="units:[var:units-[var:adjustmentindexloop]] adjustments type:[object:ADJUSTTYPE[var:adjustmentindexloop].text] amount:[object:ADJUSTMENTAMOUNT[var:adjustmentindexloop]/input.text] notes:[object:ADJUSTMENTAMOUNTNOTES[var:adjustmentindexloop]/input.text] " />-->
           <assign property="datasource:adjustmentsdb.query" value="INSERT INTO ADJUSTMENTS (TYPE, UNITS, AMOUNT, NOTES) values ('[object:ADJUSTTYPE[var:adjustmentindexloop].text]', '[var:units-[var:adjustmentindexloop]]', '[object:ADJUSTMENTAMOUNT[var:adjustmentindexloop]/input.text]', '[object:ADJUSTMENTAMOUNTNOTES[var:adjustmentindexloop]/input.text]');" />
         </sync>
       </if>
@@ -3301,13 +3314,13 @@
     
     <action name="HIP">
       <sync>
-        <alert message="pre-saved removed [datasource:hipsdb-list.dataSourceResultCount]" />
+        <!-- <alert message="pre-saved removed [datasource:hipsdb-list.dataSourceResultCount]" />-->
         <if lhs="[datasource:hipsdb-list.dataSourceResultCount]" operator="gt" rhs="0">
           <assign property="datasource:hipsdb-delete.query" value="DELETE FROM HIPS;" />
-          <alert message="if to delete" />
+          <!--<alert message="if to delete" />-->
           <else>
             <play action="HIP-save" />
-            <alert message="in the else, did not delete anything" />
+            <!-- <alert message="in the else, did not delete anything" /> -->
           </else>
         </if>
       </sync>
@@ -3366,13 +3379,13 @@
     
     <action name="VALLEY">
       <sync>
-        <alert message="pre-saved removed [datasource:valleysdb-list.dataSourceResultCount]" />
+        <!-- <alert message="pre-saved removed [datasource:valleysdb-list.dataSourceResultCount]" />-->
         <if lhs="[datasource:valleysdb-list.dataSourceResultCount]" operator="gt" rhs="0">
           <assign property="datasource:valleysdb-delete.query" value="DELETE FROM VALLEYS;" />
           <alert message="if to delete" />
           <else>
             <play action="VALLEY-save" />
-            <alert message="in the else, did not delete anything" />
+            <!-- <alert message="in the else, did not delete anything" />-->
           </else>
         </if>
       </sync>
@@ -3431,10 +3444,10 @@
     
     <action name="RAKE">
       <sync>
-        <alert message="pre-saved removed [datasource:rakesdb-list.dataSourceResultCount]" />
+        <!-- <alert message="pre-saved removed [datasource:rakesdb-list.dataSourceResultCount]" />-->
         <if lhs="[datasource:rakesdb-list.dataSourceResultCount]" operator="gt" rhs="0">
           <assign property="datasource:rakesdb-delete.query" value="DELETE FROM RAKES;" />
-          <alert message="if to delete" />
+          <!-- <alert message="if to delete" />-->
           <else>
             <play action="RAKE-save" />
             <alert message="in the else, did not delete anything" />
@@ -3496,10 +3509,10 @@
     
     <action name="EAVE">
       <sync>
-        <alert message="pre-saved removed [datasource:eavesdb-list.dataSourceResultCount]" />
+        <!-- <alert message="pre-saved removed [datasource:eavesdb-list.dataSourceResultCount]" />-->
         <if lhs="[datasource:eavesdb-list.dataSourceResultCount]" operator="gt" rhs="0">
           <assign property="datasource:eavesdb-delete.query" value="DELETE FROM EAVES;" />
-          <alert message="if to delete" />
+          <!-- <alert message="if to delete" /> -->
           <else>
             <play action="EAVE-save" />
             <alert message="in the else, did not delete anything" />
@@ -3561,10 +3574,10 @@
     
     <action name="CHIMNEY">
       <sync>
-        <alert message="pre-saved removed [datasource:protrusionsdb-list.dataSourceResultCount]" />
+        <!--<alert message="pre-saved removed [datasource:protrusionsdb-list.dataSourceResultCount]" />-->
         <if lhs="[datasource:protrusionsdb-list.dataSourceResultCount]" operator="gt" rhs="0">
           <assign property="datasource:protrusionsdb-delete.query" value="DELETE FROM PROTRUSIONS;" />
-          <alert message="if to delete" />
+          <!-- <alert message="if to delete" />-->
           <else>
             <play action="CHIMNEY-save" />
             <alert message="in the else, did not delete anything" />
@@ -3625,10 +3638,10 @@
     
     <action name="VENT">
       <sync>
-        <alert message="pre-saved removed [datasource:ventsdb-list.dataSourceResultCount]" />
+        <!--<alert message="pre-saved removed [datasource:ventsdb-list.dataSourceResultCount]" />-->
         <if lhs="[datasource:ventsdb-list.dataSourceResultCount]" operator="gt" rhs="0">
           <assign property="datasource:ventsdb-delete.query" value="DELETE FROM VENTS;" />
-          <alert message="if to delete" />
+          <!--<alert message="if to delete" />-->
           <else>
             <play action="VENT-save" />
             <alert message="in the else, did not delete anything" />
@@ -4392,6 +4405,10 @@
     </action>
     
     <!-- !curtain action -->
+    <action name="curtainaction">
+      <play action="[var:curtainaction]" />
+    </action>
+    
     <action name="clearcurtain">
       <alpha value="1" target="CURTAIN" />
     </action>
