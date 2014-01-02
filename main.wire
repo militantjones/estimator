@@ -3707,28 +3707,34 @@
 			<create class="product-pager" target="PRODUCT-PAGER-BOX" />
 			<assign property="var:productCount" value="[datasource:getProducts.dataSourceResultCount]" />
 			<assign property="var:productIterateCount" value="1" />
-			<alert message="get-products-complete var:productCount is [var:productCount] var:productIterateCount is [var:productIterateCount]" />
+<!-- 			<alert message="get-products-complete var:productCount is [var:productCount] var:productIterateCount is [var:productIterateCount]" /> -->
 			<create class="product-family" target="PRODUCT-PAGER-BOX/pager" index="[var:productIterateCount]" category="[datasource:getProducts.[var:productIterateCount].ProductFamily]" />
 			<play action="prep-products" />
 		</action>
 		<action name="prep-products" >
 			<assign property="var:currentCategory" value="[datasource:getProducts.[var:productIterateCount].ProductFamily]" />
+			<alert message="prep-products var:currentCategory is [var:currentCategory] var:productIterateCount is [var:productIterateCount] var:productCount is [var:productCount]" />
 			<if lhs="[var:productIterateCount]" operator="lte" rhs="[var:productCount]">
 				<if lhs="[var:productIterateCount]" operator="lt" rhs="[var:productCount]">
 					<if lhs="[eval:[var:productIterateCount]+1]" operator="e" rhs="[var:productCount]">
+						<alert message="creating last two" />
 						<create class="shingles" index="[var:productIterateCount]" target="PRODUCT-PAGER-BOX/pager" />
 						<play action="sidebar-products" _alias="SHINGLES" _form="Shingles" />
 						<else>
-							<if lhs="[eval:('[datasource:getProducts.[var:productIterateCount].ProductFamily]' == '[var:currentCategory]') &amp;&amp; ('[datasource:getProducts.[eval:[var:productIterateCount]+1].ProductFamily]' == '[var:currentCategory]')" operator="e" rhs="true">
+							<alert message="hi" />
+							<if lhs="[eval:('[datasource:getProducts.[var:productIterateCount].ProductFamily]' == '[var:currentCategory]') &amp;&amp; ('[datasource:getProducts.[eval:[var:productIterateCount]+1].ProductFamily]' == '[var:currentCategory]')]" operator="e" rhs="true">
+								<alert message="creating two" />
 								<play action="create-two" />
 							</if>
-							<if lhs="[eval:('[datasource:getProducts.[var:productIterateCount].ProductFamily]' == '[var:currentCategory]') &amp;&amp; ('[datasource:getProducts.[eval:[var:productIterateCount]+1].ProductFamily]' != '[var:currentCategory]')" operator="e" rhs="true">
+							<if lhs="[eval:('[datasource:getProducts.[var:productIterateCount].ProductFamily]' == '[var:currentCategory]') &amp;&amp; ('[datasource:getProducts.[eval:[var:productIterateCount]+1].ProductFamily]' != '[var:currentCategory]')]" operator="e" rhs="true">
+								<alert message="creating one" />
 								<play action="create-one" />
 							</if>
 						</else>
 					</if>
 				</if>
 				<if lhs="[var:productIterateCount]" operator="e" rhs="[var:productCount]">
+					<alert message="creating last one" />
 					<create class="shingle-single" index="[var:productIterateCount]" target="PRODUCT-PAGER-BOX/pager" />
 					<play action="sidebar-products" _alias="SHINGLES" _form="Shingles" />
 				</if>
