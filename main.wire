@@ -92,7 +92,7 @@
     <datasource name="productsdb-delete" source="sql://PRODUCTS" query="" providertype="sql" />
     
 <!--     <datasource name="accessoriesdb" source="sql://ACCESSORIES" query="DELETE FROM ACCESSORIES;" providertype="sql" /> -->
-    <datasource name="accessoriesdb" source="sql://ACCESSORIES" query="CREATE TABLE IF NOT EXISTS ACCESSORIES (ID INTEGER PRIMARY KEY AUTOINCREMENT, LEAKBARRIER, ROOFDECK, STARTER, RIDGECAP, VENTILATION, ACCESSORY, QUANTITY);" providertype="sql" />
+    <datasource name="accessoriesdb" source="sql://ACCESSORIES" query="CREATE TABLE IF NOT EXISTS ACCESSORIES (ID INTEGER PRIMARY KEY AUTOINCREMENT, NAME, TYPE, ACCESSORY, QUANTITY);" providertype="sql" />
     <datasource name="accessoriesdb-list" source="sql://ACCESSORIES" query="SELECT * FROM ACCESSORIES ORDER BY ID DESC;" providertype="sql" />
     
     <datasource name="tearoffdb" source="sql://TEAROFF" query="CREATE TABLE IF NOT EXISTS TEAROFF (ID INTEGER PRIMARY KEY AUTOINCREMENT, TEAROFF, LAYERS, MATERIAL);" providertype="sql" />
@@ -1218,17 +1218,17 @@
       <panel name="summary-roof" alias="SUMMARY-ROOF" width="100%" height="158">
         <text name="subtitle" width="100%" height="40" font="Futura-Medium" color="#343434" size="25" alignment="left" text="Roof Info"></text>
         <panel name="col1" width="33.33%" height="108" bottomof="subtitle">
-          <text name="roof-area" width="100%" height="35" style="darktext" size="20" alignment="left" text="Total Area: [param:area] sq ft"></text>
-          <text name="roof-squares" width="100%" height="35" bottomof="roof-area" style="darktext" size="20" alignment="left" text="Squares Needed: [param:area]"></text>
-          <text name="roof-ridges" width="100%" height="35" bottomof="roof-squares" style="darktext" size="20" alignment="left" text="Ridges: [param:squares] ft"></text>
+          <text name="roof-area" width="100%" height="35" style="darktext" size="20" alignment="left" text="Total Area: [param:area]"></text>
+          <text name="roof-squares" width="100%" height="35" bottomof="roof-area" style="darktext" size="20" alignment="left" text="Squares Needed: [param:squares]"></text>
+          <text name="roof-ridges" width="100%" height="35" bottomof="roof-squares" style="darktext" size="20" alignment="left" text="Ridges: [param:ridges]"></text>
         </panel>
         <panel name="col2" width="33.33%" height="108" rightof="col1" bottomof="subtitle" >
-          <text name="roof-hips" width="100%" height="35" style="darktext" size="20" alignment="left" text="Hips: [param:hips] ft"></text>
-          <text name="roof-rake" width="100%" height="35" bottomof="roof-hips" style="darktext" size="20" alignment="left" text="Rake: [param:rakes] ft"></text>
-          <text name="roof-eaves" width="100%" height="35" bottomof="roof-rake" style="darktext" size="20" alignment="left" text="Eaves: [param:eaves] ft"></text>
+          <text name="roof-hips" width="100%" height="35" style="darktext" size="20" alignment="left" text="Hips: [param:hips]"></text>
+          <text name="roof-rake" width="100%" height="35" bottomof="roof-hips" style="darktext" size="20" alignment="left" text="Rake: [param:rakes]"></text>
+          <text name="roof-eaves" width="100%" height="35" bottomof="roof-rake" style="darktext" size="20" alignment="left" text="Eaves: [param:eaves]"></text>
         </panel>
         <panel name="col3" width="33.33%" height="108" rightof="col2" bottomof="subtitle">
-          <text name="roof-valleys" width="100%" height="35" style="darktext" size="20" alignment="left" text="Valleys: [param:valleys] ft"></text>
+          <text name="roof-valleys" width="100%" height="35" style="darktext" size="20" alignment="left" text="Valleys: [param:valleys]"></text>
         </panel>
         <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
       </panel>
@@ -2071,7 +2071,7 @@
                 <panel name="active" style="100" onclickup="labelactive" _field="ACCESSORYQUANTITY"></panel>
               </panel>
               <panel name="create" width="110" height="50" align="right" bottomof="description" margin-top="20">
-                <object class="button" name="test" size="20" label="Select" action="selectaccessory" value="product id" />
+                <object class="button" name="test" size="20" label="Select" action="selectaccessory-save" value="product id" />
               </panel>
             </panel>
           </pager>
@@ -2084,7 +2084,7 @@
   <!-- !ACTIONS -->
   <actions>
    
-    <action name="oninit" oninit="yes">
+    <action name="oninit" oninit="yes"> 
 		  <assign property="var:loaded" value="no" />
 		  <assign property="var:accessoryCount" value="0" />
       <assign property="var:tearoff" value="no" />
@@ -2240,7 +2240,7 @@
     <action name="openregisterview">
       <sync>
         <play action="released" />
-        <play action="openweb" _value="http://www.google.com/" _title="Register" />
+        <play action="openweb" _value="http://162.209.101.177" _title="Register" />
       </sync>
     </action>
     
@@ -2366,9 +2366,11 @@
 <!-- 			<alert message="search after customer creation done [datasource:getEstimate.0.content]" /> -->
 			<assign property="var:customerId" value="[datasource:getEstimate.1.CustomerId]" />
 			<play action="finish-customer-create" />
+<!--
 			<else>
 				<alert message="get-estimate-complete search results count [datasource:getEstimate.dataSourceResultCount] content [datasource:getEstimate.0.content]" />
 			</else>
+-->
 		</if>
     </action>
     
@@ -2811,17 +2813,19 @@
       <sync>
         <loop lhs="[var:summaryarea]" operator="lt" rhs="[var:areaindex]">
           <assign property="var:summaryarea" value="[eval: [var:summaryarea] + 1]" />
-          <assign property="var:totalarea" value="[eval: [var:totalarea] + [var:area[var:summaryarea]total] ]" />
+          <assign property="var:totalareaTemp" value="[eval: [var:totalarea] + [var:area[var:summaryarea]total] ]" />
+          <assign property="var:totalarea" value="[eval: Math.ceil([var:totalareaTemp]) ]" />
           <alert title="total area" message="[var:totalarea]" />
         </loop>
-        <assign property="var:squarestotal" value="[eval: [var:totalarea] / 100 ]" />
-        <!--<alert title="total squares needed" message="[var:squarestotal]" />
-        <alert title="ridges total" message="[var:ridgestotal]" />
-        <alert title="hips total" message="[var:hipstotal]" />
-        <alert title="rakes total" message="[var:rakestotal]" />
-        <alert title="eaves total" message="[var:eavestotal]" />
-        <alert title="valleys total" message="[var:valleystotal]" />-->
-        <create class="summary-roof" target="SUMMARY-PAGER" area="[var:totalarea]" squares="[var:squarestotal]" ridges="[var:ridgestotal]" hips="[var:hipstotal]" rakes="[var:rakestotal]" eaves="[var:eavestotal]" valleys="[var:valleystotal]"  />
+		<if lhs="[var:totalarea]" operator="e" rhs="">
+			<assign property="var:squarestotal" value="N/A" />
+			<else>
+		        <assign property="var:squarestotalTemp" value="[eval: [var:totalarea] / 100 ]" />
+		        <assign property="var:squarestotal" value="[eval: Math.ceil([var:squarestotalTemp])]" />
+			</else>
+		</if>
+<!--         <alert message="area total [var:totalarea] squares total [var:squarestotal] ridges total [var:ridgestotal] hips total [var:hipstotal] rakes total [var:rakestotal] eaves total [var:eavestotal] valleys total [var:valleystotal]" /> -->
+        <create class="summary-roof" target="SUMMARY-PAGER" area="[eval:'[var:totalarea]' != '' ? '[var:totalarea] sq ft':'N/A']" squares="[var:squarestotal]" ridges="[eval:'[var:ridgestotal]' != '' ? '[var:ridgestotal] ft':'N/A']" hips="[eval:'[var:hipstotal]' != '' ? '[var:hipstotal] ft':'N/A']" rakes="[eval:'[var:rakestotal]' != '' ? '[var:rakestotal] ft':'N/A']" eaves="[eval:'[var:eavestotal]' != '' ? '[var:eavestotal] ft':'N/A']" valleys="[eval:'[var:valleystotal]' != '' ? '[var:valleystotal] ft':'N/A']"  />
         <play action="summaryproducts" />
       </sync>
     </action>
@@ -3326,7 +3330,7 @@
         <!-- <alert message="pre-saved removed [datasource:hipsdb-list.dataSourceResultCount]" />-->
         <if lhs="[datasource:hipsdb-list.dataSourceResultCount]" operator="gt" rhs="0">
           <assign property="datasource:hipsdb-delete.query" value="DELETE FROM HIPS;" />
-          <!--<alert message="if to delete" />-->
+		  <alert message="deleting hips db for fresh save" />
           <else>
             <play action="HIP-save" />
             <!-- <alert message="in the else, did not delete anything" /> -->
@@ -3792,6 +3796,7 @@
 					<if lhs="[eval:[var:productIterateCount]+1]" operator="e" rhs="[var:productCount]">
 <!-- 						<alert message="creating last two" /> -->
 						<create class="shingles" index="[var:productIterateCount]" target="PRODUCT-PAGER-BOX/pager" />
+						<assign property="var:productsCreated" value="yes" />
 						<play action="sidebar-products" _alias="SHINGLES" _form="Shingles" />
 						<else>
 <!-- 							<alert message="hi" /> -->
@@ -3809,6 +3814,7 @@
 				<if lhs="[var:productIterateCount]" operator="e" rhs="[var:productCount]">
 <!-- 					<alert message="creating last one" /> -->
 					<create class="shingle-single" index="[var:productIterateCount]" target="PRODUCT-PAGER-BOX/pager" />
+					<assign property="var:productsCreated" value="yes" />
 					<play action="sidebar-products" _alias="SHINGLES" _form="Shingles" />
 				</if>
 			</if>
@@ -3839,6 +3845,8 @@
     <action name="selectshingle">
       <!-- 		<assign property="var:colorCount" value="4" /> -->
       <assign property="var:shingle" value="[datasource:getProducts._value.ProductId]" />
+      <assign property="var:shingleName" value="[datasource:getProducts._value.ProductName]" />
+	  <assign property="object:SHINGLECOLOR/shingle.text" value="[var:shingleName]" />
       <play action="released" />
       <delete target="COLORPAGER" />
       <assign property="var:shingleSelected" value="_value" />
@@ -3866,7 +3874,7 @@
         <assign property="var:curtainaction" value="colordismiss" />
         <else>
           <assign property="var:color" value="N/A" />
-          <alert message="[var:shingle] [var:color]" />
+<!--           <alert message="[var:shingle] [var:color]" /> -->
         	<assign property="datasource:getWarranties.source" value="https://162.209.101.177/api/GetWarranties?productId=[var:shingle]" />
         	<play action="sidebar-products" _alias="WARRANTY" _form="Warranty" />
         </else>
@@ -3885,9 +3893,9 @@
       <play action="released" />
       <sync>
 	  	<assign property="var:productImage" value="_image" />
-	  	<alert message="var:productImage is [var:productImage]" />
+<!-- 	  	<alert message="var:productImage is [var:productImage]" /> -->
         <assign property="var:color" value="_value" />
-        <alert message="[var:shingle] [var:color]" />
+<!--         <alert message="[var:shingle] [var:color]" /> -->
 		<assign property="datasource:getWarranties.source" value="https://162.209.101.177/api/GetWarranties?productId=[var:shingle]" />
       </sync>
       <sync>
@@ -3898,7 +3906,7 @@
     
     <!-- !warranty actions -->
 	<action name="warranties-complete" datasource="getWarranties" datasourceevent="querycomplete" >
-		<alert message="warranties complete content is [datasource:getWarranties.0.content]" />
+<!-- 		<alert message="warranties complete content is [datasource:getWarranties.0.content]" /> -->
 	</action>
 
 	<action name="warranties-error" datasource="getWarranties" datasourceevent="datasourceerror" >
@@ -3924,7 +3932,7 @@
     <action name="selectwarranty-save" datasource="productsdb-delete" datasourceevent="querycomplete">
       <if lhs="[var:loaded]" operator="e" rhs="yes">
         <play action="released" />
-        <alert message="warranty id [var:warranty] accessories required [var:accessories]" />
+        <alert message="you must select [var:accessories] accessories to qualify for the warranty you have chosen" />
         <assign property="datasource:productsdb.query" value="INSERT INTO PRODUCTS (SHINGLE, COLOR, WARRANTY, IMAGE) VALUES ('[var:shingle]', '[var:color]', '[var:warranty]', '[var:productImage]');" />
         <assign property="datasource:getAccessories.source" value="https://162.209.101.177/api/GetAccessoryByProduct?productId=[var:shingle]" />
       </if>
@@ -3956,7 +3964,7 @@
 		</loop>
 -->
 		<play action="sidebar-products" _alias="ACCESSORIES" _form="Accessories" />
-		<alert message="accessories-done" />
+<!-- 		<alert message="accessories-done" /> -->
 	</action>
 
 	<action name="accessories-error" datasource="getAccessories" datasourceevent="datasourceerror" >
@@ -3981,8 +3989,10 @@
           <assign property="var:accessoryCount" value="[eval:[var:accessoryCount]+1]" />
           <assign property="var:accessory-[var:accessoryCount]-Quantity" value="[object:ACCESSORYQUANTITY/input.text]" />			  
           <assign property="var:accessory-[var:accessoryCount]" value="[datasource:getAccessories.[var:accessorySelected].AccessoryId]" />
+          <assign property="var:accessory-[var:accessoryCount]-Name" value="[datasource:getAccessories.[var:accessorySelected].AccessoryName]" />
+          <assign property="var:accessory-[var:accessoryCount]-Type" value="[datasource:getAccessories.[var:accessorySelected].AccessoryCategory]" />
           <!-- 	  <alert message="var:accessory-[var:accessoryCount] is [var:accessory-[var:accessoryCount]]" /> -->
-          <assign property="datasource:accessoriesdb.query" value="INSERT INTO ACCESSORIES (LEAKBARRIER, ROOFDECK, STARTER, RIDGECAP, VENTILATION, ACCESSORY, QUANTITY) VALUES ('leak', 'roof', 'starter', 'ridgecacp', 'ventilation', '[var:accessory-[var:accessoryCount]]', '[var:accessory-[var:accessoryCount]-Quantity]');" />
+          <assign property="datasource:accessoriesdb.query" value="INSERT INTO ACCESSORIES (NAME, TYPE, ACCESSORY, QUANTITY) VALUES ('[var:accessory-[var:accessoryCount]-Name]', '[var:accessory-[var:accessoryCount]-Type]', '[var:accessory-[var:accessoryCount]]', '[var:accessory-[var:accessoryCount]-Quantity]');" />
           <if lhs="[eval:[var:accessories]-[var:accessoryCount]]" operator="gt" rhs="0">
             <alert message="accessory selected. you must select [eval:[var:accessories]-[var:accessoryCount]] more accessories for the warranty you have chosen" />
             <else>
@@ -4013,7 +4023,11 @@
     </action>
     
     <action name="accessoriesdb-list-complete" datasource="accessoriesdb-list" datasourceevent="querycomplete" >
-<!-- 		<alert message="accessoriesdb-list count is [datasource:accessoriesdb-list.dataSourceResultCount] quantity for 1 is [datasource:accessoriesdb-list.1.QUANTITY]" /> -->
+<!--
+		<if lhs="[datasource:accessoriesdb-list.dataSourceResultCount]" operator="gt" rhs="0">
+			<alert message="accessoriesdb-list count is [datasource:accessoriesdb-list.dataSourceResultCount] quantity for 1 is [datasource:accessoriesdb-list.1.QUANTITY], id is [datasource:accessoriesdb-list.1.ACCESSORY], name is [datasource:accessoriesdb-list.1.NAME], type is [datasource:accessoriesdb-list.1.TYPE]" />
+		</if>
+-->
     </action>
     <!-- !options actions -->
     <action name="selectoptions">
