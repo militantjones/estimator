@@ -1179,7 +1179,7 @@
           <textfield name="input" text="test" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" _next="none" _action="null"></textfield>
           <panel name="active" style="100" onclickup="dropon" _field="DIFFICULTY" _drop="TEAROFF"></panel>
         </panel>-->
-        <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
+<!--         <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel> -->
         <panel name="drop" width="45%" height="110" xpos="101%" ypos="70" alpha="0" style="textinput">
           <pager name="layersdrop" alias="LAYERSDROP" width="100%" height="100%" orientation="vertical" paginate="no" alpha="0">
             <panel name="layer0" width="100%" height="40" _layers="0" onclickup="setlayers">
@@ -1251,14 +1251,14 @@
           <panel name="check" width="0" height="0" align="center" valign="center" background="#ed1c24" cornerradius="20" alpha="1" ></panel>
         </panel>
         <text name="checklabel" width="150" height="50" bottomof="pool" margin-top="10" rightof="misc" style="darktext" size="20" leftinset="10" alignment="left" text="Misc"></text>
-        <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
+<!--         <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel> -->
       </panel>
     </class><!-- <object class="assetprotection" /> -->
     
     <!-- !adjustments classes -->
     <class name="discount">
       <panel name="adjustment[param:aindex]" alias="ADJUSTMENT[param:aindex]" width="100%" height="287">
-        <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="20" alignment="left" text="Discount [param:index]"></text>
+        <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="15" alignment="left" text="DISCOUNT [param:index]"></text>
         
         <panel name="dollars-[param:aindex]" alias="DOLLARS-[param:aindex]" width="50" height="50" align="left" bottomof="subtitle" background="f3f3f3" cornerradius="25" borderwidth="1" bordercolor="#888888" clip="yes" onclickup="dollars" _index="[param:aindex]" _type="ADJUSTMENT[param:aindex]" >
           <panel name="check" width="35" height="35" align="center" valign="center" background="#ed1c24" cornerradius="20" alpha="1" ></panel>
@@ -1290,13 +1290,13 @@
         
         <text name="adjusttype[param:aindex]" alias="ADJUSTTYPE[param:aindex]" width="0" height="0" color="#ffffff" font="Helvetica" size="1" alignment="left" text="Discount"></text>
         
-        <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
+<!--         <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel> -->
       </panel>
     </class><!-- <object class="discount" index="1" />-->
     
     <class name="additionalcost">
       <panel name="adjustment[param:aindex]" alias="ADJUSTMENT[param:aindex]" width="100%" height="287">
-        <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="20" alignment="left" text="Additional Cost [param:index]"></text>
+        <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="15" alignment="left" text="ADDITIONAL COST [param:index]"></text>
         
         <panel name="dollars-[param:aindex]" alias="DOLLARS-[param:aindex]" width="50" height="50" align="left" bottomof="subtitle" background="f3f3f3" cornerradius="25" borderwidth="1" bordercolor="#888888" clip="yes" onclickup="dollars" _index="[param:aindex]" _type="ADJUSTMENT[param:aindex]" >
           <panel name="check" width="35" height="35" align="center" valign="center" background="#ed1c24" cornerradius="20" alpha="1" ></panel>
@@ -1328,7 +1328,7 @@
         
         <text name="adjusttype[param:aindex]" alias="ADJUSTTYPE[param:aindex]" width="0" height="0" color="#ffffff" font="Helvetica" size="1" alignment="left" text="Additional Cost"></text>
         
-        <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
+<!--         <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel> -->
       </panel>
     </class><!-- <object class="additionalcost" index="1" /> -->
     
@@ -2064,6 +2064,7 @@
       <!-- !camera roll -->
       <panel name="cameraroll" alias="CAMERAROLL" width="100%" height="100%" ypos="101%" background="#e3e3e3">
         <panel name="toolbar" width="100%" height="60" background="#343434">
+        	<text name="head" width="100%" height="100%" color="#ffffff" font="Futura-Medium" size="24" alignment="center" text="Loading Photos..."></text>
           <text name="close" width="100" height="100%" xpos="20" color="#ffffff" font="Avenir-Medium" size="15" alignment="left" text="CLOSE" onclickup="closeroll"></text>
         </panel>
         <wait name="wait" width="100%" height="964" valign="bottom" alpha="0" color="#ed1c24"/>
@@ -2233,7 +2234,7 @@
 	  <panel name="upload-curtain" alias="UPLOAD-CURTAIN" width="100%" height="100%" alpha="0" >
 	  	<panel name="bg" width="100%" height="100%" background="#000000" alpha=".5" ></panel>
 	  	<wait name="wait" width="100%" height="100%"></wait>
-	  	<text name="photo-progress" width="100%" height="fit" ypos="600" color="#ffffff" font="Futura-MediumItalic" size="28" alignment="center" text="Uploading Photo NUMBER..."></text>
+	  	<text name="photo-progress" width="100%" height="fit" ypos="600" color="#ffffff" font="Futura-MediumItalic" size="24" alignment="center" text="Uploading Photo NUMBER..."></text>
 	  </panel>
 	  
 	  <panel name="pdf-container" alias="PDF-CONTAINER" width="100%" height="100%" ypos="101%" >
@@ -2255,7 +2256,7 @@
     <action name="oninit" oninit="yes"> 
 		  <assign property="var:loaded" value="no" />
 		  <assign property="var:accessoryCount" value="0" />
-		  <alpha value="0" time=".1" delay=".5" target="SPLASH" />
+		  <alpha value="0" time=".1" delay=".7" target="SPLASH" />
       <assign property="var:tearoff" value="no" />
       <assign property="var:landscaping" value="no" />
       <assign property="var:hardscaping" value="no" />
@@ -2450,11 +2451,11 @@
 -->
           </sync>
           <else>
-            <alert message="you have not entered a password" />
+            <alert title="Error" message="Please enter a password." />
           </else>
         </if>
         <else>
-          <alert message="you have not entered a username" />
+          <alert title="Error" message="Please enter a valid username." />
         </else>
       </if>
     </action>
@@ -2480,7 +2481,7 @@
 <!--        <alert message="you have signed in username:[preferences:username] password:[preferences:password] remembered:[preferences:remember]" /> -->
 			<else>
         <sync>
-				  <alert message="There was a problem signing you in, please try again later." />
+			<alert title="Login Error" message="There was a problem signing you in, please try again later." />
           <translate ypos="134" time=".25" target="SIGNIN/logo" />
           <alpha value="1" time=".15" target="SIGNIN/column" />
         </sync>
@@ -2490,7 +2491,7 @@
     </action>
     
     <action name="login-error" datasource="login" datasourceevent="datasourceerror" >
-      <alert message="login-complete error is [datasource:login.0.content]" />
+		<alert title="Login Error" message="There was a problem signing you in, please try again later." />
     </action>
 		
     <action name="remember">
@@ -2562,7 +2563,7 @@
     </action>
     
     <action name="get-estimate-error" datasource="getEstimate" datasourceevent="datasourceerror" >
-      <alert message="get-estimate-error [datasource:getEstimate.0.content]" />
+      <alert title="Error" message="There was a problem retrieving customers. Please try again later." />
     </action>
     
     <action name="closeresults">
@@ -2575,12 +2576,12 @@
     
     <action name="viewestimate">
       <play action="released" />
-	  <alert message="viewestimate estimatePdf is _value" />
+<!-- 	  <alert message="viewestimate estimatePdf is _value" /> -->
     </action>
     
     <action name="edit">
       <play action="released" />
-	  <alert message="edit customer customerId is _value" />
+<!-- 	  <alert message="edit customer customerId is _value" /> -->
     </action>
     
     <!-- ! create actions -->
@@ -2790,6 +2791,7 @@
 
     <action name="roll-queryComplete" datasource="camera-roll">
       <alpha value="0" time=".1" target="CAMERAROLL/wait" />
+      <assign property="object:CAMERAROLL/toolbar/head.text" value="Camera Roll" />
     </action>
     
     <action name="addcamera">
@@ -2814,7 +2816,7 @@
     <action name="select-photo">
       <sync>
         <assign property="var:photo-url" value="_url" />
-        <alert title="Hi, I'm photo..." message="[var:photo-url]" />
+<!--         <alert title="Hi, I'm photo..." message="[var:photo-url]" /> -->
         <translate ypos="101%" time=".25" curve="easeout" target="CAMERAROLL" />
         <delete target="CAMERA-ROLL" />
         <play action="addnote" />
@@ -2827,7 +2829,7 @@
         <if lhs="[var:photolocation]" operator="e" rhs="roll">
           <create class="rollphoto" target="PHOTOLANDING" />
           <assign property="object:THEPHOTO.asset" value="[var:photo-url]" />
-          <alert message="roll" />
+<!--           <alert message="roll" /> -->
         </if>
         <if lhs="[var:photolocation]" operator="e" rhs="camera">
           <create class="cameraphoto" target="PHOTOLANDING" photo="[var:photo-url]" />
@@ -3019,7 +3021,7 @@
           <assign property="var:summaryarea" value="[eval: [var:summaryarea] + 1]" />
           <assign property="var:totalareaTemp" value="[eval: [var:totalarea] + [var:area[var:summaryarea]total] ]" />
           <assign property="var:totalarea" value="[eval: Math.ceil([var:totalareaTemp]) ]" />
-          <alert title="total area" message="[var:totalarea]" />
+<!--           <alert title="total area" message="[var:totalarea]" /> -->
         </loop>
 		<if lhs="[var:totalarea]" operator="e" rhs="">
 			<assign property="var:squarestotal" value="N/A" />
@@ -3235,7 +3237,7 @@
 	<action name="create-customer-complete" datasource="createCustomer" datasourceevent="querycomplete">
 		<if lhs="[datasource:createCustomer.1.ResponseCode]" operator="e" rhs="100">
 			<assign property="var:customerId" value="[datasource:createCustomer.1.CustomerId]" />
-			<alert message="var:customerId is [var:customerId]" />
+<!-- 			<alert message="var:customerId is [var:customerId]" /> -->
 			<assign property="var:firstName" encoding="url" value="[datasource:customersdb-list.1.FNAME]" />
 			<assign property="var:lastName" encoding="url" value="[datasource:customersdb-list.1.LNAME]" />
 			<assign property="var:address1" encoding="url" value="[datasource:customersdb-list.1.STREET]" />
@@ -3251,13 +3253,13 @@
 <!-- 			<assign property="datasource:getEstimate.source" value="https://162.209.101.177/api/GetCustomerEstimate?customerLastName=[var:lastName]&amp;address1=[var:address1]&amp;address2=&amp;city=[var:city]&amp;stateProvince=[var:state]&amp;postalCode=[var:postalCode]&amp;country=[var:country]" /> -->
 <!-- 			<alert message="create customer complete response [datasource:createCustomer.0.content] search request url https://162.209.101.177/api/GetCustomerEstimate?customerLastName=[var:lastName]&amp;address1=[var:address1]&amp;address2=&amp;city=[var:city]&amp;stateProvince=[var:state]&amp;postalCode=[var:postalCode]&amp;country=[var:country]" /> -->
 			<else>
-				<alert message="There was an error creating the customer.  Please verify that all information is correct and try again." />
+				<alert title="Error" message="There was an error creating the customer.  Please verify that all information is correct and try again." />
 			</else>
 		</if>
 	</action>
 
 	<action name="create-customer-error" datasource="createCustomer" datasourceevent="datasourceerror">
-		<alert message="create-customer-error [datasource:createCustomer.0.content]" />
+				<alert title="Error" message="There was an error creating the customer.  Please verify that all information is correct and try again." />
 	</action>
 	
 	<action name="finish-customer-create" >
@@ -3357,7 +3359,7 @@
         <!--<alert title="inspection" message="rooftype [object:ROOFTYPE/input.text] floors [object:FLOORS/input.text]" />-->
         <if lhs="[eval:'[object:ROOFTYPE/input.text]' != '' &amp;&amp; '[object:FLOORS/input.text]' != '']" operator="e" rhs="true">
           <assign property="datasource:inspectiondb.query" value="INSERT INTO INSPECTION (ROOFTYPE, FLOORS) VALUES ('[object:ROOFTYPE/input.text]', '[object:FLOORS/input.text]');" />
-          <alert message="[object:ROOFTYPE/input.text] : [object:FLOORS/input.text]" />
+<!--           <alert message="[object:ROOFTYPE/input.text] : [object:FLOORS/input.text]" /> -->
           <else>
             <alert title="Incomplete Form" message="Please fill out all fields" />
           </else>
@@ -3370,7 +3372,7 @@
     </action>
     
     <action name="FASCIA">
-      <alert message="FASCIA" />
+<!--       <alert message="FASCIA" /> -->
     </action>
     
     <action name="ROOF AREA">
@@ -3421,7 +3423,7 @@
     <action name="roofareas-db-add">
       <sync>
         <assign property="var:areaindexloop" value="[eval: [var:areaindexloop] + 1]" />
-        <alert message="var:slope-[var:areaindexloop] is [var:slope-[var:areaindexloop]]" />
+<!--         <alert message="var:slope-[var:areaindexloop] is [var:slope-[var:areaindexloop]]" /> -->
         <assign property="datasource:roofareasdb.query" value="INSERT INTO ROOFAREAS (LENGTH, WIDTH, SLOPE) values ('[object:RL[var:areaindexloop]/input.text]', '[object:RW[var:areaindexloop]/input.text]', '[var:slope-[var:areaindexloop]]');" />
       </sync>
     </action>
@@ -3472,7 +3474,7 @@
       <if lhs="[var:loaded]" operator="e" rhs="yes">
         <if lhs="[eval:'[object:WASTEPERCENT/input.text]' != '']" operator="e" rhs="true">
           <assign property="datasource:wastedb.query" value="INSERT INTO WASTE (PERCENT) values ('[object:WASTEPERCENT/input.text]');" />
-          <alert message="[object:WASTEPERCENT/input.text]" />
+<!--           <alert message="[object:WASTEPERCENT/input.text]" /> -->
           <else>
             <alert title="Incomplete Form" message="Please fill out all fields" />
           </else> 
@@ -3528,7 +3530,7 @@
     <action name="ridge-db-add">
       <sync>
         <assign property="var:ridgeindexloop" value="[eval: [var:ridgeindexloop] + 1]" />
-        <alert message="[object:RIDGELENGTH[var:ridgeindexloop]/input.text] ridgevent: [var:ridgevent-[var:ridgeindexloop]] " />
+<!--         <alert message="[object:RIDGELENGTH[var:ridgeindexloop]/input.text] ridgevent: [var:ridgevent-[var:ridgeindexloop]] " /> -->
         <assign property="datasource:ridgesdb.query" value="INSERT INTO RIDGES (LENGTH, VENTS) values ('[object:RIDGELENGTH[var:ridgeindexloop]/input.text]', '[var:ridgevent-[var:ridgeindexloop]]');" />
       </sync>
     </action>    
@@ -3551,7 +3553,7 @@
         <!-- <alert message="pre-saved removed [datasource:hipsdb-list.dataSourceResultCount]" />-->
         <if lhs="[datasource:hipsdb-list.dataSourceResultCount]" operator="gt" rhs="0">
           <assign property="datasource:hipsdb-delete.query" value="DELETE FROM HIPS;" />
-		  <alert message="deleting hips db for fresh save" />
+<!-- 		  <alert message="deleting hips db for fresh save" /> -->
           <else>
             <play action="HIP-save" />
             <!-- <alert message="in the else, did not delete anything" /> -->
@@ -3593,7 +3595,7 @@
     <action name="hip-db-add">
       <sync>
         <assign property="var:hipindexloop" value="[eval: [var:hipindexloop] + 1]" />
-        <alert message="[object:HIPLENGTH[var:hipindexloop]/input.text]" />
+<!--         <alert message="[object:HIPLENGTH[var:hipindexloop]/input.text]" /> -->
         <assign property="datasource:hipsdb.query" value="INSERT INTO HIPS (LENGTH) values ('[object:HIPLENGTH[var:hipindexloop]/input.text]');" />
       </sync>
     </action>  
@@ -3616,7 +3618,7 @@
         <!-- <alert message="pre-saved removed [datasource:valleysdb-list.dataSourceResultCount]" />-->
         <if lhs="[datasource:valleysdb-list.dataSourceResultCount]" operator="gt" rhs="0">
           <assign property="datasource:valleysdb-delete.query" value="DELETE FROM VALLEYS;" />
-          <alert message="if to delete" />
+<!--           <alert message="if to delete" /> -->
           <else>
             <play action="VALLEY-save" />
             <!-- <alert message="in the else, did not delete anything" />-->
@@ -3658,7 +3660,7 @@
     <action name="valley-db-add">
       <sync>
         <assign property="var:valleyindexloop" value="[eval: [var:valleyindexloop] + 1]" />
-        <alert message="[object:VALLEYLENGTH[var:valleyindexloop]/input.text]" />
+<!--         <alert message="[object:VALLEYLENGTH[var:valleyindexloop]/input.text]" /> -->
         <assign property="datasource:valleysdb.query" value="INSERT INTO VALLEYS (LENGTH) values ('[object:VALLEYLENGTH[var:valleyindexloop]/input.text]')" />
       </sync>
     </action>  
@@ -3684,7 +3686,7 @@
           <!-- <alert message="if to delete" />-->
           <else>
             <play action="RAKE-save" />
-            <alert message="in the else, did not delete anything" />
+<!--             <alert message="in the else, did not delete anything" /> -->
           </else>
         </if>
       </sync>
@@ -3723,7 +3725,7 @@
     <action name="rake-db-add">
       <sync>
         <assign property="var:rakeindexloop" value="[eval: [var:rakeindexloop] + 1]" />
-        <alert message="[object:RAKELENGTH[var:rakeindexloop]/input.text]" />
+<!--         <alert message="[object:RAKELENGTH[var:rakeindexloop]/input.text]" /> -->
         <assign property="datasource:rakesdb.query" value="INSERT INTO RAKES (LENGTH) values ('[object:RAKELENGTH[var:rakeindexloop]/input.text]')" />
       </sync>
     </action> 
@@ -3749,7 +3751,7 @@
           <!-- <alert message="if to delete" /> -->
           <else>
             <play action="EAVE-save" />
-            <alert message="in the else, did not delete anything" />
+<!--             <alert message="in the else, did not delete anything" /> -->
           </else>
         </if>
       </sync>
@@ -3788,7 +3790,7 @@
     <action name="eave-db-add">
       <sync>
         <assign property="var:eaveindexloop" value="[eval: [var:eaveindexloop] + 1]" />
-        <alert message="[object:EAVELENGTH[var:eaveindexloop]/input.text]" />
+<!--         <alert message="[object:EAVELENGTH[var:eaveindexloop]/input.text]" /> -->
         <assign property="datasource:eavesdb.query" value="INSERT INTO EAVES (LENGTH) values ('[object:EAVELENGTH[var:eaveindexloop]/input.text]')" />
       </sync>
     </action> 
@@ -3814,7 +3816,7 @@
           <!-- <alert message="if to delete" />-->
           <else>
             <play action="CHIMNEY-save" />
-            <alert message="in the else, did not delete anything" />
+<!--             <alert message="in the else, did not delete anything" /> -->
           </else>
         </if>
       </sync>
@@ -3853,7 +3855,7 @@
       <sync>
         <assign property="var:protrusionindexloop" value="[eval: [var:protrusionindexloop] + 1]" />
         <assign property="datasource:protrusionsdb.query" value="INSERT INTO PROTRUSIONS (LENGTH, WIDTH, TYPE) values ('[object:PROTRUSIONLENGTH[var:protrusionindexloop]/input.text]', '[object:PROTRUSIONWIDTH[var:protrusionindexloop]/input.text]', '[object:TYPE[var:protrusionindexloop].text]');" />
-        <alert message="Type:[object:TYPE[var:protrusionindexloop].text] Length:[object:PROTRUSIONLENGTH[var:protrusionindexloop]/input.text] Width:[object:PROTRUSIONWIDTH[var:protrusionindexloop]/input.text]" />
+<!--         <alert message="Type:[object:TYPE[var:protrusionindexloop].text] Length:[object:PROTRUSIONLENGTH[var:protrusionindexloop]/input.text] Width:[object:PROTRUSIONWIDTH[var:protrusionindexloop]/input.text]" /> -->
       </sync>
     </action> 
     
@@ -3878,7 +3880,7 @@
           <!--<alert message="if to delete" />-->
           <else>
             <play action="VENT-save" />
-            <alert message="in the else, did not delete anything" />
+<!--             <alert message="in the else, did not delete anything" /> -->
           </else>
         </if>
       </sync>
@@ -3916,7 +3918,7 @@
     <action name="vent-db-add">
       <sync>
         <assign property="var:ventindexloop" value="[eval: [var:ventindexloop] + 1]" />
-        <alert message="Size:[object:VENTSIZE[var:ventindexloop]/input.text] Quantity:[object:VENTQUANTITY[var:ventindexloop]/input.text]" />
+<!--         <alert message="Size:[object:VENTSIZE[var:ventindexloop]/input.text] Quantity:[object:VENTQUANTITY[var:ventindexloop]/input.text]" /> -->
         <assign property="datasource:ventsdb.query" value="INSERT INTO VENTS (SIZE, QUANTITY) values ('[object:VENTSIZE[var:ventindexloop]/input.text]', '[object:VENTQUANTITY[var:ventindexloop]/input.text]');" />
       </sync>
     </action>  
@@ -3935,7 +3937,7 @@
     </action>
     
     <action name="PHOTO">
-      <alert message="PHOTO" />
+<!--       <alert message="PHOTO" /> -->
     </action>
     
     <!-- !drop down actions -->
@@ -4038,7 +4040,6 @@
 						<play action="sidebar-products" _alias="SHINGLES" _form="Shingles" />
 						<alpha value="0" target="UPLOAD-CURTAIN" />
 						<else>
-<!-- 							<alert message="hi" /> -->
 							<if lhs="[eval:('[datasource:getProducts.[var:productIterateCount].ProductFamily]' == '[var:currentCategory]') &amp;&amp; ('[datasource:getProducts.[eval:[var:productIterateCount]+1].ProductFamily]' == '[var:currentCategory]')]" operator="e" rhs="true">
 <!-- 								<alert message="creating two" /> -->
 								<play action="create-two" />
@@ -4080,7 +4081,7 @@
 		
 		
 		<action name="get-products-error" datasource="getProducts" datasourceevent="datasourceerror" >
-			<alert message="get-products-error [datasource:getProducts.0.content]" />
+			<alert title="Error" message="There was an error retrieving products.  Please try again." />
 		</action>
     
     <action name="selectshingle">
@@ -4151,7 +4152,7 @@
 	</action>
 
 	<action name="warranties-error" datasource="getWarranties" datasourceevent="datasourceerror" >
-		<alert message="warranties error content is [datasource:getWarranties.0.content]" />
+		<alert title="Error" message="There was a problem retrieving warranties.  Please try again." />
 	</action>
 	
 	  <action name="selectwarranty">
@@ -4209,7 +4210,7 @@
 	</action>
 
 	<action name="accessories-error" datasource="getAccessories" datasourceevent="datasourceerror" >
-		<alert message="accessories error content [datasource:getAccessories.0.content]" />
+		<alert title="Error" message="There was a problem retrieving Accessories.  Please try again." />
 	</action>
 
     <action name="selectaccessories">
@@ -4478,18 +4479,18 @@
 		
 		<action name="updateMeasurements-complete" datasource="updateMeasurements" datasourceevent="querycomplete" >
 			<if lhs="[datasource:updateMeasurements.1.ResponseCode]" operator="e" rhs="100">
-				<alert message="updateMeasurements-complete content [datasource:updateMeasurements.0.content]" />
+<!-- 				<alert message="updateMeasurements-complete content [datasource:updateMeasurements.0.content]" /> -->
 					<play action="prepPhotos" />
 				  <else>
 				  	<alpha value="0" target="UPLOAD-CURTAIN" />
-				  	<alert message="there was a problem updating your measurements, please verify that all information is present and accurate" />
+				  	<alert title="Error" message="There was a problem updating measurements, please verify that all information is present and accurate" />
 				  </else>
 			</if>
 		</action>
 	
 		<action name="updateMeasurements-error" datasource="updateMeasurements" datasourceevent="datasourceerror" >
 			<assign property="var:measurementsJSON" value="" />
-			<alert message="updateMeasurements-error content [datasource:updateMeasurements.0.content]" />
+			<alert title="Error" message="There was a problem updating measurements, please verify that all information is present and accurate" />
 		</action>
 		
 		<!-- !prepPhotos -->
@@ -4502,7 +4503,7 @@
 				<assign property="object:UPLOAD-CURTAIN/photo-progress.text" value="Uploading Photo [var:photoIterateCount]" />
 				<play action="upload-photo" />
 				<else>
-					<alert message="photosdb empty" />
+<!-- 					<alert message="photosdb empty" /> -->
 				  	<alpha value="0" target="UPLOAD-CURTAIN" />
 					<assign property="datasource:getProducts.source" value="https://162.209.101.177/api/GetProducts?AppSource=1" />
 				</else>
@@ -4515,7 +4516,7 @@
 				<assign property="datasource:uploadPhoto.postFile" value="[datasource:photosdb-list.[var:photoIterateCount].PHOTO]"/>
 				<assign property="datasource:uploadPhoto.source" value="https://162.209.101.177/api/UploadPhoto" />
 				<else>
-					<alert message="all photos have been uploaded." />
+<!-- 					<alert message="all photos have been uploaded." /> -->
 				<assign property="object:UPLOAD-CURTAIN/photo-progress.text" value="Retrieving Products" />
 					<assign property="datasource:getProducts.source" value="https://162.209.101.177/api/GetProducts?AppSource=1" />
 				</else>
@@ -4530,7 +4531,7 @@
 <!-- 			</if> -->
 		</action>
 		<action name="photoupload-error" datasource="uploadPhoto" datasourceevent="datasourceerror" >
-			<alert message="upload error [datasource:uploadPhoto.0.content]" />
+			<alert title="Error" message="There was a problem uploading images.  Please try again." />
 		</action>
 		
 		<!-- !formatEstimate -->
@@ -4600,7 +4601,7 @@
 			<assign property="var:measurementsJSON" value="" />
 			<assign property="var:estimateJSON" value="" />
 			<if lhs="[datasource:generateEstimate.1.ResponseCode]" operator="e" rhs="100">
-				<alert message="estimate received" />
+<!-- 				<alert title="Success!" message="Your estimate " /> -->
 				<translate ypos="79" time=".3" curve="linear" target="PDF-CONTAINER" />
 				<else>
 					<translate ypos="0%" time=".3" curve="linear" target="PDF-CONTAINER" />
@@ -4613,7 +4614,7 @@
 		<action name="estimate-error" datasource="generateEstimate" datasourceevent="datasourceerror">
 			<assign property="var:measurementsJSON" value="" />
 			<assign property="var:estimateJSON" value="" />
-			<alert message="estimate error [datasource:generateEstimate.0.content]" />
+			<alert title="Error" message="There was a problem generating your estimate.  Please try again." />
 		</action>
 		
 <!--
