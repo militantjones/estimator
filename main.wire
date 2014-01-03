@@ -2236,6 +2236,17 @@
 	  	<wait name="wait" width="100%" height="100%"></wait>
 	  	<text name="photo-progress" width="100%" height="fit" ypos="600" color="#ffffff" font="Futura-MediumItalic" size="24" alignment="center" text="Uploading Photo NUMBER..."></text>
 	  </panel>
+	  
+	  <panel name="pdf-container" alias="PDF-CONTAINER" width="100%" height="100%" ypos="101%" >
+        <panel name="toolbar" width="100%" height="74" background="#343434">
+          <text name="title" width="100%" height="100%" color="#ffffff" font="Futura-Medium" size="24" alignment="center" text="Your Estimate"></text>
+          <text name="save" width="100" height="100%" align="right" color="#ffffff" font="Avenir-Medium" size="15" alignment="center" text="SEND" onclickup="sendestimate" clickuptarget="CONTAINER" ></text>
+          <text name="cancel" width="100" height="100%" color="#ffffff" font="Avenir-Medium" size="15" alignment="center" text="CLOSE" onclickup="closepdf" clickuptarget="CONTAINER" ></text>
+        </panel>
+        <panel name="pdf" width="100%" height="950" valign="bottom" >
+			<pdf name="estimate" source="ESTIMATEMockup.pdf" height="100%" width="100%" spreads="no" covertile="yes" tile="yes" orientation="vertical"></pdf>
+        </panel>
+	  </panel>
 
   </main>
   
@@ -4584,7 +4595,7 @@
 			<assign property="var:estimateJSON" value="[template:estimateJSON.content]" />
 			<assign property="datasource:generateEstimate.postContent" value="[var:estimateJSON]" />
 			<assign property="datasource:generateEstimate.source" value="https://162.209.101.177/api/GenerateEstimate" />
-			<email subject="estimate and measurements json" body="measurements\n\n[var:measurementsJSON]\n\n\n estimate\n\n[var:estimateJSON]\n\n\ncustomer query[var:customerSearchQuery]" toaddress="mlong@rarewire.com" />
+<!-- 			<email subject="estimate and measurements json" body="measurements\n\n[var:measurementsJSON]\n\n\n estimate\n\n[var:estimateJSON]\n\n\ncustomer query[var:customerSearchQuery]" toaddress="mlong@rarewire.com" /> -->
 		</action>
 		
 		<action name="estimate-complete" datasource="generateEstimate" datasourceevent="querycomplete">
@@ -4592,8 +4603,10 @@
 			<assign property="var:estimateJSON" value="" />
 			<if lhs="[datasource:generateEstimate.1.ResponseCode]" operator="e" rhs="100">
 				<alert message="estimate received" />
+				<translate ypos="79" time=".3" curve="linear" target="PDF-CONTAINER" />
 				<else>
-					<alert message="there was an error generating your estimate.  please try again later. [datasource:generateEstimate.0.content]" />
+					<translate ypos="0%" time=".3" curve="linear" target="PDF-CONTAINER" />
+<!-- 					<alert message="there was an error generating your estimate.  please try again later. [datasource:generateEstimate.0.content]" /> -->
 				</else>
 <!-- 				<play action="show-pdf" /> -->
 			</if>
@@ -4781,6 +4794,14 @@
       </if>
     </action>
     
+	<action name="sendestimate">
+		<email subject="Your estimate is enclosed" body="You can retrieve your estimate at the following location:\n\nhttp://path/to/estimate" toaddress="gaf-customer@gmail.com" />
+	</action>
+	
+	<action name="closepdf" >
+		<translate ypos="101%" time=".3" curve="linear" target="PDF-CONTAINER" />
+	</action>
+
     <action name="null"></action>
    
   </actions>
