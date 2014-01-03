@@ -2061,28 +2061,14 @@
         </panel>
       </pager>
       <panel name="navblock" alias="NAVBLOCK" width="100%" height="53" ypos="74" xpos="101%"></panel>
-      
-      <!-- !header -->
-      <panel name="header" alias="HEADER" width="100%" height="74" padding-right="10" alpha="1" background="#bfbfbf">
-        <image name="logo" source="images/logo.png" height="48" xpos="10" valign="center"></image>
-        <panel name="profile" width="50%" height="100%" align="right" onclickup="profiledrop">
-          <!--<image name="avatar" source="images/avatar.png" width="36" align="left" valign="center"></image>-->
-          <panel name="logout" width="50" height="100%" align="right" onclickup="logout">
-            <image name="logout" source="graphics/icon.signout.png" align="center" valign="center"></image>
-          </panel>
-          <text name="welcome" width="100%" height="fit" xpos="46" ypos="15" leftof="logout" margin-right="10" color="#343434" font="Avenir-MediumOblique" size="14" alignment="right" text="Signed in as" alpha=".7"></text>
-          <text name="username" width="100%" height="fit" xpos="46" bottomof="welcome" leftof="logout" margin-right="10" color="#343434" font="Futura-Medium" size="17" alignment="right" text="User"></text>
-        </panel>
-<!--           <text name="close" width="100" height="100%" color="#ffffff" font="Avenir-Medium" size="16" alpha="0" alignment="left" leftinset="20" text="CLOSE" onclickup="close-newestimate" ></text> -->
-      </panel>
-      
+            
       <!-- !camera roll -->
       <panel name="cameraroll" alias="CAMERAROLL" width="100%" height="100%" ypos="101%" background="#e3e3e3">
         <panel name="toolbar" width="100%" height="60" background="#343434">
           <text name="close" width="100" height="100%" xpos="20" color="#ffffff" font="Futura-Medium" size="18" alignment="left" text="close" onclickup="closeroll"></text>
         </panel>
-        <wait name="wait" width="100%" height="[eval:[object:CAMERAROLL.height] - [object:CAMERAROLL/toolbar.height]]" valign="bottom" alpha="0" color="#ed1c24"/>
-        <panel name="camera-list" width="100%" height="[eval:[object:CAMERAROLL.height] - [object:CAMERAROLL/toolbar.height]]" valign="bottom"></panel>
+        <wait name="wait" width="100%" height="964" valign="bottom" alpha="0" color="#ed1c24"/>
+        <panel name="camera-list" width="100%" height="964" valign="bottom"></panel>
       </panel>
       
       <panel name="camerabox" alias="CAMERABOX" width="100%" height="100%" ypos="101%" background="#e3e3e3">
