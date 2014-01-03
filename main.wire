@@ -2223,12 +2223,7 @@
   <!-- !ACTIONS -->
   <actions>
    
-<<<<<<< HEAD
     <action name="oninit" oninit="yes"> 
-=======
-    <action name="oninit" oninit="yes">
-		  <!-- <create class="editpanel" target="CONTAINER" />-->
->>>>>>> Dustin
 		  <assign property="var:loaded" value="no" />
 		  <assign property="var:accessoryCount" value="0" />
       <assign property="var:tearoff" value="no" />
@@ -2522,8 +2517,6 @@
     </action>
     
     <action name="get-estimate-complete" datasource="getEstimate" datasourceevent="querycomplete" >
-<<<<<<< HEAD
-=======
       <if lhs="[var:customerAction]" operator="e" rhs="create">
 <!-- 			<alert message="search after customer creation done [datasource:getEstimate.0.content]" /> -->
         <assign property="var:customerId" value="[datasource:getEstimate.1.CustomerId]" />
@@ -2533,7 +2526,6 @@
         	<alert message="get-estimate-complete search results count [datasource:getEstimate.dataSourceResultCount] content [datasource:getEstimate.0.content]" />
         </else>
       </if>
->>>>>>> Dustin
     </action>
     
     <action name="get-estimate-error" datasource="getEstimate" datasourceevent="datasourceerror" >
