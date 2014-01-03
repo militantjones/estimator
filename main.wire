@@ -1,4 +1,4 @@
-<wire>   
+<wire>    
   <!-- GAF Estimator -->
   <!-- iOS iPad -->
   <!-- App #7562 -->
@@ -92,7 +92,7 @@
     <datasource name="productsdb-delete" source="sql://PRODUCTS" query="" providertype="sql" />
     
 <!--     <datasource name="accessoriesdb" source="sql://ACCESSORIES" query="DELETE FROM ACCESSORIES;" providertype="sql" /> -->
-    <datasource name="accessoriesdb" source="sql://ACCESSORIES" query="CREATE TABLE IF NOT EXISTS ACCESSORIES (ID INTEGER PRIMARY KEY AUTOINCREMENT, LEAKBARRIER, ROOFDECK, STARTER, RIDGECAP, VENTILATION, ACCESSORY, QUANTITY);" providertype="sql" />
+    <datasource name="accessoriesdb" source="sql://ACCESSORIES" query="CREATE TABLE IF NOT EXISTS ACCESSORIES (ID INTEGER PRIMARY KEY AUTOINCREMENT, NAME, TYPE, ACCESSORY, QUANTITY);" providertype="sql" />
     <datasource name="accessoriesdb-list" source="sql://ACCESSORIES" query="SELECT * FROM ACCESSORIES ORDER BY ID DESC;" providertype="sql" />
     
     <datasource name="tearoffdb" source="sql://TEAROFF" query="CREATE TABLE IF NOT EXISTS TEAROFF (ID INTEGER PRIMARY KEY AUTOINCREMENT, TEAROFF, LAYERS, MATERIAL);" providertype="sql" />
@@ -134,7 +134,7 @@
 		{"Order":"[eval:[var:skylightsIterateCount]-1]","Length":"[datasource:protrusionsdb-list.[var:skylightsIterateCount].LENGTH]","Width":"[datasource:protrusionsdb-list.[var:skylightsIterateCount].WIDTH]"}
 	]]></texttemplate>
 	<texttemplate name="plumbingVents"><![CDATA[
-		{"Order":"[eval:[var:plumbingVentsIterateCount]-1]","Type":"[datasource:ventsdb-list.[var:plumbingVentsIterateCount].SIZE]"}
+		{"Order":"[eval:[var:plumbingVentsIterateCount]-1]","Type":"[datasource:ventsdb-list.[var:plumbingVentsIterateCount].SIZE]","Quantity":[datasource:ventsdb-list.[var:plumbingVentsIterateCount].QUANTITY]}
 	]]></texttemplate>
 	<texttemplate name="measurementsJSON"><![CDATA[
 		{"CustomerId":[var:customerId],"Measurements":{"MeasurementId":1,"ExistingRoofType":"[var:existingRoofType]","NumberOfFloors":[var:numberOfFloors],[var:roofMeasurementsObject],"WasteFactor":"[var:wasteFactor]",[var:ridgeMeasurementsObject],[var:hipsObject],[var:valleysObject],[var:rakesObject],[var:eavesObject],[var:skylightsObject],[var:plumbingVentsObject]}}
@@ -146,7 +146,7 @@
 		{"PriceAjustmentsId":"[eval:[var:adjustmentsIterateCount]-1]","Description":"[datasource:adjustmentsdb-list.[var:adjustmentsIterateCount].NOTES]","Price":"[eval:'[datasource:adjustmentsdb-list.[var:adjustmentsIterateCount].TYPE]' == 'Discount' ? '-':''][datasource:adjustmentsdb-list.[var:adjustmentsIterateCount].AMOUNT]"}
 	]]></texttemplate>
 	<texttemplate name="estimateJSON"><![CDATA[
-		{"customerId":"[var:customerId]","productId":"[var:shingle]","warrantyId":"[var:warranty]",[var:accessoriesObject],[var:adjustmentsObject],"AdditionalCost":{"TearOffLayers":[var:tearOffLayers],"TearOffType":"[var:tearOffType]","NumberOfStories":[var:numberOfFloors]}}
+		{"CustomerId":"[var:customerId]","ProductId":"[var:shingle]","WarrantyId":"[var:warranty]",[var:accessoriesObject],[var:adjustmentsObject],"AdditionalCost":{"TearOffLayers":[var:tearOffLayers],"TearOffType":"[var:tearOffType]","NumberOfStories":[var:numberOfFloors]}}
 	]]></texttemplate>
 
   </datasources>
@@ -171,6 +171,10 @@
   <!-- !CLASSES -->
   <classes>
     
+  	<class name="filler">
+  		<panel name="filler" width="100%" height="1"></panel>
+  	</class>
+
     <class name="button">
       <panel name="[param:name]" width="100%" height="100%" onclick="touched" onclickup="[param:action]" _value="[param:value]" _accessories="[param:accessories]" _image="[param:image]" _title="[param:title]" cornerradius="2" clip="yes">
         <text name="button" style="button" size="[param:size]" text="[param:label]"></text>
@@ -181,17 +185,17 @@
     <class name="title">
       <panel name="titlebox" width="100%" height="79" padding-left="20" padding-right="20" >
         <text name="title" width="100%" height="60" ypos="10" style="darktext" size="40" alignment="left" text="[param:title]"></text>
-        <panel name="divide" width="100%" height="10" valign="bottom" background="#343434"></panel>
+        <panel name="divide" width="100%" height="5" valign="bottom" background="#343434"></panel>
       </panel>
     </class>
     
     <class name="titlebutton">
       <panel name="titlebox" width="100%" height="79" padding-left="20" padding-right="20">
         <text name="title" width="100%" height="60" ypos="10" style="darktext" size="40" alignment="left" text="[param:title]"></text>
-        <panel name="create" width="73" height="50" align="right" valign="center">
+        <panel name="create" width="50" height="50" align="right" valign="center">
           <object class="button" name="test" size="60" label="+" action="create" value="[param:action]" />
         </panel>
-        <panel name="divide" width="100%" height="10" valign="bottom" background="#343434"></panel>
+        <panel name="divide" width="100%" height="5" valign="bottom" background="#343434"></panel>
       </panel>
     </class>
     
@@ -503,7 +507,7 @@
           <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" _next="none" _action="null"></textfield>
           <panel name="active" style="100" onclickup="dropon" _field="SLOPE[param:index]" _drop="ROOF-AREA[param:index]" _droptype="SLOPEDROP[param:index]"></panel>
         </panel>
-        <panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
+        <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
         <panel name="drop" width="45%" height="170" bottomof="subtitle" xpos="101%" alpha="0" style="textinput">
           <panel name="slopedrop[param:index]" alias="SLOPEDROP[param:index]" width="100%" height="100%" alpha="0">
             <text name="drophead" width="50%" height="30" style="lighttext" size="18" alignment="center" text="Slope"></text>
@@ -587,7 +591,7 @@
           <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" _next="none" _action="null"></textfield>
           <panel name="active" style="100" onclickup="dropon" _field="DIFFICULTY" _drop="INSPECTION"></panel>
         </panel>-->
-        <panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
+        <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
         <panel name="drop" width="45%" height="110" bottomof="subtitle" xpos="101%" alpha="0" style="textinput">
           <panel name="rooftypedrop" alias="ROOFTYPEDROP" width="100%" height="100%">
             <text name="drophead" width="100%" height="30" style="lighttext" size="18" alignment="center" text="Roof Types"></text>
@@ -647,7 +651,7 @@
           <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" _next="none" _action="null"></textfield>
           <panel name="active" style="100" onclickup="dropon" _field="FASCIATYPE" _drop="FASCIA"></panel>
         </panel>
-        <panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
+        <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
         <panel name="drop" width="45%" height="170" bottomof="subtitle" xpos="101%" alpha="0" style="textinput"></panel>
       </panel>
     </class><!-- <object class="fascia" /> -->
@@ -664,7 +668,7 @@
           </panel>
           <text name="measure" width="30" height="100%" align="right" style="darktext" size="20" alignment="center" text="%"></text>
         </panel>
-        <panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
+        <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
       </panel>
     </class><!-- <object class="waste" /> -->
     
@@ -684,7 +688,7 @@
           <panel name="check" width="0" height="0" align="center" valign="center" background="#ed1c24" cornerradius="20" alpha="1" ></panel>
         </panel>
         <text name="checklabel" width="150" height="50" bottomof="ridge" rightof="ridgevent[param:index]" margin-top="10" style="darktext" size="20" leftinset="10" alignment="left" text="Ridge Vent(s)"></text>
-        <panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
+        <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
       </panel>
     </class><!-- <object class="ridge" index="1" /> -->
     
@@ -700,7 +704,7 @@
           </panel>
           <text name="measure" width="30" height="100%" align="right" style="darktext" size="20" alignment="center" text="ft"></text>
         </panel>
-        <panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
+        <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
       </panel>
     </class><!-- <object class="hip" index="1" /> -->
     
@@ -716,7 +720,7 @@
           </panel>
           <text name="measure" width="30" height="100%" align="right" style="darktext" size="20" alignment="center" text="ft"></text>
         </panel>
-        <panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
+        <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
       </panel>
     </class><!-- <object class="valley" index="1" /> -->
     
@@ -732,7 +736,7 @@
           </panel>
           <text name="measure" width="30" height="100%" align="right" style="darktext" size="20" alignment="center" text="ft"></text>
         </panel>
-        <panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
+        <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
       </panel>
     </class><!-- <object class="rake" index="1" /> -->
     
@@ -748,7 +752,7 @@
           </panel>
           <text name="measure" width="30" height="100%" align="right" style="darktext" size="20" alignment="center" text="ft"></text>
         </panel>
-        <panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
+        <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
       </panel>
     </class><!-- <object class="eave" index="1" /> -->
     
@@ -774,7 +778,7 @@
           <text name="measure" width="30" height="100%" align="right" style="darktext" size="20" alignment="center" text="ft"></text>
         </panel>
         <text name="type[param:pindex]" alias="TYPE[param:pindex]" width="1" height="1" color="#ffffff" font="Helvetica" size="1" alignment="left" text="Chimney" alpha="0"></text>
-        <panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
+        <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
       </panel>
     </class><!-- <object class="chimney" index="1" /> -->
     
@@ -800,7 +804,7 @@
           <text name="measure" width="30" height="100%" align="right" style="darktext" size="20" alignment="center" text="ft"></text>
         </panel>
         <text name="type[param:pindex]" alias="TYPE[param:pindex]" width="1" height="1" color="#ffffff" font="Helvetica" size="1" alignment="left" text="Skylight" alpha="0"></text>
-        <panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
+        <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
       </panel>
     </class><!-- <object class="skylight" index="1" /> -->
     
@@ -818,7 +822,7 @@
             <panel name="active" style="100" onclickup="labelactive" _field="VENTQUANTITY[param:index]"></panel>
           </panel>
         </panel>
-        <panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
+        <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
       </panel>
     </class><!-- <object class="3vent" /> -->
     
@@ -836,7 +840,7 @@
             <panel name="active" style="100" onclickup="labelactive" _field="VENTQUANTITY[param:index]"></panel>
           </panel>
         </panel>
-        <panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
+        <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
       </panel>
     </class><!-- <object class="2vent" /> -->
     
@@ -854,7 +858,7 @@
             <panel name="active" style="100" onclickup="labelactive" _field="VENTQUANTITY[param:index]"></panel>
           </panel>
         </panel>
-        <panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
+        <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
       </panel>
     </class><!-- <object class="2vent" /> -->
     
@@ -878,20 +882,20 @@
             <panel name="active" style="100" onclickup="labelactive" _field="VENTQUANTITY[param:index]"></panel>
           </panel>
         </panel>
-        <panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
+        <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
       </panel>
     </class><!-- <object class="customvent" index="1" /> -->
     
     <class name="photo">
-      <panel name="photo[param:index]" width="100%" height="215">
-        <panel name="imgbox" width="226" height="190" ypos="10" clip="yes" background="000000">
+      <panel name="photo[param:index]" alias="PN[param:index]" width="100%" height="215">
+        <panel name="imgbox" width="150" height="200" valign="center" clip="yes">
           <image name="rollphoto" asset="[param:photo]" height="100%" contain="yes"></image>
-          <image name="cameraphoto" fullpath="[param:photo]" height="100%" contain="yes"></image>
+          <image name="cameraphoto" fullpath="[param:photo]" width="100%" align="center" valign="center"></image>
         </panel>
-        <panel name="notbox" width="47%" height="200" align="right" ypos="10" clip="yes">
-          <text name="note" width="100%" height="fit" style="darktext" size="16" alignment="left" text="[param:note]"></text>
+        <panel name="notbox" width="[eval:[object:PN[param:index].width] - 150]" height="200" align="right" valign="center" clip="yes" padding-left="20">
+          <text name="note" width="100%" height="fit" style="darktext" size="18" alignment="left" text="[param:note]"></text>
         </panel>
-        <panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
+        <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
       </panel>
     </class><!-- <object class="photo" index="1" /> -->
     
@@ -903,7 +907,7 @@
 
 	<class name="product-family">
 		<panel name="category[panel:index]" width="100%" height="100" padding-left="20" padding-right="20">
-			<panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
+			<panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
 			<text name="cat" width="100%" height="fit" topof="divider" font="Futura-Medium" color="#343434" size="35" alignment="left" text="[param:category]"></text>
 		</panel>
 	</class>
@@ -1051,13 +1055,13 @@
         <panel name="warranty-btn" width="108" height="50" align="right" ypos="8">
           <object class="button" name="test" size="20" label="Select" action="selectwarranty" value="[param:warrantyId]" accessories="[param:accessories]" title="[param:title]"/>
         </panel>
-        <panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
+        <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
       </panel>
     </class>
     
 	<class name="accessory-category">
 		<panel name="category[panel:index]" width="100%" height="100">
-			<panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
+			<panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
 			<text name="cat" width="100%" height="fit" topof="divider" font="Futura-Medium" color="#343434" size="35" alignment="left" text="[param:category]"></text>
 		</panel>
 	</class>
@@ -1069,7 +1073,7 @@
         <panel name="warranty-btn" width="108" height="50" align="right" ypos="8">
           <object class="button" name="test" size="20" label="Select" action="selectaccessories" value="[param:index]" />
         </panel>
-        <panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
+        <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
       </panel>
     </class>
     
@@ -1109,7 +1113,7 @@
               <object class="button" name="test" size="20" label="Select" action="selectaccessories" value="[param:index]" />
             </panel>
           </panel>
-          <panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
+          <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
         </panel>
     </class><!-- <object class="accessories"  /> -->
     
@@ -1143,7 +1147,7 @@
               <object class="button" name="test" size="20" label="Select" action="selectoptions" />
             </panel>
           </panel>
-          <panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
+          <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
         </panel>
       </panel>
     </class>--><!-- <object class="options"  /> -->
@@ -1173,7 +1177,7 @@
           <textfield name="input" text="test" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" _next="none" _action="null"></textfield>
           <panel name="active" style="100" onclickup="dropon" _field="DIFFICULTY" _drop="TEAROFF"></panel>
         </panel>-->
-        <panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
+        <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
         <panel name="drop" width="45%" height="110" xpos="101%" ypos="70" alpha="0" style="textinput">
           <pager name="layersdrop" alias="LAYERSDROP" width="100%" height="100%" orientation="vertical" paginate="no" alpha="0">
             <panel name="layer0" width="100%" height="40" _layers="0" onclickup="setlayers">
@@ -1245,7 +1249,7 @@
           <panel name="check" width="0" height="0" align="center" valign="center" background="#ed1c24" cornerradius="20" alpha="1" ></panel>
         </panel>
         <text name="checklabel" width="150" height="50" bottomof="pool" margin-top="10" rightof="misc" style="darktext" size="20" leftinset="10" alignment="left" text="Misc"></text>
-        <panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
+        <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
       </panel>
     </class><!-- <object class="assetprotection" /> -->
     
@@ -1284,7 +1288,7 @@
         
         <text name="adjusttype[param:aindex]" alias="ADJUSTTYPE[param:aindex]" width="0" height="0" color="#ffffff" font="Helvetica" size="1" alignment="left" text="Discount"></text>
         
-        <panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
+        <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
       </panel>
     </class><!-- <object class="discount" index="1" />-->
     
@@ -1322,7 +1326,7 @@
         
         <text name="adjusttype[param:aindex]" alias="ADJUSTTYPE[param:aindex]" width="0" height="0" color="#ffffff" font="Helvetica" size="1" alignment="left" text="Additional Cost"></text>
         
-        <panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
+        <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
       </panel>
     </class><!-- <object class="additionalcost" index="1" /> -->
     
@@ -1345,7 +1349,7 @@
           <text name="address1" width="100%" height="30" bottomof="label" style="darktext" size="15" alignment="left" text="[param:street]"></text>
           <text name="address2" width="100%" height="30" bottomof="address1" style="darktext" size="15" alignment="left" text="[param:city], [param:state] [param:zip]"></text>
         </panel>
-        <panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
+        <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
       </panel>
     </class> <!-- <object class="summary-cust" cust1name="" cust1phone="" cust1email="" cust2name="" cust2phone="" cust2email="" street="" city="" state="" zip="" /> -->
     
@@ -1353,19 +1357,19 @@
       <panel name="summary-roof" alias="SUMMARY-ROOF" width="100%" height="158">
         <text name="subtitle" width="100%" height="40" font="Futura-Medium" color="#343434" size="25" alignment="left" text="Roof Info"></text>
         <panel name="col1" width="33.33%" height="108" bottomof="subtitle">
-          <text name="roof-area" width="100%" height="35" style="darktext" size="20" alignment="left" text="Total Area: [param:area] sq ft"></text>
-          <text name="roof-squares" width="100%" height="35" bottomof="roof-area" style="darktext" size="20" alignment="left" text="Squares Needed: [param:area]"></text>
-          <text name="roof-ridges" width="100%" height="35" bottomof="roof-squares" style="darktext" size="20" alignment="left" text="Ridges: [param:squares] ft"></text>
+          <text name="roof-area" width="100%" height="35" style="darktext" size="20" alignment="left" text="Total Area: [param:area]"></text>
+          <text name="roof-squares" width="100%" height="35" bottomof="roof-area" style="darktext" size="20" alignment="left" text="Squares Needed: [param:squares]"></text>
+          <text name="roof-ridges" width="100%" height="35" bottomof="roof-squares" style="darktext" size="20" alignment="left" text="Ridges: [param:ridges]"></text>
         </panel>
         <panel name="col2" width="33.33%" height="108" rightof="col1" bottomof="subtitle" >
-          <text name="roof-hips" width="100%" height="35" style="darktext" size="20" alignment="left" text="Hips: [param:hips] ft"></text>
-          <text name="roof-rake" width="100%" height="35" bottomof="roof-hips" style="darktext" size="20" alignment="left" text="Rake: [param:rakes] ft"></text>
-          <text name="roof-eaves" width="100%" height="35" bottomof="roof-rake" style="darktext" size="20" alignment="left" text="Eaves: [param:eaves] ft"></text>
+          <text name="roof-hips" width="100%" height="35" style="darktext" size="20" alignment="left" text="Hips: [param:hips]"></text>
+          <text name="roof-rake" width="100%" height="35" bottomof="roof-hips" style="darktext" size="20" alignment="left" text="Rake: [param:rakes]"></text>
+          <text name="roof-eaves" width="100%" height="35" bottomof="roof-rake" style="darktext" size="20" alignment="left" text="Eaves: [param:eaves]"></text>
         </panel>
         <panel name="col3" width="33.33%" height="108" rightof="col2" bottomof="subtitle">
-          <text name="roof-valleys" width="100%" height="35" style="darktext" size="20" alignment="left" text="Valleys: [param:valleys] ft"></text>
+          <text name="roof-valleys" width="100%" height="35" style="darktext" size="20" alignment="left" text="Valleys: [param:valleys]"></text>
         </panel>
-        <panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
+        <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
       </panel>
     </class> <!-- <object class="summary-roof" area="" squares="" ridges="" hips="" rakes="" eaves="" valleys="" />-->
     
@@ -1382,7 +1386,7 @@
         <panel name="col2" width="50%" height="150" ypos="45" xpos="50%">
           <text name="warranty" width="100%" height="fit" style="darktext" size="20" alignment="left" text="[param:warranty]"></text>
         </panel>
-        <panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
+        <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
       </panel> <!--<object class="summary-products" swatch="" name="" color="" warranty=""  />-->
     </class>
     
@@ -1408,20 +1412,20 @@
     
     <!-- !camera classes -->
     <class name="camera-view">
-      <camera name="view" alias="CAMERA-VIEW" width="100%" height="100%" outputfile="dump/capture.png" oncapture="output" />
+      <camera name="view" alias="CAMERA-VIEW" width="100%" height="100%" outputfile="dump/capture[var:camerafile].png" oncapture="output" />
     </class>
     <class name="camera">
         <panel name="camera" alias="CAMERA" width="100%" height="100%" clip="yes">
             <panel name="camera-container" alias="CAMERA-CONTAINER" width="100%" height="100%">
                 <object class="camera-view" face="back" />
             </panel>
-            <panel name="toolbar" alias="CAMERA-TOOLBAR" width="100%" height="64" background="#ffffff" translucent="yes" ypos="-70">
+            <panel name="toolbar" alias="CAMERA-TOOLBAR" width="100%" height="64" background="#343434" translucent="yes" ypos="-70">
                 <panel name="wrapper" width="100%" height="100%" valign="bottom" clip="yes">
                     <panel name="capture-cancel" width="100" height="100%" padding-left="15" alpha="1" onclickup="capture-cancel" clickuptarget="CONTAINER" _type="">
-                        <text name="label" height="100%" width="100%" font="Futura-Medium" size="18" alignment="left" color="#0a84c8" text="Retake" />
+                        <text name="label" height="100%" width="100%" font="Futura-Medium" size="18" alignment="left" color="#ffffff" text="Retake" />
                     </panel>
                     <panel name="capture-submit" width="100" height="100%" padding-right="15" alpha="1" align="right" onclickup="capture-submit" clickuptarget="CONTAINER" _type="">
-                        <text name="label" height="100%" width="100%" font="Futura-Medium" size="18" alignment="right" color="#0a84c8" text="Save" />
+                        <text name="label" height="100%" width="100%" font="Futura-Medium" size="18" alignment="right" color="#ffffff" text="Save" />
                     </panel>
                 </panel>
             </panel>
@@ -1439,8 +1443,8 @@
     </class>
     
     <class name="capture-preview">
-        <panel name="capture-preview" alias="CAPTURE-PREVIEW" height="100%" width="100%" clip="yes">
-          <image source="dump/capture.png" width="100%" align="center" valign="center"/>
+        <panel name="capture-preview" alias="CAPTURE-PREVIEW" height="100%" width="100%" clip="yes" background="#00ff00">
+          <image fullpath="[param:source]" width="100%" align="center" valign="center"/>
         </panel>
     </class>
 
@@ -1477,18 +1481,20 @@
     </class>
     
     <class name="cameraphoto">
-      <image name="thephoto" alias="THEPHOTO" fullpath="[param:photo]" height="100%" align="center" ></image>
+      <panel name="container" height="100%" width="100%" clip="yes">
+        <image name="thephoto" alias="THEPHOTO" fullpath="[param:photo]" width="100%" align="center" valign="center"></image>
+      </panel>
     </class>
     
     <class name="addnote">
       <panel name="addnote" alias="ADDNOTE" width="100%" height="100%" ypos="101%" background="#e3e3e3">
         <panel name="toolbar" width="100%" height="74" background="#343434">
-          <text name="title" width="100%" height="100%" color="#ffffff" font="Futura-Medium" size="30" alignment="center" text="Add a Note"></text>
-          <text name="save" width="100" height="100%" align="right" color="#ffffff" font="Futura-Medium" size="24" alignment="center" text="Save" onclickup="savenote" clickuptarget="CONTAINER" ></text>
-          <text name="cancel" width="100" height="100%" color="#ffffff" font="Futura-Medium" size="24" alignment="center" text="Cancel"></text>
+          <text name="title" width="100%" height="100%" color="#ffffff" font="Futura-Medium" size="20" alignment="center" text="Add a Note"></text>
+          <text name="save" width="100" height="100%" align="right" color="#ffffff" font="Futura-Medium" size="18" alignment="center" text="Save" onclickup="savenote" clickuptarget="CONTAINER" ></text>
+          <text name="cancel" width="100" height="100%" color="#ffffff" font="Futura-Medium" size="18" alignment="center" text="Cancel" onclickup="cancelnote" clickuptarget="CONTAINER" ></text>
         </panel>
-        <panel name="photolanding" alias="PHOTOLANDING" width="100%" height="40%" ypos="80"></panel>
-        <panel name="notewrap" width="80%" height="230" align="center" bottomof="PHOTOLANDING" margin-top="20" padding="10" background="ffffff" cornerradius="2" borderwidth="1" bordercolor="#343434" >
+        <panel name="photolanding" alias="PHOTOLANDING" width="300" height="400" ypos="90" align="center"></panel>
+        <panel name="notewrap" width="80%" height="230" align="center" bottomof="PHOTOLANDING" margin-top="20" padding="10" background="ffffff" cornerradius="2" borderwidth="1" bordercolor="#343434">
           <textfield name="thenote" alias="THENOTE" width="100%" height="100%" font="Futura-Medium" size="20" color="#343434" alignment="left" valignment="top" multiline="yes" placeholder="Your Note Here."></textfield>
         </panel>
       </panel>
@@ -1531,7 +1537,7 @@
                   <panel name="active" style="100" onclickup="labelactive" _field="CUST1-PHONE"></panel>
                 </panel>
               </panel>
-              <panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
+              <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
             </panel>
             
             <panel name="customer2" width="100%" height="160">
@@ -1560,7 +1566,7 @@
                   <panel name="active" style="100" onclickup="labelactive" _field="CUST2-PHONE"></panel>
                 </panel>
               </panel>
-              <panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
+              <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
             </panel>
             
             <panel name="address" alias="ADDRESS" width="100%" height="280">
@@ -1630,7 +1636,7 @@
                   </list>
                 </panel>
               </panel>
-              <panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
+              <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
             </panel>
             
             <panel name="bottom" width="100%" height="209">
@@ -1908,7 +1914,7 @@
                   <text name="address1" width="100%" height="30" bottomof="label" style="darktext" size="15" alignment="left" text="132 Underhill Ln"></text>
                   <text name="address2" width="100%" height="30" bottomof="address1" style="darktext" size="15" alignment="left" text="The Shire, NZ 219387"></text>
                 </panel>
-                <panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
+                <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
               </panel>
               
               <panel name="summary-roof" width="100%" height="158">
@@ -1926,7 +1932,7 @@
                 <panel name="col3" width="33.33%" height="108" rightof="col2" bottomof="subtitle">
                   <text name="roof-valleys" width="100%" height="35" style="darktext" size="20" alignment="left" text="Valleys: 74 ft"></text>
                 </panel>
-                <panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
+                <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
               </panel>
               
               <panel name="summary-products" width="100%" height="210">
@@ -1940,7 +1946,7 @@
                 <panel name="col2" width="50%" height="150" ypos="45" xpos="50%">
                   <text name="warranty" width="100%" height="fit" style="darktext" size="20" alignment="left" text="Golden Pledge Ltd. Warranty"></text>
                 </panel>
-                <panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
+                <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
               </panel>
               
               <panel name="summary-accessories" width="100%" height="163">
@@ -1961,7 +1967,7 @@
                   <text name="roof-starter-title" width="100%" height="30" style="darktext" size="20" alignment="left" text="Starter Strip Protection"></text>
                   <text name="roof-starter-product" width="100%" height="20" bottomof="roof-starter-title" style="darktext" size="15" alignment="left" text="Deck-Armor"></text>
                 </panel>
-                <panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
+                <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
               </panel>
               
               <panel name="summary-services" width="100%" height="192">
@@ -2072,7 +2078,7 @@
       <!-- !camera roll -->
       <panel name="cameraroll" alias="CAMERAROLL" width="100%" height="100%" ypos="101%" background="#e3e3e3">
         <panel name="toolbar" width="100%" height="60" background="#343434">
-          <text name="close" width="100" height="100%" xpos="20" color="#ffffff" font="Futura-Medium" size="20" alignment="left" text="close" onclickup="closeroll"></text>
+          <text name="close" width="100" height="100%" xpos="20" color="#ffffff" font="Futura-Medium" size="18" alignment="left" text="close" onclickup="closeroll"></text>
         </panel>
         <wait name="wait" width="100%" height="[eval:[object:CAMERAROLL.height] - [object:CAMERAROLL/toolbar.height]]" valign="bottom" alpha="0" color="#ed1c24"/>
         <panel name="camera-list" width="100%" height="[eval:[object:CAMERAROLL.height] - [object:CAMERAROLL/toolbar.height]]" valign="bottom"></panel>
@@ -2204,7 +2210,7 @@
                 <panel name="active" style="100" onclickup="labelactive" _field="ACCESSORYQUANTITY"></panel>
               </panel>
               <panel name="create" width="110" height="50" align="right" bottomof="description" margin-top="20">
-                <object class="button" name="test" size="20" label="Select" action="selectaccessory" value="product id" />
+                <object class="button" name="test" size="20" label="Select" action="selectaccessory-save" value="product id" />
               </panel>
             </panel>
           </pager>
@@ -2217,8 +2223,7 @@
   <!-- !ACTIONS -->
   <actions>
    
-    <action name="oninit" oninit="yes">
-		  <!-- <create class="editpanel" target="CONTAINER" />-->
+    <action name="oninit" oninit="yes"> 
 		  <assign property="var:loaded" value="no" />
 		  <assign property="var:accessoryCount" value="0" />
       <assign property="var:tearoff" value="no" />
@@ -2390,7 +2395,7 @@
     <action name="openregisterview">
       <sync>
         <play action="released" />
-        <play action="openweb" _value="http://www.google.com/" _title="Register" />
+        <play action="openweb" _value="http://162.209.101.177" _title="Register" />
       </sync>
     </action>
     
@@ -2554,6 +2559,7 @@
     </action>
     
     <action name="newestimate">
+		<play action="resetSummaryVars"/>
       <alpha value="0" time=".25" target="CHOICE" />
       <assign property="datasource:states.source" value="res://states.xml" />
       <assign property="datasource:provinces.source" value="res://provinces.xml" />
@@ -2746,6 +2752,7 @@
     
     <action name="addcamera">
       <sync>
+        <assign property="var:camerafile" value="[system:uuid]" />
         <create class="camera" target="CAMERABOX" />
         <alpha value="0" time=".25" target="CAMERAMENU" />
         <translate ypos="0" time=".25" curve="easeout" target="CAMERABOX" />
@@ -2781,7 +2788,7 @@
         <if lhs="[var:photolocation]" operator="e" rhs="camera">
           <create class="cameraphoto" target="PHOTOLANDING" photo="[var:photo-url]" />
           <!--<assign property="object:THEPHOTO.fullpath" value="" />-->
-          <alert message="camera" />
+          <!-- <alert message="camera" /> -->
         </if>
         <translate ypos="0" time=".25" curve="easeout" target="ADDNOTE" />
         <keyboard visible="yes" target="THENOTE" />
@@ -2797,21 +2804,28 @@
       </sync>
     </action>
 
-    <action name="db-that-photo"> <!-- holla!* Rachael Goldberg Voice -->
-      <alert message="[var:thenote]" />
+    <action name="db-that-photo"> 
+      <!-- <alert message="[var:thenote]" /> -->
       <assign property="datasource:photosdb.query" value="INSERT INTO PHOTOS (PHOTO, NOTE) values ('[var:photo-url]', '[var:thenote]')" />
     </action>
 
-    <action name="photo-db-save-confirm-the-magic-fuck-yes" datasource="photosdb">
+    <action name="cancelnote">
+      <sync>
+        <translate ypos="101%" time=".25" curve="easeout" target="ADDNOTE" />
+        <delete target="ADDNOTE" />
+      </sync>
+    </action>
+
+    <action name="photo-db-save-confirm" datasource="photosdb">
       <if lhs="[var:photoActive]" operator="==" rhs="1">
         <assign property="datasource:photosdb-list.query" value="SELECT * FROM PHOTOS;" />
-        <alert message="photo saved to db" />
+        <!-- <alert message="photo saved to db" /> -->
       </if>
     </action>
 
     <action name="photo-db-redraw" datasource="photosdb-list">
       <if lhs="[var:photoActive]" operator="==" rhs="1">
-        <alert title="You have this many photos in the db!" message="[datasource:photosdb-list.dataSourceResultCount]" />
+        <!-- <alert title="You have this many photos in the db!" message="[datasource:photosdb-list.dataSourceResultCount]" /> -->
         <assign property="var:photoActive" value="0" />
       </if>
     </action>
@@ -2837,9 +2851,8 @@
     <action name="output">
       <translate ypos="100%" time=".15" target="CAMERA-CONTROLCENTER" />
       <sync>
-        <create class="capture-preview" target="CAMERA-CONTAINER" />
+        <create class="capture-preview" source="[object:CAMERA-VIEW.photo]" target="CAMERA-CONTAINER" />
         <translate ypos="0" time=".15" target="CAMERA-TOOLBAR" />
-        <!-- <delete target="CAMERA-VIEW" /> -->
       </sync>
     </action>
     
@@ -2861,7 +2874,7 @@
         <play action="addnote" />
         <translate ypos="101%" time=".25" curve="easeout" target="CAMERABOX" />
         <delete target="CAMERA" />
-        <alert message="[var:photo-url]" />
+        <!-- <alert message="[var:photo-url]" /> -->
         <!--<play action="db-that-photo" />-->
       </sync>
     </action>
@@ -2955,17 +2968,19 @@
       <sync>
         <loop lhs="[var:summaryarea]" operator="lt" rhs="[var:areaindex]">
           <assign property="var:summaryarea" value="[eval: [var:summaryarea] + 1]" />
-          <assign property="var:totalarea" value="[eval: [var:totalarea] + [var:area[var:summaryarea]total] ]" />
+          <assign property="var:totalareaTemp" value="[eval: [var:totalarea] + [var:area[var:summaryarea]total] ]" />
+          <assign property="var:totalarea" value="[eval: Math.ceil([var:totalareaTemp]) ]" />
           <alert title="total area" message="[var:totalarea]" />
         </loop>
-        <assign property="var:squarestotal" value="[eval: [var:totalarea] / 100 ]" />
-        <!--<alert title="total squares needed" message="[var:squarestotal]" />
-        <alert title="ridges total" message="[var:ridgestotal]" />
-        <alert title="hips total" message="[var:hipstotal]" />
-        <alert title="rakes total" message="[var:rakestotal]" />
-        <alert title="eaves total" message="[var:eavestotal]" />
-        <alert title="valleys total" message="[var:valleystotal]" />-->
-        <create class="summary-roof" target="SUMMARY-PAGER" area="[var:totalarea]" squares="[var:squarestotal]" ridges="[var:ridgestotal]" hips="[var:hipstotal]" rakes="[var:rakestotal]" eaves="[var:eavestotal]" valleys="[var:valleystotal]"  />
+		<if lhs="[var:totalarea]" operator="e" rhs="">
+			<assign property="var:squarestotal" value="N/A" />
+			<else>
+		        <assign property="var:squarestotalTemp" value="[eval: [var:totalarea] / 100 ]" />
+		        <assign property="var:squarestotal" value="[eval: Math.ceil([var:squarestotalTemp])]" />
+			</else>
+		</if>
+<!--         <alert message="area total [var:totalarea] squares total [var:squarestotal] ridges total [var:ridgestotal] hips total [var:hipstotal] rakes total [var:rakestotal] eaves total [var:eavestotal] valleys total [var:valleystotal]" /> -->
+        <create class="summary-roof" target="SUMMARY-PAGER" area="[eval:'[var:totalarea]' != '' ? '[var:totalarea] sq ft':'N/A']" squares="[var:squarestotal]" ridges="[eval:'[var:ridgestotal]' != '' ? '[var:ridgestotal] ft':'N/A']" hips="[eval:'[var:hipstotal]' != '' ? '[var:hipstotal] ft':'N/A']" rakes="[eval:'[var:rakestotal]' != '' ? '[var:rakestotal] ft':'N/A']" eaves="[eval:'[var:eavestotal]' != '' ? '[var:eavestotal] ft':'N/A']" valleys="[eval:'[var:valleystotal]' != '' ? '[var:valleystotal] ft':'N/A']"  />
         <play action="summaryproducts" />
       </sync>
     </action>
@@ -2991,6 +3006,19 @@
       </sync>
     </action>
     
+	<action name="resetSummaryVars" >
+		<assign property="var:summaryarea" value="" />
+		<assign property="var:totalarea" value="" />
+		<assign property="var:totalareaTemp" value="" />
+		<assign property="var:squarestotalTemp" value="" />
+		<assign property="var:squarestotal" value="" />
+		<assign property="var:ridgestotal" value="" />
+		<assign property="var:hipstotal" value="" />
+		<assign property="var:rakestotal" value="" />
+		<assign property="var:eavestotal" value="" />
+		<assign property="var:valleystotal" value="" />
+	</action>
+
     <action name="savedCUSTOMER"></action>
     
     <action name="savedROOF"></action>
@@ -3157,6 +3185,8 @@
     
 	<action name="create-customer-complete" datasource="createCustomer" datasourceevent="querycomplete">
 		<if lhs="[datasource:createCustomer.1.ResponseCode]" operator="e" rhs="100">
+			<assign property="var:customerId" value="[datasource:createCustomer.1.CustomerId]" />
+			<alert message="var:customerId is [var:customerId]" />
 			<assign property="var:firstName" encoding="url" value="[datasource:customersdb-list.1.FNAME]" />
 			<assign property="var:lastName" encoding="url" value="[datasource:customersdb-list.1.LNAME]" />
 			<assign property="var:address1" encoding="url" value="[datasource:customersdb-list.1.STREET]" />
@@ -3165,9 +3195,11 @@
 			<assign property="var:postalCode" encoding="url" value="[datasource:customersdb-list.1.POSTAL]" />
 			<assign property="var:country" encoding="url" value="[datasource:customersdb-list.1.COUNTRY]" />
 			<assign property="var:notes" encoding="url" value="[datasource:customersdb-list.1.NOTES]" />
-			<assign property="var:customerAction" value="create" />
+<!-- 			<assign property="var:customerAction" value="create" /> -->
 <!-- 			<alert message="var:customerAction is [var:customerAction]" /> -->
-			<assign property="datasource:getEstimate.source" value="https://162.209.101.177/api/GetCustomerEstimate?customerLastName=[var:lastName]&amp;address1=[var:address1]&amp;address2=&amp;city=[var:city]&amp;stateProvince=[var:state]&amp;postalCode=[var:postalCode]&amp;country=[var:country]" />
+				<assign property="var:customerSearchQuery" value="https://162.209.101.177/api/GetCustomerEstimate?customerLastName=[var:lastName]&amp;address1=[var:address1]&amp;address2=&amp;city=[var:city]" />
+				<play action="finish-customer-create" />
+<!-- 			<assign property="datasource:getEstimate.source" value="https://162.209.101.177/api/GetCustomerEstimate?customerLastName=[var:lastName]&amp;address1=[var:address1]&amp;address2=&amp;city=[var:city]&amp;stateProvince=[var:state]&amp;postalCode=[var:postalCode]&amp;country=[var:country]" /> -->
 <!-- 			<alert message="create customer complete response [datasource:createCustomer.0.content] search request url https://162.209.101.177/api/GetCustomerEstimate?customerLastName=[var:lastName]&amp;address1=[var:address1]&amp;address2=&amp;city=[var:city]&amp;stateProvince=[var:state]&amp;postalCode=[var:postalCode]&amp;country=[var:country]" /> -->
 			<else>
 				<alert message="There was an error creating the customer.  Please verify that all information is correct and try again." />
@@ -3182,8 +3214,8 @@
 	<action name="finish-customer-create" >
       <sync>
 <!-- 	  	<alert message="customer created" /> -->
-	  	<assign property="var:customerAction" value="" />
-	  	<alert message="customer created, var:customerId is [var:customerId]" />
+<!-- 	  	<assign property="var:customerAction" value="" /> -->
+<!-- 	  	<alert message="customer created, var:customerId is [var:customerId]" /> -->
         <play action="released" />
         <translate ypos="101%" time=".1" curve="linear" target="NAV-CUSTOMER/sel" />
         <assign property="var:roofarrow" value="Inspection" />
@@ -3470,7 +3502,7 @@
         <!-- <alert message="pre-saved removed [datasource:hipsdb-list.dataSourceResultCount]" />-->
         <if lhs="[datasource:hipsdb-list.dataSourceResultCount]" operator="gt" rhs="0">
           <assign property="datasource:hipsdb-delete.query" value="DELETE FROM HIPS;" />
-          <!--<alert message="if to delete" />-->
+		  <alert message="deleting hips db for fresh save" />
           <else>
             <play action="HIP-save" />
             <!-- <alert message="in the else, did not delete anything" /> -->
@@ -3952,6 +3984,8 @@
 					<if lhs="[eval:[var:productIterateCount]+1]" operator="e" rhs="[var:productCount]">
 <!-- 						<alert message="creating last two" /> -->
 						<create class="shingles" index="[var:productIterateCount]" target="PRODUCT-PAGER-BOX/pager" />
+						<assign property="var:productsCreated" value="yes" />
+						<create class="filler" target="PRODUCT-PAGER-BOX/pager" />
 						<play action="sidebar-products" _alias="SHINGLES" _form="Shingles" />
 						<else>
 <!-- 							<alert message="hi" /> -->
@@ -3969,6 +4003,8 @@
 				<if lhs="[var:productIterateCount]" operator="e" rhs="[var:productCount]">
 <!-- 					<alert message="creating last one" /> -->
 					<create class="shingle-single" index="[var:productIterateCount]" target="PRODUCT-PAGER-BOX/pager" />
+					<assign property="var:productsCreated" value="yes" />
+					<create class="filler" target="PRODUCT-PAGER-BOX/pager" />
 					<play action="sidebar-products" _alias="SHINGLES" _form="Shingles" />
 				</if>
 			</if>
@@ -3999,6 +4035,8 @@
     <action name="selectshingle">
       <!-- 		<assign property="var:colorCount" value="4" /> -->
       <assign property="var:shingle" value="[datasource:getProducts._value.ProductId]" />
+      <assign property="var:shingleName" value="[datasource:getProducts._value.ProductName]" />
+	  <assign property="object:SHINGLECOLOR/shingle.text" value="[var:shingleName]" />
       <play action="released" />
       <delete target="COLORPAGER" />
       <assign property="var:shingleSelected" value="_value" />
@@ -4026,7 +4064,7 @@
         <assign property="var:curtainaction" value="colordismiss" />
         <else>
           <assign property="var:color" value="N/A" />
-          <alert message="[var:shingle] [var:color]" />
+<!--           <alert message="[var:shingle] [var:color]" /> -->
         	<assign property="datasource:getWarranties.source" value="https://162.209.101.177/api/GetWarranties?productId=[var:shingle]" />
         	<play action="sidebar-products" _alias="WARRANTY" _form="Warranty" />
         </else>
@@ -4045,9 +4083,9 @@
       <play action="released" />
       <sync>
 	  	<assign property="var:productImage" value="_image" />
-	  	<alert message="var:productImage is [var:productImage]" />
+<!-- 	  	<alert message="var:productImage is [var:productImage]" /> -->
         <assign property="var:color" value="_value" />
-        <alert message="[var:shingle] [var:color]" />
+<!--         <alert message="[var:shingle] [var:color]" /> -->
 		<assign property="datasource:getWarranties.source" value="https://162.209.101.177/api/GetWarranties?productId=[var:shingle]" />
       </sync>
       <sync>
@@ -4058,7 +4096,7 @@
     
     <!-- !warranty actions -->
 	<action name="warranties-complete" datasource="getWarranties" datasourceevent="querycomplete" >
-		<alert message="warranties complete content is [datasource:getWarranties.0.content]" />
+<!-- 		<alert message="warranties complete content is [datasource:getWarranties.0.content]" /> -->
 	</action>
 
 	<action name="warranties-error" datasource="getWarranties" datasourceevent="datasourceerror" >
@@ -4084,7 +4122,7 @@
     <action name="selectwarranty-save" datasource="productsdb-delete" datasourceevent="querycomplete">
       <if lhs="[var:loaded]" operator="e" rhs="yes">
         <play action="released" />
-        <alert message="warranty id [var:warranty] accessories required [var:accessories]" />
+        <alert message="you must select [var:accessories] accessories to qualify for the warranty you have chosen" />
         <assign property="datasource:productsdb.query" value="INSERT INTO PRODUCTS (SHINGLE, COLOR, WARRANTY, IMAGE) VALUES ('[var:shingle]', '[var:color]', '[var:warranty]', '[var:productImage]');" />
         <assign property="datasource:getAccessories.source" value="https://162.209.101.177/api/GetAccessoryByProduct?productId=[var:shingle]" />
       </if>
@@ -4116,7 +4154,7 @@
 		</loop>
 -->
 		<play action="sidebar-products" _alias="ACCESSORIES" _form="Accessories" />
-		<alert message="accessories-done" />
+<!-- 		<alert message="accessories-done" /> -->
 	</action>
 
 	<action name="accessories-error" datasource="getAccessories" datasourceevent="datasourceerror" >
@@ -4141,8 +4179,10 @@
           <assign property="var:accessoryCount" value="[eval:[var:accessoryCount]+1]" />
           <assign property="var:accessory-[var:accessoryCount]-Quantity" value="[object:ACCESSORYQUANTITY/input.text]" />			  
           <assign property="var:accessory-[var:accessoryCount]" value="[datasource:getAccessories.[var:accessorySelected].AccessoryId]" />
+          <assign property="var:accessory-[var:accessoryCount]-Name" value="[datasource:getAccessories.[var:accessorySelected].AccessoryName]" />
+          <assign property="var:accessory-[var:accessoryCount]-Type" value="[datasource:getAccessories.[var:accessorySelected].AccessoryCategory]" />
           <!-- 	  <alert message="var:accessory-[var:accessoryCount] is [var:accessory-[var:accessoryCount]]" /> -->
-          <assign property="datasource:accessoriesdb.query" value="INSERT INTO ACCESSORIES (LEAKBARRIER, ROOFDECK, STARTER, RIDGECAP, VENTILATION, ACCESSORY, QUANTITY) VALUES ('leak', 'roof', 'starter', 'ridgecacp', 'ventilation', '[var:accessory-[var:accessoryCount]]', '[var:accessory-[var:accessoryCount]-Quantity]');" />
+          <assign property="datasource:accessoriesdb.query" value="INSERT INTO ACCESSORIES (NAME, TYPE, ACCESSORY, QUANTITY) VALUES ('[var:accessory-[var:accessoryCount]-Name]', '[var:accessory-[var:accessoryCount]-Type]', '[var:accessory-[var:accessoryCount]]', '[var:accessory-[var:accessoryCount]-Quantity]');" />
           <if lhs="[eval:[var:accessories]-[var:accessoryCount]]" operator="gt" rhs="0">
             <alert message="accessory selected. you must select [eval:[var:accessories]-[var:accessoryCount]] more accessories for the warranty you have chosen" />
             <else>
@@ -4173,7 +4213,11 @@
     </action>
     
     <action name="accessoriesdb-list-complete" datasource="accessoriesdb-list" datasourceevent="querycomplete" >
-<!-- 		<alert message="accessoriesdb-list count is [datasource:accessoriesdb-list.dataSourceResultCount] quantity for 1 is [datasource:accessoriesdb-list.1.QUANTITY]" /> -->
+<!--
+		<if lhs="[datasource:accessoriesdb-list.dataSourceResultCount]" operator="gt" rhs="0">
+			<alert message="accessoriesdb-list count is [datasource:accessoriesdb-list.dataSourceResultCount] quantity for 1 is [datasource:accessoriesdb-list.1.QUANTITY], id is [datasource:accessoriesdb-list.1.ACCESSORY], name is [datasource:accessoriesdb-list.1.NAME], type is [datasource:accessoriesdb-list.1.TYPE]" />
+		</if>
+-->
     </action>
     <!-- !options actions -->
     <action name="selectoptions">
@@ -4377,13 +4421,12 @@
 			<assign property="var:measurementsJSON" value="[template:measurementsJSON.content]"/>
 			<assign property="datasource:updateMeasurements.postContent" value="[var:measurementsJSON]" />
 			<assign property="datasource:updateMeasurements.source" value="https://162.209.101.177/api/UpdateMeasurements" />
-<!-- 			<assign property="object:JSON.text" value="[var:measurementsJSON]" /> -->
-<!-- 			<email subject="json full" body="[var:measurementsJSON]" toaddress="mlong@rarewire.com" /> -->
 		</action>
 		
 		<action name="updateMeasurements-complete" datasource="updateMeasurements" datasourceevent="querycomplete" >
 			<alert message="updateMeasurements-complete content [datasource:updateMeasurements.0.content]" />
-				<play action="prepPhotos" />
+					<play action="formatEstimate" />
+<!-- 				<play action="prepPhotos" /> -->
 <!--
 			<if lhs="[datasource:updateMeasurements.1.ResponseCode]" operator="e" rhs="100">
 			</if>
@@ -4391,6 +4434,7 @@
 		</action>
 	
 		<action name="updateMeasurements-error" datasource="updateMeasurements" datasourceevent="datasourceerror" >
+			<assign property="var:measurementsJSON" value="" />
 			<alert message="updateMeasurements-error content [datasource:updateMeasurements.0.content]" />
 		</action>
 		
@@ -4440,7 +4484,7 @@
 				<assign property="var:tearOffLayers" value="[datasource:tearoffdb-list.1.LAYERS]" />
 				<assign property="var:tearOffType" value="[datasource:tearoffdb-list.1.MATERIAL]" />	
 			</if>
-			<alert message="var:shingle is [var:shingle], var:warranty is [var:warranty] var:tearOffLayers is [var:tearOffLayers] var:tearOffType is [var:tearOffType] var:numberOfFloors is [var:numberOfFloors]" />
+<!-- 			<alert message="var:shingle is [var:shingle], var:warranty is [var:warranty] var:tearOffLayers is [var:tearOffLayers] var:tearOffType is [var:tearOffType] var:numberOfFloors is [var:numberOfFloors]" /> -->
 			<if lhs="[datasource:accessoriesdb-list.dataSourceResultCount]" operator="gt" rhs="0">
 				<assign property="var:accessoriesIterateCount" value="1" />
 					<play action="formatAccessories" />
@@ -4476,7 +4520,7 @@
 		</action>
     
 		<action name="formatAdjustments" >
-			<alert message="formatAdjustments" />
+<!-- 			<alert message="formatAdjustments" /> -->
 			<loop lhs="[var:adjustmentsIterateCount]" operator="lte" rhs="[datasource:adjustmentsdb-list.dataSourceResultCount]" >
 				<assign property="var:adjustmentsJSON" value="[var:adjustmentsJSON][eval:[var:adjustmentsIterateCount] == 1 ? '':','][template:adjustments.content]" />
 				<assign property="var:adjustmentsIterateCount" value="[eval: [var:adjustmentsIterateCount] +1]" />
@@ -4490,10 +4534,12 @@
 			<assign property="var:estimateJSON" value="[template:estimateJSON.content]" />
 			<assign property="datasource:generateEstimate.postContent" value="[var:estimateJSON]" />
 			<assign property="datasource:generateEstimate.source" value="https://162.209.101.177/api/GenerateEstimate" />
-<!-- 			<email subject="estimate and measurements json" body="measurements\n\n[var:measurementsJSON]\n\n\n estimate\n\n[var:estimateJSON]" toaddress="mlong@rarewire.com" /> -->
+			<email subject="estimate and measurements json" body="measurements\n\n[var:measurementsJSON]\n\n\n estimate\n\n[var:estimateJSON]\n\n\ncustomer query[var:customerSearchQuery]" toaddress="mlong@rarewire.com" />
 		</action>
 		
 		<action name="estimate-complete" datasource="generateEstimate" datasourceevent="querycomplete">
+			<assign property="var:measurementsJSON" value="" />
+			<assign property="var:estimateJSON" value="" />
 			<if lhs="[datasource:generateEstimate.1.ResponseCode]" operator="e" rhs="100">
 				<alert message="estimate received" />
 				<else>
@@ -4504,6 +4550,8 @@
 		</action>
 
 		<action name="estimate-error" datasource="generateEstimate" datasourceevent="datasourceerror">
+			<assign property="var:measurementsJSON" value="" />
+			<assign property="var:estimateJSON" value="" />
 			<alert message="estimate error [datasource:generateEstimate.0.content]" />
 		</action>
 		
