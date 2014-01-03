@@ -183,9 +183,9 @@
     </class>
     
     <class name="title">
-      <panel name="titlebox" width="100%" height="79" padding-left="20" padding-right="20" >
-        <text name="title" width="100%" height="60" ypos="10" style="darktext" size="40" alignment="left" text="[param:title]"></text>
-        <panel name="divide" width="100%" height="5" valign="bottom" background="#343434"></panel>
+      <panel name="titlebox" width="100%" height="70" padding-left="20" padding-right="20" >
+        <text name="title" width="100%" height="60" ypos="10" style="darktext" font="Futura-Medium" size="32" alignment="left" text="[param:title]"></text>
+<!--         <panel name="divide" width="100%" height="2" valign="bottom" background="#343434"></panel> -->
       </panel>
     </class>
     
@@ -257,14 +257,14 @@
           <panel name="username" alias="USERNAME" width="100%" height="50" ypos="50" style="textinput">
             <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
             <!--<text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Username"></text>-->
-            <textfield name="input" width="100%" height="100%" align="right" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Username" onreturnkeypressed="next" returnkeytype="next" kbtype="emailaddress" _next="PASSWORD"></textfield>
+            <textfield name="input" width="100%" height="100%" align="right" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Username" onreturnkeypressed="next" autocorrect="no" returnkeytype="next" kbtype="emailaddress" _next="PASSWORD"></textfield>
             <panel name="active" style="100" onclickup="labelactive" _field="USERNAME"></panel>
           </panel>
       
           <panel name="password" alias="PASSWORD" width="100%" height="50" align="center" bottomof="USERNAME" margin-top="20" style="textinput">
             <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
             <!--<text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Password"></text>-->
-            <textfield name="input" width="100%" height="100%" align="right" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Password" onreturnkeypressed="next" returnkeytype="go" _next="none" _action="signin" password="yes"></textfield>
+            <textfield name="input" width="100%" height="100%" align="right" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Password" onreturnkeypressed="next" autocorrect="no" returnkeytype="go" _next="none" _action="signin" password="yes"></textfield>
             <panel name="active" style="100" onclickup="labelactive" _field="PASSWORD"></panel>
           </panel>
       
@@ -272,15 +272,15 @@
             <object class="button" name="test" size="20" label="Sign In" action="signin" />
           </panel>
 
-          <text name="radiolabel" width="43%" height="50" bottomof="PASSWORD" margin-top="20" align="right" style="lighttext" leftinset="1" size="18" alignment="right" text="Remember Me"></text>
+          <text name="radiolabel" width="41%" height="50" bottomof="PASSWORD" margin-top="20" align="right" style="lighttext" leftinset="1" size="18" alignment="right" text="Remember Me"></text>
 
           <panel name="remember" alias="REMEMBER" width="30" height="30" leftof="radiolabel" bottomof="PASSWORD" margin-top="30" background="f3f3f3" cornerradius="15" borderwidth="1" bordercolor="#888888" clip="yes" onclickup="checkon" _action="remember">
-             <panel name="check" width="0" height="0" align="center" valign="center" background="#ed1c24" cornerradius="12" alpha="1" ></panel>
+             <panel name="check" width="0" height="0" align="center" valign="center" background="#ed1c24" cornerradius="10" alpha="1" ></panel>
           </panel>
           
 
-          <text name="noaccountlabel" alias="NOACCOUNTLABEL" width="100%" height="30" ypos="70%" style="lighttext" size="20" alignment="center" text="Don't have an account?"></text>
-          <panel name="register" width="150" height="50" align="center" bottomof="NOACCOUNTLABEL" margin-top="20">
+          <text name="noaccountlabel" alias="NOACCOUNTLABEL" width="100%" height="30" ypos="68%" style="lighttext" size="20" alignment="center" text="Don't have an account?"></text>
+          <panel name="register" width="150" height="50" align="center" bottomof="NOACCOUNTLABEL" margin-top="10">
             <panel name="register" width="100%" height="100%" onclick="touched" onclickup="openregisterview" _value="[param:value]" cornerradius="2" clip="yes">
               <text name="button" style="button-grey" size="20" text="Register"></text>
               <panel name="bg" style="100" background="ffffff" alpha="0"></panel>
@@ -319,7 +319,7 @@
             </panel>
           </panel>
           
-          <panel name="createnew" width="100%" height="150" valign="bottom" >
+          <panel name="createnew" width="100%" height="200" valign="bottom" >
             <text name="label" width="100%" height="40" style="lighttext" size="30" alignment="center" text="Create a new estimate."></text>
             
             <panel name="create" width="210" height="50" align="center" bottomof="label" margin-top="20">
@@ -334,23 +334,23 @@
     <!-- !search results -->
     <class name="searchresult">
       <panel name="result-item[param:index]" width="100%" height="100">
-        <text name="name" width="65%" height="30" xpos="20" ypos="20" style="darktext" size="24" alignment="left" text="[param:lastname], [param:firstname]" ></text>
-        <text name="address" width="65%" height="30" xpos="20" bottomof="name" style="darktext" size="20" alignment="left" text="[param:street], [param:city], [param:state] [param:zip]" ></text>
+        <text name="name" width="65%" height="30" xpos="20" ypos="20" style="darktext" size="26" font="Futura-Medium" alignment="left" text="[param:lastname], [param:firstname]" ></text>
+        <text name="address" width="65%" height="30" xpos="20" bottomof="name" style="darktext" color="666666" font="Avenir-Book" size="20" alignment="left" text="[param:street], [param:city], [param:state] [param:zip]" ></text>
         <panel name="edit-btn" width="100" height="50" ypos="22" align="right" bottomof="search-address" margin-right="20">
           <object class="button" name="test" size="20" label="Edit" action="edit" value="[param:customerId]" />
         </panel>
         <panel name="view-btn" width="100" height="50" ypos="22" leftof="edit-btn" margin-right="20" bottomof="search-address">
           <object class="button" name="test" size="20" label="View" action="viewestimate" value="[param:estimatePdf]" />
         </panel>
-        <panel name="divider" width="728" height="5" align="center" valign="bottom" background="#343434"></panel>
+        <panel name="divider" width="728" height="2" align="center" valign="bottom" background="#343434"></panel>
       </panel>
     </class>
     
     <class name="results">
       <panel name="searchresults" alias="SEARCHRESULTS" width="100%" height="100%" ypos="101%" background="#e3e3e3">
         <panel name="searchhead" width="100%" height="74" background="#343434" >
-          <text name="label" width="100%" height="100%" color="#ffffff" font="Futura-Medium" size="24" alignment="center" text="Search Results"></text>
-          <text name="close" width="100" height="100%" color="#ffffff" font="Futura-Medium" size="20" alignment="left" leftinset="20" text="Close" onclickup="closeresults" clickuptarget="CONTAINER"></text>
+          <text name="label" width="100%" height="100%" color="#ffffff" font="Futura-Medium" size="24" alignment="center" text="Searching Estimates..."></text>
+          <text name="close" width="100" height="100%" color="#ffffff" font="Avenir-Medium" size="16" alignment="left" leftinset="20" text="CLOSE" onclickup="closeresults" clickuptarget="CONTAINER"></text>
         </panel>
         <list name="resultlist" width="100%" height="[eval: [object:SEARCHRESULTS.height] - 74]" datasource="getEstimate" ypos="74" orientation="vertical" paginate="no">
           <object class="searchresult" index="1" lastname="[ds:CustomerLastName]" firstname="[ds:CustomerFirstName]" street="[ds:Address1]" city="[ds:City]" state="[ds:StateProvince]" zip="[ds:PostalCode]" estimateId="test" customerId="[ds:CustomerId]" />
@@ -1504,41 +1504,41 @@
     <panel name="container" alias="CONTAINER" style="100" background="#e3e3e3">
       
       <!-- !customer -->
-      <panel name="customer" alias="CUSTOMER" width="100%" height="[eval: [object:CONTAINER.height] - 127]" ypos="127" alpha="1">
+      <panel name="customer" alias="CUSTOMER" width="100%" height="[eval: [object:CONTAINER.height] - 127]" ypos="120" alpha="1">
         <panel name="inner" style="100" >
           <object class="title" title="New Customer Set Up" />
           <pager name="scroller" width="100%" height="[eval: [object:CUSTOMER.height] - 79]" orientation="vertical" bottomof="titlebox" paginate="no" padding-left="20" padding-right="20">
             <panel name="customer1" width="100%" height="160">
-              <text name="subtitle" width="100%" height="35" style="darktext" size="20" alignment="left" text="Customer 1"></text>
+              <text name="subtitle" width="100%" height="35" style="darktext" font="Futura-Medium" size="15" alignment="left" text="CUSTOMER 1"></text>
               <panel name="col1" width="50%" height="100%" padding-right="10" bottomof="subtitle">
                 <panel name="cust1-fname" alias="CUST1-FNAME" width="100%" height="50" align="left" style="textinput">
-                  <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
+                  <panel name="bg" style="100" background="f3f3f3" ></panel>
                   <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="First Name" onreturnkeypressed="next" returnkeytype="next" _next="CUST1-LNAME" _action="null"></textfield>
                   <panel name="active" style="100" onclickup="labelactive" _field="CUST1-FNAME"></panel>
                 </panel>
                 <panel name="cust1-email" alias="CUST1-EMAIL" width="100%" height="50" align="left" bottomof="CUST1-FNAME" margin-top="10" style="textinput">
-                  <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
+                  <panel name="bg" style="100" background="f3f3f3" ></panel>
                   <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Email" onreturnkeypressed="next" returnkeytype="next" _next="CUST1-PHONE" _action="null" kbtype="emailaddress" autocorrect="no" ></textfield>
                   <panel name="active" style="100" onclickup="labelactive" _field="CUST1-EMAIL"></panel>
                 </panel>
               </panel>
               <panel name="col2" width="50%" height="100%" padding-left="10" align="right" bottomof="subtitle">
                 <panel name="cust1-lname" alias="CUST1-LNAME" width="100%" height="50" align="right" style="textinput">
-                  <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
+                  <panel name="bg" style="100" background="f3f3f3" ></panel>
                   <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Last Name" onreturnkeypressed="next" returnkeytype="next" _next="CUST1-EMAIL" _action="null" ></textfield>
                   <panel name="active" style="100" onclickup="labelactive" _field="CUST1-LNAME"></panel>
                 </panel>
                 <panel name="cust1-phone" alias="CUST1-PHONE" width="100%" height="50" align="right" bottomof="CUST1-LNAME" margin-top="10" style="textinput">
-                  <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
+                  <panel name="bg" style="100" background="f3f3f3" ></panel>
                   <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Phone" onreturnkeypressed="next" returnkeytype="next" _next="CUST2-FNAME" kbtype="numberpad" _action="null" kytype="numberpad" ></textfield>
                   <panel name="active" style="100" onclickup="labelactive" _field="CUST1-PHONE"></panel>
                 </panel>
               </panel>
-              <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
+<!--               <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel> -->
             </panel>
             
             <panel name="customer2" width="100%" height="160">
-              <text name="subtitle" width="100%" height="35" style="darktext" size="20" alignment="left" text="Customer 2"></text>
+              <text name="subtitle" width="100%" height="35" style="darktext" font="Futura-Medium" size="15" alignment="left" text="CUSTOMER 2"></text>
               <panel name="col1" width="50%" height="100%" padding-right="10" bottomof="subtitle">
                 <panel name="cust2-fname" alias="CUST2-FNAME" width="100%" height="50" align="left" style="textinput">
                   <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
@@ -1563,11 +1563,11 @@
                   <panel name="active" style="100" onclickup="labelactive" _field="CUST2-PHONE"></panel>
                 </panel>
               </panel>
-              <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
+<!--               <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel> -->
             </panel>
             
             <panel name="address" alias="ADDRESS" width="100%" height="280">
-              <text name="subtitle" width="100%" height="35" style="darktext" size="20" alignment="left" text="Property Address"></text>
+              <text name="subtitle" width="100%" height="35" style="darktext" font="Futura-Medium" size="15" alignment="left" text="PROPERTY ADDRESS"></text>
               <!--<panel name="country" alias="COUNTRY" width="230" height="50" bottomof="subtitle" align="left" style="textinput">
                 <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
                 <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Country" onreturnkeypressed="next" _next="STREET" _action="null"></textfield>
@@ -1633,11 +1633,11 @@
                   </list>
                 </panel>
               </panel>
-              <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
+<!--               <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel> -->
             </panel>
             
             <panel name="bottom" width="100%" height="209">
-              <text name="subtitle" width="100%" height="35" style="darktext" size="20" alignment="left" text="Notes"></text>
+              <text name="subtitle" width="100%" height="35" style="darktext" font="Futura-Medium" size="15" alignment="left" text="NOTES"></text>
               <panel name="notes" alias="NOTES" width="100%" height="114" bottomof="subtitle" align="left" style="textinput">
                 <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
                 <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="" onreturnkeypressed="next" _next="none" _action="null" multiline="yes"></textfield>
@@ -2067,9 +2067,10 @@
           <panel name="logout" width="50" height="100%" align="right" onclickup="logout">
             <image name="logout" source="graphics/icon.signout.png" align="center" valign="center"></image>
           </panel>
-          <text name="welcome" width="100%" height="fit" xpos="46" ypos="15" leftof="logout" margin-right="10" color="#343434" font="Futura-MediumItalic" size="15" alignment="right" text="Signed in as" alpha=".7"></text>
-          <text name="username" width="100%" height="fit" xpos="46" bottomof="welcome" margin-top="3" leftof="logout" margin-right="10" color="#343434" font="Futura-Medium" size="17" alignment="right" text="User"></text>
+          <text name="welcome" width="100%" height="fit" xpos="46" ypos="15" leftof="logout" margin-right="10" color="#343434" font="Avenir-MediumOblique" size="14" alignment="right" text="Signed in as" alpha=".7"></text>
+          <text name="username" width="100%" height="fit" xpos="46" bottomof="welcome" leftof="logout" margin-right="10" color="#343434" font="Futura-Medium" size="17" alignment="right" text="User"></text>
         </panel>
+<!--           <text name="close" width="100" height="100%" color="#ffffff" font="Avenir-Medium" size="16" alpha="0" alignment="left" leftinset="20" text="CLOSE" onclickup="close-newestimate" ></text> -->
       </panel>
       
       <!-- !camera roll -->
@@ -2097,41 +2098,41 @@
     <panel name="container" alias="CONTAINER" style="100" background="#e3e3e3">
       
       <!-- !customer -->
-      <panel name="customer" alias="CUSTOMER" width="100%" height="[eval: [object:CONTAINER.height] - 127]" ypos="127" alpha="1">
+      <panel name="customer" alias="CUSTOMER" width="100%" height="[eval: [object:CONTAINER.height] - 127]" ypos="120" alpha="1">
         <panel name="inner" style="100" >
           <object class="title" title="New Customer Set Up" />
           <pager name="scroller" width="100%" height="[eval: [object:CUSTOMER.height] - 79]" orientation="vertical" bottomof="titlebox" paginate="no" padding-left="20" padding-right="20">
             <panel name="customer1" width="100%" height="160">
-              <text name="subtitle" width="100%" height="35" style="darktext" size="20" alignment="left" text="Customer 1"></text>
+              <text name="subtitle" width="100%" height="35" style="darktext" font="Futura-Medium" size="15" alignment="left" text="CUSTOMER 1"></text>
               <panel name="col1" width="50%" height="100%" padding-right="10" bottomof="subtitle">
                 <panel name="cust1-fname" alias="CUST1-FNAME" width="100%" height="50" align="left" style="textinput">
-                  <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
+                  <panel name="bg" style="100" background="f3f3f3" ></panel>
                   <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="First Name" onreturnkeypressed="next" returnkeytype="next" _next="CUST1-LNAME" _action="null"></textfield>
                   <panel name="active" style="100" onclickup="labelactive" _field="CUST1-FNAME"></panel>
                 </panel>
                 <panel name="cust1-email" alias="CUST1-EMAIL" width="100%" height="50" align="left" bottomof="CUST1-FNAME" margin-top="10" style="textinput">
-                  <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
+                  <panel name="bg" style="100" background="f3f3f3" ></panel>
                   <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Email" onreturnkeypressed="next" returnkeytype="next" _next="CUST1-PHONE" _action="null" kbtype="emailaddress" autocorrect="no" ></textfield>
                   <panel name="active" style="100" onclickup="labelactive" _field="CUST1-EMAIL"></panel>
                 </panel>
               </panel>
               <panel name="col2" width="50%" height="100%" padding-left="10" align="right" bottomof="subtitle">
                 <panel name="cust1-lname" alias="CUST1-LNAME" width="100%" height="50" align="right" style="textinput">
-                  <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
+                  <panel name="bg" style="100" background="f3f3f3" ></panel>
                   <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Last Name" onreturnkeypressed="next" returnkeytype="next" _next="CUST1-EMAIL" _action="null" ></textfield>
                   <panel name="active" style="100" onclickup="labelactive" _field="CUST1-LNAME"></panel>
                 </panel>
                 <panel name="cust1-phone" alias="CUST1-PHONE" width="100%" height="50" align="right" bottomof="CUST1-LNAME" margin-top="10" style="textinput">
-                  <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
+                  <panel name="bg" style="100" background="f3f3f3" ></panel>
                   <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Phone" onreturnkeypressed="next" returnkeytype="next" _next="CUST2-FNAME" kbtype="numberpad" _action="null" kytype="numberpad" ></textfield>
                   <panel name="active" style="100" onclickup="labelactive" _field="CUST1-PHONE"></panel>
                 </panel>
               </panel>
-              <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
+<!--               <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel> -->
             </panel>
             
             <panel name="customer2" width="100%" height="160">
-              <text name="subtitle" width="100%" height="35" style="darktext" size="20" alignment="left" text="Customer 2"></text>
+              <text name="subtitle" width="100%" height="35" style="darktext" font="Futura-Medium" size="15" alignment="left" text="CUSTOMER 2"></text>
               <panel name="col1" width="50%" height="100%" padding-right="10" bottomof="subtitle">
                 <panel name="cust2-fname" alias="CUST2-FNAME" width="100%" height="50" align="left" style="textinput">
                   <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
@@ -2156,11 +2157,11 @@
                   <panel name="active" style="100" onclickup="labelactive" _field="CUST2-PHONE"></panel>
                 </panel>
               </panel>
-              <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
+<!--               <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel> -->
             </panel>
             
             <panel name="address" alias="ADDRESS" width="100%" height="280">
-              <text name="subtitle" width="100%" height="35" style="darktext" size="20" alignment="left" text="Property Address"></text>
+              <text name="subtitle" width="100%" height="35" style="darktext" font="Futura-Medium" size="15" alignment="left" text="PROPERTY ADDRESS"></text>
               <!--<panel name="country" alias="COUNTRY" width="230" height="50" bottomof="subtitle" align="left" style="textinput">
                 <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
                 <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Country" onreturnkeypressed="next" _next="STREET" _action="null"></textfield>
@@ -2226,11 +2227,11 @@
                   </list>
                 </panel>
               </panel>
-              <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
+<!--               <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel> -->
             </panel>
             
             <panel name="bottom" width="100%" height="209">
-              <text name="subtitle" width="100%" height="35" style="darktext" size="20" alignment="left" text="Notes"></text>
+              <text name="subtitle" width="100%" height="35" style="darktext" font="Futura-Medium" size="15" alignment="left" text="NOTES"></text>
               <panel name="notes" alias="NOTES" width="100%" height="114" bottomof="subtitle" align="left" style="textinput">
                 <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
                 <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="" onreturnkeypressed="next" _next="none" _action="null" multiline="yes"></textfield>
@@ -2386,7 +2387,7 @@
           </panel>
         </panel>
         
-      </panel><!-- end of roof info -->
+      </panel><!--end roof info-->
       
       <!-- !products -->
       <panel name="products" alias="PRODUCTS" width="100%" height="[eval: [object:CONTAINER.height] - 127]" ypos="127" alpha="0">
@@ -2660,8 +2661,8 @@
           <panel name="logout" width="50" height="100%" align="right" onclickup="logout">
             <image name="logout" source="graphics/icon.signout.png" align="center" valign="center"></image>
           </panel>
-          <text name="welcome" width="100%" height="fit" xpos="46" ypos="15" leftof="logout" margin-right="10" color="#343434" font="Futura-MediumItalic" size="15" alignment="right" text="Signed in as" alpha=".7"></text>
-          <text name="username" width="100%" height="fit" xpos="46" bottomof="welcome" margin-top="3" leftof="logout" margin-right="10" color="#343434" font="Futura-Medium" size="17" alignment="right" text="User"></text>
+          <text name="welcome" width="100%" height="fit" xpos="46" ypos="15" leftof="logout" margin-right="10" color="#343434" font="Avenir-MediumOblique" size="14" alignment="right" text="Signed in as" alpha=".7"></text>
+          <text name="username" width="100%" height="fit" xpos="46" bottomof="welcome" leftof="logout" margin-right="10" color="#343434" font="Futura-Medium" size="17" alignment="right" text="User"></text>
         </panel>
       </panel>
       
@@ -2894,7 +2895,7 @@
     
     <!-- !radio actions -->
     <action name="checkon">
-      <scale width="[eval: ('_action' == 'remember' ? '24' : '40')]" height="[eval: ('_action' == 'remember' ? '24' : '40')]" align="center" valign="center" time=".1" alpha="1" target="check" />
+      <scale width="[eval: ('_action' == 'remember' ? '20' : '40')]" height="[eval: ('_action' == 'remember' ? '20' : '40')]" align="center" valign="center" time=".1" alpha="1" target="check" />
       <set onclickup="checkoff" />
       <play action="_action" _value="yes" />
     </action>
@@ -3109,13 +3110,15 @@
     </action>
     
     <action name="get-estimate-complete" datasource="getEstimate" datasourceevent="querycomplete" >
-      <if lhs="[var:customerAction]" operator="e" rhs="create">
+        <assign property="object:SEARCHRESULTS/searchhead/label.text" value="Search Results" />
+        <assign property="object:SEARCH-LASTNAME/input.text" value="" />
+         <assign property="object:SEARCH-ADDRESS/input.text" value="" />
+     <if lhs="[var:customerAction]" operator="e" rhs="create">
 <!-- 			<alert message="search after customer creation done [datasource:getEstimate.0.content]" /> -->
         <assign property="var:customerId" value="[datasource:getEstimate.1.CustomerId]" />
         <play action="finish-customer-create" />
-        
         <else>
-        	<alert message="get-estimate-complete search results count [datasource:getEstimate.dataSourceResultCount] content [datasource:getEstimate.0.content]" />
+<!--         	<alert message="get-estimate-complete search results count [datasource:getEstimate.dataSourceResultCount] content [datasource:getEstimate.0.content]" /> -->
         </else>
       </if>
     </action>
@@ -3147,15 +3150,25 @@
         <play action="released" />
         <play action="_value" />
         <!--<alert message="_value" />-->
+        <keyboard visible="no" target="SEARCH-LASTNAME/input" />
+        <keyboard visible="no" target="SEARCH-ADDRESS/input" />
       </sync>
     </action>
     
     <action name="newestimate">
 		<play action="resetSummaryVars"/>
-      <alpha value="0" time=".25" target="CHOICE" />
-      <assign property="datasource:states.source" value="res://states.xml" />
-      <assign property="datasource:provinces.source" value="res://provinces.xml" />
+		<alpha value="0" time=".25" target="CHOICE" />
+		<assign property="datasource:states.source" value="res://states.xml" />
+		<assign property="datasource:provinces.source" value="res://provinces.xml" />
+<!-- 		<alpha value="1" time=".1" target="HEADER/close" /> -->
     </action>
+    
+<!--
+    <action name="close-newestimate">
+		<alpha value="1" time=".25" target="CHOICE" />
+		<alpha value="0" time=".1" target="HEADER/close" />
+    </action>
+-->
     
     
     
