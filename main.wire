@@ -85,6 +85,7 @@
     
     <datasource name="photosdb" source="sql://PHOTOS" query="CREATE TABLE IF NOT EXISTS PHOTOS (ID INTEGER PRIMARY KEY AUTOINCREMENT, PHOTO, NOTE);" providertype="sql" />
     <datasource name="photosdb-list" source="sql://PHOTOS" query="SELECT * FROM PHOTOS ORDER BY ID DESC;" providertype="sql" />
+    <datasource name="photosdb-delete" source="sql://PHOTOS" query="" providertype="sql" />
     
 <!--     <datasource name="productsdb" source="sql://PRODUCTS" query="DELETE FROM PRODUCTS;" providertype="sql" /> -->
     <datasource name="productsdb" source="sql://PRODUCTS" query="CREATE TABLE IF NOT EXISTS PRODUCTS (ID INTEGER PRIMARY KEY AUTOINCREMENT, SHINGLE, COLOR, WARRANTY, IMAGE);" providertype="sql" />
@@ -1501,8 +1502,8 @@
     </class>
     <class name="container">
   	<!-- !CONTAINER EDIT HERE -->
-    <panel name="container" alias="CONTAINER" style="100" background="#e3e3e3">
-      
+<!--   		<panel name="hi" width="100%" height="100%" background="#ff0000" ></panel> -->
+    <panel name="container" alias="CONTAINER" style="100" background="#e3e3e3">      
       <!-- !customer -->
       <panel name="customer" alias="CUSTOMER" width="100%" height="[eval: [object:CONTAINER.height] - 127]" ypos="120" alpha="1">
         <panel name="inner" style="100" >
@@ -2058,28 +2059,14 @@
         </panel>
       </pager>
       <panel name="navblock" alias="NAVBLOCK" width="100%" height="53" ypos="74" xpos="101%"></panel>
-      
-      <!-- !header -->
-      <panel name="header" alias="HEADER" width="100%" height="74" padding-right="10" alpha="1" background="#bfbfbf">
-        <image name="logo" source="images/logo.png" height="48" xpos="10" valign="center"></image>
-        <panel name="profile" width="50%" height="100%" align="right" onclickup="profiledrop">
-          <!--<image name="avatar" source="images/avatar.png" width="36" align="left" valign="center"></image>-->
-          <panel name="logout" width="50" height="100%" align="right" onclickup="logout">
-            <image name="logout" source="graphics/icon.signout.png" align="center" valign="center"></image>
-          </panel>
-          <text name="welcome" width="100%" height="fit" xpos="46" ypos="15" leftof="logout" margin-right="10" color="#343434" font="Avenir-MediumOblique" size="14" alignment="right" text="Signed in as" alpha=".7"></text>
-          <text name="username" width="100%" height="fit" xpos="46" bottomof="welcome" leftof="logout" margin-right="10" color="#343434" font="Futura-Medium" size="17" alignment="right" text="User"></text>
-        </panel>
-<!--           <text name="close" width="100" height="100%" color="#ffffff" font="Avenir-Medium" size="16" alpha="0" alignment="left" leftinset="20" text="CLOSE" onclickup="close-newestimate" ></text> -->
-      </panel>
-      
+            
       <!-- !camera roll -->
       <panel name="cameraroll" alias="CAMERAROLL" width="100%" height="100%" ypos="101%" background="#e3e3e3">
         <panel name="toolbar" width="100%" height="60" background="#343434">
           <text name="close" width="100" height="100%" xpos="20" color="#ffffff" font="Futura-Medium" size="18" alignment="left" text="close" onclickup="closeroll"></text>
         </panel>
-        <wait name="wait" width="100%" height="[eval:[object:CAMERAROLL.height] - [object:CAMERAROLL/toolbar.height]]" valign="bottom" alpha="0" color="#ed1c24"/>
-        <panel name="camera-list" width="100%" height="[eval:[object:CAMERAROLL.height] - [object:CAMERAROLL/toolbar.height]]" valign="bottom"></panel>
+        <wait name="wait" width="100%" height="964" valign="bottom" alpha="0" color="#ed1c24"/>
+        <panel name="camera-list" width="100%" height="964" valign="bottom"></panel>
       </panel>
       
       <panel name="camerabox" alias="CAMERABOX" width="100%" height="100%" ypos="101%" background="#e3e3e3">
@@ -2093,593 +2080,8 @@
  
   <!-- !MAIN -->
   <main>
-  	<panel name="main" alias="MAIN" width="100%" height="100%" background="#e3e3e3">
-  	<!-- !CONTAINER DO NOT EDIT HERE EDIT IN THE container CLASS -->
-    <panel name="container" alias="CONTAINER" style="100" background="#e3e3e3">
-      
-      <!-- !customer -->
-      <panel name="customer" alias="CUSTOMER" width="100%" height="[eval: [object:CONTAINER.height] - 127]" ypos="120" alpha="1">
-        <panel name="inner" style="100" >
-          <object class="title" title="New Customer Set Up" />
-          <pager name="scroller" width="100%" height="[eval: [object:CUSTOMER.height] - 79]" orientation="vertical" bottomof="titlebox" paginate="no" padding-left="20" padding-right="20">
-            <panel name="customer1" width="100%" height="160">
-              <text name="subtitle" width="100%" height="35" style="darktext" font="Futura-Medium" size="15" alignment="left" text="CUSTOMER 1"></text>
-              <panel name="col1" width="50%" height="100%" padding-right="10" bottomof="subtitle">
-                <panel name="cust1-fname" alias="CUST1-FNAME" width="100%" height="50" align="left" style="textinput">
-                  <panel name="bg" style="100" background="f3f3f3" ></panel>
-                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="First Name" onreturnkeypressed="next" returnkeytype="next" _next="CUST1-LNAME" _action="null"></textfield>
-                  <panel name="active" style="100" onclickup="labelactive" _field="CUST1-FNAME"></panel>
-                </panel>
-                <panel name="cust1-email" alias="CUST1-EMAIL" width="100%" height="50" align="left" bottomof="CUST1-FNAME" margin-top="10" style="textinput">
-                  <panel name="bg" style="100" background="f3f3f3" ></panel>
-                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Email" onreturnkeypressed="next" returnkeytype="next" _next="CUST1-PHONE" _action="null" kbtype="emailaddress" autocorrect="no" ></textfield>
-                  <panel name="active" style="100" onclickup="labelactive" _field="CUST1-EMAIL"></panel>
-                </panel>
-              </panel>
-              <panel name="col2" width="50%" height="100%" padding-left="10" align="right" bottomof="subtitle">
-                <panel name="cust1-lname" alias="CUST1-LNAME" width="100%" height="50" align="right" style="textinput">
-                  <panel name="bg" style="100" background="f3f3f3" ></panel>
-                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Last Name" onreturnkeypressed="next" returnkeytype="next" _next="CUST1-EMAIL" _action="null" ></textfield>
-                  <panel name="active" style="100" onclickup="labelactive" _field="CUST1-LNAME"></panel>
-                </panel>
-                <panel name="cust1-phone" alias="CUST1-PHONE" width="100%" height="50" align="right" bottomof="CUST1-LNAME" margin-top="10" style="textinput">
-                  <panel name="bg" style="100" background="f3f3f3" ></panel>
-                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Phone" onreturnkeypressed="next" returnkeytype="next" _next="CUST2-FNAME" kbtype="numberpad" _action="null" kytype="numberpad" ></textfield>
-                  <panel name="active" style="100" onclickup="labelactive" _field="CUST1-PHONE"></panel>
-                </panel>
-              </panel>
-<!--               <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel> -->
-            </panel>
-            
-            <panel name="customer2" width="100%" height="160">
-              <text name="subtitle" width="100%" height="35" style="darktext" font="Futura-Medium" size="15" alignment="left" text="CUSTOMER 2"></text>
-              <panel name="col1" width="50%" height="100%" padding-right="10" bottomof="subtitle">
-                <panel name="cust2-fname" alias="CUST2-FNAME" width="100%" height="50" align="left" style="textinput">
-                  <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
-                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="First Name" onreturnkeypressed="next" returnkeytype="next" _next="CUST2-LNAME" _action="null"></textfield>
-                  <panel name="active" style="100" onclickup="labelactive" _field="CUST2-FNAME"></panel>
-                </panel>
-                <panel name="cust2-email" alias="CUST2-EMAIL" width="100%" height="50" align="left" bottomof="CUST2-FNAME" margin-top="10" style="textinput">
-                  <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
-                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Email" onreturnkeypressed="next" returnkeytype="next" _next="CUST2-PHONE" _action="null" kbtype="emailaddress" autocorrect="no" ></textfield>
-                  <panel name="active" style="100" onclickup="labelactive" _field="CUST2-EMAIL"></panel>
-                </panel>
-              </panel>
-              <panel name="col2" width="50%" height="100%" padding-left="10" align="right" bottomof="subtitle">
-                <panel name="cust2-lname" alias="CUST2-LNAME" width="100%" height="50" align="right" style="textinput">
-                  <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
-                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Last Name" onreturnkeypressed="next" returnkeytype="next" _next="CUST2-EMAIL" _action="null" ></textfield>
-                  <panel name="active" style="100" onclickup="labelactive" _field="CUST2-LNAME"></panel>
-                </panel>
-                <panel name="cust2-phone" alias="CUST2-PHONE" width="100%" height="50" align="right" bottomof="CUST1-LNAME" margin-top="10" style="textinput">
-                  <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
-                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Phone" onreturnkeypressed="next" returnkeytype="next" _next="STREET" _action="null" kbtype="numberpad" ></textfield>
-                  <panel name="active" style="100" onclickup="labelactive" _field="CUST2-PHONE"></panel>
-                </panel>
-              </panel>
-<!--               <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel> -->
-            </panel>
-            
-            <panel name="address" alias="ADDRESS" width="100%" height="280">
-              <text name="subtitle" width="100%" height="35" style="darktext" font="Futura-Medium" size="15" alignment="left" text="PROPERTY ADDRESS"></text>
-              <!--<panel name="country" alias="COUNTRY" width="230" height="50" bottomof="subtitle" align="left" style="textinput">
-                <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
-                <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Country" onreturnkeypressed="next" _next="STREET" _action="null"></textfield>
-                <panel name="active" style="100" onclickup="labelactive" _field="COUNTRY"></panel>
-              </panel>-->
-              <panel name="usa" alias="USA" width="50" height="50" align="left" bottomof="subtitle" background="f3f3f3" cornerradius="25" borderwidth="1" bordercolor="#888888" clip="yes" onclickup="countryus"  >
-                <panel name="check" width="40" height="40" align="center" valign="center" background="#ed1c24" cornerradius="20" alpha="1" ></panel>
-              </panel>
-              <text name="checklabel" width="150" height="50" bottomof="subtitle" rightof="USA" style="darktext" size="20" leftinset="10" alignment="left" text="US"></text>
-              <panel name="canada" alias="CANADA" width="50" height="50" xpos="120" bottomof="subtitle" background="f3f3f3" cornerradius="25" borderwidth="1" bordercolor="#888888" clip="yes" onclickup="countrycan"  >
-                <panel name="check" width="0" height="0" align="center" valign="center" background="#ed1c24" cornerradius="20" alpha="1" ></panel>
-              </panel>
-              <text name="checklabel" width="150" height="50" bottomof="subtitle" rightof="canada" style="darktext" size="20" leftinset="10" alignment="left" text="Canada"></text>
-              <panel name="col2" width="50%" height="110" padding-right="10" align="left" bottomof="USA" margin-top="10">
-                <panel name="street" alias="STREET" width="100%" height="50" align="left" style="textinput">
-                  <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
-                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Street" onreturnkeypressed="next" returnkeytype="next" _next="CITY" _action="null" ></textfield>
-                  <panel name="active" style="100" onclickup="labelactive" _field="STREET"></panel>
-                </panel>
-                <panel name="city" alias="CITY" width="100%" height="50" align="left" bottomof="STREET" margin-top="10" style="textinput">
-                  <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
-                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="City" onreturnkeypressed="next" returnkeytype="next" _next="none" _action="null" kytype="numberpad" ></textfield>
-                  <panel name="active" style="100" onclickup="labelactive" _field="CITY"></panel>
-                </panel>
-              </panel>
-              <panel name="us" alias="US" width="66%" height="50" bottomof="col2" margin-top="10">
-                <panel name="state" alias="STATE" width="230" height="50" align="left" style="textinput">
-                  <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
-                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="State" onreturnkeypressed="next" returnkeytype="next" _next="none" _action="null"></textfield>
-                  <panel name="active" style="100" onclickup="dropon" _field="STATE" _drop="ADDRESS" _droptype="STATESLIST"></panel>
-                </panel>
-                <panel name="zip" alias="ZIP" width="230" height="50" align="right" style="textinput">
-                  <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
-                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="ZIP" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null"></textfield>
-                  <panel name="active" style="100" onclickup="labelactive" _field="ZIP"></panel>
-                </panel>
-              </panel>
-              <panel name="can" alias="CAN" width="66%" height="50" bottomof="col2" margin-top="10" alpha="0">
-                <panel name="province" alias="PROVINCE" width="230" height="50" align="left" style="textinput">
-                  <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
-                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Province" onreturnkeypressed="next" returnkeytype="next" _next="none" _action="null"></textfield>
-                  <panel name="active" style="100" onclickup="dropon" _field="PROVINCE" _drop="ADDRESS" _droptype="PROVINCESLIST"></panel>
-                </panel>
-                <panel name="postal" alias="POSTAL" width="230" height="50" align="right" style="textinput">
-                  <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
-                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Postal Code" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null"></textfield>
-                  <panel name="active" style="100" onclickup="labelactive" _field="POSTAL"></panel>
-                </panel>
-              </panel>
-              <panel name="drop" width="230" height="230" bottomof="subtitle" xpos="101%" alpha="0" style="textinput">
-                <panel name="stateslist" alias="STATESLIST" width="100%" height="100%" alpha="0">
-                  <text name="drophead" width="100%" height="30" style="lighttext" size="18" alignment="center" text="States"></text>
-                  <panel name="border" width="100%" height="1" background="#888888" ypos="30"></panel>
-                  <list name="statelist" width="100%" height="200" ypos="30" datasource="states" orientation="vertical" paginate="no">
-                    <object class="state" index="[param:dataSourceIndex]" abbr="[param:code]" name="[param:name]"/>
-                  </list>
-                </panel>
-                <panel name="provinceslist" alias="PROVINCESLIST" width="100%" height="100%" alpha="0">
-                  <text name="drophead" width="100%" height="30" style="lighttext" size="18" alignment="center" text="Provinces"></text>
-                  <panel name="border" width="100%" height="1" background="#888888" ypos="30"></panel>
-                  <list name="provincelist" width="100%" height="200" ypos="30" datasource="provinces" orientation="vertical" paginate="no">
-                    <object class="province" index="[param:dataSourceIndex]" abbr="[param:code]" name="[param:name]" />
-                  </list>
-                </panel>
-              </panel>
-<!--               <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel> -->
-            </panel>
-            
-            <panel name="bottom" width="100%" height="209">
-              <text name="subtitle" width="100%" height="35" style="darktext" font="Futura-Medium" size="15" alignment="left" text="NOTES"></text>
-              <panel name="notes" alias="NOTES" width="100%" height="114" bottomof="subtitle" align="left" style="textinput">
-                <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
-                <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="" onreturnkeypressed="next" _next="none" _action="null" multiline="yes"></textfield>
-                <panel name="active" style="100" onclickup="labelactive" _field="NOTES"></panel>
-              </panel>
-              <panel name="search-btn" width="110" height="50" align="right" bottomof="NOTES" margin-top="10">
-                <object class="button" name="test" size="20" label="Save" action="saveCustomer" />
-              </panel>
-            </panel>
-            
-            <panel name="spacer" width="100%" height="270"></panel>
-          
-          </pager>
-        </panel>
-      </panel>
-      
-      <!-- !roof info -->
-      <panel name="roof" alias="ROOF" width="100%" height="[eval: [object:CONTAINER.height] - 127]" ypos="127" alpha="0">
-        
-        <panel name="roof-sidebar" width="256" height="100%" background="#bfbfbf">
-          <pager name="roof-sidebar-pager" alias="ROOF-SIDEBAR-PAGER" style="100" orientation="vertical" paginate="no">
-            <object class="sidebar" alias="INSPECTION" label="Inspection" action="sidebar-roof" />
-            <!--<object class="sidebar" alias="FASCIA" label="Fascia" action="sidebar-roof" />-->
-            <object class="sidebar" alias="ROOF AREA" label="Roof Areas" action="sidebar-roof" />
-            <object class="sidebar" alias="WASTE" label="Waste" action="sidebar-roof" />
-            <object class="sidebar" alias="RIDGE" label="Ridges" action="sidebar-roof" />
-            <object class="sidebar" alias="HIP" label="Hips" action="sidebar-roof" />
-            <object class="sidebar" alias="VALLEY" label="Valleys" action="sidebar-roof" />
-            <object class="sidebar" alias="RAKE" label="Rakes" action="sidebar-roof" />
-            <object class="sidebar" alias="EAVE" label="Eaves" action="sidebar-roof" />
-            <object class="sidebar" alias="CHIMNEY" label="Chimney &amp; Skylights" action="sidebar-roof" />
-            <object class="sidebar" alias="VENT" label="Plumbing Vents" action="sidebar-roof" />
-            <object class="sidebar" alias="PHOTO" label="Photos" action="sidebar-roof" />
-          </pager>
-          <panel name="roof-sidebar-blocker" alias="ROOF-SIDEBAR-BLOCKER" style="100" xpos="-101%"></panel>
-        </panel>
-        
-        <panel name="roof-Inspection" alias="ROOF-INSPECTION" width="512" height="100%" align="right" alpha="0">
-          <object class="title" title="Inspection" />
-          <panel name="roofpagerbox" width="100%" height="[eval: [object:ROOF-INSPECTION.height] - 146]" ypos="79" >
-            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no" padding-left="20" padding-right="20">
-              <object class="inspection" />
-            </pager>
-          </panel>
-        </panel>
-        
-        <panel name="roof-Fascia" alias="ROOF-FASCIA" width="512" height="100%" align="right" alpha="0">
-          <object class="title" title="Fascia"  />
-          <panel name="roofpagerbox" width="100%" height="[eval: [object:ROOF-FASCIA.height] - 146]" ypos="79" >
-            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no" padding-left="20" padding-right="20">
-              <object class="fascia" />
-            </pager>
-          </panel>
-        </panel>
-        
-        <panel name="roof-Roof Area" alias="ROOF-ROOF AREA" width="512" height="100%" align="right" alpha="0">
-          <object class="titlebutton" title="Roof Areas" action="addarea" />
-          <panel name="roofpagerbox" width="100%" height="[eval: [object:ROOF-ROOF AREA.height] - 146]" ypos="79" >
-            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no" padding-left="20" padding-right="20">
-              <!--<object class="roof area" index="1" />-->
-            </pager>
-          </panel>
-        </panel>
-        
-        <panel name="roof-Waste" alias="ROOF-WASTE" width="512" height="100%" align="right" alpha="0">
-          <object class="title" title="Waste"  />
-          <panel name="roofpagerbox" width="100%" height="[eval: [object:ROOF-WASTE.height] - 146]" ypos="79" >
-            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no" padding-left="20" padding-right="20"> 
-              <object class="waste" />
-            </pager>
-          </panel>
-        </panel>
-        
-        <panel name="roof-Ridge" alias="ROOF-RIDGE" width="512" height="100%" align="right" alpha="0">
-          <object class="titlebutton" title="Ridges" action="addridge" />
-          <panel name="roofpagerbox" width="100%" height="[eval: [object:ROOF-RIDGE.height] - 146]" ypos="79" >
-            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no" padding-left="20" padding-right="20">
-              <!--<object class="ridge" index="1" />-->
-            </pager>
-          </panel>
-        </panel>
-        
-        <panel name="roof-Hip" alias="ROOF-HIP" width="512" height="100%" align="right" alpha="0">
-          <object class="titlebutton" title="Hips" action="addhip" />
-          <panel name="roofpagerbox" width="100%" height="[eval: [object:ROOF-HIP.height] - 146]" ypos="79" >
-            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no" padding-left="20" padding-right="20">
-              <!--<object class="hip" index="1" />-->
-            </pager>
-          </panel>
-        </panel>
-        
-        <panel name="roof-Valley" alias="ROOF-VALLEY" width="512" height="100%" align="right" alpha="0">
-          <object class="titlebutton" title="Valley" action="addvalley" />
-          <panel name="roofpagerbox" width="100%" height="[eval: [object:ROOF-VALLEY.height] - 146]" ypos="79" >
-            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no" padding-left="20" padding-right="20">
-              <!--<object class="valley" index="1" />-->
-            </pager>
-          </panel>
-        </panel>
-        
-        <panel name="roof-Rake" alias="ROOF-RAKE" width="512" height="100%" align="right" alpha="0">
-          <object class="titlebutton" title="Rakes" action="addrake" />
-          <panel name="roofpagerbox" width="100%" height="[eval: [object:ROOF-RAKE.height] - 146]" ypos="79" >
-            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no" padding-left="20" padding-right="20">
-              <!--<object class="rake" index="1" />-->
-            </pager>
-          </panel>
-        </panel>
-        
-        <panel name="roof-Eave" alias="ROOF-EAVE" width="512" height="100%" align="right" alpha="0">
-          <object class="titlebutton" title="Eaves" action="addeave" />
-          <panel name="roofpagerbox" width="100%" height="[eval: [object:ROOF-EAVE.height] - 146]" ypos="79" >
-            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no" padding-left="20" padding-right="20">
-              <!--<object class="eave" index="1" />-->
-            </pager>
-          </panel>
-        </panel>
-        
-        <panel name="roof-Chimney" alias="ROOF-CHIMNEY" width="512" height="100%" align="right" alpha="0">
-          <object class="titlebutton" title="Chimneys &amp; Skylights" action="addprotrusion" />
-          <panel name="roofpagerbox" width="100%" height="[eval: [object:ROOF-CHIMNEY.height] - 146]" ypos="79" >
-            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no" padding-left="20" padding-right="20">
-              <!--<object class="chimney" index="1" />
-              <object class="skylight" index="1" />-->
-            </pager>
-          </panel>
-        </panel>
-        
-        <panel name="roof-vent" alias="ROOF-VENT" width="512" height="100%" align="right" alpha="0">
-          <object class="titlebutton" title="Plumbing Vents" action="addvent" />
-          <panel name="roofpagerbox" width="100%" height="[eval: [object:ROOF-VENT.height] - 146]" ypos="79" >
-            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no" padding-left="20" padding-right="20">
-              <!--<object class="3vent" />
-              <object class="2vent" />
-              <object class="15vent" />
-              <object class="customvent" index="1" />-->
-            </pager>
-          </panel>
-        </panel>
-        
-        <panel name="roof-Photo" alias="ROOF-PHOTO" width="512" height="100%" align="right" alpha="0">
-          <object class="titlebutton" title="Photos &amp; Notes" action="addphoto" />
-          <panel name="roofpagerbox" width="100%" height="[eval: [object:ROOF-PHOTO.height] - 146]" ypos="79" >
-            <list name="pager" datasource="photosdb-list" width="100%" height="100%" orientation="vertical" paginate="no" padding-left="20" padding-right="20">
-              <object class="photo" index="1" photo="[param:PHOTO]" note="[param:NOTE]" origin="[param:ORIGIN]" />
-            </list>
-          </panel>
-        </panel>
-        
-        <panel name="bottombar" width="100%" height="67" valign="bottom" background="#343434" padding-right="20">
-          <panel name="estimate" width="100" height="50" align="right" valign="center" >
-            <object class="button" name="test" size="20" label="Save" action="save-roof" />
-          </panel>
-        </panel>
-        
-      </panel><!--end roof info-->
-      
-      <!-- !products -->
-      <panel name="products" alias="PRODUCTS" width="100%" height="[eval: [object:CONTAINER.height] - 127]" ypos="127" alpha="0">
-        <panel name="products-sidebar" width="256" height="100%" background="#bfbfbf">
-          <pager name="products-sidebar-pager" alias="PRODUCTS-SIDEBAR-PAGER" style="100" orientation="vertical" paginate="no">
-            <object class="sidebar" alias="SHINGLES" label="Shingles" action="sidebar-products" />
-            <object class="sidebar" alias="WARRANTY" label="Warranty" action="sidebar-products" />
-            <object class="sidebar" alias="ACCESSORIES" label="Accessories" action="sidebar-products" />
-            <!--<object class="sidebar" alias="OPTIONS" label="Options" action="sidebar-products" />-->
-          </pager>
-          <panel name="products-sidebar-blocker" alias="PRODUCTS-SIDEBAR-BLOCKER" style="100" xpos="-101%"></panel>
-        </panel>
-        
-        <panel name="products-Shingle" alias="PRODUCTS-SHINGLES" width="512" height="100%" align="right" padding-bottom="20" alpha="0">
-          <object class="title" title="Shingles"  />
-          <panel name="productpagerbox" alias="PRODUCT-PAGER-BOX" width="100%" height="[eval: [object:PRODUCTS-SHINGLES.height] - 79]" ypos="79" >
-            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no" padding-left="20" padding-right="20" >
-            </pager>
-          </panel>
-        </panel>
-        
-        <panel name="products-Warranty" alias="PRODUCTS-WARRANTY" width="512" height="100%" align="right" alpha="0">
-          <object class="title" title="Select a Warranty"  />
-          <panel name="warrantypagerbox" alias="WARRANTY-PAGER-BOX" width="100%" height="[eval: [object:PRODUCTS-WARRANTY.height] - 79]" ypos="79" >
-            <list name="pager" width="100%" height="100%" datasource="getWarranties" orientation="vertical" paginate="no" padding-left="20" padding-right="20" >
-				<object class="warranty" index="[ds:dataSourceIndex]" title="[ds:WarrantyName]" warrantyId="[ds:WarrantyId]" accessories="[ds:GAFAccessoriesRequired]"  />
-            </list>
-          </panel>
-        </panel>
-        
-        <panel name="products-Accessories" alias="PRODUCTS-ACCESSORIES" width="512" height="100%" align="right" alpha="0">
-          <object class="title" title="Accessories"  />
-          <panel name="productpagerbox" alias="ACCESSORIES-PAGER-BOX" width="100%" height="[eval: [object:PRODUCTS-ACCESSORIES.height] - 79]" ypos="79" >
-            <list name="pager" width="100%" datasource="getAccessories" height="100%" orientation="vertical" paginate="no" padding-left="20" padding-right="20" >
-			<object class="accessory-category" index="[ds:dataSourceIndex]" category="[ds:AccessoryCategory]" lhs="[eval: ('[ds:dataSourceIndex]' == '1') || ('[datasource:getAccessories.[eval:[ds:dataSourceIndex]-1].AccessoryCategory]' != '[datasource:getAccessories.[ds:dataSourceIndex].AccessoryCategory]')]" operator="e" rhs="true" />
-<!-- 			<object class="accessory-category" index="[ds:dataSourceIndex]" category="[ds:AccessoryCategory]" lhs="[eval: '[ds:dataSourceIndex]' == '1' || '[ds:AccessoryCategory]' != '[datasource:getAccessories.[eval:[ds:dataSourceIndex]-1].AccessoryCategory]]'" operator="e" rhs="true" /> -->
-              <object class="accessory" index="[ds:dataSourceIndex]" title="[ds:AccessoryName]" />
-            </list>
-          </panel>
-        </panel>
-        
-        <!--<panel name="products-Options" alias="PRODUCTS-OPTIONS" width="512" height="100%" align="right" padding-left="20" padding-right="20" alpha="0">
-          <object class="title" title="Options"  />
-          <panel name="productpagerbox" width="100%" height="[eval: [object:PRODUCTS-OPTIONS.height] - 79]" ypos="79" >
-            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no">
-              <object class="options"  />
-            </pager>
-          </panel>
-        </panel>-->
-      </panel>
-      
-      <!-- !services -->
-      <panel name="services" alias="SERVICES" width="100%" height="[eval: [object:CONTAINER.height] - 127]" ypos="127" alpha="0">
-        <panel name="services-sidebar" width="256" height="100%" background="#bfbfbf">
-          <pager name="services-sidebar-pager" alias="SERVICES-SIDEBAR-PAGER" style="100" orientation="vertical" paginate="no">
-            <object class="sidebar" alias="TEAROFF" label="Tear Off" action="sidebar-services" />
-            <object class="sidebar" alias="ASSETPROTECTION" label="Asset Protection" action="sidebar-services" />
-          </pager>
-          <panel name="products-sidebar-blocker" alias="SERVICES-SIDEBAR-BLOCKER" style="100" xpos="-101%"></panel>
-        </panel>
-        
-        <panel name="services-Tear Off" alias="SERVICES-TEAROFF" width="512" height="100%" align="right" alpha="0">
-          <object class="title" title="Tear Off"  />
-          <panel name="servicespagerbox" width="100%" height="[eval: [object:SERVICES-TEAROFF.height] - 79]" ypos="79" >
-            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no" padding-left="20" padding-right="20" >
-              <object class="tearoff" />
-            </pager>
-          </panel>
-        </panel>
-        
-        <panel name="services-Asset Protection" alias="SERVICES-ASSETPROTECTION" width="512" height="100%" align="right" alpha="0">
-          <object class="title" title="Asset Protection"  />
-          <panel name="servicespagerbox" width="100%" height="[eval: [object:SERVICES-ASSETPROTECTION.height] - 79]" ypos="79" >
-            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no" padding-left="20" padding-right="20" >
-              <object class="assetprotection" />
-            </pager>
-          </panel>
-        </panel>
-      </panel>
-      
-      <!-- !adjustments -->
-      <panel name="adjustments" alias="ADJUSTMENTS" width="100%" height="[eval: [object:CONTAINER.height] - 127]" ypos="127" alpha="0">
-        <panel name="adjustmentsbox" alias="ADJUSTMENTSBOX" width="100%" height="100%" align="right" alpha="1">
-          <object class="titlebutton" title="Adjustments" action="addadjustment"  />
-          <panel name="adjustmentspagerbox" width="100%" height="[eval: [object:ADJUSTMENTS.height] - 79]" ypos="79" >
-            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no" padding-left="20" padding-right="20" >
-              <!--<object class="discount" index="1" />
-              <object class="additionalcost" index="2" />-->
-            </pager>
-          </panel>
-        </panel>
-      </panel>
-      
-      <!-- !summary -->
-      <panel name="summary" alias="SUMMARY" width="100%" height="[eval: [object:CONTAINER.height] - 127]" ypos="127" alpha="0">
-        <panel name="summarybox" alias="SUMMARYBOX" width="100%" height="100%" align="right" padding-left="20" padding-right="20" alpha="1">
-          <object class="title" title="Summary"  />
-          <panel name="summarypagerbox" width="100%" height="[eval: [object:SUMMARY.height] - 146]" ypos="79" >
-            <pager name="summary-pager" alias="SUMMARY-PAGER" width="100%" height="100%" orientation="vertical" paginate="no">
-            
-              <!--<panel name="summary-customer" width="100%" height="148">
-                <text name="subtitle" width="100%" height="40" font="Futura-Medium" color="#343434" size="25" alignment="left" text="Customer Info"></text>
-                <panel name="col1" width="33.33%" height="93" bottomof="subtitle">
-                  <text name="cust1-name" width="100%" height="35" style="darktext" size="20" alignment="left" text="Bilbo Baggins"></text>
-                  <text name="cust1-phone" width="100%" height="30" bottomof="cust1-name" style="darktext" size="15" alignment="left" text="816 888 7733"></text>
-                  <text name="cust1-email" width="100%" height="30" bottomof="cust1-phone" style="darktext" size="15" alignment="left" text="bilbo@theshire.com"></text>
-                </panel>
-                <panel name="col2" width="33.33%" height="93" rightof="col1" bottomof="subtitle" >
-                  <text name="cust2-name" width="100%" height="35" style="darktext" size="20" alignment="left" text="Frodo Baggins"></text>
-                  <text name="cust2-phone" width="100%" height="30" bottomof="cust2-name" style="darktext" size="15" alignment="left" text="816 888 7733"></text>
-                  <text name="cust2-email" width="100%" height="30" bottomof="cust2-phone" style="darktext" size="15" alignment="left" text="frodo@theshire.com"></text>
-                </panel>
-                <panel name="col3" width="33.33%" height="93" rightof="col2" bottomof="subtitle">
-                  <text name="label" width="100%" height="35" style="darktext" size="20" alignment="left" text="Property Address"></text>
-                  <text name="address1" width="100%" height="30" bottomof="label" style="darktext" size="15" alignment="left" text="132 Underhill Ln"></text>
-                  <text name="address2" width="100%" height="30" bottomof="address1" style="darktext" size="15" alignment="left" text="The Shire, NZ 219387"></text>
-                </panel>
-                <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
-              </panel>
-              
-              <panel name="summary-roof" width="100%" height="158">
-                <text name="subtitle" width="100%" height="40" font="Futura-Medium" color="#343434" size="25" alignment="left" text="Roof Info"></text>
-                <panel name="col1" width="33.33%" height="108" bottomof="subtitle">
-                  <text name="roof-area" width="100%" height="35" style="darktext" size="20" alignment="left" text="Total Area: 2904 sq ft"></text>
-                  <text name="roof-squares" width="100%" height="35" bottomof="roof-area" style="darktext" size="20" alignment="left" text="Squares Needed: 29"></text>
-                  <text name="roof-ridges" width="100%" height="35" bottomof="roof-squares" style="darktext" size="20" alignment="left" text="Ridges: 140 ft"></text>
-                </panel>
-                <panel name="col2" width="33.33%" height="108" rightof="col1" bottomof="subtitle" >
-                  <text name="roof-hips" width="100%" height="35" style="darktext" size="20" alignment="left" text="Hips: 42 ft"></text>
-                  <text name="roof-rake" width="100%" height="35" bottomof="roof-hips" style="darktext" size="20" alignment="left" text="Rake: 59 ft"></text>
-                  <text name="roof-eaves" width="100%" height="35" bottomof="roof-rake" style="darktext" size="20" alignment="left" text="Eaves: 47 ft"></text>
-                </panel>
-                <panel name="col3" width="33.33%" height="108" rightof="col2" bottomof="subtitle">
-                  <text name="roof-valleys" width="100%" height="35" style="darktext" size="20" alignment="left" text="Valleys: 74 ft"></text>
-                </panel>
-                <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
-              </panel>
-              
-              <panel name="summary-products" width="100%" height="210">
-                <text name="subtitle" width="100%" height="40" font="Futura-Medium" color="#343434" size="25" alignment="left" text="Shingles"></text>
-                <text name="subtitle2" width="50%" height="40" xpos="50%" font="Futura-Medium" color="#343434" size="25" alignment="left" text="Warranty"></text>
-                <panel name="col1" width="50%" height="150" ypos="45">
-                  <panel name="shingletile" width="150" height="100%" background="#000000"></panel>
-                  <text name="shingle-type" width="200" height="30" xpos="160" style="darktext" size="20" alignment="left" text="Slateline"></text>
-                  <text name="shingle-color" width="200" height="30" xpos="160" bottomof="shingle-type" style="darktext" size="20" alignment="left" text="English Gray"></text>
-                </panel>
-                <panel name="col2" width="50%" height="150" ypos="45" xpos="50%">
-                  <text name="warranty" width="100%" height="fit" style="darktext" size="20" alignment="left" text="Golden Pledge Ltd. Warranty"></text>
-                </panel>
-                <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
-              </panel>
-              
-              <panel name="summary-accessories" width="100%" height="163">
-                <text name="subtitle" width="100%" height="40" font="Futura-Medium" color="#343434" size="25" alignment="left" text="Roof Info"></text>
-                <panel name="col1" width="33.33%" height="108" bottomof="subtitle">
-                  <text name="roof-deck-title" width="100%" height="30" style="darktext" size="20" alignment="left" text="Roof Deck Protection"></text>
-                  <text name="roof-deck-product" width="100%" height="20" bottomof="roof-deck-title" style="darktext" size="15" alignment="left" text="Deck-Armor"></text>
-                  <text name="roof-leak-title" width="100%" height="30" bottomof="roof-deck-product" margin-top="5" style="darktext" size="20" alignment="left" text="Leak Barrier"></text>
-                  <text name="roof-leak-product" width="100%" height="20" bottomof="roof-leak-title" style="darktext" size="15" alignment="left" text="StormGuard"></text>
-                </panel>
-                <panel name="col2" width="33.33%" height="108" rightof="col1" bottomof="subtitle" >
-                  <text name="roof-cap-title" width="100%" height="30" style="darktext" size="20" alignment="left" text="Ridge Cap Shingles"></text>
-                  <text name="roof-cap-product" width="100%" height="20" bottomof="roof-cap-title" style="darktext" size="15" alignment="left" text="Seal-A-Ridge"></text>
-                  <text name="roof-ventilation-title" width="100%" height="30" bottomof="roof-cap-product" margin-top="5" style="darktext" size="20" alignment="left" text="Ventilation"></text>
-                  <text name="roof-ventilation-product" width="100%" height="20" bottomof="roof-ventilation-title" style="darktext" size="15" alignment="left" text="Cobra Snow Country"></text>
-                </panel>
-                <panel name="col3" width="33.33%" height="108" rightof="col2" bottomof="subtitle">
-                  <text name="roof-starter-title" width="100%" height="30" style="darktext" size="20" alignment="left" text="Starter Strip Protection"></text>
-                  <text name="roof-starter-product" width="100%" height="20" bottomof="roof-starter-title" style="darktext" size="15" alignment="left" text="Deck-Armor"></text>
-                </panel>
-                <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
-              </panel>
-              
-              <panel name="summary-services" width="100%" height="192">
-                <text name="subtitle" width="100%" height="40" font="Futura-Medium" color="#343434" size="25" alignment="left" text="Services"></text>
-                <panel name="col1" width="50%" height="90" ypos="45">
-                  <text name="tearoff-label" width="100%" height="30" style="darktext" size="20" alignment="left" text="Tear Off"></text>
-                  <text name="layers" width="100%" height="20" bottomof="tearoff-label" size="15" alignment="left" text="Layers: 2"></text>
-                  <text name="type" width="100%" height="20" bottomof="layers" size="15" alignment="left" text="Type: Wood Shakes"></text>
-                  <text name="difficulty" width="100%" height="20" bottomof="type" size="15" alignment="left" text="Difficulty: Hard"></text>
-                </panel>
-                <panel name="col2" width="50%" height="90" ypos="45" xpos="50%">
-                  <text name="assetprotection" width="100%" height="fit" style="darktext" size="20" alignment="left" text="Asset Protection"></text>
-                  <text name="landscape" width="100%" height="20" bottomof="assetprotection" size="15" alignment="left" text="Landscaping: Yes"></text>
-                  <text name="hardscape" width="100%" height="20" bottomof="landscape" size="15" alignment="left" text="Hardscaping: Yes"></text>
-                  <text name="hvac" width="100%" height="20" bottomof="hardscape" size="15" alignment="left" text="HVAC: Yes"></text>
-                  <text name="pool" width="100%" height="20" bottomof="hvac" size="15" alignment="left" text="Pool: no"></text>
-                  <text name="misc" width="100%" height="20" bottomof="pool" size="15" alignment="left" text="Misc: no"></text>
-                </panel>
-              </panel>-->
-              
-            </pager>
-          </panel>
-        </panel>
-        <panel name="bottombar" width="100%" height="67" valign="bottom" background="#343434" padding-right="20">
-          <panel name="estimate" width="190" height="50" align="right" valign="center" >
-            <object class="button" name="test" size="20" label="Create Estimate" action="estimate" />
-          </panel>
-        </panel>
-      </panel>
-      
-      <!-- !top level nav -->
-      <pager name="nav" alias="NAV" width="100%" height="53" ypos="74" alpha="1" background="#343434" orientation="horizontal" paginate="no">
-        <panel name="nav-customer" alias="NAV-CUSTOMER" width="128" height="100%" onclickup="nav" _this="CUSTOMER">
-          <text name="open" width="100%" height="100%" color="#ffffff" font="Futura-Medium" size="18" alignment="center" text="Customer" leftinset="20">
-            <panel name="step" width="20" height="20" cornerradius="10" background="#ed1c24" valign="center" xpos="8">
-              <text name="open" width="100%" height="100%" color="#ffffff" font="Futura-Medium" size="10" alignment="center" text="1"></text>
-            </panel>
-          </text>
-          <text name="closed" width="100%" height="100%" color="#b0afaf" font="Futura-Medium" size="20" alignment="center" text="Customer" alpha="0"></text>
-          <panel name="sel" width="100%" height="6" style="brand" valign="bottom"></panel>
-        </panel>
-        
-        <panel name="nav-roof" alias="NAV-ROOF" width="123" height="100%" onclickup="nav" _this="ROOF">
-          <text name="open" width="100%" height="100%" color="#ffffff" font="Futura-Medium" size="18" alignment="center" text="Roof Info" leftinset="20">
-            <panel name="step" width="20" height="20" cornerradius="10" background="#666666" valign="center" xpos="8">
-              <text name="open" width="100%" height="100%" color="#ffffff" font="Futura-Medium" size="10" alignment="center" text="2"></text>
-            </panel>
-          </text>
-          <text name="closed" width="100%" height="100%" color="#b0afaf" font="Futura-Medium" size="20" alignment="center" text="Roof Info" alpha="0"></text>
-          <panel name="sel" width="100%" height="3" style="brand" ypos="101%"></panel>
-        </panel>
-        
-        <panel name="nav-products" alias="NAV-PRODUCTS" width="123" height="100%" onclickup="nav" _this="PRODUCTS">
-          <text name="open" width="100%" height="100%" color="#ffffff" font="Futura-Medium" size="18" alignment="center" text="Products" leftinset="20">
-            <panel name="step" width="20" height="20" cornerradius="10" background="#666666" valign="center" xpos="8">
-              <text name="open" width="100%" height="100%" color="#ffffff" font="Futura-Medium" size="10" alignment="center" text="3"></text>
-            </panel>
-          </text>
-          <text name="closed" width="100%" height="100%" color="#b0afaf" font="Futura-Medium" size="20" alignment="center" text="Products" alpha="0"></text>
-          <panel name="sel" width="100%" height="3" style="brand" ypos="101%"></panel>
-        </panel>
-        
-        <panel name="nav-services" alias="NAV-SERVICES" width="118" height="100%" onclickup="nav" _this="SERVICES">
-          <text name="open" width="100%" height="100%" color="#ffffff" font="Futura-Medium" size="18" alignment="center" text="Services" leftinset="20">
-            <panel name="step" width="20" height="20" cornerradius="10" background="#666666" valign="center" xpos="8">
-              <text name="open" width="100%" height="100%" color="#ffffff" font="Futura-Medium" size="10" alignment="center" text="4"></text>
-            </panel>
-          </text>
-          <text name="closed" width="100%" height="100%" color="#b0afaf" font="Futura-Medium" size="20" alignment="center" text="Services" alpha="0"></text>
-          <panel name="sel" width="100%" height="3" style="brand" ypos="101%"></panel>
-        </panel>
-        
-        <panel name="nav-adjustments" alias="NAV-ADJUSTMENTS" width="153" height="100%" onclickup="nav" _this="ADJUSTMENTS">
-          <text name="open" width="100%" height="100%" color="#ffffff" font="Futura-Medium" size="18" alignment="center" text="Adjustments" leftinset="20">
-            <panel name="step" width="20" height="20" cornerradius="10" background="#666666" valign="center" xpos="8">
-              <text name="open" width="100%" height="100%" color="#ffffff" font="Futura-Medium" size="10" alignment="center" text="5"></text>
-            </panel>
-          </text>
-          <text name="closed" width="100%" height="100%" color="#b0afaf" font="Futura-Medium" size="20" alignment="center" text="Adjustments" alpha="0"></text>
-          <panel name="sel" width="100%" height="3" style="brand" ypos="101%"></panel>
-        </panel>
-        
-        <panel name="nav-summary" alias="NAV-SUMMARY" width="123" height="100%" onclickup="nav" _this="SUMMARY">
-          <text name="open" width="100%" height="100%" color="#ffffff" font="Futura-Medium" size="18" alignment="center" text="Summary" leftinset="20">
-            <panel name="step" width="20" height="20" cornerradius="10" background="#666666" valign="center" xpos="8">
-              <text name="open" width="100%" height="100%" color="#ffffff" font="Futura-Medium" size="10" alignment="center" text="6"></text>
-            </panel>
-          </text>
-          <text name="closed" width="100%" height="100%" color="#b0afaf" font="Futura-Medium" size="20" alignment="center" text="Summary" alpha="0"></text>
-          <panel name="sel" width="100%" height="3" style="brand" ypos="101%"></panel>
-        </panel>
-      </pager>
-      <panel name="navblock" alias="NAVBLOCK" width="100%" height="53" ypos="74" xpos="101%"></panel>
-      
-      <!-- !header -->
-      <panel name="header" alias="HEADER" width="100%" height="74" padding-right="10" alpha="1" background="#bfbfbf">
-        <image name="logo" source="images/logo.png" height="48" xpos="10" valign="center"></image>
-        <panel name="profile" width="50%" height="100%" align="right" onclickup="profiledrop">
-          <!--<image name="avatar" source="images/avatar.png" width="36" align="left" valign="center"></image>-->
-          <panel name="logout" width="50" height="100%" align="right" onclickup="logout">
-            <image name="logout" source="graphics/icon.signout.png" align="center" valign="center"></image>
-          </panel>
-          <text name="welcome" width="100%" height="fit" xpos="46" ypos="15" leftof="logout" margin-right="10" color="#343434" font="Avenir-MediumOblique" size="14" alignment="right" text="Signed in as" alpha=".7"></text>
-          <text name="username" width="100%" height="fit" xpos="46" bottomof="welcome" leftof="logout" margin-right="10" color="#343434" font="Futura-Medium" size="17" alignment="right" text="User"></text>
-        </panel>
-      </panel>
-      
-      <!-- !camera roll -->
-      <panel name="cameraroll" alias="CAMERAROLL" width="100%" height="100%" ypos="101%" background="#e3e3e3">
-        <panel name="toolbar" width="100%" height="60" background="#343434">
-          <text name="close" width="100" height="100%" xpos="20" color="#ffffff" font="Futura-Medium" size="18" alignment="left" text="close" onclickup="closeroll"></text>
-        </panel>
-        <wait name="wait" width="100%" height="[eval:[object:CAMERAROLL.height] - [object:CAMERAROLL/toolbar.height]]" valign="bottom" alpha="0" color="#ed1c24"/>
-        <panel name="camera-list" width="100%" height="[eval:[object:CAMERAROLL.height] - [object:CAMERAROLL/toolbar.height]]" valign="bottom"></panel>
-      </panel>
-      
-      <panel name="camerabox" alias="CAMERABOX" width="100%" height="100%" ypos="101%" background="#e3e3e3">
-        
-      </panel>
-     
-    </panel>
+  	<panel name="main" alias="MAIN" width="100%" height="100%" alpha="1" background="#e3e3e3">
+  		<object class="container" />
   	</panel>
     <!-- end of container -->
     
@@ -2811,6 +2213,18 @@
       </panel>
       
     </panel>
+      <!-- !header -->
+      <panel name="header" alias="HEADER" width="100%" height="74" padding-right="10" alpha="1" background="#bfbfbf">
+        <image name="logo" source="images/logo.png" height="48" xpos="10" valign="center"></image>
+        <panel name="profile" width="50%" height="100%" align="right" onclickup="profiledrop">
+          <!--<image name="avatar" source="images/avatar.png" width="36" align="left" valign="center"></image>-->
+          <panel name="logout" width="50" height="100%" align="right" onclickup="logout" >
+            <image name="logout" source="graphics/icon.signout.png" align="center" valign="center"></image>
+          </panel>
+          <text name="welcome" width="100%" height="fit" xpos="46" ypos="15" leftof="logout" margin-right="10" color="#343434" font="Futura-MediumItalic" size="15" alignment="right" text="Signed in as" alpha=".7"></text>
+          <text name="username" width="100%" height="fit" xpos="46" bottomof="welcome" margin-top="3" leftof="logout" margin-right="10" color="#343434" font="Futura-Medium" size="17" alignment="right" text="User"></text>
+        </panel>
+      </panel>
   </main>
   
   <!-- !ACTIONS -->
@@ -3157,20 +2571,17 @@
     
     <action name="newestimate">
 		<play action="resetSummaryVars"/>
-		<alpha value="0" time=".25" target="CHOICE" />
-		<assign property="datasource:states.source" value="res://states.xml" />
-		<assign property="datasource:provinces.source" value="res://provinces.xml" />
-<!-- 		<alpha value="1" time=".1" target="HEADER/close" /> -->
+			<assign property="datasource:photosdb-delete.query" value="DELETE FROM PHOTOS;" />
+			<assign property="datasource:photosdb-list.query" value="SELECT * FROM PHOTOS;" />
+<!-- 		<play action="clear-dbs" /> -->
+      <alpha value="0" time=".25" target="CHOICE" />
+      <assign property="datasource:states.source" value="res://states.xml" />
+      <assign property="datasource:provinces.source" value="res://provinces.xml" />
     </action>
     
-<!--
-    <action name="close-newestimate">
-		<alpha value="1" time=".25" target="CHOICE" />
-		<alpha value="0" time=".1" target="HEADER/close" />
+    <action name="photosdb-delete" datasource="photosdb-delete" datasourceevent="querycomplete" >
+			<assign property="datasource:photosdb-list.query" value="SELECT * FROM PHOTOS;" />
     </action>
--->
-    
-    
     
     <action name="addarea">
       <sync>
@@ -3341,6 +2752,7 @@
     <action name="addroll">
       <sync>
         <assign property="var:photoActive" value="1" />
+		<alpha value="0" target="HEADER" />
         <alpha value="0" time=".25" target="CAMERAMENU" />
         <translate ypos="0" time=".25" curve="easeout" target="CAMERAROLL" />
         <create class="camera-roll" target="CAMERAROLL/camera-list" />
@@ -3357,6 +2769,7 @@
     
     <action name="addcamera">
       <sync>
+		<alpha value="0" target="HEADER" />
         <assign property="var:camerafile" value="[system:uuid]" />
         <create class="camera" target="CAMERABOX" />
         <alpha value="0" time=".25" target="CAMERAMENU" />
@@ -3367,6 +2780,7 @@
     
     <action name="closeroll">
       <sync>
+		<alpha value="1" target="HEADER" />
         <translate ypos="101%" time=".25" curve="easeout" target="CAMERAROLL" />
         <delete target="CAMERA-ROLL" />
       </sync>
@@ -3402,6 +2816,7 @@
     
     <action name="savenote">
       <sync>
+		<alpha value="1" target="HEADER" />
         <assign property="var:thenote" value="[object:THENOTE.text]" />
         <play action="db-that-photo" />
         <translate ypos="101%" time=".25" curve="easeout" target="ADDNOTE" />
@@ -3416,12 +2831,14 @@
 
     <action name="cancelnote">
       <sync>
+		<alpha value="1" target="HEADER" />
         <translate ypos="101%" time=".25" curve="easeout" target="ADDNOTE" />
         <delete target="ADDNOTE" />
       </sync>
     </action>
 
     <action name="photo-db-save-confirm" datasource="photosdb">
+		<alpha value="1" target="HEADER" />
       <if lhs="[var:photoActive]" operator="==" rhs="1">
         <assign property="datasource:photosdb-list.query" value="SELECT * FROM PHOTOS;" />
         <!-- <alert message="photo saved to db" /> -->
@@ -3429,6 +2846,7 @@
     </action>
 
     <action name="photo-db-redraw" datasource="photosdb-list">
+<!-- 		<alert message="photos-db has [datasource:photosdb-list.dataSourceResultCount] entries" /> -->
       <if lhs="[var:photoActive]" operator="==" rhs="1">
         <!-- <alert title="You have this many photos in the db!" message="[datasource:photosdb-list.dataSourceResultCount]" /> -->
         <assign property="var:photoActive" value="0" />
@@ -3546,7 +2964,7 @@
         <if lhs="_this" operator="e" rhs="PRODUCTS">
           <if lhs="[var:product]" operator="e" rhs="">
 <!-- 			<alert message="get-products preferences:token is [preferences:token] preferences:contractorId is [preferences:contractorId]" /> -->
-			      <assign property="datasource:getProducts.source" value="https://162.209.101.177/api/GetProducts?AppSource=1" />
+					<play action="estimate" />
 <!--             <play action="sidebar-products" _alias="SHINGLES" _form="Shingles" /> -->
           </if>
         </if>
@@ -5029,13 +4447,13 @@
 		</action>
 		
 		<action name="updateMeasurements-complete" datasource="updateMeasurements" datasourceevent="querycomplete" >
-			<alert message="updateMeasurements-complete content [datasource:updateMeasurements.0.content]" />
-					<play action="formatEstimate" />
-<!-- 				<play action="prepPhotos" /> -->
-<!--
 			<if lhs="[datasource:updateMeasurements.1.ResponseCode]" operator="e" rhs="100">
+				<alert message="updateMeasurements-complete content [datasource:updateMeasurements.0.content]" />
+			      <assign property="datasource:getProducts.source" value="https://162.209.101.177/api/GetProducts?AppSource=1" />
+				  <else>
+				  	<alert message="there was a problem updating your measurements, please verify that all information is present and accurate" />
+				  </else>
 			</if>
--->
 		</action>
 	
 		<action name="updateMeasurements-error" datasource="updateMeasurements" datasourceevent="datasourceerror" >
@@ -5223,9 +4641,60 @@
     </action>
 
     <action name="confirm-logout">
-      <alert message="this would be the logic to log out the user" />
+		<assign property="var:loaded" value="no" />
+		<play action="clear-dbs" />
+		<play action="clear-data" />
+		<delete target="CONTAINER" />
+		<create class="container" target="MAIN" />
+		<create class="signin" target="CONTAINER" />
+<!--       <alert message="this would be the logic to log out the user" /> -->
     </action>
     
+	<action name="clear-dbs" >
+		<sync>
+			<assign property="datasource:customersdb-delete.query" value="DELETE FROM CUSTOMERS;" />
+			<assign property="datasource:inspectiondb-delete.query" value="DELETE FROM INSPECTION;" />
+			<assign property="datasource:roofareasdb-delete.query" value="DELETE FROM ROOFAREAS;" />
+			<assign property="datasource:wastedb-delete.query" value="DELETE FROM WASTE;" />
+			<assign property="datasource:ridgesdb-delete.query" value="DELETE FROM RIDGES;" />
+			<assign property="datasource:hipsdb-delete.query" value="DELETE FROM HIPS;" />
+			<assign property="datasource:valleysdb-delete.query" value="DELETE FROM VALLEYS;" />
+			<assign property="datasource:rakesdb-delete.query" value="DELETE FROM RAKES;" />
+			<assign property="datasource:eavesdb-delete.query" value="DELETE FROM EAVES;" />
+			<assign property="datasource:protrusionsdb-delete.query" value="DELETE FROM PROTRUSIONS;" />
+			<assign property="datasource:ventsdb-delete.query" value="DELETE FROM VENTS;" />
+			<assign property="datasource:photosdb-delete.query" value="DELETE FROM PHOTOS;" />
+			<assign property="datasource:productsdb-delete.query" value="DELETE FROM PRODUCTS;" />
+			<assign property="datasource:accessoriesdb-delete.query" value="DELETE FROM ACCESSORIES;" />
+			<assign property="datasource:tearoffdb-delete.query" value="DELETE FROM TEAROFF;" />
+			<assign property="datasource:assetprotectiondb-delete.query" value="DELETE FROM PROTECTION;" />
+			<assign property="datasource:adjustmentsdb-delete.query" value="DELETE FROM ADJUSTMENTS;" />
+		</sync>
+	</action>
+	
+	<action name="clear-data" >
+	  	 <assign property="var:db-action" value="" />
+		<assign property="var:accessoryCount" value="0" />
+	      <assign property="var:tearoff" value="no" />
+	      <assign property="var:landscaping" value="no" />
+	      <assign property="var:hardscaping" value="no" />
+	      <assign property="var:hvac" value="no" />
+	      <assign property="var:pool" value="no" />
+	      <assign property="var:misc" value="no" />
+	      <assign property="var:country" value="US" />
+	      <assign property="var:prevfield" value="0" />
+	      <assign property="var:nav" value="CUSTOMER" />
+        <assign property="preferences:remember" value="" />
+		<assign property="preferences:username" value="" />
+		<assign property="preferences:password" value="" />
+		<assign property="preferences:token" value="" />
+		<assign property="preferences:contractorId" value="" />
+		<assign property="preferences:contractorType" value="" />
+		<assign property="preferences:trueSlate" value="" />
+		<assign property="httpheader:get.Token" value="" />
+		<assign property="httpheader:get.ContractorId" value="" />
+	</action>
+
     <!-- !Edit modal actions -->
     <action name="close-edit">
       <sync>
