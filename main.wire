@@ -33,7 +33,7 @@
 	<httpheader name="login" Content-Type="application/json" />
 	<httpheader name="token-contractorid" Content-Type="application/json" Token="[preferences:token]" ContractorId="[preferences:contractorId]" />
 
-	<httpheader name="formSubmit" Token="[preferences:token]" ContractorId="[preferences:contractorId]" Content-Type="multipart/form-data" Content-Disposition="form-data; name='File'; filename='test.jpg'"/>
+	<httpheader name="formSubmit" Token="[preferences:token]" ContractorId="[preferences:contractorId]" CustomerId="[var:customerId]" Content-Type="multipart/form-data" Content-Disposition="form-data; name='File'; filename='test.jpg'"/>
 
     <datasource name="camera-roll" source="adsf" query="Camera Roll" providertype="camera"/>
     <datasource name="states" source="" query="//state" providertype="xml" parsenamespaces="yes" />
@@ -1992,7 +1992,7 @@
         </panel>
         <panel name="bottombar" width="100%" height="67" valign="bottom" background="#343434" padding-right="20">
           <panel name="estimate" width="190" height="50" align="right" valign="center" >
-            <object class="button" name="test" size="20" label="Create Estimate" action="estimate" />
+            <object class="button" name="test" size="20" label="Create Estimate" action="formatEstimate" />
           </panel>
         </panel>
       </panel>
@@ -2230,6 +2230,12 @@
       <panel name="splash" alias="SPLASH" width="100%" height="100%">
 	      <image name="image" source="graphics/splash.png"></image>
       </panel>
+	  <panel name="upload-curtain" alias="UPLOAD-CURTAIN" width="100%" height="100%" alpha="0" >
+	  	<panel name="bg" width="100%" height="100%" background="#000000" alpha=".5" ></panel>
+	  	<wait name="wait" width="100%" height="100%"></wait>
+	  	<text name="photo-progress" width="100%" height="fit" ypos="600" color="#ffffff" font="Futura-MediumItalic" size="28" alignment="center" text="Uploading Photo NUMBER..."></text>
+	  </panel>
+
   </main>
   
   <!-- !ACTIONS -->
@@ -2972,6 +2978,7 @@
         <if lhs="_this" operator="e" rhs="PRODUCTS">
           <if lhs="[var:product]" operator="e" rhs="">
 <!-- 			<alert message="get-products preferences:token is [preferences:token] preferences:contractorId is [preferences:contractorId]" /> -->
+<!-- 					<play action="estimate" /> -->
 					<play action="estimate" />
 <!--             <play action="sidebar-products" _alias="SHINGLES" _form="Shingles" /> -->
           </if>
@@ -4018,6 +4025,7 @@
 						<assign property="var:productsCreated" value="yes" />
 						<create class="filler" target="PRODUCT-PAGER-BOX/pager" />
 						<play action="sidebar-products" _alias="SHINGLES" _form="Shingles" />
+						<alpha value="0" target="UPLOAD-CURTAIN" />
 						<else>
 <!-- 							<alert message="hi" /> -->
 							<if lhs="[eval:('[datasource:getProducts.[var:productIterateCount].ProductFamily]' == '[var:currentCategory]') &amp;&amp; ('[datasource:getProducts.[eval:[var:productIterateCount]+1].ProductFamily]' == '[var:currentCategory]')]" operator="e" rhs="true">
@@ -4036,6 +4044,7 @@
 					<create class="shingle-single" index="[var:productIterateCount]" target="PRODUCT-PAGER-BOX/pager" />
 					<assign property="var:productsCreated" value="yes" />
 					<create class="filler" target="PRODUCT-PAGER-BOX/pager" />
+					<alpha value="0" target="UPLOAD-CURTAIN" />
 					<play action="sidebar-products" _alias="SHINGLES" _form="Shingles" />
 				</if>
 			</if>
@@ -4258,6 +4267,8 @@
     <!-- !summary -->
     <action name="estimate">
       <play action="released" />
+		<alpha value="1" target="UPLOAD-CURTAIN" />
+		<assign property="object:UPLOAD-CURTAIN/photo-progress.text" value="Sending Roof Measurements..." />
       <sync>
 
 	  
@@ -4457,8 +4468,9 @@
 		<action name="updateMeasurements-complete" datasource="updateMeasurements" datasourceevent="querycomplete" >
 			<if lhs="[datasource:updateMeasurements.1.ResponseCode]" operator="e" rhs="100">
 				<alert message="updateMeasurements-complete content [datasource:updateMeasurements.0.content]" />
-			      <assign property="datasource:getProducts.source" value="https://162.209.101.177/api/GetProducts?AppSource=1" />
+					<play action="prepPhotos" />
 				  <else>
+				  	<alpha value="0" target="UPLOAD-CURTAIN" />
 				  	<alert message="there was a problem updating your measurements, please verify that all information is present and accurate" />
 				  </else>
 			</if>
@@ -4469,43 +4481,48 @@
 			<alert message="updateMeasurements-error content [datasource:updateMeasurements.0.content]" />
 		</action>
 		
+		<!-- !prepPhotos -->
 		<action name="prepPhotos">
 			<assign property="var:photoCount" value="[datasource:photosdb-list.dataSourceResultCount]" />
 			<assign property="var:photoIterateCount" value="1" />
 			<assign property="httpheader:formSubmit.Token" value="[preferences:token]" />
 			<assign property="httpheader:formSubmit.ContractorId" value="[preferences:contractorId]" />
 			<if lhs="[var:photoCount]" operator="gt" rhs="0">
+				<assign property="object:UPLOAD-CURTAIN/photo-progress.text" value="Uploading Photo [var:photoIterateCount]" />
 				<play action="upload-photo" />
 				<else>
 					<alert message="photosdb empty" />
-					<play action="formatEstimate" />
+				  	<alpha value="0" target="UPLOAD-CURTAIN" />
+					<assign property="datasource:getProducts.source" value="https://162.209.101.177/api/GetProducts?AppSource=1" />
 				</else>
 			</if>
 		</action>
 		
 		<action name="upload-photo" >
 			<if lhs="[var:photoIterateCount]" operator="lte" rhs="[var:photoCount]">
-<!--
+				<assign property="object:UPLOAD-CURTAIN/photo-progress.text" value="Uploading Photo [var:photoIterateCount]" />
 				<assign property="datasource:uploadPhoto.postFile" value="[datasource:photosdb-list.[var:photoIterateCount].PHOTO]"/>
 				<assign property="datasource:uploadPhoto.source" value="https://162.209.101.177/api/UploadPhoto" />
--->
 				<else>
-					<play action="all photos have been uploaded." />
+					<alert message="all photos have been uploaded." />
+				<assign property="object:UPLOAD-CURTAIN/photo-progress.text" value="Retrieving Products" />
+					<assign property="datasource:getProducts.source" value="https://162.209.101.177/api/GetProducts?AppSource=1" />
 				</else>
 			</if>
 		</action>
 		
 		<action name="photoupload-complete" datasource="uploadPhoto" datasourceevent="querycomplete" >
-			<alert message="upload complete [datasource:uploadPhoto.0.content]" />
-			<if lhs="[datasource:uploadPhoto.0.content]" operator="e" rhs="100">
+<!-- 			<alert message="upload [var:photoIterateCount] complete [datasource:uploadPhoto.0.content]" /> -->
+<!-- 			<if lhs="[datasource:uploadPhoto.0.content]" operator="e" rhs="100"> -->
 				<assign property="var:photoIterateCount" value="[eval: [var:photoIterateCount]+1]" />
 				<play action="upload-photo" />
-			</if>
+<!-- 			</if> -->
 		</action>
 		<action name="photoupload-error" datasource="uploadPhoto" datasourceevent="datasourceerror" >
 			<alert message="upload error [datasource:uploadPhoto.0.content]" />
 		</action>
 		
+		<!-- !formatEstimate -->
 		<action name="formatEstimate" >
 			<if lhs="[datasource:productsdb-list.dataSourceResultCount]" operator="gt" rhs="0">
 				<assign property="var:shingle" value="[datasource:productsdb-list.1.SHINGLE]" />
