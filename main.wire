@@ -192,11 +192,11 @@
     
     <class name="titlebutton">
       <panel name="titlebox" width="100%" height="79" padding-left="20" padding-right="20">
-        <text name="title" width="100%" height="60" ypos="10" style="darktext" size="40" alignment="left" text="[param:title]"></text>
+        <text name="title" width="100%" height="60" ypos="10" style="darktext" size="32" alignment="left" text="[param:title]"></text>
         <panel name="create" width="50" height="50" align="right" valign="center">
           <object class="button" name="test" size="60" label="+" action="create" value="[param:action]" />
         </panel>
-        <panel name="divide" width="100%" height="5" valign="bottom" background="#343434"></panel>
+<!--         <panel name="divide" width="100%" height="5" valign="bottom" background="#343434"></panel> -->
       </panel>
     </class>
     
@@ -343,7 +343,7 @@
         <panel name="view-btn" width="100" height="50" ypos="22" leftof="edit-btn" margin-right="20" bottomof="search-address">
           <object class="button" name="test" size="20" label="View" action="viewestimate" value="[param:estimatePdf]" />
         </panel>
-        <panel name="divider" width="728" height="2" align="center" valign="bottom" background="#343434"></panel>
+        <panel name="divider" width="728" height="1" align="center" valign="bottom" background="#343434"></panel>
       </panel>
     </class>
     
@@ -351,7 +351,7 @@
       <panel name="searchresults" alias="SEARCHRESULTS" width="100%" height="100%" ypos="101%" background="#e3e3e3">
         <panel name="searchhead" width="100%" height="74" background="#343434" >
           <text name="label" width="100%" height="100%" color="#ffffff" font="Futura-Medium" size="24" alignment="center" text="Searching Estimates..."></text>
-          <text name="close" width="100" height="100%" color="#ffffff" font="Avenir-Medium" size="16" alignment="left" leftinset="20" text="CLOSE" onclickup="closeresults" clickuptarget="CONTAINER"></text>
+          <text name="close" width="100" height="100%" color="#ffffff" font="Avenir-Medium" size="15" alignment="left" leftinset="20" text="CLOSE" onclickup="closeresults" clickuptarget="CONTAINER"></text>
         </panel>
         <list name="resultlist" width="100%" height="[eval: [object:SEARCHRESULTS.height] - 74]" datasource="getEstimate" ypos="74" orientation="vertical" paginate="no">
           <object class="searchresult" index="1" lastname="[ds:CustomerLastName]" firstname="[ds:CustomerFirstName]" street="[ds:Address1]" city="[ds:City]" state="[ds:StateProvince]" zip="[ds:PostalCode]" estimateId="test" customerId="[ds:CustomerId]" />
@@ -483,7 +483,7 @@
     <!-- !Roof info classes -->
     <class name="roof area">
       <panel name="roof-area[param:index]" alias="ROOF-AREA[param:index]" width="100%" height="220">
-        <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="20" alignment="left" text="Roof Area [param:index]"></text>
+        <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="15" alignment="left" text="ROOF AREA [param:index]"></text>
         <panel name="length" width="256" height="50" bottomof="subtitle">
           <panel name="rl[param:index]" alias="RL[param:index]" width="226" height="50" align="left" style="textinput">
             <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
@@ -508,7 +508,7 @@
           <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" _next="none" _action="null"></textfield>
           <panel name="active" style="100" onclickup="dropon" _field="SLOPE[param:index]" _drop="ROOF-AREA[param:index]" _droptype="SLOPEDROP[param:index]"></panel>
         </panel>
-        <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
+<!--         <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel> -->
         <panel name="drop" width="45%" height="170" bottomof="subtitle" xpos="101%" alpha="0" style="textinput">
           <panel name="slopedrop[param:index]" alias="SLOPEDROP[param:index]" width="100%" height="100%" alpha="0">
             <text name="drophead" width="50%" height="30" style="lighttext" size="18" alignment="center" text="Slope"></text>
@@ -573,16 +573,16 @@
     
     <class name="inspection">
       <panel name="inspection" alias="INSPECTION" width="100%" height="160">
-        <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="20" alignment="left" text="Existing Roof Information"></text>
+        <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="15" alignment="left" text="EXISTING ROOF INFORMATION"></text>
         <panel name="rooftype" alias="ROOFTYPE" width="226" height="50" align="left" bottomof="subtitle" style="textinput">
           <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
-          <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Roof Type"></text>
+          <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="18" alignment="left" text="Roof Type"></text>
           <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" _next="none" _action="null"></textfield>
           <panel name="active" style="100" onclickup="dropon" _field="ROOFTYPE" _drop="INSPECTION" _droptype="ROOFTYPEDROP"></panel>
         </panel>
         <panel name="floors" alias="FLOORS" width="226" height="50" align="left" bottomof="rooftype" margin-top="10" style="textinput">
           <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
-          <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Floors"></text>
+          <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="18" alignment="left" text="Floors"></text>
           <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="1 - 3" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null" onchange="isNaN"></textfield>
           <panel name="active" style="100" onclickup="labelactive" _field="FLOORS" _drop="INSPECTION"></panel>
         </panel>
@@ -592,7 +592,7 @@
           <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" _next="none" _action="null"></textfield>
           <panel name="active" style="100" onclickup="dropon" _field="DIFFICULTY" _drop="INSPECTION"></panel>
         </panel>-->
-        <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
+<!--         <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel> -->
         <panel name="drop" width="45%" height="110" bottomof="subtitle" xpos="101%" alpha="0" style="textinput">
           <panel name="rooftypedrop" alias="ROOFTYPEDROP" width="100%" height="100%">
             <text name="drophead" width="100%" height="30" style="lighttext" size="18" alignment="center" text="Roof Types"></text>
@@ -669,13 +669,13 @@
           </panel>
           <text name="measure" width="30" height="100%" align="right" style="darktext" size="20" alignment="center" text="%"></text>
         </panel>
-        <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
+<!--         <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel> -->
       </panel>
     </class><!-- <object class="waste" /> -->
     
     <class name="ridge">
-      <panel name="ridge[param:index]" alias="RIDGE[param:index]" width="100%" height="160">
-        <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="20" alignment="left" text="Ridge [param:index]"></text>
+      <panel name="ridge[param:index]" alias="RIDGE[param:index]" width="100%" height="120">
+        <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="15" alignment="left" text="RIDGE [param:index]"></text>
         <panel name="ridge" width="256" height="50" bottomof="subtitle">
           <panel name="ridgelength[param:index]" alias="RIDGELENGTH[param:index]" width="226" height="50" align="left" style="textinput">
             <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
@@ -685,17 +685,18 @@
           </panel>
           <text name="measure" width="30" height="100%" align="right" style="darktext" size="20" alignment="center" text="ft"></text>
         </panel>
-        <panel name="ridgevent[param:index]" alias="RIDGEVENT[param:index]" width="50" height="50" align="left" bottomof="ridge" margin-top="10" background="f3f3f3" cornerradius="25" borderwidth="1" bordercolor="#888888" clip="yes" onclickup="checkonindexed" _action="ridgeradio" _index="[param:index]">
+        
+        <text name="checklabel" width="150" height="50" align="right" bottomof="subtitle" style="darktext" size="20" leftinset="10" alignment="left" text="Ridge Vent(s)"></text>
+        <panel name="ridgevent[param:index]" alias="RIDGEVENT[param:index]" width="50" height="50" leftof="checklabel" bottomof="subtitle" background="f3f3f3" cornerradius="25" borderwidth="1" bordercolor="#888888" clip="yes" onclickup="checkonindexed" _action="ridgeradio" _index="[param:index]">
           <panel name="check" width="0" height="0" align="center" valign="center" background="#ed1c24" cornerradius="20" alpha="1" ></panel>
         </panel>
-        <text name="checklabel" width="150" height="50" bottomof="ridge" rightof="ridgevent[param:index]" margin-top="10" style="darktext" size="20" leftinset="10" alignment="left" text="Ridge Vent(s)"></text>
-        <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
+<!--         <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel> -->
       </panel>
     </class><!-- <object class="ridge" index="1" /> -->
     
     <class name="hip">
       <panel name="hip[param:index]" alias="HIP[param:index]" width="100%" height="100">
-        <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="20" alignment="left" text="Hip [param:index]"></text>
+        <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="15" alignment="left" text="HIP [param:index]"></text>
         <panel name="hip" width="256" height="50" bottomof="subtitle">
           <panel name="hiplength[param:index]" alias="HIPLENGTH[param:index]" width="226" height="50" align="left" style="textinput">
             <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
@@ -705,13 +706,13 @@
           </panel>
           <text name="measure" width="30" height="100%" align="right" style="darktext" size="20" alignment="center" text="ft"></text>
         </panel>
-        <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
+<!--         <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel> -->
       </panel>
     </class><!-- <object class="hip" index="1" /> -->
     
     <class name="valley">
       <panel name="valley[param:index]" alias="VALLEY[param:index]" width="100%" height="100">
-        <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="20" alignment="left" text="Valley [param:index]"></text>
+        <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="15" alignment="left" text="VALLEY [param:index]"></text>
         <panel name="valley" width="256" height="50" bottomof="subtitle">
           <panel name="valleylength[param:index]" alias="VALLEYLENGTH[param:index]" width="226" height="50" align="left" style="textinput">
             <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
@@ -721,13 +722,13 @@
           </panel>
           <text name="measure" width="30" height="100%" align="right" style="darktext" size="20" alignment="center" text="ft"></text>
         </panel>
-        <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
+<!--         <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel> -->
       </panel>
     </class><!-- <object class="valley" index="1" /> -->
     
     <class name="rake">
       <panel name="rake[param:index]" alias="RAKE[param:index]" width="100%" height="100">
-        <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="20" alignment="left" text="Rake [param:index]"></text>
+        <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="15" alignment="left" text="RAKE [param:index]"></text>
         <panel name="rake" width="256" height="50" bottomof="subtitle">
           <panel name="rakelength[param:index]" alias="RAKELENGTH[param:index]" width="226" height="50" align="left" style="textinput">
             <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
@@ -737,13 +738,13 @@
           </panel>
           <text name="measure" width="30" height="100%" align="right" style="darktext" size="20" alignment="center" text="ft"></text>
         </panel>
-        <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
+<!--         <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel> -->
       </panel>
     </class><!-- <object class="rake" index="1" /> -->
     
     <class name="eave">
       <panel name="eave[param:index]" alias="EAVE[param:index]" width="100%" height="100">
-        <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="20" alignment="left" text="Eave [param:index]"></text>
+        <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="15" alignment="left" text="EAVE [param:index]"></text>
         <panel name="eave" width="256" height="50" bottomof="subtitle">
           <panel name="eavelength[param:index]" alias="EAVELENGTH[param:index]" width="226" height="50" align="left" style="textinput">
             <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
@@ -753,13 +754,13 @@
           </panel>
           <text name="measure" width="30" height="100%" align="right" style="darktext" size="20" alignment="center" text="ft"></text>
         </panel>
-        <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
+<!--         <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel> -->
       </panel>
     </class><!-- <object class="eave" index="1" /> -->
     
     <class name="chimney">
       <panel name="protrusion[param:pindex]" alias="PROTRUSION[param:pindex]" width="100%" height="160">
-        <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="20" alignment="left" text="Chimney [param:index]"></text>
+        <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="15" alignment="left" text="CHIMNEY [param:index]"></text>
         <panel name="length" width="256" height="50" bottomof="subtitle">
           <panel name="protrusionlength[param:pindex]" alias="PROTRUSIONLENGTH[param:pindex]" width="226" height="50" align="left" style="textinput">
             <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
@@ -779,13 +780,13 @@
           <text name="measure" width="30" height="100%" align="right" style="darktext" size="20" alignment="center" text="ft"></text>
         </panel>
         <text name="type[param:pindex]" alias="TYPE[param:pindex]" width="1" height="1" color="#ffffff" font="Helvetica" size="1" alignment="left" text="Chimney" alpha="0"></text>
-        <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
+<!--         <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel> -->
       </panel>
     </class><!-- <object class="chimney" index="1" /> -->
     
     <class name="skylight">
       <panel name="protrusion[param:pindex]" alias="PROTRUSION[param:pindex]" width="100%" height="160">
-        <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="20" alignment="left" text="Skylight [param:index]"></text>
+        <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="15" alignment="left" text="SKYLIGHT [param:index]"></text>
         <panel name="length" width="256" height="50" bottomof="subtitle">
           <panel name="protrusionlength[param:pindex]" alias="PROTRUSIONLENGTH[param:pindex]" width="226" height="50" align="left" style="textinput">
             <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
@@ -805,13 +806,13 @@
           <text name="measure" width="30" height="100%" align="right" style="darktext" size="20" alignment="center" text="ft"></text>
         </panel>
         <text name="type[param:pindex]" alias="TYPE[param:pindex]" width="1" height="1" color="#ffffff" font="Helvetica" size="1" alignment="left" text="Skylight" alpha="0"></text>
-        <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
+<!--         <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel> -->
       </panel>
     </class><!-- <object class="skylight" index="1" /> -->
     
     <class name="3vent">
       <panel name="vent[param:index]" alias="VENT[param:index]" width="100%" height="100">
-        <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="20" alignment="left" text="3 inch Plumbing Vents"></text>
+        <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="15" alignment="left" text="3 INCH PLUMBING VENT"></text>
         <panel name="ventsize[param:index]" alias="VENTSIZE[param:index]" width="0" height="0" alpha="0">
           <text name="input" width="0" height="0" color="#ffffff" font="Helvetica" size="1" alignment="left" text="3"></text>
         </panel>
@@ -823,13 +824,13 @@
             <panel name="active" style="100" onclickup="labelactive" _field="VENTQUANTITY[param:index]"></panel>
           </panel>
         </panel>
-        <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
+<!--         <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel> -->
       </panel>
     </class><!-- <object class="3vent" /> -->
     
     <class name="2vent">
       <panel name="vent[param:index]" alias="VENT[param:index]" width="100%" height="100">
-        <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="20" alignment="left" text="2 inch Plumbing Vent"></text>
+        <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="15" alignment="left" text="2 INCH PLUMBING VENT"></text>
         <panel name="ventsize[param:index]" alias="VENTSIZE[param:index]" width="0" height="0" alpha="0">
           <text name="input" width="0" height="0" color="#ffffff" font="Helvetica" size="1" alignment="left" text="2"></text>
         </panel>
@@ -841,13 +842,13 @@
             <panel name="active" style="100" onclickup="labelactive" _field="VENTQUANTITY[param:index]"></panel>
           </panel>
         </panel>
-        <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
+<!--         <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel> -->
       </panel>
     </class><!-- <object class="2vent" /> -->
     
     <class name="15vent">
       <panel name="vent[param:index]" alias="VENT[param:index]" width="100%" height="100">
-        <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="20" alignment="left" text="1.5 inch Plumbing Vent"></text>
+        <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="15" alignment="left" text="1.5 INCH PLUMBING VENT"></text>
         <panel name="ventsize[param:index]" alias="VENTSIZE[param:index]" width="0" height="0" alpha="0">
           <text name="input" width="0" height="0" color="#ffffff" font="Helvetica" size="1" alignment="left" text="1.5"></text>
         </panel>
@@ -859,7 +860,7 @@
             <panel name="active" style="100" onclickup="labelactive" _field="VENTQUANTITY[param:index]"></panel>
           </panel>
         </panel>
-        <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
+<!--         <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel> -->
       </panel>
     </class><!-- <object class="2vent" /> -->
     
@@ -894,9 +895,9 @@
           <image name="cameraphoto" fullpath="[param:photo]" width="100%" align="center" valign="center"></image>
         </panel>
         <panel name="notbox" width="[eval:[object:PN[param:index].width] - 150]" height="200" align="right" valign="center" clip="yes" padding-left="20">
-          <text name="note" width="100%" height="fit" style="darktext" size="18" alignment="left" text="[param:note]"></text>
+          <text name="note" width="100%" height="fit" style="darktext" font="Avenir-Book" size="18" alignment="left" text="[param:note]"></text>
         </panel>
-        <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
+        <panel name="divider" width="100%" height="1" valign="bottom" background="#ffffff"></panel>
       </panel>
     </class><!-- <object class="photo" index="1" /> -->
     
@@ -1423,10 +1424,10 @@
             <panel name="toolbar" alias="CAMERA-TOOLBAR" width="100%" height="64" background="#343434" translucent="yes" ypos="-70">
                 <panel name="wrapper" width="100%" height="100%" valign="bottom" clip="yes">
                     <panel name="capture-cancel" width="100" height="100%" padding-left="15" alpha="1" onclickup="capture-cancel" clickuptarget="CONTAINER" _type="">
-                        <text name="label" height="100%" width="100%" font="Futura-Medium" size="18" alignment="left" color="#ffffff" text="Retake" />
+                        <text name="label" height="100%" width="100%" font="Avenir-Medium" size="15" alignment="left" color="#ffffff" text="RETAKE" />
                     </panel>
                     <panel name="capture-submit" width="100" height="100%" padding-right="15" alpha="1" align="right" onclickup="capture-submit" clickuptarget="CONTAINER" _type="">
-                        <text name="label" height="100%" width="100%" font="Futura-Medium" size="18" alignment="right" color="#ffffff" text="Save" />
+                        <text name="label" height="100%" width="100%" font="Avenir-Medium" size="15" alignment="right" color="#ffffff" text="SAVE" />
                     </panel>
                 </panel>
             </panel>
@@ -1490,13 +1491,13 @@
     <class name="addnote">
       <panel name="addnote" alias="ADDNOTE" width="100%" height="100%" ypos="101%" background="#e3e3e3">
         <panel name="toolbar" width="100%" height="74" background="#343434">
-          <text name="title" width="100%" height="100%" color="#ffffff" font="Futura-Medium" size="20" alignment="center" text="Add a Note"></text>
-          <text name="save" width="100" height="100%" align="right" color="#ffffff" font="Futura-Medium" size="18" alignment="center" text="Save" onclickup="savenote" clickuptarget="CONTAINER" ></text>
-          <text name="cancel" width="100" height="100%" color="#ffffff" font="Futura-Medium" size="18" alignment="center" text="Cancel" onclickup="cancelnote" clickuptarget="CONTAINER" ></text>
+          <text name="title" width="100%" height="100%" color="#ffffff" font="Futura-Medium" size="24" alignment="center" text="Add a Note"></text>
+          <text name="save" width="100" height="100%" align="right" color="#ffffff" font="Avenir-Medium" size="15" alignment="center" text="SAVE" onclickup="savenote" clickuptarget="CONTAINER" ></text>
+          <text name="cancel" width="100" height="100%" color="#ffffff" font="Avenir-Medium" size="15" alignment="center" text="CANCEL" onclickup="cancelnote" clickuptarget="CONTAINER" ></text>
         </panel>
         <panel name="photolanding" alias="PHOTOLANDING" width="300" height="400" ypos="90" align="center"></panel>
         <panel name="notewrap" width="80%" height="230" align="center" bottomof="PHOTOLANDING" margin-top="20" padding="10" background="ffffff" cornerradius="2" borderwidth="1" bordercolor="#343434">
-          <textfield name="thenote" alias="THENOTE" width="100%" height="100%" font="Futura-Medium" size="20" color="#343434" alignment="left" valignment="top" multiline="yes" placeholder="Your Note Here."></textfield>
+          <textfield name="thenote" alias="THENOTE" width="100%" height="100%" font="Avenir-Book" size="18" color="#343434" alignment="left" valignment="top" multiline="yes" placeholder="Your Note Here."></textfield>
         </panel>
       </panel>
     </class>
@@ -2005,7 +2006,7 @@
             </panel>
           </text>
           <text name="closed" width="100%" height="100%" color="#b0afaf" font="Futura-Medium" size="20" alignment="center" text="Customer" alpha="0"></text>
-          <panel name="sel" width="100%" height="6" style="brand" valign="bottom"></panel>
+          <panel name="sel" width="100%" height="5" style="brand" valign="bottom"></panel>
         </panel>
         
         <panel name="nav-roof" alias="NAV-ROOF" width="123" height="100%" onclickup="nav" _this="ROOF">
@@ -2015,7 +2016,7 @@
             </panel>
           </text>
           <text name="closed" width="100%" height="100%" color="#b0afaf" font="Futura-Medium" size="20" alignment="center" text="Roof Info" alpha="0"></text>
-          <panel name="sel" width="100%" height="3" style="brand" ypos="101%"></panel>
+          <panel name="sel" width="100%" height="5" style="brand" ypos="101%"></panel>
         </panel>
         
         <panel name="nav-products" alias="NAV-PRODUCTS" width="123" height="100%" onclickup="nav" _this="PRODUCTS">
@@ -2025,7 +2026,7 @@
             </panel>
           </text>
           <text name="closed" width="100%" height="100%" color="#b0afaf" font="Futura-Medium" size="20" alignment="center" text="Products" alpha="0"></text>
-          <panel name="sel" width="100%" height="3" style="brand" ypos="101%"></panel>
+          <panel name="sel" width="100%" height="5" style="brand" ypos="101%"></panel>
         </panel>
         
         <panel name="nav-services" alias="NAV-SERVICES" width="118" height="100%" onclickup="nav" _this="SERVICES">
@@ -2035,7 +2036,7 @@
             </panel>
           </text>
           <text name="closed" width="100%" height="100%" color="#b0afaf" font="Futura-Medium" size="20" alignment="center" text="Services" alpha="0"></text>
-          <panel name="sel" width="100%" height="3" style="brand" ypos="101%"></panel>
+          <panel name="sel" width="100%" height="5" style="brand" ypos="101%"></panel>
         </panel>
         
         <panel name="nav-adjustments" alias="NAV-ADJUSTMENTS" width="153" height="100%" onclickup="nav" _this="ADJUSTMENTS">
@@ -2045,7 +2046,7 @@
             </panel>
           </text>
           <text name="closed" width="100%" height="100%" color="#b0afaf" font="Futura-Medium" size="20" alignment="center" text="Adjustments" alpha="0"></text>
-          <panel name="sel" width="100%" height="3" style="brand" ypos="101%"></panel>
+          <panel name="sel" width="100%" height="5" style="brand" ypos="101%"></panel>
         </panel>
         
         <panel name="nav-summary" alias="NAV-SUMMARY" width="123" height="100%" onclickup="nav" _this="SUMMARY">
@@ -2055,7 +2056,7 @@
             </panel>
           </text>
           <text name="closed" width="100%" height="100%" color="#b0afaf" font="Futura-Medium" size="20" alignment="center" text="Summary" alpha="0"></text>
-          <panel name="sel" width="100%" height="3" style="brand" ypos="101%"></panel>
+          <panel name="sel" width="100%" height="5" style="brand" ypos="101%"></panel>
         </panel>
       </pager>
       <panel name="navblock" alias="NAVBLOCK" width="100%" height="53" ypos="74" xpos="101%"></panel>
@@ -2063,7 +2064,7 @@
       <!-- !camera roll -->
       <panel name="cameraroll" alias="CAMERAROLL" width="100%" height="100%" ypos="101%" background="#e3e3e3">
         <panel name="toolbar" width="100%" height="60" background="#343434">
-          <text name="close" width="100" height="100%" xpos="20" color="#ffffff" font="Futura-Medium" size="18" alignment="left" text="close" onclickup="closeroll"></text>
+          <text name="close" width="100" height="100%" xpos="20" color="#ffffff" font="Avenir-Medium" size="15" alignment="left" text="CLOSE" onclickup="closeroll"></text>
         </panel>
         <wait name="wait" width="100%" height="964" valign="bottom" alpha="0" color="#ed1c24"/>
         <panel name="camera-list" width="100%" height="964" valign="bottom"></panel>
@@ -2225,6 +2226,10 @@
           <text name="username" width="100%" height="fit" xpos="46" bottomof="welcome" margin-top="3" leftof="logout" margin-right="10" color="#343434" font="Futura-Medium" size="17" alignment="right" text="User"></text>
         </panel>
       </panel>
+      
+      <panel name="splash" alias="SPLASH" width="100%" height="100%">
+	      <image name="image" source="graphics/splash.png"></image>
+      </panel>
 	  <panel name="upload-curtain" alias="UPLOAD-CURTAIN" width="100%" height="100%" alpha="0" >
 	  	<panel name="bg" width="100%" height="100%" background="#000000" alpha=".5" ></panel>
 	  	<wait name="wait" width="100%" height="100%"></wait>
@@ -2239,6 +2244,7 @@
     <action name="oninit" oninit="yes"> 
 		  <assign property="var:loaded" value="no" />
 		  <assign property="var:accessoryCount" value="0" />
+		  <alpha value="0" time=".1" delay=".5" target="SPLASH" />
       <assign property="var:tearoff" value="no" />
       <assign property="var:landscaping" value="no" />
       <assign property="var:hardscaping" value="no" />
@@ -2512,6 +2518,7 @@
         <keyboard visible="no" target="SEARCH-LASTNAME/input" />
         <keyboard visible="no" target="SEARCH-ADDRESS/input" />
         <create class="results" target="CONTAINER" />
+        <alpha value="0" time=".2" target="HEADER" />
         <translate ypos="0" time=".25" curve="easeout" target="SEARCHRESULTS" />
         <!-- <alert message="get-estimate preferences:token is [preferences:token] preferences:contractorId is [preferences:contractorId] url is https://162.209.101.177/api/GetCustomerEstimate?customerLastName=[var:lastName]&amp;address1=[var:address1]&amp;city=[var:city]&amp;stateProvince=[var:state]&amp;postalCode=[var:postalCode]&amp;country=[var:country]" /> -->
         <if lhs="[eval: ('[object:SEARCH-LASTNAME/input.text]' != '' ) &amp;&amp; ('[object:SEARCH-ADDRESS/input.text]' != '')]" operator="e" rhs="true">
@@ -2551,6 +2558,7 @@
       <sync>
         <translate ypos="101%" time=".25" curve="easeout" target="SEARCHRESULTS" />
         <delete target="SEARCHRESULTS" />
+        <alpha value="1" time=".2" target="HEADER" />
       </sync>
     </action>
     
