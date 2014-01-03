@@ -95,8 +95,6 @@
 <!--     <datasource name="accessoriesdb" source="sql://ACCESSORIES" query="DELETE FROM ACCESSORIES;" providertype="sql" /> -->
     <datasource name="accessoriesdb" source="sql://ACCESSORIES" query="CREATE TABLE IF NOT EXISTS ACCESSORIES (ID INTEGER PRIMARY KEY AUTOINCREMENT, NAME, TYPE, ACCESSORY, QUANTITY);" providertype="sql" />
     <datasource name="accessoriesdb-list" source="sql://ACCESSORIES" query="SELECT * FROM ACCESSORIES ORDER BY ID DESC;" providertype="sql" />
-    <datasource name="accessoriesdb-delete" source="sql://ACCESSORIES" query="" providertype="sql" />
-    <datasource name="accessoriesdb-count" source="sql://ACCESSORIES" query="" providertype="sql" />
     
     <datasource name="tearoffdb" source="sql://TEAROFF" query="CREATE TABLE IF NOT EXISTS TEAROFF (ID INTEGER PRIMARY KEY AUTOINCREMENT, TEAROFF, LAYERS, MATERIAL);" providertype="sql" />
     <datasource name="tearoffdb-list" source="sql://TEAROFF" query="SELECT * FROM TEAROFF ORDER BY ID DESC;" providertype="sql" />
@@ -189,13 +187,6 @@
       <panel name="titlebox" width="100%" height="70" padding-left="20" padding-right="20" >
         <text name="title" width="100%" height="60" ypos="10" style="darktext" font="Futura-Medium" size="32" alignment="left" text="[param:title]"></text>
 <!--         <panel name="divide" width="100%" height="2" valign="bottom" background="#343434"></panel> -->
-      </panel>
-    </class>
-    
-    <class name="summary-head-title">
-      <panel name="titlebox" width="100%" height="79" >
-        <text name="title" width="100%" height="60" ypos="10" style="darktext" size="40" alignment="left" text="[param:title]"></text>
-        <panel name="divide" width="100%" height="5" valign="bottom" background="#343434"></panel>
       </panel>
     </class>
     
@@ -1188,7 +1179,7 @@
           <textfield name="input" text="test" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" _next="none" _action="null"></textfield>
           <panel name="active" style="100" onclickup="dropon" _field="DIFFICULTY" _drop="TEAROFF"></panel>
         </panel>-->
-<!--         <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel> -->
+        <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
         <panel name="drop" width="45%" height="110" xpos="101%" ypos="70" alpha="0" style="textinput">
           <pager name="layersdrop" alias="LAYERSDROP" width="100%" height="100%" orientation="vertical" paginate="no" alpha="0">
             <panel name="layer0" width="100%" height="40" _layers="0" onclickup="setlayers">
@@ -1260,14 +1251,14 @@
           <panel name="check" width="0" height="0" align="center" valign="center" background="#ed1c24" cornerradius="20" alpha="1" ></panel>
         </panel>
         <text name="checklabel" width="150" height="50" bottomof="pool" margin-top="10" rightof="misc" style="darktext" size="20" leftinset="10" alignment="left" text="Misc"></text>
-<!--         <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel> -->
+        <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
       </panel>
     </class><!-- <object class="assetprotection" /> -->
     
     <!-- !adjustments classes -->
     <class name="discount">
       <panel name="adjustment[param:aindex]" alias="ADJUSTMENT[param:aindex]" width="100%" height="287">
-        <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="15" alignment="left" text="DISCOUNT [param:index]"></text>
+        <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="20" alignment="left" text="Discount [param:index]"></text>
         
         <panel name="dollars-[param:aindex]" alias="DOLLARS-[param:aindex]" width="50" height="50" align="left" bottomof="subtitle" background="f3f3f3" cornerradius="25" borderwidth="1" bordercolor="#888888" clip="yes" onclickup="dollars" _index="[param:aindex]" _type="ADJUSTMENT[param:aindex]" >
           <panel name="check" width="35" height="35" align="center" valign="center" background="#ed1c24" cornerradius="20" alpha="1" ></panel>
@@ -1299,13 +1290,13 @@
         
         <text name="adjusttype[param:aindex]" alias="ADJUSTTYPE[param:aindex]" width="0" height="0" color="#ffffff" font="Helvetica" size="1" alignment="left" text="Discount"></text>
         
-<!--         <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel> -->
+        <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
       </panel>
     </class><!-- <object class="discount" index="1" />-->
     
     <class name="additionalcost">
       <panel name="adjustment[param:aindex]" alias="ADJUSTMENT[param:aindex]" width="100%" height="287">
-        <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="15" alignment="left" text="ADDITIONAL COST [param:index]"></text>
+        <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="20" alignment="left" text="Additional Cost [param:index]"></text>
         
         <panel name="dollars-[param:aindex]" alias="DOLLARS-[param:aindex]" width="50" height="50" align="left" bottomof="subtitle" background="f3f3f3" cornerradius="25" borderwidth="1" bordercolor="#888888" clip="yes" onclickup="dollars" _index="[param:aindex]" _type="ADJUSTMENT[param:aindex]" >
           <panel name="check" width="35" height="35" align="center" valign="center" background="#ed1c24" cornerradius="20" alpha="1" ></panel>
@@ -1337,13 +1328,13 @@
         
         <text name="adjusttype[param:aindex]" alias="ADJUSTTYPE[param:aindex]" width="0" height="0" color="#ffffff" font="Helvetica" size="1" alignment="left" text="Additional Cost"></text>
         
-<!--         <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel> -->
+        <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
       </panel>
     </class><!-- <object class="additionalcost" index="1" /> -->
     
     <!-- !Summary classes -->
     <class name="summary-cust">
-      <panel name="summary-customer" alias="SUMMARY-CUSTOMER" width="100%" height="148" >
+      <panel name="summary-customer" alias="SUMMARY-CUSTOMER" width="100%" height="148">
         <text name="subtitle" width="100%" height="40" font="Futura-Medium" color="#343434" size="25" alignment="left" text="Customer Info"></text>
         <panel name="col1" width="33.33%" height="93" bottomof="subtitle">
           <text name="cust1-name" width="100%" height="35" style="darktext" size="20" alignment="left" text="[param:cust1name]"></text>
@@ -1401,28 +1392,6 @@
       </panel> <!--<object class="summary-products" swatch="" name="" color="" warranty=""  />-->
     </class>
     
-    <!-- !summary accessories -->
-    <class name="summary-accessory-title">
-      <text name="summary-accessory-title" alias="SUMMARY-ACCESSORY-TITLE" width="100%" height="40" font="Futura-Medium" color="#343434" size="25" alignment="left" text="Accessories"></text>
-    </class>
-    
-    <class name="summary-accessory-subtitle">
-      <text name="summary-accessory-subtitle[param:index]" alias="SUMMARY-ACCESSORY-SUBTITLE[param:index]" width="100%" height="30" style="darktext" size="20" alignment="left" text="[param:subtitle]"></text>
-    </class>
-    
-    <class name="summary-accessory-item">
-      <panel name="summary-accessory-item[param:index]" alias="SUMMARY-ACCESSORY-ITEM[param:index]" width="100%" height="30" padding-left="20">
-        <text name="label" width="100%" height="100%" color="#343434" font="Futura-Medium" size="18" alignment="left" text="[param:label]"></text>
-        <text name="count" width="100" height="100%" xpos="60%" color="#343434" font="Futura-Medium" size="18" alignment="right" text="[param:count]"></text>
-      </panel>
-    </class>
-    
-    <class name="accessorydivide">
-      <panel name="dividebox" alias="DIVIDEBOX" width="100%" height="15">
-        <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
-      </panel>
-    </class>
-    
     <class name="summary-services">
       <panel name="summary-services" alias="SUMMARY-SERVICES" width="100%" height="192">
         <text name="subtitle" width="100%" height="40" font="Futura-Medium" color="#343434" size="25" alignment="left" text="Services"></text>
@@ -1455,10 +1424,10 @@
             <panel name="toolbar" alias="CAMERA-TOOLBAR" width="100%" height="64" background="#343434" translucent="yes" ypos="-70">
                 <panel name="wrapper" width="100%" height="100%" valign="bottom" clip="yes">
                     <panel name="capture-cancel" width="100" height="100%" padding-left="15" alpha="1" onclickup="capture-cancel" clickuptarget="CONTAINER" _type="">
-                        <text name="label" height="100%" width="100%" font="Futura-Medium" size="18" alignment="left" color="#ffffff" text="Retake" />
+                        <text name="label" height="100%" width="100%" font="Avenir-Medium" size="15" alignment="left" color="#ffffff" text="RETAKE" />
                     </panel>
                     <panel name="capture-submit" width="100" height="100%" padding-right="15" alpha="1" align="right" onclickup="capture-submit" clickuptarget="CONTAINER" _type="">
-                        <text name="label" height="100%" width="100%" font="Futura-Medium" size="18" alignment="right" color="#ffffff" text="Save" />
+                        <text name="label" height="100%" width="100%" font="Avenir-Medium" size="15" alignment="right" color="#ffffff" text="SAVE" />
                     </panel>
                 </panel>
             </panel>
@@ -1522,22 +1491,20 @@
     <class name="addnote">
       <panel name="addnote" alias="ADDNOTE" width="100%" height="100%" ypos="101%" background="#e3e3e3">
         <panel name="toolbar" width="100%" height="74" background="#343434">
-          <text name="title" width="100%" height="100%" color="#ffffff" font="Futura-Medium" size="20" alignment="center" text="Add a Note"></text>
-          <text name="save" width="100" height="100%" align="right" color="#ffffff" font="Futura-Medium" size="18" alignment="center" text="Save" onclickup="savenote" clickuptarget="CONTAINER" ></text>
-          <text name="cancel" width="100" height="100%" color="#ffffff" font="Futura-Medium" size="18" alignment="center" text="Cancel" onclickup="cancelnote" clickuptarget="CONTAINER" ></text>
+          <text name="title" width="100%" height="100%" color="#ffffff" font="Futura-Medium" size="24" alignment="center" text="Add a Note"></text>
+          <text name="save" width="100" height="100%" align="right" color="#ffffff" font="Avenir-Medium" size="15" alignment="center" text="SAVE" onclickup="savenote" clickuptarget="CONTAINER" ></text>
+          <text name="cancel" width="100" height="100%" color="#ffffff" font="Avenir-Medium" size="15" alignment="center" text="CANCEL" onclickup="cancelnote" clickuptarget="CONTAINER" ></text>
         </panel>
         <panel name="photolanding" alias="PHOTOLANDING" width="300" height="400" ypos="90" align="center"></panel>
         <panel name="notewrap" width="80%" height="230" align="center" bottomof="PHOTOLANDING" margin-top="20" padding="10" background="ffffff" cornerradius="2" borderwidth="1" bordercolor="#343434">
-          <textfield name="thenote" alias="THENOTE" width="100%" height="100%" font="Futura-Medium" size="20" color="#343434" alignment="left" valignment="top" multiline="yes" placeholder="Your Note Here."></textfield>
+          <textfield name="thenote" alias="THENOTE" width="100%" height="100%" font="Avenir-Book" size="18" color="#343434" alignment="left" valignment="top" multiline="yes" placeholder="Your Note Here."></textfield>
         </panel>
       </panel>
     </class>
-
     <class name="container">
   	<!-- !CONTAINER EDIT HERE -->
 <!--   		<panel name="hi" width="100%" height="100%" background="#ff0000" ></panel> -->
     <panel name="container" alias="CONTAINER" style="100" background="#e3e3e3">      
-
       <!-- !customer -->
       <panel name="customer" alias="CUSTOMER" width="100%" height="[eval: [object:CONTAINER.height] - 127]" ypos="120" alpha="1">
         <panel name="inner" style="100" >
@@ -2097,7 +2064,6 @@
       <!-- !camera roll -->
       <panel name="cameraroll" alias="CAMERAROLL" width="100%" height="100%" ypos="101%" background="#e3e3e3">
         <panel name="toolbar" width="100%" height="60" background="#343434">
-        	<text name="head" width="100%" height="100%" color="#ffffff" font="Futura-Medium" size="24" alignment="center" text="Loading Photos..."></text>
           <text name="close" width="100" height="100%" xpos="20" color="#ffffff" font="Avenir-Medium" size="15" alignment="left" text="CLOSE" onclickup="closeroll"></text>
         </panel>
         <wait name="wait" width="100%" height="964" valign="bottom" alpha="0" color="#ed1c24"/>
@@ -2267,7 +2233,7 @@
 	  <panel name="upload-curtain" alias="UPLOAD-CURTAIN" width="100%" height="100%" alpha="0" >
 	  	<panel name="bg" width="100%" height="100%" background="#000000" alpha=".5" ></panel>
 	  	<wait name="wait" width="100%" height="100%"></wait>
-	  	<text name="photo-progress" width="100%" height="fit" ypos="600" color="#ffffff" font="Futura-MediumItalic" size="24" alignment="center" text="Uploading Photo NUMBER..."></text>
+	  	<text name="photo-progress" width="100%" height="fit" ypos="600" color="#ffffff" font="Futura-MediumItalic" size="28" alignment="center" text="Uploading Photo NUMBER..."></text>
 	  </panel>
 	  
 	  <panel name="pdf-container" alias="PDF-CONTAINER" width="100%" height="100%" ypos="101%" >
@@ -2283,13 +2249,13 @@
 
   </main>
   
-  <!-- !ACTIONS ########### -->
+  <!-- !ACTIONS -->
   <actions>
    
     <action name="oninit" oninit="yes"> 
 		  <assign property="var:loaded" value="no" />
 		  <assign property="var:accessoryCount" value="0" />
-		  <alpha value="0" time=".1" delay=".7" target="SPLASH" />
+		  <alpha value="0" time=".1" delay=".5" target="SPLASH" />
       <assign property="var:tearoff" value="no" />
       <assign property="var:landscaping" value="no" />
       <assign property="var:hardscaping" value="no" />
@@ -2824,7 +2790,6 @@
 
     <action name="roll-queryComplete" datasource="camera-roll">
       <alpha value="0" time=".1" target="CAMERAROLL/wait" />
-      <assign property="object:CAMERAROLL/toolbar/head.text" value="Camera Roll" />
     </action>
     
     <action name="addcamera">
@@ -2849,7 +2814,7 @@
     <action name="select-photo">
       <sync>
         <assign property="var:photo-url" value="_url" />
-<!--         <alert title="Hi, I'm photo..." message="[var:photo-url]" /> -->
+        <alert title="Hi, I'm photo..." message="[var:photo-url]" />
         <translate ypos="101%" time=".25" curve="easeout" target="CAMERAROLL" />
         <delete target="CAMERA-ROLL" />
         <play action="addnote" />
@@ -2862,7 +2827,7 @@
         <if lhs="[var:photolocation]" operator="e" rhs="roll">
           <create class="rollphoto" target="PHOTOLANDING" />
           <assign property="object:THEPHOTO.asset" value="[var:photo-url]" />
-<!--           <alert message="roll" /> -->
+          <alert message="roll" />
         </if>
         <if lhs="[var:photolocation]" operator="e" rhs="camera">
           <create class="cameraphoto" target="PHOTOLANDING" photo="[var:photo-url]" />
@@ -3043,22 +3008,6 @@
           <delete target="SUMMARY-ROOF" />
           <delete target="SUMMARY-PRODUCTS" />
           <delete target="SUMMARY-SERVICES" />
-          
-          <delete target="SUMMARY-ACCESSORY-TITLE" />
-          <loop lhs="[var:summary-acc-sub-delete]" operator="lt" rhs="[var:summary-acc-sub]">
-            <assign property="var:summary-acc-sub-delete" value="[eval: [var:summary-acc-sub-delete] + 1]" />
-            <delete target="SUMMARY-ACCESSORY-SUBTITLE[var:summary-acc-sub-delete]" />
-          </loop>
-          <alert title="delete accessory item" message="[var:summary-[var:sumac-loop]-index]" />
-          <loop lhs="[var:summary-[var:sumac-loop]-index-delete]" operator="lt" rhs="[var:summary-[var:sumac-loop]-index]">
-            <assign property="var:summary-[var:sumac-loop]-index-delete" value="[eval:[var:summary-[var:sumac-loop]-index-delete] + 1]" />
-            <delete target="SUMMARY-ACCESSORY-ITEM[var:summary-[var:sumac-loop]-index-delete]" />
-            <alert title="delete accessory item" message="[var:summary-[var:sumac-loop]-index-delete]" />
-          </loop>
-          <assign property="var:summary-[var:sumac-loop]-index" value="0" />
-          <assign property="var:summary-[var:sumac-loop]-index-delete" value="0" />
-          
-          <delete target="DIVIDEBOX" />
         </if>
         <assign property="var:navwas" value="_this" />
       </sync>
@@ -3072,14 +3021,14 @@
           <assign property="var:totalarea" value="[eval: Math.ceil([var:totalareaTemp]) ]" />
           <alert title="total area" message="[var:totalarea]" />
         </loop>
-        <if lhs="[var:totalarea]" operator="e" rhs="">
-          <assign property="var:squarestotal" value="N/A" />
-          <else>
-            <assign property="var:squarestotalTemp" value="[eval: [var:totalarea] / 100 ]" />
-            <assign property="var:squarestotal" value="[eval: Math.ceil([var:squarestotalTemp])]" />
-          </else>
-        </if>
-        <!-- <alert message="area total [var:totalarea] squares total [var:squarestotal] ridges total [var:ridgestotal] hips total [var:hipstotal] rakes total [var:rakestotal] eaves total [var:eavestotal] valleys total [var:valleystotal]" /> -->
+		<if lhs="[var:totalarea]" operator="e" rhs="">
+			<assign property="var:squarestotal" value="N/A" />
+			<else>
+		        <assign property="var:squarestotalTemp" value="[eval: [var:totalarea] / 100 ]" />
+		        <assign property="var:squarestotal" value="[eval: Math.ceil([var:squarestotalTemp])]" />
+			</else>
+		</if>
+<!--         <alert message="area total [var:totalarea] squares total [var:squarestotal] ridges total [var:ridgestotal] hips total [var:hipstotal] rakes total [var:rakestotal] eaves total [var:eavestotal] valleys total [var:valleystotal]" /> -->
         <create class="summary-roof" target="SUMMARY-PAGER" area="[eval:'[var:totalarea]' != '' ? '[var:totalarea] sq ft':'N/A']" squares="[var:squarestotal]" ridges="[eval:'[var:ridgestotal]' != '' ? '[var:ridgestotal] ft':'N/A']" hips="[eval:'[var:hipstotal]' != '' ? '[var:hipstotal] ft':'N/A']" rakes="[eval:'[var:rakestotal]' != '' ? '[var:rakestotal] ft':'N/A']" eaves="[eval:'[var:eavestotal]' != '' ? '[var:eavestotal] ft':'N/A']" valleys="[eval:'[var:valleystotal]' != '' ? '[var:valleystotal] ft':'N/A']"  />
         <play action="summaryproducts" />
       </sync>
@@ -3094,96 +3043,14 @@
     
     <action name="summaryaccessories">
       <sync>
-        <create class="summary-accessory-title" target="SUMMARY-PAGER" />
-        <!--<create class="summary-accessory-subtitle" target="SUMMARY-PAGER" subtitle="Roof Deck Protection" />
-        <create class="summary-accessory-item" target="SUMMARY-PAGER" label="Tiger Blood Titan Pizza Pussy Santa Ultra Bad-Ass Protection" count="5" />-->
-        
-        <assign property="var:sumac-loop" value="Leak Barrier" />
-        <!--<alert message="[datasource:accessoriesdb-list.1.TYPE]" />-->
-        <play action="start-summaryaccessoriesloop" />
-      </sync>
-    </action>
-    
-    <action name="start-summaryaccessoriesloop">
-      <sync>
-        <assign property="datasource:accessoriesdb-count.query" value="SELECT * FROM ACCESSORIES WHERE TYPE='[var:sumac-loop]';" />
-      </sync>
-    </action>
-    
-    <action name="summary-roofdeck" datasource="accessoriesdb-count" datasourceevent="querycomplete">
-      <if lhs="[var:loaded]" operator="e" rhs="yes">
-        <sync>
-          <!--<alert title="[var:sumac-loop] Count" message="[datasource:accessoriesdb-count.dataSourceResultCount]" />-->
-          <if lhs="[datasource:accessoriesdb-count.dataSourceResultCount]" operator="gt" rhs="0">
-            <assign property="var:summary-acc-sub" value="[eval: [var:summary-acc-sub] + 1]" />
-            <create class="summary-accessory-subtitle" target="SUMMARY-PAGER" index="[var:summary-acc-sub]" subtitle="[var:sumac-loop]" />
-            <loop lhs="[var:summary-[var:sumac-loop]-index]" operator="lt" rhs="[datasource:accessoriesdb-count.dataSourceResultCount]">
-              <assign property="var:summary-[var:sumac-loop]-index" value="[eval: [var:summary-[var:sumac-loop]-index] + 1]" />
-              <create class="summary-accessory-item" target="SUMMARY-PAGER" index="[var:summary-[var:sumac-loop]-index]" label="[datasource:accessoriesdb-count.[var:summary-[var:sumac-loop]-index].NAME]" count="[datasource:accessoriesdb-count.[var:summary-[var:sumac-loop]-index].QUANTITY]" />
-            </loop>
-          </if>
-          
-          <play action="[var:sumac-loop]-done" />
-        </sync>
-      </if>
-    </action>
-    
-    <action name="Leak Barrier-done">
-      <sync>
-        <assign property="var:sumac-loop" value="Roof Deck Protection" />
-        <assign property="var:summary-[var:sumac-loop]-index" value="0" />
-        <play action="start-summaryaccessoriesloop" />
-        <!--<alert title="Leak Barrier-done" message="done" />-->
-      </sync>
-    </action>
-    
-    <action name="Roof Deck Protection-done">
-      <sync>
-        <assign property="var:sumac-loop" value="Starter Strips" />
-        <assign property="var:summary-[var:sumac-loop]-index" value="0" />
-        <play action="start-summaryaccessoriesloop" />
-        <!--<alert title="Roof Deck Protection-done" message="done" />-->
-      </sync>
-    </action>
-    
-    <action name="Starter Strips-done">
-      <sync>
-        <assign property="var:sumac-loop" value="Ventilation" />
-        <assign property="var:summary-[var:sumac-loop]-index" value="0" />
-        <play action="start-summaryaccessoriesloop" />
-        <!--<alert title="Starter Strips-done" message="done" />-->
-      </sync>
-    </action>
-    
-    <action name="Ventilation-done">
-      <sync>
-        <assign property="var:sumac-loop" value="Ridge Cap" />
-        <assign property="var:summary-[var:sumac-loop]-index" value="0" />
-        <play action="start-summaryaccessoriesloop" />
-        <!--<alert title="Ventilation-done" message="done" />-->
-      </sync>
-    </action>
-    
-    <action name="Ridge Cap-done">
-      <sync>
-        <assign property="var:sumac-loop" value="Leak Barrier" />
-        <assign property="var:summary-[var:sumac-loop]-index" value="0" />
-        <!--<alert title="Ridge Cap-done" message="done" />-->
-        <play action="close-summaryaccessories" />
-      </sync>
-    </action>
-    
-    <action name="close-summaryaccessories">
-      <sync>
-        <create class="accessorydivide" target="SUMMARY-PAGER" />
+<!--         <alert message="summary accessories" /> -->
         <play action="summaryservices" />
-        <!--<assign property="datasource:accessoriesdb-delete.query" value="DELETE FROM ACCESSORIES;" />-->
       </sync>
     </action>
     
     <action name="summaryservices">
       <sync>
-        <!-- <alert message="summary services" />  -->
+<!--         <alert message="summary services" /> -->
         <create target="SUMMARY-PAGER" class="summary-services" layers="[datasource:tearoffdb-list.1.LAYERS]" type="[datasource:tearoffdb-list.1.MATERIAL]" landscape="[datasource:assetprotectiondb-list.1.LANDSCAPING]" hardscape="[datasource:assetprotectiondb-list.1.HARDSCAPING]" hvac="[datasource:assetprotectiondb-list.1.HVAC]" pool="[datasource:assetprotectiondb-list.1.POOL]" misc="[datasource:assetprotectiondb-list.1.MISC]"  />
       </sync>
     </action>
