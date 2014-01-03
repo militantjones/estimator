@@ -1,4 +1,4 @@
-<wire>   
+<wire>    
   <!-- GAF Estimator -->
   <!-- iOS iPad -->
   <!-- App #7562 -->
@@ -181,17 +181,17 @@
     <class name="title">
       <panel name="titlebox" width="100%" height="79" padding-left="20" padding-right="20" >
         <text name="title" width="100%" height="60" ypos="10" style="darktext" size="40" alignment="left" text="[param:title]"></text>
-        <panel name="divide" width="100%" height="10" valign="bottom" background="#343434"></panel>
+        <panel name="divide" width="100%" height="5" valign="bottom" background="#343434"></panel>
       </panel>
     </class>
     
     <class name="titlebutton">
       <panel name="titlebox" width="100%" height="79" padding-left="20" padding-right="20">
         <text name="title" width="100%" height="60" ypos="10" style="darktext" size="40" alignment="left" text="[param:title]"></text>
-        <panel name="create" width="73" height="50" align="right" valign="center">
+        <panel name="create" width="50" height="50" align="right" valign="center">
           <object class="button" name="test" size="60" label="+" action="create" value="[param:action]" />
         </panel>
-        <panel name="divide" width="100%" height="10" valign="bottom" background="#343434"></panel>
+        <panel name="divide" width="100%" height="5" valign="bottom" background="#343434"></panel>
       </panel>
     </class>
     
@@ -368,7 +368,7 @@
           <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" _next="none" _action="null"></textfield>
           <panel name="active" style="100" onclickup="dropon" _field="SLOPE[param:index]" _drop="ROOF-AREA[param:index]" _droptype="SLOPEDROP[param:index]"></panel>
         </panel>
-        <panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
+        <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
         <panel name="drop" width="45%" height="170" bottomof="subtitle" xpos="101%" alpha="0" style="textinput">
           <panel name="slopedrop[param:index]" alias="SLOPEDROP[param:index]" width="100%" height="100%" alpha="0">
             <text name="drophead" width="50%" height="30" style="lighttext" size="18" alignment="center" text="Slope"></text>
@@ -452,7 +452,7 @@
           <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" _next="none" _action="null"></textfield>
           <panel name="active" style="100" onclickup="dropon" _field="DIFFICULTY" _drop="INSPECTION"></panel>
         </panel>-->
-        <panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
+        <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
         <panel name="drop" width="45%" height="110" bottomof="subtitle" xpos="101%" alpha="0" style="textinput">
           <panel name="rooftypedrop" alias="ROOFTYPEDROP" width="100%" height="100%">
             <text name="drophead" width="100%" height="30" style="lighttext" size="18" alignment="center" text="Roof Types"></text>
@@ -512,7 +512,7 @@
           <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" _next="none" _action="null"></textfield>
           <panel name="active" style="100" onclickup="dropon" _field="FASCIATYPE" _drop="FASCIA"></panel>
         </panel>
-        <panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
+        <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
         <panel name="drop" width="45%" height="170" bottomof="subtitle" xpos="101%" alpha="0" style="textinput"></panel>
       </panel>
     </class><!-- <object class="fascia" /> -->
@@ -529,7 +529,7 @@
           </panel>
           <text name="measure" width="30" height="100%" align="right" style="darktext" size="20" alignment="center" text="%"></text>
         </panel>
-        <panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
+        <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
       </panel>
     </class><!-- <object class="waste" /> -->
     
@@ -549,7 +549,7 @@
           <panel name="check" width="0" height="0" align="center" valign="center" background="#ed1c24" cornerradius="20" alpha="1" ></panel>
         </panel>
         <text name="checklabel" width="150" height="50" bottomof="ridge" rightof="ridgevent[param:index]" margin-top="10" style="darktext" size="20" leftinset="10" alignment="left" text="Ridge Vent(s)"></text>
-        <panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
+        <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
       </panel>
     </class><!-- <object class="ridge" index="1" /> -->
     
@@ -565,7 +565,7 @@
           </panel>
           <text name="measure" width="30" height="100%" align="right" style="darktext" size="20" alignment="center" text="ft"></text>
         </panel>
-        <panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
+        <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
       </panel>
     </class><!-- <object class="hip" index="1" /> -->
     
@@ -581,7 +581,7 @@
           </panel>
           <text name="measure" width="30" height="100%" align="right" style="darktext" size="20" alignment="center" text="ft"></text>
         </panel>
-        <panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
+        <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
       </panel>
     </class><!-- <object class="valley" index="1" /> -->
     
@@ -597,7 +597,7 @@
           </panel>
           <text name="measure" width="30" height="100%" align="right" style="darktext" size="20" alignment="center" text="ft"></text>
         </panel>
-        <panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
+        <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
       </panel>
     </class><!-- <object class="rake" index="1" /> -->
     
@@ -613,7 +613,7 @@
           </panel>
           <text name="measure" width="30" height="100%" align="right" style="darktext" size="20" alignment="center" text="ft"></text>
         </panel>
-        <panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
+        <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
       </panel>
     </class><!-- <object class="eave" index="1" /> -->
     
@@ -639,7 +639,7 @@
           <text name="measure" width="30" height="100%" align="right" style="darktext" size="20" alignment="center" text="ft"></text>
         </panel>
         <text name="type[param:pindex]" alias="TYPE[param:pindex]" width="1" height="1" color="#ffffff" font="Helvetica" size="1" alignment="left" text="Chimney" alpha="0"></text>
-        <panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
+        <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
       </panel>
     </class><!-- <object class="chimney" index="1" /> -->
     
@@ -665,7 +665,7 @@
           <text name="measure" width="30" height="100%" align="right" style="darktext" size="20" alignment="center" text="ft"></text>
         </panel>
         <text name="type[param:pindex]" alias="TYPE[param:pindex]" width="1" height="1" color="#ffffff" font="Helvetica" size="1" alignment="left" text="Skylight" alpha="0"></text>
-        <panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
+        <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
       </panel>
     </class><!-- <object class="skylight" index="1" /> -->
     
@@ -683,7 +683,7 @@
             <panel name="active" style="100" onclickup="labelactive" _field="VENTQUANTITY[param:index]"></panel>
           </panel>
         </panel>
-        <panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
+        <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
       </panel>
     </class><!-- <object class="3vent" /> -->
     
@@ -701,7 +701,7 @@
             <panel name="active" style="100" onclickup="labelactive" _field="VENTQUANTITY[param:index]"></panel>
           </panel>
         </panel>
-        <panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
+        <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
       </panel>
     </class><!-- <object class="2vent" /> -->
     
@@ -719,7 +719,7 @@
             <panel name="active" style="100" onclickup="labelactive" _field="VENTQUANTITY[param:index]"></panel>
           </panel>
         </panel>
-        <panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
+        <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
       </panel>
     </class><!-- <object class="2vent" /> -->
     
@@ -743,20 +743,20 @@
             <panel name="active" style="100" onclickup="labelactive" _field="VENTQUANTITY[param:index]"></panel>
           </panel>
         </panel>
-        <panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
+        <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
       </panel>
     </class><!-- <object class="customvent" index="1" /> -->
     
     <class name="photo">
-      <panel name="photo[param:index]" width="100%" height="215">
-        <panel name="imgbox" width="226" height="190" ypos="10" clip="yes" background="000000">
+      <panel name="photo[param:index]" alias="PN[param:index]" width="100%" height="215">
+        <panel name="imgbox" width="150" height="200" valign="center" clip="yes">
           <image name="rollphoto" asset="[param:photo]" height="100%" contain="yes"></image>
-          <image name="cameraphoto" fullpath="[param:photo]" height="100%" contain="yes"></image>
+          <image name="cameraphoto" fullpath="[param:photo]" width="100%" align="center" valign="center"></image>
         </panel>
-        <panel name="notbox" width="47%" height="200" align="right" ypos="10" clip="yes">
-          <text name="note" width="100%" height="fit" style="darktext" size="16" alignment="left" text="[param:note]"></text>
+        <panel name="notbox" width="[eval:[object:PN[param:index].width] - 150]" height="200" align="right" valign="center" clip="yes" padding-left="20">
+          <text name="note" width="100%" height="fit" style="darktext" size="18" alignment="left" text="[param:note]"></text>
         </panel>
-        <panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
+        <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
       </panel>
     </class><!-- <object class="photo" index="1" /> -->
     
@@ -768,7 +768,7 @@
 
 	<class name="product-family">
 		<panel name="category[panel:index]" width="100%" height="100" padding-left="20" padding-right="20">
-			<panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
+			<panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
 			<text name="cat" width="100%" height="fit" topof="divider" font="Futura-Medium" color="#343434" size="35" alignment="left" text="[param:category]"></text>
 		</panel>
 	</class>
@@ -916,13 +916,13 @@
         <panel name="warranty-btn" width="108" height="50" align="right" ypos="8">
           <object class="button" name="test" size="20" label="Select" action="selectwarranty" value="[param:warrantyId]" accessories="[param:accessories]" title="[param:title]"/>
         </panel>
-        <panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
+        <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
       </panel>
     </class>
     
 	<class name="accessory-category">
 		<panel name="category[panel:index]" width="100%" height="100">
-			<panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
+			<panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
 			<text name="cat" width="100%" height="fit" topof="divider" font="Futura-Medium" color="#343434" size="35" alignment="left" text="[param:category]"></text>
 		</panel>
 	</class>
@@ -934,7 +934,7 @@
         <panel name="warranty-btn" width="108" height="50" align="right" ypos="8">
           <object class="button" name="test" size="20" label="Select" action="selectaccessories" value="[param:index]" />
         </panel>
-        <panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
+        <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
       </panel>
     </class>
     
@@ -974,7 +974,7 @@
               <object class="button" name="test" size="20" label="Select" action="selectaccessories" value="[param:index]" />
             </panel>
           </panel>
-          <panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
+          <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
         </panel>
     </class><!-- <object class="accessories"  /> -->
     
@@ -1008,7 +1008,7 @@
               <object class="button" name="test" size="20" label="Select" action="selectoptions" />
             </panel>
           </panel>
-          <panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
+          <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
         </panel>
       </panel>
     </class>--><!-- <object class="options"  /> -->
@@ -1038,7 +1038,7 @@
           <textfield name="input" text="test" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" _next="none" _action="null"></textfield>
           <panel name="active" style="100" onclickup="dropon" _field="DIFFICULTY" _drop="TEAROFF"></panel>
         </panel>-->
-        <panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
+        <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
         <panel name="drop" width="45%" height="110" xpos="101%" ypos="70" alpha="0" style="textinput">
           <pager name="layersdrop" alias="LAYERSDROP" width="100%" height="100%" orientation="vertical" paginate="no" alpha="0">
             <panel name="layer0" width="100%" height="40" _layers="0" onclickup="setlayers">
@@ -1110,7 +1110,7 @@
           <panel name="check" width="0" height="0" align="center" valign="center" background="#ed1c24" cornerradius="20" alpha="1" ></panel>
         </panel>
         <text name="checklabel" width="150" height="50" bottomof="pool" margin-top="10" rightof="misc" style="darktext" size="20" leftinset="10" alignment="left" text="Misc"></text>
-        <panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
+        <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
       </panel>
     </class><!-- <object class="assetprotection" /> -->
     
@@ -1149,7 +1149,7 @@
         
         <text name="adjusttype[param:aindex]" alias="ADJUSTTYPE[param:aindex]" width="0" height="0" color="#ffffff" font="Helvetica" size="1" alignment="left" text="Discount"></text>
         
-        <panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
+        <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
       </panel>
     </class><!-- <object class="discount" index="1" />-->
     
@@ -1187,7 +1187,7 @@
         
         <text name="adjusttype[param:aindex]" alias="ADJUSTTYPE[param:aindex]" width="0" height="0" color="#ffffff" font="Helvetica" size="1" alignment="left" text="Additional Cost"></text>
         
-        <panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
+        <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
       </panel>
     </class><!-- <object class="additionalcost" index="1" /> -->
     
@@ -1210,7 +1210,7 @@
           <text name="address1" width="100%" height="30" bottomof="label" style="darktext" size="15" alignment="left" text="[param:street]"></text>
           <text name="address2" width="100%" height="30" bottomof="address1" style="darktext" size="15" alignment="left" text="[param:city], [param:state] [param:zip]"></text>
         </panel>
-        <panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
+        <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
       </panel>
     </class> <!-- <object class="summary-cust" cust1name="" cust1phone="" cust1email="" cust2name="" cust2phone="" cust2email="" street="" city="" state="" zip="" /> -->
     
@@ -1230,7 +1230,7 @@
         <panel name="col3" width="33.33%" height="108" rightof="col2" bottomof="subtitle">
           <text name="roof-valleys" width="100%" height="35" style="darktext" size="20" alignment="left" text="Valleys: [param:valleys] ft"></text>
         </panel>
-        <panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
+        <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
       </panel>
     </class> <!-- <object class="summary-roof" area="" squares="" ridges="" hips="" rakes="" eaves="" valleys="" />-->
     
@@ -1247,7 +1247,7 @@
         <panel name="col2" width="50%" height="150" ypos="45" xpos="50%">
           <text name="warranty" width="100%" height="fit" style="darktext" size="20" alignment="left" text="[param:warranty]"></text>
         </panel>
-        <panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
+        <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
       </panel> <!--<object class="summary-products" swatch="" name="" color="" warranty=""  />-->
     </class>
     
@@ -1273,20 +1273,20 @@
     
     <!-- !camera classes -->
     <class name="camera-view">
-      <camera name="view" alias="CAMERA-VIEW" width="100%" height="100%" outputfile="dump/capture.png" oncapture="output" />
+      <camera name="view" alias="CAMERA-VIEW" width="100%" height="100%" outputfile="dump/capture[var:camerafile].png" oncapture="output" />
     </class>
     <class name="camera">
         <panel name="camera" alias="CAMERA" width="100%" height="100%" clip="yes">
             <panel name="camera-container" alias="CAMERA-CONTAINER" width="100%" height="100%">
                 <object class="camera-view" face="back" />
             </panel>
-            <panel name="toolbar" alias="CAMERA-TOOLBAR" width="100%" height="64" background="#ffffff" translucent="yes" ypos="-70">
+            <panel name="toolbar" alias="CAMERA-TOOLBAR" width="100%" height="64" background="#343434" translucent="yes" ypos="-70">
                 <panel name="wrapper" width="100%" height="100%" valign="bottom" clip="yes">
                     <panel name="capture-cancel" width="100" height="100%" padding-left="15" alpha="1" onclickup="capture-cancel" clickuptarget="CONTAINER" _type="">
-                        <text name="label" height="100%" width="100%" font="Futura-Medium" size="18" alignment="left" color="#0a84c8" text="Retake" />
+                        <text name="label" height="100%" width="100%" font="Futura-Medium" size="18" alignment="left" color="#ffffff" text="Retake" />
                     </panel>
                     <panel name="capture-submit" width="100" height="100%" padding-right="15" alpha="1" align="right" onclickup="capture-submit" clickuptarget="CONTAINER" _type="">
-                        <text name="label" height="100%" width="100%" font="Futura-Medium" size="18" alignment="right" color="#0a84c8" text="Save" />
+                        <text name="label" height="100%" width="100%" font="Futura-Medium" size="18" alignment="right" color="#ffffff" text="Save" />
                     </panel>
                 </panel>
             </panel>
@@ -1304,8 +1304,8 @@
     </class>
     
     <class name="capture-preview">
-        <panel name="capture-preview" alias="CAPTURE-PREVIEW" height="100%" width="100%" clip="yes">
-          <image source="dump/capture.png" width="100%" align="center" valign="center"/>
+        <panel name="capture-preview" alias="CAPTURE-PREVIEW" height="100%" width="100%" clip="yes" background="#00ff00">
+          <image fullpath="[param:source]" width="100%" align="center" valign="center"/>
         </panel>
     </class>
 
@@ -1342,18 +1342,20 @@
     </class>
     
     <class name="cameraphoto">
-      <image name="thephoto" alias="THEPHOTO" fullpath="[param:photo]" height="100%" align="center" ></image>
+      <panel name="container" height="100%" width="100%" clip="yes">
+        <image name="thephoto" alias="THEPHOTO" fullpath="[param:photo]" width="100%" align="center" valign="center"></image>
+      </panel>
     </class>
     
     <class name="addnote">
       <panel name="addnote" alias="ADDNOTE" width="100%" height="100%" ypos="101%" background="#e3e3e3">
         <panel name="toolbar" width="100%" height="74" background="#343434">
-          <text name="title" width="100%" height="100%" color="#ffffff" font="Futura-Medium" size="30" alignment="center" text="Add a Note"></text>
-          <text name="save" width="100" height="100%" align="right" color="#ffffff" font="Futura-Medium" size="24" alignment="center" text="Save" onclickup="savenote" clickuptarget="CONTAINER" ></text>
-          <text name="cancel" width="100" height="100%" color="#ffffff" font="Futura-Medium" size="24" alignment="center" text="Cancel"></text>
+          <text name="title" width="100%" height="100%" color="#ffffff" font="Futura-Medium" size="20" alignment="center" text="Add a Note"></text>
+          <text name="save" width="100" height="100%" align="right" color="#ffffff" font="Futura-Medium" size="18" alignment="center" text="Save" onclickup="savenote" clickuptarget="CONTAINER" ></text>
+          <text name="cancel" width="100" height="100%" color="#ffffff" font="Futura-Medium" size="18" alignment="center" text="Cancel" onclickup="cancelnote" clickuptarget="CONTAINER" ></text>
         </panel>
-        <panel name="photolanding" alias="PHOTOLANDING" width="100%" height="40%" ypos="80"></panel>
-        <panel name="notewrap" width="80%" height="230" align="center" bottomof="PHOTOLANDING" margin-top="20" padding="10" background="ffffff" cornerradius="2" borderwidth="1" bordercolor="#343434" >
+        <panel name="photolanding" alias="PHOTOLANDING" width="300" height="400" ypos="90" align="center"></panel>
+        <panel name="notewrap" width="80%" height="230" align="center" bottomof="PHOTOLANDING" margin-top="20" padding="10" background="ffffff" cornerradius="2" borderwidth="1" bordercolor="#343434">
           <textfield name="thenote" alias="THENOTE" width="100%" height="100%" font="Futura-Medium" size="20" color="#343434" alignment="left" valignment="top" multiline="yes" placeholder="Your Note Here."></textfield>
         </panel>
       </panel>
@@ -1396,7 +1398,7 @@
                   <panel name="active" style="100" onclickup="labelactive" _field="CUST1-PHONE"></panel>
                 </panel>
               </panel>
-              <panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
+              <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
             </panel>
             
             <panel name="customer2" width="100%" height="160">
@@ -1425,7 +1427,7 @@
                   <panel name="active" style="100" onclickup="labelactive" _field="CUST2-PHONE"></panel>
                 </panel>
               </panel>
-              <panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
+              <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
             </panel>
             
             <panel name="address" alias="ADDRESS" width="100%" height="280">
@@ -1495,7 +1497,7 @@
                   </list>
                 </panel>
               </panel>
-              <panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
+              <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
             </panel>
             
             <panel name="bottom" width="100%" height="209">
@@ -1773,7 +1775,7 @@
                   <text name="address1" width="100%" height="30" bottomof="label" style="darktext" size="15" alignment="left" text="132 Underhill Ln"></text>
                   <text name="address2" width="100%" height="30" bottomof="address1" style="darktext" size="15" alignment="left" text="The Shire, NZ 219387"></text>
                 </panel>
-                <panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
+                <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
               </panel>
               
               <panel name="summary-roof" width="100%" height="158">
@@ -1791,7 +1793,7 @@
                 <panel name="col3" width="33.33%" height="108" rightof="col2" bottomof="subtitle">
                   <text name="roof-valleys" width="100%" height="35" style="darktext" size="20" alignment="left" text="Valleys: 74 ft"></text>
                 </panel>
-                <panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
+                <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
               </panel>
               
               <panel name="summary-products" width="100%" height="210">
@@ -1805,7 +1807,7 @@
                 <panel name="col2" width="50%" height="150" ypos="45" xpos="50%">
                   <text name="warranty" width="100%" height="fit" style="darktext" size="20" alignment="left" text="Golden Pledge Ltd. Warranty"></text>
                 </panel>
-                <panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
+                <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
               </panel>
               
               <panel name="summary-accessories" width="100%" height="163">
@@ -1826,7 +1828,7 @@
                   <text name="roof-starter-title" width="100%" height="30" style="darktext" size="20" alignment="left" text="Starter Strip Protection"></text>
                   <text name="roof-starter-product" width="100%" height="20" bottomof="roof-starter-title" style="darktext" size="15" alignment="left" text="Deck-Armor"></text>
                 </panel>
-                <panel name="divider" width="100%" height="5" valign="bottom" background="#343434"></panel>
+                <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
               </panel>
               
               <panel name="summary-services" width="100%" height="192">
@@ -1937,7 +1939,7 @@
       <!-- !camera roll -->
       <panel name="cameraroll" alias="CAMERAROLL" width="100%" height="100%" ypos="101%" background="#e3e3e3">
         <panel name="toolbar" width="100%" height="60" background="#343434">
-          <text name="close" width="100" height="100%" xpos="20" color="#ffffff" font="Futura-Medium" size="20" alignment="left" text="close" onclickup="closeroll"></text>
+          <text name="close" width="100" height="100%" xpos="20" color="#ffffff" font="Futura-Medium" size="18" alignment="left" text="close" onclickup="closeroll"></text>
         </panel>
         <wait name="wait" width="100%" height="[eval:[object:CAMERAROLL.height] - [object:CAMERAROLL/toolbar.height]]" valign="bottom" alpha="0" color="#ed1c24"/>
         <panel name="camera-list" width="100%" height="[eval:[object:CAMERAROLL.height] - [object:CAMERAROLL/toolbar.height]]" valign="bottom"></panel>
@@ -2593,6 +2595,7 @@
     
     <action name="addcamera">
       <sync>
+        <assign property="var:camerafile" value="[system:uuid]" />
         <create class="camera" target="CAMERABOX" />
         <alpha value="0" time=".25" target="CAMERAMENU" />
         <translate ypos="0" time=".25" curve="easeout" target="CAMERABOX" />
@@ -2628,7 +2631,7 @@
         <if lhs="[var:photolocation]" operator="e" rhs="camera">
           <create class="cameraphoto" target="PHOTOLANDING" photo="[var:photo-url]" />
           <!--<assign property="object:THEPHOTO.fullpath" value="" />-->
-          <alert message="camera" />
+          <!-- <alert message="camera" /> -->
         </if>
         <translate ypos="0" time=".25" curve="easeout" target="ADDNOTE" />
         <keyboard visible="yes" target="THENOTE" />
@@ -2644,21 +2647,28 @@
       </sync>
     </action>
 
-    <action name="db-that-photo"> <!-- holla!* Rachael Goldberg Voice -->
-      <alert message="[var:thenote]" />
+    <action name="db-that-photo"> 
+      <!-- <alert message="[var:thenote]" /> -->
       <assign property="datasource:photosdb.query" value="INSERT INTO PHOTOS (PHOTO, NOTE) values ('[var:photo-url]', '[var:thenote]')" />
     </action>
 
-    <action name="photo-db-save-confirm-the-magic-fuck-yes" datasource="photosdb">
+    <action name="cancelnote">
+      <sync>
+        <translate ypos="101%" time=".25" curve="easeout" target="ADDNOTE" />
+        <delete target="ADDNOTE" />
+      </sync>
+    </action>
+
+    <action name="photo-db-save-confirm" datasource="photosdb">
       <if lhs="[var:photoActive]" operator="==" rhs="1">
         <assign property="datasource:photosdb-list.query" value="SELECT * FROM PHOTOS;" />
-        <alert message="photo saved to db" />
+        <!-- <alert message="photo saved to db" /> -->
       </if>
     </action>
 
     <action name="photo-db-redraw" datasource="photosdb-list">
       <if lhs="[var:photoActive]" operator="==" rhs="1">
-        <alert title="You have this many photos in the db!" message="[datasource:photosdb-list.dataSourceResultCount]" />
+        <!-- <alert title="You have this many photos in the db!" message="[datasource:photosdb-list.dataSourceResultCount]" /> -->
         <assign property="var:photoActive" value="0" />
       </if>
     </action>
@@ -2684,9 +2694,8 @@
     <action name="output">
       <translate ypos="100%" time=".15" target="CAMERA-CONTROLCENTER" />
       <sync>
-        <create class="capture-preview" target="CAMERA-CONTAINER" />
+        <create class="capture-preview" source="[object:CAMERA-VIEW.photo]" target="CAMERA-CONTAINER" />
         <translate ypos="0" time=".15" target="CAMERA-TOOLBAR" />
-        <!-- <delete target="CAMERA-VIEW" /> -->
       </sync>
     </action>
     
@@ -2708,7 +2717,7 @@
         <play action="addnote" />
         <translate ypos="101%" time=".25" curve="easeout" target="CAMERABOX" />
         <delete target="CAMERA" />
-        <alert message="[var:photo-url]" />
+        <!-- <alert message="[var:photo-url]" /> -->
         <!--<play action="db-that-photo" />-->
       </sync>
     </action>
