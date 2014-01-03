@@ -1179,7 +1179,7 @@
           <textfield name="input" text="test" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" _next="none" _action="null"></textfield>
           <panel name="active" style="100" onclickup="dropon" _field="DIFFICULTY" _drop="TEAROFF"></panel>
         </panel>-->
-        <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
+<!--         <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel> -->
         <panel name="drop" width="45%" height="110" xpos="101%" ypos="70" alpha="0" style="textinput">
           <pager name="layersdrop" alias="LAYERSDROP" width="100%" height="100%" orientation="vertical" paginate="no" alpha="0">
             <panel name="layer0" width="100%" height="40" _layers="0" onclickup="setlayers">
@@ -1251,14 +1251,14 @@
           <panel name="check" width="0" height="0" align="center" valign="center" background="#ed1c24" cornerradius="20" alpha="1" ></panel>
         </panel>
         <text name="checklabel" width="150" height="50" bottomof="pool" margin-top="10" rightof="misc" style="darktext" size="20" leftinset="10" alignment="left" text="Misc"></text>
-        <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
+<!--         <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel> -->
       </panel>
     </class><!-- <object class="assetprotection" /> -->
     
     <!-- !adjustments classes -->
     <class name="discount">
       <panel name="adjustment[param:aindex]" alias="ADJUSTMENT[param:aindex]" width="100%" height="287">
-        <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="20" alignment="left" text="Discount [param:index]"></text>
+        <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="15" alignment="left" text="DISCOUNT [param:index]"></text>
         
         <panel name="dollars-[param:aindex]" alias="DOLLARS-[param:aindex]" width="50" height="50" align="left" bottomof="subtitle" background="f3f3f3" cornerradius="25" borderwidth="1" bordercolor="#888888" clip="yes" onclickup="dollars" _index="[param:aindex]" _type="ADJUSTMENT[param:aindex]" >
           <panel name="check" width="35" height="35" align="center" valign="center" background="#ed1c24" cornerradius="20" alpha="1" ></panel>
@@ -1290,13 +1290,13 @@
         
         <text name="adjusttype[param:aindex]" alias="ADJUSTTYPE[param:aindex]" width="0" height="0" color="#ffffff" font="Helvetica" size="1" alignment="left" text="Discount"></text>
         
-        <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
+<!--         <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel> -->
       </panel>
     </class><!-- <object class="discount" index="1" />-->
     
     <class name="additionalcost">
       <panel name="adjustment[param:aindex]" alias="ADJUSTMENT[param:aindex]" width="100%" height="287">
-        <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="20" alignment="left" text="Additional Cost [param:index]"></text>
+        <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="15" alignment="left" text="ADDITIONAL COST [param:index]"></text>
         
         <panel name="dollars-[param:aindex]" alias="DOLLARS-[param:aindex]" width="50" height="50" align="left" bottomof="subtitle" background="f3f3f3" cornerradius="25" borderwidth="1" bordercolor="#888888" clip="yes" onclickup="dollars" _index="[param:aindex]" _type="ADJUSTMENT[param:aindex]" >
           <panel name="check" width="35" height="35" align="center" valign="center" background="#ed1c24" cornerradius="20" alpha="1" ></panel>
@@ -1328,7 +1328,7 @@
         
         <text name="adjusttype[param:aindex]" alias="ADJUSTTYPE[param:aindex]" width="0" height="0" color="#ffffff" font="Helvetica" size="1" alignment="left" text="Additional Cost"></text>
         
-        <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
+<!--         <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel> -->
       </panel>
     </class><!-- <object class="additionalcost" index="1" /> -->
     
@@ -2064,6 +2064,7 @@
       <!-- !camera roll -->
       <panel name="cameraroll" alias="CAMERAROLL" width="100%" height="100%" ypos="101%" background="#e3e3e3">
         <panel name="toolbar" width="100%" height="60" background="#343434">
+        	<text name="head" width="100%" height="100%" color="#ffffff" font="Futura-Medium" size="24" alignment="center" text="Loading Photos..."></text>
           <text name="close" width="100" height="100%" xpos="20" color="#ffffff" font="Avenir-Medium" size="15" alignment="left" text="CLOSE" onclickup="closeroll"></text>
         </panel>
         <wait name="wait" width="100%" height="964" valign="bottom" alpha="0" color="#ed1c24"/>
@@ -2233,7 +2234,7 @@
 	  <panel name="upload-curtain" alias="UPLOAD-CURTAIN" width="100%" height="100%" alpha="0" >
 	  	<panel name="bg" width="100%" height="100%" background="#000000" alpha=".5" ></panel>
 	  	<wait name="wait" width="100%" height="100%"></wait>
-	  	<text name="photo-progress" width="100%" height="fit" ypos="600" color="#ffffff" font="Futura-MediumItalic" size="28" alignment="center" text="Uploading Photo NUMBER..."></text>
+	  	<text name="photo-progress" width="100%" height="fit" ypos="600" color="#ffffff" font="Futura-MediumItalic" size="24" alignment="center" text="Uploading Photo NUMBER..."></text>
 	  </panel>
 
   </main>
@@ -2244,7 +2245,7 @@
     <action name="oninit" oninit="yes"> 
 		  <assign property="var:loaded" value="no" />
 		  <assign property="var:accessoryCount" value="0" />
-		  <alpha value="0" time=".1" delay=".5" target="SPLASH" />
+		  <alpha value="0" time=".1" delay=".7" target="SPLASH" />
       <assign property="var:tearoff" value="no" />
       <assign property="var:landscaping" value="no" />
       <assign property="var:hardscaping" value="no" />
@@ -2779,6 +2780,7 @@
 
     <action name="roll-queryComplete" datasource="camera-roll">
       <alpha value="0" time=".1" target="CAMERAROLL/wait" />
+      <assign property="object:CAMERAROLL/toolbar/head.text" value="Camera Roll" />
     </action>
     
     <action name="addcamera">
@@ -2803,7 +2805,7 @@
     <action name="select-photo">
       <sync>
         <assign property="var:photo-url" value="_url" />
-        <alert title="Hi, I'm photo..." message="[var:photo-url]" />
+<!--         <alert title="Hi, I'm photo..." message="[var:photo-url]" /> -->
         <translate ypos="101%" time=".25" curve="easeout" target="CAMERAROLL" />
         <delete target="CAMERA-ROLL" />
         <play action="addnote" />
@@ -2816,7 +2818,7 @@
         <if lhs="[var:photolocation]" operator="e" rhs="roll">
           <create class="rollphoto" target="PHOTOLANDING" />
           <assign property="object:THEPHOTO.asset" value="[var:photo-url]" />
-          <alert message="roll" />
+<!--           <alert message="roll" /> -->
         </if>
         <if lhs="[var:photolocation]" operator="e" rhs="camera">
           <create class="cameraphoto" target="PHOTOLANDING" photo="[var:photo-url]" />
