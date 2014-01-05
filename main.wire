@@ -1818,6 +1818,14 @@
           </panel>
         </panel>
         
+        <panel name="roof-save-modal" alias="ROOF-SAVE-MODAL" width="100%" height="100%" align="right" alpha="0">
+          <panel name="modal" width="200" height="120" align="center" ypos="35%" shadowradius="60" shadowxoffset="1" shadowyoffset="1" shadowopacity=".1" >
+            <panel name="bg" width="100%" height="100%" background="#ffffff" alpha="1" cornerradius="10" borderwidth="1" bordercolor="#e3e3e3"></panel>
+            <text name="saving" width="100%" height="40" ypos="10" color="##343434" font="Futura-Medium" size="24" alignment="center" text="Saving"></text>
+            <wait name="wait" width="100%" height="70" ypos="50" color="#343434"></wait>
+          </panel>
+        </panel>
+        
         <panel name="bottombar" width="100%" height="67" valign="bottom" background="#343434" padding-right="20">
           <panel name="estimate" width="100" height="50" align="right" valign="center" >
             <object class="button" name="test" size="20" label="Save" action="save-roof" />
@@ -3360,6 +3368,7 @@
       <play action="released" />
       <!--<alert message="[var:roof]" />-->
       <play action="[var:roof]" />
+      <play action="roof-saving-modal" />
     </action>
     
     <action name="INSPECTION">
@@ -3394,6 +3403,7 @@
     
     <action name="inspection-query" datasource="inspectiondb" datasourceevent="querycomplete">
       <assign property="datasource:inspectiondb-list.query" value="SELECT * FROM INSPECTION;" />
+      <play action="roof-saving-modal-hide" />
     </action>
     
     <action name="FASCIA">
@@ -3481,6 +3491,7 @@
             <assign property="var:areaindexloop" value="0" />
             <assign property="var:areaValidationIndex" value="0" />
             <assign property="var:navstep-areas" value="yes" />
+            <play action="roof-saving-modal-hide" />
           </else>
         </if>
         <!--<alert message="[var:areaindexloop]" />-->
@@ -3515,6 +3526,7 @@
     
     <action name="wastequery" datasource="wastedb" datasourceevent="querycomplete">
       <assign property="datasource:wastedb-list.query" value="SELECT * FROM WASTE" />
+      <play action="roof-saving-modal-hide" />
     </action>
     
     <action name="RIDGE">
@@ -3574,6 +3586,7 @@
             <assign property="datasource:ridgesdb-list.query" value="SELECT * FROM RIDGES;" />
             <assign property="var:ridgeindexloop" value="0" />
             <assign property="var:ridgeValidationIndex" value="0" />
+            <play action="roof-saving-modal-hide" />
           </else>
         </if>
       </sync>
@@ -3639,6 +3652,7 @@
             <assign property="datasource:hipsdb-list.query" value="SELECT * FROM HIPS;" />
             <assign property="var:hipindexloop" value="0" />
             <assign property="var:hipValidationIndex" value="0" />
+            <play action="roof-saving-modal-hide" />
           </else>
         </if>
       </sync>
@@ -3704,6 +3718,7 @@
             <assign property="datasource:valleysdb-list.query" value="SELECT * FROM VALLEYS;" />
             <assign property="var:valleyindexloop" value="0" />
             <assign property="var:valleyValidationIndex" value="0" />
+            <play action="roof-saving-modal-hide" />
           </else>
         </if>
       </sync>
@@ -3769,6 +3784,7 @@
             <assign property="datasource:rakesdb-list.query" value="SELECT * FROM RAKES;" />
             <assign property="var:rakeindexloop" value="0" />
             <assign property="var:rakeValidationIndex" value="0" />
+            <play action="roof-saving-modal-hide" />
           </else>
         </if>
       </sync>
@@ -3834,6 +3850,7 @@
             <assign property="datasource:eavesdb-list.query" value="SELECT * FROM EAVES;" />
             <assign property="var:eaveindexloop" value="0" />
             <assign property="var:eaveValidationIndex" value="0" />
+            <play action="roof-saving-modal-hide" />
           </else>
         </if>
       </sync>
@@ -3898,6 +3915,7 @@
             <assign property="datasource:protrusionsdb-list.query" value="SELECT * FROM PROTRUSIONS;" />
             <assign property="var:protrusionindexloop" value="0" />
             <assign property="var:chimneyValidationIndex" value="0" />
+            <play action="roof-saving-modal-hide" />
           </else>
         </if>
       </sync>
@@ -3962,13 +3980,15 @@
             <assign property="datasource:ventsdb-list.query" value="SELECT * FROM VENTS;" />
             <assign property="var:ventindexloop" value="0" />
             <assign property="var:ventValidationIndex" value="0" />
+            <play action="roof-saving-modal-hide" />
           </else>
         </if>
       </sync>
     </action>
     
     <action name="PHOTO">
-<!--       <alert message="PHOTO" /> -->
+      <!--       <alert message="PHOTO" /> -->
+      <play action="roof-saving-modal-hide" />
     </action>
     
     <!-- !drop down actions -->
@@ -4777,7 +4797,6 @@
 		<assign property="httpheader:get.ContractorId" value="" />
 	</action>
 
->>>>>>> marty
     <!-- !Edit modal actions -->
     <action name="close-edit">
       <sync>
@@ -4804,6 +4823,15 @@
         
         <alpha value="0" target="MODALCURTAIN" />
       </sync>
+    </action>
+    
+    <!-- !roof save modal -->
+    <action name="roof-saving-modal">
+      <alpha value="1" time=".15" target="ROOF-SAVE-MODAL" />
+    </action>
+    
+    <action name="roof-saving-modal-hide">
+      <alpha value="0" delay=".3" time=".15" target="ROOF-SAVE-MODAL" />
     </action>
     
     <!-- !curtain action -->
