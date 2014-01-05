@@ -4515,8 +4515,7 @@
 			<alert message="updateMeasurements-complete content [datasource:updateMeasurements.0.content]" />
 					<play action="formatEstimate" />
 <!-- 				<play action="prepPhotos" /> -->
-<!--
-			<if lhs="[datasource:updateMeasurements.1.ResponseCode]" operator="e" rhs="100">
+			<if lhs="[datasource:updateMeasurements.1.ResponseCode]" operator="e" rhs="100"> 
 <!-- 				<alert message="updateMeasurements-complete content [datasource:updateMeasurements.0.content]" /> -->
 					<play action="prepPhotos" />
 				  <else>
