@@ -234,7 +234,7 @@
     </class>
     
     <class name="province">
-      <panel name="province[param:index]" width="100%" height="40" _abbr="[param:abbr]" _province="[param:name]" onclickup="setprovince-edit">
+      <panel name="province[param:index]" width="100%" height="40" _abbr="[param:abbr]" _province="[param:name]" onclickup="setprovince">
         <text name="name" width="100%" height="100%" style="darktext" size="18" alignment="center" text="[param:name]"></text>
         <panel name="border" width="100%" height="1" valign="bottom" background="#888888"></panel>
       </panel>
@@ -1340,6 +1340,10 @@
     </class><!-- <object class="additionalcost" index="1" /> -->
     
     <!-- !Summary classes -->
+    <class name="summary-pager">
+      <pager name="summary-pager" alias="SUMMARY-PAGER" width="100%" height="100%" orientation="vertical" paginate="no"></pager>
+    </class>
+    
     <class name="summary-cust">
       <panel name="summary-customer" alias="SUMMARY-CUSTOMER" width="100%" height="148" >
         <text name="subtitle" width="100%" height="40" font="Futura-Medium" color="#343434" size="25" alignment="left" text="Customer Info"></text>
@@ -1931,7 +1935,7 @@
       <panel name="summary" alias="SUMMARY" width="100%" height="[eval: [object:CONTAINER.height] - 127]" ypos="127" alpha="0">
         <panel name="summarybox" alias="SUMMARYBOX" width="100%" height="100%" align="right" alpha="1">
           <object class="summary-head-title" title="Summary"  />
-          <panel name="summarypagerbox" width="100%" height="[eval: [object:SUMMARY.height] - 146]" ypos="79" >
+          <panel name="summarypagerbox" alias="SUMMARYPAGERBOX" width="100%" height="[eval: [object:SUMMARY.height] - 146]" ypos="79" >
             <pager name="summary-pager" alias="SUMMARY-PAGER" width="100%" height="100%" orientation="vertical" paginate="no">
               
             </pager>
@@ -2256,6 +2260,9 @@
           <keyboard visible="yes" target="_next//input" />
           <assign property="var:currentfield" value="_next" />
         </else>
+      </if>
+      <if lhs="_next" operator="e" rhs="STREET">
+        <scroll page="3" target="CUSTOMER/inner/scroller" />
       </if>
     </action>
     
@@ -2919,10 +2926,13 @@
           <create class="summary-cust" target="SUMMARY-PAGER" cust1name="[datasource:customersdb-list.1.FNAME] [datasource:customersdb-list.1.LNAME]" cust1phone="[datasource:customersdb-list.1.PHONE]" cust1email="[datasource:customersdb-list.1.EMAIL]" cust2name="[datasource:customersdb-list.1.FNAME2] [datasource:customersdb-list.1.LNAME2]" cust2phone="[datasource:customersdb-list.1.PHONE2]" cust2email="[datasource:customersdb-list.1.EMAIL2]" street="[datasource:customersdb-list.1.STREET]" city="[datasource:customersdb-list.1.CITY]" state="[datasource:customersdb-list.1.STATE]" zip="[datasource:customersdb-list.1.POSTAL]"  />
         </if>
         <if lhs="[var:navwas]" operator="e" rhs="SUMMARY">
-          <delete target="SUMMARY-CUSTOMER" />
+          <!--<delete target="SUMMARY-CUSTOMER" />
           <delete target="SUMMARY-ROOF" />
           <delete target="SUMMARY-PRODUCTS" />
-          <delete target="SUMMARY-SERVICES" />
+          <delete target="SUMMARY-SERVICES" />-->
+          
+          <delete target="SUMMARY-PAGER" />
+          <create class="summary-pager" target="SUMMARYPAGERBOX" />
           
 <!--           <delete target="SUMMARY-ACCESSORY-TITLE" /> -->
           <loop lhs="[var:summary-acc-sub-delete]" operator="lt" rhs="[var:summary-acc-sub]">
@@ -3232,6 +3242,11 @@
           <assign property="var:nav" value="ROOF" />
           <translate xpos="101%" curve="linear" target="NAVBLOCK" />
           <translate xpos="251" curve="linear" target="STEP-NAVBLOCK" />
+          <assign property="object:NAV-CUSTOMER/open/step.background" value="#666666" />
+          <assign property="object:NAV-ROOF/open/step.background" value="#ed1c24" />
+          <keyboard visible="no" target="ZIP/input" />
+          <keyboard visible="no" target="POSTAL/input" />
+          <keyboard visible="no" target="NOTES/input" />
         </sync>
         <sync>
 	  	  <assign property="var:db-action" value="save" />
