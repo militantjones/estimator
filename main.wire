@@ -227,14 +227,14 @@
     </class>
     
     <class name="state">
-      <panel name="state[param:index]" width="100%" height="40" _abbr="[param:abbr]" _state="[param:name]" _code="[param:code]" onclickup="setstate">
-        <text name="name" width="100%" height="100%" style="darktext" size="18" alignment="center" text="[param:name]"></text>
+      <panel name="state[param:index]" width="100%" height="40">
+        <text name="name" width="100%" height="100%" style="darktext" size="18" alignment="center" text="[param:name]" _abbr="[param:abbr]" _state="[param:name]" _code="[param:code]" onclickup="setstate"></text>
         <panel name="border" width="100%" height="1" valign="bottom" background="#888888"></panel>
       </panel>
     </class>
     
     <class name="province">
-      <panel name="province[param:index]" width="100%" height="40" _abbr="[param:abbr]" _province="[param:name]" onclickup="setprovince-edit">
+      <panel name="province[param:index]" width="100%" height="40" _abbr="[param:abbr]" _province="[param:name]" onclickup="setprovince">
         <text name="name" width="100%" height="100%" style="darktext" size="18" alignment="center" text="[param:name]"></text>
         <panel name="border" width="100%" height="1" valign="bottom" background="#888888"></panel>
       </panel>
@@ -1180,6 +1180,9 @@
           <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" _next="none" _action="null"></textfield>
           <panel name="active" style="100" onclickup="dropon" _field="TYPE" _drop="TEAROFF" _droptype="TEAROFFTYPEDROP"></panel>
         </panel>
+        <panel name="tearoff-mask" alias="TEAROFF-MASK" width="100%" height="120" bottomof="TEAROFFSERVICE" alpha="1" onclickup="tearoff-mask-off">
+          <panel name="bg" width="100%" height="100%" background="#e3e3e3" alpha=".5"></panel>
+        </panel>
         <!--<panel name="difficulty" alias="DIFFICULTY" width="226" height="50" align="left" bottomof="type" margin-top="10" style="textinput">
           <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
           <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Difficulty"></text>
@@ -1189,10 +1192,10 @@
         <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
         <panel name="drop" width="45%" height="110" xpos="101%" ypos="70" alpha="0" style="textinput">
           <pager name="layersdrop" alias="LAYERSDROP" width="100%" height="100%" orientation="vertical" paginate="no" alpha="0">
-            <panel name="layer0" width="100%" height="40" _layers="0" onclickup="setlayers">
+            <!--<panel name="layer0" width="100%" height="40" _layers="0" onclickup="setlayers">
               <text name="name" width="100%" height="100%" style="darktext" size="18" alignment="center" text="0"></text>
               <panel name="border" width="100%" height="1" valign="bottom" background="#888888"></panel>
-            </panel>
+            </panel>-->
             <panel name="layer1" width="100%" height="40" _layers="1" onclickup="setlayers">
               <text name="name" width="100%" height="100%" style="darktext" size="18" alignment="center" text="1"></text>
               <panel name="border" width="100%" height="1" valign="bottom" background="#888888"></panel>
@@ -1264,22 +1267,22 @@
     
     <!-- !adjustments classes -->
     <class name="discount">
-      <panel name="adjustment[param:aindex]" alias="ADJUSTMENT[param:aindex]" width="100%" height="287">
+      <panel name="adjustment[param:aindex]" alias="ADJUSTMENT[param:aindex]" width="100%" height="237">
         <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="20" alignment="left" text="Discount [param:index]"></text>
-        
+        <!--
         <panel name="dollars-[param:aindex]" alias="DOLLARS-[param:aindex]" width="50" height="50" align="left" bottomof="subtitle" background="f3f3f3" cornerradius="25" borderwidth="1" bordercolor="#888888" clip="yes" onclickup="dollars" _index="[param:aindex]" _type="ADJUSTMENT[param:aindex]" >
           <panel name="check" width="35" height="35" align="center" valign="center" background="#ed1c24" cornerradius="20" alpha="1" ></panel>
         </panel>
         <text name="checklabel-dollar" width="150" height="50" bottomof="subtitle" rightof="dollars-[param:aindex]" style="darktext" size="20" leftinset="10" alignment="left" text="$"></text>
         
-<!--
+
         <panel name="percent-[param:aindex]" alias="PERCENT-[param:aindex]" width="50" height="50" xpos="100" bottomof="subtitle" background="f3f3f3" cornerradius="2" borderwidth="1" bordercolor="#888888" clip="yes" onclickup="percent" _index="[param:aindex]" _type="ADJUSTMENT[param:aindex]" >
           <panel name="check" width="40" height="40" align="center" valign="center" background="#888888" cornerradius="20" alpha="0" ></panel>
         </panel>
         <text name="checklabel-percent" width="150" height="50" bottomof="subtitle" rightof="percent-[param:aindex]" style="darktext" size="20" leftinset="10" alignment="left" text="%"></text>
 -->
         
-        <panel name="adjustment" width="256" height="50" bottomof="dollars-[param:aindex]" margin-top="10">
+        <panel name="adjustment" width="256" height="50" bottomof="subtitle" margin-top="10">
           <panel name="adjustmentamount[param:aindex]" alias="ADJUSTMENTAMOUNT[param:aindex]" width="226" height="50" align="left" style="textinput">
             <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
             <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Amount"></text>
@@ -1302,22 +1305,22 @@
     </class><!-- <object class="discount" index="1" />-->
     
     <class name="additionalcost">
-      <panel name="adjustment[param:aindex]" alias="ADJUSTMENT[param:aindex]" width="100%" height="287">
+      <panel name="adjustment[param:aindex]" alias="ADJUSTMENT[param:aindex]" width="100%" height="237">
         <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="20" alignment="left" text="Additional Cost [param:index]"></text>
-        
+        <!--
         <panel name="dollars-[param:aindex]" alias="DOLLARS-[param:aindex]" width="50" height="50" align="left" bottomof="subtitle" background="f3f3f3" cornerradius="25" borderwidth="1" bordercolor="#888888" clip="yes" onclickup="dollars" _index="[param:aindex]" _type="ADJUSTMENT[param:aindex]" >
           <panel name="check" width="35" height="35" align="center" valign="center" background="#ed1c24" cornerradius="20" alpha="1" ></panel>
         </panel>
         <text name="checklabel-dollar" width="150" height="50" bottomof="subtitle" rightof="dollars-[param:aindex]" style="darktext" size="20" leftinset="10" alignment="left" text="$"></text>
         
-<!--
+
         <panel name="percent-[param:aindex]" alias="PERCENT-[param:aindex]" width="50" height="50" xpos="100" bottomof="subtitle" background="f3f3f3" cornerradius="2" borderwidth="1" bordercolor="#888888" clip="yes" onclickup="percent" _index="[param:aindex]" _type="ADJUSTMENT[param:aindex]" >
           <panel name="check" width="40" height="40" align="center" valign="center" background="#888888" cornerradius="20" alpha="0" ></panel>
         </panel>
         <text name="checklabel-percent" width="150" height="50" bottomof="subtitle" rightof="percent-[param:aindex]" style="darktext" size="20" leftinset="10" alignment="left" text="%"></text>
 -->
         
-        <panel name="adjustment" width="256" height="50" bottomof="dollars-[param:aindex]" margin-top="10">
+        <panel name="adjustment" width="256" height="50" bottomof="subtitle" margin-top="10">
           <panel name="adjustmentamount[param:aindex]" alias="ADJUSTMENTAMOUNT[param:aindex]" width="226" height="50" align="left" style="textinput">
             <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
             <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Amount"></text>
@@ -1340,8 +1343,12 @@
     </class><!-- <object class="additionalcost" index="1" /> -->
     
     <!-- !Summary classes -->
+    <class name="summary-pager">
+      <pager name="summary-pager" alias="SUMMARY-PAGER" width="100%" height="100%" orientation="vertical" paginate="no"></pager>
+    </class>
+    
     <class name="summary-cust">
-      <panel name="summary-customer" alias="SUMMARY-CUSTOMER" width="100%" height="148" >
+      <panel name="summary-customer" alias="SUMMARY-CUSTOMER" width="100%" height="148" padding-right="20">
         <text name="subtitle" width="100%" height="40" font="Futura-Medium" color="#343434" size="25" alignment="left" text="Customer Info"></text>
         <panel name="col1" width="33.33%" height="93" bottomof="subtitle">
           <text name="cust1-name" width="100%" height="35" style="darktext" size="20" alignment="left" text="[param:cust1name]"></text>
@@ -1363,7 +1370,7 @@
     </class> <!-- <object class="summary-cust" cust1name="" cust1phone="" cust1email="" cust2name="" cust2phone="" cust2email="" street="" city="" state="" zip="" /> -->
     
     <class name="summary-roof">
-      <panel name="summary-roof" alias="SUMMARY-ROOF" width="100%" height="158">
+      <panel name="summary-roof" alias="SUMMARY-ROOF" width="100%" height="158" padding-right="20">
         <text name="subtitle" width="100%" height="40" font="Futura-Medium" color="#343434" size="25" alignment="left" text="Roof Info"></text>
         <panel name="col1" width="33.33%" height="108" bottomof="subtitle">
           <text name="roof-area" width="100%" height="35" style="darktext" size="20" alignment="left" text="Total Area: [param:area]"></text>
@@ -1383,7 +1390,7 @@
     </class> <!-- <object class="summary-roof" area="" squares="" ridges="" hips="" rakes="" eaves="" valleys="" />-->
     
     <class name="summary-products">
-      <panel name="summary-products" alias="SUMMARY-PRODUCTS" width="100%" height="210">
+      <panel name="summary-products" alias="SUMMARY-PRODUCTS" width="100%" height="210" padding-right="20">
         <text name="subtitle" width="100%" height="40" font="Futura-Medium" color="#343434" size="25" alignment="left" text="Shingles"></text>
         <text name="subtitle2" width="50%" height="40" xpos="50%" font="Futura-Medium" color="#343434" size="25" alignment="left" text="Warranty"></text>
         <panel name="col1" width="50%" height="150" ypos="45">
@@ -1401,11 +1408,11 @@
     
     <!-- !summary accessories -->
     <class name="summary-accessory-title">
-      <text name="summary-accessory-title" alias="SUMMARY-ACCESSORY-TITLE" width="100%" height="40" font="Futura-Medium" color="#343434" size="25" alignment="left" text="Accessories"></text>
+      <text name="summary-accessory-title" alias="SUMMARY-ACCESSORY-TITLE" width="100%" height="40" padding-right="20" font="Futura-Medium" color="#343434" size="25" alignment="left" text="Accessories"></text>
     </class>
     
     <class name="summary-accessory-subtitle">
-      <text name="summary-accessory-subtitle[param:index]" alias="SUMMARY-ACCESSORY-SUBTITLE[param:index]" width="100%" height="30" style="darktext" size="20" alignment="left" text="[param:subtitle]"></text>
+      <text name="summary-accessory-subtitle[param:index]" alias="SUMMARY-ACCESSORY-SUBTITLE[param:index]" width="100%" height="30" padding-right="20" style="darktext" size="20" alignment="left" text="[param:subtitle]"></text>
     </class>
     
     <class name="summary-accessory-item">
@@ -1416,13 +1423,13 @@
     </class>
     
     <class name="accessorydivide">
-      <panel name="dividebox" alias="DIVIDEBOX" width="100%" height="15">
+      <panel name="dividebox" alias="DIVIDEBOX" width="100%" height="15" padding-right="20">
         <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
       </panel>
     </class>
     
     <class name="summary-services">
-      <panel name="summary-services" alias="SUMMARY-SERVICES" width="100%" height="192">
+      <panel name="summary-services" alias="SUMMARY-SERVICES" width="100%" height="192" padding-right="20">
         <text name="subtitle" width="100%" height="40" font="Futura-Medium" color="#343434" size="25" alignment="left" text="Services"></text>
         <panel name="col1" width="50%" height="90" ypos="45">
           <text name="tearoff-label" width="100%" height="30" style="darktext" size="20" alignment="left" text="Tear Off"></text>
@@ -1818,6 +1825,14 @@
           </panel>
         </panel>
         
+        <panel name="roof-save-modal" alias="ROOF-SAVE-MODAL" width="100%" height="100%" align="right" alpha="0">
+          <panel name="modal" width="200" height="120" align="center" ypos="35%" shadowradius="60" shadowxoffset="1" shadowyoffset="1" shadowopacity=".1" >
+            <panel name="bg" width="100%" height="100%" background="#ffffff" alpha="1" cornerradius="10" borderwidth="1" bordercolor="#e3e3e3"></panel>
+            <text name="saving" width="100%" height="40" ypos="10" color="##343434" font="Futura-Medium" size="24" alignment="center" text="Saving"></text>
+            <wait name="wait" width="100%" height="70" ypos="50" color="#343434"></wait>
+          </panel>
+        </panel>
+        
         <panel name="bottombar" width="100%" height="67" valign="bottom" background="#343434" padding-right="20">
           <panel name="estimate" width="100" height="50" align="right" valign="center" >
             <object class="button" name="test" size="20" label="Save" action="save-roof" />
@@ -1921,9 +1936,11 @@
       
       <!-- !summary -->
       <panel name="summary" alias="SUMMARY" width="100%" height="[eval: [object:CONTAINER.height] - 127]" ypos="127" alpha="0">
-        <panel name="summarybox" alias="SUMMARYBOX" width="100%" height="100%" align="right" alpha="1">
-          <object class="summary-head-title" title="Summary"  />
-          <panel name="summarypagerbox" width="100%" height="[eval: [object:SUMMARY.height] - 146]" ypos="79" >
+        <panel name="summarybox" alias="SUMMARYBOX" width="100%" height="100%" align="right" alpha="1" padding-left="20">
+          <panel name="titlebox" width="100%" height="79" padding-right="20">
+            <object class="summary-head-title" title="Summary"  />
+          </panel>
+          <panel name="summarypagerbox" alias="SUMMARYPAGERBOX" width="100%" height="[eval: [object:SUMMARY.height] - 146]" ypos="79" >
             <pager name="summary-pager" alias="SUMMARY-PAGER" width="100%" height="100%" orientation="vertical" paginate="no">
               
             </pager>
@@ -2249,6 +2266,9 @@
           <assign property="var:currentfield" value="_next" />
         </else>
       </if>
+      <if lhs="_next" operator="e" rhs="STREET">
+        <scroll page="3" target="CUSTOMER/inner/scroller" />
+      </if>
     </action>
     
     <!-- !radio actions -->
@@ -2262,6 +2282,13 @@
       <scale width="0" height="0" align="center" valign="center" time=".1" alpha="0" target="check" />
       <set onclickup="checkon" />
       <play action="_action" _value="no" />
+    </action>
+    
+    <action name="tearoff-mask-off">
+      <alpha value="0" time=".1" target="TEAROFF-MASK" />
+      <scale width="[eval: ('_action' == 'remember' ? '24' : '40')]" height="[eval: ('_action' == 'remember' ? '24' : '40')]" align="center" valign="center" time=".1" alpha="1" target="TEAROFFSERVICE/check" />
+      <set onclickup="checkoff" target="TEAROFFSERVICE" />
+      <play action="tearoff" _value="yes" />
     </action>
     
     <action name="checkonindexed">
@@ -2419,7 +2446,15 @@
     </action>
     
     <action name="tearoff">
-      <assign property="var:tearoff" value="[eval: ('[var:tearoff]' == 'no' ? 'yes' : 'no')]" />
+      <sync>
+        <assign property="var:tearoff" value="[eval: ('[var:tearoff]' == 'no' ? 'yes' : 'no')]" />
+        <if lhs="[var:tearoff]" operator="e" rhs="yes">
+          <alpha value="0" time=".1" target="TEAROFF-MASK" />
+          <else>
+            <alpha value="1" time=".1" target="TEAROFF-MASK" />
+          </else>
+        </if>
+      </sync>      
     </action>
     
     <action name="landscaping">
@@ -2911,26 +2946,28 @@
           <create class="summary-cust" target="SUMMARY-PAGER" cust1name="[datasource:customersdb-list.1.FNAME] [datasource:customersdb-list.1.LNAME]" cust1phone="[datasource:customersdb-list.1.PHONE]" cust1email="[datasource:customersdb-list.1.EMAIL]" cust2name="[datasource:customersdb-list.1.FNAME2] [datasource:customersdb-list.1.LNAME2]" cust2phone="[datasource:customersdb-list.1.PHONE2]" cust2email="[datasource:customersdb-list.1.EMAIL2]" street="[datasource:customersdb-list.1.STREET]" city="[datasource:customersdb-list.1.CITY]" state="[datasource:customersdb-list.1.STATE]" zip="[datasource:customersdb-list.1.POSTAL]"  />
         </if>
         <if lhs="[var:navwas]" operator="e" rhs="SUMMARY">
-          <delete target="SUMMARY-CUSTOMER" />
+          <!--<delete target="SUMMARY-CUSTOMER" />
           <delete target="SUMMARY-ROOF" />
           <delete target="SUMMARY-PRODUCTS" />
-          <delete target="SUMMARY-SERVICES" />
+          <delete target="SUMMARY-SERVICES" />-->
+          <delete target="SUMMARY-PAGER" />
+          <create class="summary-pager" target="SUMMARYPAGERBOX" />
           
 <!--           <delete target="SUMMARY-ACCESSORY-TITLE" /> -->
-          <loop lhs="[var:summary-acc-sub-delete]" operator="lt" rhs="[var:summary-acc-sub]">
+          <!--<loop lhs="[var:summary-acc-sub-delete]" operator="lt" rhs="[var:summary-acc-sub]">
             <assign property="var:summary-acc-sub-delete" value="[eval: [var:summary-acc-sub-delete] + 1]" />
             <delete target="SUMMARY-ACCESSORY-SUBTITLE[var:summary-acc-sub-delete]" />
-          </loop>
+          </loop>-->
 <!--           <alert title="delete accessory item" message="[var:summary-[var:sumac-loop]-index]" /> -->
-          <loop lhs="[var:summary-[var:sumac-loop]-index-delete]" operator="lt" rhs="[var:summary-[var:sumac-loop]-index]">
+          <!--<loop lhs="[var:summary-[var:sumac-loop]-index-delete]" operator="lt" rhs="[var:summary-[var:sumac-loop]-index]">
             <assign property="var:summary-[var:sumac-loop]-index-delete" value="[eval:[var:summary-[var:sumac-loop]-index-delete] + 1]" />
-            <delete target="SUMMARY-ACCESSORY-ITEM[var:summary-[var:sumac-loop]-index-delete]" />
+            <delete target="SUMMARY-ACCESSORY-ITEM[var:summary-[var:sumac-loop]-index-delete]" />-->
 <!--             <alert title="delete accessory item" message="[var:summary-[var:sumac-loop]-index-delete]" /> -->
-          </loop>
+          <!--</loop>-->
           <assign property="var:summary-[var:sumac-loop]-index" value="0" />
           <assign property="var:summary-[var:sumac-loop]-index-delete" value="0" />
           
-          <delete target="DIVIDEBOX" />
+          <!--<delete target="DIVIDEBOX" />-->
         </if>
         <assign property="var:navwas" value="_this" />
       </sync>
@@ -3224,6 +3261,11 @@
           <assign property="var:nav" value="ROOF" />
           <translate xpos="101%" curve="linear" target="NAVBLOCK" />
           <translate xpos="251" curve="linear" target="STEP-NAVBLOCK" />
+          <assign property="object:NAV-CUSTOMER/open/step.background" value="#666666" />
+          <assign property="object:NAV-ROOF/open/step.background" value="#ed1c24" />
+          <keyboard visible="no" target="ZIP/input" />
+          <keyboard visible="no" target="POSTAL/input" />
+          <keyboard visible="no" target="NOTES/input" />
         </sync>
         <sync>
 	  	  <assign property="var:db-action" value="save" />
@@ -3360,6 +3402,7 @@
       <play action="released" />
       <!--<alert message="[var:roof]" />-->
       <play action="[var:roof]" />
+      <play action="roof-saving-modal" />
     </action>
     
     <action name="INSPECTION">
@@ -3387,6 +3430,7 @@
 <!--           <alert message="[object:ROOFTYPE/input.text] : [object:FLOORS/input.text]" /> -->
           <else>
             <alert title="Incomplete Form" message="Please fill out all fields" />
+            <play action="roof-saving-modal-hide" />
           </else>
         </if>
       </if>
@@ -3394,6 +3438,7 @@
     
     <action name="inspection-query" datasource="inspectiondb" datasourceevent="querycomplete">
       <assign property="datasource:inspectiondb-list.query" value="SELECT * FROM INSPECTION;" />
+      <play action="roof-saving-modal-hide" />
     </action>
     
     <action name="FASCIA">
@@ -3418,6 +3463,7 @@
             <play action="areaValidationLoop" />
             <else>
               <alert title="No Roof Areas Available" message="There have not been any Roof Areas added to save." />
+              <play action="roof-saving-modal-hide" />
             </else>
           </if>
         </sync>
@@ -3437,6 +3483,7 @@
             <else>
               <alert title="Incomplete Form" message="Please fill out all fields" />
               <assign property="var:areaValidationIndex" value="0" />
+              <play action="roof-saving-modal-hide" />
             </else>
         </if>
         <else>
@@ -3481,6 +3528,7 @@
             <assign property="var:areaindexloop" value="0" />
             <assign property="var:areaValidationIndex" value="0" />
             <assign property="var:navstep-areas" value="yes" />
+            <play action="roof-saving-modal-hide" />
           </else>
         </if>
         <!--<alert message="[var:areaindexloop]" />-->
@@ -3508,6 +3556,7 @@
 <!--           <alert message="[object:WASTEPERCENT/input.text]" /> -->
           <else>
             <alert title="Incomplete Form" message="Please fill out all fields" />
+            <play action="roof-saving-modal-hide" />
           </else> 
         </if>
       </if>
@@ -3515,6 +3564,7 @@
     
     <action name="wastequery" datasource="wastedb" datasourceevent="querycomplete">
       <assign property="datasource:wastedb-list.query" value="SELECT * FROM WASTE" />
+      <play action="roof-saving-modal-hide" />
     </action>
     
     <action name="RIDGE">
@@ -3535,6 +3585,7 @@
             <play action="ridgeValidationLoop" />
             <else>
               <alert title="No Ridges Available" message="There have not been any Ridges added to save." />
+              <play action="roof-saving-modal-hide" />
             </else>
           </if>
         </sync>
@@ -3550,6 +3601,7 @@
             <else>
               <alert title="Incomplete Form" message="Please fill out all fields" />
               <assign property="var:ridgeValidationIndex" value="0" />
+              <play action="roof-saving-modal-hide" />
             </else>
         </if>
         <else>
@@ -3574,6 +3626,7 @@
             <assign property="datasource:ridgesdb-list.query" value="SELECT * FROM RIDGES;" />
             <assign property="var:ridgeindexloop" value="0" />
             <assign property="var:ridgeValidationIndex" value="0" />
+            <play action="roof-saving-modal-hide" />
           </else>
         </if>
       </sync>
@@ -3600,6 +3653,7 @@
             <play action="hipValidationLoop" />
             <else>
               <alert title="No Hips Available" message="There have not been any Hips added to save." />
+              <play action="roof-saving-modal-hide" />
             </else>
           </if>
         </sync>
@@ -3615,6 +3669,7 @@
             <else>
               <alert title="Incomplete Form" message="Please fill out all fields" />
               <assign property="var:hipValidationIndex" value="0" />
+              <play action="roof-saving-modal-hide" />
             </else>
         </if>
         <else>
@@ -3639,6 +3694,7 @@
             <assign property="datasource:hipsdb-list.query" value="SELECT * FROM HIPS;" />
             <assign property="var:hipindexloop" value="0" />
             <assign property="var:hipValidationIndex" value="0" />
+            <play action="roof-saving-modal-hide" />
           </else>
         </if>
       </sync>
@@ -3665,6 +3721,7 @@
             <play action="valleyValidationLoop" />
             <else>
               <alert title="No Valleys Available" message="There have not been any Valleys added to save." />
+              <play action="roof-saving-modal-hide" />
             </else>
           </if>
         </sync>
@@ -3680,6 +3737,7 @@
             <else>
               <alert title="Incomplete Form" message="Please fill out all fields" />
               <assign property="var:valleyValidationIndex" value="0" />
+              <play action="roof-saving-modal-hide" />
             </else>
         </if>
         <else>
@@ -3704,6 +3762,7 @@
             <assign property="datasource:valleysdb-list.query" value="SELECT * FROM VALLEYS;" />
             <assign property="var:valleyindexloop" value="0" />
             <assign property="var:valleyValidationIndex" value="0" />
+            <play action="roof-saving-modal-hide" />
           </else>
         </if>
       </sync>
@@ -3730,6 +3789,7 @@
             <play action="rakeValidationLoop" />
             <else>
               <alert title="No Rakes Available" message="There have not been any Rakes added to save." />
+              <play action="roof-saving-modal-hide" />
             </else>
           </if>
         </sync>
@@ -3745,6 +3805,7 @@
             <else>
               <alert title="Incomplete Form" message="Please fill out all fields" />
               <assign property="var:rakeValidationIndex" value="0" />
+              <play action="roof-saving-modal-hide" />
             </else>
         </if>
         <else>
@@ -3769,6 +3830,7 @@
             <assign property="datasource:rakesdb-list.query" value="SELECT * FROM RAKES;" />
             <assign property="var:rakeindexloop" value="0" />
             <assign property="var:rakeValidationIndex" value="0" />
+            <play action="roof-saving-modal-hide" />
           </else>
         </if>
       </sync>
@@ -3795,6 +3857,7 @@
             <play action="eaveValidationLoop" />
             <else>
               <alert title="No Eaves Available" message="There have not been any Eaves added to save." />
+              <play action="roof-saving-modal-hide" />
             </else>
           </if>
         </sync>
@@ -3810,6 +3873,7 @@
             <else>
               <alert title="Incomplete Form" message="Please fill out all fields" />
               <assign property="var:eaveValidationIndex" value="0" />
+              <play action="roof-saving-modal-hide" />
             </else>
         </if>
         <else>
@@ -3834,6 +3898,7 @@
             <assign property="datasource:eavesdb-list.query" value="SELECT * FROM EAVES;" />
             <assign property="var:eaveindexloop" value="0" />
             <assign property="var:eaveValidationIndex" value="0" />
+            <play action="roof-saving-modal-hide" />
           </else>
         </if>
       </sync>
@@ -3860,6 +3925,7 @@
             <play action="chimneyValidationLoop" />
             <else>
               <alert title="No Chimneys Available" message="There have not been any Chimneys added to save." />
+              <play action="roof-saving-modal-hide" />
             </else>
           </if>
         </sync>
@@ -3874,6 +3940,7 @@
             <else>
               <alert title="Incomplete Form" message="Please fill out all fields" />
               <assign property="var:chimneyValidationIndex" value="0" />
+              <play action="roof-saving-modal-hide" />
             </else>
         </if>
         <else>
@@ -3898,6 +3965,7 @@
             <assign property="datasource:protrusionsdb-list.query" value="SELECT * FROM PROTRUSIONS;" />
             <assign property="var:protrusionindexloop" value="0" />
             <assign property="var:chimneyValidationIndex" value="0" />
+            <play action="roof-saving-modal-hide" />
           </else>
         </if>
       </sync>
@@ -3924,6 +3992,7 @@
             <play action="ventValidationLoop" />
             <else>
               <alert title="No Vents Available" message="There have not been any Vents added to save." />
+              <play action="roof-saving-modal-hide" />
             </else>
           </if>
         </sync>
@@ -3938,6 +4007,7 @@
             <else>
               <alert title="Incomplete Form" message="Please fill out all fields" />
               <assign property="var:ventValidationIndex" value="0" />
+              <play action="roof-saving-modal-hide" />
             </else>
         </if>
         <else>
@@ -3962,13 +4032,15 @@
             <assign property="datasource:ventsdb-list.query" value="SELECT * FROM VENTS;" />
             <assign property="var:ventindexloop" value="0" />
             <assign property="var:ventValidationIndex" value="0" />
+            <play action="roof-saving-modal-hide" />
           </else>
         </if>
       </sync>
     </action>
     
     <action name="PHOTO">
-<!--       <alert message="PHOTO" /> -->
+      <!--       <alert message="PHOTO" /> -->
+      <play action="roof-saving-modal-hide" />
     </action>
     
     <!-- !drop down actions -->
@@ -3991,6 +4063,7 @@
     <action name="setstate">
       <sync>
         <assign property="object:STATE/input.text" value="_abbr" />
+        <alert message="_abbr" />
         <play action="dropoff" _drop="ADDRESS" />
       </sync>
     </action>
@@ -4777,7 +4850,6 @@
 		<assign property="httpheader:get.ContractorId" value="" />
 	</action>
 
->>>>>>> marty
     <!-- !Edit modal actions -->
     <action name="close-edit">
       <sync>
@@ -4804,6 +4876,15 @@
         
         <alpha value="0" target="MODALCURTAIN" />
       </sync>
+    </action>
+    
+    <!-- !roof save modal -->
+    <action name="roof-saving-modal">
+      <alpha value="1" time=".15" target="ROOF-SAVE-MODAL" />
+    </action>
+    
+    <action name="roof-saving-modal-hide">
+      <alpha value="0" delay=".3" time=".15" target="ROOF-SAVE-MODAL" />
     </action>
     
     <!-- !curtain action -->
