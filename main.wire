@@ -178,7 +178,7 @@
   	</class>
 
     <class name="button">
-      <panel name="[param:name]" width="100%" height="100%" onclick="touched" onclickup="[param:action]" _value="[param:value]" _accessories="[param:accessories]" _image="[param:image]" _title="[param:title]" cornerradius="2" clip="yes">
+      <panel name="[param:name]" width="100%" height="100%" onclick="touched" onclickup="[param:action]" _value="[param:value]" _accessories="[param:accessories]" _image="[param:image]" _title="[param:title]" _units="[param:units]" _coverage="[param:coverage]" cornerradius="2" clip="yes">
         <text name="button" style="button" size="[param:size]" text="[param:label]"></text>
         <panel name="bg" style="100" background="ffffff" alpha="0"></panel>
       </panel>
@@ -974,87 +974,87 @@
 	</class>
 	
 	<class name="three-colors" >
-            <panel name="[param:index]" width="100%" height="320" padding-left="20" padding-right="20">
-              <panel name="1" width="33.33%" height="100%" align="left">
-                <panel name="marginer" width="200" height="100%" align="left" >
-                  <panel name="imgholder" width="200" height="200" background="000000">
-				  	<image name="shingle" url="http://www.gaf.com/All_Images/[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Image]?w=200&amp;h=200"></image>
-                  </panel>
-                  <text name="colorlabel" width="100%" height="40" bottomof="imgholder" style="darktext" size="fit" maxsize="20" alignment="left" text="[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Name]"></text>
-                  <panel name="search-btn" width="200" height="50" align="right" bottomof="colorlabel">
-                    <object class="button" name="test" size="20" label="Select" action="setcolor" value="[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Name]" image="http://www.gaf.com/All_Images/[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Image]" />
-                  </panel>
-                </panel>
-              </panel>
-              
-              <panel name="2" width="33.33%" height="100%" align="center" >
-                <panel name="marginer" width="200" height="100%" align="center">
-                  <panel name="imgholder" width="200" height="200" background="000000">
-				  	<image name="shingle" url="http://www.gaf.com/All_Images/[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+1]]/Image]?w=200&amp;h=200"></image>
-                  </panel>
-                  <text name="colorlabel" width="100%" height="40" bottomof="imgholder" style="darktext" size="fit" maxsize="20" alignment="left" text="[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+1]]/Name]"></text>
-                  <panel name="search-btn" width="200" height="50" align="right" bottomof="colorlabel">
-                    <object class="button" name="test" size="20" label="Select" action="setcolor" value="[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+1]]/Name]" image="http://www.gaf.com/All_Images/[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+1]]/Image]" />
-                  </panel>
-                </panel>
-              </panel>
-              <panel name="3" width="33.33%" height="100%" align="right" >
-                <panel name="marginer" width="200" height="100%" align="right">
-                  <panel name="imgholder" width="200" height="200" background="000000">
-				  	<image name="shingle" url="http://www.gaf.com/All_Images/[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+2]]/Image]?w=200&amp;h=200"></image>
-                  </panel>
-                  <text name="colorlabel" width="100%" height="40" bottomof="imgholder" style="darktext" size="fit" maxsize="20" alignment="left" text="[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+2]]/Name]"></text>
-                  <panel name="search-btn" width="200" height="50" align="right" bottomof="colorlabel">
-                    <object class="button" name="test" size="20" label="Select" action="setcolor" value="[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+2]]/Name]" image="http://www.gaf.com/All_Images/[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+2]]/Image]" />
-                  </panel>
-                </panel>
-              </panel>
-            </panel>
-            <!-- <panel name="row3" width="100%" height="300" background="#0000ff"></panel> -->
+    <panel name="[param:index]" width="100%" height="320" padding-left="20" padding-right="20">
+      <panel name="1" width="33.33%" height="100%" align="left">
+        <panel name="marginer" width="200" height="100%" align="left" >
+          <panel name="imgholder" width="200" height="200" background="000000">
+            <image name="shingle" url="http://www.gaf.com/All_Images/[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Image]?w=200&amp;h=200"></image>
+          </panel>
+          <text name="colorlabel" width="100%" height="40" bottomof="imgholder" style="darktext" size="fit" maxsize="20" alignment="left" text="[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Name]"></text>
+          <panel name="search-btn" width="200" height="50" align="right" bottomof="colorlabel">
+            <object class="button" name="test" size="20" label="Select" action="setcolor" value="[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Name]" image="http://www.gaf.com/All_Images/[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Image]" />
+          </panel>
+        </panel>
+      </panel>
+      
+      <panel name="2" width="33.33%" height="100%" align="center" >
+        <panel name="marginer" width="200" height="100%" align="center">
+          <panel name="imgholder" width="200" height="200" background="000000">
+            <image name="shingle" url="http://www.gaf.com/All_Images/[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+1]]/Image]?w=200&amp;h=200"></image>
+          </panel>
+          <text name="colorlabel" width="100%" height="40" bottomof="imgholder" style="darktext" size="fit" maxsize="20" alignment="left" text="[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+1]]/Name]"></text>
+          <panel name="search-btn" width="200" height="50" align="right" bottomof="colorlabel">
+            <object class="button" name="test" size="20" label="Select" action="setcolor" value="[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+1]]/Name]" image="http://www.gaf.com/All_Images/[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+1]]/Image]" />
+          </panel>
+        </panel>
+      </panel>
+      <panel name="3" width="33.33%" height="100%" align="right" >
+        <panel name="marginer" width="200" height="100%" align="right">
+          <panel name="imgholder" width="200" height="200" background="000000">
+            <image name="shingle" url="http://www.gaf.com/All_Images/[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+2]]/Image]?w=200&amp;h=200"></image>
+          </panel>
+          <text name="colorlabel" width="100%" height="40" bottomof="imgholder" style="darktext" size="fit" maxsize="20" alignment="left" text="[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+2]]/Name]"></text>
+          <panel name="search-btn" width="200" height="50" align="right" bottomof="colorlabel">
+            <object class="button" name="test" size="20" label="Select" action="setcolor" value="[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+2]]/Name]" image="http://www.gaf.com/All_Images/[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+2]]/Image]" />
+          </panel>
+        </panel>
+      </panel>
+    </panel>
+    <!-- <panel name="row3" width="100%" height="300" background="#0000ff"></panel> -->
 	</class>
 	
 	<class name="two-colors">
-            <panel name="[param:index]" width="100%" height="320" padding-left="20" padding-right="20">
-              <panel name="1" width="33.33%" height="100%" align="left">
-                <panel name="marginer" width="200" height="100%" align="left" >
-                  <panel name="imgholder" width="200" height="200" background="000000">
-				  	<image name="shingle" url="http://www.gaf.com/All_Images/[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Image]?w=200&amp;h=200"></image>
-                  </panel>
-                  <text name="colorlabel" width="100%" height="40" bottomof="imgholder" style="darktext" size="20" alignment="left" text="[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Name]"></text>
-                  <panel name="search-btn" width="200" height="50" align="right" bottomof="colorlabel">
-                    <object class="button" name="test" size="20" label="Select" action="setcolor" value="[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Name]" image="http://www.gaf.com/All_Images/[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Image]" />
-                  </panel>
-                </panel>
-              </panel>
-              
-              <panel name="2" width="33.33%" height="100%" align="center" >
-                <panel name="marginer" width="200" height="100%" align="center">
-                  <panel name="imgholder" width="200" height="200" background="000000">
-				  	<image name="shingle" url="http://www.gaf.com/All_Images/[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+1]]/Image]?w=200&amp;h=200"></image>
-                  </panel>
-                  <text name="colorlabel" width="100%" height="40" bottomof="imgholder" style="darktext" size="20" alignment="left" text="[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+1]]/Name]"></text>
-                  <panel name="search-btn" width="200" height="50" align="right" bottomof="colorlabel">
-                    <object class="button" name="test" size="20" label="Select" action="setcolor" value="[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+1]]/Name]" image="http://www.gaf.com/All_Images/[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+1]]/Image]"/>
-                  </panel>
-                </panel>
-              </panel>
-            </panel>
+    <panel name="[param:index]" width="100%" height="320" padding-left="20" padding-right="20">
+      <panel name="1" width="33.33%" height="100%" align="left">
+        <panel name="marginer" width="200" height="100%" align="left" >
+          <panel name="imgholder" width="200" height="200" background="000000">
+            <image name="shingle" url="http://www.gaf.com/All_Images/[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Image]?w=200&amp;h=200"></image>
+          </panel>
+          <text name="colorlabel" width="100%" height="40" bottomof="imgholder" style="darktext" size="20" alignment="left" text="[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Name]"></text>
+          <panel name="search-btn" width="200" height="50" align="right" bottomof="colorlabel">
+            <object class="button" name="test" size="20" label="Select" action="setcolor" value="[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Name]" image="http://www.gaf.com/All_Images/[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Image]" />
+          </panel>
+        </panel>
+      </panel>
+      
+      <panel name="2" width="33.33%" height="100%" align="center" >
+        <panel name="marginer" width="200" height="100%" align="center">
+          <panel name="imgholder" width="200" height="200" background="000000">
+            <image name="shingle" url="http://www.gaf.com/All_Images/[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+1]]/Image]?w=200&amp;h=200"></image>
+          </panel>
+          <text name="colorlabel" width="100%" height="40" bottomof="imgholder" style="darktext" size="20" alignment="left" text="[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+1]]/Name]"></text>
+          <panel name="search-btn" width="200" height="50" align="right" bottomof="colorlabel">
+            <object class="button" name="test" size="20" label="Select" action="setcolor" value="[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+1]]/Name]" image="http://www.gaf.com/All_Images/[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+1]]/Image]"/>
+          </panel>
+        </panel>
+      </panel>
+    </panel>
 	</class>
 	
 	<class name="one-color">
-            <panel name="[param:index]" width="100%" height="320" padding-left="20" padding-right="20">
-              <panel name="1" width="33.33%" height="100%" align="left">
-                <panel name="marginer" width="200" height="100%" align="left" >
-                  <panel name="imgholder" width="200" height="200" background="000000">
-				  	<image name="shingle" url="http://www.gaf.com/All_Images/[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Image]?w=200&amp;h=200"></image>
-                  </panel>
-                  <text name="colorlabel" width="100%" height="40" bottomof="imgholder" style="darktext" size="20" alignment="left" text="[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Name]"></text>
-                  <panel name="search-btn" width="200" height="50" align="right" bottomof="colorlabel">
-                    <object class="button" name="test" size="20" label="Select" action="setcolor" value="[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Name]" image="http://www.gaf.com/All_Images/[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+2]]/Image]"/>
-                  </panel>
-                </panel>
-              </panel>
-            </panel>
+    <panel name="[param:index]" width="100%" height="320" padding-left="20" padding-right="20">
+      <panel name="1" width="33.33%" height="100%" align="left">
+        <panel name="marginer" width="200" height="100%" align="left" >
+          <panel name="imgholder" width="200" height="200" background="000000">
+            <image name="shingle" url="http://www.gaf.com/All_Images/[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Image]?w=200&amp;h=200"></image>
+          </panel>
+          <text name="colorlabel" width="100%" height="40" bottomof="imgholder" style="darktext" size="20" alignment="left" text="[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Name]"></text>
+          <panel name="search-btn" width="200" height="50" align="right" bottomof="colorlabel">
+            <object class="button" name="test" size="20" label="Select" action="setcolor" value="[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Name]" image="http://www.gaf.com/All_Images/[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+2]]/Image]"/>
+          </panel>
+        </panel>
+      </panel>
+    </panel>
 	</class>
 
     <class name="warranty">
@@ -1080,7 +1080,7 @@
         <text name="subtitle" width="[eval: [object:ACCESSORIES-PAGER-BOX.width] - 128]" height="66" font="Futura-Medium" color="#343434" size="fit" maxsize="25" alignment="left" text="[param:title]"></text>
         <!--<text name="bullet1" width="307" height="fit" xpos="20" bottomof="subtitle" style="darktext" size="15" alignment="left" text="Sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus."></text>-->
         <panel name="warranty-btn" width="108" height="50" align="right" ypos="8">
-          <object class="button" name="test" size="20" label="Select" action="selectaccessories" value="[param:index]" />
+          <object class="button" name="test" size="20" label="Select" action="selectaccessories" value="[param:index]" units="[param:units]" coverage="[param:coverage]" />
         </panel>
         <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
       </panel>
@@ -1875,9 +1875,9 @@
           <object class="title" title="Accessories"  />
           <panel name="productpagerbox" alias="ACCESSORIES-PAGER-BOX" width="100%" height="[eval: [object:PRODUCTS-ACCESSORIES.height] - 79]" ypos="79" >
             <list name="pager" width="100%" datasource="getAccessories" height="100%" orientation="vertical" paginate="no" padding-left="20" padding-right="20" >
-			<object class="accessory-category" index="[ds:dataSourceIndex]" category="[ds:AccessoryCategory]" lhs="[eval: ('[ds:dataSourceIndex]' == '1') || ('[datasource:getAccessories.[eval:[ds:dataSourceIndex]-1].AccessoryCategory]' != '[datasource:getAccessories.[ds:dataSourceIndex].AccessoryCategory]')]" operator="e" rhs="true" />
+              <object class="accessory-category" index="[ds:dataSourceIndex]" category="[ds:AccessoryCategory]" lhs="[eval: ('[ds:dataSourceIndex]' == '1') || ('[datasource:getAccessories.[eval:[ds:dataSourceIndex]-1].AccessoryCategory]' != '[datasource:getAccessories.[ds:dataSourceIndex].AccessoryCategory]')]" operator="e" rhs="true" />
 <!-- 			<object class="accessory-category" index="[ds:dataSourceIndex]" category="[ds:AccessoryCategory]" lhs="[eval: '[ds:dataSourceIndex]' == '1' || '[ds:AccessoryCategory]' != '[datasource:getAccessories.[eval:[ds:dataSourceIndex]-1].AccessoryCategory]]'" operator="e" rhs="true" /> -->
-              <object class="accessory" index="[ds:dataSourceIndex]" title="[ds:AccessoryName]" />
+              <object class="accessory" index="[ds:dataSourceIndex]" title="[ds:AccessoryName]" units="[ds:UnitOfMeasure]" coverage="[ds:CoveragePerUnit]" />
             </list>
           </panel>
         </panel>
@@ -2161,7 +2161,7 @@
         </panel>
       </panel>
       
-      <panel name="accessorylist" alias="ACCESSORYLIST" width="60%" height="40%" alpha="0" align="center" ypos="18%" background="#e3e3e3" onclickup="accessorydismiss" borderwidth="2" bordercolor="#343434" shadowradius="3" shadowxoffset="0" shadowyoffset="0" shadowopacity=".3">
+      <panel name="accessorylist" alias="ACCESSORYLIST" width="60%" height="44%" alpha="0" align="center" ypos="18%" background="#e3e3e3" onclickup="accessorydismiss" borderwidth="2" bordercolor="#343434" shadowradius="3" shadowxoffset="0" shadowyoffset="0" shadowopacity=".3">
         <text name="label" width="100%" height="80" leftinset="20" background="#343434" color="#ffffff" font="Futura-Medium" size="40" alignment="left" text="Select an Accessory"></text>
         <text name="accessorytype" width="100%" height="60" bottomof="label" style="darktext" leftinset="20" size="30" alignment="left" text="Ventilation"></text>
         <panel name="inner" width="100%" height="[eval: [object:ACCESSORYLIST.height] - 150]" ypos="150" padding-left="20" padding-right="20" padding-bottom="20" >
@@ -2169,13 +2169,18 @@
             <panel name="acessory1" width="100%" fitheight="yes" >
               <text name="item" width="100%" height="fit" style="darktext" size="25" alignment="left" text="Example product"></text>
               <text name="description" width="100%" height="fit" bottomof="item" style="darktext" size="20" alignment="left" text="Maecenas sed diam eget risus varius blandit sit amet non magna. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit."></text>
-              <panel name="accessoryquantity" alias="ACCESSORYQUANTITY" width="200" height="50" style="textinput" bottomof="description" margin-top="20"  >
+              <panel name="accessory-units-meta" alias="ACCESSORY-UNITS-META" width="100%" height="50" bottomof="description">
+                <text name="unitequals" alias="UNITEQUALS" width="50%" height="50" color="#343434" font="Futura-Medium" size="20" alignment="left" text=" "></text>
+                <text name="unitmeasure" alias="UNITMEASURE" width="50%" height="50" align="right" color="#343434" font="Futura-Medium" size="20" alignment="right" text=" "></text>
+              </panel>
+              <panel name="accessoryquantity" alias="ACCESSORYQUANTITY" width="180" height="50" style="textinput" bottomof="ACCESSORY-UNITS-META"  >
                 <panel name="bg" style="100" background="f3f3f3" alpha="1"></panel>
                 <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Quantity"></text>
                 <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null"></textfield>
                 <panel name="active" style="100" onclickup="labelactive" _field="ACCESSORYQUANTITY"></panel>
               </panel>
-              <panel name="create" width="110" height="50" align="right" bottomof="description" margin-top="20">
+              <text name="accessory-unit" alias="ACCESSORY-UNIT" width="100" height="50" bottomof="ACCESSORY-UNITS-META" rightof="ACCESSORYQUANTITY" leftinset="10" color="#343434" font="Futura-Medium" size="20" alignment="left" text="Units"></text>
+              <panel name="create" width="110" height="50" align="right" bottomof="ACCESSORY-UNITS-META">
                 <object class="button" name="test" size="20" label="Select" action="selectaccessory-save" value="product id" />
               </panel>
             </panel>
@@ -2926,8 +2931,13 @@
         <assign property="var:nav" value="_this" />
         <translate xpos="101%" curve="linear" target="NAVBLOCK" />
         <if lhs="[var:navwas]" operator="e" rhs="ROOF">
-          <!-- <alert message="[var:navwas]" /> -->
-          <play action="[var:roof]" />
+          <!-- <play action="[var:roof]" />-->
+          <assign property="var:leakbarrier" value="[eval: [var:ridgestotal] + [var:hipstotal] + [var:valleystotal] + [var:rakestotal] + [var:eavestotal]]" />
+          <assign property="var:starterstrips" value="[eval: [var:rakestotal] + [var:eavestotal]]" />
+          <!--<alert title="Starter Strips" message="[var:starterstrips]" />
+          <alert title="Ridge Vents and Ridge Cap Shingles" message="[var:ridgestotal] ft" />
+          <alert title="Leak Barrier" message="[var:leakbarrier]" />-->
+          
         </if>
         <if lhs="_this" operator="e" rhs="PRODUCTS">
           <if lhs="[var:product]" operator="e" rhs="">
@@ -2946,28 +2956,10 @@
           <create class="summary-cust" target="SUMMARY-PAGER" cust1name="[datasource:customersdb-list.1.FNAME] [datasource:customersdb-list.1.LNAME]" cust1phone="[datasource:customersdb-list.1.PHONE]" cust1email="[datasource:customersdb-list.1.EMAIL]" cust2name="[datasource:customersdb-list.1.FNAME2] [datasource:customersdb-list.1.LNAME2]" cust2phone="[datasource:customersdb-list.1.PHONE2]" cust2email="[datasource:customersdb-list.1.EMAIL2]" street="[datasource:customersdb-list.1.STREET]" city="[datasource:customersdb-list.1.CITY]" state="[datasource:customersdb-list.1.STATE]" zip="[datasource:customersdb-list.1.POSTAL]"  />
         </if>
         <if lhs="[var:navwas]" operator="e" rhs="SUMMARY">
-          <!--<delete target="SUMMARY-CUSTOMER" />
-          <delete target="SUMMARY-ROOF" />
-          <delete target="SUMMARY-PRODUCTS" />
-          <delete target="SUMMARY-SERVICES" />-->
           <delete target="SUMMARY-PAGER" />
-          <create class="summary-pager" target="SUMMARYPAGERBOX" />
-          
-<!--           <delete target="SUMMARY-ACCESSORY-TITLE" /> -->
-          <!--<loop lhs="[var:summary-acc-sub-delete]" operator="lt" rhs="[var:summary-acc-sub]">
-            <assign property="var:summary-acc-sub-delete" value="[eval: [var:summary-acc-sub-delete] + 1]" />
-            <delete target="SUMMARY-ACCESSORY-SUBTITLE[var:summary-acc-sub-delete]" />
-          </loop>-->
-<!--           <alert title="delete accessory item" message="[var:summary-[var:sumac-loop]-index]" /> -->
-          <!--<loop lhs="[var:summary-[var:sumac-loop]-index-delete]" operator="lt" rhs="[var:summary-[var:sumac-loop]-index]">
-            <assign property="var:summary-[var:sumac-loop]-index-delete" value="[eval:[var:summary-[var:sumac-loop]-index-delete] + 1]" />
-            <delete target="SUMMARY-ACCESSORY-ITEM[var:summary-[var:sumac-loop]-index-delete]" />-->
-<!--             <alert title="delete accessory item" message="[var:summary-[var:sumac-loop]-index-delete]" /> -->
-          <!--</loop>-->
           <assign property="var:summary-[var:sumac-loop]-index" value="0" />
           <assign property="var:summary-[var:sumac-loop]-index-delete" value="0" />
-          
-          <!--<delete target="DIVIDEBOX" />-->
+          <create class="summary-pager" target="SUMMARYPAGERBOX" />
         </if>
         <assign property="var:navwas" value="_this" />
       </sync>
@@ -3259,6 +3251,8 @@
           <alpha value="0" time=".2" target="CUSTOMER" />
           <alpha value="1" time=".2" target="ROOF" />
           <assign property="var:nav" value="ROOF" />
+          <assign property="var:navwas" value="ROOF" />
+          <!--<assign property="var:navwas" value="ROOF" />-->
           <translate xpos="101%" curve="linear" target="NAVBLOCK" />
           <translate xpos="251" curve="linear" target="STEP-NAVBLOCK" />
           <assign property="object:NAV-CUSTOMER/open/step.background" value="#666666" />
@@ -3569,6 +3563,7 @@
     
     <action name="RIDGE">
       <sync>
+        <assign property="var:ridgestotal" value="0" />
         <if lhs="[datasource:ridgesdb-list.dataSourceResultCount]" operator="gt" rhs="0">
           <assign property="datasource:ridgesdb-delete.query" value="DELETE FROM RIDGES;" />
           <else>
@@ -3635,6 +3630,7 @@
     <action name="HIP">
       <sync>
         <!-- <alert message="pre-saved removed [datasource:hipsdb-list.dataSourceResultCount]" />-->
+        <assign property="var:hipstotal" value="0" />
         <if lhs="[datasource:hipsdb-list.dataSourceResultCount]" operator="gt" rhs="0">
           <assign property="datasource:hipsdb-delete.query" value="DELETE FROM HIPS;" />
 <!-- 		  <alert message="deleting hips db for fresh save" /> -->
@@ -3703,6 +3699,7 @@
     <action name="VALLEY">
       <sync>
         <!-- <alert message="pre-saved removed [datasource:valleysdb-list.dataSourceResultCount]" />-->
+        <assign property="var:valleystotal" value="0" />
         <if lhs="[datasource:valleysdb-list.dataSourceResultCount]" operator="gt" rhs="0">
           <assign property="datasource:valleysdb-delete.query" value="DELETE FROM VALLEYS;" />
 <!--           <alert message="if to delete" /> -->
@@ -3771,6 +3768,7 @@
     <action name="RAKE">
       <sync>
         <!-- <alert message="pre-saved removed [datasource:rakesdb-list.dataSourceResultCount]" />-->
+        <assign property="var:rakestotal" value="0" />
         <if lhs="[datasource:rakesdb-list.dataSourceResultCount]" operator="gt" rhs="0">
           <assign property="datasource:rakesdb-delete.query" value="DELETE FROM RAKES;" />
           <!-- <alert message="if to delete" />-->
@@ -3839,6 +3837,7 @@
     <action name="EAVE">
       <sync>
         <!-- <alert message="pre-saved removed [datasource:eavesdb-list.dataSourceResultCount]" />-->
+        <assign property="var:eavestotal" value="0" />
         <if lhs="[datasource:eavesdb-list.dataSourceResultCount]" operator="gt" rhs="0">
           <assign property="datasource:eavesdb-delete.query" value="DELETE FROM EAVES;" />
           <!-- <alert message="if to delete" /> -->
@@ -4063,7 +4062,7 @@
     <action name="setstate">
       <sync>
         <assign property="object:STATE/input.text" value="_abbr" />
-        <alert message="_abbr" />
+        <!--<alert message="_abbr" />-->
         <play action="dropoff" _drop="ADDRESS" />
       </sync>
     </action>
@@ -4279,9 +4278,9 @@
     <action name="selectwarranty-save" datasource="productsdb-delete" datasourceevent="querycomplete">
       <if lhs="[var:loaded]" operator="e" rhs="yes">
         <play action="released" />
-		<if lhs="[var:accessories]" operator="gt" rhs="0">
-        	<alert message="you must select [var:accessories] accessories to qualify for the warranty you have chosen" />
-		</if>
+        <if lhs="[var:accessories]" operator="gt" rhs="0">
+            	<alert message="you must select [var:accessories] accessories to qualify for the warranty you have chosen" />
+        </if>
         <assign property="datasource:productsdb.query" value="INSERT INTO PRODUCTS (SHINGLE, COLOR, WARRANTY, IMAGE) VALUES ('[var:shingle]', '[var:color]', '[var:warranty]', '[var:productImage]');" />
         <assign property="datasource:getAccessories.source" value="https://162.209.101.177/api/GetAccessoryByProduct?productId=[var:shingle]" />
         <translate ypos="195" curve="linear" target="PRODUCTS-STEP-BLOCKER" />
@@ -4328,6 +4327,27 @@
       <assign property="object:ACCESSORYLIST/accessorytype.text" value="[datasource:getAccessories._value.AccessoryCategory]" />
       <assign property="object:ACCESSORYTYPEPAGER/acessory1/item.text" value="[datasource:getAccessories._value.AccessoryName]" />
       <assign property="object:ACCESSORYTYPEPAGER/acessory1/description.text" value="[datasource:getAccessories._value.Description]" />
+      <!--<assign property="object:UNITEQUALS.text" value="1 = _coverage _units" />-->
+      <if lhs="[datasource:getAccessories._value.AccessoryCategory]" operator="e" rhs="Leak Barrier">
+        <assign property="object:UNITMEASURE.text" value="[var:leakbarrier] ft needed" />
+        <assign property="object:UNITEQUALS.text" value="1 = _coverage ft _units" />
+      </if>
+      <if lhs="[datasource:getAccessories._value.AccessoryCategory]" operator="e" rhs="Roof Deck Protection">
+        <assign property="object:UNITMEASURE.text" value="" />
+        <assign property="object:UNITEQUALS.text" value="1 = _coverage ft _units" />
+      </if>
+      <if lhs="[datasource:getAccessories._value.AccessoryCategory]" operator="e" rhs="Starter Strips">
+        <assign property="object:UNITMEASURE.text" value="[var:starterstrips] ft needed" />
+        <assign property="object:UNITEQUALS.text" value="1 = _coverage ft _units" />
+      </if>
+      <if lhs="[datasource:getAccessories._value.AccessoryCategory]" operator="e" rhs="Ventilation">
+        <assign property="object:UNITMEASURE.text" value="" />
+        <assign property="object:UNITEQUALS.text" value="" />
+      </if>
+      <if lhs="[datasource:getAccessories._value.AccessoryCategory]" operator="e" rhs="Ridge Cap">
+        <assign property="object:UNITMEASURE.text" value="[var:ridgestotal] ft needed" />
+        <assign property="object:UNITEQUALS.text" value="1 = _coverage ft _units" />
+      </if>
       <alpha value="1" time=".25" target="ACCESSORYLIST" />
       <translate valign="center" time=".25" curve="easeout" target="ACCESSORYLIST" />
       <assign property="var:curtainaction" value="accessorydismiss" />
