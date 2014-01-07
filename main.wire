@@ -20,7 +20,6 @@
 
   	<datasource name="login" source="" query="/" providertype="json" httpmethod="post" httpheader="login"/>
 	<datasource name="createCustomer" source="" query="/" providertype="json" httpmethod="post" httpheader="token-contractorid"/>
-	<datasource name="editCustomer" source="" query="/" providertype="json" httpmethod="put" httpheader="token-contractorid"/>
 	<datasource name="getEstimate" source="" query="/CustomerDetails" providertype="json" httpmethod="get" httpheader="token-contractorid"/>
 	<datasource name="getProducts" source="" query="/Products" providertype="json" httpmethod="get" httpheader="token-contractorid"/>
 	<datasource name="getAccessories" source="" query="/Accessories" providertype="json" httpmethod="get" httpheader="token-contractorid"/>
@@ -113,10 +112,7 @@
 	<!-- !TEXTTEMPLATES -->
 	<texttemplate name="login"><![CDATA[{"UserName":"[var:username]","Password":"[var:password]"}]]></texttemplate>
 	<texttemplate name="createCustomer"><![CDATA[
-	{CustomerFirstName":"[var:firstName]","CustomerMiddleName":"[var:middleName]","CustomerLastName":"[var:lastName]","Address1":"[var:address1]","Address2":"[var:address2]","City":"[var:city]","StateProvince":"[var:state]","PostalCode":"[var:postalCode]","Country":"[var:country]","Notes":"[var:notes]"}
-	]]></texttemplate>
-	<texttemplate name="editCustomer"><![CDATA[
-	{"CustomerId":[var:edit-customerId],"CustomerFirstName":"[var:edit-fname]","CustomerMiddleName":"[var:edit-middlename]","CustomerLastName":"[var:edit-lname]","Address1":"[var:edit-address1]","Address2":"[var:edit-address2]","City":"[var:edit-city]","StateProvince":"[var:edit-state]","PostalCode":"[var:edit-zip]","Country":"[var:edit-country]","EstimatePdf": "","EstimateDetails": []}
+	{"CustomerFirstName":"[var:firstName]","CustomerMiddleName":"[var:middleName]","CustomerLastName":"[var:lastName]","Address1":"[var:address1]","Address2":"[var:address2]","City":"[var:city]","StateProvince":"[var:state]","PostalCode":"[var:postalCode]","Country":"[var:country]","Notes":"[var:notes]"}
 	]]></texttemplate>
 	<texttemplate name="roofMeasurements"><![CDATA[
 		{"Field":"[eval:[var:roofMeasurementsIterateCount]-1]","Length":"[datasource:roofareasdb-list.[var:roofMeasurementsIterateCount].LENGTH]","Width":"[datasource:roofareasdb-list.[var:roofMeasurementsIterateCount].WIDTH]","Pitch":"[datasource:roofareasdb-list.[var:roofMeasurementsIterateCount].SLOPE]"}
@@ -270,7 +266,7 @@
           <panel name="username" alias="USERNAME" width="100%" height="50" ypos="50" style="textinput">
             <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
             <!--<text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Username"></text>-->
-            <textfield name="input" width="100%" height="100%" align="right" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Username" onreturnkeypressed="next" returnkeytype="next" kbtype="emailaddress" _next="PASSWORD" autocorrect="no" ></textfield>
+            <textfield name="input" width="100%" height="100%" align="right" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Username" onreturnkeypressed="next" returnkeytype="next" kbtype="emailaddress" _next="PASSWORD"></textfield>
             <panel name="active" style="100" onclickup="labelactive" _field="USERNAME"></panel>
           </panel>
       
@@ -350,7 +346,7 @@
         <text name="name" width="65%" height="30" xpos="20" ypos="20" style="darktext" size="24" alignment="left" text="[param:lastname], [param:firstname]" ></text>
         <text name="address" width="65%" height="30" xpos="20" bottomof="name" style="darktext" size="20" alignment="left" text="[param:street], [param:city], [param:state] [param:zip]" ></text>
         <panel name="edit-btn" width="100" height="50" ypos="22" align="right" bottomof="search-address" margin-right="20">
-          <object class="button" name="test" size="20" label="Edit" action="edit" value="[param:index]" />
+          <object class="button" name="test" size="20" label="Edit" action="edit" value="[param:customerId]" />
         </panel>
         <panel name="view-btn" width="100" height="50" ypos="22" leftof="edit-btn" margin-right="20" bottomof="search-address">
           <object class="button" name="test" size="20" label="View" action="viewestimate" value="[param:estimatePdf]" />
@@ -362,10 +358,11 @@
     <class name="results">
       <panel name="searchresults" alias="SEARCHRESULTS" width="100%" height="100%" ypos="101%" background="#e3e3e3">
         <panel name="searchhead" width="100%" height="74" background="#343434" >
-			<text name="label" width="100%" height="100%" color="#ffffff" font="Futura-Medium" size="24" alignment="center" text="Searching Estimates..."></text>
-          <text name="close" width="100" height="100%" color="#ffffff" font="Avenir-Medium" size="16" alignment="left" leftinset="20" text="CLOSE" onclickup="closeresults" clickuptarget="CONTAINER"></text>        </panel>
+          <text name="label" width="100%" height="100%" color="#ffffff" font="Futura-Medium" size="24" alignment="center" text="Search Results"></text>
+          <text name="close" width="100" height="100%" color="#ffffff" font="Futura-Medium" size="20" alignment="left" leftinset="20" text="Close" onclickup="closeresults" clickuptarget="CONTAINER"></text>
+        </panel>
         <list name="resultlist" width="100%" height="[eval: [object:SEARCHRESULTS.height] - 74]" datasource="getEstimate" ypos="74" orientation="vertical" paginate="no">
-          <object class="searchresult" index="[ds:dataSourceIndex]" lastname="[ds:CustomerLastName]" firstname="[ds:CustomerFirstName]" street="[ds:Address1]" city="[ds:City]" state="[ds:StateProvince]" zip="[ds:PostalCode]" estimateId="test" />
+          <object class="searchresult" index="1" lastname="[ds:CustomerLastName]" firstname="[ds:CustomerFirstName]" street="[ds:Address1]" city="[ds:City]" state="[ds:StateProvince]" zip="[ds:PostalCode]" estimateId="test" customerId="[ds:CustomerId]" />
         </list>
       </panel>
     </class>
@@ -383,7 +380,7 @@
             <text name="label" width="50%" height="100%" color="#343434" font="Futura-Medium" size="24" alignment="left" text="First Name" ></text>
             <panel name="edit-fname" alias="EDIT-FNAME" width="50%" height="50" align="right" valign="center" style="textinput">
               <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
-              <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" _next="EDIT-LNAME" _action="null" text="[param:fname]" ></textfield>
+              <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" _next="EDIT-LNAME" _action="null" ></textfield>
               <panel name="active" style="100" onclickup="labelactive" _field="EDIT-FNAME"></panel>
             </panel>
             <panel name="border" width="100%" height="1" valign="bottom" background="#343434"></panel>
@@ -392,7 +389,7 @@
             <text name="label" width="50%" height="100%" color="#343434" font="Futura-Medium" size="24" alignment="left" text="Last Name" ></text>
             <panel name="edit-lname" alias="EDIT-LNAME" width="50%" height="50" align="right" valign="center" style="textinput">
               <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
-              <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" _next="EDIT-EMAIL" _action="null" text="[param:lname]" ></textfield>
+              <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" _next="EDIT-EMAIL" _action="null" ></textfield>
               <panel name="active" style="100" onclickup="labelactive" _field="EDIT-LNAME"></panel>
             </panel>
             <panel name="border" width="100%" height="1" valign="bottom" background="#343434"></panel>
@@ -433,7 +430,7 @@
             <text name="label" width="50%" height="100%" color="#343434" font="Futura-Medium" size="24" alignment="left" text="Street Address" ></text>
             <panel name="edit-street" alias="EDIT-STREET" width="50%" height="50" align="right" valign="center" style="textinput">
               <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
-              <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" _next="EDIT-CITY" _action="null" text="[param:address1]"></textfield>
+              <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" _next="EDIT-CITY" _action="null" ></textfield>
               <panel name="active" style="100" onclickup="labelactive" _field="EDIT-STREET"></panel>
             </panel>
             <panel name="border" width="100%" height="1" valign="bottom" background="#343434"></panel>
@@ -442,7 +439,7 @@
             <text name="label" width="50%" height="100%" color="#343434" font="Futura-Medium" size="24" alignment="left" text="City" ></text>
             <panel name="edit-city" alias="EDIT-CITY" width="50%" height="50" align="right" valign="center" style="textinput">
               <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
-              <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" _next="none" _action="null" text="[param:city]" ></textfield>
+              <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" _next="none" _action="null" ></textfield>
               <panel name="active" style="100" onclickup="labelactive" _field="EDIT-CITY"></panel>
             </panel>
             <panel name="border" width="100%" height="1" valign="bottom" background="#343434"></panel>
@@ -451,7 +448,7 @@
             <text name="label" width="50%" height="100%" color="#343434" font="Futura-Medium" size="24" alignment="left" text="State or Province" ></text>
             <panel name="edit-state" alias="EDIT-STATE" width="50%" height="50" align="right" valign="center" style="textinput">
               <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
-              <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" _next="none" _action="null" text="[param:state]"></textfield>
+              <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" _next="none" _action="null" ></textfield>
               <panel name="active" style="100" onclickup="edit-state-list" _field="EDIT-STATE"></panel>
             </panel>
             <panel name="border" width="100%" height="1" valign="bottom" background="#343434"></panel>
@@ -461,7 +458,7 @@
             <text name="label" width="50%" height="100%" color="#343434" font="Futura-Medium" size="24" alignment="left" text="Zip or Postal Code" ></text>
             <panel name="edit-zip" alias="EDIT-ZIP" width="50%" height="50" align="right" valign="center" style="textinput">
               <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
-              <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" _next="none" _action="null" text="[param:zip]"></textfield>
+              <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" _next="none" _action="null" ></textfield>
               <panel name="active" style="100" onclickup="labelactive" _field="EDIT-ZIP"></panel>
             </panel>
             <panel name="border" width="100%" height="1" valign="bottom" background="#343434"></panel>
@@ -484,7 +481,7 @@
         
         <panel name="editfooter" width="100%" height="80" valign="bottom" background="#343434" padding-right="20">
           <panel name="view-btn" width="130" height="50" align="right" valign="center">
-            <object class="button" name="test" size="20" label="Update" action="editcustomer" />
+            <object class="button" name="test" size="20" label="Update" action="null" value="" />
           </panel>
         </panel>
         
@@ -494,7 +491,7 @@
     <!-- !Roof info classes -->
     <class name="roof area">
       <panel name="roof-area[param:index]" alias="ROOF-AREA[param:index]" width="100%" height="220">
-        <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="20" alignment="left" text="Roof Area [param:index]"></text>
+        <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="15" alignment="left" text="ROOF AREA [param:index]"></text>
         <panel name="length" width="256" height="50" bottomof="subtitle">
           <panel name="rl[param:index]" alias="RL[param:index]" width="226" height="50" align="left" style="textinput">
             <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
@@ -584,7 +581,7 @@
     
     <class name="inspection">
       <panel name="inspection" alias="INSPECTION" width="100%" height="160">
-        <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="20" alignment="left" text="Existing Roof Information"></text>
+        <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="15" alignment="left" text="EXISTING ROOF INFORMATION"></text>
         <panel name="rooftype" alias="ROOFTYPE" width="226" height="50" align="left" bottomof="subtitle" style="textinput">
           <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
           <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Roof Type"></text>
@@ -595,7 +592,7 @@
           <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
           <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Floors"></text>
           <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="1 - 3" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null" onchange="isNaN"></textfield>
-          <panel name="active" style="100" onclickup="labelactive" _field="FLOORS" _drop="INSPECTION"></panel>
+          <panel name="active" style="100" onclickup="dropon" _field="FLOORS" _drop="INSPECTION" _droptype="FLOORSDROP"></panel>
         </panel>
         <!--<panel name="difficulty" alias="DIFFICULTY" width="226" height="50" align="left" bottomof="floors" margin-top="10" style="textinput">
           <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
@@ -605,7 +602,22 @@
         </panel>-->
         <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
         <panel name="drop" width="45%" height="110" bottomof="subtitle" xpos="101%" alpha="0" style="textinput">
-          <panel name="rooftypedrop" alias="ROOFTYPEDROP" width="100%" height="100%">
+          <pager name="floorsdrop" alias="FLOORSDROP" width="100%" height="100%" orientation="vertical" paginate="no" alpha="0">
+            <panel name="floor1" width="100%" height="40" _floors="1" onclickup="setfloor">
+              <text name="name" width="100%" height="100%" style="darktext" size="18" alignment="center" text="1"></text>
+              <panel name="border" width="100%" height="1" valign="bottom" background="#888888"></panel>
+            </panel>
+            <panel name="floor2" width="100%" height="40" _floors="2" onclickup="setfloor">
+              <text name="name" width="100%" height="100%" style="darktext" size="18" alignment="center" text="2"></text>
+              <panel name="border" width="100%" height="1" valign="bottom" background="#888888"></panel>
+            </panel>
+            <panel name="floor3" width="100%" height="40" _floors="3" onclickup="setfloor">
+              <text name="name" width="100%" height="100%" style="darktext" size="18" alignment="center" text="3"></text>
+              <panel name="border" width="100%" height="1" valign="bottom" background="#888888"></panel>
+            </panel>
+          </pager>
+          
+          <panel name="rooftypedrop" alias="ROOFTYPEDROP" width="100%" height="100%" alpha="0">
             <text name="drophead" width="100%" height="30" style="lighttext" size="18" alignment="center" text="Roof Types"></text>
             <panel name="border" width="100%" height="1" background="#888888" ypos="30"></panel>
             <pager name="types" width="100%" height="[eval:[object:ROOFTYPEDROP.height] - 30]" ypos="30" orientation="vertical" paginate="no">
@@ -670,7 +682,7 @@
     
     <class name="waste">
       <panel name="waste" alias="WASTE" width="100%" height="100">
-        <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="20" alignment="left" text="Estimate"></text>
+        <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="15" alignment="left" text="ESTIMATE"></text>
         <panel name="wp" width="256" height="50" bottomof="subtitle" >
           <panel name="wastepercent" alias="WASTEPERCENT" width="226" height="50" align="left" style="textinput">
             <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
@@ -686,7 +698,7 @@
     
     <class name="ridge">
       <panel name="ridge[param:index]" alias="RIDGE[param:index]" width="100%" height="160">
-        <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="20" alignment="left" text="Ridge [param:index]"></text>
+        <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="15" alignment="left" text="RIDGE [param:index]"></text>
         <panel name="ridge" width="256" height="50" bottomof="subtitle">
           <panel name="ridgelength[param:index]" alias="RIDGELENGTH[param:index]" width="226" height="50" align="left" style="textinput">
             <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
@@ -706,7 +718,7 @@
     
     <class name="hip">
       <panel name="hip[param:index]" alias="HIP[param:index]" width="100%" height="100">
-        <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="20" alignment="left" text="Hip [param:index]"></text>
+        <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="15" alignment="left" text="HIP [param:index]"></text>
         <panel name="hip" width="256" height="50" bottomof="subtitle">
           <panel name="hiplength[param:index]" alias="HIPLENGTH[param:index]" width="226" height="50" align="left" style="textinput">
             <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
@@ -722,7 +734,7 @@
     
     <class name="valley">
       <panel name="valley[param:index]" alias="VALLEY[param:index]" width="100%" height="100">
-        <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="20" alignment="left" text="Valley [param:index]"></text>
+        <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="15" alignment="left" text="VALLEY [param:index]"></text>
         <panel name="valley" width="256" height="50" bottomof="subtitle">
           <panel name="valleylength[param:index]" alias="VALLEYLENGTH[param:index]" width="226" height="50" align="left" style="textinput">
             <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
@@ -738,7 +750,7 @@
     
     <class name="rake">
       <panel name="rake[param:index]" alias="RAKE[param:index]" width="100%" height="100">
-        <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="20" alignment="left" text="Rake [param:index]"></text>
+        <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="15" alignment="left" text="RAKE [param:index]"></text>
         <panel name="rake" width="256" height="50" bottomof="subtitle">
           <panel name="rakelength[param:index]" alias="RAKELENGTH[param:index]" width="226" height="50" align="left" style="textinput">
             <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
@@ -754,7 +766,7 @@
     
     <class name="eave">
       <panel name="eave[param:index]" alias="EAVE[param:index]" width="100%" height="100">
-        <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="20" alignment="left" text="Eave [param:index]"></text>
+        <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="15" alignment="left" text="EAVE [param:index]"></text>
         <panel name="eave" width="256" height="50" bottomof="subtitle">
           <panel name="eavelength[param:index]" alias="EAVELENGTH[param:index]" width="226" height="50" align="left" style="textinput">
             <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
@@ -770,7 +782,7 @@
     
     <class name="chimney">
       <panel name="protrusion[param:pindex]" alias="PROTRUSION[param:pindex]" width="100%" height="160">
-        <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="20" alignment="left" text="Chimney [param:index]"></text>
+        <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="15" alignment="left" text="CHIMNEY [param:index]"></text>
         <panel name="length" width="256" height="50" bottomof="subtitle">
           <panel name="protrusionlength[param:pindex]" alias="PROTRUSIONLENGTH[param:pindex]" width="226" height="50" align="left" style="textinput">
             <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
@@ -796,7 +808,7 @@
     
     <class name="skylight">
       <panel name="protrusion[param:pindex]" alias="PROTRUSION[param:pindex]" width="100%" height="160">
-        <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="20" alignment="left" text="Skylight [param:index]"></text>
+        <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="15" alignment="left" text="SKYLIGHT [param:index]"></text>
         <panel name="length" width="256" height="50" bottomof="subtitle">
           <panel name="protrusionlength[param:pindex]" alias="PROTRUSIONLENGTH[param:pindex]" width="226" height="50" align="left" style="textinput">
             <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
@@ -822,7 +834,7 @@
     
     <class name="3vent">
       <panel name="vent[param:index]" alias="VENT[param:index]" width="100%" height="100">
-        <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="20" alignment="left" text="3 inch Plumbing Vents"></text>
+        <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="15" alignment="left" text="3 INCH PLUMBING VENTS"></text>
         <panel name="ventsize[param:index]" alias="VENTSIZE[param:index]" width="0" height="0" alpha="0">
           <text name="input" width="0" height="0" color="#ffffff" font="Helvetica" size="1" alignment="left" text="3"></text>
         </panel>
@@ -840,7 +852,7 @@
     
     <class name="2vent">
       <panel name="vent[param:index]" alias="VENT[param:index]" width="100%" height="100">
-        <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="20" alignment="left" text="2 inch Plumbing Vent"></text>
+        <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="15" alignment="left" text="2 INCH PLUMBING VENTS"></text>
         <panel name="ventsize[param:index]" alias="VENTSIZE[param:index]" width="0" height="0" alpha="0">
           <text name="input" width="0" height="0" color="#ffffff" font="Helvetica" size="1" alignment="left" text="2"></text>
         </panel>
@@ -858,7 +870,7 @@
     
     <class name="15vent">
       <panel name="vent[param:index]" alias="VENT[param:index]" width="100%" height="100">
-        <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="20" alignment="left" text="1.5 inch Plumbing Vent"></text>
+        <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="15" alignment="left" text="1.5 INCH PLUMBING VENTS"></text>
         <panel name="ventsize[param:index]" alias="VENTSIZE[param:index]" width="0" height="0" alpha="0">
           <text name="input" width="0" height="0" color="#ffffff" font="Helvetica" size="1" alignment="left" text="1.5"></text>
         </panel>
@@ -876,7 +888,7 @@
     
     <class name="customvent">
       <panel name="vent[param:index]" alias="VENT[param:index]" width="100%" height="160">
-        <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="20" alignment="left" text="Custom Vent [param:index]"></text>
+        <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="15" alignment="left" text="CUSTOM VENT [param:index]"></text>
         <panel name="size" width="256" height="50" bottomof="subtitle">
           <panel name="ventsize[param:index]" alias="VENTSIZE[param:index]" width="226" height="50" align="left" style="textinput">
             <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
@@ -1271,7 +1283,7 @@
     <!-- !adjustments classes -->
     <class name="discount">
       <panel name="adjustment[param:aindex]" alias="ADJUSTMENT[param:aindex]" width="100%" height="237">
-        <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="20" alignment="left" text="Discount [param:index]"></text>
+        <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="15" alignment="left" text="DISCOUNT [param:index]"></text>
         <!--
         <panel name="dollars-[param:aindex]" alias="DOLLARS-[param:aindex]" width="50" height="50" align="left" bottomof="subtitle" background="f3f3f3" cornerradius="25" borderwidth="1" bordercolor="#888888" clip="yes" onclickup="dollars" _index="[param:aindex]" _type="ADJUSTMENT[param:aindex]" >
           <panel name="check" width="35" height="35" align="center" valign="center" background="#ed1c24" cornerradius="20" alpha="1" ></panel>
@@ -1309,7 +1321,7 @@
     
     <class name="additionalcost">
       <panel name="adjustment[param:aindex]" alias="ADJUSTMENT[param:aindex]" width="100%" height="237">
-        <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="20" alignment="left" text="Additional Cost [param:index]"></text>
+        <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="15" alignment="left" text="ADDITIONAL COST [param:index]"></text>
         <!--
         <panel name="dollars-[param:aindex]" alias="DOLLARS-[param:aindex]" width="50" height="50" align="left" bottomof="subtitle" background="f3f3f3" cornerradius="25" borderwidth="1" bordercolor="#888888" clip="yes" onclickup="dollars" _index="[param:aindex]" _type="ADJUSTMENT[param:aindex]" >
           <panel name="check" width="35" height="35" align="center" valign="center" background="#ed1c24" cornerradius="20" alpha="1" ></panel>
@@ -2489,35 +2501,37 @@
     <action name="search">
       <sync>
         <play action="released" />
-        <assign encoding="url" property="var:searchLastName" value="[object:SEARCH-LASTNAME/input.text]" />
-        <assign encoding="url" property="var:searchAddress" value="[object:SEARCH-ADDRESS/input.text]" />
+        <assign encoding="url" property="var:lastName" value="[object:SEARCH-LASTNAME/input.text]" />
         <keyboard visible="no" target="SEARCH-LASTNAME/input" />
         <keyboard visible="no" target="SEARCH-ADDRESS/input" />
         <create class="results" target="CONTAINER" />
-		<translate ypos="0" time=".25" curve="easeout" target="SEARCHRESULTS" />
+        <translate ypos="0" time=".25" curve="easeout" target="SEARCHRESULTS" />
         <!-- <alert message="get-estimate preferences:token is [preferences:token] preferences:contractorId is [preferences:contractorId] url is https://162.209.101.177/api/GetCustomerEstimate?customerLastName=[var:lastName]&amp;address1=[var:address1]&amp;city=[var:city]&amp;stateProvince=[var:state]&amp;postalCode=[var:postalCode]&amp;country=[var:country]" /> -->
         <if lhs="[eval: ('[object:SEARCH-LASTNAME/input.text]' != '' ) &amp;&amp; ('[object:SEARCH-ADDRESS/input.text]' != '')]" operator="e" rhs="true">
         <!-- <alert message="search by both" /> -->
-          <assign property="datasource:getEstimate.source" value="https://162.209.101.177/api/GetCustomerEstimate?CustomerLastName=[var:searchLastName]&amp;address1=[var:searchAddress]" />
-		  <assign property="var:searchquery" value="https://162.209.101.177/api/GetCustomerEstimate?CustomerLastName=[var:searchLastName]&amp;address1=[var:searchAddress]" />
+          <assign property="datasource:getEstimate.source" value="https://162.209.101.177/api/GetCustomerEstimate?CustomerLastName=[object:SEARCH-LASTNAME/input.text]" />
         </if>
         <if lhs="[eval: ('[object:SEARCH-LASTNAME/input.text]' != '' ) &amp;&amp; ('[object:SEARCH-ADDRESS/input.text]' == '')]" operator="e" rhs="true">
         <!-- <alert message="search by last name" /> -->
-          <assign property="datasource:getEstimate.source" value="https://162.209.101.177/api/GetCustomerEstimate?CustomerLastName=[var:searchLastName]" />
-		  <assign property="var:searchquery" value="https://162.209.101.177/api/GetCustomerEstimate?CustomerLastName=[var:searchLastName]" />
+          <assign property="datasource:getEstimate.source" value="https://162.209.101.177/api/GetCustomerEstimate?CustomerLastName=[object:SEARCH-LASTNAME/input.text]" />
         </if>
         <if lhs="[eval: ('[object:SEARCH-LASTNAME/input.text]' == '' ) &amp;&amp; ('[object:SEARCH-ADDRESS/input.text]' != '')]" operator="e" rhs="true">
         <!-- <alert message="search by address" /> -->
-          <assign property="datasource:getEstimate.source" value="https://162.209.101.177/api/GetCustomerEstimate?Address1=[var:searchAddress]" />
-		  <assign property="var:searchquery" value="https://162.209.101.177/api/GetCustomerEstimate?Address1=[var:searchAddress]" />
-		</if>
+          <assign property="datasource:getEstimate.source" value="https://162.209.101.177/api/GetCustomerEstimate?CustomerLastName=[object:SEARCH-LASTNAME/input.text]&amp;address1=[object:SEARCH-ADDRESS/input.text]" />
+        </if>
       </sync>
     </action>
     
     <action name="get-estimate-complete" datasource="getEstimate" datasourceevent="querycomplete" >
-		<assign property="object:SEARCHRESULTS/searchhead/label.text" value="Search Results" />
-        <assign property="object:SEARCH-LASTNAME/input.text" value="" />
-         <assign property="object:SEARCH-ADDRESS/input.text" value="" />
+      <if lhs="[var:customerAction]" operator="e" rhs="create">
+<!-- 			<alert message="search after customer creation done [datasource:getEstimate.0.content]" /> -->
+        <assign property="var:customerId" value="[datasource:getEstimate.1.CustomerId]" />
+        <play action="finish-customer-create" />
+        
+        <else>
+        	<alert message="get-estimate-complete search results count [datasource:getEstimate.dataSourceResultCount] content [datasource:getEstimate.0.content]" />
+        </else>
+      </if>
     </action>
     
     <action name="get-estimate-error" datasource="getEstimate" datasourceevent="datasourceerror" >
@@ -2537,71 +2551,8 @@
     </action>
     
     <action name="edit">
-      <play action="released" /> 
-<!-- 	  <create class="editpanel" target="CONTAINER" />  -->
-      <assign property="datasource:states.source" value="res://states.xml" />
-      <assign property="datasource:provinces.source" value="res://provinces.xml" />
-		<assign property="var:edit-customerId" value="[datasource:getEstimate._value.CustomerId]" />
-	  <create class="editpanel" fname="[datasource:getEstimate._value.CustomerFirstName]" lname="[datasource:getEstimate._value.CustomerLastName]" address1="[datasource:getEstimate._value.Address1]"
-	  city="[datasource:getEstimate._value.City]" state="[datasource:getEstimate._value.StateProvince]" zip="[datasource:getEstimate._value.PostalCode]" target="CONTAINER" />
-	  <if lhs="[datasource:getEstimate._value.Country]" operator="ne" rhs="US"> 
-		  <play action="edit-countrycan" />
-		  <else>
-			  <assign property="var:edit-country" value="US" />
-		  </else>
-	  </if>
-<!-- 	  <alert message="index is _value, CustomerId is [datasource:getEstimate._value.CustomerId]" /> -->
-    </action>
-    
-    <action name="editcustomer" >
-		<play action="released" />
-		<assign property="var:edit-fname"    value="[object:EDIT-FNAME/input.text]" />
-		<assign property="var:edit-lname"    value="[object:EDIT-LNAME/input.text]" />
-		<assign property="var:edit-email"    value="[object:EDIT-EMAIL/input.text]" />
-		<assign property="var:edit-phone"    value="[object:EDIT-PHONE/input.text]" />
-		<assign property="var:edit-address1" value="[object:EDIT-STREET/input.text]" />
-		<assign property="var:edit-city"     value="[object:EDIT-CITY/input.text]" />
-		<assign property="var:edit-state"    value="[object:EDIT-STATE/input.text]" />
-		<assign property="var:edit-zip" value="[object:EDIT-ZIP/input.text]" />
-<!-- 		<alert message="object object:EDIT-STREET/input.text is [object:EDIT-STREET/input.text] var:edit-address1 is [var:edit-address1]" /> -->
-		<assign property="datasource:editCustomer.postContent" value="[template:editCustomer.content]" />
-		<assign property="datasource:editCustomer.source" value="https://162.209.101.177/api/EditCustomer" />
-<!-- 		<alert message="postContent is [template:editCustomer.content]" /> -->
-<!-- 		<email subject="edit customer post content" body="[template:editCustomer.content]" toaddress="mlong@rarewire.com" /> -->
-    </action>
-    
-    <action name="edit-complete" datasource="editCustomer" datasourceevent="querycomplete" >
-		<alert message="Customer Record Updated" />
-          <assign property="datasource:getEstimate.source" value="[var:searchquery]" />
-		<play action="close-edit" />
-    </action>
-    
-    <!-- !Edit modal actions -->
-    <action name="close-edit">
-      <sync>
-        <alpha value="0" time=".25" target="EDITPANEL" />
-        <delete target="EDITPANEL" />
-      </sync>
-    </action>
-    
-    <action name="edit-state-list">
-      <sync>
-        <if lhs="[var:edit-country]" operator="e" rhs="US">
-          <alpha value="1" target="MODALCURTAIN" />
-          <translate ypos="340" time=".25" curve="easeout" target="US-LIST" />
-        </if>
-        <if lhs="[var:edit-country]" operator="e" rhs="Canada">
-          <alpha value="1" target="MODALCURTAIN" />
-          <translate ypos="340" time=".25" curve="easeout" target="CAN-LIST" />
-        </if>
-      </sync>
-    </action>
-    
-    <action name="hideeditcurtain">
-      <sync>
-        
-        <alpha value="0" target="MODALCURTAIN" />
-      </sync>
+      <play action="released" />
+<!-- 	  <alert message="edit customer customerId is _value" /> -->
     </action>
     
     <!-- ! create actions -->
@@ -4161,6 +4112,13 @@
       </sync>
     </action>
     
+    <action name="setfloor">
+      <sync>
+        <assign property="object:FLOORS/input.text" value="_floors" />
+        <play action="dropoff" _drop="INSPECTION" />
+      </sync>
+    </action>
+    
     <action name="setfactor">
       <sync>
         <assign property="var:slopeindex" value="_slopeindex" />
@@ -4934,6 +4892,34 @@
 		<assign property="httpheader:get.ContractorId" value="" />
 	</action>
 
+    <!-- !Edit modal actions -->
+    <action name="close-edit">
+      <sync>
+        <alpha value="0" time=".25" target="EDITPANEL" />
+        <delete target="EDITPANEL" />
+      </sync>
+    </action>
+    
+    <action name="edit-state-list">
+      <sync>
+        <if lhs="[var:edit-country]" operator="e" rhs="US">
+          <alpha value="1" target="MODALCURTAIN" />
+          <translate ypos="340" time=".25" curve="easeout" target="US-LIST" />
+        </if>
+        <if lhs="[var:edit-country]" operator="e" rhs="Canada">
+          <alpha value="1" target="MODALCURTAIN" />
+          <translate ypos="340" time=".25" curve="easeout" target="CAN-LIST" />
+        </if>
+      </sync>
+    </action>
+    
+    <action name="hideeditcurtain">
+      <sync>
+        
+        <alpha value="0" target="MODALCURTAIN" />
+      </sync>
+    </action>
+    
     <!-- !roof save modal -->
     <action name="roof-saving-modal">
       <alpha value="1" time=".15" target="ROOF-SAVE-MODAL" />
