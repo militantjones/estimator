@@ -802,6 +802,9 @@
     <class name="chimney">
       <panel name="protrusion[param:pindex]" alias="PROTRUSION[param:pindex]" width="100%" height="160">
         <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="15" alignment="left" text="CHIMNEY [param:index]"></text>
+        <panel name="deletebox" width="60" height="35" align="right" onclickup="delete-chimney-item" clickuptarget="CONTAINER" _target="PROTRUSION[param:pindex]" _indexname="protrusionindex" _spacername="CHIMNEY" _parent="PROTRUSION" _section="CHIMNEY" _protrusiontype="chimneyindex" _protrusiontype-index="[param:index]">
+          <image name="icon" source="images/delete.png" width="20" height="20" align="center" valign="center"></image>
+        </panel>
         <panel name="length" width="256" height="50" bottomof="subtitle">
           <panel name="protrusionlength[param:pindex]" alias="PROTRUSIONLENGTH[param:pindex]" width="226" height="50" align="left" style="textinput">
             <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
@@ -828,6 +831,9 @@
     <class name="skylight">
       <panel name="protrusion[param:pindex]" alias="PROTRUSION[param:pindex]" width="100%" height="160">
         <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="15" alignment="left" text="SKYLIGHT [param:index]"></text>
+        <panel name="deletebox" width="60" height="35" align="right" onclickup="delete-chimney-item" clickuptarget="CONTAINER" _target="PROTRUSION[param:pindex]" _indexname="protrusionindex" _spacername="CHIMNEY" _parent="PROTRUSION" _section="CHIMNEY" _protrusiontype="skylightindex" _protrusiontype-index="[param:index]">
+          <image name="icon" source="images/delete.png" width="20" height="20" align="center" valign="center"></image>
+        </panel>
         <panel name="length" width="256" height="50" bottomof="subtitle">
           <panel name="protrusionlength[param:pindex]" alias="PROTRUSIONLENGTH[param:pindex]" width="226" height="50" align="left" style="textinput">
             <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
@@ -854,6 +860,9 @@
     <class name="3vent">
       <panel name="vent[param:index]" alias="VENT[param:index]" width="100%" height="100">
         <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="15" alignment="left" text="3 INCH PLUMBING VENTS"></text>
+        <panel name="deletebox" width="60" height="35" align="right" onclickup="delete-vent" clickuptarget="CONTAINER" _target="VENT[param:index]" _label="3 INCH PLUMBING VENTS" _ventaction="add3vent" _ventactiontarget="3-btn">
+          <image name="icon" source="images/delete.png" width="20" height="20" align="center" valign="center"></image>
+        </panel>
         <panel name="ventsize[param:index]" alias="VENTSIZE[param:index]" width="0" height="0" alpha="0">
           <text name="input" width="0" height="0" color="#ffffff" font="Helvetica" size="1" alignment="left" text="3"></text>
         </panel>
@@ -872,6 +881,9 @@
     <class name="2vent">
       <panel name="vent[param:index]" alias="VENT[param:index]" width="100%" height="100">
         <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="15" alignment="left" text="2 INCH PLUMBING VENTS"></text>
+        <panel name="deletebox" width="60" height="35" align="right" onclickup="delete-vent" clickuptarget="CONTAINER" _target="VENT[param:index]" _label="2 INCH PLUMBING VENTS" _ventaction="add2vent" _ventactiontarget="2-btn">
+          <image name="icon" source="images/delete.png" width="20" height="20" align="center" valign="center"></image>
+        </panel>
         <panel name="ventsize[param:index]" alias="VENTSIZE[param:index]" width="0" height="0" alpha="0">
           <text name="input" width="0" height="0" color="#ffffff" font="Helvetica" size="1" alignment="left" text="2"></text>
         </panel>
@@ -890,6 +902,9 @@
     <class name="15vent">
       <panel name="vent[param:index]" alias="VENT[param:index]" width="100%" height="100">
         <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="15" alignment="left" text="1.5 INCH PLUMBING VENTS"></text>
+        <panel name="deletebox" width="60" height="35" align="right" onclickup="delete-vent" clickuptarget="CONTAINER" _target="VENT[param:index]" _label="1.5 INCH PLUMBING VENTS" _ventaction="add15vent" _ventactiontarget="15-btn">
+          <image name="icon" source="images/delete.png" width="20" height="20" align="center" valign="center"></image>
+        </panel>
         <panel name="ventsize[param:index]" alias="VENTSIZE[param:index]" width="0" height="0" alpha="0">
           <text name="input" width="0" height="0" color="#ffffff" font="Helvetica" size="1" alignment="left" text="1.5"></text>
         </panel>
@@ -908,6 +923,9 @@
     <class name="customvent">
       <panel name="vent[param:index]" alias="VENT[param:index]" width="100%" height="160">
         <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="15" alignment="left" text="CUSTOM VENT [param:index]"></text>
+        <panel name="deletebox" width="60" height="35" align="right" onclickup="delete-vent" clickuptarget="CONTAINER" _target="VENT[param:index]" _label="CUSTOM VENT [param:index]" _ventaction="addcustomvent" _ventactiontarget="custom-btn">
+          <image name="icon" source="images/delete.png" width="20" height="20" align="center" valign="center"></image>
+        </panel>
         <panel name="size" width="256" height="50" bottomof="subtitle">
           <panel name="ventsize[param:index]" alias="VENTSIZE[param:index]" width="226" height="50" align="left" style="textinput">
             <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
@@ -947,7 +965,7 @@
     
     <class name="roof-spacer">
       <panel name="roof-spacer" alias="ROOF-SPACER-[param:name]-[param:index]" width="100%" height="250" >
-        <!--<text name="test" width="100%" height="100%" color="#343434" font="Helvetica" size="20" alignment="center" text="ROOF-SPACER-[param:name]-[param:index]"></text>-->
+        <!--<text name="test" width="100%" height="100%" background="0232b2" color="#343434" font="Helvetica" size="20" alignment="center" text="ROOF-SPACER-[param:name]-[param:index]"></text>-->
       </panel>
     </class>
     
@@ -1312,6 +1330,9 @@
     <class name="discount">
       <panel name="adjustment[param:aindex]" alias="ADJUSTMENT[param:aindex]" width="100%" height="237">
         <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="15" alignment="left" text="DISCOUNT [param:index]"></text>
+        <panel name="deletebox" width="60" height="35" align="right" onclickup="delete-adjustment-item" clickuptarget="CONTAINER" _target="ADJUSTMENT[param:aindex]" _indexname="adjustmentindex" _spacername="ADJUST" _parent="ADJUSTMENT" _section="ADJUSTMENTS" _protrusiontype="discountindex" _protrusiontype-index="[param:index]">
+          <image name="icon" source="images/delete.png" width="20" height="20" align="center" valign="center"></image>
+        </panel>
         <!--
         <panel name="dollars-[param:aindex]" alias="DOLLARS-[param:aindex]" width="50" height="50" align="left" bottomof="subtitle" background="f3f3f3" cornerradius="25" borderwidth="1" bordercolor="#888888" clip="yes" onclickup="dollars" _index="[param:aindex]" _type="ADJUSTMENT[param:aindex]" >
           <panel name="check" width="35" height="35" align="center" valign="center" background="#ed1c24" cornerradius="20" alpha="1" ></panel>
@@ -1350,6 +1371,9 @@
     <class name="additionalcost">
       <panel name="adjustment[param:aindex]" alias="ADJUSTMENT[param:aindex]" width="100%" height="237">
         <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="15" alignment="left" text="ADDITIONAL COST [param:index]"></text>
+        <panel name="deletebox" width="60" height="35" align="right" onclickup="delete-adjustment-item" clickuptarget="CONTAINER" _target="ADJUSTMENT[param:aindex]" _indexname="adjustmentindex" _spacername="ADJUST" _parent="ADJUSTMENT" _section="ADJUSTMENTS" _adjustmenttype="costindex" _adjustmenttype-index="[param:index]">
+          <image name="icon" source="images/delete.png" width="20" height="20" align="center" valign="center"></image>
+        </panel>
         <!--
         <panel name="dollars-[param:aindex]" alias="DOLLARS-[param:aindex]" width="50" height="50" align="left" bottomof="subtitle" background="f3f3f3" cornerradius="25" borderwidth="1" bordercolor="#888888" clip="yes" onclickup="dollars" _index="[param:aindex]" _type="ADJUSTMENT[param:aindex]" >
           <panel name="check" width="35" height="35" align="center" valign="center" background="#ed1c24" cornerradius="20" alpha="1" ></panel>
@@ -2723,6 +2747,7 @@
         <if lhs="[var:protrusionindex]" operator="gt" rhs="1">
           <delete target="ROOF-SPACER-CHIMNEY-[eval: [var:protrusionindex] - 1]" />
           <create class="roof-spacer" index="[var:protrusionindex]" name="CHIMNEY" target="ROOF-CHIMNEY/roofpagerbox/pager" />
+          <alpha value="0" time=".1" target="PROTRUSION[eval: [var:protrusionindex] - 1]/deletebox" />
         </if>
       </sync>
     </action>
@@ -2739,6 +2764,7 @@
         <if lhs="[var:protrusionindex]" operator="gt" rhs="1">
           <delete target="ROOF-SPACER-CHIMNEY-[eval: [var:protrusionindex] - 1]" />
           <create class="roof-spacer" index="[var:protrusionindex]" name="CHIMNEY" target="ROOF-CHIMNEY/roofpagerbox/pager" />
+          <alpha value="0" time=".1" target="PROTRUSION[eval: [var:protrusionindex] - 1]/deletebox" />
         </if>
       </sync>
     </action>
@@ -3001,6 +3027,7 @@
         <if lhs="[var:adjustmentindex]" operator="gt" rhs="1">
           <delete target="ROOF-SPACER-ADJUST-[eval: [var:adjustmentindex] - 1]" />
           <create class="roof-spacer" index="[var:adjustmentindex]" name="ADJUST" target="ADJUSTMENTSBOX/adjustmentspagerbox/pager" />
+          <alpha value="0" time=".1" target="ADJUSTMENT[eval: [var:adjustmentindex] - 1]/deletebox" />
         </if>
       </sync>
     </action>
@@ -3017,6 +3044,7 @@
         <if lhs="[var:adjustmentindex]" operator="gt" rhs="1">
           <delete target="ROOF-SPACER-ADJUST-[eval: [var:adjustmentindex] - 1]" />
           <create class="roof-spacer" index="[var:adjustmentindex]" name="ADJUST" target="ADJUSTMENTSBOX/adjustmentspagerbox/pager" />
+          <alpha value="0" time=".1" target="ADJUSTMENT[eval: [var:adjustmentindex] - 1]/deletebox" />
         </if>
       </sync>
     </action>
@@ -5028,29 +5056,121 @@
     
     <action name="confirm-delete">
       <sync>
-        <!--<alert message="ROOF-SPACER-[var:spacername]-[var:[var:indexname]]" />-->
-        <if lhs="[var:[var:indexname]]" operator="e" rhs="2">
+        <if lhs="[var:[var:indexname]]" operator="e" rhs="2"><!-- deletes spacer from pager -->
           <delete target="ROOF-SPACER-[var:spacername]-2" />
           <assign property="var:[spacername]spacerindex" value="1" />
-          <!--<alert title="spacername" message="[var:spacername]" />-->
           <else>
             <delete target="ROOF-SPACER-[var:spacername]-[var:[var:indexname]]" />
           </else>
         </if>
-        <delete target="[var:deletetarget]" />
-        <if lhs="[var:[var:indexname]]" operator="gte" rhs="1">
-          <!--<alert title="show delete button" message="[var:parent][eval: [var:[var:indexname]] - 1]" />-->
+        <delete target="[var:deletetarget]" /><!-- deletes actual item -->
+        <if lhs="[var:[var:indexname]]" operator="gte" rhs="1"><!-- alphas on the delete button in last item in pager -->
           <alpha value="1" time=".1" target="[var:parent][eval: [var:[var:indexname]] - 1]/deletebox" />
         </if>
-        <assign property="var:[var:indexname]" value="[eval: [var:[var:indexname]] - 1 ]" />
-        <if lhs="[var:[var:indexname]]" operator="gt" rhs="1">
-          <!--<alert title="spacer index" message="[var:[var:indexname]]" />-->
+        <assign property="var:[var:indexname]" value="[eval: [var:[var:indexname]] - 1 ]" /><!-- decrements index to reflect item has been deleted -->
+        <if lhs="[var:[var:indexname]]" operator="gt" rhs="1"><!-- creates new spacer at the end with proper index -->
           <create class="roof-spacer" index="[var:[var:indexname]]" name="[var:spacername]" target="ROOF-[var:section]/roofpagerbox/pager" />
           <assign property="var:[spacername]spacerindex" value="[var:[var:indexname]]" />
         </if>
       </sync>
     </action>
     
+    <!-- !delete chimneys and skylights actions -->
+    <action name="delete-chimney-item">
+      <sync>
+        <assign property="var:deletetarget" value="_target" /><!-- item to be deleted -->
+        <assign property="var:indexname" value="_indexname" /><!-- name of indexing var -->
+        <assign property="var:spacername" value="_spacername" /><!-- part of var name, not numeric -->
+        <assign property="var:deleteindex" value="_index" />
+        <assign property="var:parent" value="_parent" /><!-- parent of delete button -->
+        <assign property="var:section" value="_section" /><!-- section that the item that is being deleted is in -->
+        
+        <assign property="var:delete-protrusiontype" value="_protrusiontype" /><!-- Non-main incrementing var name -->
+        <assign property="var:protrusiontype-index" value="_protrusiontype-index" /><!-- Non main index -->
+        <alert title="Delete _target" message="Are you sure?" buttononetitle="Yes" buttononeaction="confirm-chimney-delete" buttontwotitle="No" buttontwoaction="null"/>
+      </sync>
+    </action>
+    
+    <action name="confirm-chimney-delete">
+      <sync>
+        <if lhs="[var:[var:indexname]]" operator="e" rhs="2"><!-- deletes spacer from pager -->
+          <delete target="ROOF-SPACER-[var:spacername]-2" />
+          <assign property="var:[spacername]spacerindex" value="1" />
+          <else>
+            <delete target="ROOF-SPACER-[var:spacername]-[var:[var:indexname]]" />
+          </else>
+        </if>
+        <delete target="[var:deletetarget]" /><!-- deletes actual item -->
+        <!--<alert title="[var:indexname]" message="[var:[var:indexname]]" />-->
+        <if lhs="[var:[var:indexname]]" operator="gte" rhs="1"><!-- alphas on the delete button in last item in pager -->
+          <alpha value="1" time=".1" target="[var:parent][eval: [var:[var:indexname]] - 1]/deletebox" />
+          <!--<alert message="[var:parent][eval: [var:[var:indexname]] - 1]/deletebox" />-->
+        </if>
+        <assign property="var:[var:indexname]" value="[eval: [var:[var:indexname]] - 1 ]" /><!-- decrements index to reflect item has been deleted -->
+        <assign property="var:[var:delete-protrusiontype]" value="[eval: [var:protrusiontype-index] - 1]" />
+        <if lhs="[var:[var:indexname]]" operator="gt" rhs="1"><!-- creates new spacer at the end with proper index -->
+          <create class="roof-spacer" index="[var:[var:indexname]]" name="[var:spacername]" target="ROOF-[var:section]/roofpagerbox/pager" />
+          <assign property="var:[spacername]spacerindex" value="[var:[var:indexname]]" />
+        </if>
+      </sync>
+    </action>
+    
+    <!-- !adjustments actions  discounts and additional costs -->
+    <action name="delete-adjustment-item">
+      <sync>
+        <assign property="var:deletetarget" value="_target" /><!-- item to be deleted -->
+        <assign property="var:indexname" value="_indexname" /><!-- name of indexing var -->
+        <assign property="var:spacername" value="_spacername" /><!-- part of var name, not numeric -->
+        <assign property="var:deleteindex" value="_index" />
+        <assign property="var:parent" value="_parent" /><!-- parent of delete button -->
+        <assign property="var:section" value="_section" /><!-- section that the item that is being deleted is in -->
+        
+        <assign property="var:delete-adjustmenttype" value="_adjustmenttype" /><!-- Non-main incrementing var name -->
+        <assign property="var:adjustmenttype-index" value="_adjustmenttype-index" /><!-- Non main index -->
+        <alert title="Delete _target" message="Are you sure?" buttononetitle="Yes" buttononeaction="confirm-adjustment-delete" buttontwotitle="No" buttontwoaction="null"/>
+      </sync>
+    </action>
+    
+    <action name="confirm-adjustment-delete">
+      <sync>
+        <if lhs="[var:[var:indexname]]" operator="e" rhs="2"><!-- deletes spacer from pager -->
+          <delete target="ROOF-SPACER-[var:spacername]-2" />
+          <assign property="var:[spacername]spacerindex" value="1" />
+          <else>
+            <delete target="ROOF-SPACER-[var:spacername]-[var:[var:indexname]]" />
+          </else>
+        </if>
+        <delete target="[var:deletetarget]" /><!-- deletes actual item -->
+        <!--<alert title="[var:indexname]" message="[var:deletetarget]" />-->
+        <if lhs="[var:[var:indexname]]" operator="gte" rhs="1"><!-- alphas on the delete button in last item in pager -->
+          <alpha value="1" time=".1" target="[var:parent][eval: [var:[var:indexname]] - 1]/deletebox" />
+          <!--<alert message="[var:parent][eval: [var:[var:indexname]] - 1]/deletebox" />-->
+        </if>
+        <assign property="var:[var:indexname]" value="[eval: [var:[var:indexname]] - 1 ]" /><!-- decrements index to reflect item has been deleted -->
+        <assign property="var:[var:delete-adjustmenttype]" value="[eval: [var:adjustmenttype-index] - 1]" />
+        <if lhs="[var:[var:indexname]]" operator="gt" rhs="1"><!-- creates new spacer at the end with proper index -->
+          <create class="roof-spacer" index="[var:[var:indexname]]" name="[var:spacername]" target="ADJUSTMENTSBOX/adjustmentspagerbox/pager" />
+          <assign property="var:[spacername]spacerindex" value="[var:[var:indexname]]" />
+        </if>
+      </sync>
+    </action>
+    
+    <!-- delete plumbing vents -->
+    <action name="delete-vent">
+      <sync>
+        <assign property="var:deleteVentTarget" value="_target" />
+        <assign property="var:ventAction" value="_ventaction" />
+        <assign property="var:ventActionTarget" value="_ventactiontarget" />
+        <alert title="Delete _label" message="Are you sure?" buttononetitle="Yes" buttononeaction="confirm-delete-vent" buttontwotitle="No" buttontwoaction="null"/>
+      </sync>
+    </action>
+    
+    <action name="confirm-delete-vent">
+      <delete target="[var:deleteVentTarget]" />
+      <set onclickup="[var:ventAction]" target="VENTMENU/[var:ventActionTarget]" />
+    </action>
+    
+    <!-- Delete photos -->
     <action name="delete-photo">
       <sync>
         <assign property="var:photo-index" value="_index" />
