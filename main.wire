@@ -19,21 +19,21 @@
   	<!-- !27 Global Web Services -->
 
   	<datasource name="login" source="" query="/" providertype="json" httpmethod="post" httpheader="login"/>
-	<datasource name="createCustomer" source="" query="/" providertype="json" httpmethod="post" httpheader="token-contractorid"/>
-	<datasource name="getEstimate" source="" query="/CustomerDetails" providertype="json" httpmethod="get" httpheader="token-contractorid"/>
-	<datasource name="getProducts" source="" query="/Products" providertype="json" httpmethod="get" httpheader="token-contractorid"/>
-	<datasource name="getAccessories" source="" query="/Accessories" providertype="json" httpmethod="get" httpheader="token-contractorid"/>
-	<datasource name="getWarranties" source="" query="/Warranties" providertype="json" httpmethod="get" httpheader="token-contractorid"/>
+    <datasource name="createCustomer" source="" query="/" providertype="json" httpmethod="post" httpheader="token-contractorid"/>
+    <datasource name="getEstimate" source="" query="/CustomerDetails" providertype="json" httpmethod="get" httpheader="token-contractorid"/>
+    <datasource name="getProducts" source="" query="/Products" providertype="json" httpmethod="get" httpheader="token-contractorid"/>
+    <datasource name="getAccessories" source="" query="/Accessories" providertype="json" httpmethod="get" httpheader="token-contractorid"/>
+    <datasource name="getWarranties" source="" query="/Warranties" providertype="json" httpmethod="get" httpheader="token-contractorid"/>
 
-	<datasource name="uploadPhoto" source="" query="/" providertype="json" httpmethod="post" httpheader="formSubmit" />
-	<datasource name="updateMeasurements" source="" query="/" providertype="json" httpmethod="put" httpheader="token-contractorid" />
-	<datasource name="generateEstimate" source="" query="/" providertype="json" httpmethod="post" httpheader="token-contractorid" />
+    <datasource name="uploadPhoto" source="" query="/" providertype="json" httpmethod="post" httpheader="formSubmit" />
+    <datasource name="updateMeasurements" source="" query="/" providertype="json" httpmethod="put" httpheader="token-contractorid" />
+    <datasource name="generateEstimate" source="" query="/" providertype="json" httpmethod="post" httpheader="token-contractorid" />
 
 
-	<httpheader name="login" Content-Type="application/json" />
-	<httpheader name="token-contractorid" Content-Type="application/json" Token="[preferences:token]" ContractorId="[preferences:contractorId]" />
+    <httpheader name="login" Content-Type="application/json" />
+    <httpheader name="token-contractorid" Content-Type="application/json" Token="[preferences:token]" ContractorId="[preferences:contractorId]" />
 
-	<httpheader name="formSubmit" Token="[preferences:token]" ContractorId="[preferences:contractorId]" Content-Type="multipart/form-data" Content-Disposition="form-data; name='File'; filename='test.jpg'"/>
+    <httpheader name="formSubmit" Token="[preferences:token]" ContractorId="[preferences:contractorId]" Content-Type="multipart/form-data" Content-Disposition="form-data; name='File'; filename='test.jpg'"/>
 
     <datasource name="camera-roll" source="adsf" query="Camera Roll" providertype="camera"/>
     <datasource name="states" source="" query="//state" providertype="xml" parsenamespaces="yes" />
@@ -85,6 +85,7 @@
     
     <datasource name="photosdb" source="sql://PHOTOS" query="CREATE TABLE IF NOT EXISTS PHOTOS (ID INTEGER PRIMARY KEY AUTOINCREMENT, PHOTO, NOTE);" providertype="sql" />
     <datasource name="photosdb-list" source="sql://PHOTOS" query="SELECT * FROM PHOTOS ORDER BY ID DESC;" providertype="sql" />
+    <datasource name="photosdb-delete" source="sql://PHOTOS" query="" providertype="sql" />
     
 <!--     <datasource name="productsdb" source="sql://PRODUCTS" query="DELETE FROM PRODUCTS;" providertype="sql" /> -->
     <datasource name="productsdb" source="sql://PRODUCTS" query="CREATE TABLE IF NOT EXISTS PRODUCTS (ID INTEGER PRIMARY KEY AUTOINCREMENT, SHINGLE, COLOR, WARRANTY, IMAGE);" providertype="sql" />
@@ -492,6 +493,9 @@
     <class name="roof area">
       <panel name="roof-area[param:index]" alias="ROOF-AREA[param:index]" width="100%" height="220">
         <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="15" alignment="left" text="ROOF AREA [param:index]"></text>
+        <panel name="deletebox" width="60" height="35" align="right" onclickup="delete-item" clickuptarget="CONTAINER" _target="ROOF-AREA[param:index]" _indexname="areaindex" _spacername="AREA" _parent="ROOF-AREA" _section="ROOF AREA">
+          <image name="icon" source="images/delete.png" width="20" height="20" align="center" valign="center"></image>
+        </panel>
         <panel name="length" width="256" height="50" bottomof="subtitle">
           <panel name="rl[param:index]" alias="RL[param:index]" width="226" height="50" align="left" style="textinput">
             <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
@@ -699,6 +703,9 @@
     <class name="ridge">
       <panel name="ridge[param:index]" alias="RIDGE[param:index]" width="100%" height="160">
         <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="15" alignment="left" text="RIDGE [param:index]"></text>
+        <panel name="deletebox" width="60" height="35" align="right" onclickup="delete-item" clickuptarget="CONTAINER" _target="RIDGE[param:index]" _indexname="ridgeindex" _spacername="RIDGE" _parent="RIDGE"  _section="RIDGE">
+          <image name="icon" source="images/delete.png" width="20" height="20" align="center" valign="center"></image>
+        </panel>
         <panel name="ridge" width="256" height="50" bottomof="subtitle">
           <panel name="ridgelength[param:index]" alias="RIDGELENGTH[param:index]" width="226" height="50" align="left" style="textinput">
             <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
@@ -719,6 +726,9 @@
     <class name="hip">
       <panel name="hip[param:index]" alias="HIP[param:index]" width="100%" height="100">
         <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="15" alignment="left" text="HIP [param:index]"></text>
+        <panel name="deletebox" width="60" height="35" align="right" onclickup="delete-item" clickuptarget="CONTAINER" _target="HIP[param:index]" _indexname="hipindex" _spacername="HIP" _parent="HIP" _section="HIP">
+          <image name="icon" source="images/delete.png" width="20" height="20" align="center" valign="center"></image>
+        </panel>
         <panel name="hip" width="256" height="50" bottomof="subtitle">
           <panel name="hiplength[param:index]" alias="HIPLENGTH[param:index]" width="226" height="50" align="left" style="textinput">
             <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
@@ -735,6 +745,9 @@
     <class name="valley">
       <panel name="valley[param:index]" alias="VALLEY[param:index]" width="100%" height="100">
         <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="15" alignment="left" text="VALLEY [param:index]"></text>
+        <panel name="deletebox" width="60" height="35" align="right" onclickup="delete-item" clickuptarget="CONTAINER" _target="VALLEY[param:index]" _indexname="valleyindex" _spacername="VALLEY" _parent="VALLEY" _section="VALLEY">
+          <image name="icon" source="images/delete.png" width="20" height="20" align="center" valign="center"></image>
+        </panel>
         <panel name="valley" width="256" height="50" bottomof="subtitle">
           <panel name="valleylength[param:index]" alias="VALLEYLENGTH[param:index]" width="226" height="50" align="left" style="textinput">
             <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
@@ -751,6 +764,9 @@
     <class name="rake">
       <panel name="rake[param:index]" alias="RAKE[param:index]" width="100%" height="100">
         <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="15" alignment="left" text="RAKE [param:index]"></text>
+        <panel name="deletebox" width="60" height="35" align="right" onclickup="delete-item" clickuptarget="CONTAINER" _target="RAKE[param:index]" _indexname="rakeindex" _spacername="RAKE" _parent="RAKE" _section="RAKE">
+          <image name="icon" source="images/delete.png" width="20" height="20" align="center" valign="center"></image>
+        </panel>
         <panel name="rake" width="256" height="50" bottomof="subtitle">
           <panel name="rakelength[param:index]" alias="RAKELENGTH[param:index]" width="226" height="50" align="left" style="textinput">
             <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
@@ -767,6 +783,9 @@
     <class name="eave">
       <panel name="eave[param:index]" alias="EAVE[param:index]" width="100%" height="100">
         <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="15" alignment="left" text="EAVE [param:index]"></text>
+        <panel name="deletebox" width="60" height="35" align="right" onclickup="delete-item" clickuptarget="CONTAINER" _target="EAVE[param:index]" _indexname="eaveindex" _spacername="EAVE" _parent="EAVE" _section="EAVE">
+          <image name="icon" source="images/delete.png" width="20" height="20" align="center" valign="center"></image>
+        </panel>
         <panel name="eave" width="256" height="50" bottomof="subtitle">
           <panel name="eavelength[param:index]" alias="EAVELENGTH[param:index]" width="226" height="50" align="left" style="textinput">
             <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
@@ -915,6 +934,9 @@
         <panel name="imgbox" width="150" height="200" valign="center" clip="yes">
           <image name="rollphoto" asset="[param:photo]" height="100%" contain="yes"></image>
           <image name="cameraphoto" fullpath="[param:photo]" width="100%" align="center" valign="center"></image>
+          <panel name="deletebox" width="40" height="40" align="right" onclickup="delete-photo" clickuptarget="CONTAINER" _index="[param:index]" >
+            <image name="icon" source="images/delete-white.png" width="22" height="22" align="center" valign="center"></image>
+          </panel>
         </panel>
         <panel name="notbox" width="[eval:[object:PN[param:index].width] - 150]" height="200" align="right" valign="center" clip="yes" padding-left="20">
           <text name="note" width="100%" height="fit" style="darktext" size="18" alignment="left" text="[param:note]"></text>
@@ -922,6 +944,12 @@
         <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
       </panel>
     </class><!-- <object class="photo" index="1" /> -->
+    
+    <class name="roof-spacer">
+      <panel name="roof-spacer" alias="ROOF-SPACER-[param:name]-[param:index]" width="100%" height="250" >
+        <!--<text name="test" width="100%" height="100%" color="#343434" font="Helvetica" size="20" alignment="center" text="ROOF-SPACER-[param:name]-[param:index]"></text>-->
+      </panel>
+    </class>
     
     <!-- !product classes -->
 	<class name="product-pager" >
@@ -1835,7 +1863,7 @@
           <object class="titlebutton" title="Photos &amp; Notes" action="addphoto" />
           <panel name="roofpagerbox" width="100%" height="[eval: [object:ROOF-PHOTO.height] - 146]" ypos="79" >
             <list name="pager" datasource="photosdb-list" width="100%" height="100%" orientation="vertical" paginate="no" padding-left="20" padding-right="20">
-              <object class="photo" index="1" photo="[param:PHOTO]" note="[param:NOTE]" origin="[param:ORIGIN]" />
+              <object class="photo" index="[param:dataSourceIndex]" photo="[param:PHOTO]" note="[param:NOTE]" origin="[param:ORIGIN]" />
             </list>
           </panel>
         </panel>
@@ -1940,7 +1968,7 @@
       <panel name="adjustments" alias="ADJUSTMENTS" width="100%" height="[eval: [object:CONTAINER.height] - 127]" ypos="127" alpha="0">
         <panel name="adjustmentsbox" alias="ADJUSTMENTSBOX" width="100%" height="100%" align="right" alpha="1">
           <object class="titlebutton" title="Adjustments" action="addadjustment"  />
-          <panel name="adjustmentspagerbox" width="100%" height="[eval: [object:ADJUSTMENTS.height] - 79]" ypos="79" >
+          <panel name="adjustmentspagerbox" width="100%" height="[eval: [object:ADJUSTMENTS.height] - 99]" ypos="79" >
             <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no" padding-left="20" padding-right="20" >
               <!--<object class="discount" index="1" />
               <object class="additionalcost" index="2" />-->
@@ -2565,8 +2593,8 @@
     </action>
     
     <action name="newestimate">
-		<play action="resetSummaryVars"/>
-		<play action="resetRoofIndices" />
+		  <play action="resetSummaryVars"/>
+		  <play action="resetRoofIndices" />
 			<assign property="datasource:accessoriesdb-delete.query" value="DELETE FROM ACCESSORIES;" />
 			<assign property="datasource:photosdb-delete.query" value="DELETE FROM PHOTOS;" />
 			<assign property="datasource:photosdb-list.query" value="SELECT * FROM PHOTOS;" />
@@ -2581,6 +2609,13 @@
       <sync>
         <assign property="var:areaindex" value="[eval: [var:areaindex] + 1]" />
         <create class="roof area" index="[var:areaindex]" target="ROOF-ROOF AREA/roofpagerbox/pager" />
+        <!--<alert message="[var:areaindex]" />-->
+        <if lhs="[var:areaindex]" operator="gt" rhs="1">
+          <delete target="ROOF-SPACER-AREA-[eval: [var:areaindex] - 1]" />
+          <create class="roof-spacer" index="[var:areaindex]" name="AREA" target="ROOF-ROOF AREA/roofpagerbox/pager" />
+          <assign property="var:AREAspacerindex" value="[var:areaindex]" />
+          <alpha value="0" time=".1" target="ROOF-AREA[eval: [var:areaindex] - 1]/deletebox" />
+        </if>
       </sync>
     </action>
     
@@ -2589,6 +2624,12 @@
         <assign property="var:ridgeindex" value="[eval: [var:ridgeindex] + 1]" />
         <create class="ridge" index="[var:ridgeindex]" target="ROOF-RIDGE/roofpagerbox/pager" />
         <assign property="var:ridgevent-[var:ridgeindex]" value="no" />
+        <if lhs="[var:ridgeindex]" operator="gt" rhs="1">
+          <delete target="ROOF-SPACER-RIDGE-[eval: [var:ridgeindex] - 1]" />
+          <create class="roof-spacer" index="[var:ridgeindex]" name="RIDGE" target="ROOF-RIDGE/roofpagerbox/pager" />
+          <assign property="var:RIDGEspacerindex" value="[var:ridgeindex]" />
+          <alpha value="0" time=".1" target="RIDGE[eval: [var:ridgeindex] - 1]/deletebox" />
+        </if>
       </sync>
     </action>
     
@@ -2596,6 +2637,11 @@
       <sync>
         <assign property="var:hipindex" value="[eval: [var:hipindex] + 1]" />
         <create class="hip" index="[var:hipindex]" target="ROOF-HIP/roofpagerbox/pager" />
+        <if lhs="[var:hipindex]" operator="gt" rhs="1">
+          <delete target="ROOF-SPACER-HIP-[eval: [var:hipindex] - 1]" />
+          <create class="roof-spacer" index="[var:hipindex]" name="HIP" target="ROOF-HIP/roofpagerbox/pager" />
+          <alpha value="0" time=".1" target="HIP[eval: [var:hipindex] - 1]/deletebox" />
+        </if>
       </sync>
     </action>
     
@@ -2603,6 +2649,11 @@
       <sync>
         <assign property="var:valleyindex" value="[eval: [var:valleyindex] + 1]" />
         <create class="valley" index="[var:valleyindex]" target="ROOF-VALLEY/roofpagerbox/pager" />
+        <if lhs="[var:valleyindex]" operator="gt" rhs="1">
+          <delete target="ROOF-SPACER-VALLEY-[eval: [var:valleyindex] - 1]" />
+          <create class="roof-spacer" index="[var:valleyindex]" name="VALLEY" target="ROOF-VALLEY/roofpagerbox/pager" />
+          <alpha value="0" time=".1" target="VALLEY[eval: [var:valleyindex] - 1]/deletebox" />
+        </if>
       </sync>
     </action>
     
@@ -2610,6 +2661,11 @@
       <sync>
         <assign property="var:rakeindex" value="[eval: [var:rakeindex] + 1]" />
         <create class="rake" index="[var:rakeindex]" target="ROOF-RAKE/roofpagerbox/pager" />
+        <if lhs="[var:rakeindex]" operator="gt" rhs="1">
+          <delete target="ROOF-SPACER-RAKE-[eval: [var:rakeindex] - 1]" />
+          <create class="roof-spacer" index="[var:rakeindex]" name="RAKE" target="ROOF-RAKE/roofpagerbox/pager" />
+          <alpha value="0" time=".1" target="RAKE[eval: [var:rakeindex] - 1]/deletebox" />
+        </if>
       </sync>
     </action>
     
@@ -2617,6 +2673,11 @@
       <sync>
         <assign property="var:eaveindex" value="[eval: [var:eaveindex] + 1]" />
         <create class="eave" index="[var:eaveindex]" target="ROOF-EAVE/roofpagerbox/pager" />
+        <if lhs="[var:eaveindex]" operator="gt" rhs="1">
+          <delete target="ROOF-SPACER-EAVE-[eval: [var:eaveindex] - 1]" />
+          <create class="roof-spacer" index="[var:eaveindex]" name="EAVE" target="ROOF-EAVE/roofpagerbox/pager" />
+          <alpha value="0" time=".1" target="EAVE[eval: [var:eaveindex] - 1]/deletebox" />
+        </if>
       </sync>
     </action>
     
@@ -2659,6 +2720,10 @@
         <assign property="var:chimneyindex" value="[eval: [var:chimneyindex] + 1]" />
         <assign property="var:protrusionindex" value="[eval: [var:protrusionindex] + 1]" />
         <create class="chimney" index="[var:chimneyindex]" pindex="[var:protrusionindex]" target="ROOF-CHIMNEY/roofpagerbox/pager" />
+        <if lhs="[var:protrusionindex]" operator="gt" rhs="1">
+          <delete target="ROOF-SPACER-CHIMNEY-[eval: [var:protrusionindex] - 1]" />
+          <create class="roof-spacer" index="[var:protrusionindex]" name="CHIMNEY" target="ROOF-CHIMNEY/roofpagerbox/pager" />
+        </if>
       </sync>
     </action>
     
@@ -2671,6 +2736,10 @@
         <assign property="var:skylightindex" value="[eval: [var:skylightindex] + 1]" />
         <assign property="var:protrusionindex" value="[eval: [var:protrusionindex] + 1]" />
         <create class="skylight" index="[var:skylightindex]" pindex="[var:protrusionindex]" target="ROOF-CHIMNEY/roofpagerbox/pager" />
+        <if lhs="[var:protrusionindex]" operator="gt" rhs="1">
+          <delete target="ROOF-SPACER-CHIMNEY-[eval: [var:protrusionindex] - 1]" />
+          <create class="roof-spacer" index="[var:protrusionindex]" name="CHIMNEY" target="ROOF-CHIMNEY/roofpagerbox/pager" />
+        </if>
       </sync>
     </action>
     
@@ -2696,6 +2765,10 @@
         <assign property="var:ventindex" value="[eval: [var:ventindex] + 1]" />
         <create class="3vent" index="[var:ventindex]" target="ROOF-VENT/roofpagerbox/pager" />
         <play action="hidevent" />
+        <!--<if lhs="[var:ventindex]" operator="gt" rhs="1">
+          <delete target="ROOF-SPACER-VENT-[eval: [var:ventindex] - 1]" />
+          <create class="roof-spacer" index="[var:ventindex]" name="VENT" target="ROOF-VENT/roofpagerbox/pager" />
+        </if>-->
       </sync>
     </action>
     
@@ -2706,6 +2779,10 @@
         <assign property="var:ventindex" value="[eval: [var:ventindex] + 1]" />
         <create class="2vent" index="[var:ventindex]" target="ROOF-VENT/roofpagerbox/pager" />
         <play action="hidevent" />
+        <!--<if lhs="[var:ventindex]" operator="gt" rhs="1">
+          <delete target="ROOF-SPACER-VENT-[eval: [var:ventindex] - 1]" />
+          <create class="roof-spacer" index="[var:ventindex]" name="VENT" target="ROOF-VENT/roofpagerbox/pager" />
+        </if>-->
       </sync>
     </action>
     
@@ -2716,6 +2793,10 @@
         <assign property="var:ventindex" value="[eval: [var:ventindex] + 1]" />
         <create class="15vent" index="[var:ventindex]" target="ROOF-VENT/roofpagerbox/pager" />
         <play action="hidevent" />
+        <!--<if lhs="[var:ventindex]" operator="gt" rhs="1">
+          <delete target="ROOF-SPACER-VENT-[eval: [var:ventindex] - 1]" />
+          <create class="roof-spacer" index="[var:ventindex]" name="VENT" target="ROOF-VENT/roofpagerbox/pager" />
+        </if>-->
       </sync>
     </action>
     
@@ -2725,6 +2806,10 @@
         <assign property="var:ventindex" value="[eval: [var:ventindex] + 1]" />
         <create class="customvent" index="[var:ventindex]" target="ROOF-VENT/roofpagerbox/pager" />
         <play action="hidevent" />
+        <if lhs="[var:ventindex]" operator="gt" rhs="1">
+          <delete target="ROOF-SPACER-VENT-[eval: [var:ventindex] - 1]" />
+          <create class="roof-spacer" index="[var:ventindex]" name="VENT" target="ROOF-VENT/roofpagerbox/pager" />
+        </if>
       </sync>
     </action>
     
@@ -2913,6 +2998,10 @@
         <create class="discount" index="[var:discountindex]" aindex="[var:adjustmentindex]" target="ADJUSTMENTSBOX/adjustmentspagerbox/pager" />
         <assign property="var:units-[var:adjustmentindex]" value="dollars" />
         <play action="hideclearcurtain" />
+        <if lhs="[var:adjustmentindex]" operator="gt" rhs="1">
+          <delete target="ROOF-SPACER-ADJUST-[eval: [var:adjustmentindex] - 1]" />
+          <create class="roof-spacer" index="[var:adjustmentindex]" name="ADJUST" target="ADJUSTMENTSBOX/adjustmentspagerbox/pager" />
+        </if>
       </sync>
     </action>
     
@@ -2925,6 +3014,10 @@
         <create class="additionalcost" index="[var:costindex]" aindex="[var:adjustmentindex]" target="ADJUSTMENTSBOX/adjustmentspagerbox/pager" />
         <assign property="var:units-[var:adjustmentindex]" value="dollars" />
         <play action="hideclearcurtain" />
+        <if lhs="[var:adjustmentindex]" operator="gt" rhs="1">
+          <delete target="ROOF-SPACER-ADJUST-[eval: [var:adjustmentindex] - 1]" />
+          <create class="roof-spacer" index="[var:adjustmentindex]" name="ADJUST" target="ADJUSTMENTSBOX/adjustmentspagerbox/pager" />
+        </if>
       </sync>
     </action>
     
@@ -4918,6 +5011,63 @@
         
         <alpha value="0" target="MODALCURTAIN" />
       </sync>
+    </action>
+    
+    <!-- !delete actions -->
+    <action name="delete-item">
+      <sync>
+        <assign property="var:deletetarget" value="_target" />
+        <assign property="var:indexname" value="_indexname" />
+        <assign property="var:spacername" value="_spacername" />
+        <assign property="var:deleteindex" value="_index" />
+        <assign property="var:parent" value="_parent" />
+        <assign property="var:section" value="_section" />
+        <alert title="Delete _target" message="Are you sure?" buttononetitle="Yes" buttononeaction="confirm-delete" buttontwotitle="No" buttontwoaction="null"/>
+      </sync>
+    </action>
+    
+    <action name="confirm-delete">
+      <sync>
+        <!--<alert message="ROOF-SPACER-[var:spacername]-[var:[var:indexname]]" />-->
+        <if lhs="[var:[var:indexname]]" operator="e" rhs="2">
+          <delete target="ROOF-SPACER-[var:spacername]-2" />
+          <assign property="var:[spacername]spacerindex" value="1" />
+          <!--<alert title="spacername" message="[var:spacername]" />-->
+          <else>
+            <delete target="ROOF-SPACER-[var:spacername]-[var:[var:indexname]]" />
+          </else>
+        </if>
+        <delete target="[var:deletetarget]" />
+        <if lhs="[var:[var:indexname]]" operator="gte" rhs="1">
+          <!--<alert title="show delete button" message="[var:parent][eval: [var:[var:indexname]] - 1]" />-->
+          <alpha value="1" time=".1" target="[var:parent][eval: [var:[var:indexname]] - 1]/deletebox" />
+        </if>
+        <assign property="var:[var:indexname]" value="[eval: [var:[var:indexname]] - 1 ]" />
+        <if lhs="[var:[var:indexname]]" operator="gt" rhs="1">
+          <!--<alert title="spacer index" message="[var:[var:indexname]]" />-->
+          <create class="roof-spacer" index="[var:[var:indexname]]" name="[var:spacername]" target="ROOF-[var:section]/roofpagerbox/pager" />
+          <assign property="var:[spacername]spacerindex" value="[var:[var:indexname]]" />
+        </if>
+      </sync>
+    </action>
+    
+    <action name="delete-photo">
+      <sync>
+        <assign property="var:photo-index" value="_index" />
+        <alert title="Delete Photo" message="Are you sure you want to delete this photo?" buttononetitle="Yes" buttononeaction="confirm-delete-photo" buttontwotitle="No" buttontwoaction="null" />
+      </sync>
+    </action>
+    
+    <action name="confirm-delete-photo">
+      <!--<alert message="deleted [var:photo-index] yay" />-->
+      <assign property="datasource:photosdb-delete.query" value="DELETE FROM PHOTOS WHERE ID='[var:photo-index]';" />
+    </action>
+    
+    <action name="photo-deleted" datasource="photosdb-delete" datasourceevent="querycomplete">
+      <if lhs="[var:loaded]" operator="e" rhs="yes">
+        <assign property="datasource:photosdb-list.query" value="SELECT * FROM PHOTOS;" />
+        <!--<alert message="[datasource:photosdb-list.dataSourceResultCount]" />-->
+      </if>
     </action>
     
     <!-- !roof save modal -->
