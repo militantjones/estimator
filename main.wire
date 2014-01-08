@@ -5059,7 +5059,7 @@
     </action>
     
     <action name="confirm-delete-photo">
-      <!--<alert message="deleted [var:photo-index] yay" />-->
+      <!--<alert message="deleted [var:photo-index] yay" />-->  
       <assign property="datasource:photosdb-delete.query" value="DELETE FROM PHOTOS WHERE ID='[var:photo-index]';" />
     </action>
     
