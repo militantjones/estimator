@@ -1863,7 +1863,7 @@
           <object class="titlebutton" title="Photos &amp; Notes" action="addphoto" />
           <panel name="roofpagerbox" width="100%" height="[eval: [object:ROOF-PHOTO.height] - 146]" ypos="79" >
             <list name="pager" datasource="photosdb-list" width="100%" height="100%" orientation="vertical" paginate="no" padding-left="20" padding-right="20">
-              <object class="photo" index="[param:dataSourceIndex]" photo="[param:PHOTO]" note="[param:NOTE]" origin="[param:ORIGIN]" />
+              <object class="photo" index="[param:ID]" photo="[param:PHOTO]" note="[param:NOTE]" origin="[param:ORIGIN]" />
             </list>
           </panel>
         </panel>
@@ -5059,8 +5059,8 @@
     </action>
     
     <action name="confirm-delete-photo">
-      <!--<alert message="deleted [var:photo-index] yay" />-->  
       <assign property="datasource:photosdb-delete.query" value="DELETE FROM PHOTOS WHERE ID='[var:photo-index]';" />
+      <!--<alert title="Deleting this photo" message="[var:photo-index]" />-->
     </action>
     
     <action name="photo-deleted" datasource="photosdb-delete" datasourceevent="querycomplete">
@@ -5069,6 +5069,10 @@
         <!--<alert message="[datasource:photosdb-list.dataSourceResultCount]" />-->
       </if>
     </action>
+    
+    <!--<action name="photo-list" datasource="photosdb-list" datasourceevent="querycomplete">
+      <alert title="list complete" message="[datasource:photosdb-list.dataSourceResultCount]" />
+    </action>-->
     
     <!-- !roof save modal -->
     <action name="roof-saving-modal">
