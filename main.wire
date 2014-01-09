@@ -212,6 +212,7 @@
     <class name="sidebar">
       <panel name="[param:label]" width="100%" height="65" onclickup="[param:action]" _form="[param:label]" _alias="[param:alias]">
         <text name="label" width="100%" height="100%" leftinset="20" style="darktext" size="20" alignment="left" text="[param:label]"></text>
+        <image name="saved-check" source="images/saved-check.png" width="30" height="30" valign="center" align="right" margin-right="20" alpha="0"></image>
         <panel name="border" width="100%" height="1" valign="bottom" background="#e3e3e3"></panel>
         <image name="arrow" source="images/sidebar-arrow.png" width="20" xpos="101%" valign="center"></image>
       </panel>
@@ -860,7 +861,7 @@
     <class name="3vent">
       <panel name="vent[param:index]" alias="VENT[param:index]" width="100%" height="100">
         <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="15" alignment="left" text="3 INCH PLUMBING VENTS"></text>
-        <panel name="deletebox" width="60" height="35" align="right" onclickup="delete-vent" clickuptarget="CONTAINER" _target="VENT[param:index]" _label="3 INCH PLUMBING VENTS" _ventaction="add3vent" _ventactiontarget="3-btn">
+        <panel name="deletebox" width="60" height="35" align="right" onclickup="delete-vent" clickuptarget="CONTAINER" _target="VENT[param:index]" _label="3 INCH PLUMBING VENTS" _ventaction="add3vent" _ventactiontarget="3-btn" _indexname="ventindex">
           <image name="icon" source="images/delete.png" width="20" height="20" align="center" valign="center"></image>
         </panel>
         <panel name="ventsize[param:index]" alias="VENTSIZE[param:index]" width="0" height="0" alpha="0">
@@ -881,7 +882,7 @@
     <class name="2vent">
       <panel name="vent[param:index]" alias="VENT[param:index]" width="100%" height="100">
         <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="15" alignment="left" text="2 INCH PLUMBING VENTS"></text>
-        <panel name="deletebox" width="60" height="35" align="right" onclickup="delete-vent" clickuptarget="CONTAINER" _target="VENT[param:index]" _label="2 INCH PLUMBING VENTS" _ventaction="add2vent" _ventactiontarget="2-btn">
+        <panel name="deletebox" width="60" height="35" align="right" onclickup="delete-vent" clickuptarget="CONTAINER" _target="VENT[param:index]" _label="2 INCH PLUMBING VENTS" _ventaction="add2vent" _ventactiontarget="2-btn" _indexname="ventindex">
           <image name="icon" source="images/delete.png" width="20" height="20" align="center" valign="center"></image>
         </panel>
         <panel name="ventsize[param:index]" alias="VENTSIZE[param:index]" width="0" height="0" alpha="0">
@@ -902,7 +903,7 @@
     <class name="15vent">
       <panel name="vent[param:index]" alias="VENT[param:index]" width="100%" height="100">
         <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="15" alignment="left" text="1.5 INCH PLUMBING VENTS"></text>
-        <panel name="deletebox" width="60" height="35" align="right" onclickup="delete-vent" clickuptarget="CONTAINER" _target="VENT[param:index]" _label="1.5 INCH PLUMBING VENTS" _ventaction="add15vent" _ventactiontarget="15-btn">
+        <panel name="deletebox" width="60" height="35" align="right" onclickup="delete-vent" clickuptarget="CONTAINER" _target="VENT[param:index]" _label="1.5 INCH PLUMBING VENTS" _ventaction="add15vent" _ventactiontarget="15-btn" _indexname="ventindex">
           <image name="icon" source="images/delete.png" width="20" height="20" align="center" valign="center"></image>
         </panel>
         <panel name="ventsize[param:index]" alias="VENTSIZE[param:index]" width="0" height="0" alpha="0">
@@ -923,7 +924,7 @@
     <class name="customvent">
       <panel name="vent[param:index]" alias="VENT[param:index]" width="100%" height="160">
         <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="15" alignment="left" text="CUSTOM VENT [param:index]"></text>
-        <panel name="deletebox" width="60" height="35" align="right" onclickup="delete-vent" clickuptarget="CONTAINER" _target="VENT[param:index]" _label="CUSTOM VENT [param:index]" _ventaction="addcustomvent" _ventactiontarget="custom-btn">
+        <panel name="deletebox" width="60" height="35" align="right" onclickup="delete-vent" clickuptarget="CONTAINER" _target="VENT[param:index]" _label="CUSTOM VENT [param:index]" _ventaction="addcustomvent" _ventactiontarget="custom-btn" _indexname="ventindex">
           <image name="icon" source="images/delete.png" width="20" height="20" align="center" valign="center"></image>
         </panel>
         <panel name="size" width="256" height="50" bottomof="subtitle">
@@ -1706,7 +1707,7 @@
                 </panel>
                 <panel name="zip" alias="ZIP" width="230" height="50" align="right" style="textinput">
                   <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
-                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="ZIP" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null"></textfield>
+                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" characterlimit="5" placeholder="ZIP" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null"></textfield>
                   <panel name="active" style="100" onclickup="labelactive" _field="ZIP"></panel>
                 </panel>
               </panel>
@@ -1718,7 +1719,7 @@
                 </panel>
                 <panel name="postal" alias="POSTAL" width="230" height="50" align="right" style="textinput">
                   <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
-                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Postal Code" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null"></textfield>
+                  <textfield name="input" width="100%" height="100%" align="left" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" characterlimit="6" placeholder="Postal Code" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null"></textfield>
                   <panel name="active" style="100" onclickup="labelactive" _field="POSTAL"></panel>
                 </panel>
               </panel>
@@ -2640,6 +2641,7 @@
           <assign property="var:AREAspacerindex" value="[var:areaindex]" />
           <alpha value="0" time=".1" target="ROOF-AREA[eval: [var:areaindex] - 1]/deletebox" />
         </if>
+        <alpha value="0" time=".1" target="ROOF-SIDEBAR-PAGER/Roof Areas/saved-check" />
       </sync>
     </action>
     
@@ -2654,6 +2656,7 @@
           <assign property="var:RIDGEspacerindex" value="[var:ridgeindex]" />
           <alpha value="0" time=".1" target="RIDGE[eval: [var:ridgeindex] - 1]/deletebox" />
         </if>
+        <alpha value="0" time=".1" target="ROOF-SIDEBAR-PAGER/Ridges/saved-check" />
       </sync>
     </action>
     
@@ -2666,6 +2669,7 @@
           <create class="roof-spacer" index="[var:hipindex]" name="HIP" target="ROOF-HIP/roofpagerbox/pager" />
           <alpha value="0" time=".1" target="HIP[eval: [var:hipindex] - 1]/deletebox" />
         </if>
+        <alpha value="0" time=".1" target="ROOF-SIDEBAR-PAGER/Hips/saved-check" />
       </sync>
     </action>
     
@@ -2678,6 +2682,7 @@
           <create class="roof-spacer" index="[var:valleyindex]" name="VALLEY" target="ROOF-VALLEY/roofpagerbox/pager" />
           <alpha value="0" time=".1" target="VALLEY[eval: [var:valleyindex] - 1]/deletebox" />
         </if>
+        <alpha value="0" time=".1" target="ROOF-SIDEBAR-PAGER/Valleys/saved-check" />
       </sync>
     </action>
     
@@ -2690,6 +2695,7 @@
           <create class="roof-spacer" index="[var:rakeindex]" name="RAKE" target="ROOF-RAKE/roofpagerbox/pager" />
           <alpha value="0" time=".1" target="RAKE[eval: [var:rakeindex] - 1]/deletebox" />
         </if>
+        <alpha value="0" time=".1" target="ROOF-SIDEBAR-PAGER/Rakes/saved-check" />
       </sync>
     </action>
     
@@ -2702,6 +2708,7 @@
           <create class="roof-spacer" index="[var:eaveindex]" name="EAVE" target="ROOF-EAVE/roofpagerbox/pager" />
           <alpha value="0" time=".1" target="EAVE[eval: [var:eaveindex] - 1]/deletebox" />
         </if>
+        <alpha value="0" time=".1" target="ROOF-SIDEBAR-PAGER/Eaves/saved-check" />
       </sync>
     </action>
     
@@ -2749,6 +2756,7 @@
           <create class="roof-spacer" index="[var:protrusionindex]" name="CHIMNEY" target="ROOF-CHIMNEY/roofpagerbox/pager" />
           <alpha value="0" time=".1" target="PROTRUSION[eval: [var:protrusionindex] - 1]/deletebox" />
         </if>
+        <alpha value="0" time=".1" target="ROOF-SIDEBAR-PAGER/Chimney &amp; Skylights/saved-check" />
       </sync>
     </action>
     
@@ -2766,6 +2774,7 @@
           <create class="roof-spacer" index="[var:protrusionindex]" name="CHIMNEY" target="ROOF-CHIMNEY/roofpagerbox/pager" />
           <alpha value="0" time=".1" target="PROTRUSION[eval: [var:protrusionindex] - 1]/deletebox" />
         </if>
+        <alpha value="0" time=".1" target="ROOF-SIDEBAR-PAGER/Chimney &amp; Skylights/saved-check" />
       </sync>
     </action>
     
@@ -2791,6 +2800,8 @@
         <assign property="var:ventindex" value="[eval: [var:ventindex] + 1]" />
         <create class="3vent" index="[var:ventindex]" target="ROOF-VENT/roofpagerbox/pager" />
         <play action="hidevent" />
+        <alpha value="0" time=".1" target="VENT[eval: [var:ventindex] - 1]/deletebox" />
+        <alpha value="0" time=".1" target="ROOF-SIDEBAR-PAGER/Plumbing Vents/saved-check" />
         <!--<if lhs="[var:ventindex]" operator="gt" rhs="1">
           <delete target="ROOF-SPACER-VENT-[eval: [var:ventindex] - 1]" />
           <create class="roof-spacer" index="[var:ventindex]" name="VENT" target="ROOF-VENT/roofpagerbox/pager" />
@@ -2805,6 +2816,8 @@
         <assign property="var:ventindex" value="[eval: [var:ventindex] + 1]" />
         <create class="2vent" index="[var:ventindex]" target="ROOF-VENT/roofpagerbox/pager" />
         <play action="hidevent" />
+        <alpha value="0" time=".1" target="VENT[eval: [var:ventindex] - 1]/deletebox" />
+        <alpha value="0" time=".1" target="ROOF-SIDEBAR-PAGER/Plumbing Vents/saved-check" />
         <!--<if lhs="[var:ventindex]" operator="gt" rhs="1">
           <delete target="ROOF-SPACER-VENT-[eval: [var:ventindex] - 1]" />
           <create class="roof-spacer" index="[var:ventindex]" name="VENT" target="ROOF-VENT/roofpagerbox/pager" />
@@ -2819,6 +2832,8 @@
         <assign property="var:ventindex" value="[eval: [var:ventindex] + 1]" />
         <create class="15vent" index="[var:ventindex]" target="ROOF-VENT/roofpagerbox/pager" />
         <play action="hidevent" />
+        <alpha value="0" time=".1" target="VENT[eval: [var:ventindex] - 1]/deletebox" />
+        <alpha value="0" time=".1" target="ROOF-SIDEBAR-PAGER/Plumbing Vents/saved-check" />
         <!--<if lhs="[var:ventindex]" operator="gt" rhs="1">
           <delete target="ROOF-SPACER-VENT-[eval: [var:ventindex] - 1]" />
           <create class="roof-spacer" index="[var:ventindex]" name="VENT" target="ROOF-VENT/roofpagerbox/pager" />
@@ -2832,10 +2847,12 @@
         <assign property="var:ventindex" value="[eval: [var:ventindex] + 1]" />
         <create class="customvent" index="[var:ventindex]" target="ROOF-VENT/roofpagerbox/pager" />
         <play action="hidevent" />
-        <if lhs="[var:ventindex]" operator="gt" rhs="1">
+        <alpha value="0" time=".1" target="VENT[eval: [var:ventindex] - 1]/deletebox" />
+        <alpha value="0" time=".1" target="ROOF-SIDEBAR-PAGER/Plumbing Vents/saved-check" />
+        <!--<if lhs="[var:ventindex]" operator="gt" rhs="1">
           <delete target="ROOF-SPACER-VENT-[eval: [var:ventindex] - 1]" />
           <create class="roof-spacer" index="[var:ventindex]" name="VENT" target="ROOF-VENT/roofpagerbox/pager" />
-        </if>
+        </if>-->
       </sync>
     </action>
     
@@ -3569,6 +3586,9 @@
     <action name="inspection-query" datasource="inspectiondb" datasourceevent="querycomplete">
       <assign property="datasource:inspectiondb-list.query" value="SELECT * FROM INSPECTION;" />
       <play action="roof-saving-modal-hide" />
+      <if lhs="[var:loaded]" operator="e" rhs="yes">
+        <alpha value="1" time=".1" target="ROOF-SIDEBAR-PAGER/Inspection/saved-check" />
+      </if>
     </action>
     
     <action name="FASCIA">
@@ -3659,6 +3679,9 @@
             <assign property="var:areaValidationIndex" value="0" />
             <assign property="var:navstep-areas" value="yes" />
             <play action="roof-saving-modal-hide" />
+            <if lhs="[var:loaded]" operator="e" rhs="yes">
+              <alpha value="1" time=".1" target="ROOF-SIDEBAR-PAGER/Roof Areas/saved-check" />
+            </if>
           </else>
         </if>
         <!--<alert message="[var:areaindexloop]" />-->
@@ -3695,6 +3718,9 @@
     <action name="wastequery" datasource="wastedb" datasourceevent="querycomplete">
       <assign property="datasource:wastedb-list.query" value="SELECT * FROM WASTE" />
       <play action="roof-saving-modal-hide" />
+      <if lhs="[var:loaded]" operator="e" rhs="yes">
+        <alpha value="1" time=".1" target="ROOF-SIDEBAR-PAGER/Waste/saved-check" />
+      </if>
     </action>
     
     <action name="RIDGE">
@@ -3758,6 +3784,9 @@
             <assign property="var:ridgeindexloop" value="0" />
             <assign property="var:ridgeValidationIndex" value="0" />
             <play action="roof-saving-modal-hide" />
+            <if lhs="[var:loaded]" operator="e" rhs="yes">
+              <alpha value="1" time=".1" target="ROOF-SIDEBAR-PAGER/Ridges/saved-check" />
+            </if>
           </else>
         </if>
       </sync>
@@ -3827,6 +3856,9 @@
             <assign property="var:hipindexloop" value="0" />
             <assign property="var:hipValidationIndex" value="0" />
             <play action="roof-saving-modal-hide" />
+            <if lhs="[var:loaded]" operator="e" rhs="yes">
+              <alpha value="1" time=".1" target="ROOF-SIDEBAR-PAGER/Hips/saved-check" />
+            </if>
           </else>
         </if>
       </sync>
@@ -3896,6 +3928,9 @@
             <assign property="var:valleyindexloop" value="0" />
             <assign property="var:valleyValidationIndex" value="0" />
             <play action="roof-saving-modal-hide" />
+            <if lhs="[var:loaded]" operator="e" rhs="yes">
+              <alpha value="1" time=".1" target="ROOF-SIDEBAR-PAGER/Valleys/saved-check" />
+            </if>
           </else>
         </if>
       </sync>
@@ -3965,6 +4000,9 @@
             <assign property="var:rakeindexloop" value="0" />
             <assign property="var:rakeValidationIndex" value="0" />
             <play action="roof-saving-modal-hide" />
+            <if lhs="[var:loaded]" operator="e" rhs="yes">
+              <alpha value="1" time=".1" target="ROOF-SIDEBAR-PAGER/Rakes/saved-check" />
+            </if>
           </else>
         </if>
       </sync>
@@ -4034,6 +4072,9 @@
             <assign property="var:eaveindexloop" value="0" />
             <assign property="var:eaveValidationIndex" value="0" />
             <play action="roof-saving-modal-hide" />
+            <if lhs="[var:loaded]" operator="e" rhs="yes">
+              <alpha value="1" time=".1" target="ROOF-SIDEBAR-PAGER/Eaves/saved-check" />
+            </if>
           </else>
         </if>
       </sync>
@@ -4101,6 +4142,9 @@
             <assign property="var:protrusionindexloop" value="0" />
             <assign property="var:chimneyValidationIndex" value="0" />
             <play action="roof-saving-modal-hide" />
+            <if lhs="[var:loaded]" operator="e" rhs="yes">
+              <alpha value="1" time=".1" target="ROOF-SIDEBAR-PAGER/Chimney &amp; Skylights/saved-check" />
+            </if>
           </else>
         </if>
       </sync>
@@ -4168,6 +4212,9 @@
             <assign property="var:ventindexloop" value="0" />
             <assign property="var:ventValidationIndex" value="0" />
             <play action="roof-saving-modal-hide" />
+            <if lhs="[var:loaded]" operator="e" rhs="yes">
+              <alpha value="1" time=".1" target="ROOF-SIDEBAR-PAGER/Plumbing Vents/saved-check" />
+            </if>
           </else>
         </if>
       </sync>
@@ -5158,6 +5205,7 @@
     <!-- delete plumbing vents -->
     <action name="delete-vent">
       <sync>
+        <assign property="var:indexname" value="_indexname" /><!-- name of indexing var -->
         <assign property="var:deleteVentTarget" value="_target" />
         <assign property="var:ventAction" value="_ventaction" />
         <assign property="var:ventActionTarget" value="_ventactiontarget" />
@@ -5168,6 +5216,10 @@
     <action name="confirm-delete-vent">
       <delete target="[var:deleteVentTarget]" />
       <set onclickup="[var:ventAction]" target="VENTMENU/[var:ventActionTarget]" />
+      <if lhs="[var:[var:indexname]]" operator="gte" rhs="1"><!-- alphas on the delete button in last item in pager -->
+        <alpha value="1" time=".1" target="VENT[eval: [var:[var:indexname]] - 1]/deletebox" />
+        <!--<alert message="[var:parent][eval: [var:[var:indexname]] - 1]/deletebox" />-->
+      </if>
     </action>
     
     <!-- Delete photos -->
