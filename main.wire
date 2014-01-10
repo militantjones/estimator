@@ -2961,7 +2961,7 @@
     
     <action name="savenote">
       <sync>
-        <assign property="var:thenote" value="[object:THENOTE.text]" />
+        <assign property="var:thenote" encoding="url" value="[object:THENOTE.text]" />
         <play action="db-that-photo" />
         <translate ypos="101%" time=".25" curve="easeout" target="ADDNOTE" />
         <delete target="ADDNOTE" />
@@ -3374,8 +3374,9 @@
       <if lhs="[var:loaded]" operator="e" rhs="yes">
         <sync>
           <assign property="var:adjustmentindexloop" value="[eval: [var:adjustmentindexloop] + 1]" />
+          <assign property="var:temp-adjustnote" encoding="url" value="[object:ADJUSTMENTAMOUNTNOTES[var:adjustmentindexloop]/input.text]" />
           <!--<alert message="units:[var:units-[var:adjustmentindexloop]] adjustments type:[object:ADJUSTTYPE[var:adjustmentindexloop].text] amount:[object:ADJUSTMENTAMOUNT[var:adjustmentindexloop]/input.text] notes:[object:ADJUSTMENTAMOUNTNOTES[var:adjustmentindexloop]/input.text] " />-->
-          <assign property="datasource:adjustmentsdb.query" value="INSERT INTO ADJUSTMENTS (TYPE, UNITS, AMOUNT, NOTES) values ('[object:ADJUSTTYPE[var:adjustmentindexloop].text]', '[var:units-[var:adjustmentindexloop]]', '[object:ADJUSTMENTAMOUNT[var:adjustmentindexloop]/input.text]', '[object:ADJUSTMENTAMOUNTNOTES[var:adjustmentindexloop]/input.text]');" />
+          <assign property="datasource:adjustmentsdb.query" value="INSERT INTO ADJUSTMENTS (TYPE, UNITS, AMOUNT, NOTES) values ('[object:ADJUSTTYPE[var:adjustmentindexloop].text]', '[var:units-[var:adjustmentindexloop]]', '[object:ADJUSTMENTAMOUNT[var:adjustmentindexloop]/input.text]', '[var:temp-adjustnote]');" />
         </sync>
       </if>
     </action>
@@ -3441,8 +3442,9 @@
           <keyboard visible="no" target="NOTES/input" />
         </sync>
         <sync>
-	  	  <assign property="var:db-action" value="save" />
-          <assign property="datasource:customersdb.query" value="INSERT INTO CUSTOMERS (FNAME,LNAME,EMAIL,PHONE,FNAME2,LNAME2,EMAIL2,PHONE2,COUNTRY,STREET,CITY,STATE,POSTAL,NOTES) values ('[object:CUST1-FNAME/input.text]', '[object:CUST1-LNAME/input.text]', '[object:CUST1-EMAIL/input.text]', '[object:CUST1-PHONE/input.text]', '[object:CUST2-FNAME/input.text]', '[object:CUST2-LNAME/input.text]', '[object:CUST2-EMAIL/input.text]', '[object:CUST2-PHONE/input.text]', '[var:country]', '[object:STREET/input.text]', '[object:CITY/input.text]', '[object:STATE/input.text]', '[object:ZIP/input.text]', '[object:NOTES/input.text]');" />
+	  	    <assign property="var:db-action" value="save" />
+	  	    <assign property="var:tempnotes" encoding="url" value="[object:NOTES/input.text]" />
+          <assign property="datasource:customersdb.query" value="INSERT INTO CUSTOMERS (FNAME,LNAME,EMAIL,PHONE,FNAME2,LNAME2,EMAIL2,PHONE2,COUNTRY,STREET,CITY,STATE,POSTAL,NOTES) values ('[object:CUST1-FNAME/input.text]', '[object:CUST1-LNAME/input.text]', '[object:CUST1-EMAIL/input.text]', '[object:CUST1-PHONE/input.text]', '[object:CUST2-FNAME/input.text]', '[object:CUST2-LNAME/input.text]', '[object:CUST2-EMAIL/input.text]', '[object:CUST2-PHONE/input.text]', '[var:country]', '[object:STREET/input.text]', '[object:CITY/input.text]', '[object:STATE/input.text]', '[object:ZIP/input.text]', '[var:tempnotes]');" />
         </sync>
       </if>
     </action>
