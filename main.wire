@@ -2311,6 +2311,7 @@
   <actions>
    
     <action name="oninit" oninit="yes">
+		  <assign property="var:search" value="" />
 		  <assign property="var:loaded" value="no" />
 		  <assign property="var:accessoryCount" value="0" />
       <assign property="var:tearoff" value="no" />
@@ -2645,6 +2646,7 @@
     
     <action name="closeresults">
       <sync>
+		  <assign property="var:search" value="" />
         <translate ypos="101%" time=".25" curve="easeout" target="SEARCHRESULTS" />
         <delete target="SEARCHRESULTS" />
         <alpha value="1" time=".2" target="HEADER" />
@@ -4713,7 +4715,7 @@
           <!-- 	  <alert message="var:accessory-[var:accessoryCount] is [var:accessory-[var:accessoryCount]]" /> -->
           <assign property="datasource:accessoriesdb.query" value="INSERT INTO ACCESSORIES (NAME, TYPE, ACCESSORY, QUANTITY) VALUES ('[var:accessory-[var:accessoryCount]-Name]', '[var:accessory-[var:accessoryCount]-Type]', '[var:accessory-[var:accessoryCount]]', '[var:accessory-[var:accessoryCount]-Quantity]');" />
           <if lhs="[eval:[var:accessories]-[var:accessoryCount]]" operator="gt" rhs="0">
-            <alert message="accessory selected. you must select [eval:[var:accessories]-[var:accessoryCount]] more accessories for the warranty you have chosen" />
+<!--             <alert message="accessory selected. you must select [eval:[var:accessories]-[var:accessoryCount]] more accessories for the warranty you have chosen" /> -->
             <else>
             	<!--<alert message="accessory selected" />-->
             	<alpha value="1" time=".10" target="AC-SEL-MODAL" />
@@ -5016,15 +5018,13 @@
 		
 		<action name="updateMeasurements-complete" datasource="updateMeasurements" datasourceevent="querycomplete" >
 			<if lhs="[datasource:updateMeasurements.1.ResponseCode]" operator="e" rhs="100">
-				<alert message="updateMeasurements-complete content [datasource:updateMeasurements.0.content]" />
+<!-- 				<alert message="updateMeasurements-complete content [datasource:updateMeasurements.0.content]" /> -->
 				<play action="prepPhotos" />
-<!--
 				  <else>
-					<play action="prepPhotos" />
+<!-- 					<play action="prepPhotos" /> -->
 				  	<alpha value="0" target="UPLOAD-CURTAIN" />
 				  	<alert message="there was a problem updating your measurements, please verify that all information is present and accurate" />
 				  </else>
--->
 			</if>
 		</action>
 	
@@ -5065,7 +5065,7 @@
 		</action>
 		
 		<action name="photoupload-complete" datasource="uploadPhoto" datasourceevent="querycomplete" >
-				<alert message="upload [var:photoIterateCount] complete [datasource:uploadPhoto.0.content]" />
+<!-- 				<alert message="upload [var:photoIterateCount] complete [datasource:uploadPhoto.0.content]" /> -->
 <!-- 			<if lhs="[datasource:uploadPhoto.0.content]" operator="e" rhs="100"> -->
 				<assign property="var:photoIterateCount" value="[eval: [var:photoIterateCount]+1]" />
 				<play action="upload-photo" />
@@ -5287,6 +5287,7 @@
 	</action>
 	
 	<action name="clear-data" >
+		  <assign property="var:search" value="" />
 	  	 <assign property="var:db-action" value="" />
 	  	 <assign property="var:accessories" value="0" />
 		<assign property="var:accessoryCount" value="0" />
