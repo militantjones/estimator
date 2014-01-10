@@ -194,6 +194,15 @@
       </panel>
     </class>
     
+    <class name="accessorybutton">
+      <panel name="[param:name]" width="100%" height="100%" onclick="touched" onclickup="[param:action]" _index="[param:index]" _value="[param:value]" _accessories="[param:accessories]" _title="[param:title]" _category="[param:category]" _units="[param:units]" _coverage="[param:coverage]" cornerradius="2" clip="yes">
+        <panel name="red" width="100%" height="100%" style="brand"></panel>
+        <text name="button" style="button" size="[param:size]" text="[param:label]" alpha="1"></text>
+        <image name="selected" source="images/saved-check-white.png" width="20" height="20" align="center" valign="center" alpha="0"></image>
+        <panel name="bg" style="100" background="ffffff" alpha="0"></panel>
+      </panel>
+    </class>
+    
     <class name="title">
       <panel name="titlebox" width="100%" height="79" padding-left="20" padding-right="20" >
         <text name="title" width="100%" height="60" ypos="10" style="darktext" size="40" alignment="left" text="[param:title]"></text>
@@ -1150,8 +1159,8 @@
       <panel name="accessory[param:index]" width="100%" height="71">
         <text name="subtitle" width="[eval: [object:ACCESSORIES-PAGER-BOX.width] - 128]" height="66" font="Futura-Medium" color="#343434" size="fit" maxsize="25" alignment="left" text="[param:title]"></text>
         <!--<text name="bullet1" width="307" height="fit" xpos="20" bottomof="subtitle" style="darktext" size="15" alignment="left" text="Sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus."></text>-->
-        <panel name="warranty-btn" width="108" height="50" align="right" ypos="8">
-          <object class="productbutton" name="test" size="20" label="Select" action="selectaccessories" value="[param:index]" units="[param:units]" coverage="[param:coverage]" />
+        <panel name="accessory-btn" width="108" height="50" align="right" ypos="8">
+          <object class="accessorybutton" name="test" size="20" label="Select" action="selectaccessories" value="[param:index]" units="[param:units]" coverage="[param:coverage]" category="[param:category]" />
         </panel>
         <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
       </panel>
@@ -1954,7 +1963,7 @@
             <list name="pager" width="100%" datasource="getAccessories" height="100%" orientation="vertical" paginate="no" padding-left="20" padding-right="20" >
               <object class="accessory-category" index="[ds:dataSourceIndex]" category="[ds:AccessoryCategory]" lhs="[eval: ('[ds:dataSourceIndex]' == '1') || ('[datasource:getAccessories.[eval:[ds:dataSourceIndex]-1].AccessoryCategory]' != '[datasource:getAccessories.[ds:dataSourceIndex].AccessoryCategory]')]" operator="e" rhs="true" />
 <!-- 			<object class="accessory-category" index="[ds:dataSourceIndex]" category="[ds:AccessoryCategory]" lhs="[eval: '[ds:dataSourceIndex]' == '1' || '[ds:AccessoryCategory]' != '[datasource:getAccessories.[eval:[ds:dataSourceIndex]-1].AccessoryCategory]]'" operator="e" rhs="true" /> -->
-              <object class="accessory" index="[ds:dataSourceIndex]" title="[ds:AccessoryName]" units="[ds:UnitOfMeasure]" coverage="[ds:CoveragePerUnit]" />
+              <object class="accessory" index="[ds:dataSourceIndex]" title="[ds:AccessoryName]" units="[ds:UnitOfMeasure]" coverage="[ds:CoveragePerUnit]" category="[ds:AccessoryCategory]" />
             </list>
           </panel>
         </panel>
@@ -2265,6 +2274,14 @@
         </panel>
       </panel>
       
+    </panel>
+    
+    <panel name="ac-sel-modal" alias="AC-SEL-MODAL" width="100%" height="100%" align="right" alpha="0">
+      <panel name="modal" width="200" height="120" align="center" ypos="35%" shadowradius="60" shadowxoffset="1" shadowyoffset="1" shadowopacity=".1" >
+        <panel name="bg" width="100%" height="100%" background="#ffffff" alpha="1" cornerradius="10" borderwidth="1" bordercolor="#e3e3e3"></panel>
+        <text name="message" width="100%" height="100%" color="##343434" font="Futura-Medium" size="24" alignment="center" text="Accessory Selected"></text>
+        <!--<wait name="wait" width="100%" height="70" ypos="50" color="#343434"></wait>-->
+      </panel>
     </panel>
   </main>
   
@@ -4539,32 +4556,44 @@
 	</action>
 
     <action name="selectaccessories">
+      <!--<alert message="_category" />-->
       <play action="released" />
       <play action="blur" />
       <assign property="var:accessorySelected" value="_value" />
       <assign property="object:ACCESSORYLIST/accessorytype.text" value="[datasource:getAccessories._value.AccessoryCategory]" />
       <assign property="object:ACCESSORYTYPEPAGER/acessory1/item.text" value="[datasource:getAccessories._value.AccessoryName]" />
       <assign property="object:ACCESSORYTYPEPAGER/acessory1/description.text" value="[datasource:getAccessories._value.Description]" />
+      <assign property="var:cur-acc-cat" value="[datasource:getAccessories._value.AccessoryCategory]" />
       <!--<assign property="object:UNITEQUALS.text" value="1 = _coverage _units" />-->
       <if lhs="[datasource:getAccessories._value.AccessoryCategory]" operator="e" rhs="Leak Barrier">
         <assign property="object:UNITMEASURE.text" value="[var:leakbarrier] ft needed" />
         <assign property="object:UNITEQUALS.text" value="1 = _coverage ft _units" />
+        <assign property="var:cur-leak-index" value="_value" />
+        <!--<alert title="Leak Barrier index" message="[var:cur-leak-index]" />-->
+        <!--<assign property="var:cur-acc-cat" value="[datasource:getAccessories._value.AccessoryCategory]" />-->
       </if>
       <if lhs="[datasource:getAccessories._value.AccessoryCategory]" operator="e" rhs="Roof Deck Protection">
         <assign property="object:UNITMEASURE.text" value="" />
         <assign property="object:UNITEQUALS.text" value="1 = _coverage ft _units" />
+        <assign property="var:cur-roofdeck-index" value="_value" />
+        <!--<alert title="Roof Deck index" message="[var:cur-roofdeck-index]" />-->
       </if>
       <if lhs="[datasource:getAccessories._value.AccessoryCategory]" operator="e" rhs="Starter Strips">
         <assign property="object:UNITMEASURE.text" value="[var:starterstrips] ft needed" />
         <assign property="object:UNITEQUALS.text" value="1 = _coverage ft _units" />
+        <assign property="var:cur-starter-index" value="_value" />
+        <!--<alert title="Starter Strip index" message="[var:cur-starter-index]" />-->
       </if>
       <if lhs="[datasource:getAccessories._value.AccessoryCategory]" operator="e" rhs="Ventilation">
         <assign property="object:UNITMEASURE.text" value="" />
         <assign property="object:UNITEQUALS.text" value="" />
+        <assign property="var:cur-ventilation-index" value="_value" />
       </if>
       <if lhs="[datasource:getAccessories._value.AccessoryCategory]" operator="e" rhs="Ridge Cap">
         <assign property="object:UNITMEASURE.text" value="[var:ridgestotal] ft needed" />
         <assign property="object:UNITEQUALS.text" value="1 = _coverage ft _units" />
+        <assign property="var:cur-ridgecap-index" value="_value" />
+        <!--<alert title="Ridge Cap index" message="[var:cur-ridgecap-index]" />-->
       </if>
       <alpha value="1" time=".25" target="ACCESSORYLIST" />
       <translate valign="center" time=".25" curve="easeout" target="ACCESSORYLIST" />
@@ -4584,7 +4613,11 @@
           <if lhs="[eval:[var:accessories]-[var:accessoryCount]]" operator="gt" rhs="0">
             <alert message="accessory selected. you must select [eval:[var:accessories]-[var:accessoryCount]] more accessories for the warranty you have chosen" />
             <else>
-            	<alert message="accessory selected" />
+            	<!--<alert message="accessory selected" />-->
+            	<alpha value="1" time=".10" target="AC-SEL-MODAL" />
+            	<alpha value="0" time=".25" delay=".6" target="AC-SEL-MODAL" />
+            	<!--<alpha value="0" time="0" target="ACCESSORY-PAGER-BOX/pager/accessory[var:cur-leak-index]/accessory-btn/test/button" />
+              <alpha value="1" time=".2" target="ACCESSORY-PAGER-BOX/pager/accessory[var:cur-leak-index]/accessory-btn/test/selected" />-->
             </else>
           </if>
           <play action="accessorydismiss" />
@@ -4607,17 +4640,72 @@
     </action>
     
     <action name="accessoriesdb-complete" datasource="accessoriesdb" datasourceevent="querycomplete" >
-<!-- 		<alert message="accessoriesdb-complete" /> -->
-		<assign property="datasource:accessoriesdb-list.query" value="SELECT * FROM ACCESSORIES ORDER BY ID DESC;" />
+      <!-- 		<alert message="accessoriesdb-complete" /> -->
+		  <assign property="datasource:accessoriesdb-list.query" value="SELECT * FROM ACCESSORIES ORDER BY ID DESC;" />
     </action>
     
     <action name="accessoriesdb-list-complete" datasource="accessoriesdb-list" datasourceevent="querycomplete" >
-<!--
-		<if lhs="[datasource:accessoriesdb-list.dataSourceResultCount]" operator="gt" rhs="0">
-			<alert message="accessoriesdb-list count is [datasource:accessoriesdb-list.dataSourceResultCount] quantity for 1 is [datasource:accessoriesdb-list.1.QUANTITY], id is [datasource:accessoriesdb-list.1.ACCESSORY], name is [datasource:accessoriesdb-list.1.NAME], type is [datasource:accessoriesdb-list.1.TYPE]" />
-		</if>
--->
+      <sync>
+        <!--<alert title="Current Accessory Category" message="[var:cur-acc-cat]" />-->
+        <!--<alpha value="0" time="0" target="ACCESSORIES-PAGER-BOX/pager/accessory[var:cur-leak-index]/accessory-btn/test/button" />
+        <alpha value="1" time=".2" target="ACCESSORIES-PAGER-BOX/pager/accessory[var:cur-leak-index]/accessory-btn/test/selected" />-->
+        <if lhs="[var:cur-acc-cat]" operator="e" rhs="Leak Barrier">
+          <if lhs="[var:cur-leak-index]" operator="!=" rhs="[var:prev-leak-index]">
+            <alpha value="0" time="0" target="ACCESSORIES-PAGER-BOX/pager/accessory[var:cur-leak-index]/accessory-btn/test/button" />
+            <alpha value="1" time=".2" target="ACCESSORIES-PAGER-BOX/pager/accessory[var:cur-leak-index]/accessory-btn/test/selected" />
+            <alpha value="0" time="0" target="ACCESSORIES-PAGER-BOX/pager/accessory[var:prev-leak-index]/accessory-btn/test/selected" />
+            <alpha value="1" time=".2" target="ACCESSORIES-PAGER-BOX/pager/accessory[var:prev-leak-index]/accessory-btn/test/button" />
+            <assign property="var:prev-leak-index" value="[var:cur-leak-index]" />
+          </if>
+        </if>
+        <if lhs="[var:cur-acc-cat]" operator="e" rhs="Roof Deck Protection">
+          <if lhs="[var:cur-roofdeck-index]" operator="!=" rhs="[var:prev-roofdeck-index]">
+            <alpha value="0" time="0" target="ACCESSORIES-PAGER-BOX/pager/accessory[var:cur-roofdeck-index]/accessory-btn/test/button" />
+            <alpha value="1" time=".2" target="ACCESSORIES-PAGER-BOX/pager/accessory[var:cur-roofdeck-index]/accessory-btn/test/selected" />
+            <alpha value="0" time="0" target="ACCESSORIES-PAGER-BOX/pager/accessory[var:prev-roofdeck-index]/accessory-btn/test/selected" />
+            <alpha value="1" time=".2" target="ACCESSORIES-PAGER-BOX/pager/accessory[var:prev-roofdeck-index]/accessory-btn/test/button" />
+            <assign property="var:prev-roofdeck-index" value="[var:cur-roofdeck-index]" />
+            <!--<alert message="ACCESSORIES-PAGER-BOX/pager/accessory[var:prev-roofdeck-index]/accessory-btn/test/button" />-->
+          </if>
+        </if>
+        <if lhs="[var:cur-acc-cat]" operator="e" rhs="Starter Strips">
+          <if lhs="[var:cur-starter-index]" operator="!=" rhs="[var:prev-starter-index]">
+            <alpha value="0" time="0" target="ACCESSORIES-PAGER-BOX/pager/accessory[var:cur-starter-index]/accessory-btn/test/button" />
+            <alpha value="1" time=".2" target="ACCESSORIES-PAGER-BOX/pager/accessory[var:cur-starter-index]/accessory-btn/test/selected" />
+            <alpha value="0" time="0" target="ACCESSORIES-PAGER-BOX/pager/accessory[var:prev-starter-index]/accessory-btn/test/selected" />
+            <alpha value="1" time=".2" target="ACCESSORIES-PAGER-BOX/pager/accessory[var:prev-starter-index]/accessory-btn/test/button" />
+            <assign property="var:prev-starter-index" value="[var:cur-starter-index]" />
+            <!--<alert message="ACCESSORIES-PAGER-BOX/pager/accessory[var:prev-starter-index]/accessory-btn/test/button" />-->
+          </if>
+        </if>
+        <if lhs="[var:cur-acc-cat]" operator="e" rhs="Ventilation">
+          <if lhs="[var:cur-ventilation-index]" operator="!=" rhs="[var:prev-ventilation-index]">
+            <alpha value="0" time="0" target="ACCESSORIES-PAGER-BOX/pager/accessory[var:cur-ventilation-index]/accessory-btn/test/button" />
+            <alpha value="1" time=".2" target="ACCESSORIES-PAGER-BOX/pager/accessory[var:cur-ventilation-index]/accessory-btn/test/selected" />
+            <!--<alpha value="0" time="0" target="ACCESSORIES-PAGER-BOX/pager/accessory[var:prev-ridgecap-index]/accessory-btn/test/selected" />
+            <alpha value="1" time=".2" target="ACCESSORIES-PAGER-BOX/pager/accessory[var:prev-ridgecap-index]/accessory-btn/test/button" />
+            <assign property="var:prev-ridgecap-index" value="[var:cur-ridgecap-index]" />-->
+            <!--<alert message="ACCESSORIES-PAGER-BOX/pager/accessory[var:prev-ridgecap-index]/accessory-btn/test/button" />-->
+          </if>
+        </if>
+        <if lhs="[var:cur-acc-cat]" operator="e" rhs="Ridge Cap">
+          <if lhs="[var:cur-ridgecap-index]" operator="!=" rhs="[var:prev-ridgecap-index]">
+            <alpha value="0" time="0" target="ACCESSORIES-PAGER-BOX/pager/accessory[var:cur-ridgecap-index]/accessory-btn/test/button" />
+            <alpha value="1" time=".2" target="ACCESSORIES-PAGER-BOX/pager/accessory[var:cur-ridgecap-index]/accessory-btn/test/selected" />
+            <alpha value="0" time="0" target="ACCESSORIES-PAGER-BOX/pager/accessory[var:prev-ridgecap-index]/accessory-btn/test/selected" />
+            <alpha value="1" time=".2" target="ACCESSORIES-PAGER-BOX/pager/accessory[var:prev-ridgecap-index]/accessory-btn/test/button" />
+            <assign property="var:prev-ridgecap-index" value="[var:cur-ridgecap-index]" />
+            <!--<alert message="ACCESSORIES-PAGER-BOX/pager/accessory[var:prev-ridgecap-index]/accessory-btn/test/button" />-->
+          </if>
+        </if>
+      </sync>
+      <!--
+        <if lhs="[datasource:accessoriesdb-list.dataSourceResultCount]" operator="gt" rhs="0">
+          <alert message="accessoriesdb-list count is [datasource:accessoriesdb-list.dataSourceResultCount] quantity for 1 is [datasource:accessoriesdb-list.1.QUANTITY], id is [datasource:accessoriesdb-list.1.ACCESSORY], name is [datasource:accessoriesdb-list.1.NAME], type is [datasource:accessoriesdb-list.1.TYPE]" />
+        </if>
+      -->
     </action>
+    
     <!-- !options actions -->
     <action name="selectoptions">
       <play action="released" />
