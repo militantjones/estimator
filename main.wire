@@ -20,7 +20,8 @@
 
   	<datasource name="login" source="" query="/" providertype="json" httpmethod="post" httpheader="login"/>
     <datasource name="createCustomer" source="" query="/" providertype="json" httpmethod="post" httpheader="token-contractorid"/>
-    <datasource name="getEstimate" source="" query="/CustomerDetails" providertype="json" httpmethod="get" httpheader="token-contractorid"/>
+	<datasource name="editCustomer" source="" query="/" providertype="json" httpmethod="put" httpheader="token-contractorid"/>
+	<datasource name="getEstimate" source="" query="/CustomerDetails" providertype="json" httpmethod="get" httpheader="token-contractorid"/>
     <datasource name="getProducts" source="" query="/Products" providertype="json" httpmethod="get" httpheader="token-contractorid"/>
     <datasource name="getAccessories" source="" query="/Accessories" providertype="json" httpmethod="get" httpheader="token-contractorid"/>
     <datasource name="getWarranties" source="" query="/Warranties" providertype="json" httpmethod="get" httpheader="token-contractorid"/>
@@ -28,12 +29,12 @@
     <datasource name="uploadPhoto" source="" query="/" providertype="json" httpmethod="post" httpheader="formSubmit" />
     <datasource name="updateMeasurements" source="" query="/" providertype="json" httpmethod="put" httpheader="token-contractorid" />
     <datasource name="generateEstimate" source="" query="/" providertype="json" httpmethod="post" httpheader="token-contractorid" />
-
+	<datasource name="getEstimatePdf" source="" query="/" providertype="json" httpmethod="get" httpheader="token-contractorid" />
 
     <httpheader name="login" Content-Type="application/json" />
     <httpheader name="token-contractorid" Content-Type="application/json" Token="[preferences:token]" ContractorId="[preferences:contractorId]" />
 
-    <httpheader name="formSubmit" Token="[preferences:token]" ContractorId="[preferences:contractorId]" Content-Type="multipart/form-data" Content-Disposition="form-data; name='File'; filename='test.jpg'"/>
+    <httpheader name="formSubmit" Token="[preferences:token]" ContractorId="[preferences:contractorId]" CustomerId="[var:customerId]" Content-Type="multipart/form-data" Content-Disposition="form-data; name='File'; filename='test.jpg'"/>
 
     <datasource name="camera-roll" source="adsf" query="Camera Roll" providertype="camera"/>
     <datasource name="states" source="" query="//state" providertype="xml" parsenamespaces="yes" />
@@ -115,6 +116,9 @@
 	<texttemplate name="createCustomer"><![CDATA[
 	{"CustomerFirstName":"[var:firstName]","CustomerMiddleName":"[var:middleName]","CustomerLastName":"[var:lastName]","Address1":"[var:address1]","Address2":"[var:address2]","City":"[var:city]","StateProvince":"[var:state]","PostalCode":"[var:postalCode]","Country":"[var:country]","Notes":"[var:notes]"}
 	]]></texttemplate>
+	<texttemplate name="editCustomer"><![CDATA[
+	{"CustomerId":[var:edit-customerId],"CustomerFirstName":"[var:edit-fname]","CustomerMiddleName":"[var:edit-middlename]","CustomerLastName":"[var:edit-lname]","Address1":"[var:edit-address1]","Address2":"[var:edit-address2]","City":"[var:edit-city]","StateProvince":"[var:edit-state]","PostalCode":"[var:edit-zip]","Country":"[var:edit-country]","EstimatePdf": "","EstimateDetails": []}
+ 	]]></texttemplate>
 	<texttemplate name="roofMeasurements"><![CDATA[
 		{"Field":"[eval:[var:roofMeasurementsIterateCount]-1]","Length":"[datasource:roofareasdb-list.[var:roofMeasurementsIterateCount].LENGTH]","Width":"[datasource:roofareasdb-list.[var:roofMeasurementsIterateCount].WIDTH]","Pitch":"[datasource:roofareasdb-list.[var:roofMeasurementsIterateCount].SLOPE]"}
 	]]></texttemplate>
@@ -348,10 +352,10 @@
         <text name="name" width="65%" height="30" xpos="20" ypos="20" style="darktext" size="24" alignment="left" text="[param:lastname], [param:firstname]" ></text>
         <text name="address" width="65%" height="30" xpos="20" bottomof="name" style="darktext" size="20" alignment="left" text="[param:street], [param:city], [param:state] [param:zip]" ></text>
         <panel name="edit-btn" width="100" height="50" ypos="22" align="right" bottomof="search-address" margin-right="20">
-          <object class="button" name="test" size="20" label="Edit" action="edit" value="[param:customerId]" />
+          <object class="button" name="test" size="20" label="Edit" action="edit" value="[param:index]" />
         </panel>
         <panel name="view-btn" width="100" height="50" ypos="22" leftof="edit-btn" margin-right="20" bottomof="search-address">
-          <object class="button" name="test" size="20" label="View" action="viewestimate" value="[param:estimatePdf]" />
+          <object class="button" name="test" size="20" label="View" action="viewestimate" value="[param:index]" />
         </panel>
         <panel name="divider" width="728" height="5" align="center" valign="bottom" background="#343434"></panel>
       </panel>
@@ -360,11 +364,11 @@
     <class name="results">
       <panel name="searchresults" alias="SEARCHRESULTS" width="100%" height="100%" ypos="101%" background="#e3e3e3">
         <panel name="searchhead" width="100%" height="74" background="#343434" >
-          <text name="label" width="100%" height="100%" color="#ffffff" font="Futura-Medium" size="24" alignment="center" text="Search Results"></text>
+          <text name="label" width="100%" height="100%" color="#ffffff" font="Futura-Medium" size="24" alignment="center" text="Searching..."></text>
           <text name="close" width="100" height="100%" color="#ffffff" font="Futura-Medium" size="20" alignment="left" leftinset="20" text="Close" onclickup="closeresults" clickuptarget="CONTAINER"></text>
         </panel>
         <list name="resultlist" width="100%" height="[eval: [object:SEARCHRESULTS.height] - 74]" datasource="getEstimate" ypos="74" orientation="vertical" paginate="no">
-          <object class="searchresult" index="1" lastname="[ds:CustomerLastName]" firstname="[ds:CustomerFirstName]" street="[ds:Address1]" city="[ds:City]" state="[ds:StateProvince]" zip="[ds:PostalCode]" estimateId="test" customerId="[ds:CustomerId]" />
+			<object class="searchresult" index="[ds:dataSourceIndex]" lastname="[ds:CustomerLastName]" firstname="[ds:CustomerFirstName]" street="[ds:Address1]" city="[ds:City]" state="[ds:StateProvince]" zip="[ds:PostalCode]" estimateId="test" />
         </list>
       </panel>
     </class>
@@ -382,7 +386,7 @@
             <text name="label" width="50%" height="100%" color="#343434" font="Futura-Medium" size="24" alignment="left" text="First Name" ></text>
             <panel name="edit-fname" alias="EDIT-FNAME" width="50%" height="50" align="right" valign="center" style="textinput">
               <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
-              <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" _next="EDIT-LNAME" _action="null" ></textfield>
+              <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" _next="EDIT-LNAME" text="[param:fname]" _action="null" ></textfield>
               <panel name="active" style="100" onclickup="labelactive" _field="EDIT-FNAME"></panel>
             </panel>
             <panel name="border" width="100%" height="1" valign="bottom" background="#343434"></panel>
@@ -391,7 +395,7 @@
             <text name="label" width="50%" height="100%" color="#343434" font="Futura-Medium" size="24" alignment="left" text="Last Name" ></text>
             <panel name="edit-lname" alias="EDIT-LNAME" width="50%" height="50" align="right" valign="center" style="textinput">
               <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
-              <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" _next="EDIT-EMAIL" _action="null" ></textfield>
+              <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" _next="EDIT-EMAIL" text="[param:lname]" _action="null" ></textfield>
               <panel name="active" style="100" onclickup="labelactive" _field="EDIT-LNAME"></panel>
             </panel>
             <panel name="border" width="100%" height="1" valign="bottom" background="#343434"></panel>
@@ -400,7 +404,7 @@
             <text name="label" width="50%" height="100%" color="#343434" font="Futura-Medium" size="24" alignment="left" text="Email Address" ></text>
             <panel name="edit-email" alias="EDIT-EMAIL" width="50%" height="50" align="right" valign="center" style="textinput">
               <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
-              <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" _next="EDIT-PHONE" _action="null" ></textfield>
+              <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" _next="EDIT-PHONE" text="[param:email]" _action="null" ></textfield>
               <panel name="active" style="100" onclickup="labelactive" _field="EDIT-EMAIL"></panel>
             </panel>
             <panel name="border" width="100%" height="1" valign="bottom" background="#343434"></panel>
@@ -409,7 +413,7 @@
             <text name="label" width="50%" height="100%" color="#343434" font="Futura-Medium" size="24" alignment="left" text="Phone Number" ></text>
             <panel name="edit-phone" alias="EDIT-PHONE" width="50%" height="50" align="right" valign="center" style="textinput">
               <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
-              <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" _next="none" _action="null" onchange="isNaN"></textfield>
+              <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" _next="none" text="[param:phone]" _action="null" onchange="isNaN"></textfield>
               <panel name="active" style="100" onclickup="labelactive" _field="EDIT-PHONE"></panel>
             </panel>
             <panel name="border" width="100%" height="1" valign="bottom" background="#343434"></panel>
@@ -432,7 +436,7 @@
             <text name="label" width="50%" height="100%" color="#343434" font="Futura-Medium" size="24" alignment="left" text="Street Address" ></text>
             <panel name="edit-street" alias="EDIT-STREET" width="50%" height="50" align="right" valign="center" style="textinput">
               <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
-              <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" _next="EDIT-CITY" _action="null" ></textfield>
+              <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" _next="EDIT-CITY" _action="null" text="[param:address1]" ></textfield>
               <panel name="active" style="100" onclickup="labelactive" _field="EDIT-STREET"></panel>
             </panel>
             <panel name="border" width="100%" height="1" valign="bottom" background="#343434"></panel>
@@ -441,7 +445,7 @@
             <text name="label" width="50%" height="100%" color="#343434" font="Futura-Medium" size="24" alignment="left" text="City" ></text>
             <panel name="edit-city" alias="EDIT-CITY" width="50%" height="50" align="right" valign="center" style="textinput">
               <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
-              <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" _next="none" _action="null" ></textfield>
+              <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" _next="none" _action="null" text="[param:city]" ></textfield>
               <panel name="active" style="100" onclickup="labelactive" _field="EDIT-CITY"></panel>
             </panel>
             <panel name="border" width="100%" height="1" valign="bottom" background="#343434"></panel>
@@ -450,7 +454,7 @@
             <text name="label" width="50%" height="100%" color="#343434" font="Futura-Medium" size="24" alignment="left" text="State or Province" ></text>
             <panel name="edit-state" alias="EDIT-STATE" width="50%" height="50" align="right" valign="center" style="textinput">
               <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
-              <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" _next="none" _action="null" ></textfield>
+              <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" _next="none" _action="null" text="[param:state]" ></textfield>
               <panel name="active" style="100" onclickup="edit-state-list" _field="EDIT-STATE"></panel>
             </panel>
             <panel name="border" width="100%" height="1" valign="bottom" background="#343434"></panel>
@@ -460,7 +464,7 @@
             <text name="label" width="50%" height="100%" color="#343434" font="Futura-Medium" size="24" alignment="left" text="Zip or Postal Code" ></text>
             <panel name="edit-zip" alias="EDIT-ZIP" width="50%" height="50" align="right" valign="center" style="textinput">
               <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
-              <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" _next="none" _action="null" ></textfield>
+              <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" _next="none" _action="null" text="[param:zip]" ></textfield>
               <panel name="active" style="100" onclickup="labelactive" _field="EDIT-ZIP"></panel>
             </panel>
             <panel name="border" width="100%" height="1" valign="bottom" background="#343434"></panel>
@@ -483,7 +487,7 @@
         
         <panel name="editfooter" width="100%" height="80" valign="bottom" background="#343434" padding-right="20">
           <panel name="view-btn" width="130" height="50" align="right" valign="center">
-            <object class="button" name="test" size="20" label="Update" action="null" value="" />
+            <object class="button" name="test" size="20" label="Update" action="editcustomer" value="" />
           </panel>
         </panel>
         
@@ -985,10 +989,9 @@
 
     <class name="shingles">
       <!--two column-->
-      <panel name="[param:index]" width="100%" fitheight="yes" padding-left="20" padding-right="20">
-        <panel name="shinglerow1" width="100%" height="242" >
-          <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="20" alignment="left" text="Shingle Group"></text>
-          <panel name="col1" width="217" height="100%" bottomof="subtitle" >
+      <panel name="[param:index]" width="100%" height="213" padding-left="20" padding-right="20">
+<!--         <panel name="shinglerow1" width="100%" height="242" > -->
+          <panel name="col1" width="217" height="100%" >
             <text name="name" width="100%" height="30" style="darktext" size="20" alignment="left" text="[datasource:getProducts.[param:index].ProductName]"></text>
             <panel name="imgholder" width="108" height="108" bottomof="name" background="#000000">
             	<image name="shingle" url="http://www.gaf.com/All_Images/[datasource:getProducts.[param:index].Color[0]/Image]?w=108&amp;h=108"></image>
@@ -998,7 +1001,7 @@
               <object class="button" name="test" size="20" label="Select" action="selectshingle" value="[datasource:getProducts.[param:index].ProductId]" />
             </panel>
           </panel>
-          <panel name="col2" width="217" height="100%" align="right" bottomof="subtitle" >
+          <panel name="col2" width="217" height="100%" align="right" >
             <text name="name" width="100%" height="30" style="darktext" size="20" alignment="left" text="[datasource:getProducts.[eval:[param:index]+1].ProductName]"></text>
             <panel name="imgholder" width="108" height="108" bottomof="name" background="#000000">
             	<image name="shingle" url="http://www.gaf.com/All_Images/[datasource:getProducts.[eval:[param:index]+1].Color[0]/Image]?w=108&amp;h=108"></image>
@@ -1008,7 +1011,7 @@
               <object class="button" name="test" size="20" label="Select" action="selectshingle" value="[datasource:getProducts.[eval:[param:index]+1].ProductId]" />
             </panel>
           </panel>
-        </panel>
+<!--         </panel> -->
       </panel>
     </class>
     
@@ -2016,7 +2019,7 @@
         </panel>
         <panel name="bottombar" width="100%" height="67" valign="bottom" background="#343434" padding-right="20">
           <panel name="estimate" width="190" height="50" align="right" valign="center" >
-            <object class="button" name="test" size="20" label="Create Estimate" action="estimate" />
+            <object class="button" name="test" size="20" label="Create Estimate" action="formatEstimate" />
           </panel>
         </panel>
       </panel>
@@ -2086,19 +2089,6 @@
       <panel name="step-navblock" alias="STEP-NAVBLOCK" width="100%" height="53" ypos="74" xpos="128" ></panel>
       <panel name="navblock" alias="NAVBLOCK" width="100%" height="53" ypos="74" xpos="101%"></panel>
       
-      <!-- !header -->
-      <panel name="header" alias="HEADER" width="100%" height="74" padding-right="10" alpha="1" background="#bfbfbf">
-        <image name="logo" source="images/logo.png" height="48" xpos="10" valign="center"></image>
-        <panel name="profile" width="50%" height="100%" align="right" onclickup="profiledrop">
-          <!--<image name="avatar" source="images/avatar.png" width="36" align="left" valign="center"></image>-->
-          <panel name="logout" width="50" height="100%" align="right" onclickup="logout">
-            <image name="logout" source="graphics/icon.signout.png" align="center" valign="center"></image>
-          </panel>
-          <text name="welcome" width="100%" height="fit" xpos="46" ypos="15" leftof="logout" margin-right="10" color="#343434" font="Futura-MediumItalic" size="15" alignment="right" text="Signed in as" alpha=".7"></text>
-          <text name="username" width="100%" height="fit" xpos="46" bottomof="welcome" margin-top="3" leftof="logout" margin-right="10" color="#343434" font="Futura-Medium" size="17" alignment="right" text="User"></text>
-        </panel>
-      </panel>
-      
       <!-- !camera roll -->
       <panel name="cameraroll" alias="CAMERAROLL" width="100%" height="100%" ypos="101%" background="#e3e3e3">
         <panel name="toolbar" width="100%" height="60" background="#343434">
@@ -2114,6 +2104,19 @@
      
     </panel>
     </class>
+	
+	<class name="pdf">
+	  <panel name="pdf-container" alias="PDF-CONTAINER" width="100%" height="100%" ypos="101%" background="#ff0000" >
+        <panel name="toolbar" width="100%" height="74" background="#343434">
+          <text name="title" width="100%" height="100%" color="#ffffff" font="Futura-Medium" size="24" alignment="center" text="Your Estimate"></text>
+          <text name="save" width="100" height="100%" align="right" color="#ffffff" font="Avenir-Medium" size="15" alignment="center" text="SEND" onclickup="sendestimate" clickuptarget="CONTAINER" ></text>
+          <text name="cancel" width="100" height="100%" color="#ffffff" font="Avenir-Medium" size="15" alignment="center" text="CLOSE" onclickup="closepdf" clickuptarget="CONTAINER" ></text>
+        </panel>
+        <panel name="pdf" width="100%" height="950" valign="bottom" background="#00ff00" >
+			<pdf name="estimate" source="estimate.pdf" height="100%" width="100%" spreads="no" covertile="yes" tile="yes" orientation="vertical"></pdf>
+        </panel>
+	  </panel>
+	</class>
     
   </classes>
  
@@ -2257,12 +2260,33 @@
       </panel>
       
     </panel>
+      <panel name="header" alias="HEADER" width="100%" height="74" padding-right="10" alpha="1" background="#bfbfbf">
+        <image name="logo" source="images/logo.png" height="48" xpos="10" valign="center"></image>
+        <panel name="profile" width="50%" height="100%" align="right" onclickup="profiledrop">
+          <!--<image name="avatar" source="images/avatar.png" width="36" align="left" valign="center"></image>-->
+          <panel name="logout" width="50" height="100%" align="right" onclickup="logout" >
+            <image name="logout" source="graphics/icon.signout.png" align="center" valign="center"></image>
+          </panel>
+          <text name="welcome" width="100%" height="fit" xpos="46" ypos="15" leftof="logout" margin-right="10" color="#343434" font="Futura-MediumItalic" size="15" alignment="right" text="Signed in as" alpha=".7"></text>
+          <text name="username" width="100%" height="fit" xpos="46" bottomof="welcome" margin-top="3" leftof="logout" margin-right="10" color="#343434" font="Futura-Medium" size="17" alignment="right" text="User"></text>
+        </panel>
+      </panel>
+      
+      <panel name="splash" alias="SPLASH" width="100%" height="100%">
+	      <image name="image" source="graphics/splash.png"></image>
+      </panel>
+	  <panel name="upload-curtain" alias="UPLOAD-CURTAIN" width="100%" height="100%" alpha="0" >
+	  	<panel name="bg" width="100%" height="100%" background="#000000" alpha=".5" ></panel>
+	  	<wait name="wait" width="100%" height="100%"></wait>
+	  	<text name="photo-progress" width="100%" height="fit" ypos="600" color="#ffffff" font="Futura-MediumItalic" size="24" alignment="center" text="Uploading Photo NUMBER..."></text>
+	  </panel>
+	  
   </main>
   
   <!-- !ACTIONS ########### -->
   <actions>
    
-    <action name="oninit" oninit="yes"> 
+    <action name="oninit" oninit="yes">
 		  <assign property="var:loaded" value="no" />
 		  <assign property="var:accessoryCount" value="0" />
       <assign property="var:tearoff" value="no" />
@@ -2285,6 +2309,9 @@
         <assign property="datasource:login.source" value="https://162.209.101.177/api/AuthenticateUser" />
         <alpha value="1" time=".1" target="REMEMBER/check" />
         <set onclickup="checkoff" target="REMEMER" />
+		<else>
+			<alpha value="0" time=".2" target="SPLASH" />
+		</else>
       </if>
       <if lhs="[preferences:remember]" operator="e" rhs="">
         <assign property="preferences:remember" value="no" />
@@ -2481,6 +2508,7 @@
     </action>
     
     <action name="signin-complete" datasource="login" datasourceevent="querycomplete">
+		<alpha value="0" time=".2" target="SPLASH" />
 		<if lhs="[datasource:login.1.ResponseCode]" operator="e" rhs="100">
 			<assign property="preferences:username" value="[var:username]" />
 			<assign property="preferences:password" value="[var:password]" />
@@ -2553,38 +2581,38 @@
     <!-- !search actions -->
     <action name="search">
       <sync>
+		  <assign property="var:search" value="on" />
         <play action="released" />
-        <assign encoding="url" property="var:lastName" value="[object:SEARCH-LASTNAME/input.text]" />
+        <assign encoding="url" property="var:searchLastName" value="[object:SEARCH-LASTNAME/input.text]" />
+        <assign encoding="url" property="var:searchAddress" value="[object:SEARCH-ADDRESS/input.text]" />
         <keyboard visible="no" target="SEARCH-LASTNAME/input" />
         <keyboard visible="no" target="SEARCH-ADDRESS/input" />
         <create class="results" target="CONTAINER" />
+        <alpha value="0" time=".2" target="HEADER" />
         <translate ypos="0" time=".25" curve="easeout" target="SEARCHRESULTS" />
         <!-- <alert message="get-estimate preferences:token is [preferences:token] preferences:contractorId is [preferences:contractorId] url is https://162.209.101.177/api/GetCustomerEstimate?customerLastName=[var:lastName]&amp;address1=[var:address1]&amp;city=[var:city]&amp;stateProvince=[var:state]&amp;postalCode=[var:postalCode]&amp;country=[var:country]" /> -->
         <if lhs="[eval: ('[object:SEARCH-LASTNAME/input.text]' != '' ) &amp;&amp; ('[object:SEARCH-ADDRESS/input.text]' != '')]" operator="e" rhs="true">
         <!-- <alert message="search by both" /> -->
-          <assign property="datasource:getEstimate.source" value="https://162.209.101.177/api/GetCustomerEstimate?CustomerLastName=[object:SEARCH-LASTNAME/input.text]" />
+          <assign property="datasource:getEstimate.source" value="https://162.209.101.177/api/GetCustomerEstimate?CustomerLastName=[var:searchLastName]&amp;address1=[var:searchAddress]" />
+		  <assign property="var:searchquery" value="https://162.209.101.177/api/GetCustomerEstimate?CustomerLastName=[var:searchLastName]&amp;address1=[var:searchAddress]" />
         </if>
         <if lhs="[eval: ('[object:SEARCH-LASTNAME/input.text]' != '' ) &amp;&amp; ('[object:SEARCH-ADDRESS/input.text]' == '')]" operator="e" rhs="true">
         <!-- <alert message="search by last name" /> -->
-          <assign property="datasource:getEstimate.source" value="https://162.209.101.177/api/GetCustomerEstimate?CustomerLastName=[object:SEARCH-LASTNAME/input.text]" />
+          <assign property="datasource:getEstimate.source" value="https://162.209.101.177/api/GetCustomerEstimate?CustomerLastName=[var:searchLastName]" />
+		  <assign property="var:searchquery" value="https://162.209.101.177/api/GetCustomerEstimate?CustomerLastName=[var:searchLastName]" />
         </if>
         <if lhs="[eval: ('[object:SEARCH-LASTNAME/input.text]' == '' ) &amp;&amp; ('[object:SEARCH-ADDRESS/input.text]' != '')]" operator="e" rhs="true">
         <!-- <alert message="search by address" /> -->
-          <assign property="datasource:getEstimate.source" value="https://162.209.101.177/api/GetCustomerEstimate?CustomerLastName=[object:SEARCH-LASTNAME/input.text]&amp;address1=[object:SEARCH-ADDRESS/input.text]" />
-        </if>
+          <assign property="datasource:getEstimate.source" value="https://162.209.101.177/api/GetCustomerEstimate?Address1=[var:searchAddress]" />
+		  <assign property="var:searchquery" value="https://162.209.101.177/api/GetCustomerEstimate?Address1=[var:searchAddress]" />
+		</if>
       </sync>
     </action>
     
     <action name="get-estimate-complete" datasource="getEstimate" datasourceevent="querycomplete" >
-      <if lhs="[var:customerAction]" operator="e" rhs="create">
-<!-- 			<alert message="search after customer creation done [datasource:getEstimate.0.content]" /> -->
-        <assign property="var:customerId" value="[datasource:getEstimate.1.CustomerId]" />
-        <play action="finish-customer-create" />
-        
-        <else>
-        	<alert message="get-estimate-complete search results count [datasource:getEstimate.dataSourceResultCount] content [datasource:getEstimate.0.content]" />
-        </else>
-      </if>
+		<assign property="object:SEARCHRESULTS/searchhead/label.text" value="Search Results" />
+        <assign property="object:SEARCH-LASTNAME/input.text" value="" />
+        <assign property="object:SEARCH-ADDRESS/input.text" value="" />
     </action>
     
     <action name="get-estimate-error" datasource="getEstimate" datasourceevent="datasourceerror" >
@@ -2595,17 +2623,84 @@
       <sync>
         <translate ypos="101%" time=".25" curve="easeout" target="SEARCHRESULTS" />
         <delete target="SEARCHRESULTS" />
+        <alpha value="1" time=".2" target="HEADER" />
       </sync>
     </action>
     
     <action name="viewestimate">
       <play action="released" />
+	  <alpha value="1" time=".2" target="UPLOAD-CURTAIN" />
+	  <assign property="object:UPLOAD-CURTAIN/photo-progress.text" value="Retrieving Estimate..." />
+      <assign property="var:customerId" value="[datasource:getEstimate._value.CustomerId]" />
+	  <play action="download-pdf" />
 <!-- 	  <alert message="viewestimate estimatePdf is _value" /> -->
     </action>
     
     <action name="edit">
-      <play action="released" />
-<!-- 	  <alert message="edit customer customerId is _value" /> -->
+      <play action="released" /> 
+<!-- 	  <create class="editpanel" target="CONTAINER" />  -->
+      <assign property="datasource:states.source" value="res://states.xml" />
+      <assign property="datasource:provinces.source" value="res://provinces.xml" />
+	  <assign property="var:edit-customerId" value="[datasource:getEstimate._value.CustomerId]" />
+	  <create class="editpanel" fname="[datasource:getEstimate._value.CustomerFirstName]" lname="[datasource:getEstimate._value.CustomerLastName]" address1="[datasource:getEstimate._value.Address1]" city="[datasource:getEstimate._value.City]" state="[datasource:getEstimate._value.StateProvince]" zip="[datasource:getEstimate._value.PostalCode]" target="CONTAINER" />
+	  <if lhs="[datasource:getEstimate._value.Country]" operator="ne" rhs="US"> 
+		  <play action="edit-countrycan" />
+		  <else>
+			  <assign property="var:edit-country" value="US" />
+		  </else>
+	  </if>
+<!-- 	  <alert message="index is _value, CustomerId is [datasource:getEstimate._value.CustomerId]" /> -->
+    </action>
+    
+    <action name="editcustomer" >
+		<play action="released" />
+		<assign property="var:edit-fname"    value="[object:EDIT-FNAME/input.text]" />
+		<assign property="var:edit-lname"    value="[object:EDIT-LNAME/input.text]" />
+		<assign property="var:edit-email"    value="[object:EDIT-EMAIL/input.text]" />
+		<assign property="var:edit-phone"    value="[object:EDIT-PHONE/input.text]" />
+		<assign property="var:edit-address1" value="[object:EDIT-STREET/input.text]" />
+		<assign property="var:edit-city"     value="[object:EDIT-CITY/input.text]" />
+		<assign property="var:edit-state"    value="[object:EDIT-STATE/input.text]" />
+		<assign property="var:edit-zip" value="[object:EDIT-ZIP/input.text]" />
+<!-- 		<alert message="object object:EDIT-STREET/input.text is [object:EDIT-STREET/input.text] var:edit-address1 is [var:edit-address1]" /> -->
+		<assign property="datasource:editCustomer.postContent" value="[template:editCustomer.content]" />
+		<assign property="datasource:editCustomer.source" value="https://162.209.101.177/api/EditCustomer" />
+<!-- 		<alert message="postContent is [template:editCustomer.content]" /> -->
+<!-- 		<email subject="edit customer post content" body="[template:editCustomer.content]" toaddress="mlong@rarewire.com" /> -->
+    </action>
+    
+    <action name="edit-complete" datasource="editCustomer" datasourceevent="querycomplete" >
+		<alert message="Customer Record Updated" />
+        <assign property="datasource:getEstimate.source" value="[var:searchquery]" />
+		<play action="close-edit" />
+    </action>
+    
+    <!-- !Edit modal actions -->
+    <action name="close-edit">
+      <sync>
+        <alpha value="0" time=".25" target="EDITPANEL" />
+        <delete target="EDITPANEL" />
+      </sync>
+    </action>
+    
+    <action name="edit-state-list">
+      <sync>
+        <if lhs="[var:edit-country]" operator="e" rhs="US">
+          <alpha value="1" target="MODALCURTAIN" />
+          <translate ypos="340" time=".25" curve="easeout" target="US-LIST" />
+        </if>
+        <if lhs="[var:edit-country]" operator="e" rhs="Canada">
+          <alpha value="1" target="MODALCURTAIN" />
+          <translate ypos="340" time=".25" curve="easeout" target="CAN-LIST" />
+        </if>
+      </sync>
+    </action>
+    
+    <action name="hideeditcurtain">
+      <sync>
+        
+        <alpha value="0" target="MODALCURTAIN" />
+      </sync>
     </action>
     
     <!-- ! create actions -->
@@ -2881,6 +2976,7 @@
         <assign property="datasource:camera-roll.source" value="asd" />
         <play action="hideclearcurtain" />
         <assign property="var:photolocation" value="roll" />
+		<alpha value="0" target="HEADER" />
       </sync>
     </action>
 
@@ -2895,6 +2991,7 @@
         <alpha value="0" time=".25" target="CAMERAMENU" />
         <translate ypos="0" time=".25" curve="easeout" target="CAMERABOX" />
         <play action="hideclearcurtain" />
+		<alpha value="0" target="HEADER" />
       </sync>
     </action>
     
@@ -2902,13 +2999,14 @@
       <sync>
         <translate ypos="101%" time=".25" curve="easeout" target="CAMERAROLL" />
         <delete target="CAMERA-ROLL" />
+		<alpha value="1" target="HEADER" />
       </sync>
     </action>
 
     <action name="select-photo">
       <sync>
         <assign property="var:photo-url" value="_url" />
-        <alert title="Hi, I'm photo..." message="[var:photo-url]" />
+<!--         <alert title="Hi, I'm photo..." message="[var:photo-url]" /> -->
         <translate ypos="101%" time=".25" curve="easeout" target="CAMERAROLL" />
         <delete target="CAMERA-ROLL" />
         <play action="addnote" />
@@ -2921,7 +3019,7 @@
         <if lhs="[var:photolocation]" operator="e" rhs="roll">
           <create class="rollphoto" target="PHOTOLANDING" />
           <assign property="object:THEPHOTO.asset" value="[var:photo-url]" />
-          <alert message="roll" />
+<!--           <alert message="roll" /> -->
         </if>
         <if lhs="[var:photolocation]" operator="e" rhs="camera">
           <create class="cameraphoto" target="PHOTOLANDING" photo="[var:photo-url]" />
@@ -2939,6 +3037,7 @@
         <play action="db-that-photo" />
         <translate ypos="101%" time=".25" curve="easeout" target="ADDNOTE" />
         <delete target="ADDNOTE" />
+		<alpha value="1" target="HEADER" />
       </sync>
     </action>
 
@@ -2951,6 +3050,7 @@
       <sync>
         <translate ypos="101%" time=".25" curve="easeout" target="ADDNOTE" />
         <delete target="ADDNOTE" />
+		<alpha value="1" target="HEADER" />
       </sync>
     </action>
 
@@ -2962,6 +3062,7 @@
     </action>
 
     <action name="photo-db-redraw" datasource="photosdb-list">
+		<alpha value="1" target="HEADER" />
       <if lhs="[var:photoActive]" operator="==" rhs="1">
         <!-- <alert title="You have this many photos in the db!" message="[datasource:photosdb-list.dataSourceResultCount]" /> -->
         <assign property="var:photoActive" value="0" />
@@ -3095,7 +3196,8 @@
         <if lhs="_this" operator="e" rhs="PRODUCTS">
           <if lhs="[var:product]" operator="e" rhs="">
 <!-- 			<alert message="get-products preferences:token is [preferences:token] preferences:contractorId is [preferences:contractorId]" /> -->
-			      <assign property="datasource:getProducts.source" value="https://162.209.101.177/api/GetProducts?AppSource=1" />
+					<play action="estimate" />
+<!-- 			      <assign property="datasource:getProducts.source" value="https://162.209.101.177/api/GetProducts?AppSource=1" /> -->
 <!--             <play action="sidebar-products" _alias="SHINGLES" _form="Shingles" /> -->
           </if>
         </if>
@@ -4327,6 +4429,7 @@
 				<if lhs="[var:productIterateCount]" operator="lt" rhs="[var:productCount]">
 					<if lhs="[eval:[var:productIterateCount]+1]" operator="e" rhs="[var:productCount]">
 <!-- 						<alert message="creating last two" /> -->
+						<alpha value="0" target="UPLOAD-CURTAIN" />
 						<create class="shingles" index="[var:productIterateCount]" target="PRODUCT-PAGER-BOX/pager" />
 						<assign property="var:productsCreated" value="yes" />
 						<create class="filler" target="PRODUCT-PAGER-BOX/pager" />
@@ -4348,6 +4451,7 @@
 <!-- 					<alert message="creating last one" /> -->
 					<create class="shingle-single" index="[var:productIterateCount]" target="PRODUCT-PAGER-BOX/pager" />
 					<assign property="var:productsCreated" value="yes" />
+					<alpha value="0" target="UPLOAD-CURTAIN" />
 					<create class="filler" target="PRODUCT-PAGER-BOX/pager" />
 					<play action="sidebar-products" _alias="SHINGLES" _form="Shingles" />
 				</if>
@@ -4598,6 +4702,8 @@
     <!-- !summary -->
     <action name="estimate">
       <play action="released" />
+		<alpha value="1" target="UPLOAD-CURTAIN" />
+		<assign property="object:UPLOAD-CURTAIN/photo-progress.text" value="Sending Roof Measurements..." />
       <sync>
 
 	  
@@ -4795,21 +4901,17 @@
 		</action>
 		
 		<action name="updateMeasurements-complete" datasource="updateMeasurements" datasourceevent="querycomplete" >
-			<alert message="updateMeasurements-complete content [datasource:updateMeasurements.0.content]" />
-					<play action="formatEstimate" />
-<!-- 				<play action="prepPhotos" /> -->
-			<if lhs="[datasource:updateMeasurements.1.ResponseCode]" operator="e" rhs="100"> 
-<!-- 				<alert message="updateMeasurements-complete content [datasource:updateMeasurements.0.content]" /> -->
-					<play action="prepPhotos" />
+			<if lhs="[datasource:updateMeasurements.1.ResponseCode]" operator="e" rhs="100">
+				<alert message="updateMeasurements-complete content [datasource:updateMeasurements.0.content]" />
+				<play action="prepPhotos" />
+<!--
 				  <else>
 					<play action="prepPhotos" />
-<!--
 				  	<alpha value="0" target="UPLOAD-CURTAIN" />
 				  	<alert message="there was a problem updating your measurements, please verify that all information is present and accurate" />
--->
 				  </else>
-			</if>
 -->
+			</if>
 		</action>
 	
 		<action name="updateMeasurements-error" datasource="updateMeasurements" datasourceevent="datasourceerror" >
@@ -4817,15 +4919,17 @@
 			<alert message="updateMeasurements-error content [datasource:updateMeasurements.0.content]" />
 		</action>
 		
+		<!-- !prepPhotos -->
 		<action name="prepPhotos">
 			<assign property="var:photoCount" value="[datasource:photosdb-list.dataSourceResultCount]" />
 			<assign property="var:photoIterateCount" value="1" />
 			<assign property="httpheader:formSubmit.Token" value="[preferences:token]" />
 			<assign property="httpheader:formSubmit.ContractorId" value="[preferences:contractorId]" />
 			<if lhs="[var:photoCount]" operator="gt" rhs="0">
+				<assign property="object:UPLOAD-CURTAIN/photo-progress.text" value="Uploading Photo [var:photoIterateCount]" />
 				<play action="upload-photo" />
 				<else>
-					<play action="formatEstimate" />
+<!-- 					<alert message="photosdb empty" /> -->
 				<assign property="object:UPLOAD-CURTAIN/photo-progress.text" value="Retrieving Products" />
 					<assign property="datasource:getProducts.source" value="https://162.209.101.177/api/GetProducts?AppSource=1" />
 				</else>
@@ -4835,6 +4939,7 @@
 		<action name="upload-photo" >
 			<if lhs="[var:photoIterateCount]" operator="lte" rhs="[var:photoCount]">
 				<assign property="object:UPLOAD-CURTAIN/photo-progress.text" value="Uploading Photo [var:photoIterateCount]" />
+				<assign property="httpheader:formSubmit.CustomerId" value="[var:customerId]" />
 				<assign property="datasource:uploadPhoto.postFile" value="[datasource:photosdb-list.[var:photoIterateCount].PHOTO]"/>
 				<assign property="datasource:uploadPhoto.source" value="https://162.209.101.177/api/UploadPhoto" />
 				<else>
@@ -4846,16 +4951,17 @@
 		</action>
 		
 		<action name="photoupload-complete" datasource="uploadPhoto" datasourceevent="querycomplete" >
-			<alert message="upload complete [datasource:uploadPhoto.0.content]" />
-			<if lhs="[datasource:uploadPhoto.0.content]" operator="e" rhs="100">
+				<alert message="upload [var:photoIterateCount] complete [datasource:uploadPhoto.0.content]" />
+<!-- 			<if lhs="[datasource:uploadPhoto.0.content]" operator="e" rhs="100"> -->
 				<assign property="var:photoIterateCount" value="[eval: [var:photoIterateCount]+1]" />
 				<play action="upload-photo" />
-			</if>
+<!-- 			</if> -->
 		</action>
 		<action name="photoupload-error" datasource="uploadPhoto" datasourceevent="datasourceerror" >
 			<alert message="upload error [datasource:uploadPhoto.0.content]" />
 		</action>
 		
+		<!-- !formatEstimate -->
 		<action name="formatEstimate" >
 			<play action="released" />
 			<alpha value="1" target="UPLOAD-CURTAIN" />
@@ -4922,16 +5028,18 @@
 		</action>
 		
 		<action name="estimate-complete" datasource="generateEstimate" datasourceevent="querycomplete">
-			<alpha value="0" target="UPLOAD-CURTAIN" />
+			<assign property="object:UPLOAD-CURTAIN/photo-progress.text" value="Retrieving Estimate..." />
 			<assign property="var:measurementsJSON" value="" />
 			<assign property="var:estimateJSON" value="" />
 			<if lhs="[datasource:generateEstimate.1.ResponseCode]" operator="e" rhs="100">
 <!-- 				<alert message="estimate received" /> -->
-				<translate ypos="0" time=".3" curve="linear" target="PDF-CONTAINER" />
+				<sync delay="5" >
+					<play action="download-pdf" />
+				</sync>
 				<else>
 					<alert message="there was an error generating your estimate.  please try again later. [datasource:generateEstimate.0.content]" />
+					<alpha value="0" target="UPLOAD-CURTAIN" />
 				</else>
-<!-- 				<play action="show-pdf" /> -->
 			</if>
 		</action>
 
@@ -4942,12 +5050,40 @@
 			<alert message="estimate error [datasource:generateEstimate.0.content]" />
 		</action>
 		
-<!--
-		<action name="show-pdf" >
-			
+		<action name="download-pdf">
+<!-- 			<assign property="datasource:getEstimatePdf.source" value="https://162.209.101.177/api/GetEstimatePdf?CustomerId=219" /> -->
+<!-- 			<alert message="download-pdf" /> -->
+			<download url="https://162.209.101.177/api/GetEstimatePdf?CustomerId=[var:customerId]" filename="estimate.pdf" authenticate="getEstimatePdf" downloadcomplete="file-downloaded" />
+<!-- 			<alert message="downloading pdf url is https://162.209.101.177/api/GetEstimatePdf?CustomerId=[var:customerId]" /> -->
 		</action>
+		
+<!--
+		<action name="getEstimatePdf-complete" datasource="getEstimatePdf" datasourceevent="querycomplete" >
+			<alert message="getEstimatePdf complete" />
+		</action>
+		
 -->
+		<action name="file-downloaded" >
+			<alpha value="0" target="UPLOAD-CURTAIN" />
+			<create class="pdf" target="MAIN" />
+			<alpha value="0" target="HEADER" />
+			<translate ypos="0%" time=".3" curve="linear" target="PDF-CONTAINER" />
+		</action>
 
+		<action name="sendestimate" >
+			<email subject="Your Estimate" body="Here is your estimate" toaddress="" attachment="estimate.pdf" mimetype="application/pdf" />
+		</action>		
+
+		<action name="closepdf" >
+			<sync>
+				<translate ypos="101%" time=".3" curve="linear" target="PDF-CONTAINER" />
+				<delete target="PDF-CONTAINER" />
+			</sync>
+			<if lhs="[var:search]" operator="ne" rhs="on">
+				<alpha value="1" target="HEADER" />
+			</if>
+		</action>
+		
         <!--<alert title="customer1" message="[datasource:customersdb-list.1.FNAME]" />
         <alert title="customer2" message="[datasource:customersdb-list.2.FNAME]" />-->
         
@@ -5060,34 +5196,6 @@
 		<assign property="httpheader:get.ContractorId" value="" />
 	</action>
 
-    <!-- !Edit modal actions -->
-    <action name="close-edit">
-      <sync>
-        <alpha value="0" time=".25" target="EDITPANEL" />
-        <delete target="EDITPANEL" />
-      </sync>
-    </action>
-    
-    <action name="edit-state-list">
-      <sync>
-        <if lhs="[var:edit-country]" operator="e" rhs="US">
-          <alpha value="1" target="MODALCURTAIN" />
-          <translate ypos="340" time=".25" curve="easeout" target="US-LIST" />
-        </if>
-        <if lhs="[var:edit-country]" operator="e" rhs="Canada">
-          <alpha value="1" target="MODALCURTAIN" />
-          <translate ypos="340" time=".25" curve="easeout" target="CAN-LIST" />
-        </if>
-      </sync>
-    </action>
-    
-    <action name="hideeditcurtain">
-      <sync>
-        
-        <alpha value="0" target="MODALCURTAIN" />
-      </sync>
-    </action>
-    
     <!-- !delete actions -->
     <action name="delete-item">
       <sync>
