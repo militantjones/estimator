@@ -185,6 +185,15 @@
       </panel>
     </class>
     
+    <class name="productbutton">
+      <panel name="[param:name]" width="100%" height="100%" onclick="touched" onclickup="[param:action]" _index="[param:index]" _rowindex="[param:rowindex]" _value="[param:value]" _accessories="[param:accessories]" _title="[param:title]" _col="[param:col]" cornerradius="2" clip="yes">
+        <panel name="red" width="100%" height="100%" style="brand"></panel>
+        <text name="button" style="button" size="[param:size]" text="[param:label]" alpha="1"></text>
+        <image name="selected" source="images/saved-check-white.png" width="20" height="20" align="center" valign="center" alpha="0"></image>
+        <panel name="bg" style="100" background="ffffff" alpha="0"></panel>
+      </panel>
+    </class>
+    
     <class name="title">
       <panel name="titlebox" width="100%" height="79" padding-left="20" padding-right="20" >
         <text name="title" width="100%" height="60" ypos="10" style="darktext" size="40" alignment="left" text="[param:title]"></text>
@@ -985,9 +994,9 @@
 
     <class name="shingles">
       <!--two column-->
-      <panel name="[param:index]" width="100%" fitheight="yes" padding-left="20" padding-right="20">
-        <panel name="shinglerow1" width="100%" height="242" >
-          <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="20" alignment="left" text="Shingle Group"></text>
+      <panel name="[param:index]" width="100%" height="213" padding-left="20" padding-right="20">
+        <!--<panel name="shinglerow1" width="100%" height="242" >
+          <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="20" alignment="left" text="Shingle Group"></text>-->
           <panel name="col1" width="217" height="100%" bottomof="subtitle" >
             <text name="name" width="100%" height="30" style="darktext" size="20" alignment="left" text="[datasource:getProducts.[param:index].ProductName]"></text>
             <panel name="imgholder" width="108" height="108" bottomof="name" background="#000000">
@@ -995,7 +1004,7 @@
             </panel>
             <text name="desc" width="100" height="fit" bottomof="name" align="right" style="darktext" size="12" alignment="left" text="[datasource:getProducts.[param:index].Description]"></text>
             <panel name="shingle-btn" width="108" height="50" bottomof="imgholder" margin-top="10">
-              <object class="button" name="test" size="20" label="Select" action="selectshingle" value="[datasource:getProducts.[param:index].ProductId]" />
+              <object class="productbutton" name="test" size="20" label="Select" action="selectshingle" col="1" rowindex="[param:index]" index="[param:index]" value="[datasource:getProducts.[param:index].ProductId]" />
             </panel>
           </panel>
           <panel name="col2" width="217" height="100%" align="right" bottomof="subtitle" >
@@ -1005,10 +1014,10 @@
             </panel>
             <text name="desc" width="100" height="fit" bottomof="name" align="right" style="darktext" size="12" alignment="left" text="[datasource:getProducts.[eval:[param:index]+1].Description]"></text>
             <panel name="shingle-btn" width="108" height="50" bottomof="imgholder" margin-top="10">
-              <object class="button" name="test" size="20" label="Select" action="selectshingle" value="[datasource:getProducts.[eval:[param:index]+1].ProductId]" />
+              <object class="productbutton" name="test" size="20" label="Select" action="selectshingle" col="2" rowindex="[param:index]" index="[eval:[param:index]+1]" value="[datasource:getProducts.[eval:[param:index]+1].ProductId]" />
             </panel>
           </panel>
-        </panel>
+        <!--</panel>-->
       </panel>
     </class>
     
@@ -1023,7 +1032,7 @@
             </panel>
             <text name="desc" width="100" height="fit" bottomof="name" align="right" style="darktext" size="12" alignment="left" text="[datasource:getProducts.[param:index].Description]"></text>
             <panel name="shingle-btn" width="108" height="50" bottomof="imgholder" margin-top="10">
-              <object class="button" name="test" size="20" label="Select" action="selectshingle" value="[datasource:getProducts.[param:index].ProductId]" />
+              <object class="productbutton" name="test" size="20" label="Select" action="selectshingle" col="1" rowindex="[param:index]" index="[param:index]" value="[datasource:getProducts.[param:index].ProductId]" />
             </panel>
           </panel>
 <!--           <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel> -->
@@ -1124,7 +1133,7 @@
         <text name="subtitle" width="[eval: [object:WARRANTY-PAGER-BOX.width] - 95]" height="66" font="Futura-Medium" color="#343434" size="fit" maxsize="25" alignment="left" text="[param:title]"></text>
         <!--<text name="bullet1" width="307" height="fit" xpos="20" bottomof="subtitle" style="darktext" size="15" alignment="left" text="Sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus."></text>-->
         <panel name="warranty-btn" width="108" height="50" align="right" ypos="8">
-          <object class="button" name="test" size="20" label="Select" action="selectwarranty" value="[param:warrantyId]" accessories="[param:accessories]" title="[param:title]"/>
+          <object class="productbutton" name="[param:index]" size="20" label="Select" action="selectwarranty" index="[param:index]" value="[param:warrantyId]" accessories="[param:accessories]" title="[param:title]"/>
         </panel>
         <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
       </panel>
@@ -1142,7 +1151,7 @@
         <text name="subtitle" width="[eval: [object:ACCESSORIES-PAGER-BOX.width] - 128]" height="66" font="Futura-Medium" color="#343434" size="fit" maxsize="25" alignment="left" text="[param:title]"></text>
         <!--<text name="bullet1" width="307" height="fit" xpos="20" bottomof="subtitle" style="darktext" size="15" alignment="left" text="Sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus."></text>-->
         <panel name="warranty-btn" width="108" height="50" align="right" ypos="8">
-          <object class="button" name="test" size="20" label="Select" action="selectaccessories" value="[param:index]" units="[param:units]" coverage="[param:coverage]" />
+          <object class="productbutton" name="test" size="20" label="Select" action="selectaccessories" value="[param:index]" units="[param:units]" coverage="[param:coverage]" />
         </panel>
         <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
       </panel>
@@ -1934,7 +1943,7 @@
           <object class="title" title="Select a Warranty"  />
           <panel name="warrantypagerbox" alias="WARRANTY-PAGER-BOX" width="100%" height="[eval: [object:PRODUCTS-WARRANTY.height] - 79]" ypos="79" >
             <list name="pager" width="100%" height="100%" datasource="getWarranties" orientation="vertical" paginate="no" padding-left="20" padding-right="20" >
-				<object class="warranty" index="[ds:dataSourceIndex]" title="[ds:WarrantyName]" warrantyId="[ds:WarrantyId]" accessories="[ds:GAFAccessoriesRequired]"  />
+              <object class="warranty" index="[ds:dataSourceIndex]" title="[ds:WarrantyName]" warrantyId="[ds:WarrantyId]" accessories="[ds:GAFAccessoriesRequired]"  />
             </list>
           </panel>
         </panel>
@@ -4380,8 +4389,19 @@
       <!-- 		<assign property="var:colorCount" value="4" /> -->
       <assign property="var:shingle" value="[datasource:getProducts._value.ProductId]" />
       <assign property="var:shingleName" value="[datasource:getProducts._value.ProductName]" />
-	  <assign property="object:SHINGLECOLOR/shingle.text" value="[var:shingleName]" />
+      <assign property="object:SHINGLECOLOR/shingle.text" value="[var:shingleName]" />
       <play action="released" />
+      
+      <alpha value="0" time="0" target="button" />
+      <alpha value="1" time=".2" target="selected" />
+      <if lhs="[var:selectedshingle]" operator="gt" rhs="0">
+        <alpha value="0" time="0" target="PRODUCT-PAGER-BOX/pager/[var:shingle-row]/col[var:shingle-col]/shingle-btn/test/selected" />
+        <alpha value="1" time=".2" target="PRODUCT-PAGER-BOX/pager/[var:shingle-row]/col[var:shingle-col]/shingle-btn/test/button" />
+      </if>
+      <assign property="var:selectedshingle" value="_index" />
+      <assign property="var:shingle-col" value="_col" />
+      <assign property="var:shingle-row" value="_rowindex" />
+
       <delete target="COLORPAGER" />
       <assign property="var:shingleSelected" value="_value" />
       <assign property="var:colorCount" value="[eval:JSON.parse('[datasource:getProducts._value.Color]').length]" />
@@ -4451,6 +4471,14 @@
 	
 	  <action name="selectwarranty">
       <sync>
+        <play action="released" />
+        <alpha value="0" time="0" target="button" />
+        <alpha value="1" time=".2" target="selected" />
+        <if lhs="[var:selectedwarranty]" operator="gt" rhs="0">
+          <alpha value="0" time="0" target="WARRANTY-PAGER-BOX/pager/[var:selectedwarranty]/warranty-btn/[var:selectedwarranty]/selected" />
+          <alpha value="1" time=".2" target="WARRANTY-PAGER-BOX/pager/[var:selectedwarranty]/warranty-btn/[var:selectedwarranty]/button" />
+        </if>
+        <assign property="var:selectedwarranty" value="_index" />
         <assign property="var:warranty" value="_value" />
         <assign property="var:accessories" value="_accessories" />
         <assign property="var:warrantyname" value="_title" />
