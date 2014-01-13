@@ -1252,18 +1252,19 @@
         <panel name="layers" alias="LAYERS" width="226" height="50" align="left" bottomof="tearoffservice" margin-top="10" style="textinput">
           <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
           <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Layers"></text>
-          <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" _next="none" _action="null"></textfield>
+          <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" _next="none" _action="null" onchange="tearoff-go"></textfield>
           <panel name="active" style="100" onclickup="dropon" _field="LAYERS" _drop="TEAROFF" _droptype="LAYERSDROP"></panel>
         </panel>
         <panel name="type" alias="TYPE" width="226" height="50" align="left" bottomof="layers" margin-top="10" style="textinput">
           <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
           <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Type"></text>
-          <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" _next="none" _action="null"></textfield>
+          <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" _next="none" _action="null" onchange="tearoff-go"></textfield>
           <panel name="active" style="100" onclickup="dropon" _field="TYPE" _drop="TEAROFF" _droptype="TEAROFFTYPEDROP"></panel>
         </panel>
         <panel name="tearoff-mask" alias="TEAROFF-MASK" width="100%" height="120" bottomof="TEAROFFSERVICE" alpha="1" onclickup="tearoff-mask-off">
           <panel name="bg" width="100%" height="100%" background="#e3e3e3" alpha=".5"></panel>
         </panel>
+        <panel name="tearoff-block" alias="TEAROFF-BLOCK" width="100" height="60" ypos="5" alpha="0" onclickup="warranty-message"></panel>
         <!--<panel name="difficulty" alias="DIFFICULTY" width="226" height="50" align="left" bottomof="type" margin-top="10" style="textinput">
           <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
           <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Difficulty"></text>
@@ -2102,8 +2103,8 @@
           <panel name="sel" width="100%" height="3" style="brand" ypos="101%"></panel>
         </panel>
       </pager>
-      <panel name="step-navblock" alias="STEP-NAVBLOCK" width="100%" height="53" ypos="74" xpos="128" ></panel>
-      <panel name="navblock" alias="NAVBLOCK" width="100%" height="53" ypos="74" xpos="101%"></panel>
+      <panel name="step-navblock" alias="STEP-NAVBLOCK" width="100%" height="53" ypos="74" xpos="128" onclickup="null" ></panel>
+      <panel name="navblock" alias="NAVBLOCK" width="100%" height="53" ypos="74" xpos="101%" onclickup="null"></panel>
       
       <!-- !camera roll -->
       <panel name="cameraroll" alias="CAMERAROLL" width="100%" height="100%" ypos="101%" background="#e3e3e3">
@@ -4605,12 +4606,39 @@
         <assign property="var:warranty" value="_value" />
         <assign property="var:accessories" value="_accessories" />
         <assign property="var:warrantyname" value="_title" />
+        <assign property="var:warrantycheck" encoding="url" value="_title" />
+        <if lhs="[var:warrantycheck]" operator="e" rhs="GAF%C2%AE%20Golden%20Pledge%C2%AE%20Limited%20Warranty">
+          <alpha value="0" time=".1" target="TEAROFF-MASK" />
+          <scale width="[eval: ('_action' == 'remember' ? '24' : '40')]" height="[eval: ('_action' == 'remember' ? '24' : '40')]" align="center" valign="center" time=".1" alpha="1" target="TEAROFFSERVICE/check" />
+          <set onclickup="checkoff" target="TEAROFFSERVICE" />
+          <alpha value="1" target="TEAROFF-BLOCK" />
+          <play action="tearoff" _value="yes" />
+          <translate xpos="492" curve="linear" target="STEP-NAVBLOCK" />
+          <set onclickup="warranty-message" target="STEP-NAVBLOCK" />
+          <set onchange="tearoff-go" target="LAYERS/input" />
+          <set onchange="tearoff-go" target="TYPE/input" />
+          <else>
+            <alpha value="1" time=".1" target="TEAROFF-MASK" />
+            <alpha value="0" target="TEAROFF-BLOCK" />
+            <scale width="0" height="0" align="center" valign="center" time=".1" alpha="0" target="TEAROFFSERVICE/check" />
+            <set onclickup="checkon" target="TEAROFFSERVICE" />
+            <play action="tearoff" _value="no" />
+            <translate xpos="101%" curve="linear" target="STEP-NAVBLOCK" />
+            <set onclickup="null" target="STEP-NAVBLOCK" />
+            <set onchange="null" target="LAYERS/input" />
+            <set onchange="null" target="TYPE/input" />
+          </else>
+        </if>
         <if lhs="[datasource:productsdb-list.dataSourceResultCount]" operator="gt" rhs="0">
           <assign property="datasource:productsdb-delete.query" value="DELETE FROM PRODUCTS;" />
           <!--<alert message="from the if and deleting [datasource:productsdb-list.dataSourceResultCount]" />-->
           <else>
             <play action="selectwarranty-save" />
             <!--<alert message="from the else, nothing to delete" />-->
+            
+            <!--<if lhs="_title" operator="e" rhs="GAF%C2%AE%20Golden%20Pledge%C2%AE%20Limited%20Warranty">
+              <alert title="Did it work" message="success" />
+            </if>-->
           </else>
         </if>
       </sync>
@@ -5478,6 +5506,22 @@
     
     <action name="roof-saving-modal-hide">
       <alpha value="0" delay=".3" time=".15" target="ROOF-SAVE-MODAL" />
+    </action>
+    
+    <!-- !tearoff required -->
+    <action name="warranty-message">
+      <alert message="The warranty you have selected requires tear off." />
+    </action>
+    
+    <action name="tearoff-go">
+      <sync>
+        <if lhs="[object:LAYERS/input.text]" operator="ne" rhs="">
+          <if lhs="[object:TYPE/input.text]" operator="ne" rhs="">
+            <translate xpos="101%" curve="linear" target="STEP-NAVBLOCK" />
+            <set onchange="null" target="NAVBLOCK" />
+          </if>
+        </if>
+      </sync>
     </action>
     
     <!-- !curtain action -->
