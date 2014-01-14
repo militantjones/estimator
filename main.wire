@@ -58,10 +58,12 @@
     
     <datasource name="ridgesdb" source="sql://RIDGES" query="CREATE TABLE IF NOT EXISTS RIDGES (ID INTEGER PRIMARY KEY AUTOINCREMENT, LENGTH, VENTS);" providertype="sql" />
     <datasource name="ridgesdb-list" source="sql://RIDGES" query="SELECT * FROM RIDGES ORDER BY ID DESC;" providertype="sql" />
+    <datasource name="ridgeventsdb-list" source="sql://RIDGES" query="" providertype="sql" />
     <datasource name="ridgesdb-delete" source="sql://RIDGES" query="" providertype="sql" />
     
-    <datasource name="hipsdb" source="sql://HIPS" query="CREATE TABLE IF NOT EXISTS HIPS (ID INTEGER PRIMARY KEY AUTOINCREMENT, LENGTH);" providertype="sql" />
+    <datasource name="hipsdb" source="sql://HIPS" query="CREATE TABLE IF NOT EXISTS HIPS (ID INTEGER PRIMARY KEY AUTOINCREMENT, LENGTH, VENTS);" providertype="sql" />
     <datasource name="hipsdb-list" source="sql://HIPS" query="SELECT * FROM HIPS ORDER BY ID DESC;" providertype="sql" />
+    <datasource name="hipventsdb-list" source="sql://HIPS" query="SELECT * FROM HIPS ORDER BY ID DESC;" providertype="sql" />
     <datasource name="hipsdb-delete" source="sql://HIPS" query="" providertype="sql" />
     
     <datasource name="valleysdb" source="sql://VALLEYS" query="CREATE TABLE IF NOT EXISTS VALLEYS (ID INTEGER PRIMARY KEY AUTOINCREMENT, LENGTH);" providertype="sql" />
@@ -747,7 +749,7 @@
     </class><!-- <object class="ridge" index="1" /> -->
     
     <class name="hip">
-      <panel name="hip[param:index]" alias="HIP[param:index]" width="100%" height="100">
+      <panel name="hip[param:index]" alias="HIP[param:index]" width="100%" height="160">
         <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="15" alignment="left" text="HIP [param:index]"></text>
         <panel name="deletebox" width="60" height="35" align="right" onclickup="delete-item" clickuptarget="CONTAINER" _target="HIP[param:index]" _indexname="hipindex" _spacername="HIP" _parent="HIP" _section="HIP">
           <image name="icon" source="images/delete.png" width="20" height="20" align="center" valign="center"></image>
@@ -761,6 +763,10 @@
           </panel>
           <text name="measure" width="30" height="100%" align="right" style="darktext" size="20" alignment="center" text="ft"></text>
         </panel>
+        <panel name="hipvent[param:index]" alias="HIPVENT[param:index]" width="50" height="50" align="left" bottomof="hip" margin-top="10" background="f3f3f3" cornerradius="25" borderwidth="1" bordercolor="#888888" clip="yes" onclickup="checkonindexed" _action="hipradio" _index="[param:index]">
+          <panel name="check" width="0" height="0" align="center" valign="center" background="#ed1c24" cornerradius="20" alpha="1" ></panel>
+        </panel>
+        <text name="checklabel" width="150" height="50" bottomof="hip" rightof="hipvent[param:index]" margin-top="10" style="darktext" size="20" leftinset="10" alignment="left" text="Hip Vent(s)"></text>
         <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
       </panel>
     </class><!-- <object class="hip" index="1" /> -->
@@ -1252,18 +1258,19 @@
         <panel name="layers" alias="LAYERS" width="226" height="50" align="left" bottomof="tearoffservice" margin-top="10" style="textinput">
           <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
           <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Layers"></text>
-          <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" _next="none" _action="null"></textfield>
+          <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" _next="none" _action="null" onchange="tearoff-go"></textfield>
           <panel name="active" style="100" onclickup="dropon" _field="LAYERS" _drop="TEAROFF" _droptype="LAYERSDROP"></panel>
         </panel>
         <panel name="type" alias="TYPE" width="226" height="50" align="left" bottomof="layers" margin-top="10" style="textinput">
           <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
           <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Type"></text>
-          <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" _next="none" _action="null"></textfield>
+          <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" _next="none" _action="null" onchange="tearoff-go"></textfield>
           <panel name="active" style="100" onclickup="dropon" _field="TYPE" _drop="TEAROFF" _droptype="TEAROFFTYPEDROP"></panel>
         </panel>
         <panel name="tearoff-mask" alias="TEAROFF-MASK" width="100%" height="120" bottomof="TEAROFFSERVICE" alpha="1" onclickup="tearoff-mask-off">
           <panel name="bg" width="100%" height="100%" background="#e3e3e3" alpha=".5"></panel>
         </panel>
+        <panel name="tearoff-block" alias="TEAROFF-BLOCK" width="100" height="60" ypos="5" alpha="0" onclickup="warranty-message"></panel>
         <!--<panel name="difficulty" alias="DIFFICULTY" width="226" height="50" align="left" bottomof="type" margin-top="10" style="textinput">
           <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
           <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Difficulty"></text>
@@ -2102,8 +2109,8 @@
           <panel name="sel" width="100%" height="3" style="brand" ypos="101%"></panel>
         </panel>
       </pager>
-      <panel name="step-navblock" alias="STEP-NAVBLOCK" width="100%" height="53" ypos="74" xpos="128" ></panel>
-      <panel name="navblock" alias="NAVBLOCK" width="100%" height="53" ypos="74" xpos="101%"></panel>
+      <panel name="step-navblock" alias="STEP-NAVBLOCK" width="100%" height="53" ypos="74" xpos="128" onclickup="null" ></panel>
+      <panel name="navblock" alias="NAVBLOCK" width="100%" height="53" ypos="74" xpos="101%" onclickup="null"></panel>
       
       <!-- !camera roll -->
       <panel name="cameraroll" alias="CAMERAROLL" width="100%" height="100%" ypos="101%" background="#e3e3e3">
@@ -2260,6 +2267,7 @@
                 <text name="unitequals" alias="UNITEQUALS" width="50%" height="50" color="#343434" font="Futura-Medium" size="20" alignment="left" text=" "></text>
                 <text name="unitmeasure" alias="UNITMEASURE" width="50%" height="50" align="right" color="#343434" font="Futura-Medium" size="20" alignment="right" text=" "></text>
               </panel>
+              <text name="accessory-autoquantity" alias="ACCESSORY-AUTOQUANTITY" width="180" height="50" bottomof="ACCESSORY-UNITS-META" style="darktext" size="20" alignment="left" text="testing"></text>
               <panel name="accessoryquantity" alias="ACCESSORYQUANTITY" width="180" height="50" style="textinput" bottomof="ACCESSORY-UNITS-META"  >
                 <panel name="bg" style="100" background="f3f3f3" alpha="1"></panel>
                 <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Quantity"></text>
@@ -2475,6 +2483,11 @@
     <action name="ridgeradio">
       <assign property="var:ridgevent-_index" value="_value" />
       <!--<alert message="[var:ridgevent-_index] _index" />-->
+    </action>
+    
+    <action name="hipradio">
+      <assign property="var:hipvent-_index" value="_value" />
+      <alert message="[var:hipvent-_index] _index" />
     </action>
     
     <!-- !web browser -->
@@ -3059,7 +3072,7 @@
     
     <action name="savenote">
       <sync>
-        <assign property="var:thenote" value="[object:THENOTE.text]" />
+        <assign property="var:thenote" encoding="url" value="[object:THENOTE.text]" />
         <play action="db-that-photo" />
         <translate ypos="101%" time=".25" curve="easeout" target="ADDNOTE" />
         <delete target="ADDNOTE" />
@@ -3214,10 +3227,20 @@
           <!-- <play action="[var:roof]" />-->
           <assign property="var:leakbarrier" value="[eval: [var:ridgestotal] + [var:hipstotal] + [var:valleystotal] + [var:rakestotal] + [var:eavestotal]]" />
           <assign property="var:starterstrips" value="[eval: [var:rakestotal] + [var:eavestotal]]" />
-          <!--<alert title="Starter Strips" message="[var:starterstrips]" />
-          <alert title="Ridge Vents and Ridge Cap Shingles" message="[var:ridgestotal] ft" />
-          <alert title="Leak Barrier" message="[var:leakbarrier]" />-->
-          
+
+          <loop lhs="[var:summaryarea]" operator="lt" rhs="[var:areaindex]">
+            <assign property="var:summaryarea" value="[eval: [var:summaryarea] + 1]" />
+            <assign property="var:totalareaTemp" value="[eval: [var:totalarea] + [var:area[var:summaryarea]total] ]" />
+            <assign property="var:totalarea" value="[eval: Math.ceil([var:totalareaTemp]) ]" />
+          </loop>
+          <if lhs="[var:totalarea]" operator="e" rhs="">
+            <assign property="var:squarestotal" value="N/A" />
+            <else>
+              <assign property="var:squarestotalTemp" value="[eval: [var:totalarea] / 100 ]" />
+              <assign property="var:squarestotal" value="[eval: Math.ceil([var:squarestotalTemp])]" />
+            </else>
+          </if>
+          <!--<alert title="Squares" message="[var:squarestotal]" />-->
         </if>
         <if lhs="_this" operator="e" rhs="PRODUCTS">
           <if lhs="[var:product]" operator="e" rhs="">
@@ -3252,11 +3275,10 @@
     
     <action name="summarycalc">
       <sync>
-        <loop lhs="[var:summaryarea]" operator="lt" rhs="[var:areaindex]">
+        <!--<loop lhs="[var:summaryarea]" operator="lt" rhs="[var:areaindex]">
           <assign property="var:summaryarea" value="[eval: [var:summaryarea] + 1]" />
           <assign property="var:totalareaTemp" value="[eval: [var:totalarea] + [var:area[var:summaryarea]total] ]" />
           <assign property="var:totalarea" value="[eval: Math.ceil([var:totalareaTemp]) ]" />
-<!--           <alert title="total area" message="[var:totalarea]" /> -->
         </loop>
         <if lhs="[var:totalarea]" operator="e" rhs="">
           <assign property="var:squarestotal" value="N/A" />
@@ -3264,7 +3286,7 @@
             <assign property="var:squarestotalTemp" value="[eval: [var:totalarea] / 100 ]" />
             <assign property="var:squarestotal" value="[eval: Math.ceil([var:squarestotalTemp])]" />
           </else>
-        </if>
+        </if>-->
         <!-- <alert message="area total [var:totalarea] squares total [var:squarestotal] ridges total [var:ridgestotal] hips total [var:hipstotal] rakes total [var:rakestotal] eaves total [var:eavestotal] valleys total [var:valleystotal]" /> -->
         <create class="summary-roof" target="SUMMARY-PAGER" area="[eval:'[var:totalarea]' != '' ? '[var:totalarea] sq ft':'N/A']" squares="[var:squarestotal]" ridges="[eval:'[var:ridgestotal]' != '' ? '[var:ridgestotal] ft':'N/A']" hips="[eval:'[var:hipstotal]' != '' ? '[var:hipstotal] ft':'N/A']" rakes="[eval:'[var:rakestotal]' != '' ? '[var:rakestotal] ft':'N/A']" eaves="[eval:'[var:eavestotal]' != '' ? '[var:eavestotal] ft':'N/A']" valleys="[eval:'[var:valleystotal]' != '' ? '[var:valleystotal] ft':'N/A']"  />
         <play action="summaryproducts" />
@@ -3476,8 +3498,9 @@
       <if lhs="[var:loaded]" operator="e" rhs="yes">
         <sync>
           <assign property="var:adjustmentindexloop" value="[eval: [var:adjustmentindexloop] + 1]" />
+          <assign property="var:temp-adjustnote" encoding="url" value="[object:ADJUSTMENTAMOUNTNOTES[var:adjustmentindexloop]/input.text]" />
           <!--<alert message="units:[var:units-[var:adjustmentindexloop]] adjustments type:[object:ADJUSTTYPE[var:adjustmentindexloop].text] amount:[object:ADJUSTMENTAMOUNT[var:adjustmentindexloop]/input.text] notes:[object:ADJUSTMENTAMOUNTNOTES[var:adjustmentindexloop]/input.text] " />-->
-          <assign property="datasource:adjustmentsdb.query" value="INSERT INTO ADJUSTMENTS (TYPE, UNITS, AMOUNT, NOTES) values ('[object:ADJUSTTYPE[var:adjustmentindexloop].text]', '[var:units-[var:adjustmentindexloop]]', '[object:ADJUSTMENTAMOUNT[var:adjustmentindexloop]/input.text]', '[object:ADJUSTMENTAMOUNTNOTES[var:adjustmentindexloop]/input.text]');" />
+          <assign property="datasource:adjustmentsdb.query" value="INSERT INTO ADJUSTMENTS (TYPE, UNITS, AMOUNT, NOTES) values ('[object:ADJUSTTYPE[var:adjustmentindexloop].text]', '[var:units-[var:adjustmentindexloop]]', '[object:ADJUSTMENTAMOUNT[var:adjustmentindexloop]/input.text]', '[var:temp-adjustnote]');" />
         </sync>
       </if>
     </action>
@@ -3543,8 +3566,9 @@
           <keyboard visible="no" target="NOTES/input" />
         </sync>
         <sync>
-	  	  <assign property="var:db-action" value="save" />
-          <assign property="datasource:customersdb.query" value="INSERT INTO CUSTOMERS (FNAME,LNAME,EMAIL,PHONE,FNAME2,LNAME2,EMAIL2,PHONE2,COUNTRY,STREET,CITY,STATE,POSTAL,NOTES) values ('[object:CUST1-FNAME/input.text]', '[object:CUST1-LNAME/input.text]', '[object:CUST1-EMAIL/input.text]', '[object:CUST1-PHONE/input.text]', '[object:CUST2-FNAME/input.text]', '[object:CUST2-LNAME/input.text]', '[object:CUST2-EMAIL/input.text]', '[object:CUST2-PHONE/input.text]', '[var:country]', '[object:STREET/input.text]', '[object:CITY/input.text]', '[object:STATE/input.text]', '[object:ZIP/input.text]', '[object:NOTES/input.text]');" />
+	  	    <assign property="var:db-action" value="save" />
+	  	    <assign property="var:tempnotes" encoding="url" value="[object:NOTES/input.text]" />
+          <assign property="datasource:customersdb.query" value="INSERT INTO CUSTOMERS (FNAME,LNAME,EMAIL,PHONE,FNAME2,LNAME2,EMAIL2,PHONE2,COUNTRY,STREET,CITY,STATE,POSTAL,NOTES) values ('[object:CUST1-FNAME/input.text]', '[object:CUST1-LNAME/input.text]', '[object:CUST1-EMAIL/input.text]', '[object:CUST1-PHONE/input.text]', '[object:CUST2-FNAME/input.text]', '[object:CUST2-LNAME/input.text]', '[object:CUST2-EMAIL/input.text]', '[object:CUST2-PHONE/input.text]', '[var:country]', '[object:STREET/input.text]', '[object:CITY/input.text]', '[object:STATE/input.text]', '[object:ZIP/input.text]', '[var:tempnotes]');" />
         </sync>
       </if>
     </action>
@@ -3909,6 +3933,8 @@
           <play action="RIDGE-save" />
           <else>
             <assign property="datasource:ridgesdb-list.query" value="SELECT * FROM RIDGES;" />
+            <assign property="var:ridgevent-index" value="0" />
+            <assign property="datasource:ridgeventsdb-list.query" value="SELECT * FROM RIDGES WHERE VENTS='yes';" />
             <assign property="var:ridgeindexloop" value="0" />
             <assign property="var:ridgeValidationIndex" value="0" />
             <play action="roof-saving-modal-hide" />
@@ -3918,6 +3944,18 @@
           </else>
         </if>
       </sync>
+    </action>
+    
+    <action name="ridgevent-total" datasource="ridgeventsdb-list" datasourceevent="querycomplete">
+      <if lhs="[var:loaded]" operator="e" rhs="yes">
+        <sync>
+          <loop lhs="[var:ridgevent-index]" operator="lt" rhs="[datasource:ridgeventsdb-list.dataSourceResultCount]">
+            <assign property="var:ridgevent-index" value="[eval: [var:ridgevent-index] + 1]" />
+            <assign property="var:ridgevent-total" value="[eval: [var:ridgevent-total] + [datasource:ridgeventsdb-list.[var:ridgevent-index].LENGTH] ]" />
+          </loop>
+          <!--<alert title="ridge vent total" message="[var:ridgevent-total]" />-->
+        </sync>
+      </if>
     </action>
     
     <action name="HIP">
@@ -3971,7 +4009,7 @@
       <sync>
         <assign property="var:hipindexloop" value="[eval: [var:hipindexloop] + 1]" />
 <!--         <alert message="[object:HIPLENGTH[var:hipindexloop]/input.text]" /> -->
-        <assign property="datasource:hipsdb.query" value="INSERT INTO HIPS (LENGTH) values ('[object:HIPLENGTH[var:hipindexloop]/input.text]');" />
+        <assign property="datasource:hipsdb.query" value="INSERT INTO HIPS (LENGTH, VENTS) values ('[object:HIPLENGTH[var:hipindexloop]/input.text]', '[var:hipvent-[var:hipindexloop]]');" />
       </sync>
     </action>  
     
@@ -3982,6 +4020,8 @@
           <else>
             <assign property="datasource:hipsdb-list.query" value="SELECT * FROM HIPS;" />
             <assign property="var:hipindexloop" value="0" />
+            <assign property="datasource:hipventsdb-list.query" value="SELECT * FROM HIPS WHERE VENTS='yes';" />
+            <assign property="var:hipindexloop" value="0" />
             <assign property="var:hipValidationIndex" value="0" />
             <play action="roof-saving-modal-hide" />
             <if lhs="[var:loaded]" operator="e" rhs="yes">
@@ -3990,6 +4030,18 @@
           </else>
         </if>
       </sync>
+    </action>
+    
+    <action name="hipvent-total" datasource="hipventsdb-list" datasourceevent="querycomplete">
+      <if lhs="[var:loaded]" operator="e" rhs="yes">
+        <sync>
+          <loop lhs="[var:hipvent-index]" operator="lt" rhs="[datasource:hipventsdb-list.dataSourceResultCount]">
+            <assign property="var:hipvent-index" value="[eval: [var:hipvent-index] + 1]" />
+            <assign property="var:hipvent-total" value="[eval: [var:hipvent-total] + [datasource:hipventsdb-list.[var:hipvent-index].LENGTH] ]" />
+          </loop>
+          <!--<alert title="hip vent total" message="[var:hipvent-total]" />-->
+        </sync>
+      </if>
     </action>
     
     <action name="VALLEY">
@@ -4603,12 +4655,39 @@
         <assign property="var:warranty" value="_value" />
         <assign property="var:accessories" value="_accessories" />
         <assign property="var:warrantyname" value="_title" />
+        <assign property="var:warrantycheck" encoding="url" value="_title" />
+        <if lhs="[var:warrantycheck]" operator="e" rhs="GAF%C2%AE%20Golden%20Pledge%C2%AE%20Limited%20Warranty">
+          <alpha value="0" time=".1" target="TEAROFF-MASK" />
+          <scale width="[eval: ('_action' == 'remember' ? '24' : '40')]" height="[eval: ('_action' == 'remember' ? '24' : '40')]" align="center" valign="center" time=".1" alpha="1" target="TEAROFFSERVICE/check" />
+          <set onclickup="checkoff" target="TEAROFFSERVICE" />
+          <alpha value="1" target="TEAROFF-BLOCK" />
+          <play action="tearoff" _value="yes" />
+          <translate xpos="492" curve="linear" target="STEP-NAVBLOCK" />
+          <set onclickup="warranty-message" target="STEP-NAVBLOCK" />
+          <set onchange="tearoff-go" target="LAYERS/input" />
+          <set onchange="tearoff-go" target="TYPE/input" />
+          <else>
+            <alpha value="1" time=".1" target="TEAROFF-MASK" />
+            <alpha value="0" target="TEAROFF-BLOCK" />
+            <scale width="0" height="0" align="center" valign="center" time=".1" alpha="0" target="TEAROFFSERVICE/check" />
+            <set onclickup="checkon" target="TEAROFFSERVICE" />
+            <play action="tearoff" _value="no" />
+            <translate xpos="101%" curve="linear" target="STEP-NAVBLOCK" />
+            <set onclickup="null" target="STEP-NAVBLOCK" />
+            <set onchange="null" target="LAYERS/input" />
+            <set onchange="null" target="TYPE/input" />
+          </else>
+        </if>
         <if lhs="[datasource:productsdb-list.dataSourceResultCount]" operator="gt" rhs="0">
           <assign property="datasource:productsdb-delete.query" value="DELETE FROM PRODUCTS;" />
           <!--<alert message="from the if and deleting [datasource:productsdb-list.dataSourceResultCount]" />-->
           <else>
             <play action="selectwarranty-save" />
             <!--<alert message="from the else, nothing to delete" />-->
+            
+            <!--<if lhs="_title" operator="e" rhs="GAF%C2%AE%20Golden%20Pledge%C2%AE%20Limited%20Warranty">
+              <alert title="Did it work" message="success" />
+            </if>-->
           </else>
         </if>
       </sync>
@@ -4660,7 +4739,6 @@
 	</action>
 
     <action name="selectaccessories">
-      <!--<alert message="_category" />-->
       <play action="released" />
       <play action="blur" />
       <assign property="var:accessorySelected" value="_value" />
@@ -4668,36 +4746,89 @@
       <assign property="object:ACCESSORYTYPEPAGER/acessory1/item.text" value="[datasource:getAccessories._value.AccessoryName]" />
       <assign property="object:ACCESSORYTYPEPAGER/acessory1/description.text" value="[datasource:getAccessories._value.Description]" />
       <assign property="var:cur-acc-cat" value="[datasource:getAccessories._value.AccessoryCategory]" />
-      <!--<assign property="object:UNITEQUALS.text" value="1 = _coverage _units" />-->
       <if lhs="[datasource:getAccessories._value.AccessoryCategory]" operator="e" rhs="Leak Barrier">
         <assign property="object:UNITMEASURE.text" value="[var:leakbarrier] ft needed" />
         <assign property="object:UNITEQUALS.text" value="1 = _coverage ft _units" />
         <assign property="var:cur-leak-index" value="_value" />
-        <!--<alert title="Leak Barrier index" message="[var:cur-leak-index]" />-->
-        <!--<assign property="var:cur-acc-cat" value="[datasource:getAccessories._value.AccessoryCategory]" />-->
+        <assign property="var:autoquantity" value="[eval: Math.ceil([var:leakbarrier] / _coverage ) ]" />
+        <!--<alert message="[var:autoquantity]" />-->
+        <assign property="object:ACCESSORYQUANTITY/input.text" value="[var:autoquantity]" />
+        <assign property="object:ACCESSORY-AUTOQUANTITY.text" value="[var:autoquantity]" />
+        <alpha value="0" target="ACCESSORYQUANTITY" />
+        <alpha value="1" target="ACCESSORY-AUTOQUANTITY" />
+        <alpha value="0" target="ACCESSORY-UNIT" />
       </if>
       <if lhs="[datasource:getAccessories._value.AccessoryCategory]" operator="e" rhs="Roof Deck Protection">
         <assign property="object:UNITMEASURE.text" value="" />
         <assign property="object:UNITEQUALS.text" value="1 = _coverage ft _units" />
         <assign property="var:cur-roofdeck-index" value="_value" />
-        <!--<alert title="Roof Deck index" message="[var:cur-roofdeck-index]" />-->
+        <assign property="var:autoquantity" value="[eval: Math.ceil( [var:squarestotal] / _coverage ) ]" />
+        <alert message="[var:autoquantity]" />
+        <assign property="object:ACCESSORYQUANTITY/input.text" value="[var:autoquantity]" />
+        <assign property="object:ACCESSORY-AUTOQUANTITY.text" value="[var:autoquantity]" />
+        <alpha value="0" target="ACCESSORYQUANTITY" />
+        <alpha value="1" target="ACCESSORY-AUTOQUANTITY" />
+        <alpha value="0" target="ACCESSORY-UNIT" />
       </if>
       <if lhs="[datasource:getAccessories._value.AccessoryCategory]" operator="e" rhs="Starter Strips">
         <assign property="object:UNITMEASURE.text" value="[var:starterstrips] ft needed" />
         <assign property="object:UNITEQUALS.text" value="1 = _coverage ft _units" />
         <assign property="var:cur-starter-index" value="_value" />
-        <!--<alert title="Starter Strip index" message="[var:cur-starter-index]" />-->
+        <assign property="var:autoquantity" value="[eval: Math.ceil([var:starterstrips] / _coverage ) ]" />
+        <assign property="object:ACCESSORYQUANTITY/input.text" value="[var:autoquantity]" />
+        <assign property="object:ACCESSORY-AUTOQUANTITY.text" value="[var:autoquantity]" />
+        <alpha value="0" target="ACCESSORYQUANTITY" />
+        <alpha value="1" target="ACCESSORY-AUTOQUANTITY" />
+        <alpha value="0" target="ACCESSORY-UNIT" />
       </if>
       <if lhs="[datasource:getAccessories._value.AccessoryCategory]" operator="e" rhs="Ventilation">
         <assign property="object:UNITMEASURE.text" value="" />
         <assign property="object:UNITEQUALS.text" value="" />
         <assign property="var:cur-ventilation-index" value="_value" />
+        <alpha value="1" target="ACCESSORYQUANTITY" />
+        <alpha value="0" target="ACCESSORY-AUTOQUANTITY" />
+        <alpha value="1" target="ACCESSORY-UNIT" />
+        <!--<alert title="[datasource:getAccessories._value.AccessoryName]" message="[eval:('[datasource:getAccessories._value.AccessoryName]').indexOf('Master')]" />-->
+        <if lhs="[eval:('[datasource:getAccessories._value.AccessoryName]').indexOf('Cobra')]" operator="gte" rhs="0">
+          <!--<alert message="It's a Cobra" />-->
+          <if lhs="[eval:('[datasource:getAccessories._value.AccessoryName]').indexOf('Hip Vent')]" operator="gte" rhs="0">
+            <assign property="object:UNITMEASURE.text" value="[var:hipvent-total] ft needed" />
+            <assign property="object:UNITEQUALS.text" value="1 = _coverage ft _units" />
+            <assign property="var:autoquantity" value="[eval: Math.ceil([var:hipvent-total] / _coverage ) ]" />
+            <!--<alert title="Number of hip units needed" message="[eval: Math.ceil([var:hipvent-total] / _coverage ) ]" />-->
+            <assign property="object:ACCESSORYQUANTITY/input.text" value="[var:autoquantity]" />
+            <assign property="object:ACCESSORY-AUTOQUANTITY.text" value="[var:autoquantity]" />
+            <alpha value="0" target="ACCESSORYQUANTITY" />
+            <alpha value="1" target="ACCESSORY-AUTOQUANTITY" />
+            <alpha value="0" target="ACCESSORY-UNIT" />
+            <else>
+              <if lhs="[eval:('[datasource:getAccessories._value.AccessoryName]').indexOf('FasciaFlow')]" operator="gte" rhs="0">
+                <!--<alert message="FasciaFlow" />-->
+                <else>
+                  <assign property="object:UNITMEASURE.text" value="[var:ridgevent-total] ft needed" />
+                  <assign property="object:UNITEQUALS.text" value="1 = _coverage ft _units" />
+                  <assign property="var:autoquantity" value="[eval: Math.ceil([var:ridgevent-total] / _coverage ) ]" />
+                  <assign property="object:ACCESSORYQUANTITY/input.text" value="[var:autoquantity]" />
+                  <assign property="object:ACCESSORY-AUTOQUANTITY.text" value="[var:autoquantity]" />
+                  <alpha value="0" target="ACCESSORYQUANTITY" />
+                  <alpha value="1" target="ACCESSORY-AUTOQUANTITY" />
+                  <alpha value="0" target="ACCESSORY-UNIT" />
+                </else>
+              </if>
+            </else>
+          </if>
+        </if>
       </if>
       <if lhs="[datasource:getAccessories._value.AccessoryCategory]" operator="e" rhs="Ridge Cap">
         <assign property="object:UNITMEASURE.text" value="[var:ridgestotal] ft needed" />
         <assign property="object:UNITEQUALS.text" value="1 = _coverage ft _units" />
         <assign property="var:cur-ridgecap-index" value="_value" />
-        <!--<alert title="Ridge Cap index" message="[var:cur-ridgecap-index]" />-->
+        <assign property="var:autoquantity" value="[eval: Math.ceil([var:ridgestotal] / _coverage ) ]" />
+        <assign property="object:ACCESSORYQUANTITY/input.text" value="[var:autoquantity]" />
+        <assign property="object:ACCESSORY-AUTOQUANTITY.text" value="[var:autoquantity]" />
+        <alpha value="0" target="ACCESSORYQUANTITY" />
+        <alpha value="1" target="ACCESSORY-AUTOQUANTITY" />
+        <alpha value="0" target="ACCESSORY-UNIT" />
       </if>
       <alpha value="1" time=".25" target="ACCESSORYLIST" />
       <translate valign="center" time=".25" curve="easeout" target="ACCESSORYLIST" />
@@ -5476,6 +5607,22 @@
     
     <action name="roof-saving-modal-hide">
       <alpha value="0" delay=".3" time=".15" target="ROOF-SAVE-MODAL" />
+    </action>
+    
+    <!-- !tearoff required -->
+    <action name="warranty-message">
+      <alert message="The warranty you have selected requires tear off." />
+    </action>
+    
+    <action name="tearoff-go">
+      <sync>
+        <if lhs="[object:LAYERS/input.text]" operator="ne" rhs="">
+          <if lhs="[object:TYPE/input.text]" operator="ne" rhs="">
+            <translate xpos="101%" curve="linear" target="STEP-NAVBLOCK" />
+            <set onchange="null" target="NAVBLOCK" />
+          </if>
+        </if>
+      </sync>
     </action>
     
     <!-- !curtain action -->
