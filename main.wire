@@ -98,6 +98,8 @@
 <!--     <datasource name="accessoriesdb" source="sql://ACCESSORIES" query="DELETE FROM ACCESSORIES;" providertype="sql" /> -->
     <datasource name="accessoriesdb" source="sql://ACCESSORIES" query="CREATE TABLE IF NOT EXISTS ACCESSORIES (ID INTEGER PRIMARY KEY AUTOINCREMENT, NAME, TYPE, ACCESSORY, QUANTITY);" providertype="sql" />
     <datasource name="accessoriesdb-list" source="sql://ACCESSORIES" query="SELECT * FROM ACCESSORIES ORDER BY ID DESC;" providertype="sql" />
+    <datasource name="accessoriesdb-deletelist" source="sql://ACCESSORIES" query="" providertype="sql" />
+    <datasource name="accessoriesdb-deletelist-ridgevent" source="sql://ACCESSORIES" query="" providertype="sql" />
     <datasource name="accessoriesdb-delete" source="sql://ACCESSORIES" query="" providertype="sql" />
     <datasource name="accessoriesdb-count" source="sql://ACCESSORIES" query="" providertype="sql" />
     
@@ -3371,7 +3373,7 @@
     
     <action name="Ridge Cap-done">
       <sync>
-        <assign property="var:sumac-loop" value="Misc" />
+        <assign property="var:sumac-loop" value="Miscellaneous Accessory" />
         <assign property="var:summary-[var:sumac-loop]-index" value="0" />
         <!--<alert title="Ridge Cap-done" message="done" />-->
         <play action="start-summaryaccessoriesloop" />
@@ -4766,18 +4768,19 @@
         <alpha value="0" target="ACCESSORYQUANTITY" />
         <alpha value="1" target="ACCESSORY-AUTOQUANTITY" />
         <alpha value="0" target="ACCESSORY-UNIT" />
+        <assign property="datasource:accessoriesdb-deletelist.query" value="SELECT * FROM ACCESSORIES WHERE TYPE='[datasource:getAccessories._value.AccessoryCategory]';" />
       </if>
       <if lhs="[datasource:getAccessories._value.AccessoryCategory]" operator="e" rhs="Roof Deck Protection">
         <assign property="object:UNITMEASURE.text" value="" />
         <assign property="object:UNITEQUALS.text" value="1 = _coverage ft _units" />
         <assign property="var:cur-roofdeck-index" value="_value" />
         <assign property="var:autoquantity" value="[eval: Math.ceil( [var:squarestotal] / _coverage ) ]" />
-        <alert message="[var:autoquantity]" />
         <assign property="object:ACCESSORYQUANTITY/input.text" value="[var:autoquantity]" />
         <assign property="object:ACCESSORY-AUTOQUANTITY.text" value="[var:autoquantity] Units" />
         <alpha value="0" target="ACCESSORYQUANTITY" />
         <alpha value="1" target="ACCESSORY-AUTOQUANTITY" />
         <alpha value="0" target="ACCESSORY-UNIT" />
+        <assign property="datasource:accessoriesdb-deletelist.query" value="SELECT * FROM ACCESSORIES WHERE TYPE='[datasource:getAccessories._value.AccessoryCategory]';" />
       </if>
       <if lhs="[datasource:getAccessories._value.AccessoryCategory]" operator="e" rhs="Starter Strips">
         <assign property="object:UNITMEASURE.text" value="[var:starterstrips] ft needed" />
@@ -4789,6 +4792,7 @@
         <alpha value="0" target="ACCESSORYQUANTITY" />
         <alpha value="1" target="ACCESSORY-AUTOQUANTITY" />
         <alpha value="0" target="ACCESSORY-UNIT" />
+        <assign property="datasource:accessoriesdb-deletelist.query" value="SELECT * FROM ACCESSORIES WHERE TYPE='[datasource:getAccessories._value.AccessoryCategory]';" />
       </if>
       <if lhs="[datasource:getAccessories._value.AccessoryCategory]" operator="e" rhs="Ventilation">
         <assign property="object:UNITMEASURE.text" value="" />
@@ -4800,7 +4804,7 @@
         <!--<alert title="[datasource:getAccessories._value.AccessoryName]" message="[eval:('[datasource:getAccessories._value.AccessoryName]').indexOf('Master')]" />-->
         <if lhs="[eval:('[datasource:getAccessories._value.AccessoryName]').indexOf('Cobra')]" operator="gte" rhs="0">
           <!--<alert message="It's a Cobra" />-->
-          <if lhs="[eval:('[datasource:getAccessories._value.AccessoryName]').indexOf('Hip Vent')]" operator="gte" rhs="0">
+          <if lhs="[eval:('[datasource:getAccessories._value.AccessoryName]').indexOf('Hip Vent')]" operator="gte" rhs="0"><!-- Hip vent -->
             <assign property="object:UNITMEASURE.text" value="[var:hipvent-total] ft needed" />
             <assign property="object:UNITEQUALS.text" value="1 = _coverage ft _units" />
             <assign property="var:autoquantity" value="[eval: Math.ceil([var:hipvent-total] / _coverage ) ]" />
@@ -4813,7 +4817,7 @@
             <else>
               <if lhs="[eval:('[datasource:getAccessories._value.AccessoryName]').indexOf('FasciaFlow')]" operator="gte" rhs="0">
                 <!--<alert message="FasciaFlow" />-->
-                <else>
+                <else><!-- ridge vents -->
                   <assign property="object:UNITMEASURE.text" value="[var:ridgevent-total] ft needed" />
                   <assign property="object:UNITEQUALS.text" value="1 = _coverage ft _units" />
                   <assign property="var:autoquantity" value="[eval: Math.ceil([var:ridgevent-total] / _coverage ) ]" />
@@ -4822,6 +4826,10 @@
                   <alpha value="0" target="ACCESSORYQUANTITY" />
                   <alpha value="1" target="ACCESSORY-AUTOQUANTITY" />
                   <alpha value="0" target="ACCESSORY-UNIT" />
+                  <sync>
+                    <assign property="datasource:accessoriesdb-deletelist-ridgevent.query" value="SELECT * FROM ACCESSORIES WHERE NAME='[var:cur-ridgevent]';" />
+                    
+                  </sync>
                 </else>
               </if>
             </else>
@@ -4838,6 +4846,16 @@
         <alpha value="0" target="ACCESSORYQUANTITY" />
         <alpha value="1" target="ACCESSORY-AUTOQUANTITY" />
         <alpha value="0" target="ACCESSORY-UNIT" />
+        <assign property="datasource:accessoriesdb-deletelist.query" value="SELECT * FROM ACCESSORIES WHERE TYPE='[datasource:getAccessories._value.AccessoryCategory]';" />
+      </if>
+      <if lhs="[datasource:getAccessories._value.AccessoryCategory]" operator="e" rhs="Miscellaneous Accessory">
+        <!--<alert message="[datasource:getAccessories._value.AccessoryCategory]" />-->
+        <assign property="object:UNITMEASURE.text" value="" />
+        <assign property="object:UNITEQUALS.text" value="" />
+        <assign property="var:cur-ventilation-index" value="_value" />
+        <alpha value="1" target="ACCESSORYQUANTITY" />
+        <alpha value="0" target="ACCESSORY-AUTOQUANTITY" />
+        <alpha value="1" target="ACCESSORY-UNIT" />
       </if>
       <if lhs="[datasource:getAccessories._value.AccessoryCategory]" operator="e" rhs="Miscellaneous Accessory">
         <assign property="object:UNITMEASURE.text" value="" />
@@ -4852,6 +4870,35 @@
       <assign property="var:curtainaction" value="accessorydismiss" />
     </action>
     
+    <action name="selectaccessory-delete-prev" datasource="accessoriesdb-deletelist" datasourceevent="querycomplete">
+      <if lhs="[var:loaded]" operator="e" rhs="yes">
+        <sync>
+          <if lhs="[datasource:accessoriesdb-list.dataSourceResultCount]" operator="gte" rhs="1">
+            <alert title="count = [datasource:accessoriesdb-deletelist.dataSourceResultCount]" message="DELETE FROM ACCESSORIES WHERE TYPE='[var:cur-acc-cat]';" />
+            <assign property="datasource:accessoriesdb-delete.query" value="DELETE FROM ACCESSORIES WHERE TYPE='[var:cur-acc-cat]';" />
+          </if>
+        </sync>
+      </if>
+    </action>
+    
+    <action name="selectaccessory-delete-prev2" datasource="accessoriesdb-deletelist-ridgevent" datasourceevent="querycomplete">
+      <if lhs="[var:loaded]" operator="e" rhs="yes">
+        <sync>
+          <if lhs="[datasource:accessoriesdb-list.dataSourceResultCount]" operator="gte" rhs="1">
+            <alert title="count = [datasource:accessoriesdb-deletelist-ridgevent.dataSourceResultCount]" message="DELETE FROM ACCESSORIES WHERE NAME='[var:cur-ridgevent]';" />
+            <assign property="datasource:accessoriesdb-delete.query" value="DELETE FROM ACCESSORIES WHERE NAME='[var:cur-ridgevent]';" />
+            <assign property="var:cur-ridgevent" value="[datasource:getAccessories._value.AccessoryName]" />
+          </if>
+        </sync>
+      </if>
+    </action>
+    
+    <action name="acc-delete-check" datasource="accessoriesdb-deletelist" datasourceevent="querycomplete">
+      <if lhs="[var:loaded]" operator="e" rhs="yes">
+        <!--<alert message="deleted" />-->
+      </if>
+    </action>
+    
     <action name="selectaccessory-save">
         <play action="released" />
 	      <if lhs="[object:ACCESSORYQUANTITY/input.text]" operator="ne" rhs="">
@@ -4862,6 +4909,7 @@
           <assign property="var:accessory-[var:accessoryCount]-Type" value="[datasource:getAccessories.[var:accessorySelected].AccessoryCategory]" />
           <!-- 	  <alert message="var:accessory-[var:accessoryCount] is [var:accessory-[var:accessoryCount]]" /> -->
           <assign property="datasource:accessoriesdb.query" value="INSERT INTO ACCESSORIES (NAME, TYPE, ACCESSORY, QUANTITY) VALUES ('[var:accessory-[var:accessoryCount]-Name]', '[var:accessory-[var:accessoryCount]-Type]', '[var:accessory-[var:accessoryCount]]', '[var:accessory-[var:accessoryCount]-Quantity]');" />
+          <alert message="INSERT INTO ACCESSORIES (NAME, TYPE, ACCESSORY, QUANTITY) VALUES ('[var:accessory-[var:accessoryCount]-Name]', '[var:accessory-[var:accessoryCount]-Type]', '[var:accessory-[var:accessoryCount]]', '[var:accessory-[var:accessoryCount]-Quantity]');" />
           <if lhs="[eval:[var:accessories]-[var:accessoryCount]]" operator="gt" rhs="0">
 <!--             <alert message="accessory selected. you must select [eval:[var:accessories]-[var:accessoryCount]] more accessories for the warranty you have chosen" /> -->
             <else>
@@ -4934,10 +4982,20 @@
           <if lhs="[var:cur-ventilation-index]" operator="!=" rhs="[var:prev-ventilation-index]">
             <alpha value="0" time="0" target="ACCESSORIES-PAGER-BOX/pager/accessory[var:cur-ventilation-index]/accessory-btn/test/button" />
             <alpha value="1" time=".2" target="ACCESSORIES-PAGER-BOX/pager/accessory[var:cur-ventilation-index]/accessory-btn/test/selected" />
-            <!--<alpha value="0" time="0" target="ACCESSORIES-PAGER-BOX/pager/accessory[var:prev-ridgecap-index]/accessory-btn/test/selected" />
-            <alpha value="1" time=".2" target="ACCESSORIES-PAGER-BOX/pager/accessory[var:prev-ridgecap-index]/accessory-btn/test/button" />
-            <assign property="var:prev-ridgecap-index" value="[var:cur-ridgecap-index]" />-->
-            <!--<alert message="ACCESSORIES-PAGER-BOX/pager/accessory[var:prev-ridgecap-index]/accessory-btn/test/button" />-->
+            <if lhs="[eval:('[datasource:getAccessories.[var:cur-ventilation-index].AccessoryName]').indexOf('Cobra')]" operator="gte" rhs="0">
+              <if lhs="[eval:('[datasource:getAccessories.[var:cur-ventilation-index].AccessoryName]').indexOf('Hip Vent')]" operator="gte" rhs="0">
+                <else>
+                  <if lhs="[eval:('[datasource:getAccessories.[var:cur-ventilation-index].AccessoryName]').indexOf('FasciaFlow')]" operator="gte" rhs="0">
+                    <else>
+                      <alpha value="0" time="0" target="ACCESSORIES-PAGER-BOX/pager/accessory[var:prev-ventilation-index]/accessory-btn/test/selected" />
+                      <alpha value="1" time=".2" target="ACCESSORIES-PAGER-BOX/pager/accessory[var:prev-ventilation-index]/accessory-btn/test/button" />
+                      <assign property="var:prev-ventilation-index" value="[var:cur-ventilation-index]" />
+                      <!--<alert message="deselect other ridge vent option" />-->
+                    </else>
+                  </if>
+                </else>
+              </if>
+            </if>
           </if>
         </if>
         <if lhs="[var:cur-acc-cat]" operator="e" rhs="Ridge Cap">
@@ -4948,6 +5006,12 @@
             <alpha value="1" time=".2" target="ACCESSORIES-PAGER-BOX/pager/accessory[var:prev-ridgecap-index]/accessory-btn/test/button" />
             <assign property="var:prev-ridgecap-index" value="[var:cur-ridgecap-index]" />
             <!--<alert message="ACCESSORIES-PAGER-BOX/pager/accessory[var:prev-ridgecap-index]/accessory-btn/test/button" />-->
+          </if>
+        </if>
+        <if lhs="[var:cur-acc-cat]" operator="e" rhs="Miscellaneous Accessory">
+          <if lhs="[var:cur-ventilation-index]" operator="!=" rhs="[var:prev-ventilation-index]">
+            <alpha value="0" time="0" target="ACCESSORIES-PAGER-BOX/pager/accessory[var:cur-ventilation-index]/accessory-btn/test/button" />
+            <alpha value="1" time=".2" target="ACCESSORIES-PAGER-BOX/pager/accessory[var:cur-ventilation-index]/accessory-btn/test/selected" />
           </if>
         </if>
       </sync>
