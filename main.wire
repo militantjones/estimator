@@ -1,4 +1,4 @@
-<wire>   
+<wire> 
   <!-- GAF Estimator -->
   <!-- iOS iPad -->
   <!-- App #7562 -->
@@ -98,6 +98,8 @@
 <!--     <datasource name="accessoriesdb" source="sql://ACCESSORIES" query="DELETE FROM ACCESSORIES;" providertype="sql" /> -->
     <datasource name="accessoriesdb" source="sql://ACCESSORIES" query="CREATE TABLE IF NOT EXISTS ACCESSORIES (ID INTEGER PRIMARY KEY AUTOINCREMENT, NAME, TYPE, ACCESSORY, QUANTITY);" providertype="sql" />
     <datasource name="accessoriesdb-list" source="sql://ACCESSORIES" query="SELECT * FROM ACCESSORIES ORDER BY ID DESC;" providertype="sql" />
+    <datasource name="accessoriesdb-deletelist" source="sql://ACCESSORIES" query="" providertype="sql" />
+    <datasource name="accessoriesdb-deletelist-ridgevent" source="sql://ACCESSORIES" query="" providertype="sql" />
     <datasource name="accessoriesdb-delete" source="sql://ACCESSORIES" query="" providertype="sql" />
     <datasource name="accessoriesdb-count" source="sql://ACCESSORIES" query="" providertype="sql" />
     
@@ -525,7 +527,7 @@
           <panel name="rl[param:index]" alias="RL[param:index]" width="226" height="50" align="left" style="textinput">
             <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
             <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Length"></text>
-            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="RW[param:index]" _action="null" onchange="isNaN"></textfield>
+            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" onshow="saveup" onhide="savedown" returnkeytype="next" kbtype="numberpad" _next="RW[param:index]" _action="null" onchange="isNaN"></textfield>
             <panel name="active" style="100" onclickup="labelactive" _field="RL[param:index]"></panel>
           </panel>
           <text name="measure" width="30" height="100%" align="right" style="darktext" size="20" alignment="center" text="ft"></text>
@@ -534,7 +536,7 @@
           <panel name="rw[param:index]" alias="RW[param:index]" width="226" height="50" align="left" style="textinput">
             <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
             <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Width"></text>
-            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null" onchange="isNaN"></textfield>
+            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" onshow="saveup" onhide="savedown" returnkeytype="next" kbtype="numberpad" _next="none" _action="null" onchange="isNaN"></textfield>
             <panel name="active" style="100" onclickup="labelactive" _field="RW[param:index]"></panel>
           </panel>
           <text name="measure" width="30" height="100%" align="right" style="darktext" size="20" alignment="center" text="ft"></text>
@@ -620,7 +622,7 @@
         <panel name="floors" alias="FLOORS" width="226" height="50" align="left" bottomof="rooftype" margin-top="10" style="textinput">
           <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
           <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Floors"></text>
-          <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="1 - 3" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null" onchange="isNaN"></textfield>
+          <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="1 - 3" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null"></textfield>
           <panel name="active" style="100" onclickup="dropon" _field="FLOORS" _drop="INSPECTION" _droptype="FLOORSDROP"></panel>
         </panel>
         <!--<panel name="difficulty" alias="DIFFICULTY" width="226" height="50" align="left" bottomof="floors" margin-top="10" style="textinput">
@@ -686,14 +688,14 @@
         <panel name="fasciacolor" alias="FASCIACOLOR" width="226" height="50" align="left" bottomof="subtitle" style="textinput">
           <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
           <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Facia Color"></text>
-          <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" _next="FASCIASIZE" _action="null"></textfield>
+          <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" onshow="saveup" onhide="savedown" returnkeytype="next" _next="FASCIASIZE" _action="null"></textfield>
           <panel name="active" style="100" onclickup="labelactive" _field="FASCIACOLOR"></panel>
         </panel>
         <panel name="fs" width="256" height="50" bottomof="fasciacolor" margin-top="10">
           <panel name="fasciasize" alias="FASCIASIZE" width="226" height="50" align="left" style="textinput">
             <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
             <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Fascia Size"></text>
-            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" _next="none" _action="null"></textfield>
+            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" onshow="saveup" onhide="savedown" returnkeytype="next" _next="none" _action="null"></textfield>
             <panel name="active" style="100" onclickup="labelactive" _field="FASCIASIZE"></panel>
           </panel>
           <text name="measure" width="30" height="100%" align="right" style="darktext" size="20" alignment="center" text="in"></text>
@@ -716,7 +718,7 @@
           <panel name="wastepercent" alias="WASTEPERCENT" width="226" height="50" align="left" style="textinput">
             <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
             <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Waste"></text>
-            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" kbtype="numberpad" _next="none" _action="null" onchange="isNaN"></textfield>
+            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" onshow="saveup" onhide="savedown" kbtype="numberpad" _next="none" _action="null" onchange="isNaN"></textfield>
             <panel name="active" style="100" onclickup="labelactive" _field="WASTEPERCENT"></panel>
           </panel>
           <text name="measure" width="30" height="100%" align="right" style="darktext" size="20" alignment="center" text="%"></text>
@@ -735,7 +737,7 @@
           <panel name="ridgelength[param:index]" alias="RIDGELENGTH[param:index]" width="226" height="50" align="left" style="textinput">
             <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
             <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Length"></text>
-            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null" onchange="isNaN"></textfield>
+            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" onshow="saveup" onhide="savedown" returnkeytype="next" kbtype="numberpad" _next="none" _action="null" onchange="isNaN"></textfield>
             <panel name="active" style="100" onclickup="labelactive" _field="RIDGELENGTH[param:index]"></panel>
           </panel>
           <text name="measure" width="30" height="100%" align="right" style="darktext" size="20" alignment="center" text="ft"></text>
@@ -758,7 +760,7 @@
           <panel name="hiplength[param:index]" alias="HIPLENGTH[param:index]" width="226" height="50" align="left" style="textinput">
             <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
             <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Length"></text>
-            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null" onchange="isNaN"></textfield>
+            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" onshow="saveup" onhide="savedown" returnkeytype="next" kbtype="numberpad" _next="none" _action="null" onchange="isNaN"></textfield>
             <panel name="active" style="100" onclickup="labelactive" _field="HIPLENGTH[param:index]"></panel>
           </panel>
           <text name="measure" width="30" height="100%" align="right" style="darktext" size="20" alignment="center" text="ft"></text>
@@ -781,7 +783,7 @@
           <panel name="valleylength[param:index]" alias="VALLEYLENGTH[param:index]" width="226" height="50" align="left" style="textinput">
             <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
             <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Length"></text>
-            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null" onchange="isNaN"></textfield>
+            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" onshow="saveup" onhide="savedown" returnkeytype="next" kbtype="numberpad" _next="none" _action="null" onchange="isNaN"></textfield>
             <panel name="active" style="100" onclickup="labelactive" _field="VALLEYLENGTH[param:index]"></panel>
           </panel>
           <text name="measure" width="30" height="100%" align="right" style="darktext" size="20" alignment="center" text="ft"></text>
@@ -800,7 +802,7 @@
           <panel name="rakelength[param:index]" alias="RAKELENGTH[param:index]" width="226" height="50" align="left" style="textinput">
             <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
             <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Length"></text>
-            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null" onchange="isNaN"></textfield>
+            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" onshow="saveup" onhide="savedown" returnkeytype="next" kbtype="numberpad" _next="none" _action="null" onchange="isNaN"></textfield>
             <panel name="active" style="100" onclickup="labelactive" _field="RAKELENGTH[param:index]"></panel>
           </panel>
           <text name="measure" width="30" height="100%" align="right" style="darktext" size="20" alignment="center" text="ft"></text>
@@ -819,7 +821,7 @@
           <panel name="eavelength[param:index]" alias="EAVELENGTH[param:index]" width="226" height="50" align="left" style="textinput">
             <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
             <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Length"></text>
-            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null" onchange="isNaN"></textfield>
+            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" onshow="saveup" onhide="savedown" kbtype="numberpad" _next="none" _action="null" onchange="isNaN"></textfield>
             <panel name="active" style="100" onclickup="labelactive" _field="EAVELENGTH[param:index]"></panel>
           </panel>
           <text name="measure" width="30" height="100%" align="right" style="darktext" size="20" alignment="center" text="ft"></text>
@@ -838,7 +840,7 @@
           <panel name="protrusionlength[param:pindex]" alias="PROTRUSIONLENGTH[param:pindex]" width="226" height="50" align="left" style="textinput">
             <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
             <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Length"></text>
-            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="PROTRUSIONWIDTH[param:pindex]" _action="null" onchange="isNaN"></textfield>
+            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" onshow="saveup" onhide="savedown" kbtype="numberpad" _next="PROTRUSIONWIDTH[param:pindex]" _action="null" onchange="isNaN"></textfield>
             <panel name="active" style="100" onclickup="labelactive" _field="PROTRUSIONLENGTH[param:pindex]"></panel>
           </panel>
           <text name="measure" width="30" height="100%" align="right" style="darktext" size="20" alignment="center" text="ft"></text>
@@ -847,7 +849,7 @@
           <panel name="protrusiontwidth[param:pindex]" alias="PROTRUSIONWIDTH[param:pindex]" width="226" height="50" align="left" style="textinput">
             <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
             <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Width"></text>
-            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null" onchange="isNaN"></textfield>
+            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" onshow="saveup" onhide="savedown" kbtype="numberpad" _next="none" _action="null" onchange="isNaN"></textfield>
             <panel name="active" style="100" onclickup="labelactive" _field="PROTRUSIONWIDTH[param:pindex]"></panel>
           </panel>
           <text name="measure" width="30" height="100%" align="right" style="darktext" size="20" alignment="center" text="ft"></text>
@@ -867,7 +869,7 @@
           <panel name="protrusionlength[param:pindex]" alias="PROTRUSIONLENGTH[param:pindex]" width="226" height="50" align="left" style="textinput">
             <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
             <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Length"></text>
-            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="PROTRUSIONWIDTH[param:pindex]" _action="null" onchange="isNaN"></textfield>
+            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" onshow="saveup" onhide="savedown" kbtype="numberpad" _next="PROTRUSIONWIDTH[param:pindex]" _action="null" onchange="isNaN"></textfield>
             <panel name="active" style="100" onclickup="labelactive" _field="PROTRUSIONLENGTH[param:pindex]"></panel>
           </panel>
           <text name="measure" width="30" height="100%" align="right" style="darktext" size="20" alignment="center" text="ft"></text>
@@ -876,7 +878,7 @@
           <panel name="protrusiontwidth[param:pindex]" alias="PROTRUSIONWIDTH[param:pindex]" width="226" height="50" align="left" style="textinput">
             <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
             <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Width"></text>
-            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null" onchange="isNaN"></textfield>
+            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" onshow="saveup" onhide="savedown" kbtype="numberpad" _next="none" _action="null" onchange="isNaN"></textfield>
             <panel name="active" style="100" onclickup="labelactive" _field="PROTRUSIONWIDTH[param:pindex]"></panel>
           </panel>
           <text name="measure" width="30" height="100%" align="right" style="darktext" size="20" alignment="center" text="ft"></text>
@@ -899,7 +901,7 @@
           <panel name="ventquantity[param:index]" alias="VENTQUANTITY[param:index]" width="226" height="50" align="left" style="textinput">
             <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
             <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Quantity"></text>
-            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null" onchange="isNaN"></textfield>
+            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" onshow="saveup" onhide="savedown" kbtype="numberpad" _next="none" _action="null" onchange="isNaN"></textfield>
             <panel name="active" style="100" onclickup="labelactive" _field="VENTQUANTITY[param:index]"></panel>
           </panel>
         </panel>
@@ -920,7 +922,7 @@
           <panel name="ventquantity[param:index]" alias="VENTQUANTITY[param:index]" width="226" height="50" align="left" style="textinput">
             <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
             <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Quantity"></text>
-            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null" onchange="isNaN"></textfield>
+            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" onshow="saveup" onhide="savedown" kbtype="numberpad" _next="none" _action="null" onchange="isNaN"></textfield>
             <panel name="active" style="100" onclickup="labelactive" _field="VENTQUANTITY[param:index]"></panel>
           </panel>
         </panel>
@@ -941,7 +943,7 @@
           <panel name="ventquantity[param:index]" alias="VENTQUANTITY[param:index]" width="226" height="50" align="left" style="textinput">
             <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
             <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Quantity"></text>
-            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null" onchange="isNaN"></textfield>
+            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" onshow="saveup" onhide="savedown" kbtype="numberpad" _next="none" _action="null" onchange="isNaN"></textfield>
             <panel name="active" style="100" onclickup="labelactive" _field="VENTQUANTITY[param:index]"></panel>
           </panel>
         </panel>
@@ -959,7 +961,7 @@
           <panel name="ventsize[param:index]" alias="VENTSIZE[param:index]" width="226" height="50" align="left" style="textinput">
             <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
             <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Size"></text>
-            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="VENTQUANTITY[param:index]" _action="null"></textfield>
+            <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" onshow="saveup" onhide="savedown" kbtype="numberpad" _next="VENTQUANTITY[param:index]" _action="null"></textfield>
             <panel name="active" style="100" onclickup="labelactive" _field="VENTSIZE[param:index]"></panel>
           </panel>
           <text name="measure" width="30" height="100%" align="right" style="darktext" size="20" alignment="center" text="in"></text>
@@ -993,7 +995,7 @@
     </class><!-- <object class="photo" index="1" /> -->
     
     <class name="roof-spacer">
-      <panel name="roof-spacer" alias="ROOF-SPACER-[param:name]-[param:index]" width="100%" height="250" >
+      <panel name="roof-spacer" alias="ROOF-SPACER-[param:name]-[param:index]" width="100%" height="260" >
         <!--<text name="test" width="100%" height="100%" background="0232b2" color="#343434" font="Helvetica" size="20" alignment="center" text="ROOF-SPACER-[param:name]-[param:index]"></text>-->
       </panel>
     </class>
@@ -1927,7 +1929,7 @@
           </panel>
         </panel>
         
-        <panel name="bottombar" width="100%" height="67" valign="bottom" background="#343434" padding-right="20">
+        <panel name="bottombar" alias="BOTTOMBAR" width="100%" height="67" valign="bottom" background="#343434" padding-right="20">
           <panel name="estimate" width="100" height="50" align="right" valign="center" >
             <object class="button" name="test" size="20" label="Save" action="save-roof" />
           </panel>
@@ -2404,6 +2406,16 @@
       </if>
     </action>
     
+    <action name="saveup">
+      <translate ypos="566" time=".25" curve="easeout" target="BOTTOMBAR" />
+      <!--<alert message="save up" />-->
+    </action>
+    
+    <action name="savedown">
+      <translate valign="bottom" time=".25" curve="linear" target="BOTTOMBAR" />
+      <!--<alert message="save down" />-->
+    </action>
+    
     <!-- !radio actions -->
     <action name="checkon">
       <scale width="[eval: ('_action' == 'remember' ? '24' : '40')]" height="[eval: ('_action' == 'remember' ? '24' : '40')]" align="center" valign="center" time=".1" alpha="1" target="check" />
@@ -2487,7 +2499,7 @@
     
     <action name="hipradio">
       <assign property="var:hipvent-_index" value="_value" />
-      <alert message="[var:hipvent-_index] _index" />
+      <!--<alert message="[var:hipvent-_index] _index" />-->
     </action>
     
     <!-- !web browser -->
@@ -3275,18 +3287,6 @@
     
     <action name="summarycalc">
       <sync>
-        <!--<loop lhs="[var:summaryarea]" operator="lt" rhs="[var:areaindex]">
-          <assign property="var:summaryarea" value="[eval: [var:summaryarea] + 1]" />
-          <assign property="var:totalareaTemp" value="[eval: [var:totalarea] + [var:area[var:summaryarea]total] ]" />
-          <assign property="var:totalarea" value="[eval: Math.ceil([var:totalareaTemp]) ]" />
-        </loop>
-        <if lhs="[var:totalarea]" operator="e" rhs="">
-          <assign property="var:squarestotal" value="N/A" />
-          <else>
-            <assign property="var:squarestotalTemp" value="[eval: [var:totalarea] / 100 ]" />
-            <assign property="var:squarestotal" value="[eval: Math.ceil([var:squarestotalTemp])]" />
-          </else>
-        </if>-->
         <!-- <alert message="area total [var:totalarea] squares total [var:squarestotal] ridges total [var:ridgestotal] hips total [var:hipstotal] rakes total [var:rakestotal] eaves total [var:eavestotal] valleys total [var:valleystotal]" /> -->
         <create class="summary-roof" target="SUMMARY-PAGER" area="[eval:'[var:totalarea]' != '' ? '[var:totalarea] sq ft':'N/A']" squares="[var:squarestotal]" ridges="[eval:'[var:ridgestotal]' != '' ? '[var:ridgestotal] ft':'N/A']" hips="[eval:'[var:hipstotal]' != '' ? '[var:hipstotal] ft':'N/A']" rakes="[eval:'[var:rakestotal]' != '' ? '[var:rakestotal] ft':'N/A']" eaves="[eval:'[var:eavestotal]' != '' ? '[var:eavestotal] ft':'N/A']" valleys="[eval:'[var:valleystotal]' != '' ? '[var:valleystotal] ft':'N/A']"  />
         <play action="summaryproducts" />
@@ -3374,9 +3374,18 @@
     
     <action name="Ridge Cap-done">
       <sync>
-        <assign property="var:sumac-loop" value="Leak Barrier" />
+        <assign property="var:sumac-loop" value="Miscellaneous Accessory" />
         <assign property="var:summary-[var:sumac-loop]-index" value="0" />
         <!--<alert title="Ridge Cap-done" message="done" />-->
+        <play action="start-summaryaccessoriesloop" />
+      </sync>
+    </action>
+    
+    <action name="Miscellaneous Accessory-done">
+      <sync>
+        <assign property="var:sumac-loop" value="Leak Barrier" />
+        <assign property="var:summary-[var:sumac-loop]-index" value="0" />
+        <!--<alert title="Misc-done" message="done" />-->
         <play action="close-summaryaccessories" />
       </sync>
     </action>
@@ -4751,24 +4760,24 @@
         <assign property="object:UNITEQUALS.text" value="1 = _coverage ft _units" />
         <assign property="var:cur-leak-index" value="_value" />
         <assign property="var:autoquantity" value="[eval: Math.ceil([var:leakbarrier] / _coverage ) ]" />
-        <!--<alert message="[var:autoquantity]" />-->
         <assign property="object:ACCESSORYQUANTITY/input.text" value="[var:autoquantity]" />
-        <assign property="object:ACCESSORY-AUTOQUANTITY.text" value="[var:autoquantity]" />
+        <assign property="object:ACCESSORY-AUTOQUANTITY.text" value="[var:autoquantity] Units" />
         <alpha value="0" target="ACCESSORYQUANTITY" />
         <alpha value="1" target="ACCESSORY-AUTOQUANTITY" />
         <alpha value="0" target="ACCESSORY-UNIT" />
+        <assign property="datasource:accessoriesdb-deletelist.query" value="SELECT * FROM ACCESSORIES WHERE TYPE='[datasource:getAccessories._value.AccessoryCategory]';" />
       </if>
       <if lhs="[datasource:getAccessories._value.AccessoryCategory]" operator="e" rhs="Roof Deck Protection">
         <assign property="object:UNITMEASURE.text" value="" />
         <assign property="object:UNITEQUALS.text" value="1 = _coverage ft _units" />
         <assign property="var:cur-roofdeck-index" value="_value" />
         <assign property="var:autoquantity" value="[eval: Math.ceil( [var:squarestotal] / _coverage ) ]" />
-        <alert message="[var:autoquantity]" />
         <assign property="object:ACCESSORYQUANTITY/input.text" value="[var:autoquantity]" />
-        <assign property="object:ACCESSORY-AUTOQUANTITY.text" value="[var:autoquantity]" />
+        <assign property="object:ACCESSORY-AUTOQUANTITY.text" value="[var:autoquantity] Units" />
         <alpha value="0" target="ACCESSORYQUANTITY" />
         <alpha value="1" target="ACCESSORY-AUTOQUANTITY" />
         <alpha value="0" target="ACCESSORY-UNIT" />
+        <assign property="datasource:accessoriesdb-deletelist.query" value="SELECT * FROM ACCESSORIES WHERE TYPE='[datasource:getAccessories._value.AccessoryCategory]';" />
       </if>
       <if lhs="[datasource:getAccessories._value.AccessoryCategory]" operator="e" rhs="Starter Strips">
         <assign property="object:UNITMEASURE.text" value="[var:starterstrips] ft needed" />
@@ -4776,10 +4785,11 @@
         <assign property="var:cur-starter-index" value="_value" />
         <assign property="var:autoquantity" value="[eval: Math.ceil([var:starterstrips] / _coverage ) ]" />
         <assign property="object:ACCESSORYQUANTITY/input.text" value="[var:autoquantity]" />
-        <assign property="object:ACCESSORY-AUTOQUANTITY.text" value="[var:autoquantity]" />
+        <assign property="object:ACCESSORY-AUTOQUANTITY.text" value="[var:autoquantity] Units" />
         <alpha value="0" target="ACCESSORYQUANTITY" />
         <alpha value="1" target="ACCESSORY-AUTOQUANTITY" />
         <alpha value="0" target="ACCESSORY-UNIT" />
+        <assign property="datasource:accessoriesdb-deletelist.query" value="SELECT * FROM ACCESSORIES WHERE TYPE='[datasource:getAccessories._value.AccessoryCategory]';" />
       </if>
       <if lhs="[datasource:getAccessories._value.AccessoryCategory]" operator="e" rhs="Ventilation">
         <assign property="object:UNITMEASURE.text" value="" />
@@ -4791,28 +4801,32 @@
         <!--<alert title="[datasource:getAccessories._value.AccessoryName]" message="[eval:('[datasource:getAccessories._value.AccessoryName]').indexOf('Master')]" />-->
         <if lhs="[eval:('[datasource:getAccessories._value.AccessoryName]').indexOf('Cobra')]" operator="gte" rhs="0">
           <!--<alert message="It's a Cobra" />-->
-          <if lhs="[eval:('[datasource:getAccessories._value.AccessoryName]').indexOf('Hip Vent')]" operator="gte" rhs="0">
+          <if lhs="[eval:('[datasource:getAccessories._value.AccessoryName]').indexOf('Hip Vent')]" operator="gte" rhs="0"><!-- Hip vent -->
             <assign property="object:UNITMEASURE.text" value="[var:hipvent-total] ft needed" />
             <assign property="object:UNITEQUALS.text" value="1 = _coverage ft _units" />
             <assign property="var:autoquantity" value="[eval: Math.ceil([var:hipvent-total] / _coverage ) ]" />
             <!--<alert title="Number of hip units needed" message="[eval: Math.ceil([var:hipvent-total] / _coverage ) ]" />-->
             <assign property="object:ACCESSORYQUANTITY/input.text" value="[var:autoquantity]" />
-            <assign property="object:ACCESSORY-AUTOQUANTITY.text" value="[var:autoquantity]" />
+            <assign property="object:ACCESSORY-AUTOQUANTITY.text" value="[var:autoquantity] Units" />
             <alpha value="0" target="ACCESSORYQUANTITY" />
             <alpha value="1" target="ACCESSORY-AUTOQUANTITY" />
             <alpha value="0" target="ACCESSORY-UNIT" />
             <else>
               <if lhs="[eval:('[datasource:getAccessories._value.AccessoryName]').indexOf('FasciaFlow')]" operator="gte" rhs="0">
                 <!--<alert message="FasciaFlow" />-->
-                <else>
+                <else><!-- ridge vents -->
                   <assign property="object:UNITMEASURE.text" value="[var:ridgevent-total] ft needed" />
                   <assign property="object:UNITEQUALS.text" value="1 = _coverage ft _units" />
                   <assign property="var:autoquantity" value="[eval: Math.ceil([var:ridgevent-total] / _coverage ) ]" />
                   <assign property="object:ACCESSORYQUANTITY/input.text" value="[var:autoquantity]" />
-                  <assign property="object:ACCESSORY-AUTOQUANTITY.text" value="[var:autoquantity]" />
+                  <assign property="object:ACCESSORY-AUTOQUANTITY.text" value="[var:autoquantity] Units" />
                   <alpha value="0" target="ACCESSORYQUANTITY" />
                   <alpha value="1" target="ACCESSORY-AUTOQUANTITY" />
                   <alpha value="0" target="ACCESSORY-UNIT" />
+                  <sync>
+                    <assign property="datasource:accessoriesdb-deletelist-ridgevent.query" value="SELECT * FROM ACCESSORIES WHERE NAME='[var:cur-ridgevent]';" />
+                    
+                  </sync>
                 </else>
               </if>
             </else>
@@ -4825,14 +4839,53 @@
         <assign property="var:cur-ridgecap-index" value="_value" />
         <assign property="var:autoquantity" value="[eval: Math.ceil([var:ridgestotal] / _coverage ) ]" />
         <assign property="object:ACCESSORYQUANTITY/input.text" value="[var:autoquantity]" />
-        <assign property="object:ACCESSORY-AUTOQUANTITY.text" value="[var:autoquantity]" />
+        <assign property="object:ACCESSORY-AUTOQUANTITY.text" value="[var:autoquantity] Units" />
         <alpha value="0" target="ACCESSORYQUANTITY" />
         <alpha value="1" target="ACCESSORY-AUTOQUANTITY" />
         <alpha value="0" target="ACCESSORY-UNIT" />
+        <assign property="datasource:accessoriesdb-deletelist.query" value="SELECT * FROM ACCESSORIES WHERE TYPE='[datasource:getAccessories._value.AccessoryCategory]';" />
+      </if>
+      <if lhs="[datasource:getAccessories._value.AccessoryCategory]" operator="e" rhs="Miscellaneous Accessory">
+        <!--<alert message="[datasource:getAccessories._value.AccessoryCategory]" />-->
+        <assign property="object:UNITMEASURE.text" value="" />
+        <assign property="object:UNITEQUALS.text" value="" />
+        <assign property="var:cur-ventilation-index" value="_value" />
+        <alpha value="1" target="ACCESSORYQUANTITY" />
+        <alpha value="0" target="ACCESSORY-AUTOQUANTITY" />
+        <alpha value="1" target="ACCESSORY-UNIT" />
       </if>
       <alpha value="1" time=".25" target="ACCESSORYLIST" />
       <translate valign="center" time=".25" curve="easeout" target="ACCESSORYLIST" />
       <assign property="var:curtainaction" value="accessorydismiss" />
+    </action>
+    
+    <action name="selectaccessory-delete-prev" datasource="accessoriesdb-deletelist" datasourceevent="querycomplete">
+      <if lhs="[var:loaded]" operator="e" rhs="yes">
+        <sync>
+          <if lhs="[datasource:accessoriesdb-list.dataSourceResultCount]" operator="gte" rhs="1">
+            <alert title="count = [datasource:accessoriesdb-deletelist.dataSourceResultCount]" message="DELETE FROM ACCESSORIES WHERE TYPE='[var:cur-acc-cat]';" />
+            <assign property="datasource:accessoriesdb-delete.query" value="DELETE FROM ACCESSORIES WHERE TYPE='[var:cur-acc-cat]';" />
+          </if>
+        </sync>
+      </if>
+    </action>
+    
+    <action name="selectaccessory-delete-prev2" datasource="accessoriesdb-deletelist-ridgevent" datasourceevent="querycomplete">
+      <if lhs="[var:loaded]" operator="e" rhs="yes">
+        <sync>
+          <if lhs="[datasource:accessoriesdb-list.dataSourceResultCount]" operator="gte" rhs="1">
+            <alert title="count = [datasource:accessoriesdb-deletelist-ridgevent.dataSourceResultCount]" message="DELETE FROM ACCESSORIES WHERE NAME='[var:cur-ridgevent]';" />
+            <assign property="datasource:accessoriesdb-delete.query" value="DELETE FROM ACCESSORIES WHERE NAME='[var:cur-ridgevent]';" />
+            <assign property="var:cur-ridgevent" value="[datasource:getAccessories._value.AccessoryName]" />
+          </if>
+        </sync>
+      </if>
+    </action>
+    
+    <action name="acc-delete-check" datasource="accessoriesdb-deletelist" datasourceevent="querycomplete">
+      <if lhs="[var:loaded]" operator="e" rhs="yes">
+        <!--<alert message="deleted" />-->
+      </if>
     </action>
     
     <action name="selectaccessory-save">
@@ -4845,6 +4898,7 @@
           <assign property="var:accessory-[var:accessoryCount]-Type" value="[datasource:getAccessories.[var:accessorySelected].AccessoryCategory]" />
           <!-- 	  <alert message="var:accessory-[var:accessoryCount] is [var:accessory-[var:accessoryCount]]" /> -->
           <assign property="datasource:accessoriesdb.query" value="INSERT INTO ACCESSORIES (NAME, TYPE, ACCESSORY, QUANTITY) VALUES ('[var:accessory-[var:accessoryCount]-Name]', '[var:accessory-[var:accessoryCount]-Type]', '[var:accessory-[var:accessoryCount]]', '[var:accessory-[var:accessoryCount]-Quantity]');" />
+          <alert message="INSERT INTO ACCESSORIES (NAME, TYPE, ACCESSORY, QUANTITY) VALUES ('[var:accessory-[var:accessoryCount]-Name]', '[var:accessory-[var:accessoryCount]-Type]', '[var:accessory-[var:accessoryCount]]', '[var:accessory-[var:accessoryCount]-Quantity]');" />
           <if lhs="[eval:[var:accessories]-[var:accessoryCount]]" operator="gt" rhs="0">
 <!--             <alert message="accessory selected. you must select [eval:[var:accessories]-[var:accessoryCount]] more accessories for the warranty you have chosen" /> -->
             <else>
@@ -4917,10 +4971,20 @@
           <if lhs="[var:cur-ventilation-index]" operator="!=" rhs="[var:prev-ventilation-index]">
             <alpha value="0" time="0" target="ACCESSORIES-PAGER-BOX/pager/accessory[var:cur-ventilation-index]/accessory-btn/test/button" />
             <alpha value="1" time=".2" target="ACCESSORIES-PAGER-BOX/pager/accessory[var:cur-ventilation-index]/accessory-btn/test/selected" />
-            <!--<alpha value="0" time="0" target="ACCESSORIES-PAGER-BOX/pager/accessory[var:prev-ridgecap-index]/accessory-btn/test/selected" />
-            <alpha value="1" time=".2" target="ACCESSORIES-PAGER-BOX/pager/accessory[var:prev-ridgecap-index]/accessory-btn/test/button" />
-            <assign property="var:prev-ridgecap-index" value="[var:cur-ridgecap-index]" />-->
-            <!--<alert message="ACCESSORIES-PAGER-BOX/pager/accessory[var:prev-ridgecap-index]/accessory-btn/test/button" />-->
+            <if lhs="[eval:('[datasource:getAccessories.[var:cur-ventilation-index].AccessoryName]').indexOf('Cobra')]" operator="gte" rhs="0">
+              <if lhs="[eval:('[datasource:getAccessories.[var:cur-ventilation-index].AccessoryName]').indexOf('Hip Vent')]" operator="gte" rhs="0">
+                <else>
+                  <if lhs="[eval:('[datasource:getAccessories.[var:cur-ventilation-index].AccessoryName]').indexOf('FasciaFlow')]" operator="gte" rhs="0">
+                    <else>
+                      <alpha value="0" time="0" target="ACCESSORIES-PAGER-BOX/pager/accessory[var:prev-ventilation-index]/accessory-btn/test/selected" />
+                      <alpha value="1" time=".2" target="ACCESSORIES-PAGER-BOX/pager/accessory[var:prev-ventilation-index]/accessory-btn/test/button" />
+                      <assign property="var:prev-ventilation-index" value="[var:cur-ventilation-index]" />
+                      <!--<alert message="deselect other ridge vent option" />-->
+                    </else>
+                  </if>
+                </else>
+              </if>
+            </if>
           </if>
         </if>
         <if lhs="[var:cur-acc-cat]" operator="e" rhs="Ridge Cap">
@@ -4931,6 +4995,12 @@
             <alpha value="1" time=".2" target="ACCESSORIES-PAGER-BOX/pager/accessory[var:prev-ridgecap-index]/accessory-btn/test/button" />
             <assign property="var:prev-ridgecap-index" value="[var:cur-ridgecap-index]" />
             <!--<alert message="ACCESSORIES-PAGER-BOX/pager/accessory[var:prev-ridgecap-index]/accessory-btn/test/button" />-->
+          </if>
+        </if>
+        <if lhs="[var:cur-acc-cat]" operator="e" rhs="Miscellaneous Accessory">
+          <if lhs="[var:cur-ventilation-index]" operator="!=" rhs="[var:prev-ventilation-index]">
+            <alpha value="0" time="0" target="ACCESSORIES-PAGER-BOX/pager/accessory[var:cur-ventilation-index]/accessory-btn/test/button" />
+            <alpha value="1" time=".2" target="ACCESSORIES-PAGER-BOX/pager/accessory[var:cur-ventilation-index]/accessory-btn/test/selected" />
           </if>
         </if>
       </sync>
@@ -5651,9 +5721,9 @@
     </action>
 
     <action name="isNaN">
-      <if lhs="[eval:isNaN(&#39;[object:text]&#39;)]" operator="==" rhs="true">
+      <!--<if lhs="[eval:isNaN(&#39;[object:text]&#39;)]" operator="==" rhs="true">
         <alert title="Input Error" message="Please only enter numeric values [eval:[object:text].slice(-1);]" />
-      </if>
+      </if>-->
     </action>
     
     <action name="null"></action>
