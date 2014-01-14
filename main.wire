@@ -117,10 +117,11 @@
     
 	<!-- !TEXTTEMPLATES -->
 	<texttemplate name="login"><![CDATA[{"UserName":"[var:username]","Password":"[var:password]"}]]></texttemplate>
-	<texttemplate name="createCustomer"><![CDATA[{"CustomerFirstName":"[var:firstName]","CustomerMiddleName":"[var:middleName]","CustomerLastName":"[var:lastName]","Address1":"[var:address1]","Address2":"[var:address2]","City":"[var:city]","StateProvince":"[var:state]","PostalCode":"[var:postalCode]","PhoneNumber":"[var:phone]","Email":"[var:email]","Country":"[var:country]","Notes":"[var:notes]"}
+	<texttemplate name="createCustomer"><![CDATA[
+	{"CustomerFirstName":"[var:firstName]","CustomerMiddleName":"[var:middleName]","CustomerLastName":"[var:lastName]","Address1":"[var:address1]","Address2":"[var:address2]","City":"[var:city]","StateProvince":"[var:state]","PostalCode":"[var:postalCode]","Country":"[var:country]","Notes":"[var:notes]"}
 	]]></texttemplate>
 	<texttemplate name="editCustomer"><![CDATA[
-	{"CustomerId":[var:edit-customerId],"CustomerFirstName":"[var:edit-fname]","CustomerMiddleName":"[var:edit-middlename]","CustomerLastName":"[var:edit-lname]","Address1":"[var:edit-address1]","Address2":"[var:edit-address2]","City":"[var:edit-city]","StateProvince":"[var:edit-state]","PostalCode":"[var:edit-zip]","PhoneNumber":"[var:edit-phone]","Email":"[var:edit-email]","Country":"[var:edit-country]","EstimatePdf": "","EstimateDetails": []}
+	{"CustomerId":[var:edit-customerId],"CustomerFirstName":"[var:edit-fname]","CustomerMiddleName":"[var:edit-middlename]","CustomerLastName":"[var:edit-lname]","Address1":"[var:edit-address1]","Address2":"[var:edit-address2]","City":"[var:edit-city]","StateProvince":"[var:edit-state]","PostalCode":"[var:edit-zip]","Country":"[var:edit-country]","EstimatePdf": "","EstimateDetails": []}
  	]]></texttemplate>
 	<texttemplate name="roofMeasurements"><![CDATA[
 		{"Field":"[eval:[var:roofMeasurementsIterateCount]-1]","Length":"[datasource:roofareasdb-list.[var:roofMeasurementsIterateCount].LENGTH]","Width":"[datasource:roofareasdb-list.[var:roofMeasurementsIterateCount].WIDTH]","Pitch":"[datasource:roofareasdb-list.[var:roofMeasurementsIterateCount].SLOPE]"}
@@ -293,7 +294,7 @@
           <panel name="username" alias="USERNAME" width="100%" height="50" ypos="50" style="textinput">
             <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
             <!--<text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Username"></text>-->
-            <textfield name="input" width="100%" height="100%" align="right" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Username" onreturnkeypressed="next" returnkeytype="next" kbtype="emailaddress" autocorrect="no" _next="PASSWORD"></textfield>
+            <textfield name="input" width="100%" height="100%" align="right" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Username" onreturnkeypressed="next" returnkeytype="next" kbtype="emailaddress" _next="PASSWORD"></textfield>
             <panel name="active" style="100" onclickup="labelactive" _field="USERNAME"></panel>
           </panel>
       
@@ -389,7 +390,7 @@
           <text name="close" width="100" height="100%" color="#ffffff" font="Futura-Medium" size="20" alignment="left" leftinset="20" text="Close" onclickup="closeresults" clickuptarget="CONTAINER"></text>
         </panel>
         <list name="resultlist" width="100%" height="[eval: [object:SEARCHRESULTS.height] - 74]" datasource="getEstimate" ypos="74" orientation="vertical" paginate="no">
-			<object class="searchresult" index="[ds:dataSourceIndex]" lastname="[ds:CustomerLastName]" firstname="[ds:CustomerFirstName]" street="[ds:Address1]" city="[ds:City]" state="[ds:StateProvince]" zip="[ds:PostalCode]" phone="[ds:PhoneNumber]" />
+			<object class="searchresult" index="[ds:dataSourceIndex]" lastname="[ds:CustomerLastName]" firstname="[ds:CustomerFirstName]" street="[ds:Address1]" city="[ds:City]" state="[ds:StateProvince]" zip="[ds:PostalCode]" estimateId="test" />
         </list>
       </panel>
     </class>
@@ -425,7 +426,7 @@
             <text name="label" width="50%" height="100%" color="#343434" font="Futura-Medium" size="24" alignment="left" text="Email Address" ></text>
             <panel name="edit-email" alias="EDIT-EMAIL" width="50%" height="50" align="right" valign="center" style="textinput">
               <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
-              <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" _next="EDIT-PHONE" text="[param:email]" kbtype="emailaddress" autocorrect="no" _action="null" ></textfield>
+              <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" _next="EDIT-PHONE" text="[param:email]" _action="null" ></textfield>
               <panel name="active" style="100" onclickup="labelactive" _field="EDIT-EMAIL"></panel>
             </panel>
             <panel name="border" width="100%" height="1" valign="bottom" background="#343434"></panel>
@@ -2295,7 +2296,7 @@
     </panel>
       <panel name="header" alias="HEADER" width="100%" height="74" padding-right="10" alpha="1" background="#bfbfbf">
         <image name="logo" source="images/logo.png" height="48" xpos="10" valign="center"></image>
-        <panel name="profile" width="50%" height="100%" align="right" >
+        <panel name="profile" width="50%" height="100%" align="right" onclickup="profiledrop">
           <!--<image name="avatar" source="images/avatar.png" width="36" align="left" valign="center"></image>-->
           <panel name="logout" width="50" height="100%" align="right" onclickup="logout" >
             <image name="logout" source="graphics/icon.signout.png" align="center" valign="center"></image>
@@ -2692,7 +2693,7 @@
       <assign property="datasource:states.source" value="res://states.xml" />
       <assign property="datasource:provinces.source" value="res://provinces.xml" />
 	  <assign property="var:edit-customerId" value="[datasource:getEstimate._value.CustomerId]" />
-	  <create class="editpanel" fname="[datasource:getEstimate._value.CustomerFirstName]" lname="[datasource:getEstimate._value.CustomerLastName]" address1="[datasource:getEstimate._value.Address1]" city="[datasource:getEstimate._value.City]" state="[datasource:getEstimate._value.StateProvince]" zip="[datasource:getEstimate._value.PostalCode]" phone="[datasource:getEstimate._value.PhoneNumber]" email="[datasource:getEstimate._value.Email]"  target="CONTAINER" />
+	  <create class="editpanel" fname="[datasource:getEstimate._value.CustomerFirstName]" lname="[datasource:getEstimate._value.CustomerLastName]" address1="[datasource:getEstimate._value.Address1]" city="[datasource:getEstimate._value.City]" state="[datasource:getEstimate._value.StateProvince]" zip="[datasource:getEstimate._value.PostalCode]" target="CONTAINER" />
 	  <if lhs="[datasource:getEstimate._value.Country]" operator="ne" rhs="US"> 
 		  <play action="edit-countrycan" />
 		  <else>
@@ -2765,6 +2766,7 @@
     <action name="newestimate">
 		  <play action="resetSummaryVars"/>
 		  <play action="resetRoofIndices" />
+		  <play action="resetAccessoryVars" />
 			<assign property="datasource:accessoriesdb-delete.query" value="DELETE FROM ACCESSORIES;" />
 			<assign property="datasource:photosdb-delete.query" value="DELETE FROM PHOTOS;" />
 			<assign property="datasource:photosdb-list.query" value="SELECT * FROM PHOTOS;" />
@@ -3429,6 +3431,15 @@
 		<assign property="var:skylightindex" value="" />
 		<assign property="var:ventindex" value="" />
 	</action>
+	
+	<action name="resetAccessoryVars">
+  	<assign property="var:leakbarrier" value="0" />
+  	<assign property="var:squarestotal" value="0" />
+  	<assign property="var:starterstrips" value="0" />
+  	<assign property="var:hipvent-total" value="0" />
+  	<assign property="var:ridgevent-total" value="0" />
+  	<assign property="var:ridgestotal" value="0" />
+	</action>
 
     <action name="savedCUSTOMER"></action>
     
@@ -3567,6 +3578,7 @@
           <!--<assign property="var:navwas" value="ROOF" />-->
           <translate xpos="101%" curve="linear" target="NAVBLOCK" />
           <translate xpos="251" curve="linear" target="STEP-NAVBLOCK" />
+          <set onclickup="roofinfo-alert" target="STEP-NAVBLOCK" />
           <assign property="object:NAV-CUSTOMER/open/step.background" value="#666666" />
           <assign property="object:NAV-ROOF/open/step.background" value="#ed1c24" />
           <keyboard visible="no" target="ZIP/input" />
@@ -3579,6 +3591,10 @@
           <assign property="datasource:customersdb.query" value="INSERT INTO CUSTOMERS (FNAME,LNAME,EMAIL,PHONE,FNAME2,LNAME2,EMAIL2,PHONE2,COUNTRY,STREET,CITY,STATE,POSTAL,NOTES) values ('[object:CUST1-FNAME/input.text]', '[object:CUST1-LNAME/input.text]', '[object:CUST1-EMAIL/input.text]', '[object:CUST1-PHONE/input.text]', '[object:CUST2-FNAME/input.text]', '[object:CUST2-LNAME/input.text]', '[object:CUST2-EMAIL/input.text]', '[object:CUST2-PHONE/input.text]', '[var:country]', '[object:STREET/input.text]', '[object:CITY/input.text]', '[object:STATE/input.text]', '[object:ZIP/input.text]', '[var:tempnotes]');" />
         </sync>
       </if>
+    </action>
+    
+    <action name="roofinfo-alert">
+      <alert title="Stop right there." message="You must have Inspection and 1 Roof Area saved before moving on." />
     </action>
 
 	<action name="customersdone" datasource="customersdb" datasourceevent="querycomplete" >
@@ -3598,8 +3614,6 @@
 			<assign property="var:postalCode"  value="[datasource:customersdb-list.1.POSTAL]" />
 			<assign property="var:country"  value="[datasource:customersdb-list.1.COUNTRY]" />
 			<assign property="var:notes"  value="[datasource:customersdb-list.1.NOTES]" />
-			<assign property="var:phone"  value="[datasource:customersdb-list.1.PHONE]" />
-			<assign property="var:email"  value="[datasource:customersdb-list.1.EMAIL]" />
 			<assign property="datasource:createCustomer.postContent" value="[template:createCustomer.content]" />
 <!-- 			<alert message="sending [template:createCustomer.content]" /> -->
 			<assign property="datasource:createCustomer.source" value="https://162.209.101.177/api/CreateCustomer" />
@@ -3618,8 +3632,6 @@
 			<assign property="var:postalCode" encoding="url" value="[datasource:customersdb-list.1.POSTAL]" />
 			<assign property="var:country" encoding="url" value="[datasource:customersdb-list.1.COUNTRY]" />
 			<assign property="var:notes" encoding="url" value="[datasource:customersdb-list.1.NOTES]" />
-			<assign property="var:phone"  value="[datasource:customersdb-list.1.PHONE]" />
-			<assign property="var:email"  value="[datasource:customersdb-list.1.EMAIL]" />
 <!-- 			<assign property="var:customerAction" value="create" /> -->
 <!-- 			<alert message="var:customerAction is [var:customerAction]" /> -->
 				<assign property="var:customerSearchQuery" value="https://162.209.101.177/api/GetCustomerEstimate?customerLastName=[var:lastName]&amp;address1=[var:address1]&amp;address2=&amp;city=[var:city]" />
@@ -3729,6 +3741,7 @@
         <assign property="var:navstep-inspect" value="yes" />
         <if lhs="[var:navstep-areas]" operator="e" rhs="yes">
           <translate xpos="101%" curve="linear" target="STEP-NAVBLOCK" />
+          <set onclickup="null" target="STEP-NAVBLOCK" />
         </if>
       </sync>
     </action>
@@ -3805,6 +3818,7 @@
           <assign property="var:navstep-areas" value="yes" />
           <if lhs="[var:navstep-inspect]" operator="e" rhs="yes">
             <translate xpos="101%" curve="linear" target="STEP-NAVBLOCK" />
+            <set onclickup="null" target="STEP-NAVBLOCK" />
           </if>
         </else>
       </if>
@@ -4759,40 +4773,64 @@
       <assign property="object:ACCESSORYTYPEPAGER/acessory1/description.text" value="[datasource:getAccessories._value.Description]" />
       <assign property="var:cur-acc-cat" value="[datasource:getAccessories._value.AccessoryCategory]" />
       <if lhs="[datasource:getAccessories._value.AccessoryCategory]" operator="e" rhs="Leak Barrier">
-        <assign property="object:UNITMEASURE.text" value="[var:leakbarrier] ft needed" />
-        <assign property="object:UNITEQUALS.text" value="1 = _coverage ft _units" />
-        <assign property="var:cur-leak-index" value="_value" />
-        <assign property="var:autoquantity" value="[eval: Math.ceil([var:leakbarrier] / _coverage ) ]" />
-        <assign property="object:ACCESSORYQUANTITY/input.text" value="[var:autoquantity]" />
-        <assign property="object:ACCESSORY-AUTOQUANTITY.text" value="[var:autoquantity] Units" />
-        <alpha value="0" target="ACCESSORYQUANTITY" />
-        <alpha value="1" target="ACCESSORY-AUTOQUANTITY" />
-        <alpha value="0" target="ACCESSORY-UNIT" />
-        <assign property="datasource:accessoriesdb-deletelist.query" value="SELECT * FROM ACCESSORIES WHERE TYPE='[datasource:getAccessories._value.AccessoryCategory]';" />
+          <if lhs="[var:leakbarrier]" operator="gte" rhs="1">
+          <assign property="object:UNITMEASURE.text" value="[var:leakbarrier] ft needed" />
+          <assign property="object:UNITEQUALS.text" value="1 = _coverage ft _units" />
+          <assign property="var:cur-leak-index" value="_value" />
+          <assign property="var:autoquantity" value="[eval: Math.ceil([var:leakbarrier] / _coverage ) ]" />
+          <assign property="object:ACCESSORYQUANTITY/input.text" value="[var:autoquantity]" />
+          <assign property="object:ACCESSORY-AUTOQUANTITY.text" value="[var:autoquantity] Units" />
+          <alpha value="0" target="ACCESSORYQUANTITY" />
+          <alpha value="1" target="ACCESSORY-AUTOQUANTITY" />
+          <alpha value="0" target="ACCESSORY-UNIT" />
+          <alpha value="1" time=".25" target="ACCESSORYLIST" />
+          <translate valign="center" time=".25" curve="easeout" target="ACCESSORYLIST" />
+          <assign property="var:curtainaction" value="accessorydismiss" />
+          <assign property="datasource:accessoriesdb-deletelist.query" value="SELECT * FROM ACCESSORIES WHERE TYPE='[datasource:getAccessories._value.AccessoryCategory]';" />
+          <else>
+            <alert message="No cooresponding roof measurements were entered for this accessory" buttononeaction="focus" />
+          </else>
+        </if>
       </if>
       <if lhs="[datasource:getAccessories._value.AccessoryCategory]" operator="e" rhs="Roof Deck Protection">
-        <assign property="object:UNITMEASURE.text" value="" />
-        <assign property="object:UNITEQUALS.text" value="1 = _coverage ft _units" />
-        <assign property="var:cur-roofdeck-index" value="_value" />
-        <assign property="var:autoquantity" value="[eval: Math.ceil( [var:squarestotal] / _coverage ) ]" />
-        <assign property="object:ACCESSORYQUANTITY/input.text" value="[var:autoquantity]" />
-        <assign property="object:ACCESSORY-AUTOQUANTITY.text" value="[var:autoquantity] Units" />
-        <alpha value="0" target="ACCESSORYQUANTITY" />
-        <alpha value="1" target="ACCESSORY-AUTOQUANTITY" />
-        <alpha value="0" target="ACCESSORY-UNIT" />
-        <assign property="datasource:accessoriesdb-deletelist.query" value="SELECT * FROM ACCESSORIES WHERE TYPE='[datasource:getAccessories._value.AccessoryCategory]';" />
+        <if lhs="[var:squarestotal]" operator="gte" rhs="1">
+          <assign property="object:UNITMEASURE.text" value="" />
+          <assign property="object:UNITEQUALS.text" value="1 = _coverage ft _units" />
+          <assign property="var:cur-roofdeck-index" value="_value" />
+          <assign property="var:autoquantity" value="[eval: Math.ceil( [var:squarestotal] / _coverage ) ]" />
+          <assign property="object:ACCESSORYQUANTITY/input.text" value="[var:autoquantity]" />
+          <assign property="object:ACCESSORY-AUTOQUANTITY.text" value="[var:autoquantity] Units" />
+          <alpha value="0" target="ACCESSORYQUANTITY" />
+          <alpha value="1" target="ACCESSORY-AUTOQUANTITY" />
+          <alpha value="0" target="ACCESSORY-UNIT" />
+          <alpha value="1" time=".25" target="ACCESSORYLIST" />
+          <translate valign="center" time=".25" curve="easeout" target="ACCESSORYLIST" />
+          <assign property="var:curtainaction" value="accessorydismiss" />
+          <assign property="datasource:accessoriesdb-deletelist.query" value="SELECT * FROM ACCESSORIES WHERE TYPE='[datasource:getAccessories._value.AccessoryCategory]';" />
+          <else>
+            <alert message="No cooresponding roof measurements were entered for this accessory" buttononeaction="focus" />
+          </else>
+        </if>
       </if>
       <if lhs="[datasource:getAccessories._value.AccessoryCategory]" operator="e" rhs="Starter Strips">
-        <assign property="object:UNITMEASURE.text" value="[var:starterstrips] ft needed" />
-        <assign property="object:UNITEQUALS.text" value="1 = _coverage ft _units" />
-        <assign property="var:cur-starter-index" value="_value" />
-        <assign property="var:autoquantity" value="[eval: Math.ceil([var:starterstrips] / _coverage ) ]" />
-        <assign property="object:ACCESSORYQUANTITY/input.text" value="[var:autoquantity]" />
-        <assign property="object:ACCESSORY-AUTOQUANTITY.text" value="[var:autoquantity] Units" />
-        <alpha value="0" target="ACCESSORYQUANTITY" />
-        <alpha value="1" target="ACCESSORY-AUTOQUANTITY" />
-        <alpha value="0" target="ACCESSORY-UNIT" />
-        <assign property="datasource:accessoriesdb-deletelist.query" value="SELECT * FROM ACCESSORIES WHERE TYPE='[datasource:getAccessories._value.AccessoryCategory]';" />
+        <if lhs="[var:starterstrips]" operator="gte" rhs="1">
+          <assign property="object:UNITMEASURE.text" value="[var:starterstrips] ft needed" />
+          <assign property="object:UNITEQUALS.text" value="1 = _coverage ft _units" />
+          <assign property="var:cur-starter-index" value="_value" />
+          <assign property="var:autoquantity" value="[eval: Math.ceil([var:starterstrips] / _coverage ) ]" />
+          <assign property="object:ACCESSORYQUANTITY/input.text" value="[var:autoquantity]" />
+          <assign property="object:ACCESSORY-AUTOQUANTITY.text" value="[var:autoquantity] Units" />
+          <alpha value="0" target="ACCESSORYQUANTITY" />
+          <alpha value="1" target="ACCESSORY-AUTOQUANTITY" />
+          <alpha value="0" target="ACCESSORY-UNIT" />
+          <alpha value="1" time=".25" target="ACCESSORYLIST" />
+          <translate valign="center" time=".25" curve="easeout" target="ACCESSORYLIST" />
+          <assign property="var:curtainaction" value="accessorydismiss" />
+          <assign property="datasource:accessoriesdb-deletelist.query" value="SELECT * FROM ACCESSORIES WHERE TYPE='[datasource:getAccessories._value.AccessoryCategory]';" />
+          <else>
+            <alert message="No cooresponding roof measurements were entered for this accessory" buttononeaction="focus" />
+          </else>
+        </if>
       </if>
       <if lhs="[datasource:getAccessories._value.AccessoryCategory]" operator="e" rhs="Ventilation">
         <assign property="object:UNITMEASURE.text" value="" />
@@ -4805,31 +4843,44 @@
         <if lhs="[eval:('[datasource:getAccessories._value.AccessoryName]').indexOf('Cobra')]" operator="gte" rhs="0">
           <!--<alert message="It's a Cobra" />-->
           <if lhs="[eval:('[datasource:getAccessories._value.AccessoryName]').indexOf('Hip Vent')]" operator="gte" rhs="0"><!-- Hip vent -->
-            <assign property="object:UNITMEASURE.text" value="[var:hipvent-total] ft needed" />
-            <assign property="object:UNITEQUALS.text" value="1 = _coverage ft _units" />
-            <assign property="var:autoquantity" value="[eval: Math.ceil([var:hipvent-total] / _coverage ) ]" />
-            <!--<alert title="Number of hip units needed" message="[eval: Math.ceil([var:hipvent-total] / _coverage ) ]" />-->
-            <assign property="object:ACCESSORYQUANTITY/input.text" value="[var:autoquantity]" />
-            <assign property="object:ACCESSORY-AUTOQUANTITY.text" value="[var:autoquantity] Units" />
-            <alpha value="0" target="ACCESSORYQUANTITY" />
-            <alpha value="1" target="ACCESSORY-AUTOQUANTITY" />
-            <alpha value="0" target="ACCESSORY-UNIT" />
+            <if lhs="[var:hipvent-total]" operator="gte" rhs="1">
+              <assign property="object:UNITMEASURE.text" value="[var:hipvent-total] ft needed" />
+              <assign property="object:UNITEQUALS.text" value="1 = _coverage ft _units" />
+              <assign property="var:autoquantity" value="[eval: Math.ceil([var:hipvent-total] / _coverage ) ]" />
+              <!--<alert title="Number of hip units needed" message="[eval: Math.ceil([var:hipvent-total] / _coverage ) ]" />-->
+              <assign property="object:ACCESSORYQUANTITY/input.text" value="[var:autoquantity]" />
+              <assign property="object:ACCESSORY-AUTOQUANTITY.text" value="[var:autoquantity] Units" />
+              <alpha value="0" target="ACCESSORYQUANTITY" />
+              <alpha value="1" target="ACCESSORY-AUTOQUANTITY" />
+              <alpha value="0" target="ACCESSORY-UNIT" />
+              <alpha value="1" time=".25" target="ACCESSORYLIST" />
+              <translate valign="center" time=".25" curve="easeout" target="ACCESSORYLIST" />
+              <assign property="var:curtainaction" value="accessorydismiss" />
+              <else>
+                <alert message="No cooresponding roof measurements were entered for this accessory" buttononeaction="focus" />
+              </else>
+            </if>
             <else>
               <if lhs="[eval:('[datasource:getAccessories._value.AccessoryName]').indexOf('FasciaFlow')]" operator="gte" rhs="0">
                 <!--<alert message="FasciaFlow" />-->
                 <else><!-- ridge vents -->
-                  <assign property="object:UNITMEASURE.text" value="[var:ridgevent-total] ft needed" />
-                  <assign property="object:UNITEQUALS.text" value="1 = _coverage ft _units" />
-                  <assign property="var:autoquantity" value="[eval: Math.ceil([var:ridgevent-total] / _coverage ) ]" />
-                  <assign property="object:ACCESSORYQUANTITY/input.text" value="[var:autoquantity]" />
-                  <assign property="object:ACCESSORY-AUTOQUANTITY.text" value="[var:autoquantity] Units" />
-                  <alpha value="0" target="ACCESSORYQUANTITY" />
-                  <alpha value="1" target="ACCESSORY-AUTOQUANTITY" />
-                  <alpha value="0" target="ACCESSORY-UNIT" />
-                  <sync>
+                  <if lhs="[var:ridgevent-total]" operator="gte" rhs="1">
+                    <assign property="object:UNITMEASURE.text" value="[var:ridgevent-total] ft needed" />
+                    <assign property="object:UNITEQUALS.text" value="1 = _coverage ft _units" />
+                    <assign property="var:autoquantity" value="[eval: Math.ceil([var:ridgevent-total] / _coverage ) ]" />
+                    <assign property="object:ACCESSORYQUANTITY/input.text" value="[var:autoquantity]" />
+                    <assign property="object:ACCESSORY-AUTOQUANTITY.text" value="[var:autoquantity] Units" />
+                    <alpha value="0" target="ACCESSORYQUANTITY" />
+                    <alpha value="1" target="ACCESSORY-AUTOQUANTITY" />
+                    <alpha value="0" target="ACCESSORY-UNIT" />
+                    <alpha value="1" time=".25" target="ACCESSORYLIST" />
+                    <translate valign="center" time=".25" curve="easeout" target="ACCESSORYLIST" />
+                    <assign property="var:curtainaction" value="accessorydismiss" />
                     <assign property="datasource:accessoriesdb-deletelist-ridgevent.query" value="SELECT * FROM ACCESSORIES WHERE NAME='[var:cur-ridgevent]';" />
-                    
-                  </sync>
+                    <else>
+                      <alert message="No cooresponding roof measurements were entered for this accessory" buttononeaction="focus" />
+                    </else>
+                  </if>
                 </else>
               </if>
             </else>
@@ -4837,25 +4888,21 @@
         </if>
       </if>
       <if lhs="[datasource:getAccessories._value.AccessoryCategory]" operator="e" rhs="Ridge Cap">
-        <assign property="object:UNITMEASURE.text" value="[var:ridgestotal] ft needed" />
-        <assign property="object:UNITEQUALS.text" value="1 = _coverage ft _units" />
-        <assign property="var:cur-ridgecap-index" value="_value" />
-        <assign property="var:autoquantity" value="[eval: Math.ceil([var:ridgestotal] / _coverage ) ]" />
-        <assign property="object:ACCESSORYQUANTITY/input.text" value="[var:autoquantity]" />
-        <assign property="object:ACCESSORY-AUTOQUANTITY.text" value="[var:autoquantity] Units" />
-        <alpha value="0" target="ACCESSORYQUANTITY" />
-        <alpha value="1" target="ACCESSORY-AUTOQUANTITY" />
-        <alpha value="0" target="ACCESSORY-UNIT" />
-        <assign property="datasource:accessoriesdb-deletelist.query" value="SELECT * FROM ACCESSORIES WHERE TYPE='[datasource:getAccessories._value.AccessoryCategory]';" />
-      </if>
-      <if lhs="[datasource:getAccessories._value.AccessoryCategory]" operator="e" rhs="Miscellaneous Accessory">
-        <!--<alert message="[datasource:getAccessories._value.AccessoryCategory]" />-->
-        <assign property="object:UNITMEASURE.text" value="" />
-        <assign property="object:UNITEQUALS.text" value="" />
-        <assign property="var:cur-ventilation-index" value="_value" />
-        <alpha value="1" target="ACCESSORYQUANTITY" />
-        <alpha value="0" target="ACCESSORY-AUTOQUANTITY" />
-        <alpha value="1" target="ACCESSORY-UNIT" />
+        <if lhs="[var:ridgestotal]" operator="gte" rhs="1">
+          <assign property="object:UNITMEASURE.text" value="[var:ridgestotal] ft needed" />
+          <assign property="object:UNITEQUALS.text" value="1 = _coverage ft _units" />
+          <assign property="var:cur-ridgecap-index" value="_value" />
+          <assign property="var:autoquantity" value="[eval: Math.ceil([var:ridgestotal] / _coverage ) ]" />
+          <assign property="object:ACCESSORYQUANTITY/input.text" value="[var:autoquantity]" />
+          <assign property="object:ACCESSORY-AUTOQUANTITY.text" value="[var:autoquantity] Units" />
+          <alpha value="0" target="ACCESSORYQUANTITY" />
+          <alpha value="1" target="ACCESSORY-AUTOQUANTITY" />
+          <alpha value="0" target="ACCESSORY-UNIT" />
+          <alpha value="1" time=".25" target="ACCESSORYLIST" />
+          <translate valign="center" time=".25" curve="easeout" target="ACCESSORYLIST" />
+          <assign property="var:curtainaction" value="accessorydismiss" />
+          <assign property="datasource:accessoriesdb-deletelist.query" value="SELECT * FROM ACCESSORIES WHERE TYPE='[datasource:getAccessories._value.AccessoryCategory]';" />
+        </if>
       </if>
       <if lhs="[datasource:getAccessories._value.AccessoryCategory]" operator="e" rhs="Miscellaneous Accessory">
         <assign property="object:UNITMEASURE.text" value="" />
@@ -4864,10 +4911,13 @@
         <alpha value="1" target="ACCESSORYQUANTITY" />
         <alpha value="0" target="ACCESSORY-AUTOQUANTITY" />
         <alpha value="1" target="ACCESSORY-UNIT" />
+        <alpha value="1" time=".25" target="ACCESSORYLIST" />
+        <translate valign="center" time=".25" curve="easeout" target="ACCESSORYLIST" />
+        <assign property="var:curtainaction" value="accessorydismiss" />
       </if>
-      <alpha value="1" time=".25" target="ACCESSORYLIST" />
+      <!--<alpha value="1" time=".25" target="ACCESSORYLIST" />
       <translate valign="center" time=".25" curve="easeout" target="ACCESSORYLIST" />
-      <assign property="var:curtainaction" value="accessorydismiss" />
+      <assign property="var:curtainaction" value="accessorydismiss" />-->
     </action>
     
     <action name="selectaccessory-delete-prev" datasource="accessoriesdb-deletelist" datasourceevent="querycomplete">
@@ -5231,7 +5281,6 @@
 		<action name="updateMeasurements-complete" datasource="updateMeasurements" datasourceevent="querycomplete" >
 			<if lhs="[datasource:updateMeasurements.1.ResponseCode]" operator="e" rhs="100">
 <!-- 				<alert message="updateMeasurements-complete content [datasource:updateMeasurements.0.content]" /> -->
-				<assign property="var:measurementId" value="[datasource:updateMeasurements.1.MeasurementId]" />
 				<play action="prepPhotos" />
 				  <else>
 <!-- 					<play action="prepPhotos" /> -->
