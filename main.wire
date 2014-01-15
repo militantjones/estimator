@@ -100,6 +100,7 @@
     <datasource name="accessoriesdb-list" source="sql://ACCESSORIES" query="SELECT * FROM ACCESSORIES ORDER BY ID DESC;" providertype="sql" />
     <datasource name="accessoriesdb-deletelist" source="sql://ACCESSORIES" query="" providertype="sql" />
     <datasource name="accessoriesdb-deletelist-ridgevent" source="sql://ACCESSORIES" query="" providertype="sql" />
+    <datasource name="accessoriesdb-deletelist-hipvent" source="sql://ACCESSORIES" query="" providertype="sql" />
     <datasource name="accessoriesdb-delete" source="sql://ACCESSORIES" query="" providertype="sql" />
     <datasource name="accessoriesdb-count" source="sql://ACCESSORIES" query="" providertype="sql" />
     
@@ -517,7 +518,7 @@
     
     <!-- !Roof info classes -->
     <class name="roof area">
-      <panel name="roof-area[param:index]" alias="ROOF-AREA[param:index]" width="100%" height="220">
+      <panel name="roof-area[param:index]" alias="ROOF-AREA[param:index]" width="100%" height="220" padding-right="20">
         <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="15" alignment="left" text="ROOF AREA [param:index]"></text>
         <panel name="deletebox" width="60" height="35" align="right" onclickup="delete-item" clickuptarget="CONTAINER" _target="ROOF-AREA[param:index]" _indexname="areaindex" _spacername="AREA" _parent="ROOF-AREA" _section="ROOF AREA">
           <image name="icon" source="images/delete.png" width="20" height="20" align="center" valign="center"></image>
@@ -1826,10 +1827,10 @@
           </panel>
         </panel>
         
-        <panel name="roof-Roof Area" alias="ROOF-ROOF AREA" width="512" height="100%" align="right" alpha="0">
+        <panel name="roof-Roof Area" alias="ROOF-ROOF AREA" width="512" height="100%" align="right" alpha="0" >
           <object class="titlebutton" title="Roof Areas" action="addarea" />
-          <panel name="roofpagerbox" width="100%" height="[eval: [object:ROOF-ROOF AREA.height] - 146]" ypos="79" >
-            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no" padding-left="20" padding-right="20">
+          <panel name="roofpagerbox" width="100%" height="[eval: [object:ROOF-ROOF AREA.height] - 146]" ypos="79" align="right" padding-left="20">
+            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no" >
               <!--<object class="roof area" index="1" />-->
             </pager>
           </panel>
@@ -2131,14 +2132,14 @@
 	
 	<class name="pdf">
 	  <panel name="pdf-container" alias="PDF-CONTAINER" width="100%" height="100%" ypos="101%" background="#ff0000" >
-        <panel name="toolbar" width="100%" height="74" background="#343434">
-          <text name="title" width="100%" height="100%" color="#ffffff" font="Futura-Medium" size="24" alignment="center" text="Your Estimate"></text>
-          <text name="save" width="100" height="100%" align="right" color="#ffffff" font="Avenir-Medium" size="15" alignment="center" text="SEND" onclickup="sendestimate" clickuptarget="CONTAINER" ></text>
-          <text name="cancel" width="100" height="100%" color="#ffffff" font="Avenir-Medium" size="15" alignment="center" text="CLOSE" onclickup="closepdf" clickuptarget="CONTAINER" ></text>
-        </panel>
-        <panel name="pdf" width="100%" height="950" valign="bottom" background="#00ff00" >
-			<pdf name="estimate" source="estimate.pdf" height="100%" width="100%" spreads="no" covertile="yes" tile="yes" orientation="vertical"></pdf>
-        </panel>
+      <panel name="toolbar" width="100%" height="74" background="#343434">
+        <text name="title" width="100%" height="100%" color="#ffffff" font="Futura-Medium" size="24" alignment="center" text="Your Estimate"></text>
+        <text name="save" width="100" height="100%" align="right" color="#ffffff" font="Avenir-Medium" size="15" alignment="center" text="SEND" onclickup="sendestimate" clickuptarget="CONTAINER" ></text>
+        <text name="cancel" width="100" height="100%" color="#ffffff" font="Avenir-Medium" size="15" alignment="center" text="CLOSE" onclickup="closepdf" clickuptarget="CONTAINER" ></text>
+      </panel>
+      <panel name="pdf" width="100%" height="950" valign="bottom" background="#00ff00" >
+        <pdf name="estimate" source="estimate.pdf" height="100%" width="100%" spreads="no" covertile="yes" tile="yes" orientation="vertical"></pdf>
+      </panel>
 	  </panel>
 	</class>
     
@@ -2155,8 +2156,10 @@
     <panel name="curtain" alias="CURTAIN" style="100" alpha="0" onclickup="curtainaction" >
       <panel name="color" style="100" background="#ffffff" alpha="0"></panel>
       
-      <panel name="profilemenu" alias="PROFILEMENU" width="200" height="50" xpos="548" ypos="70" background="343434" alpha="0" cornerradius="2">
-        <text name="logout" width="100%" height="100%" leftinset="10" color="#ffffff" font="Futura-Medium" size="20" alignment="left" text="Log Out" onclickup="logout"></text>
+      <panel name="profilemenu" alias="PROFILEMENU" width="200" height="100" xpos="548" ypos="70" background="ed1c24" alpha="0" cornerradius="2">
+        <text name="logout" width="100%" height="50" leftinset="10" color="#ffffff" font="Futura-Medium" size="20" alignment="left" text="Log Out" onclickup="logout"></text>
+        <text name="additional-btn" width="100%" height="50" valign="bottom" leftinset="10" color="#ffffff" font="Futura-Medium" size="20" alignment="left" text="Close Estimate" onclickup="cancel-est"></text>
+        <panel name="divide" width="100%" height="1" valign="center" background="ffffff" alpha=".7"></panel>
       </panel>
       
       <panel name="adjustmenu" alias="ADJUSTMENU" width="200" height="100" xpos="548" ypos="200" style="brand" alpha="0" cornerradius="2">
@@ -2293,21 +2296,25 @@
         <!--<wait name="wait" width="100%" height="70" ypos="50" color="#343434"></wait>-->
       </panel>
     </panel>
-      <panel name="header" alias="HEADER" width="100%" height="74" padding-right="10" alpha="1" background="#bfbfbf">
-        <image name="logo" source="images/logo.png" height="48" xpos="10" valign="center"></image>
-        <panel name="profile" width="50%" height="100%" align="right" >
-          <!--<image name="avatar" source="images/avatar.png" width="36" align="left" valign="center"></image>-->
-          <panel name="logout" width="50" height="100%" align="right" onclickup="logout" >
-            <image name="logout" source="graphics/icon.signout.png" align="center" valign="center"></image>
-          </panel>
-          <text name="welcome" width="100%" height="fit" xpos="46" ypos="15" leftof="logout" margin-right="10" color="#343434" font="Futura-MediumItalic" size="15" alignment="right" text="Signed in as" alpha=".7"></text>
-          <text name="username" width="100%" height="fit" xpos="46" bottomof="welcome" margin-top="3" leftof="logout" margin-right="10" color="#343434" font="Futura-Medium" size="17" alignment="right" text="User"></text>
+    
+    <panel name="header" alias="HEADER" width="100%" height="74" padding-right="10" alpha="1" background="#bfbfbf">
+      <image name="logo" source="images/logo.png" height="48" xpos="10" valign="center"></image>
+      <panel name="profile" width="50%" height="100%" align="right" >
+        <!--<image name="avatar" source="images/avatar.png" width="36" align="left" valign="center"></image>-->
+        <panel name="logout" width="50" height="100%" align="right" onclickup="usermenu" >
+          <image name="logout" source="graphics/icon.signout.png" align="center" valign="center"></image>
         </panel>
+        <text name="welcome" width="100%" height="fit" xpos="46" ypos="15" leftof="logout" margin-right="10" color="#343434" font="Futura-MediumItalic" size="15" alignment="right" text="Signed in as" alpha=".7"></text>
+        <text name="username" width="100%" height="fit" xpos="46" bottomof="welcome" margin-top="3" leftof="logout" margin-right="10" color="#343434" font="Futura-Medium" size="17" alignment="right" text="User"></text>
       </panel>
+    </panel>
       
-      <panel name="splash" alias="SPLASH" width="100%" height="100%">
-	      <image name="image" source="graphics/splash.png"></image>
-      </panel>
+    <panel name="registerbox" alias="REGISTERBOX" width="100%" height="100%" alpha="0"></panel>
+      
+    <panel name="splash" alias="SPLASH" width="100%" height="100%">
+	    <image name="image" source="graphics/splash.png"></image>
+    </panel>
+      
 	  <panel name="upload-curtain" alias="UPLOAD-CURTAIN" width="100%" height="100%" alpha="0" >
 	  	<panel name="bg" width="100%" height="100%" background="#000000" alpha=".5" ></panel>
 	  	<wait name="wait" width="100%" height="100%"></wait>
@@ -2504,7 +2511,8 @@
     <!-- !web browser -->
     <action name="openweb">
       <sync>
-        <create class="web" target="CONTAINER" />
+        <create class="web" target="REGISTERBOX" />
+        <alpha value="1" target="REGISTERBOX" />
         <assign property="object:BROWSER.url" value="_value" />
         <assign property="object:TOOLBAR/title.text" value="_title" />
         <translate ypos="0" time=".3" curve="easeout" target="WEB" />
@@ -2513,6 +2521,7 @@
     
     <action name="closeweb">
       <sync>
+        <alpha value="0" target="REGISTERBOX" />
         <translate ypos="101%" time=".3" curve="easout" target="WEB" />
         <delete target="WEB" />
       </sync>
@@ -4859,6 +4868,7 @@
               <alpha value="1" time=".25" target="ACCESSORYLIST" />
               <translate valign="center" time=".25" curve="easeout" target="ACCESSORYLIST" />
               <assign property="var:curtainaction" value="accessorydismiss" />
+              <assign property="datasource:accessoriesdb-deletelist-hipvent.query" value="SELECT * FROM ACCESSORIES WHERE NAME='[var:cur-hipvent]';" />
               <else>
                 <alert message="No cooresponding roof measurements were entered for this accessory" buttononeaction="focus" />
               </else>
@@ -4946,6 +4956,18 @@
       </if>
     </action>
     
+    <action name="selectaccessory-delete-prev2" datasource="accessoriesdb-deletelist-hipvent" datasourceevent="querycomplete">
+      <if lhs="[var:loaded]" operator="e" rhs="yes">
+        <sync>
+          <if lhs="[datasource:accessoriesdb-list.dataSourceResultCount]" operator="gte" rhs="1">
+            <!--<alert title="count = [datasource:accessoriesdb-deletelist-hipvent.dataSourceResultCount]" message="DELETE FROM ACCESSORIES WHERE NAME='[var:cur-hipvent]';" />
+            <assign property="datasource:accessoriesdb-delete.query" value="DELETE FROM ACCESSORIES WHERE NAME='[var:cur-hipvent]';" />-->
+            <assign property="var:cur-hipvent" value="[datasource:getAccessories._value.AccessoryName]" />
+          </if>
+        </sync>
+      </if>
+    </action>
+    
     <action name="acc-delete-check" datasource="accessoriesdb-deletelist" datasourceevent="querycomplete">
       <if lhs="[var:loaded]" operator="e" rhs="yes">
         <!--<alert message="deleted" />-->
@@ -4993,7 +5015,6 @@
     </action>
     
     <action name="accessoriesdb-complete" datasource="accessoriesdb" datasourceevent="querycomplete" >
-      <!-- 		<alert message="accessoriesdb-complete" /> -->
 		  <assign property="datasource:accessoriesdb-list.query" value="SELECT * FROM ACCESSORIES ORDER BY ID DESC;" />
     </action>
     
@@ -5035,9 +5056,12 @@
           <if lhs="[var:cur-ventilation-index]" operator="!=" rhs="[var:prev-ventilation-index]">
             <alpha value="0" time="0" target="ACCESSORIES-PAGER-BOX/pager/accessory[var:cur-ventilation-index]/accessory-btn/test/button" />
             <alpha value="1" time=".2" target="ACCESSORIES-PAGER-BOX/pager/accessory[var:cur-ventilation-index]/accessory-btn/test/selected" />
+            
             <if lhs="[eval:('[datasource:getAccessories.[var:cur-ventilation-index].AccessoryName]').indexOf('Cobra')]" operator="gte" rhs="0">
               <if lhs="[eval:('[datasource:getAccessories.[var:cur-ventilation-index].AccessoryName]').indexOf('Hip Vent')]" operator="gte" rhs="0">
+                <!--<alert title="hip vent yes = 0" message="[eval:('[datasource:getAccessories.[var:cur-ventilation-index].AccessoryName]').indexOf('Hip Vent')]" />-->
                 <else>
+                  <!--<alert message="moving past hip vent" />-->
                   <if lhs="[eval:('[datasource:getAccessories.[var:cur-ventilation-index].AccessoryName]').indexOf('FasciaFlow')]" operator="gte" rhs="0">
                     <else>
                       <alpha value="0" time="0" target="ACCESSORIES-PAGER-BOX/pager/accessory[var:prev-ventilation-index]/accessory-btn/test/selected" />
@@ -5049,6 +5073,7 @@
                 </else>
               </if>
             </if>
+            
           </if>
         </if>
         <if lhs="[var:cur-acc-cat]" operator="e" rhs="Ridge Cap">
@@ -5515,67 +5540,116 @@
       </sync>
     </action> -->
     
+    <!-- !user menu -->
+    <action name="usermenu">
+      <sync>
+        <play action="clearcurtain" />
+        <alpha value="1" time=".1" target="PROFILEMENU" />
+        <assign property="var:curtainaction" value="hide-usermenu" />
+      </sync>
+    </action>
+    
+    <action name="hide-usermenu">
+      <sync>
+        <alpha value="0" time=".25" target="PROFILEMENU" />
+        <play action="hideclearcurtain" />
+        <assign property="var:curtainaction" value="null" />
+      </sync>
+    </action>
+    
+    <!-- !cancel estimate -->
+    <action name="cancel-est">
+      <play action="hide-usermenu" />
+      <alert title="End this estimate?" message="Are you sure you want to end this estimate? If you have not completed your estimate all information entered will be lost." buttononetitle="Cancel" buttononeaction="null" buttontwotitle="Yes, end it." buttontwoaction="confirm-cancel"/>
+    </action>
+    
+    <action name="confirm-cancel">
+      <assign property="var:loaded" value="no" />
+      <play action="clear-dbs" />
+		  <play action="clear-var" />
+		  <delete target="CONTAINER" />
+		  <create class="container" target="MAIN" />
+		  <create class="choice" target="CONTAINER" />
+    </action>
+    
     <!-- !logout -->
     <action name="logout">
+      <play action="hide-usermenu" />
       <alert title="Log out?" message="Are you sure you want to log out?" buttononetitle="Cancel" buttontwotitle="Yes, Log out" buttontwoaction="confirm-logout" />
     </action>
 
     <action name="confirm-logout">
-		<assign property="var:loaded" value="no" />
-		<play action="clear-dbs" />
-		<play action="clear-data" />
-		<delete target="CONTAINER" />
-		<create class="container" target="MAIN" />
-		<create class="signin" target="CONTAINER" />
-<!--       <alert message="this would be the logic to log out the user" /> -->
+		  <assign property="var:loaded" value="no" />
+		  <play action="clear-dbs" />
+		  <play action="clear-data" />
+		  <delete target="CONTAINER" />
+		  <create class="container" target="MAIN" />
+		  <create class="signin" target="CONTAINER" />
+      <!--       <alert message="this would be the logic to log out the user" /> -->
     </action>
     
-	<action name="clear-dbs" >
-		<sync>
-			<assign property="datasource:customersdb-delete.query" value="DELETE FROM CUSTOMERS;" />
-			<assign property="datasource:inspectiondb-delete.query" value="DELETE FROM INSPECTION;" />
-			<assign property="datasource:roofareasdb-delete.query" value="DELETE FROM ROOFAREAS;" />
-			<assign property="datasource:wastedb-delete.query" value="DELETE FROM WASTE;" />
-			<assign property="datasource:ridgesdb-delete.query" value="DELETE FROM RIDGES;" />
-			<assign property="datasource:hipsdb-delete.query" value="DELETE FROM HIPS;" />
-			<assign property="datasource:valleysdb-delete.query" value="DELETE FROM VALLEYS;" />
-			<assign property="datasource:rakesdb-delete.query" value="DELETE FROM RAKES;" />
-			<assign property="datasource:eavesdb-delete.query" value="DELETE FROM EAVES;" />
-			<assign property="datasource:protrusionsdb-delete.query" value="DELETE FROM PROTRUSIONS;" />
-			<assign property="datasource:ventsdb-delete.query" value="DELETE FROM VENTS;" />
-			<assign property="datasource:photosdb-delete.query" value="DELETE FROM PHOTOS;" />
-			<assign property="datasource:productsdb-delete.query" value="DELETE FROM PRODUCTS;" />
-			<assign property="datasource:accessoriesdb-delete.query" value="DELETE FROM ACCESSORIES;" />
-			<assign property="datasource:tearoffdb-delete.query" value="DELETE FROM TEAROFF;" />
-			<assign property="datasource:assetprotectiondb-delete.query" value="DELETE FROM PROTECTION;" />
-			<assign property="datasource:adjustmentsdb-delete.query" value="DELETE FROM ADJUSTMENTS;" />
-		</sync>
-	</action>
+    <action name="clear-dbs" >
+      <sync>
+      	<assign property="datasource:customersdb-delete.query" value="DELETE FROM CUSTOMERS;" />
+      	<assign property="datasource:inspectiondb-delete.query" value="DELETE FROM INSPECTION;" />
+      	<assign property="datasource:roofareasdb-delete.query" value="DELETE FROM ROOFAREAS;" />
+      	<assign property="datasource:wastedb-delete.query" value="DELETE FROM WASTE;" />
+      	<assign property="datasource:ridgesdb-delete.query" value="DELETE FROM RIDGES;" />
+      	<assign property="datasource:hipsdb-delete.query" value="DELETE FROM HIPS;" />
+      	<assign property="datasource:valleysdb-delete.query" value="DELETE FROM VALLEYS;" />
+      	<assign property="datasource:rakesdb-delete.query" value="DELETE FROM RAKES;" />
+      	<assign property="datasource:eavesdb-delete.query" value="DELETE FROM EAVES;" />
+      	<assign property="datasource:protrusionsdb-delete.query" value="DELETE FROM PROTRUSIONS;" />
+      	<assign property="datasource:ventsdb-delete.query" value="DELETE FROM VENTS;" />
+      	<assign property="datasource:photosdb-delete.query" value="DELETE FROM PHOTOS;" />
+      	<assign property="datasource:productsdb-delete.query" value="DELETE FROM PRODUCTS;" />
+      	<assign property="datasource:accessoriesdb-delete.query" value="DELETE FROM ACCESSORIES;" />
+      	<assign property="datasource:tearoffdb-delete.query" value="DELETE FROM TEAROFF;" />
+      	<assign property="datasource:assetprotectiondb-delete.query" value="DELETE FROM PROTECTION;" />
+      	<assign property="datasource:adjustmentsdb-delete.query" value="DELETE FROM ADJUSTMENTS;" />
+      </sync>
+    </action>
 	
-	<action name="clear-data" >
-		  <assign property="var:search" value="" />
-	  	 <assign property="var:db-action" value="" />
-	  	 <assign property="var:accessories" value="0" />
-		<assign property="var:accessoryCount" value="0" />
-	      <assign property="var:tearoff" value="no" />
-	      <assign property="var:landscaping" value="no" />
-	      <assign property="var:hardscaping" value="no" />
-	      <assign property="var:hvac" value="no" />
-	      <assign property="var:pool" value="no" />
-	      <assign property="var:misc" value="no" />
-	      <assign property="var:country" value="US" />
-	      <assign property="var:prevfield" value="0" />
-	      <assign property="var:nav" value="CUSTOMER" />
-        <assign property="preferences:remember" value="" />
-		<assign property="preferences:username" value="" />
-		<assign property="preferences:password" value="" />
-		<assign property="preferences:token" value="" />
-		<assign property="preferences:contractorId" value="" />
-		<assign property="preferences:contractorType" value="" />
-		<assign property="preferences:trueSlate" value="" />
-		<assign property="httpheader:get.Token" value="" />
-		<assign property="httpheader:get.ContractorId" value="" />
-	</action>
+    <action name="clear-data" >
+      <assign property="var:search" value="" />
+      <assign property="var:db-action" value="" />
+      <assign property="var:accessories" value="0" />
+      <assign property="var:accessoryCount" value="0" />
+      <assign property="var:tearoff" value="no" />
+      <assign property="var:landscaping" value="no" />
+      <assign property="var:hardscaping" value="no" />
+      <assign property="var:hvac" value="no" />
+      <assign property="var:pool" value="no" />
+      <assign property="var:misc" value="no" />
+      <assign property="var:country" value="US" />
+      <assign property="var:prevfield" value="0" />
+      <assign property="var:nav" value="CUSTOMER" />
+      <assign property="preferences:remember" value="" />
+      <assign property="preferences:username" value="" />
+      <assign property="preferences:password" value="" />
+      <assign property="preferences:token" value="" />
+      <assign property="preferences:contractorId" value="" />
+      <assign property="preferences:contractorType" value="" />
+      <assign property="preferences:trueSlate" value="" />
+      <assign property="httpheader:get.Token" value="" />
+      <assign property="httpheader:get.ContractorId" value="" />
+    </action>
+    
+    <action name="clear-var" >
+      <assign property="var:search" value="" />
+      <assign property="var:db-action" value="" />
+      <assign property="var:accessories" value="0" />
+      <assign property="var:accessoryCount" value="0" />
+      <assign property="var:tearoff" value="no" />
+      <assign property="var:landscaping" value="no" />
+      <assign property="var:hardscaping" value="no" />
+      <assign property="var:hvac" value="no" />
+      <assign property="var:pool" value="no" />
+      <assign property="var:misc" value="no" />
+      <assign property="var:country" value="US" />
+      <assign property="var:prevfield" value="0" />
+      <assign property="var:nav" value="CUSTOMER" />
+    </action>
 
     <!-- !delete actions -->
     <action name="delete-item">
@@ -5786,9 +5860,9 @@
     </action>
 
     <action name="isNaN">
-      <!--<if lhs="[eval:isNaN(&#39;[object:text]&#39;)]" operator="==" rhs="true">
+      <if lhs="[eval:isNaN(&#39;[object:text]&#39;)]" operator="==" rhs="true">
         <alert title="Input Error" message="Please only enter numeric values [eval:[object:text].slice(-1);]" />
-      </if>-->
+      </if>
     </action>
     
     <action name="null"></action>
