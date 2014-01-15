@@ -4956,7 +4956,7 @@
       <if lhs="[var:loaded]" operator="e" rhs="yes">
         <sync>
           <if lhs="[datasource:accessoriesdb-list.dataSourceResultCount]" operator="gte" rhs="1">
-            <alert title="count = [datasource:accessoriesdb-deletelist.dataSourceResultCount]" message="DELETE FROM ACCESSORIES WHERE TYPE='[var:cur-acc-cat]';" />
+            <!--<alert title="count = [datasource:accessoriesdb-deletelist.dataSourceResultCount]" message="DELETE FROM ACCESSORIES WHERE TYPE='[var:cur-acc-cat]';" />-->
             <assign property="datasource:accessoriesdb-delete.query" value="DELETE FROM ACCESSORIES WHERE TYPE='[var:cur-acc-cat]';" />
           </if>
         </sync>
