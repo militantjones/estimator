@@ -2552,11 +2552,11 @@
 -->
           </sync>
           <else>
-            <alert message="you have not entered a password" />
+            <alert message="Please enter a password" />
           </else>
         </if>
         <else>
-          <alert message="you have not entered a username" />
+          <alert message="Please enter a username" />
         </else>
       </if>
     </action>
@@ -4044,7 +4044,7 @@
       <sync>
         <assign property="var:hipindexloop" value="[eval: [var:hipindexloop] + 1]" />
 <!--         <alert message="[object:HIPLENGTH[var:hipindexloop]/input.text]" /> -->
-		<alert message="[var:hipvent-[var:hipindexloop]]" />
+<!-- 		<alert message="[var:hipvent-[var:hipindexloop]]" /> -->
         <assign property="datasource:hipsdb.query" value="INSERT INTO HIPS (LENGTH, VENTS) values ('[object:HIPLENGTH[var:hipindexloop]/input.text]', '[var:hipvent-[var:hipindexloop]]');" />
       </sync>
     </action>  
@@ -4779,7 +4779,6 @@
 
     <action name="selectaccessories">
       <play action="released" />
-      <play action="blur" />
       <assign property="var:accessorySelected" value="_value" />
       <assign property="object:ACCESSORYLIST/accessorytype.text" value="[datasource:getAccessories._value.AccessoryCategory]" />
       <assign property="object:ACCESSORYTYPEPAGER/acessory1/item.text" value="[datasource:getAccessories._value.AccessoryName]" />
@@ -4787,6 +4786,7 @@
       <assign property="var:cur-acc-cat" value="[datasource:getAccessories._value.AccessoryCategory]" />
       <if lhs="[datasource:getAccessories._value.AccessoryCategory]" operator="e" rhs="Leak Barrier">
           <if lhs="[var:leakbarrier]" operator="gte" rhs="1">
+		  <play action="blur" />
           <assign property="object:UNITMEASURE.text" value="[var:leakbarrier] ft needed" />
           <assign property="object:UNITEQUALS.text" value="1 = _coverage ft _units" />
           <assign property="var:cur-leak-index" value="_value" />
@@ -4801,12 +4801,13 @@
           <assign property="var:curtainaction" value="accessorydismiss" />
           <assign property="datasource:accessoriesdb-deletelist.query" value="SELECT * FROM ACCESSORIES WHERE TYPE='[datasource:getAccessories._value.AccessoryCategory]';" />
           <else>
-            <alert message="No cooresponding roof measurements were entered for this accessory" buttononeaction="focus" />
+            <alert message="No corresponding roof measurements were entered for this accessory" />
           </else>
         </if>
       </if>
       <if lhs="[datasource:getAccessories._value.AccessoryCategory]" operator="e" rhs="Roof Deck Protection">
         <if lhs="[var:squarestotal]" operator="gte" rhs="1">
+		  <play action="blur" />
           <assign property="object:UNITMEASURE.text" value="" />
           <assign property="object:UNITEQUALS.text" value="1 = _coverage ft _units" />
           <assign property="var:cur-roofdeck-index" value="_value" />
@@ -4821,12 +4822,13 @@
           <assign property="var:curtainaction" value="accessorydismiss" />
           <assign property="datasource:accessoriesdb-deletelist.query" value="SELECT * FROM ACCESSORIES WHERE TYPE='[datasource:getAccessories._value.AccessoryCategory]';" />
           <else>
-            <alert message="No cooresponding roof measurements were entered for this accessory" buttononeaction="focus" />
+            <alert message="No corresponding roof measurements were entered for this accessory" />
           </else>
         </if>
       </if>
       <if lhs="[datasource:getAccessories._value.AccessoryCategory]" operator="e" rhs="Starter Strips">
         <if lhs="[var:starterstrips]" operator="gte" rhs="1">
+		  <play action="blur" />
           <assign property="object:UNITMEASURE.text" value="[var:starterstrips] ft needed" />
           <assign property="object:UNITEQUALS.text" value="1 = _coverage ft _units" />
           <assign property="var:cur-starter-index" value="_value" />
@@ -4841,7 +4843,7 @@
           <assign property="var:curtainaction" value="accessorydismiss" />
           <assign property="datasource:accessoriesdb-deletelist.query" value="SELECT * FROM ACCESSORIES WHERE TYPE='[datasource:getAccessories._value.AccessoryCategory]';" />
           <else>
-            <alert message="No cooresponding roof measurements were entered for this accessory" buttononeaction="focus" />
+            <alert message="No corresponding roof measurements were entered for this accessory" />
           </else>
         </if>
       </if>
@@ -4857,6 +4859,7 @@
           <!--<alert message="It's a Cobra" />-->
           <if lhs="[eval:('[datasource:getAccessories._value.AccessoryName]').indexOf('Hip Vent')]" operator="gte" rhs="0"><!-- Hip vent -->
             <if lhs="[var:hipvent-total]" operator="gte" rhs="1">
+			  <play action="blur" />
               <assign property="object:UNITMEASURE.text" value="[var:hipvent-total] ft needed" />
               <assign property="object:UNITEQUALS.text" value="1 = _coverage ft _units" />
               <assign property="var:autoquantity" value="[eval: Math.ceil([var:hipvent-total] / _coverage ) ]" />
@@ -4870,7 +4873,7 @@
               <translate valign="center" time=".25" curve="easeout" target="ACCESSORYLIST" />
               <assign property="var:curtainaction" value="accessorydismiss" />
               <else>
-                <alert message="No cooresponding roof measurements were entered for this accessory" buttononeaction="focus" />
+                <alert message="No corresponding roof measurements were entered for this accessory" />
               </else>
             </if>
             <else>
@@ -4878,6 +4881,7 @@
                 <!--<alert message="FasciaFlow" />-->
                 <else><!-- ridge vents -->
                   <if lhs="[var:ridgevent-total]" operator="gte" rhs="1">
+					<play action="blur" />
                     <assign property="object:UNITMEASURE.text" value="[var:ridgevent-total] ft needed" />
                     <assign property="object:UNITEQUALS.text" value="1 = _coverage ft _units" />
                     <assign property="var:autoquantity" value="[eval: Math.ceil([var:ridgevent-total] / _coverage ) ]" />
@@ -4891,7 +4895,7 @@
                     <assign property="var:curtainaction" value="accessorydismiss" />
                     <assign property="datasource:accessoriesdb-deletelist-ridgevent.query" value="SELECT * FROM ACCESSORIES WHERE NAME='[var:cur-ridgevent]';" />
                     <else>
-                      <alert message="No cooresponding roof measurements were entered for this accessory" buttononeaction="focus" />
+                      <alert message="No corresponding roof measurements were entered for this accessory" />
                     </else>
                   </if>
                 </else>
@@ -4937,7 +4941,7 @@
       <if lhs="[var:loaded]" operator="e" rhs="yes">
         <sync>
           <if lhs="[datasource:accessoriesdb-list.dataSourceResultCount]" operator="gte" rhs="1">
-            <alert title="count = [datasource:accessoriesdb-deletelist.dataSourceResultCount]" message="DELETE FROM ACCESSORIES WHERE TYPE='[var:cur-acc-cat]';" />
+<!--             <alert title="count = [datasource:accessoriesdb-deletelist.dataSourceResultCount]" message="DELETE FROM ACCESSORIES WHERE TYPE='[var:cur-acc-cat]';" /> -->
             <assign property="datasource:accessoriesdb-delete.query" value="DELETE FROM ACCESSORIES WHERE TYPE='[var:cur-acc-cat]';" />
           </if>
         </sync>
@@ -4948,7 +4952,7 @@
       <if lhs="[var:loaded]" operator="e" rhs="yes">
         <sync>
           <if lhs="[datasource:accessoriesdb-list.dataSourceResultCount]" operator="gte" rhs="1">
-            <alert title="count = [datasource:accessoriesdb-deletelist-ridgevent.dataSourceResultCount]" message="DELETE FROM ACCESSORIES WHERE NAME='[var:cur-ridgevent]';" />
+<!--             <alert title="count = [datasource:accessoriesdb-deletelist-ridgevent.dataSourceResultCount]" message="DELETE FROM ACCESSORIES WHERE NAME='[var:cur-ridgevent]';" /> -->
             <assign property="datasource:accessoriesdb-delete.query" value="DELETE FROM ACCESSORIES WHERE NAME='[var:cur-ridgevent]';" />
             <assign property="var:cur-ridgevent" value="[datasource:getAccessories._value.AccessoryName]" />
           </if>
@@ -4972,7 +4976,7 @@
           <assign property="var:accessory-[var:accessoryCount]-Type" value="[datasource:getAccessories.[var:accessorySelected].AccessoryCategory]" />
           <!-- 	  <alert message="var:accessory-[var:accessoryCount] is [var:accessory-[var:accessoryCount]]" /> -->
           <assign property="datasource:accessoriesdb.query" value="INSERT INTO ACCESSORIES (NAME, TYPE, ACCESSORY, QUANTITY) VALUES ('[var:accessory-[var:accessoryCount]-Name]', '[var:accessory-[var:accessoryCount]-Type]', '[var:accessory-[var:accessoryCount]]', '[var:accessory-[var:accessoryCount]-Quantity]');" />
-          <alert message="INSERT INTO ACCESSORIES (NAME, TYPE, ACCESSORY, QUANTITY) VALUES ('[var:accessory-[var:accessoryCount]-Name]', '[var:accessory-[var:accessoryCount]-Type]', '[var:accessory-[var:accessoryCount]]', '[var:accessory-[var:accessoryCount]-Quantity]');" />
+<!--           <alert message="INSERT INTO ACCESSORIES (NAME, TYPE, ACCESSORY, QUANTITY) VALUES ('[var:accessory-[var:accessoryCount]-Name]', '[var:accessory-[var:accessoryCount]-Type]', '[var:accessory-[var:accessoryCount]]', '[var:accessory-[var:accessoryCount]-Quantity]');" /> -->
           <if lhs="[eval:[var:accessories]-[var:accessoryCount]]" operator="gt" rhs="0">
 <!--             <alert message="accessory selected. you must select [eval:[var:accessories]-[var:accessoryCount]] more accessories for the warranty you have chosen" /> -->
             <else>
