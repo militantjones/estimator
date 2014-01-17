@@ -239,6 +239,7 @@
       <panel name="[param:label]" width="100%" height="65" onclickup="[param:action]" _form="[param:label]" _alias="[param:alias]">
         <text name="label" width="100%" height="100%" leftinset="20" style="darktext" size="20" alignment="left" text="[param:label]"></text>
         <image name="saved-check" source="images/saved-check.png" width="30" height="30" valign="center" align="right" margin-right="20" alpha="0"></image>
+        <text name="required" width="30" height="30" ypos="24" align="right" margin-right="20" color="#ed1c24" font="Helvetica-Bold" size="30" alignment="center" text="*" alpha="[param:required]"></text>
         <panel name="border" width="100%" height="1" valign="bottom" background="#e3e3e3"></panel>
         <image name="arrow" source="images/sidebar-arrow.png" width="20" xpos="101%" valign="center"></image>
       </panel>
@@ -615,7 +616,7 @@
         <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="15" alignment="left" text="EXISTING ROOF INFORMATION"></text>
         <panel name="rooftype" alias="ROOFTYPE" width="226" height="50" align="left" bottomof="subtitle" style="textinput">
           <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
-          <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Roof Type"></text>
+          <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Type"></text>
           <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" _next="none" _action="null"></textfield>
           <panel name="active" style="100" onclickup="dropon" _field="ROOFTYPE" _drop="INSPECTION" _droptype="ROOFTYPEDROP"></panel>
         </panel>
@@ -988,7 +989,7 @@
           </panel>
         </panel>
         <panel name="notbox" width="[eval:[object:PN[param:index].width] - 150]" height="200" align="right" valign="center" clip="yes" padding-left="20">
-          <text name="note" width="100%" height="fit" style="darktext" size="18" alignment="left" text="[param:note]"></text>
+          <text name="note" width="100%" height="fit" style="darktext" size="18" alignment="left" text="[eval: decodeURIComponent('[param:note]') ]"></text>
         </panel>
         <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
       </panel>
@@ -1793,18 +1794,18 @@
         
         <panel name="roof-sidebar" width="256" height="100%" background="#bfbfbf">
           <pager name="roof-sidebar-pager" alias="ROOF-SIDEBAR-PAGER" style="100" orientation="vertical" paginate="no">
-            <object class="sidebar" alias="INSPECTION" label="Inspection" action="sidebar-roof" />
+            <object class="sidebar" alias="INSPECTION" label="Inspection" action="sidebar-roof" required="1" />
             <!--<object class="sidebar" alias="FASCIA" label="Fascia" action="sidebar-roof" />-->
-            <object class="sidebar" alias="ROOF AREA" label="Roof Areas" action="sidebar-roof" />
-            <object class="sidebar" alias="WASTE" label="Waste" action="sidebar-roof" />
-            <object class="sidebar" alias="RIDGE" label="Ridges" action="sidebar-roof" />
-            <object class="sidebar" alias="HIP" label="Hips" action="sidebar-roof" />
-            <object class="sidebar" alias="VALLEY" label="Valleys" action="sidebar-roof" />
-            <object class="sidebar" alias="RAKE" label="Rakes" action="sidebar-roof" />
-            <object class="sidebar" alias="EAVE" label="Eaves" action="sidebar-roof" />
-            <object class="sidebar" alias="CHIMNEY" label="Chimney &amp; Skylights" action="sidebar-roof" />
-            <object class="sidebar" alias="VENT" label="Plumbing Vents" action="sidebar-roof" />
-            <object class="sidebar" alias="PHOTO" label="Photos" action="sidebar-roof" />
+            <object class="sidebar" alias="ROOF AREA" label="Roof Areas" action="sidebar-roof" required="1" />
+            <object class="sidebar" alias="WASTE" label="Waste" action="sidebar-roof" required="0" />
+            <object class="sidebar" alias="RIDGE" label="Ridges" action="sidebar-roof" required="0" />
+            <object class="sidebar" alias="HIP" label="Hips" action="sidebar-roof" required="0" />
+            <object class="sidebar" alias="VALLEY" label="Valleys" action="sidebar-roof" required="0" />
+            <object class="sidebar" alias="RAKE" label="Rakes" action="sidebar-roof" required="0" />
+            <object class="sidebar" alias="EAVE" label="Eaves" action="sidebar-roof" required="0" />
+            <object class="sidebar" alias="CHIMNEY" label="Chimney &amp; Skylights" action="sidebar-roof" required="0" />
+            <object class="sidebar" alias="VENT" label="Plumbing Vents" action="sidebar-roof" required="0" />
+            <object class="sidebar" alias="PHOTO" label="Photos" action="sidebar-roof" required="0" />
           </pager>
           <panel name="roof-sidebar-blocker" alias="ROOF-SIDEBAR-BLOCKER" style="100" xpos="-101%"></panel>
         </panel>
@@ -1941,9 +1942,9 @@
       <panel name="products" alias="PRODUCTS" width="100%" height="[eval: [object:CONTAINER.height] - 127]" ypos="127" alpha="0">
         <panel name="products-sidebar" width="256" height="100%" background="#bfbfbf">
           <pager name="products-sidebar-pager" alias="PRODUCTS-SIDEBAR-PAGER" style="100" orientation="vertical" paginate="no">
-            <object class="sidebar" alias="SHINGLES" label="Shingles" action="sidebar-products" />
-            <object class="sidebar" alias="WARRANTY" label="Warranty" action="sidebar-products" />
-            <object class="sidebar" alias="ACCESSORIES" label="Accessories" action="sidebar-products" />
+            <object class="sidebar" alias="SHINGLES" label="Shingles" action="sidebar-products" required="0" />
+            <object class="sidebar" alias="WARRANTY" label="Warranty" action="sidebar-products" required="0" />
+            <object class="sidebar" alias="ACCESSORIES" label="Accessories" action="sidebar-products" required="0" />
             <!--<object class="sidebar" alias="OPTIONS" label="Options" action="sidebar-products" />-->
           </pager>
           <panel name="products-step-blocker" alias="PRODUCTS-STEP-BLOCKER" width="100%" height="130" ypos="65" ></panel>
@@ -1992,8 +1993,8 @@
       <panel name="services" alias="SERVICES" width="100%" height="[eval: [object:CONTAINER.height] - 127]" ypos="127" alpha="0">
         <panel name="services-sidebar" width="256" height="100%" background="#bfbfbf">
           <pager name="services-sidebar-pager" alias="SERVICES-SIDEBAR-PAGER" style="100" orientation="vertical" paginate="no">
-            <object class="sidebar" alias="TEAROFF" label="Tear Off" action="sidebar-services" />
-            <object class="sidebar" alias="ASSETPROTECTION" label="Asset Protection" action="sidebar-services" />
+            <object class="sidebar" alias="TEAROFF" label="Tear Off" action="sidebar-services" required="0" />
+            <object class="sidebar" alias="ASSETPROTECTION" label="Asset Protection" action="sidebar-services" required="0" />
           </pager>
           <panel name="products-sidebar-blocker" alias="SERVICES-SIDEBAR-BLOCKER" style="100" xpos="-101%"></panel>
         </panel>
@@ -2772,15 +2773,18 @@
     </action>
     
     <action name="newestimate">
-		  <play action="resetSummaryVars"/>
-		  <play action="resetRoofIndices" />
-		  <play action="resetAccessoryVars" />
-			<assign property="datasource:accessoriesdb-delete.query" value="DELETE FROM ACCESSORIES;" />
-			<assign property="datasource:photosdb-delete.query" value="DELETE FROM PHOTOS;" />
-			<assign property="datasource:photosdb-list.query" value="SELECT * FROM PHOTOS;" />
-      <alpha value="0" time=".25" target="CHOICE" />
-      <assign property="datasource:states.source" value="res://states.xml" />
-      <assign property="datasource:provinces.source" value="res://provinces.xml" />
+		  <sync>
+		    <play action="resetSummaryVars"/>
+		    <play action="resetRoofIndices" />
+		    <play action="resetAccessoryVars" />
+			  <assign property="datasource:accessoriesdb-delete.query" value="DELETE FROM ACCESSORIES;" />
+			  <assign property="datasource:photosdb-delete.query" value="DELETE FROM PHOTOS;" />
+			  <assign property="datasource:photosdb-list.query" value="SELECT * FROM PHOTOS;" />
+        <alpha value="0" time=".25" target="CHOICE" />
+        <assign property="datasource:states.source" value="res://states.xml" />
+        <assign property="datasource:provinces.source" value="res://provinces.xml" />
+        <assign property="var:loaded" value="yes" />
+      </sync>
     </action>
     
     
@@ -3047,7 +3051,7 @@
         <assign property="datasource:camera-roll.source" value="asd" />
         <play action="hideclearcurtain" />
         <assign property="var:photolocation" value="roll" />
-		<alpha value="0" target="HEADER" />
+        <alpha value="0" target="HEADER" />
       </sync>
     </action>
 
@@ -3062,7 +3066,7 @@
         <alpha value="0" time=".25" target="CAMERAMENU" />
         <translate ypos="0" time=".25" curve="easeout" target="CAMERABOX" />
         <play action="hideclearcurtain" />
-		<alpha value="0" target="HEADER" />
+        <alpha value="0" target="HEADER" />
       </sync>
     </action>
     
@@ -3070,7 +3074,7 @@
       <sync>
         <translate ypos="101%" time=".25" curve="easeout" target="CAMERAROLL" />
         <delete target="CAMERA-ROLL" />
-		<alpha value="1" target="HEADER" />
+        <alpha value="1" target="HEADER" />
       </sync>
     </action>
 
@@ -3108,7 +3112,7 @@
         <play action="db-that-photo" />
         <translate ypos="101%" time=".25" curve="easeout" target="ADDNOTE" />
         <delete target="ADDNOTE" />
-		<alpha value="1" target="HEADER" />
+        <alpha value="1" target="HEADER" />
       </sync>
     </action>
 
@@ -3259,6 +3263,7 @@
         <translate xpos="101%" curve="linear" target="NAVBLOCK" />
         <if lhs="[var:navwas]" operator="e" rhs="ROOF">
           <!-- <play action="[var:roof]" />-->
+          <assign property="var:summaryarea" value="0" />
           <assign property="var:leakbarrier" value="[eval: [var:ridgestotal] + [var:hipstotal] + [var:valleystotal] + [var:rakestotal] + [var:eavestotal]]" />
           <assign property="var:starterstrips" value="[eval: [var:rakestotal] + [var:eavestotal]]" />
 
@@ -3568,6 +3573,7 @@
     <!-- !customer actions -->
     <action name="saveCustomer">
       <sync>
+        <!--<alert title="customers saved" message="[datasource:customersdb-list.dataSourceResultCount]" />-->
         <if lhs="[datasource:customersdb-list.dataSourceResultCount]" operator="gt" rhs="0">
           <assign property="datasource:customersdb-delete.query" value="DELETE FROM CUSTOMERS;" />
           <!--<alert message="from the if and deleting [datasource:customersdb-list.dataSourceResultCount]" />-->
@@ -3576,6 +3582,7 @@
             <!--<alert message="from the else, nothing to delete" />-->
           </else>
         </if>
+        
       </sync>
     </action>
     
@@ -3789,7 +3796,10 @@
       <assign property="datasource:inspectiondb-list.query" value="SELECT * FROM INSPECTION;" />
       <play action="roof-saving-modal-hide" />
       <if lhs="[var:loaded]" operator="e" rhs="yes">
-        <alpha value="1" time=".1" target="ROOF-SIDEBAR-PAGER/Inspection/saved-check" />
+        <sync>
+          <alpha value="0" time=".1" target="ROOF-SIDEBAR-PAGER/Inspection/required" />
+          <alpha value="1" time=".1" target="ROOF-SIDEBAR-PAGER/Inspection/saved-check" />
+        </sync>
       </if>
     </action>
     
@@ -3883,7 +3893,10 @@
             <assign property="var:navstep-areas" value="yes" />
             <play action="roof-saving-modal-hide" />
             <if lhs="[var:loaded]" operator="e" rhs="yes">
-              <alpha value="1" time=".1" target="ROOF-SIDEBAR-PAGER/Roof Areas/saved-check" />
+              <sync>
+                <alpha value="0" time=".1" target="ROOF-SIDEBAR-PAGER/Roof Areas/required" />
+                <alpha value="1" time=".1" target="ROOF-SIDEBAR-PAGER/Roof Areas/saved-check" />
+              </sync>
             </if>
           </else>
         </if>
@@ -4470,21 +4483,21 @@
       <alpha value="0" time=".25" target="_drop/drop" />
       <alpha value="0" time=".25" target="[var:droptype]" />
       <assign property="var:droptype" value="null" />
-      <set onclickup="dropon" />
+      <set onclickup="dropon" target="_target" />
     </action>
     
     <action name="setstate">
       <sync>
         <assign property="object:STATE/input.text" value="_abbr" />
         <!--<alert message="_abbr" />-->
-        <play action="dropoff" _drop="ADDRESS" />
+        <play action="dropoff" _drop="ADDRESS" _target="STATE/active" />
       </sync>
     </action>
     
     <action name="setprovince">
       <sync>
         <assign property="object:PROVINCE/input.text" value="_abbr" />
-        <play action="dropoff" _drop="ADDRESS" />
+        <play action="dropoff" _drop="ADDRESS" _target="PROVINCE/active" />
       </sync>
     </action>
     
@@ -4507,14 +4520,14 @@
     <action name="setrooftype">
       <sync>
         <assign property="object:ROOFTYPE/input.text" value="_type" />
-        <play action="dropoff" _drop="INSPECTION" />
+        <play action="dropoff" _drop="INSPECTION" _target="ROOFTYPE/active" />
       </sync>
     </action>
     
     <action name="setfloor">
       <sync>
         <assign property="object:FLOORS/input.text" value="_floors" />
-        <play action="dropoff" _drop="INSPECTION" />
+        <play action="dropoff" _drop="INSPECTION" _target="FLOORS/active" />
       </sync>
     </action>
     
@@ -4523,21 +4536,21 @@
         <assign property="var:slopeindex" value="_slopeindex" />
         <assign property="var:slope-[var:areaindex]" value="_factor" />
         <assign property="object:SLOPE[var:slopeindex]/input.text" value="_slope   _factor" />
-        <play action="dropoff" _drop="ROOF-AREA[var:slopeindex]" />
+        <play action="dropoff" _drop="ROOF-AREA[var:slopeindex]" _target="SLOPE[var:slopeindex]/active" />
       </sync>
     </action>
     
     <action name="setlayers">
       <sync>
         <assign property="object:LAYERS/input.text" value="_layers" />
-        <play action="dropoff" _drop="TEAROFF" />
+        <play action="dropoff" _drop="TEAROFF" _target="LAYERS/active" />
       </sync>
     </action>
     
     <action name="setmaterial">
       <sync>
         <assign property="object:TYPE/input.text" value="_material" />
-        <play action="dropoff" _drop="TEAROFF" />
+        <play action="dropoff" _drop="TEAROFF" _target="TYPE/active" />
       </sync>
     </action>
     
@@ -4625,7 +4638,7 @@
       <assign property="var:selectedshingle" value="_index" />
       <assign property="var:shingle-col" value="_col" />
       <assign property="var:shingle-row" value="_rowindex" />
-
+      
       <delete target="COLORPAGER" />
       <assign property="var:shingleSelected" value="_value" />
       <assign property="var:colorCount" value="[eval:JSON.parse('[datasource:getProducts._value.Color]').length]" />
@@ -4670,16 +4683,17 @@
     <action name="setcolor">
       <play action="released" />
       <sync>
-	  	<assign property="var:productImage" value="_image" />
-<!-- 	  	<alert message="var:productImage is [var:productImage]" /> -->
+	  	  <assign property="var:productImage" value="_image" />
+        <!-- 	  	<alert message="var:productImage is [var:productImage]" /> -->
         <assign property="var:color" value="_value" />
-<!--         <alert message="[var:shingle] [var:color]" /> -->
-		<assign property="datasource:getWarranties.source" value="https://162.209.101.177/api/GetWarranties?productId=[var:shingle]" />
+        <!--         <alert message="[var:shingle] [var:color]" /> -->
+        <assign property="datasource:getWarranties.source" value="https://162.209.101.177/api/GetWarranties?productId=[var:shingle]" />
       </sync>
       <sync>
         <play action="colordismiss" />
         <play action="sidebar-products" _alias="WARRANTY" _form="Warranty" />
-        
+        <alpha value="1" time=".1" target="UPLOAD-CURTAIN" />
+        <assign property="object:UPLOAD-CURTAIN/photo-progress.text" value="Retrieving Warranties" />
       </sync>
     </action>
     
@@ -4687,6 +4701,8 @@
 	<action name="warranties-complete" datasource="getWarranties" datasourceevent="querycomplete" >
 <!-- 		<alert message="warranties complete content is [datasource:getWarranties.0.content]" /> -->
     <translate ypos="130" curve="linear" target="PRODUCTS-STEP-BLOCKER" />
+    <alpha value="0" time=".1" target="UPLOAD-CURTAIN" />
+    <assign property="object:UPLOAD-CURTAIN/photo-progress.text" value="" />
 	</action>
 
 	<action name="warranties-error" datasource="getWarranties" datasourceevent="datasourceerror" >
@@ -4707,8 +4723,11 @@
         <assign property="var:accessories" value="_accessories" />
         <assign property="var:warrantyname" value="_title" />
         <assign property="var:warrantycheck" encoding="url" value="_title" />
+        <alpha value="1" time=".1" target="UPLOAD-CURTAIN" />
+        <assign property="object:UPLOAD-CURTAIN/photo-progress.text" value="Retrieving Accessories" />
         <if lhs="[var:warrantycheck]" operator="e" rhs="GAF%C2%AE%20Golden%20Pledge%C2%AE%20Limited%20Warranty">
           <alpha value="0" time=".1" target="TEAROFF-MASK" />
+          <alpha value="1" target="TEAROFF-BLOCK" />
           <scale width="[eval: ('_action' == 'remember' ? '24' : '40')]" height="[eval: ('_action' == 'remember' ? '24' : '40')]" align="center" valign="center" time=".1" alpha="1" target="TEAROFFSERVICE/check" />
           <set onclickup="checkoff" target="TEAROFFSERVICE" />
           <alpha value="1" target="TEAROFF-BLOCK" />
@@ -4717,7 +4736,9 @@
           <set onclickup="warranty-message" target="STEP-NAVBLOCK" />
           <set onchange="tearoff-go" target="LAYERS/input" />
           <set onchange="tearoff-go" target="TYPE/input" />
+          <!--<alert message="fields mask is off, checkbox is on and blocked" />-->
           <else>
+            <!--<alert message="check block is off, field mask is on" />-->
             <alpha value="1" time=".1" target="TEAROFF-MASK" />
             <alpha value="0" target="TEAROFF-BLOCK" />
             <scale width="0" height="0" align="center" valign="center" time=".1" alpha="0" target="TEAROFFSERVICE/check" />
@@ -4782,6 +4803,8 @@
 		</loop>
 -->
 		<play action="sidebar-products" _alias="ACCESSORIES" _form="Accessories" />
+		<alpha value="0" time=".1" target="UPLOAD-CURTAIN" />
+    <assign property="object:UPLOAD-CURTAIN/photo-progress.text" value="" />
 <!-- 		<alert message="accessories-done" /> -->
 	</action>
 
