@@ -4810,18 +4810,15 @@
       <assign property="object:ACCESSORYTYPEPAGER/acessory1/item.text" value="[datasource:getAccessories._value.AccessoryName]" />
       <assign property="object:ACCESSORYTYPEPAGER/acessory1/description.text" value="[datasource:getAccessories._value.Description]" />
       <assign property="var:cur-acc-cat" value="[datasource:getAccessories._value.AccessoryCategory]" />
+      <play action="blur" />
       <if lhs="[datasource:getAccessories._value.AccessoryCategory]" operator="e" rhs="Leak Barrier">
-          <if lhs="[var:leakbarrier]" operator="gte" rhs="1">
-			  <play action="blur" />
+        <if lhs="[var:leakbarrier]" operator="gte" rhs="1">
           <assign property="object:UNITMEASURE.text" value="[var:leakbarrier] ft needed" />
           <assign property="object:UNITEQUALS.text" value="1 = _coverage ft _units" />
           <assign property="var:cur-leak-index" value="_value" />
           <assign property="var:autoquantity" value="[eval: Math.ceil([var:leakbarrier] / _coverage ) ]" />
           <assign property="object:ACCESSORYQUANTITY/input.text" value="[var:autoquantity]" />
           <assign property="object:ACCESSORY-AUTOQUANTITY.text" value="[var:autoquantity] Units" />
-          <alpha value="0" target="ACCESSORYQUANTITY" />
-          <alpha value="1" target="ACCESSORY-AUTOQUANTITY" />
-          <alpha value="0" target="ACCESSORY-UNIT" />
           <alpha value="1" time=".25" target="ACCESSORYLIST" />
           <translate valign="center" time=".25" curve="easeout" target="ACCESSORYLIST" />
           <assign property="var:curtainaction" value="accessorydismiss" />
@@ -4833,16 +4830,13 @@
       </if>
       <if lhs="[datasource:getAccessories._value.AccessoryCategory]" operator="e" rhs="Roof Deck Protection">
         <if lhs="[var:squarestotal]" operator="gte" rhs="1">
-			<play action="blur" />
           <assign property="object:UNITMEASURE.text" value="" />
-          <assign property="object:UNITEQUALS.text" value="1 = _coverage ft _units" />
+          <assign property="object:UNITEQUALS.text" value="1 roll = _coverage squares _units" />
           <assign property="var:cur-roofdeck-index" value="_value" />
+          <!--<alert title="roof deck protection" message="[var:squarestotal] / _coverage = [eval: Math.ceil( [var:squarestotal] / _coverage ) ]" />-->
           <assign property="var:autoquantity" value="[eval: Math.ceil( [var:squarestotal] / _coverage ) ]" />
           <assign property="object:ACCESSORYQUANTITY/input.text" value="[var:autoquantity]" />
-          <assign property="object:ACCESSORY-AUTOQUANTITY.text" value="[var:autoquantity] Units" />
-          <alpha value="0" target="ACCESSORYQUANTITY" />
-          <alpha value="1" target="ACCESSORY-AUTOQUANTITY" />
-          <alpha value="0" target="ACCESSORY-UNIT" />
+          <assign property="object:ACCESSORY-AUTOQUANTITY.text" value="[var:autoquantity] Rolls" />
           <alpha value="1" time=".25" target="ACCESSORYLIST" />
           <translate valign="center" time=".25" curve="easeout" target="ACCESSORYLIST" />
           <assign property="var:curtainaction" value="accessorydismiss" />
@@ -4854,16 +4848,12 @@
       </if>
       <if lhs="[datasource:getAccessories._value.AccessoryCategory]" operator="e" rhs="Starter Strips">
         <if lhs="[var:starterstrips]" operator="gte" rhs="1">
-			<play action="blur" />
           <assign property="object:UNITMEASURE.text" value="[var:starterstrips] ft needed" />
           <assign property="object:UNITEQUALS.text" value="1 = _coverage ft _units" />
           <assign property="var:cur-starter-index" value="_value" />
           <assign property="var:autoquantity" value="[eval: Math.ceil([var:starterstrips] / _coverage ) ]" />
           <assign property="object:ACCESSORYQUANTITY/input.text" value="[var:autoquantity]" />
           <assign property="object:ACCESSORY-AUTOQUANTITY.text" value="[var:autoquantity] Units" />
-          <alpha value="0" target="ACCESSORYQUANTITY" />
-          <alpha value="1" target="ACCESSORY-AUTOQUANTITY" />
-          <alpha value="0" target="ACCESSORY-UNIT" />
           <alpha value="1" time=".25" target="ACCESSORYLIST" />
           <translate valign="center" time=".25" curve="easeout" target="ACCESSORYLIST" />
           <assign property="var:curtainaction" value="accessorydismiss" />
@@ -4877,24 +4867,16 @@
         <assign property="object:UNITMEASURE.text" value="" />
         <assign property="object:UNITEQUALS.text" value="" />
         <assign property="var:cur-ventilation-index" value="_value" />
-        <alpha value="1" target="ACCESSORYQUANTITY" />
-        <alpha value="0" target="ACCESSORY-AUTOQUANTITY" />
-        <alpha value="1" target="ACCESSORY-UNIT" />
-        <!--<alert title="[datasource:getAccessories._value.AccessoryName]" message="[eval:('[datasource:getAccessories._value.AccessoryName]').indexOf('Master')]" />-->
         <if lhs="[eval:('[datasource:getAccessories._value.AccessoryName]').indexOf('Cobra')]" operator="gte" rhs="0">
           <!--<alert message="It's a Cobra" />-->
           <if lhs="[eval:('[datasource:getAccessories._value.AccessoryName]').indexOf('Hip Vent')]" operator="gte" rhs="0">
             <if lhs="[var:hipvent-total]" operator="gte" rhs="1">
-				<play action="blur" />
               <assign property="object:UNITMEASURE.text" value="[var:hipvent-total] ft needed" />
               <assign property="object:UNITEQUALS.text" value="1 = _coverage ft _units" />
               <assign property="var:autoquantity" value="[eval: Math.ceil([var:hipvent-total] / _coverage ) ]" />
               <!--<alert title="Number of hip units needed" message="[eval: Math.ceil([var:hipvent-total] / _coverage ) ]" />-->
               <assign property="object:ACCESSORYQUANTITY/input.text" value="[var:autoquantity]" />
               <assign property="object:ACCESSORY-AUTOQUANTITY.text" value="[var:autoquantity] Units" />
-              <alpha value="0" target="ACCESSORYQUANTITY" />
-              <alpha value="1" target="ACCESSORY-AUTOQUANTITY" />
-              <alpha value="0" target="ACCESSORY-UNIT" />
               <alpha value="1" time=".25" target="ACCESSORYLIST" />
               <translate valign="center" time=".25" curve="easeout" target="ACCESSORYLIST" />
               <assign property="var:curtainaction" value="accessorydismiss" />
@@ -4905,31 +4887,25 @@
             </if>
             <else>
               <if lhs="[eval:('[datasource:getAccessories._value.AccessoryName]').indexOf('FasciaFlow')]" operator="gte" rhs="0">
-				  <play action="blur" />
-		        <assign property="object:UNITMEASURE.text" value="" />
-		        <assign property="object:UNITEQUALS.text" value="" />
-		        <assign property="var:cur-ventilation-index" value="_value" />
-		        <alpha value="1" target="ACCESSORYQUANTITY" />
-		        <alpha value="0" target="ACCESSORY-AUTOQUANTITY" />
-		        <alpha value="1" target="ACCESSORY-UNIT" />
-		        <alpha value="1" time=".25" target="ACCESSORYLIST" />
-		        <translate valign="center" time=".25" curve="easeout" target="ACCESSORYLIST" />
-		        <assign property="var:curtainaction" value="accessorydismiss" />
+                <assign property="object:UNITMEASURE.text" value="" />
+                <assign property="object:UNITEQUALS.text" value="" />
+                <assign property="var:cur-ventilation-index" value="_value" />
+                <alpha value="1" time=".25" target="ACCESSORYLIST" />
+                <translate valign="center" time=".25" curve="easeout" target="ACCESSORYLIST" />
+                <assign property="var:curtainaction" value="accessorydismiss" />
                 <else><!-- ridge vents -->
                   <if lhs="[var:ridgevent-total]" operator="gte" rhs="1">
-					  <play action="blur" />
                     <assign property="object:UNITMEASURE.text" value="[var:ridgevent-total] ft needed" />
                     <assign property="object:UNITEQUALS.text" value="1 = _coverage ft _units" />
                     <assign property="var:autoquantity" value="[eval: Math.ceil([var:ridgevent-total] / _coverage ) ]" />
                     <assign property="object:ACCESSORYQUANTITY/input.text" value="[var:autoquantity]" />
                     <assign property="object:ACCESSORY-AUTOQUANTITY.text" value="[var:autoquantity] Units" />
-                    <alpha value="0" target="ACCESSORYQUANTITY" />
-                    <alpha value="1" target="ACCESSORY-AUTOQUANTITY" />
-                    <alpha value="0" target="ACCESSORY-UNIT" />
                     <alpha value="1" time=".25" target="ACCESSORYLIST" />
                     <translate valign="center" time=".25" curve="easeout" target="ACCESSORYLIST" />
                     <assign property="var:curtainaction" value="accessorydismiss" />
+                    <alert message="SELECT * FROM ACCESSORIES WHERE NAME='[var:cur-ridgevent]';" />
                     <assign property="datasource:accessoriesdb-deletelist-ridgevent.query" value="SELECT * FROM ACCESSORIES WHERE NAME='[var:cur-ridgevent]';" />
+                    <assign property="var:cur-ridgevent" value="[datasource:getAccessories._value.AccessoryName]" />
                     <else>
                       <alert message="No corresponding roof measurements were entered for this accessory" buttononeaction="focus" />
                     </else>
@@ -4938,25 +4914,17 @@
               </if>
             </else>
           </if>
-          <else>
-            <alpha value="1" time=".25" target="ACCESSORYLIST" />
-            <translate valign="center" time=".25" curve="easeout" target="ACCESSORYLIST" />
-            <assign property="var:curtainaction" value="accessorydismiss" />
-          </else>
         </if>
       </if>
       <if lhs="[datasource:getAccessories._value.AccessoryCategory]" operator="e" rhs="Ridge Cap">
         <if lhs="[var:ridgestotal]" operator="gte" rhs="1">
-      <play action="blur" />
+          <!--<play action="blur" />-->
           <assign property="object:UNITMEASURE.text" value="[var:ridgestotal] ft needed" />
           <assign property="object:UNITEQUALS.text" value="1 = _coverage ft _units" />
           <assign property="var:cur-ridgecap-index" value="_value" />
           <assign property="var:autoquantity" value="[eval: Math.ceil([var:ridgestotal] / _coverage ) ]" />
           <assign property="object:ACCESSORYQUANTITY/input.text" value="[var:autoquantity]" />
           <assign property="object:ACCESSORY-AUTOQUANTITY.text" value="[var:autoquantity] Units" />
-          <alpha value="0" target="ACCESSORYQUANTITY" />
-          <alpha value="1" target="ACCESSORY-AUTOQUANTITY" />
-          <alpha value="0" target="ACCESSORY-UNIT" />
           <alpha value="1" time=".25" target="ACCESSORYLIST" />
           <translate valign="center" time=".25" curve="easeout" target="ACCESSORYLIST" />
           <assign property="var:curtainaction" value="accessorydismiss" />
@@ -4967,20 +4935,16 @@
         </if>
       </if>
       <if lhs="[datasource:getAccessories._value.AccessoryCategory]" operator="e" rhs="Miscellaneous Accessory">
-      <play action="blur" />
         <assign property="object:UNITMEASURE.text" value="" />
         <assign property="object:UNITEQUALS.text" value="" />
         <assign property="var:cur-ventilation-index" value="_value" />
-        <alpha value="1" target="ACCESSORYQUANTITY" />
-        <alpha value="0" target="ACCESSORY-AUTOQUANTITY" />
-        <alpha value="1" target="ACCESSORY-UNIT" />
         <alpha value="1" time=".25" target="ACCESSORYLIST" />
         <translate valign="center" time=".25" curve="easeout" target="ACCESSORYLIST" />
         <assign property="var:curtainaction" value="accessorydismiss" />
       </if>
-      <!--<alpha value="1" time=".25" target="ACCESSORYLIST" />
+      <alpha value="1" time=".25" target="ACCESSORYLIST" />
       <translate valign="center" time=".25" curve="easeout" target="ACCESSORYLIST" />
-      <assign property="var:curtainaction" value="accessorydismiss" />-->
+      <assign property="var:curtainaction" value="accessorydismiss" />
     </action>
     
     <action name="selectaccessory-delete-prev" datasource="accessoriesdb-deletelist" datasourceevent="querycomplete">
@@ -4997,11 +4961,11 @@
     <action name="selectaccessory-delete-prev2" datasource="accessoriesdb-deletelist-ridgevent" datasourceevent="querycomplete">
       <if lhs="[var:loaded]" operator="e" rhs="yes">
         <sync>
-          <if lhs="[datasource:accessoriesdb-list.dataSourceResultCount]" operator="gte" rhs="1">
-<!--             <alert title="count = [datasource:accessoriesdb-deletelist-ridgevent.dataSourceResultCount]" message="DELETE FROM ACCESSORIES WHERE NAME='[var:cur-ridgevent]';" /> -->
-            <assign property="datasource:accessoriesdb-delete.query" value="DELETE FROM ACCESSORIES WHERE NAME='[var:cur-ridgevent]';" />
-            <assign property="var:cur-ridgevent" value="[datasource:getAccessories._value.AccessoryName]" />
+          <if lhs="[datasource:accessoriesdb-list.dataSourceResultCount]" operator="gt" rhs="0">
+            <alert title="count = [datasource:accessoriesdb-deletelist-ridgevent.dataSourceResultCount]" message="DELETE FROM ACCESSORIES WHERE NAME='[var:prev-ridgevent]';" />
+            <assign property="datasource:accessoriesdb-delete.query" value="DELETE FROM ACCESSORIES WHERE NAME='[var:prev-ridgevent]';" />
           </if>
+          <assign property="var:prev-ridgevent" value="[var:cur-ridgevent]" />
         </sync>
       </if>
     </action>
@@ -5025,31 +4989,27 @@
     </action>
     
     <action name="selectaccessory-save">
-        <play action="released" />
-	      <if lhs="[object:ACCESSORYQUANTITY/input.text]" operator="ne" rhs="">
-          <assign property="var:accessoryCount" value="[eval:[var:accessoryCount]+1]" />
-          <assign property="var:accessory-[var:accessoryCount]-Quantity" value="[object:ACCESSORYQUANTITY/input.text]" />			  
-          <assign property="var:accessory-[var:accessoryCount]" value="[datasource:getAccessories.[var:accessorySelected].AccessoryId]" />
-          <assign property="var:accessory-[var:accessoryCount]-Name" value="[datasource:getAccessories.[var:accessorySelected].AccessoryName]" />
-          <assign property="var:accessory-[var:accessoryCount]-Type" value="[datasource:getAccessories.[var:accessorySelected].AccessoryCategory]" />
-          <!-- 	  <alert message="var:accessory-[var:accessoryCount] is [var:accessory-[var:accessoryCount]]" /> -->
-          <assign property="datasource:accessoriesdb.query" value="INSERT INTO ACCESSORIES (NAME, TYPE, ACCESSORY, QUANTITY) VALUES ('[var:accessory-[var:accessoryCount]-Name]', '[var:accessory-[var:accessoryCount]-Type]', '[var:accessory-[var:accessoryCount]]', '[var:accessory-[var:accessoryCount]-Quantity]');" />
-          <!--<alert message="INSERT INTO ACCESSORIES (NAME, TYPE, ACCESSORY, QUANTITY) VALUES ('[var:accessory-[var:accessoryCount]-Name]', '[var:accessory-[var:accessoryCount]-Type]', '[var:accessory-[var:accessoryCount]]', '[var:accessory-[var:accessoryCount]-Quantity]');" />-->
-          <if lhs="[eval:[var:accessories]-[var:accessoryCount]]" operator="gt" rhs="0">
-<!--             <alert message="accessory selected. you must select [eval:[var:accessories]-[var:accessoryCount]] more accessories for the warranty you have chosen" /> -->
-            <else>
-            	<!--<alert message="accessory selected" />-->
-            	<alpha value="1" time=".10" target="AC-SEL-MODAL" />
-            	<alpha value="0" time=".25" delay=".6" target="AC-SEL-MODAL" />
-            	<!--<alpha value="0" time="0" target="ACCESSORY-PAGER-BOX/pager/accessory[var:cur-leak-index]/accessory-btn/test/button" />
-              <alpha value="1" time=".2" target="ACCESSORY-PAGER-BOX/pager/accessory[var:cur-leak-index]/accessory-btn/test/selected" />-->
-            </else>
-          </if>
-          <play action="accessorydismiss" />
+      <play action="released" />
+      <if lhs="[object:ACCESSORYQUANTITY/input.text]" operator="ne" rhs="">
+        <assign property="var:accessoryCount" value="[eval:[var:accessoryCount]+1]" />
+        <assign property="var:accessory-[var:accessoryCount]-Quantity" value="[object:ACCESSORYQUANTITY/input.text]" />			  
+        <assign property="var:accessory-[var:accessoryCount]" value="[datasource:getAccessories.[var:accessorySelected].AccessoryId]" />
+        <assign property="var:accessory-[var:accessoryCount]-Name" value="[datasource:getAccessories.[var:accessorySelected].AccessoryName]" />
+        <assign property="var:accessory-[var:accessoryCount]-Type" value="[datasource:getAccessories.[var:accessorySelected].AccessoryCategory]" />
+        <!-- 	  <alert message="var:accessory-[var:accessoryCount] is [var:accessory-[var:accessoryCount]]" /> -->
+        <assign property="datasource:accessoriesdb.query" value="INSERT INTO ACCESSORIES (NAME, TYPE, ACCESSORY, QUANTITY) VALUES ('[var:accessory-[var:accessoryCount]-Name]', '[var:accessory-[var:accessoryCount]-Type]', '[var:accessory-[var:accessoryCount]]', '[var:accessory-[var:accessoryCount]-Quantity]');" />
+        <!--<alert message="INSERT INTO ACCESSORIES (NAME, TYPE, ACCESSORY, QUANTITY) VALUES ('[var:accessory-[var:accessoryCount]-Name]', '[var:accessory-[var:accessoryCount]-Type]', '[var:accessory-[var:accessoryCount]]', '[var:accessory-[var:accessoryCount]-Quantity]');" />-->
+        <if lhs="[eval:[var:accessories]-[var:accessoryCount]]" operator="gt" rhs="0">
           <else>
-            <alert message="Please select a quantity" />
+          	<alpha value="1" time=".10" target="AC-SEL-MODAL" />
+          	<alpha value="0" time=".25" delay=".6" target="AC-SEL-MODAL" />
           </else>
-	      </if>
+        </if>
+        <play action="accessorydismiss" />
+        <else>
+          <alert message="Please select a quantity" />
+        </else>
+      </if>
     </action>
     
     <action name="accessorydismiss">
@@ -5159,11 +5119,9 @@
     <!-- !summary -->
     <action name="estimate">
       <play action="released" />
-		<alpha value="1" target="UPLOAD-CURTAIN" />
-		<assign property="object:UPLOAD-CURTAIN/photo-progress.text" value="Sending Roof Measurements..." />
+      <alpha value="1" target="UPLOAD-CURTAIN" />
+      <assign property="object:UPLOAD-CURTAIN/photo-progress.text" value="Sending Roof Measurements..." />
       <sync>
-
-	  
 <!-- 	  	<alert message="[datasource:inspectiondb-list.dataSourceResultCount]" /> -->
 	  	<if lhs="[datasource:inspectiondb-list.dataSourceResultCount]" operator="gt" rhs="0">
 	        <assign property="var:existingRoofType" value="[datasource:inspectiondb-list.1.ROOFTYPE]" />
@@ -5194,14 +5152,14 @@
       </sync>
     </action>
     
-	<action name="formatRoofMeasurements" >
-		<loop lhs="[var:roofMeasurementsIterateCount]" operator="lte" rhs="[datasource:roofareasdb-list.dataSourceResultCount]" >
-			<assign property="var:roofMeasurementsJSON" value="[var:roofMeasurementsJSON][eval:[var:roofMeasurementsIterateCount] == 1 ? '':','][template:roofMeasurements.content]" />
-			<assign property="var:roofMeasurementsIterateCount" value="[eval: [var:roofMeasurementsIterateCount] +1]" />
-		</loop>
-		<assign property="var:roofMeasurementsObject" value="&quot;RoofMeasurements&quot;: [[var:roofMeasurementsJSON]]" />
-		<play action="prepRidgeMeasurements" />
-	</action>
+    <action name="formatRoofMeasurements" >
+      <loop lhs="[var:roofMeasurementsIterateCount]" operator="lte" rhs="[datasource:roofareasdb-list.dataSourceResultCount]" >
+      	<assign property="var:roofMeasurementsJSON" value="[var:roofMeasurementsJSON][eval:[var:roofMeasurementsIterateCount] == 1 ? '':','][template:roofMeasurements.content]" />
+      	<assign property="var:roofMeasurementsIterateCount" value="[eval: [var:roofMeasurementsIterateCount] +1]" />
+      </loop>
+      <assign property="var:roofMeasurementsObject" value="&quot;RoofMeasurements&quot;: [[var:roofMeasurementsJSON]]" />
+      <play action="prepRidgeMeasurements" />
+    </action>
 	
 		<action name="prepRidgeMeasurements" >
 			<if lhs="[datasource:ridgesdb-list.dataSourceResultCount]" operator="gt" rhs="0">
