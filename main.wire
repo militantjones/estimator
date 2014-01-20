@@ -3266,6 +3266,10 @@
         <if lhs="[var:navwas]" operator="e" rhs="ROOF">
           <!-- <play action="[var:roof]" />-->
           <assign property="var:summaryarea" value="0" />
+          <assign property="var:totalarea" value="0" />
+          <assign property="var:totalareaTemp" value="0" />
+          <assign property="var:squarestotalTemp" value="0" />
+          <assign property="var:squarestotal" value="0" />
           <assign property="var:leakbarrier" value="[eval: [var:ridgestotal] + [var:hipstotal] + [var:valleystotal] + [var:rakestotal] + [var:eavestotal]]" />
           <assign property="var:starterstrips" value="[eval: [var:rakestotal] + [var:eavestotal]]" />
 
@@ -3293,22 +3297,22 @@
         </if>
         <if lhs="_this" operator="e" rhs="SERVICES">
           <if lhs="[var:services]" operator="e" rhs="">
-			<if lhs="[eval:[var:accessories]-[var:accessoryCount]]" operator="lte" rhs="0">
+            <if lhs="[eval:[var:accessories]-[var:accessoryCount]]" operator="lte" rhs="0">
 	            <play action="sidebar-services" _alias="TEAROFF" _form="Tear Off" />
 	          </if>
-			  <else>
-			  	<alert message="You must select [eval:[var:accessories]-[var:accessoryCount]] more accessories before proceeding" />
-			  </else>
+            <else>
+              <alert message="You must select [eval:[var:accessories]-[var:accessoryCount]] more accessories before proceeding" />
+            </else>
           </if>
         </if>
         <if lhs="_this" operator="e" rhs="SUMMARY">
-		<if lhs="[eval:[var:accessories]-[var:accessoryCount]]" operator="lte" rhs="0">
+          <if lhs="[eval:[var:accessories]-[var:accessoryCount]]" operator="lte" rhs="0">
           <play action="summarycalc" />
           <create class="summary-cust" target="SUMMARY-PAGER" cust1name="[datasource:customersdb-list.1.FNAME] [datasource:customersdb-list.1.LNAME]" cust1phone="[datasource:customersdb-list.1.PHONE]" cust1email="[datasource:customersdb-list.1.EMAIL]" cust2name="[datasource:customersdb-list.1.FNAME2] [datasource:customersdb-list.1.LNAME2]" cust2phone="[datasource:customersdb-list.1.PHONE2]" cust2email="[datasource:customersdb-list.1.EMAIL2]" street="[datasource:customersdb-list.1.STREET]" city="[datasource:customersdb-list.1.CITY]" state="[datasource:customersdb-list.1.STATE]" zip="[datasource:customersdb-list.1.POSTAL]"  />
-		  <else>
-		  	<alert message="You must select [eval:[var:accessories]-[var:accessoryCount]] more accessories before proceeding" />
-		  </else>
-		</if>
+          <else>
+          	<alert message="You must select [eval:[var:accessories]-[var:accessoryCount]] more accessories before proceeding" />
+          </else>
+        </if>
         </if>
         <if lhs="[var:navwas]" operator="e" rhs="SUMMARY">
           <delete target="SUMMARY-PAGER" />
@@ -4903,7 +4907,7 @@
                     <alpha value="1" time=".25" target="ACCESSORYLIST" />
                     <translate valign="center" time=".25" curve="easeout" target="ACCESSORYLIST" />
                     <assign property="var:curtainaction" value="accessorydismiss" />
-                    <alert message="SELECT * FROM ACCESSORIES WHERE NAME='[var:cur-ridgevent]';" />
+                    <!--<alert message="SELECT * FROM ACCESSORIES WHERE NAME='[var:cur-ridgevent]';" />-->
                     <assign property="datasource:accessoriesdb-deletelist-ridgevent.query" value="SELECT * FROM ACCESSORIES WHERE NAME='[var:cur-ridgevent]';" />
                     <assign property="var:cur-ridgevent" value="[datasource:getAccessories._value.AccessoryName]" />
                     <else>
@@ -4962,7 +4966,7 @@
       <if lhs="[var:loaded]" operator="e" rhs="yes">
         <sync>
           <if lhs="[datasource:accessoriesdb-list.dataSourceResultCount]" operator="gt" rhs="0">
-            <alert title="count = [datasource:accessoriesdb-deletelist-ridgevent.dataSourceResultCount]" message="DELETE FROM ACCESSORIES WHERE NAME='[var:prev-ridgevent]';" />
+            <!--<alert title="count = [datasource:accessoriesdb-deletelist-ridgevent.dataSourceResultCount]" message="DELETE FROM ACCESSORIES WHERE NAME='[var:prev-ridgevent]';" />-->
             <assign property="datasource:accessoriesdb-delete.query" value="DELETE FROM ACCESSORIES WHERE NAME='[var:prev-ridgevent]';" />
           </if>
           <assign property="var:prev-ridgevent" value="[var:cur-ridgevent]" />
@@ -4996,6 +5000,25 @@
         <assign property="var:accessory-[var:accessoryCount]" value="[datasource:getAccessories.[var:accessorySelected].AccessoryId]" />
         <assign property="var:accessory-[var:accessoryCount]-Name" value="[datasource:getAccessories.[var:accessorySelected].AccessoryName]" />
         <assign property="var:accessory-[var:accessoryCount]-Type" value="[datasource:getAccessories.[var:accessorySelected].AccessoryCategory]" />
+        <!--<if lhs="[datasource:getAccessories.[var:accessorySelected].AccessoryCategory]" operator="e" rhs="Leak Barrier">
+          <alert message="Leak Barrier" />
+        </if>
+        <if lhs="[datasource:getAccessories.[var:accessorySelected].AccessoryCategory]" operator="e" rhs="Roof Deck Protection">
+          <alert message="Roof Deck Protection" />
+        </if>
+        <if lhs="[datasource:getAccessories.[var:accessorySelected].AccessoryCategory]" operator="e" rhs="Starter Strips">
+          <alert message="Starter Strips" />
+        </if>
+        <if lhs="[datasource:getAccessories.[var:accessorySelected].AccessoryCategory]" operator="e" rhs="Ventilation">
+          <alert message="Ventilation" />
+          
+        </if>
+        <if lhs="[datasource:getAccessories.[var:accessorySelected].AccessoryCategory]" operator="e" rhs="Ridge Cap">
+          <alert message="Ridge Cap" />
+        </if>
+        <if lhs="[datasource:getAccessories.[var:accessorySelected].AccessoryCategory]" operator="e" rhs="Miscellaneous Accessory">
+          <alert message="Miscellaneous Accessory" />
+        </if>-->
         <!-- 	  <alert message="var:accessory-[var:accessoryCount] is [var:accessory-[var:accessoryCount]]" /> -->
         <assign property="datasource:accessoriesdb.query" value="INSERT INTO ACCESSORIES (NAME, TYPE, ACCESSORY, QUANTITY) VALUES ('[var:accessory-[var:accessoryCount]-Name]', '[var:accessory-[var:accessoryCount]-Type]', '[var:accessory-[var:accessoryCount]]', '[var:accessory-[var:accessoryCount]-Quantity]');" />
         <!--<alert message="INSERT INTO ACCESSORIES (NAME, TYPE, ACCESSORY, QUANTITY) VALUES ('[var:accessory-[var:accessoryCount]-Name]', '[var:accessory-[var:accessoryCount]-Type]', '[var:accessory-[var:accessoryCount]]', '[var:accessory-[var:accessoryCount]-Quantity]');" />-->
