@@ -104,6 +104,9 @@
     <datasource name="accessoriesdb-delete" source="sql://ACCESSORIES" query="" providertype="sql" />
     <datasource name="accessoriesdb-count" source="sql://ACCESSORIES" query="" providertype="sql" />
     
+    <datasource name="nonMiscAccessoriesdb-list" source="sql://ACCESSORIES" query="SELECT * FROM ACCESSORIES WHERE TYPE&lt;&gt;'Miscellaneous Accessory'" providertype="sql" />
+    <datasource name="miscAccessoriesdb-list" source="sql://ACCESSORIES" query="SELECT * FROM ACCESSORIES WHERE TYPE='Miscellaneous Accessory'" providertype="sql" />
+
     <datasource name="tearoffdb" source="sql://TEAROFF" query="CREATE TABLE IF NOT EXISTS TEAROFF (ID INTEGER PRIMARY KEY AUTOINCREMENT, TEAROFF, LAYERS, MATERIAL);" providertype="sql" />
     <datasource name="tearoffdb-list" source="sql://TEAROFF" query="SELECT * FROM TEAROFF ORDER BY ID DESC;" providertype="sql" />
     <datasource name="tearoffdb-delete" source="sql://TEAROFF" query="" providertype="sql" />
@@ -151,7 +154,7 @@
 		{"CustomerId":[var:customerId],"Measurements":{"MeasurementId":1,"ExistingRoofType":"[var:existingRoofType]","NumberOfFloors":[var:numberOfFloors],[var:roofMeasurementsObject],"WasteFactor":"[var:wasteFactor]",[var:ridgeMeasurementsObject],[var:hipsObject],[var:valleysObject],[var:rakesObject],[var:eavesObject],[var:skylightsObject],[var:plumbingVentsObject]}}
 	]]></texttemplate>
 	<texttemplate name="accessories"><![CDATA[
-		{"AccessoryId":"[datasource:accessoriesdb-list.[var:accessoriesIterateCount].ACCESSORY]","Quantity":"[datasource:accessoriesdb-list.[var:accessoriesIterateCount].QUANTITY]"}
+		{"AccessoryId":"[datasource:nonMiscAccessoriesdb-list.[var:accessoriesIterateCount].ACCESSORY]","Quantity":"[datasource:nonMiscAccessoriesdb-list.[var:accessoriesIterateCount].QUANTITY]"}
 	]]></texttemplate>
 	<texttemplate name="miscAccessories"><![CDATA[
 		{"AccessoryId":"[datasource:miscAccessoriesdb-list.[var:miscAccessoriesIterateCount].ACCESSORY]","Quantity":"[datasource:miscAccessoriesdb-list.[var:miscAccessoriesIterateCount].QUANTITY]"}
@@ -160,7 +163,7 @@
 		{"PriceAjustmentsId":"[eval:[var:adjustmentsIterateCount]-1]","Description":"[eval:decodeURI('[datasource:adjustmentsdb-list.[var:adjustmentsIterateCount].NOTES]')]","Price":"[eval:'[datasource:adjustmentsdb-list.[var:adjustmentsIterateCount].TYPE]' == 'Discount' ? '-':''][datasource:adjustmentsdb-list.[var:adjustmentsIterateCount].AMOUNT]"}
 	]]></texttemplate>
 	<texttemplate name="estimateJSON"><![CDATA[
-		{"CustomerId":"[var:customerId]","ProductId":"[var:shingle]","WarrantyId":"[var:warranty]",[var:accessoriesObject],[var:adjustmentsObject],"AdditionalCost":{"TearOffLayers":[var:tearOffLayers],"TearOffType":"[var:tearOffType]","NumberOfStories":[var:numberOfFloors]}}
+		{"CustomerId":"[var:customerId]","ProductId":"[var:shingle]","WarrantyId":"[var:warranty]",[var:accessoriesObject],[var:miscAccessoriesObject],[var:adjustmentsObject],"AdditionalCost":{"TearOffLayers":[var:tearOffLayers],"TearOffType":"[var:tearOffType]","NumberOfStories":[var:numberOfFloors]}}
 	]]></texttemplate>
 
   </datasources>
@@ -2048,7 +2051,7 @@
         </panel>
         <panel name="bottombar" width="100%" height="67" valign="bottom" background="#343434" padding-right="20">
           <panel name="estimate" width="190" height="50" align="right" valign="center" >
-            <object class="button" name="test" size="20" label="Create Estimate" action="formatEstimate" />
+            <object class="button" name="test" size="20" label="Create Estimate" action="estimate" />
           </panel>
         </panel>
       </panel>
@@ -3289,8 +3292,11 @@
         </if>
         <if lhs="_this" operator="e" rhs="PRODUCTS">
           <if lhs="[var:product]" operator="e" rhs="">
+			  		<alpha value="1" time=".3" target="UPLOAD-CURTAIN" />
+					<assign property="object:UPLOAD-CURTAIN/photo-progress.text" value="Retrieving Products..." />
+					<assign property="datasource:getProducts.source" value="https://162.209.101.177/api/GetProducts?AppSource=1" />
 <!-- 			<alert message="get-products preferences:token is [preferences:token] preferences:contractorId is [preferences:contractorId]" /> -->
-					<play action="estimate" />
+<!-- 					<play action="estimate" /> -->
 <!-- 			      <assign property="datasource:getProducts.source" value="https://162.209.101.177/api/GetProducts?AppSource=1" /> -->
 <!--             <play action="sidebar-products" _alias="SHINGLES" _form="Shingles" /> -->
           </if>
@@ -5193,9 +5199,15 @@
     
     <!-- !summary -->
     <action name="estimate">
+<!--
+	<assign property="var:roofMeasurementsJSON" value="" />
+		<alert message="var:roofMeasurementsJSON is [var:roofMeasurementsJSON]" />
+-->
       <play action="released" />
       <alpha value="1" target="UPLOAD-CURTAIN" />
       <assign property="object:UPLOAD-CURTAIN/photo-progress.text" value="Sending Roof Measurements..." />
+		<assign property="miscAccessoriesdb-list" value="SELECT * FROM ACCESSORIES WHERE TYPE='Miscellaneous Accessory'" />
+		<assign property="nonMiscAccessoriesdb-list" value="SELECT * FROM ACCESSORIES WHERE TYPE&lt;&gt;'Miscellaneous Accessory'" />
       <sync>
 <!-- 	  	<alert message="[datasource:inspectiondb-list.dataSourceResultCount]" /> -->
 	  	<if lhs="[datasource:inspectiondb-list.dataSourceResultCount]" operator="gt" rhs="0">
@@ -5216,6 +5228,7 @@
 -->
 	  	</if>
         <if lhs="[datasource:roofareasdb-list.dataSourceResultCount]" operator="gt" rhs="0">
+<!-- 			<alert message="roofarea count is [datasource:roofareasdb-list.dataSourceResultCount]" /> -->
           <assign property="var:roofMeasurementsIterateCount" value="1" />
           <play action="formatRoofMeasurements" />
           <else>
@@ -5231,6 +5244,7 @@
       <loop lhs="[var:roofMeasurementsIterateCount]" operator="lte" rhs="[datasource:roofareasdb-list.dataSourceResultCount]" >
       	<assign property="var:roofMeasurementsJSON" value="[var:roofMeasurementsJSON][eval:[var:roofMeasurementsIterateCount] == 1 ? '':','][template:roofMeasurements.content]" />
       	<assign property="var:roofMeasurementsIterateCount" value="[eval: [var:roofMeasurementsIterateCount] +1]" />
+<!--       	<alert message="var:roofMeasurementsJSON is [var:roofMeasurementsJSON]" /> -->
       </loop>
       <assign property="var:roofMeasurementsObject" value="&quot;RoofMeasurements&quot;: [[var:roofMeasurementsJSON]]" />
       <play action="prepRidgeMeasurements" />
@@ -5388,6 +5402,7 @@
 			<assign property="var:measurementsJSON" value="[template:measurementsJSON.content]"/>
 			<assign property="datasource:updateMeasurements.postContent" value="[var:measurementsJSON]" />
 			<assign property="datasource:updateMeasurements.source" value="https://162.209.101.177/api/UpdateMeasurements" />
+<!-- 			<email subject="measurements" body="measurements\n\n[var:measurementsJSON]" toaddress="mlong@rarewire.com" /> -->
 		</action>
 		
 		<action name="updateMeasurements-complete" datasource="updateMeasurements" datasourceevent="querycomplete" >
@@ -5395,33 +5410,42 @@
 <!-- 				<alert message="updateMeasurements-complete content [datasource:updateMeasurements.0.content]" /> -->
 				<assign property="var:measurementId" value="[datasource:updateMeasurements.1.MeasurementId]" />
 				<assign property="var:measurementsJSON" value="" />
-				<assign propert="var:roofMeasurementsJSON" value="" />
-				<assign propert="var:ridgeMeasurementsJSON" value="" />
-				<assign propert="var:hipsJSON" value="" />
-				<assign propert="var:valleysJSON" value="" />
-				<assign propert="var:rakesJSON" value="" />
-				<assign propert="var:eavesJSON" value="" />
-				<assign propert="var:skylightsJSON" value="" />
-				<assign propert="var:plumbingVentsJSON" value="" />
+				<assign property="var:roofMeasurementsJSON" value="" />
+				<assign property="var:ridgeMeasurementsJSON" value="" />
+				<assign property="var:hipsJSON" value="" />
+				<assign property="var:valleysJSON" value="" />
+				<assign property="var:rakesJSON" value="" />
+				<assign property="var:eavesJSON" value="" />
+				<assign property="var:skylightsJSON" value="" />
+				<assign property="var:plumbingVentsJSON" value="" />
 				<play action="prepPhotos" />
 				  <else>
 <!-- 					<play action="prepPhotos" /> -->
 				  	<alpha value="0" target="UPLOAD-CURTAIN" />
-				  	<alert message="There was a problem updating your measurements, please verify that all information is present and accurate" />
+				  	<alert message="There was a problem updating your measurements, please verify that all information is present and accurate [datasource:updateMeasurements.1.MeasurementId]" />
+					<assign property="var:measurementsJSON" value="" />
+					<assign property="var:roofMeasurementsJSON" value="" />
+					<assign property="var:ridgeMeasurementsJSON" value="" />
+					<assign property="var:hipsJSON" value="" />
+					<assign property="var:valleysJSON" value="" />
+					<assign property="var:rakesJSON" value="" />
+					<assign property="var:eavesJSON" value="" />
+					<assign property="var:skylightsJSON" value="" />
+					<assign property="var:plumbingVentsJSON" value="" />
 				  </else>
 			</if>
 		</action>
 	
 		<action name="updateMeasurements-error" datasource="updateMeasurements" datasourceevent="datasourceerror" >
 				<assign property="var:measurementsJSON" value="" />
-				<assign propert="var:roofMeasurementsJSON" value="" />
-				<assign propert="var:ridgeMeasurementsJSON" value="" />
-				<assign propert="var:hipsJSON" value="" />
-				<assign propert="var:valleysJSON" value="" />
-				<assign propert="var:rakesJSON" value="" />
-				<assign propert="var:eavesJSON" value="" />
-				<assign propert="var:skylightsJSON" value="" />
-				<assign propert="var:plumbingVentsJSON" value="" />
+				<assign property="var:roofMeasurementsJSON" value="" />
+				<assign property="var:ridgeMeasurementsJSON" value="" />
+				<assign property="var:hipsJSON" value="" />
+				<assign property="var:valleysJSON" value="" />
+				<assign property="var:rakesJSON" value="" />
+				<assign property="var:eavesJSON" value="" />
+				<assign property="var:skylightsJSON" value="" />
+				<assign property="var:plumbingVentsJSON" value="" />
 			<alert title="Network Error" message="There was a problem connecting to the server.  Please check your network connection and try again." />
 		</action>
 		
@@ -5436,8 +5460,8 @@
 				<play action="upload-photo" />
 				<else>
 <!-- 					<alert message="photosdb empty" /> -->
-				<assign property="object:UPLOAD-CURTAIN/photo-progress.text" value="Retrieving Products" />
-					<assign property="datasource:getProducts.source" value="https://162.209.101.177/api/GetProducts?AppSource=1" />
+					<assign property="object:UPLOAD-CURTAIN/photo-progress.text" value="Generating Estimate..." />
+					<play action="formatEstimate" />
 				</else>
 			</if>
 		</action>
@@ -5450,8 +5474,8 @@
 				<assign property="datasource:uploadPhoto.source" value="https://162.209.101.177/api/UploadPhoto" />
 				<else>
 <!-- 					<alert message="all photos have been uploaded." /> -->
-				<assign property="object:UPLOAD-CURTAIN/photo-progress.text" value="Retrieving Products" />
-					<assign property="datasource:getProducts.source" value="https://162.209.101.177/api/GetProducts?AppSource=1" />
+					<assign property="object:UPLOAD-CURTAIN/photo-progress.text" value="Generating Estimate..." />
+					<play action="formatEstimate" />
 				</else>
 			</if>
 		</action>
@@ -5469,9 +5493,10 @@
 		
 		<!-- !formatEstimate -->
 		<action name="formatEstimate" >
+<!--
 			<play action="released" />
 			<alpha value="1" target="UPLOAD-CURTAIN" />
-			<assign property="object:UPLOAD-CURTAIN/photo-progress.text" value="Generating Estimate..." />
+-->
 			<if lhs="[datasource:productsdb-list.dataSourceResultCount]" operator="gt" rhs="0">
 				<assign property="var:shingle" value="[datasource:productsdb-list.1.SHINGLE]" />
 				<assign property="var:warranty" value="[datasource:productsdb-list.1.WARRANTY]" />
@@ -5481,7 +5506,7 @@
 				<assign property="var:tearOffType" value="[datasource:tearoffdb-list.1.MATERIAL]" />	
 			</if>
 <!-- 			<alert message="var:shingle is [var:shingle], var:warranty is [var:warranty] var:tearOffLayers is [var:tearOffLayers] var:tearOffType is [var:tearOffType] var:numberOfFloors is [var:numberOfFloors]" /> -->
-			<if lhs="[datasource:accessoriesdb-list.dataSourceResultCount]" operator="gt" rhs="0">
+			<if lhs="[datasource:nonMiscAccessoriesdb-list.dataSourceResultCount]" operator="gt" rhs="0">
 				<assign property="var:accessoriesIterateCount" value="1" />
 					<play action="formatAccessories" />
 				<else>
@@ -5493,8 +5518,8 @@
     
 		<action name="formatAccessories" >
 <!-- 			<alert message="formatAccessories var:accessoriesIterateCount is [var:accessoriesIterateCount] datasource:accessoriesdb-list.dataSourceResultCount is [datasource:accessoriesdb-list.dataSourceResultCount]" /> -->
-			<loop lhs="[var:accessoriesIterateCount]" operator="lte" rhs="[datasource:accessoriesdb-list.dataSourceResultCount]" >
-<!-- 				<alert message="var:accessoriesIterateCount is [var:accessoriesIterateCount]" /> -->
+			<loop lhs="[var:accessoriesIterateCount]" operator="lte" rhs="[datasource:nonMiscAccessoriesdb-list.dataSourceResultCount]" >
+<!-- 				<alert message="var:accessoriesIterateCount is [var:accessoriesIterateCount]" />  -->
 				<assign property="var:accessoriesJSON" value="[var:accessoriesJSON][eval:[var:accessoriesIterateCount] == 1 ? '':','][template:accessories.content]" />
 				<assign property="var:accessoriesIterateCount" value="[eval: [var:accessoriesIterateCount] +1]" />
 			</loop>
@@ -5509,21 +5534,21 @@
 				<play action="formatMiscAccessories" />
 				<else>
 					<assign property="var:miscAccessoriesObject" value="&quot;MiscellaneousAccessories&quot;: []" />
-<!-- 					<alert message="var:accessoriesObject is [var:accessoriesObject] var:adjustmentsObject is [var:adjustmentsObject]" /> -->
+<!-- 					<alert message="var:miscAccessoriesObject is [var:miscAccessoriesObject] var:adjustmentsObject is [var:adjustmentsObject]" /> -->
 					<play action="prepAdjustments" />
 				</else>
 			</if>
 		</action>
     
 		<action name="formatMiscAccessories" >
-<!-- 			<alert message="formatAccessories var:accessoriesIterateCount is [var:accessoriesIterateCount] datasource:accessoriesdb-list.dataSourceResultCount is [datasource:accessoriesdb-list.dataSourceResultCount]" /> -->
+<!-- 			<alert message="formatMiscAccessories var:miscAccessoriesIterateCount is [var:miscAccessoriesIterateCount] datasource:miscAccessoriesdb-list.dataSourceResultCount is [datasource:miscAccessoriesdb-list.dataSourceResultCount]" /> -->
 			<loop lhs="[var:miscAccessoriesIterateCount]" operator="lte" rhs="[datasource:miscAccessoriesdb-list.dataSourceResultCount]" >
-<!-- 				<alert message="var:accessoriesIterateCount is [var:accessoriesIterateCount]" /> -->
+<!-- 				<alert message="var:miscAccessoriesIterateCount is [var:miscAccessoriesIterateCount]" /> -->
 				<assign property="var:miscAccessoriesJSON" value="[var:miscAccessoriesJSON][eval:[var:miscAccessoriesIterateCount] == 1 ? '':','][template:miscAccessories.content]" />
 				<assign property="var:miscAccessoriesIterateCount" value="[eval: [var:miscAccessoriesIterateCount] +1]" />
 			</loop>
 			<assign property="var:miscAccessoriesObject" value="&quot;MiscellaneousAccessories&quot;: [[var:miscAccessoriesJSON]]" />
-<!-- 			<alert message="var:accessoriesObject is [var:accessoriesObject]" /> -->
+<!-- 			<alert message="var:miscAccessoriesObject is [var:miscAccessoriesObject]" /> -->
 			<play action="prepAdjustments" />
 		</action>
 
@@ -5554,7 +5579,7 @@
 			<assign property="var:estimateJSON" value="[template:estimateJSON.content]" />
 			<assign property="datasource:generateEstimate.postContent" value="[var:estimateJSON]" />
 			<assign property="datasource:generateEstimate.source" value="https://162.209.101.177/api/GenerateEstimate" />
-<!-- 			<email subject="estimate and measurements json" body="estimate\n\n[var:estimateJSON]" toaddress="mlong@rarewire.com" /> -->
+			<email subject="estimate and measurements json" body="estimate\n\n[var:estimateJSON]" toaddress="mlong@rarewire.com" />
 		</action>
 		
 		<action name="estimate-complete" datasource="generateEstimate" datasourceevent="querycomplete">
@@ -5617,58 +5642,7 @@
 				<alpha value="1" target="HEADER" />
 			</if>
 		</action>
-		
-        <!--<alert title="customer1" message="[datasource:customersdb-list.1.FNAME]" />
-        <alert title="customer2" message="[datasource:customersdb-list.2.FNAME]" />-->
-        
-        <!--<assign property="datasource:customersdb.query" value="DELETE FROM CUSTOMERS;" />
-        <assign property="datasource:addressdb.query" value="DELETE FROM ADDRESS;" />-->
-        
-        <!--<alert title="inspection" message="[datasource:inspectiondb-list.1.ROOFTYPE] [datasource:inspectiondb-list.1.FLOORS]" />
-        <assign property="datasource:inspectiondb.query" value="DELETE FROM INSPECTION;" />-->
-        
-        <!--<alert message="[datasource:roofareasdb-list.dataSourceResultCount]" />
-        <assign property="datasource:roofareasdb-list.query" value="DELETE FROM ROOFAREAS;" />-->
-        
-        <!--<alert title="Waste" message="[datasource:wastedb-list.1.PERCENT]%" />
-        <assign property="datasource:wastedb-list.query" value="DELETE FROM WASTE;" />-->
-        
-        <!--<alert title="Ridges" message="index:[datasource:ridgesdb-list.dataSourceResultCount] length:[datasource:ridgesdb-list.1.LENGTH] vents:[datasource:ridgesdb-list.1.VENTS]" />
-        <assign property="datasource:ridgesdb-list.query" value="DELETE FROM RIDGES;" />-->
-        
-        <!--<alert title="Hips" message="index:[datasource:hipsdb-list.dataSourceResultCount] length:[datasource:hipsdb-list.1.LENGTH]" />
-        <assign property="datasource:hipsdb-list.query" value="DELETE FROM HIPS;" />-->
-        
-        <!--<alert title="Valleys" message="index:[datasource:valleysdb-list.dataSourceResultCount] length:[datasource:valleysdb-list.1.LENGTH]" />
-        <assign property="datasource:valleysdb-list.query" value="DELETE FROM VALLEYS;" />-->
-        
-        <!--<alert title="Rakes" message="index:[datasource:rakesdb-list.dataSourceResultCount] length:[datasource:rakesdb-list.1.LENGTH]" />
-        <assign property="datasource:rakesdb-list.query" value="DELETE FROM RAKES;" />-->
-        
-        <!--<alert title="Eaves" message="index:[datasource:eavesdb-list.dataSourceResultCount] length:[datasource:eavesdb-list.1.LENGTH]" />
-        <assign property="datasource:eavesdb-list.query" value="DELETE FROM EAVES;" />-->
-        
-        <!--<alert title="Protrusions" message="index:[datasource:protrusionsdb-list.dataSourceResultCount] length:[datasource:protrusionsdb-list.1.LENGTH] width:[datasource:protrusionsdb-list.1.WIDTH] type:[datasource:protrusionsdb-list.1.TYPE]" />
-        <assign property="datasource:protrusionsdb-list.query" value="DELETE FROM PROTRUSIONS;" />-->
-        
-        <!--<alert title="Vents" message="index:[datasource:ventsdb-list.dataSourceResultCount] size:[datasource:ventsdb-list.1.SIZE] quantity:[datasource:ventsdb-list.1.QUANITY]" />
-        <assign property="datasource:ventsdb-list.query" value="DELETE FROM VENTS;" />-->
-        
-        <!--<alert title="Products" message="shingle:[datasource:productsdb-list.1.SHINGLE] color:[datasource:productsdb-list.1.COLOR] warranty:[datasource:productsdb-list.1.WARRANTY]" />
-        <assign property="datasource:productsdb-list.query" value="DELETE FROM PRODUCTS;" />-->
-        
-        <!--<alert title="Tear off" message="tear off:[datasource:tearoffdb-list.1.TEAROFF] layers:[datasource:tearoffdb-list.1.LAYERS] material:[datasource:tearoffdb-list.1.MATERIAL]" />
-        <assign property="datasource:tearoffdb-list.query" value="DELETE FROM TEAROFF;" />
-        
-        <alert title="Asset Protection" message="landscaping:[datasource:assetprotectiondb-list.1.LANDSCAPING] hardscaping:[datasource:assetprotectiondb-list.1.HARDSCAPING] HVAC:[datasource:assetprotectiondb-list.1.HVAC] pool:[datasource:assetprotectiondb-list.1.POOL] misc:[datasource:assetprotectiondb-list.1.MISC]" />
-        <assign property="datasource:assetprotectiondb-list.query" value="DELETE FROM PROTECTION;" />
-        
-        <alert title="Adjustments" message="index:[datasource:adjustmentsdb-list.dataSourceResultCount] type:[datasource:adjustmentsdb-list.1.TYPE] units:[datasource:adjustmentsdb-list.1.UNITS] amount:[datasource:adjustmentsdb-list.1.AMOUNT] notes:[datasource:adjustmentsdb-list.1.NOTES]" />
-        <assign property="datasource:adjustmentsdb-list.query" value="DELETE FROM ADJUSTMENTS;" />
-        
-      </sync>
-    </action> -->
-    
+
     <!-- !user menu -->
     <action name="usermenu">
       <sync>
@@ -5740,14 +5714,14 @@
     </action>
 	
     <action name="clear-data" >
-		<assign propert="var:roofMeasurementsJSON" value="" />
-		<assign propert="var:ridgeMeasurementsJSON" value="" />
-		<assign propert="var:hipsJSON" value="" />
-		<assign propert="var:valleysJSON" value="" />
-		<assign propert="var:rakesJSON" value="" />
-		<assign propert="var:eavesJSON" value="" />
-		<assign propert="var:skylightsJSON" value="" />
-		<assign propert="var:plumbingVentsJSON" value="" />
+		<assign property="var:roofMeasurementsJSON" value="" />
+		<assign property="var:ridgeMeasurementsJSON" value="" />
+		<assign property="var:hipsJSON" value="" />
+		<assign property="var:valleysJSON" value="" />
+		<assign property="var:rakesJSON" value="" />
+		<assign property="var:eavesJSON" value="" />
+		<assign property="var:skylightsJSON" value="" />
+		<assign property="var:plumbingVentsJSON" value="" />
 		<assign property="var:measurementsJSON" value="" />
 		<assign property="var:estimateJSON" value="" />
 		<assign property="var:accessoriesJSON" value="" />
@@ -5778,14 +5752,14 @@
     </action>
     
     <action name="clear-var" >
-		<assign propert="var:roofMeasurementsJSON" value="" />
-		<assign propert="var:ridgeMeasurementsJSON" value="" />
-		<assign propert="var:hipsJSON" value="" />
-		<assign propert="var:valleysJSON" value="" />
-		<assign propert="var:rakesJSON" value="" />
-		<assign propert="var:eavesJSON" value="" />
-		<assign propert="var:skylightsJSON" value="" />
-		<assign propert="var:plumbingVentsJSON" value="" />
+		<assign property="var:roofMeasurementsJSON" value="" />
+		<assign property="var:ridgeMeasurementsJSON" value="" />
+		<assign property="var:hipsJSON" value="" />
+		<assign property="var:valleysJSON" value="" />
+		<assign property="var:rakesJSON" value="" />
+		<assign property="var:eavesJSON" value="" />
+		<assign property="var:skylightsJSON" value="" />
+		<assign property="var:plumbingVentsJSON" value="" />
 		<assign property="var:measurementsJSON" value="" />
 		<assign property="var:estimateJSON" value="" />
 		<assign property="var:accessoriesJSON" value="" />
