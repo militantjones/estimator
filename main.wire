@@ -104,8 +104,8 @@
     <datasource name="accessoriesdb-delete" source="sql://ACCESSORIES" query="" providertype="sql" />
     <datasource name="accessoriesdb-count" source="sql://ACCESSORIES" query="" providertype="sql" />
     
-    <datasource name="nonMiscAccessoriesdb-list" source="sql://ACCESSORIES" query="SELECT * FROM ACCESSORIES WHERE TYPE&lt;&gt;'Miscellaneous Accessory'" providertype="sql" />
-    <datasource name="miscAccessoriesdb-list" source="sql://ACCESSORIES" query="SELECT * FROM ACCESSORIES WHERE TYPE='Miscellaneous Accessory'" providertype="sql" />
+    <datasource name="nonMiscAccessoriesdb-list" source="sql://ACCESSORIES" query="" providertype="sql" />
+    <datasource name="miscAccessoriesdb-list" source="sql://ACCESSORIES" query="" providertype="sql" />
 
     <datasource name="tearoffdb" source="sql://TEAROFF" query="CREATE TABLE IF NOT EXISTS TEAROFF (ID INTEGER PRIMARY KEY AUTOINCREMENT, TEAROFF, LAYERS, MATERIAL);" providertype="sql" />
     <datasource name="tearoffdb-list" source="sql://TEAROFF" query="SELECT * FROM TEAROFF ORDER BY ID DESC;" providertype="sql" />
@@ -3292,8 +3292,8 @@
         </if>
         <if lhs="_this" operator="e" rhs="PRODUCTS">
           <if lhs="[var:product]" operator="e" rhs="">
-			  		<alpha value="1" time=".3" target="UPLOAD-CURTAIN" />
 					<assign property="object:UPLOAD-CURTAIN/photo-progress.text" value="Retrieving Products..." />
+			  		<alpha value="1" time=".3" target="UPLOAD-CURTAIN" />
 					<assign property="datasource:getProducts.source" value="https://162.209.101.177/api/GetProducts?AppSource=1" />
 <!-- 			<alert message="get-products preferences:token is [preferences:token] preferences:contractorId is [preferences:contractorId]" /> -->
 <!-- 					<play action="estimate" /> -->
@@ -5096,8 +5096,10 @@
     <action name="accessoriesdb-insert" datasource="accessoriesdb-delete" datasourceevent="querycomplete">
       <!--<alert message="accessoriesdb-insert" />-->
       <if lhs="[var:loaded]" operator="e" rhs="yes">
-        <!--<alert title="insert" message="INSERT INTO ACCESSORIES (NAME, TYPE, ACCESSORY, QUANTITY) VALUES ('[var:accessory-[var:accessoryCount]-Name]', '[var:accessory-[var:accessoryCount]-Type]', '[var:accessory-[var:accessoryCount]]', '[var:accessory-[var:accessoryCount]-Quantity]');" />-->
-        <assign property="datasource:accessoriesdb.query" value="INSERT INTO ACCESSORIES (NAME, TYPE, ACCESSORY, QUANTITY) VALUES ('[var:accessory-[var:accessoryCount]-Name]', '[var:accessory-[var:accessoryCount]-Type]', '[var:accessory-[var:accessoryCount]]', '[var:accessory-[var:accessoryCount]-Quantity]');" />
+		<if lhs="[var:accessory-[var:accessoryCount]-Name]" operator="ne" rhs="">
+<!-- 	        <alert title="insert" message="INSERT INTO ACCESSORIES (NAME, TYPE, ACCESSORY, QUANTITY) VALUES ('[var:accessory-[var:accessoryCount]-Name]', '[var:accessory-[var:accessoryCount]-Type]', '[var:accessory-[var:accessoryCount]]', '[var:accessory-[var:accessoryCount]-Quantity]');" /> -->
+        	<assign property="datasource:accessoriesdb.query" value="INSERT INTO ACCESSORIES (NAME, TYPE, ACCESSORY, QUANTITY) VALUES ('[var:accessory-[var:accessoryCount]-Name]', '[var:accessory-[var:accessoryCount]-Type]', '[var:accessory-[var:accessoryCount]]', '[var:accessory-[var:accessoryCount]-Quantity]');" />
+		</if>
       </if>
     </action>
     
@@ -5206,8 +5208,8 @@
       <play action="released" />
       <alpha value="1" target="UPLOAD-CURTAIN" />
       <assign property="object:UPLOAD-CURTAIN/photo-progress.text" value="Sending Roof Measurements..." />
-		<assign property="miscAccessoriesdb-list" value="SELECT * FROM ACCESSORIES WHERE TYPE='Miscellaneous Accessory'" />
-		<assign property="nonMiscAccessoriesdb-list" value="SELECT * FROM ACCESSORIES WHERE TYPE&lt;&gt;'Miscellaneous Accessory'" />
+		<assign property="datasource:miscAccessoriesdb-list.query" value="SELECT * FROM ACCESSORIES WHERE TYPE ='Miscellaneous Accessory'" />
+		<assign property="datasource:nonMiscAccessoriesdb-list.query" value="SELECT * FROM ACCESSORIES WHERE TYPE != 'Miscellaneous Accessory' AND ID != '';" />
       <sync>
 <!-- 	  	<alert message="[datasource:inspectiondb-list.dataSourceResultCount]" /> -->
 	  	<if lhs="[datasource:inspectiondb-list.dataSourceResultCount]" operator="gt" rhs="0">
@@ -5579,7 +5581,7 @@
 			<assign property="var:estimateJSON" value="[template:estimateJSON.content]" />
 			<assign property="datasource:generateEstimate.postContent" value="[var:estimateJSON]" />
 			<assign property="datasource:generateEstimate.source" value="https://162.209.101.177/api/GenerateEstimate" />
-			<email subject="estimate and measurements json" body="estimate\n\n[var:estimateJSON]" toaddress="mlong@rarewire.com" />
+<!-- 			<email subject="estimate and measurements json" body="estimate\n\n[var:estimateJSON]" toaddress="mlong@rarewire.com" /> -->
 		</action>
 		
 		<action name="estimate-complete" datasource="generateEstimate" datasourceevent="querycomplete">
@@ -5714,19 +5716,19 @@
     </action>
 	
     <action name="clear-data" >
-		<assign property="var:roofMeasurementsJSON" value="" />
-		<assign property="var:ridgeMeasurementsJSON" value="" />
-		<assign property="var:hipsJSON" value="" />
-		<assign property="var:valleysJSON" value="" />
-		<assign property="var:rakesJSON" value="" />
-		<assign property="var:eavesJSON" value="" />
-		<assign property="var:skylightsJSON" value="" />
-		<assign property="var:plumbingVentsJSON" value="" />
-		<assign property="var:measurementsJSON" value="" />
-		<assign property="var:estimateJSON" value="" />
-		<assign property="var:accessoriesJSON" value="" />
-			<assign property="var:miscAccessoriesJSON" value="" />
-		<assign property="var:adjustmentsJSON" value="" />
+      <assign property="var:roofMeasurementsJSON" value="" />
+      <assign property="var:ridgeMeasurementsJSON" value="" />
+      <assign property="var:hipsJSON" value="" />
+      <assign property="var:valleysJSON" value="" />
+      <assign property="var:rakesJSON" value="" />
+      <assign property="var:eavesJSON" value="" />
+      <assign property="var:skylightsJSON" value="" />
+      <assign property="var:plumbingVentsJSON" value="" />
+      <assign property="var:measurementsJSON" value="" />
+      <assign property="var:estimateJSON" value="" />
+      <assign property="var:accessoriesJSON" value="" />
+      <assign property="var:miscAccessoriesJSON" value="" />
+      <assign property="var:adjustmentsJSON" value="" />
       <assign property="var:search" value="" />
       <assign property="var:db-action" value="" />
       <assign property="var:accessories" value="0" />
@@ -5740,6 +5742,7 @@
       <assign property="var:country" value="US" />
       <assign property="var:prevfield" value="0" />
       <assign property="var:nav" value="CUSTOMER" />
+	  <assign property="var:product" value="" />
       <assign property="preferences:remember" value="" />
       <assign property="preferences:username" value="" />
       <assign property="preferences:password" value="" />
@@ -5752,19 +5755,20 @@
     </action>
     
     <action name="clear-var" >
-		<assign property="var:roofMeasurementsJSON" value="" />
-		<assign property="var:ridgeMeasurementsJSON" value="" />
-		<assign property="var:hipsJSON" value="" />
-		<assign property="var:valleysJSON" value="" />
-		<assign property="var:rakesJSON" value="" />
-		<assign property="var:eavesJSON" value="" />
-		<assign property="var:skylightsJSON" value="" />
-		<assign property="var:plumbingVentsJSON" value="" />
-		<assign property="var:measurementsJSON" value="" />
-		<assign property="var:estimateJSON" value="" />
-		<assign property="var:accessoriesJSON" value="" />
-			<assign property="var:miscAccessoriesJSON" value="" />
-		<assign property="var:adjustmentsJSON" value="" />
+	  <assign property="var:roofMeasurementsJSON" value="" />
+	  <assign property="var:ridgeMeasurementsJSON" value="" />
+	  <assign property="var:hipsJSON" value="" />
+	  <assign property="var:valleysJSON" value="" />
+	  <assign property="var:rakesJSON" value="" />
+	  <assign property="var:eavesJSON" value="" />
+	  <assign property="var:skylightsJSON" value="" />
+	  <assign property="var:plumbingVentsJSON" value="" />
+	  <assign property="var:measurementsJSON" value="" />
+	  <assign property="var:estimateJSON" value="" />
+	  <assign property="var:accessoriesJSON" value="" />
+	  <assign property="var:miscAccessoriesJSON" value="" />
+	  <assign property="var:adjustmentsJSON" value="" />
+	  <assign property="var:product" value="" />
       <assign property="var:search" value="" />
       <assign property="var:db-action" value="" />
       <assign property="var:accessories" value="0" />
@@ -5995,6 +5999,14 @@
     </action>
     
     <action name="null"></action>
-   
+
+<!--
+	<action name="nonMiscAccessoriesdb-complete" datasource="nonMiscAccessoriesdb-list" datasourceevent="querycomplete" >
+		<if lhs="[datasource:nonMiscAccessoriesdb-list.dataSourceResultCount]" operator="gt" rhs="0">
+			<alert message="nonMiscAccessoriesdb is [datasource:nonMiscAccessoriesdb-list.dataSourceResultCount]" />
+		</if>
+	</action>
+-->
+
   </actions>
 </wire>
