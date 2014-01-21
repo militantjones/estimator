@@ -4832,9 +4832,12 @@
           <alpha value="1" time=".25" target="ACCESSORYLIST" />
           <translate valign="center" time=".25" curve="easeout" target="ACCESSORYLIST" />
           <assign property="var:curtainaction" value="accessorydismiss" />
-          <!--<assign property="datasource:accessoriesdb-deletelist.query" value="SELECT * FROM ACCESSORIES WHERE TYPE='[datasource:getAccessories._value.AccessoryCategory]';" />-->
           <else>
-            <alert message="No corresponding roof measurements were entered for this accessory" buttononeaction="focus" />
+            <assign property="object:UNITMEASURE.text" value="[var:leakbarrier] ft needed" />
+            <assign property="object:UNITEQUALS.text" value="1 = _coverage ft _units" />
+            <assign property="var:cur-leak-index" value="_value" />
+            <assign property="var:autoquantity" value="[eval: Math.ceil([var:leakbarrier] / _coverage ) ]" />
+            <assign property="object:ACCESSORYQUANTITY/input.text" value="[var:autoquantity]" />
           </else>
         </if>
       </if>
@@ -4843,16 +4846,18 @@
           <assign property="object:UNITMEASURE.text" value="" />
           <assign property="object:UNITEQUALS.text" value="1 roll = _coverage squares _units" />
           <assign property="var:cur-roofdeck-index" value="_value" />
-          <!--<alert title="roof deck protection" message="[var:squarestotal] / _coverage = [eval: Math.ceil( [var:squarestotal] / _coverage ) ]" />-->
           <assign property="var:autoquantity" value="[eval: Math.ceil( [var:squarestotal] / _coverage ) ]" />
           <assign property="object:ACCESSORYQUANTITY/input.text" value="[var:autoquantity]" />
           <assign property="object:ACCESSORY-AUTOQUANTITY.text" value="[var:autoquantity] Rolls" />
           <alpha value="1" time=".25" target="ACCESSORYLIST" />
           <translate valign="center" time=".25" curve="easeout" target="ACCESSORYLIST" />
           <assign property="var:curtainaction" value="accessorydismiss" />
-          <!--<assign property="datasource:accessoriesdb-deletelist.query" value="SELECT * FROM ACCESSORIES WHERE TYPE='[datasource:getAccessories._value.AccessoryCategory]';" />-->
           <else>
-            <alert message="No corresponding roof measurements were entered for this accessory" buttononeaction="focus" />
+            <assign property="object:UNITMEASURE.text" value="" />
+            <assign property="object:UNITEQUALS.text" value="1 roll = _coverage squares _units" />
+            <assign property="var:cur-roofdeck-index" value="_value" />
+            <assign property="var:autoquantity" value="[eval: Math.ceil( [var:squarestotal] / _coverage ) ]" />
+            <assign property="object:ACCESSORYQUANTITY/input.text" value="[var:autoquantity]" />
           </else>
         </if>
       </if>
@@ -4867,9 +4872,12 @@
           <alpha value="1" time=".25" target="ACCESSORYLIST" />
           <translate valign="center" time=".25" curve="easeout" target="ACCESSORYLIST" />
           <assign property="var:curtainaction" value="accessorydismiss" />
-          <!--<assign property="datasource:accessoriesdb-deletelist.query" value="SELECT * FROM ACCESSORIES WHERE TYPE='[datasource:getAccessories._value.AccessoryCategory]';" />-->
           <else>
-            <alert message="No corresponding roof measurements were entered for this accessory" buttononeaction="focus" />
+            <assign property="object:UNITMEASURE.text" value="[var:starterstrips] ft needed" />
+            <assign property="object:UNITEQUALS.text" value="1 = _coverage ft _units" />
+            <assign property="var:cur-starter-index" value="_value" />
+            <assign property="var:autoquantity" value="[eval: Math.ceil([var:starterstrips] / _coverage ) ]" />
+            <assign property="object:ACCESSORYQUANTITY/input.text" value="[var:autoquantity]" />
           </else>
         </if>
       </if>
@@ -4884,7 +4892,6 @@
               <assign property="object:UNITMEASURE.text" value="[var:hipvent-total] ft needed" />
               <assign property="object:UNITEQUALS.text" value="1 = _coverage ft _units" />
               <assign property="var:autoquantity" value="[eval: Math.ceil([var:hipvent-total] / _coverage ) ]" />
-              <!--<alert title="Number of hip units needed" message="[eval: Math.ceil([var:hipvent-total] / _coverage ) ]" />-->
               <assign property="object:ACCESSORYQUANTITY/input.text" value="[var:autoquantity]" />
               <assign property="object:ACCESSORY-AUTOQUANTITY.text" value="[var:autoquantity] Units" />
               <alpha value="1" time=".25" target="ACCESSORYLIST" />
@@ -4892,7 +4899,10 @@
               <assign property="var:curtainaction" value="accessorydismiss" />
               <!--<assign property="datasource:accessoriesdb-deletelist-hipvent.query" value="SELECT * FROM ACCESSORIES WHERE NAME='[var:cur-hipvent]';" />-->
               <else>
-                <alert message="No corresponding roof measurements were entered for this accessory" buttononeaction="focus" />
+                <assign property="object:UNITMEASURE.text" value="[var:hipvent-total] ft needed" />
+                <assign property="object:UNITEQUALS.text" value="1 = _coverage ft _units" />
+                <assign property="var:autoquantity" value="[eval: Math.ceil([var:hipvent-total] / _coverage ) ]" />
+                <assign property="object:ACCESSORYQUANTITY/input.text" value="[var:autoquantity]" />
               </else>
             </if>
             <else>
@@ -4918,7 +4928,10 @@
                     <!--<assign property="datasource:accessoriesdb-deletelist-ridgevent.query" value="SELECT * FROM ACCESSORIES WHERE NAME='[var:cur-ridgevent]';" />-->
                     <assign property="var:cur-ridgevent" value="[datasource:getAccessories._value.AccessoryName]" />
                     <else>
-                      <alert message="No corresponding roof measurements were entered for this accessory" buttononeaction="focus" />
+                      <assign property="object:UNITMEASURE.text" value="[var:ridgevent-total] ft needed" />
+                      <assign property="object:UNITEQUALS.text" value="1 = _coverage ft _units" />
+                      <assign property="var:autoquantity" value="[eval: Math.ceil([var:ridgevent-total] / _coverage ) ]" />
+                      <assign property="object:ACCESSORYQUANTITY/input.text" value="[var:autoquantity]" />
                     </else>
                   </if>
                 </else>
@@ -4941,7 +4954,11 @@
           <assign property="var:curtainaction" value="accessorydismiss" />
           <!--<assign property="datasource:accessoriesdb-deletelist.query" value="SELECT * FROM ACCESSORIES WHERE TYPE='[datasource:getAccessories._value.AccessoryCategory]';" />-->
 	        <else>
-	          <alert message="No corresponding roof measurements were entered for this accessory" buttononeaction="focus" />
+	          <assign property="object:UNITMEASURE.text" value="[var:ridgestotal] ft needed" />
+            <assign property="object:UNITEQUALS.text" value="1 = _coverage ft _units" />
+            <assign property="var:cur-ridgecap-index" value="_value" />
+            <assign property="var:autoquantity" value="[eval: Math.ceil([var:ridgestotal] / _coverage ) ]" />
+            <assign property="object:ACCESSORYQUANTITY/input.text" value="[var:autoquantity]" />
 	        </else>
         </if>
       </if>
