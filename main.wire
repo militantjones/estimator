@@ -3250,7 +3250,7 @@
       </sync>
     </action>
     
-    <!-- !NAV actions -->
+     <!-- !NAV actions -->
     <action name="nav">
       <sync>
         <translate ypos="101%" time=".1" curve="linear" target="NAV-[var:nav]/sel" />
@@ -4826,15 +4826,13 @@
           <assign property="var:autoquantity" value="[eval: Math.ceil([var:leakbarrier] / _coverage ) ]" />
           <assign property="object:ACCESSORYQUANTITY/input.text" value="[var:autoquantity]" />
           <assign property="object:ACCESSORY-AUTOQUANTITY.text" value="[var:autoquantity] Units" />
-          <alpha value="1" time=".25" target="ACCESSORYLIST" />
+          <!--<alpha value="1" time=".25" target="ACCESSORYLIST" />
           <translate valign="center" time=".25" curve="easeout" target="ACCESSORYLIST" />
-          <assign property="var:curtainaction" value="accessorydismiss" />
+          <assign property="var:curtainaction" value="accessorydismiss" />-->
           <else>
-            <assign property="object:UNITMEASURE.text" value="[var:leakbarrier] ft needed" />
+            <assign property="object:UNITMEASURE.text" value="" />
             <assign property="object:UNITEQUALS.text" value="1 = _coverage ft _units" />
             <assign property="var:cur-leak-index" value="_value" />
-            <assign property="var:autoquantity" value="[eval: Math.ceil([var:leakbarrier] / _coverage ) ]" />
-            <assign property="object:ACCESSORYQUANTITY/input.text" value="[var:autoquantity]" />
           </else>
         </if>
       </if>
@@ -4846,15 +4844,13 @@
           <assign property="var:autoquantity" value="[eval: Math.ceil( [var:squarestotal] / _coverage ) ]" />
           <assign property="object:ACCESSORYQUANTITY/input.text" value="[var:autoquantity]" />
           <assign property="object:ACCESSORY-AUTOQUANTITY.text" value="[var:autoquantity] Rolls" />
-          <alpha value="1" time=".25" target="ACCESSORYLIST" />
+          <!--<alpha value="1" time=".25" target="ACCESSORYLIST" />
           <translate valign="center" time=".25" curve="easeout" target="ACCESSORYLIST" />
-          <assign property="var:curtainaction" value="accessorydismiss" />
+          <assign property="var:curtainaction" value="accessorydismiss" />-->
           <else>
             <assign property="object:UNITMEASURE.text" value="" />
             <assign property="object:UNITEQUALS.text" value="1 roll = _coverage squares _units" />
             <assign property="var:cur-roofdeck-index" value="_value" />
-            <assign property="var:autoquantity" value="[eval: Math.ceil( [var:squarestotal] / _coverage ) ]" />
-            <assign property="object:ACCESSORYQUANTITY/input.text" value="[var:autoquantity]" />
           </else>
         </if>
       </if>
@@ -4866,15 +4862,13 @@
           <assign property="var:autoquantity" value="[eval: Math.ceil([var:starterstrips] / _coverage ) ]" />
           <assign property="object:ACCESSORYQUANTITY/input.text" value="[var:autoquantity]" />
           <assign property="object:ACCESSORY-AUTOQUANTITY.text" value="[var:autoquantity] Units" />
-          <alpha value="1" time=".25" target="ACCESSORYLIST" />
+          <!--<alpha value="1" time=".25" target="ACCESSORYLIST" />
           <translate valign="center" time=".25" curve="easeout" target="ACCESSORYLIST" />
-          <assign property="var:curtainaction" value="accessorydismiss" />
+          <assign property="var:curtainaction" value="accessorydismiss" />-->
           <else>
-            <assign property="object:UNITMEASURE.text" value="[var:starterstrips] ft needed" />
+            <assign property="object:UNITMEASURE.text" value="" />
             <assign property="object:UNITEQUALS.text" value="1 = _coverage ft _units" />
             <assign property="var:cur-starter-index" value="_value" />
-            <assign property="var:autoquantity" value="[eval: Math.ceil([var:starterstrips] / _coverage ) ]" />
-            <assign property="object:ACCESSORYQUANTITY/input.text" value="[var:autoquantity]" />
           </else>
         </if>
       </if>
@@ -4891,15 +4885,13 @@
               <assign property="var:autoquantity" value="[eval: Math.ceil([var:hipvent-total] / _coverage ) ]" />
               <assign property="object:ACCESSORYQUANTITY/input.text" value="[var:autoquantity]" />
               <assign property="object:ACCESSORY-AUTOQUANTITY.text" value="[var:autoquantity] Units" />
-              <alpha value="1" time=".25" target="ACCESSORYLIST" />
+              <!--<alpha value="1" time=".25" target="ACCESSORYLIST" />
               <translate valign="center" time=".25" curve="easeout" target="ACCESSORYLIST" />
-              <assign property="var:curtainaction" value="accessorydismiss" />
+              <assign property="var:curtainaction" value="accessorydismiss" />-->
               <!--<assign property="datasource:accessoriesdb-deletelist-hipvent.query" value="SELECT * FROM ACCESSORIES WHERE NAME='[var:cur-hipvent]';" />-->
               <else>
-                <assign property="object:UNITMEASURE.text" value="[var:hipvent-total] ft needed" />
+                <assign property="object:UNITMEASURE.text" value=" " />
                 <assign property="object:UNITEQUALS.text" value="1 = _coverage ft _units" />
-                <assign property="var:autoquantity" value="[eval: Math.ceil([var:hipvent-total] / _coverage ) ]" />
-                <assign property="object:ACCESSORYQUANTITY/input.text" value="[var:autoquantity]" />
               </else>
             </if>
             <else>
@@ -4918,17 +4910,15 @@
                     <assign property="var:autoquantity" value="[eval: Math.ceil([var:ridgevent-total] / _coverage ) ]" />
                     <assign property="object:ACCESSORYQUANTITY/input.text" value="[var:autoquantity]" />
                     <assign property="object:ACCESSORY-AUTOQUANTITY.text" value="[var:autoquantity] Units" />
-                    <alpha value="1" time=".25" target="ACCESSORYLIST" />
+                    <!--<alpha value="1" time=".25" target="ACCESSORYLIST" />
                     <translate valign="center" time=".25" curve="easeout" target="ACCESSORYLIST" />
-                    <assign property="var:curtainaction" value="accessorydismiss" />
+                    <assign property="var:curtainaction" value="accessorydismiss" />-->
                     <!--<alert message="SELECT * FROM ACCESSORIES WHERE NAME='[var:cur-ridgevent]';" />-->
                     <!--<assign property="datasource:accessoriesdb-deletelist-ridgevent.query" value="SELECT * FROM ACCESSORIES WHERE NAME='[var:cur-ridgevent]';" />-->
                     <assign property="var:cur-ridgevent" value="[datasource:getAccessories._value.AccessoryName]" />
                     <else>
-                      <assign property="object:UNITMEASURE.text" value="[var:ridgevent-total] ft needed" />
+                      <assign property="object:UNITMEASURE.text" value="" />
                       <assign property="object:UNITEQUALS.text" value="1 = _coverage ft _units" />
-                      <assign property="var:autoquantity" value="[eval: Math.ceil([var:ridgevent-total] / _coverage ) ]" />
-                      <assign property="object:ACCESSORYQUANTITY/input.text" value="[var:autoquantity]" />
                     </else>
                   </if>
                 </else>
@@ -4946,16 +4936,14 @@
           <assign property="var:autoquantity" value="[eval: Math.ceil([var:ridgestotal] / _coverage ) ]" />
           <assign property="object:ACCESSORYQUANTITY/input.text" value="[var:autoquantity]" />
           <assign property="object:ACCESSORY-AUTOQUANTITY.text" value="[var:autoquantity] Units" />
-          <alpha value="1" time=".25" target="ACCESSORYLIST" />
+          <!--<alpha value="1" time=".25" target="ACCESSORYLIST" />
           <translate valign="center" time=".25" curve="easeout" target="ACCESSORYLIST" />
-          <assign property="var:curtainaction" value="accessorydismiss" />
+          <assign property="var:curtainaction" value="accessorydismiss" />-->
           <!--<assign property="datasource:accessoriesdb-deletelist.query" value="SELECT * FROM ACCESSORIES WHERE TYPE='[datasource:getAccessories._value.AccessoryCategory]';" />-->
 	        <else>
-	          <assign property="object:UNITMEASURE.text" value="[var:ridgestotal] ft needed" />
+	          <assign property="object:UNITMEASURE.text" value="" />
             <assign property="object:UNITEQUALS.text" value="1 = _coverage ft _units" />
             <assign property="var:cur-ridgecap-index" value="_value" />
-            <assign property="var:autoquantity" value="[eval: Math.ceil([var:ridgestotal] / _coverage ) ]" />
-            <assign property="object:ACCESSORYQUANTITY/input.text" value="[var:autoquantity]" />
 	        </else>
         </if>
       </if>
@@ -4963,9 +4951,9 @@
         <assign property="object:UNITMEASURE.text" value="" />
         <assign property="object:UNITEQUALS.text" value="" />
         <assign property="var:cur-ventilation-index" value="_value" />
-        <alpha value="1" time=".25" target="ACCESSORYLIST" />
+        <!--<alpha value="1" time=".25" target="ACCESSORYLIST" />
         <translate valign="center" time=".25" curve="easeout" target="ACCESSORYLIST" />
-        <assign property="var:curtainaction" value="accessorydismiss" />
+        <assign property="var:curtainaction" value="accessorydismiss" />-->
       </if>
       <alpha value="1" time=".25" target="ACCESSORYLIST" />
       <translate valign="center" time=".25" curve="easeout" target="ACCESSORYLIST" />
@@ -4976,8 +4964,11 @@
       <if lhs="[var:loaded]" operator="e" rhs="yes">
         <sync>
           <if lhs="[datasource:accessoriesdb-list.dataSourceResultCount]" operator="gte" rhs="1">
-            <!--<alert title="count = [datasource:accessoriesdb-deletelist.dataSourceResultCount]" message="DELETE FROM ACCESSORIES WHERE TYPE='[var:cur-acc-cat]';" />-->
+            <!--<alert title="2" message="DELETE FROM ACCESSORIES WHERE TYPE='[var:cur-acc-cat]';" />-->
             <assign property="datasource:accessoriesdb-delete.query" value="DELETE FROM ACCESSORIES WHERE TYPE='[var:cur-acc-cat]';" />
+            <else>
+              <play action="accessoriesdb-insert" />
+            </else>
           </if>
         </sync>
       </if>
@@ -4989,6 +4980,9 @@
           <if lhs="[datasource:accessoriesdb-list.dataSourceResultCount]" operator="gt" rhs="0">
             <!--<alert title="count = [datasource:accessoriesdb-deletelist-ridgevent.dataSourceResultCount]" message="DELETE FROM ACCESSORIES WHERE NAME='[var:prev-ridgevent]';" />-->
             <assign property="datasource:accessoriesdb-delete.query" value="DELETE FROM ACCESSORIES WHERE NAME='[var:prev-ridgevent]';" />
+            <else>
+              <play action="accessoriesdb-insert" />
+            </else>
           </if>
           <assign property="var:prev-ridgevent" value="[var:cur-ridgevent]" />
         </sync>
@@ -5002,16 +4996,13 @@
             <!--<alert title="count = [datasource:accessoriesdb-deletelist-hipvent.dataSourceResultCount]" message="DELETE FROM ACCESSORIES WHERE NAME='[var:cur-hipvent]';" />
             <assign property="datasource:accessoriesdb-delete.query" value="DELETE FROM ACCESSORIES WHERE NAME='[var:cur-hipvent]';" />-->
             <assign property="var:prev-hipvent" value="[datasource:getAccessories._value.AccessoryName]" />
+            <else>
+              <play action="accessoriesdb-insert" />
+            </else>
           </if>
         </sync>
       </if>
     </action>
-    
-    <!--<action name="acc-delete-check" datasource="accessoriesdb-deletelist" datasourceevent="querycomplete">
-      <if lhs="[var:loaded]" operator="e" rhs="yes">
-        <alert message="deleted" />
-      </if>
-    </action>-->
     
     <action name="selectaccessory-save">
       <play action="released" />
@@ -5023,6 +5014,7 @@
         <assign property="var:accessory-[var:accessoryCount]-Type" value="[datasource:getAccessories.[var:accessorySelected].AccessoryCategory]" />
         <if lhs="[datasource:getAccessories.[var:accessorySelected].AccessoryCategory]" operator="e" rhs="Leak Barrier">
           <assign property="datasource:accessoriesdb-deletelist.query" value="SELECT * FROM ACCESSORIES WHERE TYPE='[datasource:getAccessories.[var:accessorySelected].AccessoryCategory]';" />
+          <!--<alert title="1" message="[datasource:getAccessories.[var:accessorySelected].AccessoryCategory]" />-->
         </if>
         <if lhs="[datasource:getAccessories.[var:accessorySelected].AccessoryCategory]" operator="e" rhs="Roof Deck Protection">
           <assign property="datasource:accessoriesdb-deletelist.query" value="SELECT * FROM ACCESSORIES WHERE TYPE='[datasource:getAccessories.[var:accessorySelected].AccessoryCategory]';" />
@@ -5093,10 +5085,10 @@
     <action name="accessoriesdb-insert" datasource="accessoriesdb-delete" datasourceevent="querycomplete">
       <!--<alert message="accessoriesdb-insert" />-->
       <if lhs="[var:loaded]" operator="e" rhs="yes">
-		<if lhs="[var:accessory-[var:accessoryCount]-Name]" operator="ne" rhs="">
-<!-- 	        <alert title="insert" message="INSERT INTO ACCESSORIES (NAME, TYPE, ACCESSORY, QUANTITY) VALUES ('[var:accessory-[var:accessoryCount]-Name]', '[var:accessory-[var:accessoryCount]-Type]', '[var:accessory-[var:accessoryCount]]', '[var:accessory-[var:accessoryCount]-Quantity]');" /> -->
-        	<assign property="datasource:accessoriesdb.query" value="INSERT INTO ACCESSORIES (NAME, TYPE, ACCESSORY, QUANTITY) VALUES ('[var:accessory-[var:accessoryCount]-Name]', '[var:accessory-[var:accessoryCount]-Type]', '[var:accessory-[var:accessoryCount]]', '[var:accessory-[var:accessoryCount]-Quantity]');" />
-		</if>
+        <if lhs="[var:accessory-[var:accessoryCount]-Name]" operator="ne" rhs="">
+          <!--<alert title="insert" message="INSERT INTO ACCESSORIES (NAME, TYPE, ACCESSORY, QUANTITY) VALUES ('[var:accessory-[var:accessoryCount]-Name]', '[var:accessory-[var:accessoryCount]-Type]', '[var:accessory-[var:accessoryCount]]', '[var:accessory-[var:accessoryCount]-Quantity]');" />-->
+          <assign property="datasource:accessoriesdb.query" value="INSERT INTO ACCESSORIES (NAME, TYPE, ACCESSORY, QUANTITY) VALUES ('[var:accessory-[var:accessoryCount]-Name]', '[var:accessory-[var:accessoryCount]-Type]', '[var:accessory-[var:accessoryCount]]', '[var:accessory-[var:accessoryCount]-Quantity]');" />
+        </if>
       </if>
     </action>
     
@@ -5117,6 +5109,7 @@
             <alpha value="0" time="0" target="ACCESSORIES-PAGER-BOX/pager/accessory[var:prev-leak-index]/accessory-btn/test/selected" />
             <alpha value="1" time=".2" target="ACCESSORIES-PAGER-BOX/pager/accessory[var:prev-leak-index]/accessory-btn/test/button" />
             <assign property="var:prev-leak-index" value="[var:cur-leak-index]" />
+            <!--<alert title="" message="accessoriesdb-list-complete" />-->
           </if>
         </if>
         <if lhs="[var:cur-acc-cat]" operator="e" rhs="Roof Deck Protection">
@@ -5671,9 +5664,12 @@
       <assign property="var:loaded" value="no" />
       <play action="clear-dbs" />
 		  <play action="clear-var" />
-		  <delete target="CONTAINER" />
-		  <create class="container" target="MAIN" />
+		  <sync>
+		    <delete target="CONTAINER" />
+		    <create class="container" target="MAIN" />
+		  </sync>
 		  <create class="choice" target="CONTAINER" />
+		  <play action="resetblockers" />
     </action>
     
     <!-- !logout -->
@@ -5686,10 +5682,18 @@
 		  <assign property="var:loaded" value="no" />
 		  <play action="clear-dbs" />
 		  <play action="clear-data" />
-		  <delete target="CONTAINER" />
-		  <create class="container" target="MAIN" />
+		  <sync>
+		    <delete target="CONTAINER" />
+		    <create class="container" target="MAIN" />
+		  </sync>
 		  <create class="signin" target="CONTAINER" />
+		  <play action="resetblockers" />
       <!--       <alert message="this would be the logic to log out the user" /> -->
+    </action>
+    
+    <action name="resetblockers">
+      <translate xpos="128" curve="linear" target="STEP-NAVBLOCK" />
+      <translate ypos="65" curve="linear" target="PRODUCTS-STEP-BLOCKER" />
     </action>
     
     <action name="clear-dbs" >
