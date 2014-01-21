@@ -3292,27 +3292,24 @@
         </if>
         <if lhs="_this" operator="e" rhs="PRODUCTS">
           <if lhs="[var:product]" operator="e" rhs="">
-					<assign property="object:UPLOAD-CURTAIN/photo-progress.text" value="Retrieving Products..." />
-			  		<alpha value="1" time=".3" target="UPLOAD-CURTAIN" />
-					<assign property="datasource:getProducts.source" value="https://162.209.101.177/api/GetProducts?AppSource=1" />
-<!-- 			<alert message="get-products preferences:token is [preferences:token] preferences:contractorId is [preferences:contractorId]" /> -->
-<!-- 					<play action="estimate" /> -->
-<!-- 			      <assign property="datasource:getProducts.source" value="https://162.209.101.177/api/GetProducts?AppSource=1" /> -->
-<!--             <play action="sidebar-products" _alias="SHINGLES" _form="Shingles" /> -->
+			<assign property="object:UPLOAD-CURTAIN/photo-progress.text" value="Retrieving Products..." />
+	  		<alpha value="1" time=".3" target="UPLOAD-CURTAIN" />
+			<assign property="datasource:getProducts.source" value="https://162.209.101.177/api/GetProducts?AppSource=1" />
           </if>
         </if>
         <if lhs="_this" operator="e" rhs="SERVICES">
+<!-- 			<alert message="var:accessoryCount is [var:accessoryCount], var:accessories is [var:accessories]" /> -->
           <if lhs="[var:services]" operator="e" rhs="">
-            <if lhs="[eval:[var:accessories]-[var:accessoryCount]]" operator="lte" rhs="0">
+            <if lhs="[var:accessoryCount]" operator="gte" rhs="[var:accessories]">
 	            <play action="sidebar-services" _alias="TEAROFF" _form="Tear Off" />
+	            <else>
+	              <alert message="You must select [eval:[var:accessories]-[var:accessoryCount]] more accessories before proceeding" />
+	            </else>
 	          </if>
-            <else>
-              <alert message="You must select [eval:[var:accessories]-[var:accessoryCount]] more accessories before proceeding" />
-            </else>
           </if>
         </if>
         <if lhs="_this" operator="e" rhs="SUMMARY">
-          <if lhs="[eval:[var:accessories]-[var:accessoryCount]]" operator="lte" rhs="0">
+          <if lhs="[var:accessoryCount]" operator="gte" rhs="[var:accessories]">
           <play action="summarycalc" />
           <create class="summary-cust" target="SUMMARY-PAGER" cust1name="[datasource:customersdb-list.1.FNAME] [datasource:customersdb-list.1.LNAME]" cust1phone="[datasource:customersdb-list.1.PHONE]" cust1email="[datasource:customersdb-list.1.EMAIL]" cust2name="[datasource:customersdb-list.1.FNAME2] [datasource:customersdb-list.1.LNAME2]" cust2phone="[datasource:customersdb-list.1.PHONE2]" cust2email="[datasource:customersdb-list.1.EMAIL2]" street="[datasource:customersdb-list.1.STREET]" city="[datasource:customersdb-list.1.CITY]" state="[datasource:customersdb-list.1.STATE]" zip="[datasource:customersdb-list.1.POSTAL]"  />
           <else>
@@ -5019,7 +5016,7 @@
     <action name="selectaccessory-save">
       <play action="released" />
       <if lhs="[object:ACCESSORYQUANTITY/input.text]" operator="ne" rhs="">
-        <assign property="var:accessoryCount" value="[eval:[var:accessoryCount]+1]" />
+<!--         <assign property="var:accessoryCount" value="[eval:[var:accessoryCount]+1]" /> -->
         <assign property="var:accessory-[var:accessoryCount]-Quantity" value="[object:ACCESSORYQUANTITY/input.text]" />			  
         <assign property="var:accessory-[var:accessoryCount]" value="[datasource:getAccessories.[var:accessorySelected].AccessoryId]" />
         <assign property="var:accessory-[var:accessoryCount]-Name" value="[datasource:getAccessories.[var:accessorySelected].AccessoryName]" />
@@ -5192,6 +5189,8 @@
           <alert message="accessoriesdb-list count is [datasource:accessoriesdb-list.dataSourceResultCount] quantity for 1 is [datasource:accessoriesdb-list.1.QUANTITY], id is [datasource:accessoriesdb-list.1.ACCESSORY], name is [datasource:accessoriesdb-list.1.NAME], type is [datasource:accessoriesdb-list.1.TYPE]" />
         </if>
       -->
+	  <assign property="var:accessoryCount" value="[datasource:accessoriesdb-list.dataSourceResultCount]" />
+<!-- 	  <alert message="var:accessoryCount is now [var:accessoryCount], var:accessories is [var:accessories]" /> -->
     </action>
     
     <!-- !options actions -->
