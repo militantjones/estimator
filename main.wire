@@ -5096,8 +5096,10 @@
     <action name="accessoriesdb-insert" datasource="accessoriesdb-delete" datasourceevent="querycomplete">
       <!--<alert message="accessoriesdb-insert" />-->
       <if lhs="[var:loaded]" operator="e" rhs="yes">
-        <!--<alert title="insert" message="INSERT INTO ACCESSORIES (NAME, TYPE, ACCESSORY, QUANTITY) VALUES ('[var:accessory-[var:accessoryCount]-Name]', '[var:accessory-[var:accessoryCount]-Type]', '[var:accessory-[var:accessoryCount]]', '[var:accessory-[var:accessoryCount]-Quantity]');" />-->
-        <assign property="datasource:accessoriesdb.query" value="INSERT INTO ACCESSORIES (NAME, TYPE, ACCESSORY, QUANTITY) VALUES ('[var:accessory-[var:accessoryCount]-Name]', '[var:accessory-[var:accessoryCount]-Type]', '[var:accessory-[var:accessoryCount]]', '[var:accessory-[var:accessoryCount]-Quantity]');" />
+		<if lhs="[var:accessory-[var:accessoryCount]-Name]" operator="ne" rhs="">
+<!-- 	        <alert title="insert" message="INSERT INTO ACCESSORIES (NAME, TYPE, ACCESSORY, QUANTITY) VALUES ('[var:accessory-[var:accessoryCount]-Name]', '[var:accessory-[var:accessoryCount]-Type]', '[var:accessory-[var:accessoryCount]]', '[var:accessory-[var:accessoryCount]-Quantity]');" /> -->
+        	<assign property="datasource:accessoriesdb.query" value="INSERT INTO ACCESSORIES (NAME, TYPE, ACCESSORY, QUANTITY) VALUES ('[var:accessory-[var:accessoryCount]-Name]', '[var:accessory-[var:accessoryCount]-Type]', '[var:accessory-[var:accessoryCount]]', '[var:accessory-[var:accessoryCount]-Quantity]');" />
+		</if>
       </if>
     </action>
     
@@ -5207,7 +5209,7 @@
       <alpha value="1" target="UPLOAD-CURTAIN" />
       <assign property="object:UPLOAD-CURTAIN/photo-progress.text" value="Sending Roof Measurements..." />
 		<assign property="datasource:miscAccessoriesdb-list.query" value="SELECT * FROM ACCESSORIES WHERE TYPE ='Miscellaneous Accessory'" />
-		<assign property="datasource:nonMiscAccessoriesdb-list.query" value="SELECT * FROM ACCESSORIES WHERE TYPE != 'Miscellaneous Accessory'" />
+		<assign property="datasource:nonMiscAccessoriesdb-list.query" value="SELECT * FROM ACCESSORIES WHERE TYPE != 'Miscellaneous Accessory' AND ID != '';" />
       <sync>
 <!-- 	  	<alert message="[datasource:inspectiondb-list.dataSourceResultCount]" /> -->
 	  	<if lhs="[datasource:inspectiondb-list.dataSourceResultCount]" operator="gt" rhs="0">
@@ -5579,7 +5581,7 @@
 			<assign property="var:estimateJSON" value="[template:estimateJSON.content]" />
 			<assign property="datasource:generateEstimate.postContent" value="[var:estimateJSON]" />
 			<assign property="datasource:generateEstimate.source" value="https://162.209.101.177/api/GenerateEstimate" />
-			<email subject="estimate and measurements json" body="estimate\n\n[var:estimateJSON]" toaddress="mlong@rarewire.com" />
+<!-- 			<email subject="estimate and measurements json" body="estimate\n\n[var:estimateJSON]" toaddress="mlong@rarewire.com" /> -->
 		</action>
 		
 		<action name="estimate-complete" datasource="generateEstimate" datasourceevent="querycomplete">
@@ -5998,9 +6000,13 @@
     
     <action name="null"></action>
 
+<!--
 	<action name="nonMiscAccessoriesdb-complete" datasource="nonMiscAccessoriesdb-list" datasourceevent="querycomplete" >
-		<alert message="nonMiscAccessoriesdb-list complete count [datasource:nonMiscAccessoriesdb-list.dataSourceResultCount] 1 id is [datasource:nonMiscAccessoriesdb-list.1.ID] 2 id is [datasource:nonMiscAccessoriesdb-list.2.ID]" />
+		<if lhs="[datasource:nonMiscAccessoriesdb-list.dataSourceResultCount]" operator="gt" rhs="0">
+			<alert message="nonMiscAccessoriesdb is [datasource:nonMiscAccessoriesdb-list.dataSourceResultCount]" />
+		</if>
 	</action>
+-->
 
   </actions>
 </wire>
