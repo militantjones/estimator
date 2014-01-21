@@ -1024,9 +1024,9 @@
       <!--two column-->
       <panel name="[param:index]" width="100%" height="213" padding-left="20" padding-right="20">
           <panel name="col1" width="217" height="100%" >
-            <text name="name" width="100%" height="30" style="darktext" size="20" alignment="left" text="[datasource:getProducts.[param:index].ProductName]"></text>
+            <text name="name" width="100%" height="fit" style="darktext" size="20" alignment="left" text="[datasource:getProducts.[param:index].ProductName]"></text>
             <panel name="imgholder" width="108" height="108" bottomof="name" background="#000000">
-            	<image name="shingle" url="http://www.gaf.com/All_Images/[datasource:getProducts.[param:index].Color[0]/Image]?w=108&amp;h=108"></image>
+            	<image name="shingle" width="100%" url="[eval: '[datasource:getProducts.[param:index].ProductFamily]' == 'TruSlate®' ? 'http://162.209.101.177/Content/SlateImages/':'http://www.gaf.com/All_Images/']/[datasource:getProducts.[param:index].Color[0]/Image]?w=108&amp;h=108"></image>
             </panel>
             <text name="desc" width="100" height="fit" bottomof="name" align="right" style="darktext" size="12" alignment="left" text="[datasource:getProducts.[param:index].Description]"></text>
             <panel name="shingle-btn" width="108" height="50" bottomof="imgholder" margin-top="10">
@@ -1034,9 +1034,9 @@
             </panel>
           </panel>
           <panel name="col2" width="217" height="100%" align="right" >
-            <text name="name" width="100%" height="30" style="darktext" size="20" alignment="left" text="[datasource:getProducts.[eval:[param:index]+1].ProductName]"></text>
+            <text name="name" width="100%" height="fit" style="darktext" size="20" alignment="left" text="[datasource:getProducts.[eval:[param:index]+1].ProductName]"></text>
             <panel name="imgholder" width="108" height="108" bottomof="name" background="#000000">
-            	<image name="shingle" url="http://www.gaf.com/All_Images/[datasource:getProducts.[eval:[param:index]+1].Color[0]/Image]?w=108&amp;h=108"></image>
+            	<image name="shingle" width="100%" url="[eval: '[datasource:getProducts.[eval:[param:index]+1].ProductFamily]' == 'TruSlate®' ? 'http://162.209.101.177/Content/SlateImages/':'http://www.gaf.com/All_Images/']/[datasource:getProducts.[param:index].Color[0]/Image]?w=108&amp;h=108"></image>
             </panel>
             <text name="desc" width="100" height="fit" bottomof="name" align="right" style="darktext" size="12" alignment="left" text="[datasource:getProducts.[eval:[param:index]+1].Description]"></text>
             <panel name="shingle-btn" width="108" height="50" bottomof="imgholder" margin-top="10">
@@ -1051,9 +1051,9 @@
       <!--one column-->
         <panel name="[param:index]" width="100%" height="213" padding-left="20" padding-right="20">
           <panel name="col1" width="217" height="100%" >
-            <text name="name" width="100%" height="30" style="darktext" size="20" alignment="left" text="[datasource:getProducts.[param:index].ProductName]"></text>
+            <text name="name" width="100%" height="fit" style="darktext" size="20" alignment="left" text="[datasource:getProducts.[param:index].ProductName]"></text>
             <panel name="imgholder" width="108" height="108" bottomof="name" background="#000000">
-            	<image name="shingle" url="http://www.gaf.com/All_Images/[datasource:getProducts.[param:index].Color[0]/Image]?w=108&amp;h=108"></image>
+            	<image name="shingle" width="100%" url="[eval: '[datasource:getProducts.[param:index].ProductFamily]' == 'TruSlate®' ? 'http://162.209.101.177/Content/SlateImages/':'http://www.gaf.com/All_Images/']/[datasource:getProducts.[param:index].Color[0]/Image]?w=108&amp;h=108"></image>
             </panel>
             <text name="desc" width="100" height="fit" bottomof="name" align="right" style="darktext" size="12" alignment="left" text="[datasource:getProducts.[param:index].Description]"></text>
             <panel name="shingle-btn" width="108" height="50" bottomof="imgholder" margin-top="10">
@@ -1074,7 +1074,7 @@
       <panel name="1" width="33.33%" height="100%" align="left">
         <panel name="marginer" width="200" height="100%" align="left" >
           <panel name="imgholder" width="200" height="200" background="000000">
-            <image name="shingle" url="http://www.gaf.com/All_Images/[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Image]?w=200&amp;h=200"></image>
+            <image name="shingle" width="100%" url="[eval: '[datasource:getProducts.[var:shingleSelected].ProductFamily]' == 'TruSlate®' ? 'http://162.209.101.177/Content/SlateImages/':'http://www.gaf.com/All_Images/']/[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Image]?w=200&amp;h=200"></image>
           </panel>
           <text name="colorlabel" width="100%" height="40" bottomof="imgholder" style="darktext" size="fit" maxsize="20" alignment="left" text="[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Name]"></text>
           <panel name="search-btn" width="200" height="50" align="right" bottomof="colorlabel">
@@ -1086,7 +1086,7 @@
       <panel name="2" width="33.33%" height="100%" align="center" >
         <panel name="marginer" width="200" height="100%" align="center">
           <panel name="imgholder" width="200" height="200" background="000000">
-            <image name="shingle" url="http://www.gaf.com/All_Images/[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+1]]/Image]?w=200&amp;h=200"></image>
+            <image name="shingle" width="100%" url="[eval: '[datasource:getProducts.[var:shingleSelected].ProductFamily]' == 'TruSlate®' ? 'http://162.209.101.177/Content/SlateImages/':'http://www.gaf.com/All_Images/']/[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+1]]/Image]?w=200&amp;h=200"></image>
           </panel>
           <text name="colorlabel" width="100%" height="40" bottomof="imgholder" style="darktext" size="fit" maxsize="20" alignment="left" text="[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+1]]/Name]"></text>
           <panel name="search-btn" width="200" height="50" align="right" bottomof="colorlabel">
@@ -1097,7 +1097,7 @@
       <panel name="3" width="33.33%" height="100%" align="right" >
         <panel name="marginer" width="200" height="100%" align="right">
           <panel name="imgholder" width="200" height="200" background="000000">
-            <image name="shingle" url="http://www.gaf.com/All_Images/[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+2]]/Image]?w=200&amp;h=200"></image>
+            <image name="shingle" width="100%" url="[eval: '[datasource:getProducts.[var:shingleSelected].ProductFamily]' == 'TruSlate®' ? 'http://162.209.101.177/Content/SlateImages/':'http://www.gaf.com/All_Images/']/[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+1]]/Image]?w=200&amp;h=200"></image>
           </panel>
           <text name="colorlabel" width="100%" height="40" bottomof="imgholder" style="darktext" size="fit" maxsize="20" alignment="left" text="[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+2]]/Name]"></text>
           <panel name="search-btn" width="200" height="50" align="right" bottomof="colorlabel">
@@ -1114,7 +1114,7 @@
       <panel name="1" width="33.33%" height="100%" align="left">
         <panel name="marginer" width="200" height="100%" align="left" >
           <panel name="imgholder" width="200" height="200" background="000000">
-            <image name="shingle" url="http://www.gaf.com/All_Images/[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Image]?w=200&amp;h=200"></image>
+            <image name="shingle" width="100%" url="[eval: '[datasource:getProducts.[var:shingleSelected].ProductFamily]' == 'TruSlate®' ? 'http://162.209.101.177/Content/SlateImages/':'http://www.gaf.com/All_Images/']/[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Image]?w=200&amp;h=200"></image>
           </panel>
           <text name="colorlabel" width="100%" height="40" bottomof="imgholder" style="darktext" size="20" alignment="left" text="[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Name]"></text>
           <panel name="search-btn" width="200" height="50" align="right" bottomof="colorlabel">
@@ -1126,7 +1126,7 @@
       <panel name="2" width="33.33%" height="100%" align="center" >
         <panel name="marginer" width="200" height="100%" align="center">
           <panel name="imgholder" width="200" height="200" background="000000">
-            <image name="shingle" url="http://www.gaf.com/All_Images/[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+1]]/Image]?w=200&amp;h=200"></image>
+            <image name="shingle" width="100%" url="[eval: '[datasource:getProducts.[var:shingleSelected].ProductFamily]' == 'TruSlate®' ? 'http://162.209.101.177/Content/SlateImages/':'http://www.gaf.com/All_Images/']/[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+1]]/Image]?w=200&amp;h=200"></image>
           </panel>
           <text name="colorlabel" width="100%" height="40" bottomof="imgholder" style="darktext" size="20" alignment="left" text="[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+1]]/Name]"></text>
           <panel name="search-btn" width="200" height="50" align="right" bottomof="colorlabel">
@@ -1142,7 +1142,7 @@
       <panel name="1" width="33.33%" height="100%" align="left">
         <panel name="marginer" width="200" height="100%" align="left" >
           <panel name="imgholder" width="200" height="200" background="000000">
-            <image name="shingle" url="http://www.gaf.com/All_Images/[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Image]?w=200&amp;h=200"></image>
+            <image name="shingle" width="100%" url="[eval: '[datasource:getProducts.[var:shingleSelected].ProductFamily]' == 'TruSlate®' ? 'http://162.209.101.177/Content/SlateImages/':'http://www.gaf.com/All_Images/']/[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Image]?w=200&amp;h=200"></image>
           </panel>
           <text name="colorlabel" width="100%" height="40" bottomof="imgholder" style="darktext" size="20" alignment="left" text="[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Name]"></text>
           <panel name="search-btn" width="200" height="50" align="right" bottomof="colorlabel">
