@@ -2775,9 +2775,9 @@
         <play action="released" />
         <play action="_value" />
         <!--<alert message="_value" />-->
-        <if lhs="[var:warranty-set]" operator="e" rhs="yes">
+        <!--<if lhs="[var:warranty-set]" operator="e" rhs="yes">
           <play action="product-reset" />
-        </if>
+        </if>-->
       </sync>
     </action>
     
@@ -2811,6 +2811,7 @@
         </if>
         <keyboard visible="yes" target="RL[var:areaindex]/input" />
         <alpha value="0" time=".1" target="ROOF-SIDEBAR-PAGER/Roof Areas/saved-check" />
+        <alpha value="1" time=".1" target="ROOF-SIDEBAR-PAGER/Roof Areas/required" />
       </sync>
     </action>
     
@@ -3590,10 +3591,10 @@
     
     <!-- !customer actions -->
     <action name="saveCustomer">
-          <play action="released" />
+      <play action="released" />
       <sync>
-		  <assign property="object:UPLOAD-CURTAIN/photo-progress.text" value="Creating Customer" />
-		<alpha value="1" time=".3" target="UPLOAD-CURTAIN" />
+		    <assign property="object:UPLOAD-CURTAIN/photo-progress.text" value="Creating Customer" />
+        <alpha value="1" time=".3" target="UPLOAD-CURTAIN" />
         <!--<alert title="customers saved" message="[datasource:customersdb-list.dataSourceResultCount]" />-->
         <if lhs="[datasource:customersdb-list.dataSourceResultCount]" operator="gt" rhs="0">
           <assign property="datasource:customersdb-delete.query" value="DELETE FROM CUSTOMERS;" />
@@ -3603,7 +3604,6 @@
             <!--<alert message="from the else, nothing to delete" />-->
           </else>
         </if>
-        
       </sync>
     </action>
     
@@ -3650,7 +3650,7 @@
 		<if lhs="[datasource:createCustomer.1.ResponseCode]" operator="e" rhs="100">
 			<alpha value="0" time=".3" target="UPLOAD-CURTAIN" />
 			<assign property="var:customerId" value="[datasource:createCustomer.1.CustomerId]" />
-<!-- 			<alert message="var:customerId is [var:customerId]" /> -->
+      <!-- <alert message="var:customerId is [var:customerId]" /> -->
 			<assign property="var:firstName" encoding="url" value="[datasource:customersdb-list.1.FNAME]" />
 			<assign property="var:lastName" encoding="url" value="[datasource:customersdb-list.1.LNAME]" />
 			<assign property="var:address1" encoding="url" value="[datasource:customersdb-list.1.STREET]" />
@@ -3661,32 +3661,39 @@
 			<assign property="var:notes" encoding="url" value="[datasource:customersdb-list.1.NOTES]" />
 			<assign property="var:phone"  value="[datasource:customersdb-list.1.PHONE]" />
 			<assign property="var:email"  value="[datasource:customersdb-list.1.EMAIL]" />
-
 			<sync>
-		<translate ypos="101%" time=".1" curve="linear" target="NAV-CUSTOMER/sel" />
-          <assign property="var:roofarrow" value="Inspection" />
-          <translate align="right" time=".1" curve="linear" target="ROOF-SIDEBAR-PAGER/[var:roofarrow]/arrow" />
-          <assign property="var:roof" value="INSPECTION" />
-          <translate valign="bottom" time=".1" curve="linear" target="NAV-ROOF/sel" />
-          <alpha value="1" target="ROOF-INSPECTION" />
-        </sync>
-        <sync>
-          <translate xpos="0" curve="linear" target="NAVBLOCK" />
-          <alpha value="0" time=".2" target="CUSTOMER" />
-          <alpha value="1" time=".2" target="ROOF" />
-          <assign property="var:nav" value="ROOF" />
-          <assign property="var:navwas" value="ROOF" />
-          <translate xpos="101%" curve="linear" target="NAVBLOCK" />
-          <translate xpos="251" curve="linear" target="STEP-NAVBLOCK" />
-          <set onclickup="roofinfo-alert" target="STEP-NAVBLOCK" />
-          <assign property="object:NAV-CUSTOMER/open/step.background" value="#666666" />
-          <assign property="object:NAV-ROOF/open/step.background" value="#ed1c24" />
-          <keyboard visible="no" target="ZIP/input" />
-          <keyboard visible="no" target="POSTAL/input" />
-          <keyboard visible="no" target="NOTES/input" />
-        </sync>
-
-
+        <translate ypos="101%" time=".1" curve="linear" target="NAV-CUSTOMER/sel" />
+        <assign property="var:roofarrow" value="Inspection" />
+        <translate align="right" time=".1" curve="linear" target="ROOF-SIDEBAR-PAGER/[var:roofarrow]/arrow" />
+        <assign property="var:roof" value="INSPECTION" />
+        <translate valign="bottom" time=".1" curve="linear" target="NAV-ROOF/sel" />
+        <alpha value="1" target="ROOF-INSPECTION" />
+      </sync>
+      <sync>
+        <translate xpos="0" curve="linear" target="NAVBLOCK" />
+        <alpha value="0" time=".2" target="CUSTOMER" />
+        <alpha value="1" time=".2" target="ROOF" />
+        <assign property="var:nav" value="ROOF" />
+        <assign property="var:navwas" value="ROOF" />
+        <translate xpos="101%" curve="linear" target="NAVBLOCK" />
+        <translate xpos="251" curve="linear" target="STEP-NAVBLOCK" />
+        <set onclickup="roofinfo-alert" target="STEP-NAVBLOCK" />
+        <assign property="object:NAV-CUSTOMER/open/step.background" value="#666666" />
+        <assign property="object:NAV-ROOF/open/step.background" value="#ed1c24" />
+        <keyboard visible="no" target="CUST1-FNAME/input" />
+        <keyboard visible="no" target="CUST1-LNAME/input" />
+        <keyboard visible="no" target="CUST1-PHONE/input" />
+        <keyboard visible="no" target="CUST1-EMAIL/input" />
+        <keyboard visible="no" target="CUST2-FNAME/input" />
+        <keyboard visible="no" target="CUST2-LNAME/input" />
+        <keyboard visible="no" target="CUST2-PHONE/input" />
+        <keyboard visible="no" target="CUST2-EMAIL/input" />
+        <keyboard visible="no" target="STREET/input" />
+        <keyboard visible="no" target="CITY/input" />
+        <keyboard visible="no" target="ZIP/input" />
+        <keyboard visible="no" target="POSTAL/input" />
+        <keyboard visible="no" target="NOTES/input" />
+      </sync>
 			<else>
 				<alert message="There was an error creating the customer.  Please verify that all information is correct and try again." />
 			</else>
@@ -4783,10 +4790,6 @@
           <else>
             <play action="selectwarranty-save" />
             <!--<alert message="from the else, nothing to delete" />-->
-            
-            <!--<if lhs="_title" operator="e" rhs="GAF%C2%AE%20Golden%20Pledge%C2%AE%20Limited%20Warranty">
-              <alert title="Did it work" message="success" />
-            </if>-->
           </else>
         </if>
       </sync>
