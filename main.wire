@@ -1025,8 +1025,8 @@
       <panel name="[param:index]" width="100%" height="213" padding-left="20" padding-right="20">
           <panel name="col1" width="217" height="100%" >
             <text name="name" width="100%" height="fit" style="darktext" size="20" alignment="left" text="[datasource:getProducts.[param:index].ProductName]"></text>
-            <panel name="imgholder" width="108" height="108" bottomof="name" background="#000000">
-            	<image name="shingle" width="100%" url="[eval: '[datasource:getProducts.[param:index].ProductFamily]' == 'TruSlate®' ? 'http://162.209.101.177/Content/SlateImages/':'http://www.gaf.com/All_Images/']/[datasource:getProducts.[param:index].Color[0]/Image]?w=108&amp;h=108"></image>
+            <panel name="imgholder" width="108" height="108" bottomof="name" background="#000000" clip="yes" >
+            	<image name="shingle" height="100%" url="[eval: '[datasource:getProducts.[param:index].ProductFamily]' == 'TruSlate®' ? 'http://162.209.101.177/Content/SlateImages/':'http://www.gaf.com/All_Images/']/[datasource:getProducts.[param:index].Color[0]/Image]?w=108&amp;h=108"></image>
             </panel>
             <text name="desc" width="100" height="fit" bottomof="name" align="right" style="darktext" size="12" alignment="left" text="[datasource:getProducts.[param:index].Description]"></text>
             <panel name="shingle-btn" width="108" height="50" bottomof="imgholder" margin-top="10">
@@ -1035,8 +1035,8 @@
           </panel>
           <panel name="col2" width="217" height="100%" align="right" >
             <text name="name" width="100%" height="fit" style="darktext" size="20" alignment="left" text="[datasource:getProducts.[eval:[param:index]+1].ProductName]"></text>
-            <panel name="imgholder" width="108" height="108" bottomof="name" background="#000000">
-            	<image name="shingle" width="100%" url="[eval: '[datasource:getProducts.[eval:[param:index]+1].ProductFamily]' == 'TruSlate®' ? 'http://162.209.101.177/Content/SlateImages/':'http://www.gaf.com/All_Images/']/[datasource:getProducts.[param:index].Color[0]/Image]?w=108&amp;h=108"></image>
+            <panel name="imgholder" width="108" height="108" bottomof="name" background="#000000" clip="yes" >
+            	<image name="shingle" height="100%" url="[eval: '[datasource:getProducts.[eval:[param:index]+1].ProductFamily]' == 'TruSlate®' ? 'http://162.209.101.177/Content/SlateImages/':'http://www.gaf.com/All_Images/']/[datasource:getProducts.[param:index].Color[0]/Image]?w=108&amp;h=108"></image>
             </panel>
             <text name="desc" width="100" height="fit" bottomof="name" align="right" style="darktext" size="12" alignment="left" text="[datasource:getProducts.[eval:[param:index]+1].Description]"></text>
             <panel name="shingle-btn" width="108" height="50" bottomof="imgholder" margin-top="10">
@@ -1052,8 +1052,8 @@
         <panel name="[param:index]" width="100%" height="213" padding-left="20" padding-right="20">
           <panel name="col1" width="217" height="100%" >
             <text name="name" width="100%" height="fit" style="darktext" size="20" alignment="left" text="[datasource:getProducts.[param:index].ProductName]"></text>
-            <panel name="imgholder" width="108" height="108" bottomof="name" background="#000000">
-            	<image name="shingle" width="100%" url="[eval: '[datasource:getProducts.[param:index].ProductFamily]' == 'TruSlate®' ? 'http://162.209.101.177/Content/SlateImages/':'http://www.gaf.com/All_Images/']/[datasource:getProducts.[param:index].Color[0]/Image]?w=108&amp;h=108"></image>
+            <panel name="imgholder" width="108" height="108" bottomof="name" background="#000000" clip="yes" >
+            	<image name="shingle" height="100%" url="[eval: '[datasource:getProducts.[param:index].ProductFamily]' == 'TruSlate®' ? 'http://162.209.101.177/Content/SlateImages/':'http://www.gaf.com/All_Images/']/[datasource:getProducts.[param:index].Color[0]/Image]?w=108&amp;h=108"></image>
             </panel>
             <text name="desc" width="100" height="fit" bottomof="name" align="right" style="darktext" size="12" alignment="left" text="[datasource:getProducts.[param:index].Description]"></text>
             <panel name="shingle-btn" width="108" height="50" bottomof="imgholder" margin-top="10">
@@ -1073,8 +1073,8 @@
     <panel name="[param:index]" width="100%" height="320" padding-left="20" padding-right="20">
       <panel name="1" width="33.33%" height="100%" align="left">
         <panel name="marginer" width="200" height="100%" align="left" >
-          <panel name="imgholder" width="200" height="200" background="000000">
-            <image name="shingle" width="100%" url="[eval: '[datasource:getProducts.[var:shingleSelected].ProductFamily]' == 'TruSlate®' ? 'http://162.209.101.177/Content/SlateImages/':'http://www.gaf.com/All_Images/']/[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Image]?w=200&amp;h=200"></image>
+          <panel name="imgholder" width="200" height="200" background="000000" clip="yes" >
+            <image name="shingle" height="100%" url="[eval: '[datasource:getProducts.[var:shingleSelected].ProductFamily]' == 'TruSlate®' ? 'http://162.209.101.177/Content/SlateImages/':'http://www.gaf.com/All_Images/']/[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Image]?w=200&amp;h=200"></image>
           </panel>
           <text name="colorlabel" width="100%" height="40" bottomof="imgholder" style="darktext" size="fit" maxsize="20" alignment="left" text="[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Name]"></text>
           <panel name="search-btn" width="200" height="50" align="right" bottomof="colorlabel">
@@ -1085,8 +1085,8 @@
       
       <panel name="2" width="33.33%" height="100%" align="center" >
         <panel name="marginer" width="200" height="100%" align="center">
-          <panel name="imgholder" width="200" height="200" background="000000">
-            <image name="shingle" width="100%" url="[eval: '[datasource:getProducts.[var:shingleSelected].ProductFamily]' == 'TruSlate®' ? 'http://162.209.101.177/Content/SlateImages/':'http://www.gaf.com/All_Images/']/[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+1]]/Image]?w=200&amp;h=200"></image>
+          <panel name="imgholder" width="200" height="200" background="000000" clip="yes" >
+            <image name="shingle" height="100%" url="[eval: '[datasource:getProducts.[var:shingleSelected].ProductFamily]' == 'TruSlate®' ? 'http://162.209.101.177/Content/SlateImages/':'http://www.gaf.com/All_Images/']/[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+1]]/Image]?w=200&amp;h=200"></image>
           </panel>
           <text name="colorlabel" width="100%" height="40" bottomof="imgholder" style="darktext" size="fit" maxsize="20" alignment="left" text="[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+1]]/Name]"></text>
           <panel name="search-btn" width="200" height="50" align="right" bottomof="colorlabel">
@@ -1096,8 +1096,8 @@
       </panel>
       <panel name="3" width="33.33%" height="100%" align="right" >
         <panel name="marginer" width="200" height="100%" align="right">
-          <panel name="imgholder" width="200" height="200" background="000000">
-            <image name="shingle" width="100%" url="[eval: '[datasource:getProducts.[var:shingleSelected].ProductFamily]' == 'TruSlate®' ? 'http://162.209.101.177/Content/SlateImages/':'http://www.gaf.com/All_Images/']/[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+1]]/Image]?w=200&amp;h=200"></image>
+          <panel name="imgholder" width="200" height="200" background="000000" clip="yes" >
+            <image name="shingle" height="100%" url="[eval: '[datasource:getProducts.[var:shingleSelected].ProductFamily]' == 'TruSlate®' ? 'http://162.209.101.177/Content/SlateImages/':'http://www.gaf.com/All_Images/']/[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+1]]/Image]?w=200&amp;h=200"></image>
           </panel>
           <text name="colorlabel" width="100%" height="40" bottomof="imgholder" style="darktext" size="fit" maxsize="20" alignment="left" text="[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+2]]/Name]"></text>
           <panel name="search-btn" width="200" height="50" align="right" bottomof="colorlabel">
@@ -1113,8 +1113,8 @@
     <panel name="[param:index]" width="100%" height="320" padding-left="20" padding-right="20">
       <panel name="1" width="33.33%" height="100%" align="left">
         <panel name="marginer" width="200" height="100%" align="left" >
-          <panel name="imgholder" width="200" height="200" background="000000">
-            <image name="shingle" width="100%" url="[eval: '[datasource:getProducts.[var:shingleSelected].ProductFamily]' == 'TruSlate®' ? 'http://162.209.101.177/Content/SlateImages/':'http://www.gaf.com/All_Images/']/[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Image]?w=200&amp;h=200"></image>
+          <panel name="imgholder" width="200" height="200" background="000000" clip="yes" >
+            <image name="shingle" height="100%" url="[eval: '[datasource:getProducts.[var:shingleSelected].ProductFamily]' == 'TruSlate®' ? 'http://162.209.101.177/Content/SlateImages/':'http://www.gaf.com/All_Images/']/[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Image]?w=200&amp;h=200"></image>
           </panel>
           <text name="colorlabel" width="100%" height="40" bottomof="imgholder" style="darktext" size="20" alignment="left" text="[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Name]"></text>
           <panel name="search-btn" width="200" height="50" align="right" bottomof="colorlabel">
@@ -1125,8 +1125,8 @@
       
       <panel name="2" width="33.33%" height="100%" align="center" >
         <panel name="marginer" width="200" height="100%" align="center">
-          <panel name="imgholder" width="200" height="200" background="000000">
-            <image name="shingle" width="100%" url="[eval: '[datasource:getProducts.[var:shingleSelected].ProductFamily]' == 'TruSlate®' ? 'http://162.209.101.177/Content/SlateImages/':'http://www.gaf.com/All_Images/']/[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+1]]/Image]?w=200&amp;h=200"></image>
+          <panel name="imgholder" width="200" height="200" background="000000" clip="yes" >
+            <image name="shingle" height="100%" url="[eval: '[datasource:getProducts.[var:shingleSelected].ProductFamily]' == 'TruSlate®' ? 'http://162.209.101.177/Content/SlateImages/':'http://www.gaf.com/All_Images/']/[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+1]]/Image]?w=200&amp;h=200"></image>
           </panel>
           <text name="colorlabel" width="100%" height="40" bottomof="imgholder" style="darktext" size="20" alignment="left" text="[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+1]]/Name]"></text>
           <panel name="search-btn" width="200" height="50" align="right" bottomof="colorlabel">
@@ -1141,8 +1141,8 @@
     <panel name="[param:index]" width="100%" height="320" padding-left="20" padding-right="20">
       <panel name="1" width="33.33%" height="100%" align="left">
         <panel name="marginer" width="200" height="100%" align="left" >
-          <panel name="imgholder" width="200" height="200" background="000000">
-            <image name="shingle" width="100%" url="[eval: '[datasource:getProducts.[var:shingleSelected].ProductFamily]' == 'TruSlate®' ? 'http://162.209.101.177/Content/SlateImages/':'http://www.gaf.com/All_Images/']/[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Image]?w=200&amp;h=200"></image>
+          <panel name="imgholder" width="200" height="200" background="000000" clip="yes" >
+            <image name="shingle" height="100%" url="[eval: '[datasource:getProducts.[var:shingleSelected].ProductFamily]' == 'TruSlate®' ? 'http://162.209.101.177/Content/SlateImages/':'http://www.gaf.com/All_Images/']/[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Image]?w=200&amp;h=200"></image>
           </panel>
           <text name="colorlabel" width="100%" height="40" bottomof="imgholder" style="darktext" size="20" alignment="left" text="[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Name]"></text>
           <panel name="search-btn" width="200" height="50" align="right" bottomof="colorlabel">
@@ -2737,8 +2737,11 @@
     
     <action name="edit-complete" datasource="editCustomer" datasourceevent="querycomplete" >
 		<alert title="Success" message="Customer Record Updated" />
-        <assign property="datasource:getEstimate.source" value="[var:searchquery]" />
-		<play action="close-edit" />
+		<alpha value="0" target="UPLOAD-CURTAIN" />
+		<if lhs="[var:customerCreated]" operator="ne" rhs="yes">
+	        <assign property="datasource:getEstimate.source" value="[var:searchquery]" />
+			<play action="close-edit" />
+		</if>
     </action>
     
     <!-- !Edit modal actions -->
@@ -3590,21 +3593,22 @@
     </action>
     
     <!-- !customer actions -->
+    <!-- !customer actions -->
     <action name="saveCustomer">
-      <play action="released" />
-      <sync>
-		    <assign property="object:UPLOAD-CURTAIN/photo-progress.text" value="Creating Customer" />
-        <alpha value="1" time=".3" target="UPLOAD-CURTAIN" />
-        <!--<alert title="customers saved" message="[datasource:customersdb-list.dataSourceResultCount]" />-->
-        <if lhs="[datasource:customersdb-list.dataSourceResultCount]" operator="gt" rhs="0">
-          <assign property="datasource:customersdb-delete.query" value="DELETE FROM CUSTOMERS;" />
-          <!--<alert message="from the if and deleting [datasource:customersdb-list.dataSourceResultCount]" />-->
-          <else>
-            <play action="saveCustomer-save" />
-            <!--<alert message="from the else, nothing to delete" />-->
-          </else>
-        </if>
-      </sync>
+          <play action="released" />
+		      <sync>
+				<assign property="object:UPLOAD-CURTAIN/photo-progress.text" value="[eval:'[var:customerCreated]' == 'yes' ? 'Updating':'Creating'] Customer" />
+				<alpha value="1" time=".3" target="UPLOAD-CURTAIN" />
+		        <!--<alert title="customers saved" message="[datasource:customersdb-list.dataSourceResultCount]" />-->
+		        <if lhs="[datasource:customersdb-list.dataSourceResultCount]" operator="gt" rhs="0">
+		          <assign property="datasource:customersdb-delete.query" value="DELETE FROM CUSTOMERS;" />
+		          <!--<alert message="from the if and deleting [datasource:customersdb-list.dataSourceResultCount]" />-->
+		          <else>
+		            <play action="saveCustomer-save" />
+		            <!--<alert message="from the else, nothing to delete" />-->
+		          </else>
+		        </if>
+		      </sync>
     </action>
     
     <action name="saveCustomer-save" datasource="customersdb-delete" datasourceevent="querycomplete">
@@ -3642,15 +3646,31 @@
 			<assign property="var:email"  value="[datasource:customersdb-list.1.EMAIL]" />
 			<assign property="datasource:createCustomer.postContent" value="[template:createCustomer.content]" />
 <!-- 			<alert message="sending [template:createCustomer.content]" /> -->
-			<assign property="datasource:createCustomer.source" value="https://162.209.101.177/api/CreateCustomer" />
+			<if lhs="[var:customerCreated]" operator="ne" rhs="yes">
+				<assign property="datasource:createCustomer.source" value="https://162.209.101.177/api/CreateCustomer" />
+				<else>
+					<assign property="var:edit-customerId"  value="[var:customerId]" />
+					<assign property="var:edit-fname"  value="[datasource:customersdb-list.1.FNAME]" />
+					<assign property="var:edit-lname"  value="[datasource:customersdb-list.1.LNAME]" />
+					<assign property="var:edit-address1"  value="[datasource:customersdb-list.1.STREET]" />
+					<assign property="var:edit-city"  value="[datasource:customersdb-list.1.CITY]" />
+					<assign property="var:edit-state"  value="[datasource:customersdb-list.1.STATE]" />
+					<assign property="var:edit-zip"  value="[datasource:customersdb-list.1.POSTAL]" />
+					<assign property="var:edit-country"  value="[datasource:customersdb-list.1.COUNTRY]" />
+					<assign property="var:edit-phone"  value="[datasource:customersdb-list.1.PHONE]" />
+					<assign property="var:edit-email"  value="[datasource:customersdb-list.1.EMAIL]" />
+					<assign property="datasource:editCustomer.postContent" value="[template:editCustomer.content]" />
+					<assign property="datasource:editCustomer.source" value="https://162.209.101.177/api/EditCustomer" />
+				</else>
+			</if>
 		</if>
     </action>
     
 	<action name="create-customer-complete" datasource="createCustomer" datasourceevent="querycomplete">
 		<if lhs="[datasource:createCustomer.1.ResponseCode]" operator="e" rhs="100">
+			<assign property="var:customerCreated" value="yes" />
 			<alpha value="0" time=".3" target="UPLOAD-CURTAIN" />
 			<assign property="var:customerId" value="[datasource:createCustomer.1.CustomerId]" />
-      <!-- <alert message="var:customerId is [var:customerId]" /> -->
 			<assign property="var:firstName" encoding="url" value="[datasource:customersdb-list.1.FNAME]" />
 			<assign property="var:lastName" encoding="url" value="[datasource:customersdb-list.1.LNAME]" />
 			<assign property="var:address1" encoding="url" value="[datasource:customersdb-list.1.STREET]" />
