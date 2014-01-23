@@ -4780,6 +4780,7 @@
         <assign property="var:cur-ridgecap-index" value="" />
         <assign property="var:prev-ridgecap-index" value="" />
         <assign property="var:accessoryCount" value="" />
+        <assign property="var:selectedwarranty" value="" />
         <assign property="datasource:accessoriesdb-delete.query" value="DELETE FROM ACCESSORIES;" />
       </sync>
     </action>
