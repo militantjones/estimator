@@ -3314,15 +3314,17 @@
 	            </else>
 	          </if>
           </if>
-        </if>
+        </if> 
         <if lhs="_this" operator="e" rhs="SUMMARY">
-          <if lhs="[var:accessoryCount]" operator="gte" rhs="[var:accessories]">
+<!--           <if lhs="[var:accessoryCount]" operator="gte" rhs="[var:accessories]"> -->
           <play action="summarycalc" />
           <create class="summary-cust" target="SUMMARY-PAGER" cust1name="[datasource:customersdb-list.1.FNAME] [datasource:customersdb-list.1.LNAME]" cust1phone="[datasource:customersdb-list.1.PHONE]" cust1email="[datasource:customersdb-list.1.EMAIL]" cust2name="[datasource:customersdb-list.1.FNAME2] [datasource:customersdb-list.1.LNAME2]" cust2phone="[datasource:customersdb-list.1.PHONE2]" cust2email="[datasource:customersdb-list.1.EMAIL2]" street="[datasource:customersdb-list.1.STREET]" city="[datasource:customersdb-list.1.CITY]" state="[datasource:customersdb-list.1.STATE]" zip="[datasource:customersdb-list.1.POSTAL]"  />
+<!--
           <else>
           	<alert message="You must select [eval:[var:accessories]-[var:accessoryCount]] more accessories before proceeding" />
           </else>
         </if>
+-->
         </if>
         <if lhs="[var:navwas]" operator="e" rhs="SUMMARY">
           <delete target="SUMMARY-PAGER" />
@@ -5605,7 +5607,7 @@
 					<play action="download-pdf" />
 				</sync>
 				<else>
-					<alert message="There was an error generating your estimate. Please try again later." />
+					<alert message="There was an error generating your estimate. Please try again later. [datasource:generateEstimate.0.content]" />
 					<alpha value="0" target="UPLOAD-CURTAIN" />
 				</else>
 			</if>
@@ -6077,7 +6079,7 @@
       <sync>
         <assign property="var:warranty-set" value="no" />
         <assign property="var:selectedwarranty" value="0" />
-        <alert title="sidebar-products" message="old = [var:product]  new = Shingles" />
+<!--         <alert title="sidebar-products" message="old = [var:product]  new = Shingles" /> -->
         <play action="sidebar-products" _alias="[var:product]" _form="Shingles" />
         <alpha value="0" target="PRODUCTS-WARRANTY" />
         <alpha value="0" target="PRODUCTS-ACCESSORIES" />
