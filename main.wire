@@ -1097,7 +1097,7 @@
       <panel name="3" width="33.33%" height="100%" align="right" >
         <panel name="marginer" width="200" height="100%" align="right">
           <panel name="imgholder" width="200" height="200" background="000000" clip="yes" >
-            <image name="shingle" height="100%" url="[eval: '[datasource:getProducts.[var:shingleSelected].ProductFamily]' == 'TruSlate®' ? 'http://162.209.101.177/Content/SlateImages/':'http://www.gaf.com/All_Images/']/[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+1]]/Image]?w=200&amp;h=200"></image>
+            <image name="shingle" height="100%" url="[eval: '[datasource:getProducts.[var:shingleSelected].ProductFamily]' == 'TruSlate®' ? 'http://162.209.101.177/Content/SlateImages/':'http://www.gaf.com/All_Images/']/[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+2]]/Image]?w=200&amp;h=200"></image>
           </panel>
           <text name="colorlabel" width="100%" height="40" bottomof="imgholder" style="darktext" size="fit" maxsize="20" alignment="left" text="[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+2]]/Name]"></text>
           <panel name="search-btn" width="200" height="50" align="right" bottomof="colorlabel">
@@ -3316,15 +3316,13 @@
           </if>
         </if> 
         <if lhs="_this" operator="e" rhs="SUMMARY">
-<!--           <if lhs="[var:accessoryCount]" operator="gte" rhs="[var:accessories]"> -->
+          <if lhs="[var:accessoryCount]" operator="gte" rhs="[var:accessories]">
           <play action="summarycalc" />
           <create class="summary-cust" target="SUMMARY-PAGER" cust1name="[datasource:customersdb-list.1.FNAME] [datasource:customersdb-list.1.LNAME]" cust1phone="[datasource:customersdb-list.1.PHONE]" cust1email="[datasource:customersdb-list.1.EMAIL]" cust2name="[datasource:customersdb-list.1.FNAME2] [datasource:customersdb-list.1.LNAME2]" cust2phone="[datasource:customersdb-list.1.PHONE2]" cust2email="[datasource:customersdb-list.1.EMAIL2]" street="[datasource:customersdb-list.1.STREET]" city="[datasource:customersdb-list.1.CITY]" state="[datasource:customersdb-list.1.STATE]" zip="[datasource:customersdb-list.1.POSTAL]"  />
-<!--
           <else>
           	<alert message="You must select [eval:[var:accessories]-[var:accessoryCount]] more accessories before proceeding" />
           </else>
         </if>
--->
         </if>
         <if lhs="[var:navwas]" operator="e" rhs="SUMMARY">
           <delete target="SUMMARY-PAGER" />
@@ -6079,7 +6077,7 @@
       <sync>
         <assign property="var:warranty-set" value="no" />
         <assign property="var:selectedwarranty" value="0" />
-<!--         <alert title="sidebar-products" message="old = [var:product]  new = Shingles" /> -->
+        <alert title="sidebar-products" message="old = [var:product]  new = Shingles" />
         <play action="sidebar-products" _alias="[var:product]" _form="Shingles" />
         <alpha value="0" target="PRODUCTS-WARRANTY" />
         <alpha value="0" target="PRODUCTS-ACCESSORIES" />
