@@ -1103,7 +1103,7 @@
       <panel name="3" width="33.33%" height="100%" align="right" >
         <panel name="marginer" width="200" height="100%" align="right">
           <panel name="imgholder" width="200" height="200" background="000000" clip="yes" >
-            <image name="shingle" height="100%" url="[eval: '[datasource:getProducts.[var:shingleSelected].ProductFamily]' == 'TruSlate®' ? 'http://162.209.101.177/Content/SlateImages/':'http://www.gaf.com/All_Images/']/[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+1]]/Image]?w=200&amp;h=200"></image>
+            <image name="shingle" height="100%" url="[eval: '[datasource:getProducts.[var:shingleSelected].ProductFamily]' == 'TruSlate®' ? 'http://162.209.101.177/Content/SlateImages/':'http://www.gaf.com/All_Images/']/[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+2]]/Image]?w=200&amp;h=200"></image>
           </panel>
           <text name="colorlabel" width="100%" height="40" bottomof="imgholder" style="darktext" size="fit" maxsize="20" alignment="left" text="[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+2]]/Name]"></text>
           <panel name="search-btn" width="200" height="50" align="right" bottomof="colorlabel">
@@ -3321,7 +3321,7 @@
 	            </else>
 	          </if>
           </if>
-        </if>
+        </if> 
         <if lhs="_this" operator="e" rhs="SUMMARY">
           <if lhs="[var:accessoryCount]" operator="gte" rhs="[var:accessories]">
           <play action="summarycalc" />
@@ -5655,7 +5655,7 @@
 					<play action="download-pdf" />
 				</sync>
 				<else>
-					<alert message="There was an error generating your estimate. Please try again later." />
+					<alert message="There was an error generating your estimate. Please try again later. [datasource:generateEstimate.0.content]" />
 					<alpha value="0" target="UPLOAD-CURTAIN" />
 				</else>
 			</if>
