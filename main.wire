@@ -1022,23 +1022,27 @@
 
     <class name="shingles">
       <!--two column-->
-      <panel name="[param:index]" width="100%" height="213" padding-left="20" padding-right="20">
+      <panel name="[param:index]" width="100%" height="260" padding-left="20" padding-right="20">
           <panel name="col1" width="217" height="100%" >
-            <text name="name" width="100%" height="fit" style="darktext" size="20" alignment="left" text="[datasource:getProducts.[param:index].ProductName]"></text>
-            <panel name="imgholder" width="108" height="108" bottomof="name" background="#000000" clip="yes" >
+            <panel name="namebox" width="100%" height="60" padding-bottom="5">
+              <text name="name" width="100%" height="fit" valign="bottom" style="darktext" size="20" alignment="left" text="[datasource:getProducts.[param:index].ProductName]"></text>
+            </panel>
+            <panel name="imgholder" width="108" height="108" bottomof="namebox" background="#000000" clip="yes" >
             	<image name="shingle" height="100%" url="[eval: '[datasource:getProducts.[param:index].ProductFamily]' == 'TruSlate®' ? 'http://162.209.101.177/Content/SlateImages/':'http://www.gaf.com/All_Images/']/[datasource:getProducts.[param:index].Color[0]/Image]?w=108&amp;h=108"></image>
             </panel>
-            <text name="desc" width="100" height="fit" bottomof="name" align="right" style="darktext" size="12" alignment="left" text="[datasource:getProducts.[param:index].Description]"></text>
+            <text name="desc" width="100" height="fit" bottomof="namebox" align="right" style="darktext" size="12" alignment="left" text="[datasource:getProducts.[param:index].Description]"></text>
             <panel name="shingle-btn" width="108" height="50" bottomof="imgholder" margin-top="10">
               <object class="productbutton" name="test" size="20" label="Select" action="selectshingle" col="1" rowindex="[param:index]" index="[param:index]" value="[param:index]" />
             </panel>
           </panel>
           <panel name="col2" width="217" height="100%" align="right" >
-            <text name="name" width="100%" height="fit" style="darktext" size="20" alignment="left" text="[datasource:getProducts.[eval:[param:index]+1].ProductName]"></text>
-            <panel name="imgholder" width="108" height="108" bottomof="name" background="#000000" clip="yes" >
+            <panel name="namebox" width="100%" height="60" padding-bottom="5">
+              <text name="name" width="100%" height="fit" valign="bottom" style="darktext" size="20" alignment="left" text="[datasource:getProducts.[eval:[param:index]+1].ProductName]"></text>
+            </panel>
+            <panel name="imgholder" width="108" height="108" bottomof="namebox" background="#000000" clip="yes" >
             	<image name="shingle" height="100%" url="[eval: '[datasource:getProducts.[eval:[param:index]+1].ProductFamily]' == 'TruSlate®' ? 'http://162.209.101.177/Content/SlateImages/':'http://www.gaf.com/All_Images/']/[datasource:getProducts.[eval:[param:index]+1].Color[0]/Image]?w=108&amp;h=108"></image>
             </panel>
-            <text name="desc" width="100" height="fit" bottomof="name" align="right" style="darktext" size="12" alignment="left" text="[datasource:getProducts.[eval:[param:index]+1].Description]"></text>
+            <text name="desc" width="100" height="fit" bottomof="namebox" align="right" style="darktext" size="12" alignment="left" text="[datasource:getProducts.[eval:[param:index]+1].Description]"></text>
             <panel name="shingle-btn" width="108" height="50" bottomof="imgholder" margin-top="10">
               <object class="productbutton" name="test" size="20" label="Select" action="selectshingle" col="2" rowindex="[param:index]" index="[eval:[param:index]+1]" value="[eval:[param:index]+1]" />
             </panel>
@@ -1049,13 +1053,15 @@
     <class name="shingle-single">
       
       <!--one column-->
-        <panel name="[param:index]" width="100%" height="213" padding-left="20" padding-right="20">
+        <panel name="[param:index]" width="100%" height="260" padding-left="20" padding-right="20">
           <panel name="col1" width="217" height="100%" >
-            <text name="name" width="100%" height="fit" style="darktext" size="20" alignment="left" text="[datasource:getProducts.[param:index].ProductName]"></text>
-            <panel name="imgholder" width="108" height="108" bottomof="name" background="#000000" clip="yes" >
+            <panel name="namebox" width="100%" height="60" padding-bottom="5">
+              <text name="name" width="100%" height="fit" valign="bottom" style="darktext" size="20" alignment="left" text="[datasource:getProducts.[param:index].ProductName]"></text>
+            </panel>
+            <panel name="imgholder" width="108" height="108" bottomof="namebox" background="#000000" clip="yes" >
             	<image name="shingle" height="100%" url="[eval: '[datasource:getProducts.[param:index].ProductFamily]' == 'TruSlate®' ? 'http://162.209.101.177/Content/SlateImages/':'http://www.gaf.com/All_Images/']/[datasource:getProducts.[param:index].Color[0]/Image]?w=108&amp;h=108"></image>
             </panel>
-            <text name="desc" width="100" height="fit" bottomof="name" align="right" style="darktext" size="12" alignment="left" text="[datasource:getProducts.[param:index].Description]"></text>
+            <text name="desc" width="100" height="fit" bottomof="namebox" align="right" style="darktext" size="12" alignment="left" text="[datasource:getProducts.[param:index].Description]"></text>
             <panel name="shingle-btn" width="108" height="50" bottomof="imgholder" margin-top="10">
               <object class="productbutton" name="test" size="20" label="Select" action="selectshingle" col="1" rowindex="[param:index]" index="[param:index]" value="[param:index]" />
             </panel>
@@ -1473,21 +1479,22 @@
     </class> <!-- <object class="summary-cust" cust1name="" cust1phone="" cust1email="" cust2name="" cust2phone="" cust2email="" street="" city="" state="" zip="" /> -->
     
     <class name="summary-roof">
-      <panel name="summary-roof" alias="SUMMARY-ROOF" width="100%" height="158" padding-right="20">
+      <panel name="summary-roof" alias="SUMMARY-ROOF" width="100%" height="193" padding-right="20">
         <text name="subtitle" width="100%" height="40" font="Futura-Medium" color="#343434" size="25" alignment="left" text="Roof Info"></text>
-        <panel name="col1" width="33.33%" height="108" bottomof="subtitle">
+        <panel name="col1" width="50%" height="108" bottomof="subtitle">
           <text name="roof-area" width="100%" height="35" style="darktext" size="20" alignment="left" text="Total Area: [param:area]"></text>
           <text name="roof-squares" width="100%" height="35" bottomof="roof-area" style="darktext" size="20" alignment="left" text="Squares Needed: [param:squares]"></text>
           <text name="roof-ridges" width="100%" height="35" bottomof="roof-squares" style="darktext" size="20" alignment="left" text="Ridges: [param:ridges]"></text>
+          <text name="roof-hips" width="100%" height="35" bottomof="roof-ridges" style="darktext" size="20" alignment="left" text="Hips: [param:hips]"></text>
         </panel>
-        <panel name="col2" width="33.33%" height="108" rightof="col1" bottomof="subtitle" >
-          <text name="roof-hips" width="100%" height="35" style="darktext" size="20" alignment="left" text="Hips: [param:hips]"></text>
-          <text name="roof-rake" width="100%" height="35" bottomof="roof-hips" style="darktext" size="20" alignment="left" text="Rake: [param:rakes]"></text>
+        <panel name="col2" width="50%" height="108" rightof="col1" bottomof="subtitle" >
+          <text name="roof-rake" width="100%" height="35" style="darktext" size="20" alignment="left" text="Rake: [param:rakes]"></text>
           <text name="roof-eaves" width="100%" height="35" bottomof="roof-rake" style="darktext" size="20" alignment="left" text="Eaves: [param:eaves]"></text>
+          <text name="roof-valleys" width="100%" height="35" bottomof="roof-eaves" style="darktext" size="20" alignment="left" text="Valleys: [param:valleys]"></text>
         </panel>
-        <panel name="col3" width="33.33%" height="108" rightof="col2" bottomof="subtitle">
+        <!--<panel name="col3" width="33.33%" height="108" rightof="col2" bottomof="subtitle">
           <text name="roof-valleys" width="100%" height="35" style="darktext" size="20" alignment="left" text="Valleys: [param:valleys]"></text>
-        </panel>
+        </panel>-->
         <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
       </panel>
     </class> <!-- <object class="summary-roof" area="" squares="" ridges="" hips="" rakes="" eaves="" valleys="" />-->
@@ -2002,7 +2009,7 @@
             <object class="sidebar" alias="TEAROFF" label="Tear Off" action="sidebar-services" required="0" />
             <object class="sidebar" alias="ASSETPROTECTION" label="Asset Protection" action="sidebar-services" required="0" />
           </pager>
-          <panel name="products-sidebar-blocker" alias="SERVICES-SIDEBAR-BLOCKER" style="100" xpos="-101%"></panel>
+          <panel name="services-sidebar-blocker" alias="SERVICES-SIDEBAR-BLOCKER" style="100" xpos="-101%"></panel>
         </panel>
         
         <panel name="services-Tear Off" alias="SERVICES-TEAROFF" width="512" height="100%" align="right" alpha="0">
@@ -2278,7 +2285,7 @@
                 <text name="unitequals" alias="UNITEQUALS" width="50%" height="50" color="#343434" font="Futura-Medium" size="20" alignment="left" text=" "></text>
                 <text name="unitmeasure" alias="UNITMEASURE" width="50%" height="50" align="right" color="#343434" font="Futura-Medium" size="20" alignment="right" text=" "></text>
               </panel>
-              <text name="accessory-autoquantity" alias="ACCESSORY-AUTOQUANTITY" width="180" height="50" bottomof="ACCESSORY-UNITS-META" style="darktext" size="20" alignment="left" text="testing"></text>
+              <!--<text name="accessory-autoquantity" alias="ACCESSORY-AUTOQUANTITY" width="180" height="50" bottomof="ACCESSORY-UNITS-META" style="darktext" size="20" alignment="left" text="testing"></text>-->
               <panel name="accessoryquantity" alias="ACCESSORYQUANTITY" width="180" height="50" style="textinput" bottomof="ACCESSORY-UNITS-META"  >
                 <panel name="bg" style="100" background="f3f3f3" alpha="1"></panel>
                 <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Quantity"></text>
@@ -4600,7 +4607,6 @@
 						<create class="filler" target="PRODUCT-PAGER-BOX/pager" />
 						<play action="sidebar-products" _alias="SHINGLES" _form="Shingles" />
 						<else>
-<!-- 							<alert message="hi" /> -->
 							<if lhs="[eval:('[datasource:getProducts.[var:productIterateCount].ProductFamily]' == '[var:currentCategory]') &amp;&amp; ('[datasource:getProducts.[eval:[var:productIterateCount]+1].ProductFamily]' == '[var:currentCategory]')]" operator="e" rhs="true">
 <!-- 								<alert message="creating two" /> -->
 								<play action="create-two" />
@@ -4655,11 +4661,15 @@
       <assign property="object:SHINGLECOLOR/shingle.text" value="[var:shingleName]" />
       <play action="released" />
       
-      <alpha value="0" time="0" target="button" />
+      <!--<alpha value="0" time="0" target="button" />
       <alpha value="1" time=".2" target="selected" />
       <if lhs="[var:selectedshingle]" operator="gt" rhs="0">
         <alpha value="0" time="0" target="PRODUCT-PAGER-BOX/pager/[var:shingle-row]/col[var:shingle-col]/shingle-btn/test/selected" />
         <alpha value="1" time=".2" target="PRODUCT-PAGER-BOX/pager/[var:shingle-row]/col[var:shingle-col]/shingle-btn/test/button" />
+      </if>-->
+      <if lhs="[var:prev-selectedshingle]" operator="gt" rhs="0">
+        <translate xpos="374" curve="linear" target="STEP-NAVBLOCK" />
+        <set onclickup="warranty-select-message" target="STEP-NAVBLOCK" />
       </if>
       <assign property="var:selectedshingle" value="_index" />
       <assign property="var:shingle-col" value="_col" />
@@ -4717,6 +4727,17 @@
           <!--<alert title="set color" message="[var:warranty-set]" />-->
   	  	  <play action="reset-accessory-vars" />
 	  	  </if>
+	  	  
+	  	  <alpha value="0" time="0" target="PRODUCT-PAGER-BOX/pager/[var:shingle-row]/col[var:shingle-col]/shingle-btn/test/button" />
+        <alpha value="1" time=".2" target="PRODUCT-PAGER-BOX/pager/[var:shingle-row]/col[var:shingle-col]/shingle-btn/test/selected" />
+        <if lhs="[var:prev-selectedshingle]" operator="gt" rhs="0">
+          <alpha value="0" time="0" target="PRODUCT-PAGER-BOX/pager/[var:prev-shingle-row]/col[var:prev-shingle-col]/shingle-btn/test/selected" />
+          <alpha value="1" time=".2" target="PRODUCT-PAGER-BOX/pager/[var:prev-shingle-row]/col[var:prev-shingle-col]/shingle-btn/test/button" />
+        </if>
+        <assign property="var:prev-selectedshingle" value="[var:selectedshingle]" />
+        <assign property="var:prev-shingle-col" value="[var:shingle-col]" />
+        <assign property="var:prev-shingle-row" value="[var:shingle-row]" />
+        
 	  	  <assign property="var:warranty-set" value="no" />
 	  	  <assign property="var:productImage" value="_image" />
         <!-- 	  	<alert message="var:productImage is [var:productImage]" /> -->
@@ -4750,13 +4771,16 @@
         <assign property="var:prev-starter-index" value="" />
         <assign property="var:cur-ventilation-index" value="" />
         <assign property="var:prev-ventilation-index" value="" />
+        <assign property="var:cur-hipvent" value="" />
+        <assign property="var:prev-hipvent" value="" />
         <assign property="var:cur-fasciavent" value="" />
+        <assign property="var:prev-fasciavent" value="" />
         <assign property="var:cur-ridgevent" value="" />
         <assign property="var:prev-ridgevent" value="" />
         <assign property="var:cur-ridgecap-index" value="" />
         <assign property="var:prev-ridgecap-index" value="" />
-        <assign property="var:prev-hipvent" value="" />
         <assign property="var:accessoryCount" value="" />
+        <assign property="var:selectedwarranty" value="" />
         <assign property="datasource:accessoriesdb-delete.query" value="DELETE FROM ACCESSORIES;" />
       </sync>
     </action>
@@ -4783,6 +4807,8 @@
           <alpha value="1" time=".2" target="WARRANTY-PAGER-BOX/pager/[var:selectedwarranty]/warranty-btn/[var:selectedwarranty]/button" />
           <!--<alert message="[var:selectedwarranty]" />-->
         </if>
+        <translate xpos="101%" curve="linear" target="STEP-NAVBLOCK" />
+        <set onclickup="null" target="STEP-NAVBLOCK" />
         <assign property="var:selectedwarranty" value="_index" />
         <assign property="var:warranty" value="_value" />
         <assign property="var:accessories" value="_accessories" />
@@ -4878,25 +4904,29 @@
           <assign property="var:cur-leak-index" value="_value" />
           <assign property="var:autoquantity" value="[eval: Math.ceil([var:leakbarrier] / _coverage ) ]" />
           <assign property="object:ACCESSORYQUANTITY/input.text" value="[var:autoquantity]" />
-          <assign property="object:ACCESSORY-AUTOQUANTITY.text" value="[var:autoquantity] Units" />
+          <assign property="object:ACCESSORY-UNIT.text" value="Units" />
+          <!--<assign property="object:ACCESSORY-AUTOQUANTITY.text" value="[var:autoquantity] Units" />-->
           <else>
             <assign property="object:UNITMEASURE.text" value="" />
             <assign property="object:UNITEQUALS.text" value="1 = _coverage ft _units" />
+            <assign property="object:ACCESSORY-UNIT.text" value="Units" />
             <assign property="var:cur-leak-index" value="_value" />
           </else>
         </if>
       </if>
       <if lhs="[datasource:getAccessories._value.AccessoryCategory]" operator="e" rhs="Roof Deck Protection">
         <if lhs="[var:squarestotal]" operator="gte" rhs="1">
-          <assign property="object:UNITMEASURE.text" value="" />
-          <assign property="object:UNITEQUALS.text" value="1 roll = _coverage squares _units" />
+          <assign property="object:UNITMEASURE.text" value="[var:squarestotal] sq needed" />
+          <assign property="object:UNITEQUALS.text" value="1 roll = _coverage squares" />
           <assign property="var:cur-roofdeck-index" value="_value" />
           <assign property="var:autoquantity" value="[eval: Math.ceil( [var:squarestotal] / _coverage ) ]" />
           <assign property="object:ACCESSORYQUANTITY/input.text" value="[var:autoquantity]" />
-          <assign property="object:ACCESSORY-AUTOQUANTITY.text" value="[var:autoquantity] Rolls" />
+          <assign property="object:ACCESSORY-UNIT.text" value="Rolls" />
+          <!--<assign property="object:ACCESSORY-AUTOQUANTITY.text" value="[var:autoquantity] Rolls" />-->
           <else>
             <assign property="object:UNITMEASURE.text" value="" />
-            <assign property="object:UNITEQUALS.text" value="1 roll = _coverage squares _units" />
+            <assign property="object:UNITEQUALS.text" value="1 roll = _coverage squares" />
+            <assign property="object:ACCESSORY-UNIT.text" value="Rolls" />
             <assign property="var:cur-roofdeck-index" value="_value" />
           </else>
         </if>
@@ -4908,10 +4938,12 @@
           <assign property="var:cur-starter-index" value="_value" />
           <assign property="var:autoquantity" value="[eval: Math.ceil([var:starterstrips] / _coverage ) ]" />
           <assign property="object:ACCESSORYQUANTITY/input.text" value="[var:autoquantity]" />
-          <assign property="object:ACCESSORY-AUTOQUANTITY.text" value="[var:autoquantity] Units" />
+          <assign property="object:ACCESSORY-UNIT.text" value="Units" />
+          <!--<assign property="object:ACCESSORY-AUTOQUANTITY.text" value="[var:autoquantity] Units" />-->
           <else>
             <assign property="object:UNITMEASURE.text" value="" />
             <assign property="object:UNITEQUALS.text" value="1 = _coverage ft _units" />
+            <assign property="object:ACCESSORY-UNIT.text" value="Units" />
             <assign property="var:cur-starter-index" value="_value" />
           </else>
         </if>
@@ -4928,10 +4960,12 @@
               <assign property="object:UNITEQUALS.text" value="1 = _coverage ft _units" />
               <assign property="var:autoquantity" value="[eval: Math.ceil([var:hipvent-total] / _coverage ) ]" />
               <assign property="object:ACCESSORYQUANTITY/input.text" value="[var:autoquantity]" />
-              <assign property="object:ACCESSORY-AUTOQUANTITY.text" value="[var:autoquantity] Units" />
+              <assign property="object:ACCESSORY-UNIT.text" value="Units" />
+              <!--<assign property="object:ACCESSORY-AUTOQUANTITY.text" value="[var:autoquantity] Units" />-->
               <else>
                 <assign property="object:UNITMEASURE.text" value=" " />
                 <assign property="object:UNITEQUALS.text" value="1 = _coverage ft _units" />
+                <assign property="object:ACCESSORY-UNIT.text" value="Units" />
               </else>
             </if>
             <else>
@@ -4942,6 +4976,8 @@
                 <alpha value="1" time=".25" target="ACCESSORYLIST" />
                 <translate valign="center" time=".25" curve="easeout" target="ACCESSORYLIST" />
                 <assign property="var:cur-fasciavent" value="[datasource:getAccessories._value.AccessoryName]" />
+                <assign property="object:UNITEQUALS.text" value="1 = _coverage ft _units" />
+                <assign property="object:ACCESSORY-UNIT.text" value="Units" />
                 <assign property="var:curtainaction" value="accessorydismiss" />
                 <else><!-- ridge vents -->
                   <if lhs="[var:ridgevent-total]" operator="gte" rhs="1">
@@ -4949,11 +4985,13 @@
                     <assign property="object:UNITEQUALS.text" value="1 = _coverage ft _units" />
                     <assign property="var:autoquantity" value="[eval: Math.ceil([var:ridgevent-total] / _coverage ) ]" />
                     <assign property="object:ACCESSORYQUANTITY/input.text" value="[var:autoquantity]" />
-                    <assign property="object:ACCESSORY-AUTOQUANTITY.text" value="[var:autoquantity] Units" />
+                    <assign property="object:ACCESSORY-UNIT.text" value="Units" />
+                    <!--<assign property="object:ACCESSORY-AUTOQUANTITY.text" value="[var:autoquantity] Units" />-->
                     <assign property="var:cur-ridgevent" value="[datasource:getAccessories._value.AccessoryName]" />
                     <else>
                       <assign property="object:UNITMEASURE.text" value="" />
                       <assign property="object:UNITEQUALS.text" value="1 = _coverage ft _units" />
+                      <assign property="object:ACCESSORY-UNIT.text" value="Units" />
                     </else>
                   </if>
                 </else>
@@ -4970,7 +5008,8 @@
           <assign property="var:cur-ridgecap-index" value="_value" />
           <assign property="var:autoquantity" value="[eval: Math.ceil([var:ridgestotal] / _coverage ) ]" />
           <assign property="object:ACCESSORYQUANTITY/input.text" value="[var:autoquantity]" />
-          <assign property="object:ACCESSORY-AUTOQUANTITY.text" value="[var:autoquantity] Units" />
+          <assign property="object:ACCESSORY-UNIT.text" value="Units" />
+          <!--<assign property="object:ACCESSORY-AUTOQUANTITY.text" value="[var:autoquantity] Units" />-->
 	        <else>
 	          <assign property="object:UNITMEASURE.text" value="" />
             <assign property="object:UNITEQUALS.text" value="1 = _coverage ft _units" />
@@ -4982,6 +5021,7 @@
         <assign property="object:UNITMEASURE.text" value="" />
         <assign property="object:UNITEQUALS.text" value="" />
         <assign property="var:cur-ventilation-index" value="_value" />
+        <assign property="object:ACCESSORY-UNIT.text" value="Units" />
       </if>
       <alpha value="1" time=".25" target="ACCESSORYLIST" />
       <translate valign="center" time=".25" curve="easeout" target="ACCESSORYLIST" />
@@ -5601,7 +5641,7 @@
 			<assign property="var:estimateJSON" value="[template:estimateJSON.content]" />
 			<assign property="datasource:generateEstimate.postContent" value="[var:estimateJSON]" />
 			<assign property="datasource:generateEstimate.source" value="https://162.209.101.177/api/GenerateEstimate" />
-<!-- 			<email subject="estimate and measurements json" body="estimate\n\n[var:estimateJSON]" toaddress="mlong@rarewire.com" /> -->
+      <email subject="estimate and measurements json" body="estimate\n\n[var:estimateJSON]" toaddress="dwalruff@rarewire.com" />
 		</action>
 		
 		<action name="estimate-complete" datasource="generateEstimate" datasourceevent="querycomplete">
@@ -5784,6 +5824,7 @@
       <assign property="preferences:trueSlate" value="" />
       <assign property="httpheader:get.Token" value="" />
       <assign property="httpheader:get.ContractorId" value="" />
+      <!-- accessories -->
       <assign property="var:accessory-[var:accessoryCount]-Quantity" value="" />
       <assign property="var:accessory-[var:accessoryCount]" value="" />
       <assign property="var:accessory-[var:accessoryCount]-Name" value="" />
@@ -5800,13 +5841,22 @@
       <assign property="var:prev-starter-index" value="" />
       <assign property="var:cur-ventilation-index" value="" />
       <assign property="var:prev-ventilation-index" value="" />
+      <assign property="var:cur-hipvent" value="" />
+      <assign property="var:prev-hipvent" value="" />
       <assign property="var:cur-fasciavent" value="" />
+      <assign property="var:prev-fasciavent" value="" />
       <assign property="var:cur-ridgevent" value="" />
       <assign property="var:prev-ridgevent" value="" />
       <assign property="var:cur-ridgecap-index" value="" />
       <assign property="var:prev-ridgecap-index" value="" />
-      <assign property="var:prev-hipvent" value="" />
       <assign property="var:accessoryCount" value="" />
+      <!-- shingles -->
+      <assign property="var:prev-selectedshingle" value="var:selectedshingle" />
+      <assign property="var:prev-shingle-col" value="var:shingle-col" />
+      <assign property="var:prev-shingle-row" value="var:shingle-row" />
+      <assign property="var:selectedshingle" value="var:selectedshingle" />
+      <assign property="var:shingle-col" value="var:shingle-col" />
+      <assign property="var:shingle-row" value="var:shingle-row" />
     </action>
     
     <action name="clear-var" >
@@ -5838,6 +5888,7 @@
       <assign property="var:country" value="US" />
       <assign property="var:prevfield" value="0" />
       <assign property="var:nav" value="CUSTOMER" />
+      <!-- accessories -->
       <assign property="var:accessory-[var:accessoryCount]-Quantity" value="" />
       <assign property="var:accessory-[var:accessoryCount]" value="" />
       <assign property="var:accessory-[var:accessoryCount]-Name" value="" />
@@ -5854,13 +5905,22 @@
       <assign property="var:prev-starter-index" value="" />
       <assign property="var:cur-ventilation-index" value="" />
       <assign property="var:prev-ventilation-index" value="" />
+      <assign property="var:cur-hipvent" value="" />
+      <assign property="var:prev-hipvent" value="" />
       <assign property="var:cur-fasciavent" value="" />
+      <assign property="var:prev-fasciavent" value="" />
       <assign property="var:cur-ridgevent" value="" />
       <assign property="var:prev-ridgevent" value="" />
       <assign property="var:cur-ridgecap-index" value="" />
       <assign property="var:prev-ridgecap-index" value="" />
-      <assign property="var:prev-hipvent" value="" />
       <assign property="var:accessoryCount" value="" />
+      <!-- shingles -->
+      <assign property="var:prev-selectedshingle" value="var:selectedshingle" />
+      <assign property="var:prev-shingle-col" value="var:shingle-col" />
+      <assign property="var:prev-shingle-row" value="var:shingle-row" />
+      <assign property="var:selectedshingle" value="var:selectedshingle" />
+      <assign property="var:shingle-col" value="var:shingle-col" />
+      <assign property="var:shingle-row" value="var:shingle-row" />
     </action>
 
     <!-- !delete actions -->
@@ -6033,6 +6093,10 @@
     <!-- !tearoff required -->
     <action name="warranty-message">
       <alert message="The warranty you have selected requires tear off." />
+    </action>
+    
+    <action name="warranty-select-message">
+      <alert title="You changed your shingle selection" message="Please select a new warranty." />
     </action>
     
     <action name="tearoff-go">
