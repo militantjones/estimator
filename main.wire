@@ -4715,7 +4715,6 @@
       <sync>
 	  	  <if lhs="[var:warranty-set]" operator="e" rhs="yes">
           <!--<alert title="set color" message="[var:warranty-set]" />-->
-  	  	  <assign property="datasource:accessoriesdb-delete.query" value="DELETE FROM ACCESSORIES;" />
   	  	  <play action="reset-accessory-vars" />
 	  	  </if>
 	  	  <assign property="var:warranty-set" value="no" />
@@ -4734,20 +4733,32 @@
     </action>
     
     <action name="reset-accessory-vars">
-      <assign property="var:cur-acc-cat" value="" />
-      <assign property="var:cur-leak-index" value="" />
-      <assign property="var:prev-leak-index" value="" />
-      <assign property="var:cur-roofdeck-index" value="" />
-      <assign property="var:prev-roofdeck-index" value="" />
-      <assign property="var:cur-starter-index" value="" />
-      <assign property="var:prev-starter-index" value="" />
-      <assign property="var:cur-ventilation-index" value="" />
-      <assign property="var:prev-ventilation-index" value="" />
-      <assign property="var:cur-ridgecap-index" value="" />
-      <assign property="var:prev-ridgecap-index" value="" />
-      <assign property="var:cur-ventilation-index" value="" />
-      <assign property="var:prev-ventilation-index" value="" />
-      <assign property="var:accessoryCount" value="" />
+      <sync>
+        <assign property="var:accessory-[var:accessoryCount]-Quantity" value="" />
+        <assign property="var:accessory-[var:accessoryCount]" value="" />
+        <assign property="var:accessory-[var:accessoryCount]-Name" value="" />
+        <assign property="var:accessory-[var:accessoryCount]-Type" value="" />
+        <assign property="var:accessorySelected" value="" />
+        <assign property="var:cur-acc-cat" value="" />
+        <assign property="var:autoquantity" value="" />
+        <assign property="var:curtainaction" value="" />
+        <assign property="var:cur-leak-index" value="" />
+        <assign property="var:prev-leak-index" value="" />
+        <assign property="var:cur-roofdeck-index" value="" />
+        <assign property="var:prev-roofdeck-index" value="" />
+        <assign property="var:cur-starter-index" value="" />
+        <assign property="var:prev-starter-index" value="" />
+        <assign property="var:cur-ventilation-index" value="" />
+        <assign property="var:prev-ventilation-index" value="" />
+        <assign property="var:cur-fasciavent" value="" />
+        <assign property="var:cur-ridgevent" value="" />
+        <assign property="var:prev-ridgevent" value="" />
+        <assign property="var:cur-ridgecap-index" value="" />
+        <assign property="var:prev-ridgecap-index" value="" />
+        <assign property="var:prev-hipvent" value="" />
+        <assign property="var:accessoryCount" value="" />
+        <assign property="datasource:accessoriesdb-delete.query" value="DELETE FROM ACCESSORIES;" />
+      </sync>
     </action>
     
     <!-- !warranty actions -->
@@ -5763,7 +5774,7 @@
       <assign property="var:country" value="US" />
       <assign property="var:prevfield" value="0" />
       <assign property="var:nav" value="CUSTOMER" />
-	  <assign property="var:product" value="" />
+      <assign property="var:product" value="" />
       <assign property="preferences:remember" value="" />
       <assign property="preferences:username" value="" />
       <assign property="preferences:password" value="" />
@@ -5773,7 +5784,14 @@
       <assign property="preferences:trueSlate" value="" />
       <assign property="httpheader:get.Token" value="" />
       <assign property="httpheader:get.ContractorId" value="" />
+      <assign property="var:accessory-[var:accessoryCount]-Quantity" value="" />
+      <assign property="var:accessory-[var:accessoryCount]" value="" />
+      <assign property="var:accessory-[var:accessoryCount]-Name" value="" />
+      <assign property="var:accessory-[var:accessoryCount]-Type" value="" />
+      <assign property="var:accessorySelected" value="" />
       <assign property="var:cur-acc-cat" value="" />
+      <assign property="var:autoquantity" value="" />
+      <assign property="var:curtainaction" value="" />
       <assign property="var:cur-leak-index" value="" />
       <assign property="var:prev-leak-index" value="" />
       <assign property="var:cur-roofdeck-index" value="" />
@@ -5782,29 +5800,31 @@
       <assign property="var:prev-starter-index" value="" />
       <assign property="var:cur-ventilation-index" value="" />
       <assign property="var:prev-ventilation-index" value="" />
+      <assign property="var:cur-fasciavent" value="" />
+      <assign property="var:cur-ridgevent" value="" />
+      <assign property="var:prev-ridgevent" value="" />
       <assign property="var:cur-ridgecap-index" value="" />
       <assign property="var:prev-ridgecap-index" value="" />
-      <assign property="var:cur-ventilation-index" value="" />
-      <assign property="var:prev-ventilation-index" value="" />
+      <assign property="var:prev-hipvent" value="" />
       <assign property="var:accessoryCount" value="" />
     </action>
     
     <action name="clear-var" >
-	  <assign property="var:warranty-set" value="no" />
-	  <assign property="var:roofMeasurementsJSON" value="" />
-	  <assign property="var:ridgeMeasurementsJSON" value="" />
-	  <assign property="var:hipsJSON" value="" />
-	  <assign property="var:valleysJSON" value="" />
-	  <assign property="var:rakesJSON" value="" />
-	  <assign property="var:eavesJSON" value="" />
-	  <assign property="var:skylightsJSON" value="" />
-	  <assign property="var:plumbingVentsJSON" value="" />
-	  <assign property="var:measurementsJSON" value="" />
-	  <assign property="var:estimateJSON" value="" />
-	  <assign property="var:accessoriesJSON" value="" />
-	  <assign property="var:miscAccessoriesJSON" value="" />
-	  <assign property="var:adjustmentsJSON" value="" />
-	  <assign property="var:product" value="" />
+	    <assign property="var:warranty-set" value="no" />
+	    <assign property="var:roofMeasurementsJSON" value="" />
+	    <assign property="var:ridgeMeasurementsJSON" value="" />
+	    <assign property="var:hipsJSON" value="" />
+	    <assign property="var:valleysJSON" value="" />
+	    <assign property="var:rakesJSON" value="" />
+	    <assign property="var:eavesJSON" value="" />
+	    <assign property="var:skylightsJSON" value="" />
+	    <assign property="var:plumbingVentsJSON" value="" />
+	    <assign property="var:measurementsJSON" value="" />
+	    <assign property="var:estimateJSON" value="" />
+	    <assign property="var:accessoriesJSON" value="" />
+	    <assign property="var:miscAccessoriesJSON" value="" />
+	    <assign property="var:adjustmentsJSON" value="" />
+	    <assign property="var:product" value="" />
       <assign property="var:search" value="" />
       <assign property="var:db-action" value="" />
       <assign property="var:accessories" value="0" />
@@ -5818,7 +5838,14 @@
       <assign property="var:country" value="US" />
       <assign property="var:prevfield" value="0" />
       <assign property="var:nav" value="CUSTOMER" />
+      <assign property="var:accessory-[var:accessoryCount]-Quantity" value="" />
+      <assign property="var:accessory-[var:accessoryCount]" value="" />
+      <assign property="var:accessory-[var:accessoryCount]-Name" value="" />
+      <assign property="var:accessory-[var:accessoryCount]-Type" value="" />
+      <assign property="var:accessorySelected" value="" />
       <assign property="var:cur-acc-cat" value="" />
+      <assign property="var:autoquantity" value="" />
+      <assign property="var:curtainaction" value="" />
       <assign property="var:cur-leak-index" value="" />
       <assign property="var:prev-leak-index" value="" />
       <assign property="var:cur-roofdeck-index" value="" />
@@ -5827,10 +5854,12 @@
       <assign property="var:prev-starter-index" value="" />
       <assign property="var:cur-ventilation-index" value="" />
       <assign property="var:prev-ventilation-index" value="" />
+      <assign property="var:cur-fasciavent" value="" />
+      <assign property="var:cur-ridgevent" value="" />
+      <assign property="var:prev-ridgevent" value="" />
       <assign property="var:cur-ridgecap-index" value="" />
       <assign property="var:prev-ridgecap-index" value="" />
-      <assign property="var:cur-ventilation-index" value="" />
-      <assign property="var:prev-ventilation-index" value="" />
+      <assign property="var:prev-hipvent" value="" />
       <assign property="var:accessoryCount" value="" />
     </action>
 
