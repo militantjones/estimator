@@ -4755,10 +4755,14 @@
     
     <action name="reset-accessory-vars">
       <sync>
-        <assign property="var:accessory-[var:accessoryCount]-Quantity" value="" />
-        <assign property="var:accessory-[var:accessoryCount]" value="" />
-        <assign property="var:accessory-[var:accessoryCount]-Name" value="" />
-        <assign property="var:accessory-[var:accessoryCount]-Type" value="" />
+        <loop lhs="[var:clear-acc-index]" operator="lt" rhs="[var:acc-count-increment]">
+          <assign property="var:clear-acc-index" value="[eval: [var:clear-acc-index] + 1]" />
+          <assign property="var:accessory-[var:acc-count-track-[var:clear-acc-index]]-Quantity" value="" />
+          <assign property="var:accessory-[var:acc-count-track-[var:clear-acc-index]]" value="" />
+          <assign property="var:accessory-[var:acc-count-track-[var:clear-acc-index]]-Name" value="" />
+          <assign property="var:accessory-[var:acc-count-track-[var:clear-acc-index]]-Type" value="" />
+          <assign property="var:acc-count-track-[var:clear-acc-index]" value="" />
+        </loop>
         <assign property="var:accessorySelected" value="" />
         <assign property="var:cur-acc-cat" value="" />
         <assign property="var:autoquantity" value="" />
@@ -4779,8 +4783,10 @@
         <assign property="var:prev-ridgevent" value="" />
         <assign property="var:cur-ridgecap-index" value="" />
         <assign property="var:prev-ridgecap-index" value="" />
-        <assign property="var:accessoryCount" value="" />
+        <assign property="var:accessoryCount" value="0" />
         <assign property="var:selectedwarranty" value="" />
+        <assign property="var:acc-count-increment" value="" />
+        <assign property="var:clear-acc-index" value="" />
         <assign property="datasource:accessoriesdb-delete.query" value="DELETE FROM ACCESSORIES;" />
       </sync>
     </action>
@@ -4812,6 +4818,7 @@
         <assign property="var:selectedwarranty" value="_index" />
         <assign property="var:warranty" value="_value" />
         <assign property="var:accessories" value="_accessories" />
+        <!--<alert title="var accessories" message="var [var:accessories] : underscore _accessories" />-->
         <assign property="var:warrantyname" value="_title" />
         <assign property="var:warrantycheck" encoding="url" value="_title" />
         <alpha value="1" time=".1" target="UPLOAD-CURTAIN" />
@@ -5154,8 +5161,12 @@
       <!--<alert message="accessoriesdb-insert" />-->
       <if lhs="[var:loaded]" operator="e" rhs="yes">
         <if lhs="[var:accessory-[var:accessoryCount]-Name]" operator="ne" rhs="">
-          <!--<alert title="insert" message="INSERT INTO ACCESSORIES (NAME, TYPE, ACCESSORY, QUANTITY) VALUES ('[var:accessory-[var:accessoryCount]-Name]', '[var:accessory-[var:accessoryCount]-Type]', '[var:accessory-[var:accessoryCount]]', '[var:accessory-[var:accessoryCount]-Quantity]');" />-->
+          <!--<alert title="insert [var:accessory-[var:accessoryCount]-Name]" message="INSERT INTO ACCESSORIES (NAME, TYPE, ACCESSORY, QUANTITY) VALUES ('[var:accessory-[var:accessoryCount]-Name]', '[var:accessory-[var:accessoryCount]-Type]', '[var:accessory-[var:accessoryCount]]', '[var:accessory-[var:accessoryCount]-Quantity]');" />-->
           <assign property="datasource:accessoriesdb.query" value="INSERT INTO ACCESSORIES (NAME, TYPE, ACCESSORY, QUANTITY) VALUES ('[var:accessory-[var:accessoryCount]-Name]', '[var:accessory-[var:accessoryCount]-Type]', '[var:accessory-[var:accessoryCount]]', '[var:accessory-[var:accessoryCount]-Quantity]');" />
+          <sync>
+            <assign property="var:acc-count-increment" value="[eval: [var:acc-count-increment] + 1]" />
+            <assign property="var:acc-count-track-[var:acc-count-increment]" value="[var:accessoryCount]" />
+          </sync>
         </if>
       </if>
     </action>
@@ -5825,6 +5836,14 @@
       <assign property="httpheader:get.Token" value="" />
       <assign property="httpheader:get.ContractorId" value="" />
       <!-- accessories -->
+      <loop lhs="[var:clear-acc-index]" operator="lt" rhs="[var:acc-count-increment]">
+        <assign property="var:clear-acc-index" value="[eval: [var:clear-acc-index] + 1]" />
+        <assign property="var:accessory-[var:acc-count-track-[var:clear-acc-index]]-Quantity" value="" />
+        <assign property="var:accessory-[var:acc-count-track-[var:clear-acc-index]]" value="" />
+        <assign property="var:accessory-[var:acc-count-track-[var:clear-acc-index]]-Name" value="" />
+        <assign property="var:accessory-[var:acc-count-track-[var:clear-acc-index]]-Type" value="" />
+        <assign property="var:acc-count-track-[var:clear-acc-index]" value="" />
+      </loop>
       <assign property="var:accessory-[var:accessoryCount]-Quantity" value="" />
       <assign property="var:accessory-[var:accessoryCount]" value="" />
       <assign property="var:accessory-[var:accessoryCount]-Name" value="" />
@@ -5849,7 +5868,9 @@
       <assign property="var:prev-ridgevent" value="" />
       <assign property="var:cur-ridgecap-index" value="" />
       <assign property="var:prev-ridgecap-index" value="" />
-      <assign property="var:accessoryCount" value="" />
+      <assign property="var:accessoryCount" value="0" />
+      <assign property="var:acc-count-increment" value="" />
+      <assign property="var:clear-acc-index" value="" />
       <!-- shingles -->
       <assign property="var:prev-selectedshingle" value="var:selectedshingle" />
       <assign property="var:prev-shingle-col" value="var:shingle-col" />
@@ -5889,6 +5910,14 @@
       <assign property="var:prevfield" value="0" />
       <assign property="var:nav" value="CUSTOMER" />
       <!-- accessories -->
+      <loop lhs="[var:clear-acc-index]" operator="lt" rhs="[var:acc-count-increment]">
+        <assign property="var:clear-acc-index" value="[eval: [var:clear-acc-index] + 1]" />
+        <assign property="var:accessory-[var:acc-count-track-[var:clear-acc-index]]-Quantity" value="" />
+        <assign property="var:accessory-[var:acc-count-track-[var:clear-acc-index]]" value="" />
+        <assign property="var:accessory-[var:acc-count-track-[var:clear-acc-index]]-Name" value="" />
+        <assign property="var:accessory-[var:acc-count-track-[var:clear-acc-index]]-Type" value="" />
+        <assign property="var:acc-count-track-[var:clear-acc-index]" value="" />
+      </loop>
       <assign property="var:accessory-[var:accessoryCount]-Quantity" value="" />
       <assign property="var:accessory-[var:accessoryCount]" value="" />
       <assign property="var:accessory-[var:accessoryCount]-Name" value="" />
@@ -5913,7 +5942,9 @@
       <assign property="var:prev-ridgevent" value="" />
       <assign property="var:cur-ridgecap-index" value="" />
       <assign property="var:prev-ridgecap-index" value="" />
-      <assign property="var:accessoryCount" value="" />
+      <assign property="var:accessoryCount" value="0" />
+      <assign property="var:acc-count-increment" value="" />
+      <assign property="var:clear-acc-index" value="" />
       <!-- shingles -->
       <assign property="var:prev-selectedshingle" value="var:selectedshingle" />
       <assign property="var:prev-shingle-col" value="var:shingle-col" />
