@@ -380,10 +380,10 @@
       <panel name="result-item[param:index]" width="100%" height="100">
         <text name="name" width="65%" height="30" xpos="20" ypos="20" style="darktext" size="24" alignment="left" text="[param:lastname], [param:firstname]" ></text>
         <text name="address" width="65%" height="30" xpos="20" bottomof="name" style="darktext" size="20" alignment="left" text="[param:street], [param:city], [param:state] [param:zip]" ></text>
-        <panel name="edit-btn" width="100" height="50" ypos="22" align="right" margin-right="20">
+        <panel name="edit-btn" width="100" height="50" ypos="22" align="right" bottomof="search-address" margin-right="20">
           <object class="button" name="test" size="20" label="Edit" action="edit" value="[param:index]" />
         </panel>
-        <panel name="view-btn" width="100" height="50" ypos="22" leftof="edit-btn" margin-right="20" >
+        <panel name="view-btn" width="100" height="50" ypos="22" leftof="edit-btn" margin-right="20" bottomof="search-address">
           <object class="button" name="test" size="20" label="View" action="viewestimate" value="[param:index]" />
         </panel>
         <panel name="divider" width="728" height="5" align="center" valign="bottom" background="#343434"></panel>
@@ -397,8 +397,7 @@
           <text name="close" width="100" height="100%" color="#ffffff" font="Futura-Medium" size="20" alignment="left" leftinset="20" text="Close" onclickup="closeresults" clickuptarget="CONTAINER"></text>
         </panel>
         <list name="resultlist" width="100%" height="[eval: [object:SEARCHRESULTS.height] - 74]" datasource="getEstimate" ypos="74" orientation="vertical" paginate="no">
-			<object class="searchresult" index="[ds:dataSourceIndex]" lastname="[ds:CustomerLastName]" firstname="[ds:CustomerFirstName]" street="[ds:Address1]" city="[ds:City]" zip="[ds:PostalCode]" phone="[ds:PhoneNumber]" state="[ds:CustomerDetails/StateProvince]" />
-<!-- 			<object class="searchresult" index="[ds:dataSourceIndex]" lastname="[ds:CustomerLastName]" firstname="[ds:CustomerFirstName]" street="[ds:Address1]" city="[ds:City]" state="[ds:StateProvince]" zip="[ds:PostalCode]" phone="[ds:PhoneNumber]" /> -->
+			<object class="searchresult" index="[ds:dataSourceIndex]" lastname="[ds:CustomerLastName]" firstname="[ds:CustomerFirstName]" street="[ds:Address1]" city="[ds:City]" state="[ds:StateProvince]" zip="[ds:PostalCode]" phone="[ds:PhoneNumber]" />
         </list>
       </panel>
     </class>
@@ -1592,7 +1591,7 @@
     </class>
     
     <class name="capture-preview">
-        <panel name="capture-preview" alias="CAPTURE-PREVIEW" height="100%" width="100%" clip="yes" >
+        <panel name="capture-preview" alias="CAPTURE-PREVIEW" height="100%" width="100%" clip="yes" background="#00ff00">
           <image fullpath="[param:source]" width="100%" align="center" valign="center"/>
         </panel>
     </class>
@@ -2158,7 +2157,7 @@
         <text name="save" width="100" height="100%" align="right" color="#ffffff" font="Avenir-Medium" size="15" alignment="center" text="SEND" onclickup="sendestimate" clickuptarget="CONTAINER" ></text>
         <text name="cancel" width="100" height="100%" color="#ffffff" font="Avenir-Medium" size="15" alignment="center" text="CLOSE" onclickup="closepdf" clickuptarget="CONTAINER" ></text>
       </panel>
-      <panel name="pdf" width="100%" height="950" valign="bottom" >
+      <panel name="pdf" width="100%" height="950" valign="bottom" background="#00ff00" >
         <pdf name="estimate" source="estimate.pdf" height="100%" width="100%" spreads="no" covertile="yes" tile="yes" orientation="vertical"></pdf>
       </panel>
 	  </panel>
@@ -2693,17 +2692,17 @@
         <translate ypos="0" time=".25" curve="easeout" target="SEARCHRESULTS" />
         <!-- <alert message="get-estimate preferences:token is [preferences:token] preferences:contractorId is [preferences:contractorId] url is https://162.209.101.177/api/GetCustomerEstimate?customerLastName=[var:lastName]&amp;address1=[var:address1]&amp;city=[var:city]&amp;stateProvince=[var:state]&amp;postalCode=[var:postalCode]&amp;country=[var:country]" /> -->
         <if lhs="[eval: ('[object:SEARCH-LASTNAME/input.text]' != '' ) &amp;&amp; ('[object:SEARCH-ADDRESS/input.text]' != '')]" operator="e" rhs="true">
-<!--         <alert message="search by both" /> -->
+        <!-- <alert message="search by both" /> -->
           <assign property="datasource:getEstimate.source" value="https://162.209.101.177/api/GetCustomerEstimate?CustomerLastName=[var:searchLastName]&amp;address1=[var:searchAddress]" />
 		  <assign property="var:searchquery" value="https://162.209.101.177/api/GetCustomerEstimate?CustomerLastName=[var:searchLastName]&amp;address1=[var:searchAddress]" />
         </if>
         <if lhs="[eval: ('[object:SEARCH-LASTNAME/input.text]' != '' ) &amp;&amp; ('[object:SEARCH-ADDRESS/input.text]' == '')]" operator="e" rhs="true">
-<!--         <alert message="search by last name" /> -->
+        <!-- <alert message="search by last name" /> -->
           <assign property="datasource:getEstimate.source" value="https://162.209.101.177/api/GetCustomerEstimate?CustomerLastName=[var:searchLastName]" />
 		  <assign property="var:searchquery" value="https://162.209.101.177/api/GetCustomerEstimate?CustomerLastName=[var:searchLastName]" />
         </if>
         <if lhs="[eval: ('[object:SEARCH-LASTNAME/input.text]' == '' ) &amp;&amp; ('[object:SEARCH-ADDRESS/input.text]' != '')]" operator="e" rhs="true">
-<!--         <alert message="search by address" /> -->
+        <!-- <alert message="search by address" /> -->
           <assign property="datasource:getEstimate.source" value="https://162.209.101.177/api/GetCustomerEstimate?Address1=[var:searchAddress]" />
 		  <assign property="var:searchquery" value="https://162.209.101.177/api/GetCustomerEstimate?Address1=[var:searchAddress]" />
 		</if>
@@ -2731,15 +2730,11 @@
     
     <action name="viewestimate">
       <play action="released" />
-	  <if lhs="[datasource:getEstimate._value.EstimatePdf]" operator="ne" rhs="">
-		  <alpha value="1" time=".2" target="UPLOAD-CURTAIN" />
-		  <assign property="object:UPLOAD-CURTAIN/photo-progress.text" value="Retrieving Estimate..." />
-	      <assign property="var:customerId" value="[datasource:getEstimate._value.CustomerId]" />
-		  <play action="download-pdf" />
-		  <else>
-			  <alert message="No estimate found for this user." />
-		  </else>
-	  </if>
+	  <alpha value="1" time=".2" target="UPLOAD-CURTAIN" />
+	  <assign property="object:UPLOAD-CURTAIN/photo-progress.text" value="Retrieving Estimate..." />
+      <assign property="var:customerId" value="[datasource:getEstimate._value.CustomerId]" />
+	  <play action="download-pdf" />
+<!-- 	  <alert message="viewestimate estimatePdf is _value" /> -->
     </action>
     
     <action name="edit">
@@ -3565,8 +3560,8 @@
     </action>
     
     <action name="savedSERVICES-save" datasource="assetprotectiondb-delete" datasourceevent="querycomplete">
-<!--       <alert title="tear off" message="tear off:[var:tearoff] [object:LAYERS/input.text] [object:TYPE/input.text]" /> -->
 <!--
+      <alert title="tear off" message="tear off:[var:tearoff] [object:LAYERS/input.text] [object:TYPE/input.text]" />
       <alert title="asset protection" message="landscaping:[var:landscaping] hardscaping:[var:hardscaping] hvac:[var:hvac] pool:[var:pool] misc[var:misc]" />
 -->
       <if lhs="[var:loaded]" operator="e" rhs="yes">
@@ -4856,7 +4851,6 @@
         <!--<alert title="var accessories" message="var [var:accessories] : underscore _accessories" />-->
         <assign property="var:warrantyname" value="_title" />
         <assign property="var:warrantycheck" encoding="url" value="_title" />
-		<alert message="var:warrantycheck is [var:warrantycheck]" />
         <alpha value="1" time=".1" target="UPLOAD-CURTAIN" />
         <assign property="object:UPLOAD-CURTAIN/photo-progress.text" value="Retrieving Accessories" />
         <if lhs="[var:warrantycheck]" operator="e" rhs="GAF%C2%AE%20Golden%20Pledge%C2%AE%20Limited%20Warranty">
@@ -5605,26 +5599,25 @@
 		
 		<!-- !formatEstimate -->
 		<action name="formatEstimate" >
+<!--
+			<play action="released" />
+			<alpha value="1" target="UPLOAD-CURTAIN" />
+-->
 			<if lhs="[datasource:productsdb-list.dataSourceResultCount]" operator="gt" rhs="0">
 				<assign property="var:shingle" value="[datasource:productsdb-list.1.SHINGLE]" />
 				<assign property="var:warranty" value="[datasource:productsdb-list.1.WARRANTY]" />
 			</if>
 			<if lhs="[datasource:tearoffdb-list.dataSourceResultCount]" operator="gt" rhs="0">
-				<if lhs="[datasource:tearoffdb-list.1.TEAROFF]" operator="e" rhs="yes">
-					<assign property="var:tearOffLayers" value="[datasource:tearoffdb-list.1.LAYERS]" />
-					<assign property="var:tearOffType" value="[datasource:tearoffdb-list.1.MATERIAL]" />
-					<else>
-						<assign property="var:tearOffLayers" value="0" />
-					</else>
-				</if>
+				<assign property="var:tearOffLayers" value="[datasource:tearoffdb-list.1.LAYERS]" />
+				<assign property="var:tearOffType" value="[datasource:tearoffdb-list.1.MATERIAL]" />	
 			</if>
 <!-- 			<alert message="var:shingle is [var:shingle], var:warranty is [var:warranty] var:tearOffLayers is [var:tearOffLayers] var:tearOffType is [var:tearOffType] var:numberOfFloors is [var:numberOfFloors]" /> -->
 			<if lhs="[datasource:nonMiscAccessoriesdb-list.dataSourceResultCount]" operator="gt" rhs="0">
 				<assign property="var:accessoriesIterateCount" value="1" />
-				<play action="formatAccessories" />
+					<play action="formatAccessories" />
 				<else>
 					<assign property="var:accessoriesObject" value="&quot;Accessories&quot;: []" />
-					<play action="prepMiscAccessories" />
+					<play action="prepAdjustments" />
 				</else>
 			</if>
 		</action>
@@ -5642,13 +5635,12 @@
 		</action>
 
 		<action name="prepMiscAccessories" >
-<!-- 			<alert message="prepMiscAccessories datasource:miscAccessoriesdb-list.dataSourceResultCount is [datasource:miscAccessoriesdb-list.dataSourceResultCount]" /> -->
 			<if lhs="[datasource:miscAccessoriesdb-list.dataSourceResultCount]" operator="gt" rhs="0">
 				<assign property="var:miscAccessoriesIterateCount" value="1" />
 				<play action="formatMiscAccessories" />
 				<else>
 					<assign property="var:miscAccessoriesObject" value="&quot;MiscellaneousAccessories&quot;: []" />
-<!-- 					<alert message="datasource:miscAccessoriesdb-list.dataSourceResultCount is lte 0 so var:miscAccessoriesObject is [var:miscAccessoriesObject]" /> -->
+<!-- 					<alert message="var:miscAccessoriesObject is [var:miscAccessoriesObject] var:adjustmentsObject is [var:adjustmentsObject]" /> -->
 					<play action="prepAdjustments" />
 				</else>
 			</if>
@@ -5787,6 +5779,9 @@
 		  <sync>
 		    <delete target="CONTAINER" />
 		    <create class="container" target="MAIN" />
+		    <set onclickup="add3vent" target="VENTMENU/3-btn" />
+		    <set onclickup="add2vent" target="VENTMENU/2-btn" />
+		    <set onclickup="add15vent" target="VENTMENU/15-btn" />
 		  </sync>
 		  <create class="choice" target="CONTAINER" />
 		  <play action="resetblockers" />
@@ -5805,6 +5800,9 @@
 		  <sync>
 		    <delete target="CONTAINER" />
 		    <create class="container" target="MAIN" />
+		    <set onclickup="add3vent" target="VENTMENU/3-btn" />
+		    <set onclickup="add2vent" target="VENTMENU/2-btn" />
+		    <set onclickup="add15vent" target="VENTMENU/15-btn" />
 		  </sync>
 		  <create class="signin" target="CONTAINER" />
 		  <play action="resetblockers" />
@@ -5839,7 +5837,6 @@
     </action>
 	
     <action name="clear-data" >
-      <assign property="var:customerCreated" value="" />
       <assign property="var:warranty-set" value="no" />
       <assign property="var:roofMeasurementsJSON" value="" />
       <assign property="var:ridgeMeasurementsJSON" value="" />
@@ -5924,7 +5921,6 @@
     </action>
     
     <action name="clear-var" >
-		<assign property="var:customerCreated" value="" />
 	    <assign property="var:warranty-set" value="no" />
 	    <assign property="var:roofMeasurementsJSON" value="" />
 	    <assign property="var:ridgeMeasurementsJSON" value="" />
