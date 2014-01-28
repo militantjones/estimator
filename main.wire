@@ -2626,9 +2626,31 @@
           <alpha value="0" time=".1" target="TEAROFF-MASK" />
           <else>
             <alpha value="1" time=".1" target="TEAROFF-MASK" />
+            <assign property="object:LAYERS/input.text" value="" />
+            <assign property="object:TYPE/input.text" value="" />
           </else>
         </if>
       </sync>      
+    </action>
+    
+    <action name="tearoff-on">
+      <sync>
+        <assign property="var:tearoff" value="yes" />
+        <scale width="[eval: ('_action' == 'remember' ? '24' : '40')]" height="[eval: ('_action' == 'remember' ? '24' : '40')]" align="center" valign="center" time=".1" alpha="1" target="TEAROFFSERVICE/check" />
+        <alpha value="0" time=".1" target="TEAROFF-MASK" />
+      </sync>
+    </action>
+    
+    <action name="tearoff-off">
+      <sync>
+        <if lhs="var:tearoff" operator="e" rhs="yes">
+          <assign property="var:tearoff" value="no" />
+          <scale width="0" height="0" align="center" valign="center" time=".1" alpha="0" target="check" />
+          <alpha value="1" time=".1" target="TEAROFF-MASK" />
+          <assign property="object:LAYERS/input.text" value="" />
+          <assign property="object:TYPE/input.text" value="" />
+        </if>
+      </sync>
     </action>
     
     <action name="landscaping">
@@ -4793,6 +4815,7 @@
         <assign property="var:acc-count-increment" value="" />
         <assign property="var:clear-acc-index" value="" />
         <assign property="datasource:accessoriesdb-delete.query" value="DELETE FROM ACCESSORIES;" />
+        <assign property="var:warrantycheck" value="" />
       </sync>
     </action>
     
@@ -4830,13 +4853,14 @@
         <alpha value="1" time=".1" target="UPLOAD-CURTAIN" />
         <assign property="object:UPLOAD-CURTAIN/photo-progress.text" value="Retrieving Accessories" />
         <if lhs="[var:warrantycheck]" operator="e" rhs="GAF%C2%AE%20Golden%20Pledge%C2%AE%20Limited%20Warranty">
-          <alpha value="0" time=".1" target="TEAROFF-MASK" />
           <alpha value="1" target="TEAROFF-BLOCK" />
+          <!--<alpha value="0" time=".1" target="TEAROFF-MASK" />
           <scale width="[eval: ('_action' == 'remember' ? '24' : '40')]" height="[eval: ('_action' == 'remember' ? '24' : '40')]" align="center" valign="center" time=".1" alpha="1" target="TEAROFFSERVICE/check" />
           <set onclickup="checkoff" target="TEAROFFSERVICE" />
           <alpha value="1" target="TEAROFF-BLOCK" />
-		  <assign property="var:tearoff" value="yes" />
-          <alpha value="0" time=".1" target="TEAROFF-MASK" />
+          <assign property="var:tearoff" value="no" />
+          <play action="tearoff" _value="yes" />-->
+          <play action="tearoff-on" />
           <translate xpos="492" curve="linear" target="STEP-NAVBLOCK" />
           <set onclickup="warranty-message" target="STEP-NAVBLOCK" />
           <set onchange="tearoff-go" target="LAYERS/input" />
@@ -4844,12 +4868,12 @@
           <!--<alert message="fields mask is off, checkbox is on and blocked" />-->
           <else>
             <!--<alert message="check block is off, field mask is on" />-->
-            <alpha value="1" time=".1" target="TEAROFF-MASK" />
-            <alpha value="0" target="TEAROFF-BLOCK" />
+            <!--<alpha value="1" time=".1" target="TEAROFF-MASK" />
             <scale width="0" height="0" align="center" valign="center" time=".1" alpha="0" target="TEAROFFSERVICE/check" />
-            <set onclickup="checkon" target="TEAROFFSERVICE" />
-			<assign property="var:tearoff" value="no" />
-            <alpha value="1" time=".1" target="TEAROFF-MASK" />
+            <set onclickup="checkon" target="TEAROFFSERVICE" />-->
+            <alpha value="0" target="TEAROFF-BLOCK" />
+            <play action="tearoff-off" />
+            <!--<play action="tearoff" _value="no" />-->
             <translate xpos="101%" curve="linear" target="STEP-NAVBLOCK" />
             <set onclickup="null" target="STEP-NAVBLOCK" />
             <set onchange="null" target="LAYERS/input" />
@@ -5662,7 +5686,7 @@
 			<assign property="var:estimateJSON" value="[template:estimateJSON.content]" />
 			<assign property="datasource:generateEstimate.postContent" value="[var:estimateJSON]" />
 			<assign property="datasource:generateEstimate.source" value="https://162.209.101.177/api/GenerateEstimate" />
-<!--       <email subject="estimate and measurements json" body="estimate\n\n[var:estimateJSON]" toaddress="dwalruff@rarewire.com" /> -->
+      <!-- <email subject="estimate and measurements json" body="estimate\n\n[var:estimateJSON]" toaddress="dwalruff@rarewire.com" /> -->
 		</action>
 		
 		<action name="estimate-complete" datasource="generateEstimate" datasourceevent="querycomplete">
@@ -5889,6 +5913,7 @@
       <assign property="var:selectedshingle" value="var:selectedshingle" />
       <assign property="var:shingle-col" value="var:shingle-col" />
       <assign property="var:shingle-row" value="var:shingle-row" />
+      <assign property="var:warrantycheck" value="" />
     </action>
     
     <action name="clear-var" >
@@ -5964,6 +5989,7 @@
       <assign property="var:selectedshingle" value="var:selectedshingle" />
       <assign property="var:shingle-col" value="var:shingle-col" />
       <assign property="var:shingle-row" value="var:shingle-row" />
+      <assign property="var:warrantycheck" value="" />
     </action>
 
     <!-- !delete actions -->
