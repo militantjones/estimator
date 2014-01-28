@@ -2030,6 +2030,12 @@
             </pager>
           </panel>
         </panel>
+        
+        <panel name="services-bottombar" alias="SERVICES-BOTTOMBAR" width="100%" height="67" valign="bottom" background="#343434" padding-right="20">
+          <panel name="estimate" width="100" height="50" align="right" valign="center" >
+            <object class="button" name="test" size="20" label="Save" action="save-fake-service" />
+          </panel>
+        </panel>
       </panel>
       
       <!-- !adjustments -->
@@ -3180,6 +3186,7 @@
       <if lhs="[var:photoActive]" operator="==" rhs="1">
         <assign property="datasource:photosdb-list.query" value="SELECT * FROM PHOTOS;" />
         <!-- <alert message="photo saved to db" /> -->
+        <alpha value="1" time=".1" target="ROOF-SIDEBAR-PAGER/Photos/saved-check" />
       </if>
     </action>
 
@@ -6146,9 +6153,14 @@
       </if>
     </action>
     
-    <!--<action name="photo-list" datasource="photosdb-list" datasourceevent="querycomplete">
-      <alert title="list complete" message="[datasource:photosdb-list.dataSourceResultCount]" />
-    </action>-->
+    <action name="photo-list" datasource="photosdb-list" datasourceevent="querycomplete">
+      <if lhs="[var:loaded]" operator="e" rhs="yes">
+        <!--<alert title="list complete" message="[datasource:photosdb-list.dataSourceResultCount]" />-->
+        <if lhs="[datasource:photosdb-list.dataSourceResultCount]" operator="lte" rhs="0">
+          <alpha value="0" time=".1" target="ROOF-SIDEBAR-PAGER/Photos/saved-check" />
+        </if>
+      </if>
+    </action>
     
     <!-- !roof save modal -->
     <action name="roof-saving-modal">
@@ -6177,6 +6189,12 @@
           </if>
         </if>
       </sync>
+    </action>
+    
+    <!-- !fake saving for services -->
+    <action name="save-fake-service">
+      <play action="released" />
+      <alpha value="1" time=".1" target="SERVICES-SIDEBAR-PAGER/[var:servicesarrow]/saved-check" />
     </action>
     
     <!-- !curtain action -->
