@@ -2632,13 +2632,13 @@
       </sync>      
     </action>
     
-    <!--<action name="tearoff-on">
+    <action name="tearoff-on">
       <sync>
         <assign property="var:tearoff" value="yes" />
         <scale width="[eval: ('_action' == 'remember' ? '24' : '40')]" height="[eval: ('_action' == 'remember' ? '24' : '40')]" align="center" valign="center" time=".1" alpha="1" target="TEAROFFSERVICE/check" />
         <alpha value="0" time=".1" target="TEAROFF-MASK" />
       </sync>
-    </action>-->
+    </action>
     
     <action name="tearoff-off">
       <sync>
