@@ -1,4 +1,4 @@
-<wire> 
+<wire>
   <!-- GAF Estimator -->
   <!-- iOS iPad -->
   <!-- App #7562 -->
@@ -3626,7 +3626,6 @@
       <!--<alert title="save" message="[var:nav]" />-->
     </action>
     
-    <!-- !customer actions -->
     <!-- !customer actions -->
     <action name="saveCustomer">
           <play action="released" />
