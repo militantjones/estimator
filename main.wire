@@ -5818,6 +5818,9 @@
     </action>
 
     <action name="confirm-logout">
+        <set onclickup="add3vent" target="VENTMENU/3-btn" />
+        <set onclickup="add2vent" target="VENTMENU/2-btn" />
+        <set onclickup="add15vent" target="VENTMENU/15-btn" />
 		  <assign property="var:loaded" value="no" />
 		  <play action="clear-dbs" />
 		  <play action="clear-data" />
