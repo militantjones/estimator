@@ -102,6 +102,7 @@
     <datasource name="accessoriesdb-deletelist-ridgevent" source="sql://ACCESSORIES" query="" providertype="sql" />
     <datasource name="accessoriesdb-deletelist-hipvent" source="sql://ACCESSORIES" query="" providertype="sql" />
     <datasource name="accessoriesdb-delete" source="sql://ACCESSORIES" query="" providertype="sql" />
+    <datasource name="accessoriesdb-gen-delete" source="sql://ACCESSORIES" query="" providertype="sql" />
     <datasource name="accessoriesdb-count" source="sql://ACCESSORIES" query="" providertype="sql" />
     
     <datasource name="nonMiscAccessoriesdb-list" source="sql://ACCESSORIES" query="" providertype="sql" />
@@ -3378,7 +3379,7 @@
     <action name="summarycalc">
       <sync>
         <!-- <alert message="area total [var:totalarea] squares total [var:squarestotal] ridges total [var:ridgestotal] hips total [var:hipstotal] rakes total [var:rakestotal] eaves total [var:eavestotal] valleys total [var:valleystotal]" /> -->
-        <create class="summary-roof" target="SUMMARY-PAGER" area="[eval:'[var:totalarea]' != '' ? '[var:totalarea] sq ft':'N/A']" squares="[var:squarestotal]" ridges="[eval:'[var:ridgestotal]' != '0' ? '[var:ridgestotal] ft':'N/A']" hips="[eval:'[var:hipstotal]' != '' ? '[var:hipstotal] ft':'N/A']" rakes="[eval:'[var:rakestotal]' != '' ? '[var:rakestotal] ft':'N/A']" eaves="[eval:'[var:eavestotal]' != '' ? '[var:eavestotal] ft':'N/A']" valleys="[eval:'[var:valleystotal]' != '' ? '[var:valleystotal] ft':'N/A']"  />
+        <create class="summary-roof" target="SUMMARY-PAGER" area="[eval:'[var:totalarea]' != '' ? '[var:totalarea] sq ft':'N/A']" squares="[var:squarestotal]" ridges="[eval:'[var:ridgestotal]' != '' ? '[var:ridgestotal] ft':'N/A']" hips="[eval:'[var:hipstotal]' != '' ? '[var:hipstotal] ft':'N/A']" rakes="[eval:'[var:rakestotal]' != '' ? '[var:rakestotal] ft':'N/A']" eaves="[eval:'[var:eavestotal]' != '' ? '[var:eavestotal] ft':'N/A']" valleys="[eval:'[var:valleystotal]' != '' ? '[var:valleystotal] ft':'N/A']"  />
         <play action="summaryproducts" />
       </sync>
     </action>
@@ -3491,23 +3492,7 @@
     <action name="summaryservices">
       <sync>
         <!-- <alert message="summary services" />  -->
-		<if lhs="[datasource:tearoffdb-list.dataSourceResultCount]" operator="gt" rhs="0">
-			<assign property="var:layers" value="[datasource:tearoffdb-list.1.LAYERS]" />
-			<assign property="var:type" value="[datasource:tearoffdb-list.1.MATERIAL]" />
-			<else>
-				<assign property="var:layers" value="N/A" />
-				<assign property="var:type" value="N/A" />
-			</else>
-		</if>
-		<if lhs="[datasource:assetprotectiondb-list.dataSourceResultCount]" operator="gt" rhs="0">
-			<assign property="var:landscaping" value="[datasource:assetprotectiondb-list.1.LANDSCAPING]" />
-			<assign property="var:hardscaping" value="[datasource:assetprotectiondb-list.1.HARDSCAPING]" />
-			<assign property="var:hvac" value="[datasource:assetprotectiondb-list.1.HVAC]" />
-			<assign property="var:pool" value="[datasource:assetprotectiondb-list.1.POOL]" />
-			<assign property="var:misc" value="[datasource:assetprotectiondb-list.1.MISC]" />
-		</if>
-<!--         <create target="SUMMARY-PAGER" class="summary-services" layers="layers" type="type" landscape="landscape" hardscape="hardscape" hvac="hvac" pool="pool" misc="misc"  /> -->
-        <create target="SUMMARY-PAGER" class="summary-services" layers="[var:layers]" type="[var:type]" landscape="[var:landscaping]" hardscape="[var:hardscaping]" hvac="[var:hvac]" pool="[var:pool]" misc="[var:misc]"  />
+        <create target="SUMMARY-PAGER" class="summary-services" layers="[datasource:tearoffdb-list.1.LAYERS]" type="[datasource:tearoffdb-list.1.MATERIAL]" landscape="[datasource:assetprotectiondb-list.1.LANDSCAPING]" hardscape="[datasource:assetprotectiondb-list.1.HARDSCAPING]" hvac="[datasource:assetprotectiondb-list.1.HVAC]" pool="[datasource:assetprotectiondb-list.1.POOL]" misc="[datasource:assetprotectiondb-list.1.MISC]"  />
       </sync>
     </action>
     
@@ -4872,7 +4857,7 @@
         <!--<alert title="var accessories" message="var [var:accessories] : underscore _accessories" />-->
         <assign property="var:warrantyname" value="_title" />
         <assign property="var:warrantycheck" encoding="url" value="_title" />
-<!-- 		<alert message="var:warrantycheck is [var:warrantycheck]" /> -->
+		<alert message="var:warrantycheck is [var:warrantycheck]" />
         <alpha value="1" time=".1" target="UPLOAD-CURTAIN" />
         <assign property="object:UPLOAD-CURTAIN/photo-progress.text" value="Retrieving Accessories" />
         <if lhs="[var:warrantycheck]" operator="e" rhs="GAF%C2%AE%20Golden%20Pledge%C2%AE%20Limited%20Warranty">
@@ -5134,6 +5119,15 @@
       </if>
     </action>
     
+    <action name="gen-delete" datasource="accessoriesdb-gen-delete" datasourceevent="querycomplete">
+      <if lhs="[var:loaded]" operator="e" rhs="yes">
+        <sync>
+          <assign property="var:cur-acc-cat" value="" />
+          <assign property="datasource:accessoriesdb-list.query" value="SELECT * FROM ACCESSORIES ORDER BY ID DESC;" />
+        </sync>
+      </if>
+    </action>
+    
     <action name="selectaccessory-save">
       <play action="released" />
       <if lhs="[object:ACCESSORYQUANTITY/input.text]" operator="ne" rhs="">
@@ -5142,58 +5136,75 @@
         <assign property="var:accessory-[var:accessoryCount]" value="[datasource:getAccessories.[var:accessorySelected].AccessoryId]" />
         <assign property="var:accessory-[var:accessoryCount]-Name" value="[datasource:getAccessories.[var:accessorySelected].AccessoryName]" />
         <assign property="var:accessory-[var:accessoryCount]-Type" value="[datasource:getAccessories.[var:accessorySelected].AccessoryCategory]" />
-        <if lhs="[datasource:getAccessories.[var:accessorySelected].AccessoryCategory]" operator="e" rhs="Leak Barrier">
-          <assign property="datasource:accessoriesdb-deletelist.query" value="SELECT * FROM ACCESSORIES WHERE TYPE='[datasource:getAccessories.[var:accessorySelected].AccessoryCategory]';" />
-          <!--<alert title="1" message="[datasource:getAccessories.[var:accessorySelected].AccessoryCategory]" />-->
-        </if>
-        <if lhs="[datasource:getAccessories.[var:accessorySelected].AccessoryCategory]" operator="e" rhs="Roof Deck Protection">
-          <assign property="datasource:accessoriesdb-deletelist.query" value="SELECT * FROM ACCESSORIES WHERE TYPE='[datasource:getAccessories.[var:accessorySelected].AccessoryCategory]';" />
-        </if>
-        <if lhs="[datasource:getAccessories.[var:accessorySelected].AccessoryCategory]" operator="e" rhs="Starter Strips">
-          <assign property="datasource:accessoriesdb-deletelist.query" value="SELECT * FROM ACCESSORIES WHERE TYPE='[datasource:getAccessories.[var:accessorySelected].AccessoryCategory]';" />
-        </if>
-        <if lhs="[datasource:getAccessories.[var:accessorySelected].AccessoryCategory]" operator="e" rhs="Ventilation">
-          <if lhs="[eval:('[datasource:getAccessories.[var:cur-ventilation-index].AccessoryName]').indexOf('Cobra')]" operator="gte" rhs="0">
-            <play action="null" />
-            <if lhs="[eval:('[datasource:getAccessories.[var:cur-ventilation-index].AccessoryName]').indexOf('Hip Vent')]" operator="gte" rhs="0">
-              <play action="null" />
-              <!--<assign property="datasource:accessoriesdb-deletelist-hipvent.query" value="SELECT * FROM ACCESSORIES WHERE NAME='[var:cur-hipvent]';" />-->
-              <play action="accessoriesdb-insert" />
+        
+        <if lhs="[object:ACCESSORYQUANTITY/input.text]" operator="gt" rhs="0">
+          <else>
+            <play action="accessorydismiss" />
+            <!--<if lhs="[var:accessory-[var:accessoryCount]-Type]" operator="e" rhs="Miscellaneous Accessory">
               <else>
+                <alert message="non misc accessory" />-->
+                <assign property="datasource:accessoriesdb-gen-delete.query" value="DELETE FROM ACCESSORIES WHERE NAME='[var:accessory-[var:accessoryCount]-Name]';" />
+                <alpha value="0" time="0" target="ACCESSORIES-PAGER-BOX/pager/accessory[var:accessorySelected]/accessory-btn/test/selected" />
+                <alpha value="1" time=".2" target="ACCESSORIES-PAGER-BOX/pager/accessory[var:accessorySelected]/accessory-btn/test/button" />
+                <!--<alert message="[var:accessorySelected]" />
+              </else>
+              <alert message="misc accessory" />
+            </if>-->
+          </else>
+        
+          <if lhs="[datasource:getAccessories.[var:accessorySelected].AccessoryCategory]" operator="e" rhs="Leak Barrier">
+            <assign property="datasource:accessoriesdb-deletelist.query" value="SELECT * FROM ACCESSORIES WHERE TYPE='[datasource:getAccessories.[var:accessorySelected].AccessoryCategory]';" />
+            <!--<alert title="1" message="[datasource:getAccessories.[var:accessorySelected].AccessoryCategory]" />-->
+          </if>
+          <if lhs="[datasource:getAccessories.[var:accessorySelected].AccessoryCategory]" operator="e" rhs="Roof Deck Protection">
+            <assign property="datasource:accessoriesdb-deletelist.query" value="SELECT * FROM ACCESSORIES WHERE TYPE='[datasource:getAccessories.[var:accessorySelected].AccessoryCategory]';" />
+          </if>
+          <if lhs="[datasource:getAccessories.[var:accessorySelected].AccessoryCategory]" operator="e" rhs="Starter Strips">
+            <assign property="datasource:accessoriesdb-deletelist.query" value="SELECT * FROM ACCESSORIES WHERE TYPE='[datasource:getAccessories.[var:accessorySelected].AccessoryCategory]';" />
+          </if>
+          <if lhs="[datasource:getAccessories.[var:accessorySelected].AccessoryCategory]" operator="e" rhs="Ventilation">
+            <if lhs="[eval:('[datasource:getAccessories.[var:cur-ventilation-index].AccessoryName]').indexOf('Cobra')]" operator="gte" rhs="0">
+              <play action="null" />
+              <if lhs="[eval:('[datasource:getAccessories.[var:cur-ventilation-index].AccessoryName]').indexOf('Hip Vent')]" operator="gte" rhs="0">
                 <play action="null" />
-                <!--<alert title="fascia = [eval:('[datasource:getAccessories.[var:cur-ventilation-index].AccessoryName]').indexOf('FasciaFlow')]" message="[datasource:getAccessories.[var:cur-ventilation-index].AccessoryName]" />-->
-                <if lhs="[eval:('[datasource:getAccessories.[var:cur-ventilation-index].AccessoryName]').indexOf('FasciaFlow')]" operator="gte" rhs="0">
-                  <!--<alert title="fascia flow" message="name [var:accessory-[var:accessoryCount]-Name], type [var:accessory-[var:accessoryCount]-Type], count [var:accessory-[var:accessoryCount]], quantity [var:accessory-[var:accessoryCount]-Quantity]" />-->
-                  <play action="accessoriesdb-insert" />
-                  <!--<assign property="datasource:accessoriesdb-deletelist-ridgevent.query" value="SELECT * FROM ACCESSORIES WHERE NAME='[var:cur-fasciavent]';" />-->
-                  <else>
-                    <assign property="datasource:accessoriesdb-deletelist-ridgevent.query" value="SELECT * FROM ACCESSORIES WHERE NAME='[var:cur-ridgevent]';" />
-                  </else>
-                </if>
+                <!--<assign property="datasource:accessoriesdb-deletelist-hipvent.query" value="SELECT * FROM ACCESSORIES WHERE NAME='[var:cur-hipvent]';" />-->
+                <play action="accessoriesdb-insert" />
+                <else>
+                  <play action="null" />
+                  <!--<alert title="fascia = [eval:('[datasource:getAccessories.[var:cur-ventilation-index].AccessoryName]').indexOf('FasciaFlow')]" message="[datasource:getAccessories.[var:cur-ventilation-index].AccessoryName]" />-->
+                  <if lhs="[eval:('[datasource:getAccessories.[var:cur-ventilation-index].AccessoryName]').indexOf('FasciaFlow')]" operator="gte" rhs="0">
+                    <!--<alert title="fascia flow" message="name [var:accessory-[var:accessoryCount]-Name], type [var:accessory-[var:accessoryCount]-Type], count [var:accessory-[var:accessoryCount]], quantity [var:accessory-[var:accessoryCount]-Quantity]" />-->
+                    <play action="accessoriesdb-insert" />
+                    <!--<assign property="datasource:accessoriesdb-deletelist-ridgevent.query" value="SELECT * FROM ACCESSORIES WHERE NAME='[var:cur-fasciavent]';" />-->
+                    <else>
+                      <assign property="datasource:accessoriesdb-deletelist-ridgevent.query" value="SELECT * FROM ACCESSORIES WHERE NAME='[var:cur-ridgevent]';" />
+                    </else>
+                  </if>
+                </else>
+              </if>
+              <else>
+                <!--<assign property="datasource:accessoriesdb-deletelist.query" value="SELECT * FROM ACCESSORIES WHERE TYPE='[datasource:getAccessories.[var:accessorySelected].AccessoryCategory]';" />-->
+                <play action="accessoriesdb-insert" />
               </else>
             </if>
+          </if>
+          <if lhs="[datasource:getAccessories.[var:accessorySelected].AccessoryCategory]" operator="e" rhs="Ridge Cap">
+            <assign property="datasource:accessoriesdb-deletelist.query" value="SELECT * FROM ACCESSORIES WHERE TYPE='[datasource:getAccessories._value.AccessoryCategory]';" />
+          </if>
+          <if lhs="[datasource:getAccessories.[var:accessorySelected].AccessoryCategory]" operator="e" rhs="Miscellaneous Accessory">
+            <assign property="datasource:accessoriesdb-deletelist.query" value="SELECT * FROM ACCESSORIES WHERE TYPE='[datasource:getAccessories._value.AccessoryCategory]';" />
+          </if>
+          <!-- 	  <alert message="var:accessory-[var:accessoryCount] is [var:accessory-[var:accessoryCount]]" /> -->
+          <!-- <assign property="datasource:accessoriesdb.query" value="INSERT INTO ACCESSORIES (NAME, TYPE, ACCESSORY, QUANTITY) VALUES ('[var:accessory-[var:accessoryCount]-Name]', '[var:accessory-[var:accessoryCount]-Type]', '[var:accessory-[var:accessoryCount]]', '[var:accessory-[var:accessoryCount]-Quantity]');" />-->
+          <!--<alert message="INSERT INTO ACCESSORIES (NAME, TYPE, ACCESSORY, QUANTITY) VALUES ('[var:accessory-[var:accessoryCount]-Name]', '[var:accessory-[var:accessoryCount]-Type]', '[var:accessory-[var:accessoryCount]]', '[var:accessory-[var:accessoryCount]-Quantity]');" />-->
+          <if lhs="[eval:[var:accessories]-[var:accessoryCount]]" operator="gt" rhs="0">
             <else>
-              <!--<assign property="datasource:accessoriesdb-deletelist.query" value="SELECT * FROM ACCESSORIES WHERE TYPE='[datasource:getAccessories.[var:accessorySelected].AccessoryCategory]';" />-->
-              <play action="accessoriesdb-insert" />
+            	<alpha value="1" time=".10" target="AC-SEL-MODAL" />
+            	<alpha value="0" time=".25" delay=".6" target="AC-SEL-MODAL" />
             </else>
           </if>
+          <play action="accessorydismiss" />
         </if>
-        <if lhs="[datasource:getAccessories.[var:accessorySelected].AccessoryCategory]" operator="e" rhs="Ridge Cap">
-          <assign property="datasource:accessoriesdb-deletelist.query" value="SELECT * FROM ACCESSORIES WHERE TYPE='[datasource:getAccessories._value.AccessoryCategory]';" />
-        </if>
-        <if lhs="[datasource:getAccessories.[var:accessorySelected].AccessoryCategory]" operator="e" rhs="Miscellaneous Accessory">
-          <assign property="datasource:accessoriesdb-deletelist.query" value="SELECT * FROM ACCESSORIES WHERE TYPE='[datasource:getAccessories._value.AccessoryCategory]';" />
-        </if>
-        <!-- 	  <alert message="var:accessory-[var:accessoryCount] is [var:accessory-[var:accessoryCount]]" /> -->
-        <!-- <assign property="datasource:accessoriesdb.query" value="INSERT INTO ACCESSORIES (NAME, TYPE, ACCESSORY, QUANTITY) VALUES ('[var:accessory-[var:accessoryCount]-Name]', '[var:accessory-[var:accessoryCount]-Type]', '[var:accessory-[var:accessoryCount]]', '[var:accessory-[var:accessoryCount]-Quantity]');" />-->
-        <!--<alert message="INSERT INTO ACCESSORIES (NAME, TYPE, ACCESSORY, QUANTITY) VALUES ('[var:accessory-[var:accessoryCount]-Name]', '[var:accessory-[var:accessoryCount]-Type]', '[var:accessory-[var:accessoryCount]]', '[var:accessory-[var:accessoryCount]-Quantity]');" />-->
-        <if lhs="[eval:[var:accessories]-[var:accessoryCount]]" operator="gt" rhs="0">
-          <else>
-          	<alpha value="1" time=".10" target="AC-SEL-MODAL" />
-          	<alpha value="0" time=".25" delay=".6" target="AC-SEL-MODAL" />
-          </else>
-        </if>
-        <play action="accessorydismiss" />
         <else>
           <alert message="Please select a quantity" />
         </else>
@@ -5798,14 +5809,14 @@
     
     <action name="confirm-cancel">
       <assign property="var:loaded" value="no" />
-        <set onclickup="add3vent" target="VENTMENU/3-btn" />
-        <set onclickup="add2vent" target="VENTMENU/2-btn" />
-        <set onclickup="add15vent" target="VENTMENU/15-btn" />
       <play action="clear-dbs" />
 		  <play action="clear-var" />
 		  <sync>
 		    <delete target="CONTAINER" />
 		    <create class="container" target="MAIN" />
+		    <set onclickup="add3vent" target="VENTMENU/3-btn" />
+		    <set onclickup="add2vent" target="VENTMENU/2-btn" />
+		    <set onclickup="add15vent" target="VENTMENU/15-btn" />
 		  </sync>
 		  <create class="choice" target="CONTAINER" />
 		  <play action="resetblockers" />
@@ -5818,15 +5829,15 @@
     </action>
 
     <action name="confirm-logout">
-        <set onclickup="add3vent" target="VENTMENU/3-btn" />
-        <set onclickup="add2vent" target="VENTMENU/2-btn" />
-        <set onclickup="add15vent" target="VENTMENU/15-btn" />
 		  <assign property="var:loaded" value="no" />
 		  <play action="clear-dbs" />
 		  <play action="clear-data" />
 		  <sync>
 		    <delete target="CONTAINER" />
 		    <create class="container" target="MAIN" />
+		    <set onclickup="add3vent" target="VENTMENU/3-btn" />
+		    <set onclickup="add2vent" target="VENTMENU/2-btn" />
+		    <set onclickup="add15vent" target="VENTMENU/15-btn" />
 		  </sync>
 		  <create class="signin" target="CONTAINER" />
 		  <play action="resetblockers" />
@@ -5861,8 +5872,6 @@
     </action>
 	
     <action name="clear-data" >
-		<assign property="var:layers" value="" />
-		<assign property="var:type" value="" />
       <assign property="var:customerCreated" value="" />
       <assign property="var:warranty-set" value="no" />
       <assign property="var:roofMeasurementsJSON" value="" />
@@ -5948,8 +5957,6 @@
     </action>
     
     <action name="clear-var" >
-		<assign property="var:layers" value="" />
-		<assign property="var:type" value="" />
 		<assign property="var:customerCreated" value="" />
 	    <assign property="var:warranty-set" value="no" />
 	    <assign property="var:roofMeasurementsJSON" value="" />
