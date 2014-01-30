@@ -116,6 +116,10 @@
     <datasource name="assetprotectiondb-list" source="sql://PROTECTION" query="SELECT * FROM PROTECTION ORDER BY ID DESC;" providertype="sql" />
     <datasource name="assetprotectiondb-delete" source="sql://PROTECTION" query="" providertype="sql" />
     
+    <datasource name="plywooddb" source="sql://PLYWOOD" query="CREATE TABLE IF NOT EXISTS PLYWOOD (ID INTEGER PRIMARY KEY AUTOINCREMENT, WOOD, MEASUREMENT, QUANTITY);" providertype="sql" />
+    <datasource name="plywooddb-list" source="sql://PLYWOOD" query="SELECT * FROM PLYWOOD ORDER BY ID DESC;" providertype="sql" />
+    <datasource name="plywooddb-delete" source="sql://PLYWOOD" query="" providertype="sql" />
+    
     <datasource name="adjustmentsdb" source="sql://ADJUSTMENTS" query="CREATE TABLE IF NOT EXISTS ADJUSTMENTS (ID INTEGER PRIMARY KEY AUTOINCREMENT, TYPE, UNITS, AMOUNT, NOTES);" providertype="sql" />
     <datasource name="adjustmentsdb-list" source="sql://ADJUSTMENTS" query="SELECT * FROM ADJUSTMENTS ORDER BY ID DESC;" providertype="sql" />
     <datasource name="adjustmentsdb-delete" source="sql://ADJUSTMENTS" query="" providertype="sql" />
@@ -1370,6 +1374,68 @@
       </panel>
     </class><!-- <object class="assetprotection" /> -->
     
+    <class name="plywood">
+      <panel name="plywood" alias="PLYWOOD" width="100%" height="220">
+        <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="15" alignment="left" text="SELECT THE SHEATHING"></text>
+        <panel name="plywoodtype" alias="PLYWOODTYPE" width="226" height="50" align="left" bottomof="subtitle" style="textinput">
+          <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
+          <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Type"></text>
+          <textfield name="hidden" alpha="0" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" _next="none" _action="null"></textfield>
+          <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" _next="none" _action="null"></textfield>
+          <panel name="active" style="100" onclickup="dropon" _field="PLYWOODTYPE" _drop="PLYWOOD" _droptype="PLYWOODTYPE-DROP"></panel>
+        </panel>
+        <panel name="measurement" alias="MEASUREMENT" width="226" height="50" align="left" bottomof="plywoodtype" margin-top="10" style="textinput">
+          <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
+          <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Measure by"></text>
+          <textfield name="hidden" alpha="0" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null"></textfield>
+          <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null"></textfield>
+          <panel name="active" style="100" onclickup="dropon" _field="MEASUREMENT" _drop="PLYWOOD" _droptype="MEASUREMENT-DROP"></panel>
+        </panel>
+        <panel name="quantity" alias="QUANTITY" width="226" height="50" bottomof="measurement" margin-top="10" align="left" style="textinput">
+          <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
+          <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Quantity"></text>
+          <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null" onchange="isNaN"></textfield>
+          <panel name="active" style="100" onclickup="labelactive" _field="QUANTITY"></panel>
+        </panel>
+        <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
+        <panel name="drop" width="45%" height="110" bottomof="subtitle" xpos="101%" alpha="0" style="textinput">
+          <pager name="plywoodtype-drop" alias="PLYWOODTYPE-DROP" width="100%" height="100%" orientation="vertical" paginate="no" alpha="0">
+            <panel name="plywood1" width="100%" height="40" _label="1/2 inch CDX" _size="12CDX" onclickup="setplywood">
+              <text name="name" width="100%" height="100%" style="darktext" size="18" alignment="center" text="1/2 inch CDX"></text>
+              <panel name="border" width="100%" height="1" valign="bottom" background="#888888"></panel>
+            </panel>
+            <panel name="plywood2" width="100%" height="40" _label="5/8 inch CDX" _size="12CDX" onclickup="setplywood">
+              <text name="name" width="100%" height="100%" style="darktext" size="18" alignment="center" text="5/8 inch CDX"></text>
+              <panel name="border" width="100%" height="1" valign="bottom" background="#888888"></panel>
+            </panel>
+            <panel name="plywood3" width="100%" height="40" _label="1/2 inch OSB" _size="12CDX" onclickup="setplywood">
+              <text name="name" width="100%" height="100%" style="darktext" size="18" alignment="center" text="1/2 inch OSB"></text>
+              <panel name="border" width="100%" height="1" valign="bottom" background="#888888"></panel>
+            </panel>
+            <panel name="plywood4" width="100%" height="40" _label="5/8 inch OSD" _size="12CDX" onclickup="setplywood">
+              <text name="name" width="100%" height="100%" style="darktext" size="18" alignment="center" text="5/8 inch OSD"></text>
+              <panel name="border" width="100%" height="1" valign="bottom" background="#888888"></panel>
+            </panel>
+          </pager>
+          
+          <panel name="measurement-drop" alias="MEASUREMENT-DROP" width="100%" height="100%" alpha="0">
+            <text name="drophead" width="100%" height="30" style="lighttext" size="18" alignment="center" text="MEASUREMENT CHOICES"></text>
+            <panel name="border" width="100%" height="1" background="#888888" ypos="30"></panel>
+            <pager name="measurements" width="100%" height="[eval:[object:ROOFTYPEDROP.height] - 30]" ypos="30" orientation="vertical" paginate="no">
+              <panel name="measure1" width="100%" height="40" _measure="PerSheet" _label="Per Sheet" onclickup="setmeasurement">
+                <text name="name" width="100%" height="100%" style="darktext" size="18" alignment="center" text="Per Sheet"></text>
+                <panel name="border" width="100%" height="1" valign="bottom" background="#888888"></panel>
+              </panel>
+              <panel name="measure2" width="100%" height="40" _measure="Linear" _label="Linear ft" onclickup="setmeasurement">
+                <text name="name" width="100%" height="100%" style="darktext" size="18" alignment="center" text="Linear ft"></text>
+                <panel name="border" width="100%" height="1" valign="bottom" background="#888888"></panel>
+              </panel>
+            </pager>
+          </panel>
+        </panel>
+      </panel>
+    </class><!-- <object class="plywood" /> -->
+    
     <!-- !adjustments classes -->
     <class name="discount">
       <panel name="adjustment[param:aindex]" alias="ADJUSTMENT[param:aindex]" width="100%" height="237">
@@ -2010,6 +2076,7 @@
           <pager name="services-sidebar-pager" alias="SERVICES-SIDEBAR-PAGER" style="100" orientation="vertical" paginate="no">
             <object class="sidebar" alias="TEAROFF" label="Tear Off" action="sidebar-services" required="0" />
             <object class="sidebar" alias="ASSETPROTECTION" label="Asset Protection" action="sidebar-services" required="0" />
+            <object class="sidebar" alias="PLYWOOD" label="Plywood Sheathing" action="sidebar-services" required="0" />
           </pager>
           <panel name="services-sidebar-blocker" alias="SERVICES-SIDEBAR-BLOCKER" style="100" xpos="-101%"></panel>
         </panel>
@@ -2028,6 +2095,15 @@
           <panel name="servicespagerbox" width="100%" height="[eval: [object:SERVICES-ASSETPROTECTION.height] - 79]" ypos="79" >
             <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no" padding-left="20" padding-right="20" >
               <object class="assetprotection" />
+            </pager>
+          </panel>
+        </panel>
+        
+        <panel name="services-Plywood Sheathing" alias="SERVICES-PLYWOOD" width="512" height="100%" align="right" alpha="0">
+          <object class="title" title="Plywood Sheathing"  />
+          <panel name="servicespagerbox" width="100%" height="[eval: [object:SERVICES-PLYWOOD.height] - 79]" ypos="79" >
+            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no" padding-left="20" padding-right="20" >
+              <object class="plywood" />
             </pager>
           </panel>
         </panel>
@@ -3557,6 +3633,21 @@
             <assign property="datasource:assetprotectiondb-delete.query" value="DELETE FROM PROTECTION;" />
             <!--<alert title="asset protection" message="from the if and deleting [datasource:assetprotectiondb-list.dataSourceResultCount]" />-->
             <else>
+              <play action="savedSERVICES3" />
+              <!--<alert message="from the else, nothing to delete" />-->
+            </else>
+          </if>
+        </sync>
+      </if>
+    </action>
+    
+    <action name="savedSERVICES3" datasource="assetprotectiondb-delete" datasourceevent="querycomplete">
+      <if lhs="[var:loaded]" operator="e" rhs="yes">
+        <sync>
+          <if lhs="[datasource:plywooddb-list.dataSourceResultCount]" operator="gt" rhs="0">
+            <assign property="datasource:plywooddb-delete.query" value="DELETE FROM PLYWOOD;" />
+            <!--<alert title="asset protection" message="from the if and deleting [datasource:assetprotectiondb-list.dataSourceResultCount]" />-->
+            <else>
               <play action="savedSERVICES-save" />
               <!--<alert message="from the else, nothing to delete" />-->
             </else>
@@ -3566,13 +3657,12 @@
     </action>
     
     <action name="savedSERVICES-save" datasource="assetprotectiondb-delete" datasourceevent="querycomplete">
-<!--       <alert title="tear off" message="tear off:[var:tearoff] [object:LAYERS/input.text] [object:TYPE/input.text]" /> -->
-<!--
-      <alert title="asset protection" message="landscaping:[var:landscaping] hardscaping:[var:hardscaping] hvac:[var:hvac] pool:[var:pool] misc[var:misc]" />
--->
+      <!-- <alert title="tear off" message="tear off:[var:tearoff] [object:LAYERS/input.text] [object:TYPE/input.text]" /> -->
+      <!-- <alert title="asset protection" message="landscaping:[var:landscaping] hardscaping:[var:hardscaping] hvac:[var:hvac] pool:[var:pool] misc[var:misc]" />-->
       <if lhs="[var:loaded]" operator="e" rhs="yes">
         <assign property="datasource:tearoffdb.query" value="INSERT INTO TEAROFF (TEAROFF, LAYERS, MATERIAL) VALUES ('[var:tearoff]', '[object:LAYERS/input.text]', '[object:TYPE/input.text]');" />
         <assign property="datasource:assetprotectiondb.query" value="INSERT INTO PROTECTION (LANDSCAPING, HARDSCAPING, HVAC, POOL, MISC) VALUES ('[var:landscaping]', '[var:hardscaping]', '[var:hvac]', '[var:pool]', '[var:misc]');" />
+        <assign property="datasource:plywooddb.query" value="INSERT INTO PLYWOOD (WOOD, MEASUREMENT, QUANTITY) VALUES ('[object:PLYWOODTYPE/hidden.text]', '[object:MEASUREMENT/hidden.text]', '[object:QUANTITY/input.text]');" />
       </if>
     </action>
     
@@ -3587,6 +3677,13 @@
       <sync>
         <assign property="datasource:assetprotectiondb-list.query" value="SELECT * FROM PROTECTION;" />
         <!--<alert message="asset protection saved" />-->
+      </sync>
+    </action>
+    
+    <action name="plywoodquery" datasource="plywooddb" datasourceevent="querycomplete">
+      <sync>
+        <assign property="datasource:plywooddb-list.query" value="SELECT * FROM PLYWOOD;" />
+        <!--<alert message="[datasource:plywooddb-list.1.WOOD] [datasource:plywooddb-list.1.MEASUREMENT] [datasource:plywooddb-list.1.QUANTITY]" />-->
       </sync>
     </action>
     
@@ -4615,6 +4712,22 @@
       <sync>
         <assign property="object:TYPE/input.text" value="_material" />
         <play action="dropoff" _drop="TEAROFF" _target="TYPE/active" />
+      </sync>
+    </action>
+    
+    <action name="setplywood">
+      <sync>
+        <assign property="object:PLYWOODTYPE/input.text" value="_label" />
+        <assign property="object:PLYWOODTYPE/hidden.text" value="_size" />
+        <play action="dropoff" _drop="PLYWOOD" _target="PLYWOODTYPE/active" />
+      </sync>
+    </action>
+    
+    <action name="setmeasurement">
+      <sync>
+        <assign property="object:MEASUREMENT/input.text" value="_label" />
+        <assign property="object:MEASUREMENT/hidden.text" value="_measure" />
+        <play action="dropoff" _drop="PLYWOOD" _target="MEASUREMENT/active" />
       </sync>
     </action>
     
@@ -5868,6 +5981,7 @@
       	<assign property="datasource:tearoffdb-delete.query" value="DELETE FROM TEAROFF;" />
       	<assign property="datasource:assetprotectiondb-delete.query" value="DELETE FROM PROTECTION;" />
       	<assign property="datasource:adjustmentsdb-delete.query" value="DELETE FROM ADJUSTMENTS;" />
+      	<assign property="datasource:plywooddb-delete.query" value="DELETE FROM PLYWOOD;" />
       </sync>
     </action>
 	
