@@ -1,9 +1,9 @@
-<wire> 
+<wire>
   <!-- GAF Estimator -->
   <!-- iOS iPad -->
   <!-- App #7562 -->
   <!-- Engine version 1.5 dev -->
-  
+
   <!-- #ed1c24 - red -->
   <!-- #ffffff - white -->
   <!-- #e3e3e3 - light gray -->
@@ -11,11 +11,11 @@
   <!-- #bfbfbf - sidebar gray -->
   <!-- #888888 - medium gray -->
   <!-- #343434 - dark gray -->
-  
- 
+
+
   <!-- !DATASOURCES -->
   <datasources>
-    
+
   	<!-- !27 Global Web Services -->
 
   	<datasource name="login" source="" query="/" providertype="json" httpmethod="post" httpheader="login"/>
@@ -39,62 +39,62 @@
     <datasource name="camera-roll" source="adsf" query="Camera Roll" providertype="camera"/>
     <datasource name="states" source="" query="//state" providertype="xml" parsenamespaces="yes" />
     <datasource name="provinces" source="" query="//province" providertype="xml" parsenamespaces="yes" />
-    
+
     <datasource name="customersdb" source="sql://CUSTOMERS" query="CREATE TABLE IF NOT EXISTS CUSTOMERS (ID INTEGER PRIMARY KEY AUTOINCREMENT, FNAME, LNAME, EMAIL, PHONE, FNAME2, LNAME2, EMAIL2, PHONE2, COUNTRY, STREET, CITY, STATE, POSTAL, NOTES);" providertype="sql" />
     <datasource name="customersdb-list" source="sql://CUSTOMERS" query="SELECT * FROM CUSTOMERS ORDER BY ID DESC;" providertype="sql" />
     <datasource name="customersdb-delete" source="sql://CUSTOMERS" query="" providertype="sql" />
-    
+
     <datasource name="inspectiondb" source="sql://INSPECTION" query="CREATE TABLE IF NOT EXISTS INSPECTION (ID INTEGER PRIMARY KEY AUTOINCREMENT, ROOFTYPE, FLOORS);" providertype="sql" />
     <datasource name="inspectiondb-list" source="sql://INSPECTION" query="SELECT * FROM INSPECTION ORDER BY ID DESC;" providertype="sql" />
     <datasource name="inspectiondb-delete" source="sql://INSPECTION" query="" providertype="sql" />
-    
+
     <datasource name="roofareasdb" source="sql://ROOFAREAS" query="CREATE TABLE IF NOT EXISTS ROOFAREAS (ID INTEGER PRIMARY KEY AUTOINCREMENT, LENGTH, WIDTH, SLOPE);" providertype="sql" />
     <datasource name="roofareasdb-list" source="sql://ROOFAREAS" query="SELECT * FROM ROOFAREAS ORDER BY ID DESC;" providertype="sql" />
     <datasource name="roofareadb-delete" source="sql://ROOFAREAS" query="" providertype="sql" />
-    
+
     <datasource name="wastedb" source="sql://WASTE" query="CREATE TABLE IF NOT EXISTS WASTE (ID INTEGER PRIMARY KEY AUTOINCREMENT, PERCENT);" providertype="sql" />
     <datasource name="wastedb-list" source="sql://WASTE" query="SELECT * FROM WASTE ORDER BY ID DESC;" providertype="sql" />
     <datasource name="wastedb-delete" source="sql://WASTE" query="" providertype="sql" />
-    
+
     <datasource name="ridgesdb" source="sql://RIDGES" query="CREATE TABLE IF NOT EXISTS RIDGES (ID INTEGER PRIMARY KEY AUTOINCREMENT, LENGTH, VENTS);" providertype="sql" />
     <datasource name="ridgesdb-list" source="sql://RIDGES" query="SELECT * FROM RIDGES ORDER BY ID DESC;" providertype="sql" />
     <datasource name="ridgeventsdb-list" source="sql://RIDGES" query="" providertype="sql" />
     <datasource name="ridgesdb-delete" source="sql://RIDGES" query="" providertype="sql" />
-    
+
     <datasource name="hipsdb" source="sql://HIPS" query="CREATE TABLE IF NOT EXISTS HIPS (ID INTEGER PRIMARY KEY AUTOINCREMENT, LENGTH, VENTS);" providertype="sql" />
     <datasource name="hipsdb-list" source="sql://HIPS" query="SELECT * FROM HIPS ORDER BY ID DESC;" providertype="sql" />
     <datasource name="hipventsdb-list" source="sql://HIPS" query="SELECT * FROM HIPS ORDER BY ID DESC;" providertype="sql" />
     <datasource name="hipsdb-delete" source="sql://HIPS" query="" providertype="sql" />
-    
+
     <datasource name="valleysdb" source="sql://VALLEYS" query="CREATE TABLE IF NOT EXISTS VALLEYS (ID INTEGER PRIMARY KEY AUTOINCREMENT, LENGTH);" providertype="sql" />
     <datasource name="valleysdb-list" source="sql://VALLEYS" query="SELECT * FROM VALLEYS ORDER BY ID DESC;" providertype="sql" />
     <datasource name="valleysdb-delete" source="sql://VALLEYS" query="" providertype="sql" />
-    
+
     <datasource name="rakesdb" source="sql://RAKES" query="CREATE TABLE IF NOT EXISTS RAKES (ID INTEGER PRIMARY KEY AUTOINCREMENT, LENGTH);" providertype="sql" />
     <datasource name="rakesdb-list" source="sql://RAKES" query="SELECT * FROM RAKES ORDER BY ID DESC;" providertype="sql" />
     <datasource name="rakesdb-delete" source="sql://RAKES" query="" providertype="sql" />
-    
+
     <datasource name="eavesdb" source="sql://EAVES" query="CREATE TABLE IF NOT EXISTS EAVES (ID INTEGER PRIMARY KEY AUTOINCREMENT, LENGTH);" providertype="sql" />
     <datasource name="eavesdb-list" source="sql://EAVES" query="SELECT * FROM EAVES ORDER BY ID DESC;" providertype="sql" />
     <datasource name="eavesdb-delete" source="sql://EAVES" query="" providertype="sql" />
-    
+
     <datasource name="protrusionsdb" source="sql://PROTRUSIONS" query="CREATE TABLE IF NOT EXISTS PROTRUSIONS (ID INTEGER PRIMARY KEY AUTOINCREMENT, LENGTH, WIDTH, TYPE);" providertype="sql" />
     <datasource name="protrusionsdb-list" source="sql://PROTRUSIONS" query="SELECT * FROM PROTRUSIONS ORDER BY ID DESC;" providertype="sql" />
     <datasource name="protrusionsdb-delete" source="sql://PROTRUSIONS" query="" providertype="sql" />
-    
+
     <datasource name="ventsdb" source="sql://VENTS" query="CREATE TABLE IF NOT EXISTS VENTS (ID INTEGER PRIMARY KEY AUTOINCREMENT, SIZE, QUANTITY);" providertype="sql" />
     <datasource name="ventsdb-list" source="sql://VENTS" query="SELECT * FROM VENTS ORDER BY ID DESC;" providertype="sql" />
     <datasource name="ventsdb-delete" source="sql://VENTS" query="" providertype="sql" />
-    
+
     <datasource name="photosdb" source="sql://PHOTOS" query="CREATE TABLE IF NOT EXISTS PHOTOS (ID INTEGER PRIMARY KEY AUTOINCREMENT, PHOTO, NOTE);" providertype="sql" />
     <datasource name="photosdb-list" source="sql://PHOTOS" query="SELECT * FROM PHOTOS ORDER BY ID DESC;" providertype="sql" />
     <datasource name="photosdb-delete" source="sql://PHOTOS" query="" providertype="sql" />
-    
+
 <!--     <datasource name="productsdb" source="sql://PRODUCTS" query="DELETE FROM PRODUCTS;" providertype="sql" /> -->
     <datasource name="productsdb" source="sql://PRODUCTS" query="CREATE TABLE IF NOT EXISTS PRODUCTS (ID INTEGER PRIMARY KEY AUTOINCREMENT, SHINGLE, COLOR, WARRANTY, IMAGE);" providertype="sql" />
     <datasource name="productsdb-list" source="sql://PRODUCTS" query="SELECT * FROM PRODUCTS ORDER BY ID DESC;" providertype="sql" />
     <datasource name="productsdb-delete" source="sql://PRODUCTS" query="" providertype="sql" />
-    
+
 <!--     <datasource name="accessoriesdb" source="sql://ACCESSORIES" query="DELETE FROM ACCESSORIES;" providertype="sql" /> -->
     <datasource name="accessoriesdb" source="sql://ACCESSORIES" query="CREATE TABLE IF NOT EXISTS ACCESSORIES (ID INTEGER PRIMARY KEY AUTOINCREMENT, NAME, TYPE, ACCESSORY, QUANTITY);" providertype="sql" />
     <datasource name="accessoriesdb-list" source="sql://ACCESSORIES" query="SELECT * FROM ACCESSORIES ORDER BY ID DESC;" providertype="sql" />
@@ -104,26 +104,26 @@
     <datasource name="accessoriesdb-delete" source="sql://ACCESSORIES" query="" providertype="sql" />
     <datasource name="accessoriesdb-gen-delete" source="sql://ACCESSORIES" query="" providertype="sql" />
     <datasource name="accessoriesdb-count" source="sql://ACCESSORIES" query="" providertype="sql" />
-    
+
     <datasource name="nonMiscAccessoriesdb-list" source="sql://ACCESSORIES" query="" providertype="sql" />
     <datasource name="miscAccessoriesdb-list" source="sql://ACCESSORIES" query="" providertype="sql" />
 
     <datasource name="tearoffdb" source="sql://TEAROFF" query="CREATE TABLE IF NOT EXISTS TEAROFF (ID INTEGER PRIMARY KEY AUTOINCREMENT, TEAROFF, LAYERS, MATERIAL);" providertype="sql" />
     <datasource name="tearoffdb-list" source="sql://TEAROFF" query="SELECT * FROM TEAROFF ORDER BY ID DESC;" providertype="sql" />
     <datasource name="tearoffdb-delete" source="sql://TEAROFF" query="" providertype="sql" />
-    
+
     <datasource name="assetprotectiondb" source="sql://PROTECTION" query="CREATE TABLE IF NOT EXISTS PROTECTION (ID INTEGER PRIMARY KEY AUTOINCREMENT, LANDSCAPING, HARDSCAPING, HVAC, POOL, MISC);" providertype="sql" />
     <datasource name="assetprotectiondb-list" source="sql://PROTECTION" query="SELECT * FROM PROTECTION ORDER BY ID DESC;" providertype="sql" />
     <datasource name="assetprotectiondb-delete" source="sql://PROTECTION" query="" providertype="sql" />
-    
+
     <datasource name="plywooddb" source="sql://PLYWOOD" query="CREATE TABLE IF NOT EXISTS PLYWOOD (ID INTEGER PRIMARY KEY AUTOINCREMENT, WOOD, MEASUREMENT, QUANTITY);" providertype="sql" />
     <datasource name="plywooddb-list" source="sql://PLYWOOD" query="SELECT * FROM PLYWOOD ORDER BY ID DESC;" providertype="sql" />
     <datasource name="plywooddb-delete" source="sql://PLYWOOD" query="" providertype="sql" />
-    
+
     <datasource name="adjustmentsdb" source="sql://ADJUSTMENTS" query="CREATE TABLE IF NOT EXISTS ADJUSTMENTS (ID INTEGER PRIMARY KEY AUTOINCREMENT, TYPE, UNITS, AMOUNT, NOTES);" providertype="sql" />
     <datasource name="adjustmentsdb-list" source="sql://ADJUSTMENTS" query="SELECT * FROM ADJUSTMENTS ORDER BY ID DESC;" providertype="sql" />
     <datasource name="adjustmentsdb-delete" source="sql://ADJUSTMENTS" query="" providertype="sql" />
-    
+
 	<!-- !TEXTTEMPLATES -->
 	<texttemplate name="login"><![CDATA[{"UserName":"[var:username]","Password":"[var:password]"}]]></texttemplate>
 	<texttemplate name="createCustomer"><![CDATA[{"CustomerFirstName":"[var:firstName]","CustomerMiddleName":"[var:middleName]","CustomerLastName":"[var:lastName]","Address1":"[var:address1]","Address2":"[var:address2]","City":"[var:city]","StateProvince":"[var:state]","PostalCode":"[var:postalCode]","PhoneNumber":"[var:phone]","Email":"[var:email]","Country":"[var:country]","Notes":"[var:notes]"}
@@ -135,7 +135,7 @@
 		{"Field":"[eval:[var:roofMeasurementsIterateCount]-1]","Length":"[datasource:roofareasdb-list.[var:roofMeasurementsIterateCount].LENGTH]","Width":"[datasource:roofareasdb-list.[var:roofMeasurementsIterateCount].WIDTH]","Pitch":"[datasource:roofareasdb-list.[var:roofMeasurementsIterateCount].SLOPE]"}
 	]]></texttemplate>
 	<texttemplate name="ridgeMeasurements"><![CDATA[
-		{"Order":"[eval:[var:ridgeMeasurementsIterateCount]-1]","Length":"[datasource:ridgesdb-list.[var:ridgeMeasurementsIterateCount].LENGTH]"}		
+		{"Order":"[eval:[var:ridgeMeasurementsIterateCount]-1]","Length":"[datasource:ridgesdb-list.[var:ridgeMeasurementsIterateCount].LENGTH]"}
 	]]></texttemplate>
 	<texttemplate name="hips"><![CDATA[
 		{"Order":"[eval:[var:hipsIterateCount]-1]","Length":"[datasource:hipsdb-list.[var:hipsIterateCount].LENGTH]"}
@@ -172,27 +172,27 @@
 	]]></texttemplate>
 
   </datasources>
- 
+
   <!-- !STYLES -->
   <styles>
-   
+
     <style name="100" width="100%" height="100%"/>
     <style name="testr" background="#ff0000" alpha=".4"/><!-- transparent red -->
     <style name="testg" background="#00ff00" alpha=".4"/><!-- transparent green -->
     <style name="testb" background="#0000ff" alpha=".4"/><!-- transparent blue -->
-    
+
     <style name="brand" background="#ed1c24"/>
     <style name="lighttext" color="#888888" font="Futura-Medium"/>
     <style name="darktext" color="#343434" font="Futura-Medium"/>
     <style name="button" background="#ed1c24" width="100%" height="100%" color="#ffffff" font="Futura-Medium" alignment="center"/>
     <style name="button-grey" background="#343434" width="100%" height="100%" color="#ffffff" font="Futura-Medium" alignment="center"/>
     <style name="textinput" background="ffffff" cornerradius="2" borderwidth="1" bordercolor="#888888" clip="yes"/>
-   
+
   </styles>
-  
+
   <!-- !CLASSES -->
   <classes>
-    
+
   	<class name="filler">
   		<panel name="filler" width="100%" height="1"></panel>
   	</class>
@@ -203,7 +203,7 @@
         <panel name="bg" style="100" background="ffffff" alpha="0"></panel>
       </panel>
     </class>
-    
+
     <class name="productbutton">
       <panel name="[param:name]" width="100%" height="100%" onclick="touched" onclickup="[param:action]" _index="[param:index]" _rowindex="[param:rowindex]" _value="[param:value]" _accessories="[param:accessories]" _title="[param:title]" _col="[param:col]" cornerradius="2" clip="yes">
         <panel name="red" width="100%" height="100%" style="brand"></panel>
@@ -212,7 +212,7 @@
         <panel name="bg" style="100" background="ffffff" alpha="0"></panel>
       </panel>
     </class>
-    
+
     <class name="accessorybutton">
       <panel name="[param:name]" width="100%" height="100%" onclick="touched" onclickup="[param:action]" _index="[param:index]" _value="[param:value]" _accessories="[param:accessories]" _title="[param:title]" _category="[param:category]" _units="[param:units]" _coverage="[param:coverage]" cornerradius="2" clip="yes">
         <panel name="red" width="100%" height="100%" style="brand"></panel>
@@ -221,21 +221,21 @@
         <panel name="bg" style="100" background="ffffff" alpha="0"></panel>
       </panel>
     </class>
-    
+
     <class name="title">
       <panel name="titlebox" width="100%" height="79" padding-left="20" padding-right="20" >
         <text name="title" width="100%" height="60" ypos="10" style="darktext" size="40" alignment="left" text="[param:title]"></text>
         <panel name="divide" width="100%" height="5" valign="bottom" background="#343434"></panel>
       </panel>
     </class>
-    
+
     <class name="summary-head-title">
       <panel name="titlebox" width="100%" height="79" >
         <text name="title" width="100%" height="60" ypos="10" style="darktext" size="40" alignment="left" text="[param:title]"></text>
         <panel name="divide" width="100%" height="5" valign="bottom" background="#343434"></panel>
       </panel>
     </class>
-    
+
     <class name="titlebutton">
       <panel name="titlebox" width="100%" height="79" padding-left="20" padding-right="20">
         <text name="title" width="100%" height="60" ypos="10" style="darktext" size="40" alignment="left" text="[param:title]"></text>
@@ -245,7 +245,7 @@
         <panel name="divide" width="100%" height="5" valign="bottom" background="#343434"></panel>
       </panel>
     </class>
-    
+
     <class name="sidebar">
       <panel name="[param:label]" width="100%" height="65" onclickup="[param:action]" _form="[param:label]" _alias="[param:alias]">
         <text name="label" width="100%" height="100%" leftinset="20" style="darktext" size="20" alignment="left" text="[param:label]"></text>
@@ -255,7 +255,7 @@
         <image name="arrow" source="images/sidebar-arrow.png" width="20" xpos="101%" valign="center"></image>
       </panel>
     </class>
-    
+
     <class name="web">
       <panel name="web" alias="WEB" style="100" ypos="101%">
         <panel name="toolbar" alias="TOOLBAR" width="100%" height="50" background="#343434">
@@ -265,58 +265,58 @@
         <web name="browser" alias="BROWSER" width="100%" height="[eval: [object:WEB.height] - 50]" url=" " ypos="50" pagetofit="yes" bounces="no" feedback="yes"></web>
       </panel>
     </class>
-    
+
     <class name="state">
       <panel name="state[param:index]" width="100%" height="40">
         <text name="name" width="100%" height="100%" style="darktext" size="18" alignment="center" text="[param:name]" _abbr="[param:abbr]" _state="[param:name]" _code="[param:code]" onclickup="setstate"></text>
         <panel name="border" width="100%" height="1" valign="bottom" background="#888888"></panel>
       </panel>
     </class>
-    
+
     <class name="province">
       <panel name="province[param:index]" width="100%" height="40" _abbr="[param:abbr]" _province="[param:name]" onclickup="setprovince">
         <text name="name" width="100%" height="100%" style="darktext" size="18" alignment="center" text="[param:name]"></text>
         <panel name="border" width="100%" height="1" valign="bottom" background="#888888"></panel>
       </panel>
     </class>
-    
+
     <class name="state-edit">
       <panel name="state[param:index]" width="100%" height="40" _abbr="[param:abbr]" _state="[param:name]" _code="[param:code]" onclickup="setstate-edit">
         <text name="name" width="100%" height="100%" style="darktext" size="18" alignment="center" text="[param:name]"></text>
         <panel name="border" width="100%" height="1" valign="bottom" background="#888888"></panel>
       </panel>
     </class>
-    
+
     <class name="province-edit">
       <panel name="province[param:index]" width="100%" height="40" _abbr="[param:abbr]" _province="[param:name]" onclickup="setprovince-edit">
         <text name="name" width="100%" height="100%" style="darktext" size="18" alignment="center" text="[param:name]"></text>
         <panel name="border" width="100%" height="1" valign="bottom" background="#888888"></panel>
       </panel>
     </class>
-    
+
     <class name="signin">
       <!-- !sign in -->
       <panel name="signin" alias="SIGNIN" style="100" background="#e3e3e3" alpha="1">
-     
+
         <image name="logo" source="images/login-logo.png" width="148" align="center" ypos="134"></image>
         <panel name="column" width="40%" height="50%" align="center" ypos="300">
-        
+
           <text name="title" width="100%" height="40" style="lighttext" size="30" alignment="left" text="Sign In"></text>
-          
+
           <panel name="username" alias="USERNAME" width="100%" height="50" ypos="50" style="textinput">
             <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
             <!--<text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Username"></text>-->
             <textfield name="input" width="100%" height="100%" align="right" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Username" onreturnkeypressed="next" returnkeytype="next" kbtype="emailaddress" autocorrect="no" _next="PASSWORD"></textfield>
             <panel name="active" style="100" onclickup="labelactive" _field="USERNAME"></panel>
           </panel>
-      
+
           <panel name="password" alias="PASSWORD" width="100%" height="50" align="center" bottomof="USERNAME" margin-top="20" style="textinput">
             <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
             <!--<text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Password"></text>-->
             <textfield name="input" width="100%" height="100%" align="right" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Password" onreturnkeypressed="next" returnkeytype="go" _next="none" _action="signin" password="yes"></textfield>
             <panel name="active" style="100" onclickup="labelactive" _field="PASSWORD"></panel>
           </panel>
-      
+
           <panel name="signin" width="110" height="50" bottomof="PASSWORD" margin-top="20">
             <object class="button" name="test" size="20" label="Sign In" action="signin" />
           </panel>
@@ -326,7 +326,7 @@
           <panel name="remember" alias="REMEMBER" width="30" height="30" leftof="radiolabel" bottomof="PASSWORD" margin-top="30" background="f3f3f3" cornerradius="15" borderwidth="1" bordercolor="#888888" clip="yes" onclickup="checkon" _action="remember">
              <panel name="check" width="0" height="0" align="center" valign="center" background="#ed1c24" cornerradius="12" alpha="1" ></panel>
           </panel>
-          
+
 
           <text name="noaccountlabel" alias="NOACCOUNTLABEL" width="100%" height="30" ypos="70%" style="lighttext" size="20" alignment="center" text="Don't have an account?"></text>
           <panel name="register" width="150" height="50" align="center" bottomof="NOACCOUNTLABEL" margin-top="20">
@@ -335,16 +335,16 @@
               <panel name="bg" style="100" background="ffffff" alpha="0"></panel>
             </panel>
           </panel>
-        
+
         </panel><!-- end of column -->
       </panel><!-- end of sign in -->
     </class>
-    
+
     <class name="choice">
       <!-- !choice -->
       <panel name="choice" alias="CHOICE" width="100%" height="[eval: [object:CONTAINER.height] - 74]" ypos="74" background="#e3e3e3" alpha="1">
         <panel name="column" width="60%" height="55%" align="center" valign="center">
-          
+
           <panel name="search-box" alias="SEARCH-BOX" width="100%" height="300" >
             <text name="label" width="100%" height="40" style="lighttext" size="30" alignment="center" text="Search for an existing estimate."></text>
             <panel name="search-lastname" alias="SEARCH-LASTNAME" width="[eval: [object:SEARCH-BOX.width] - 130]" height="50" align="center" bottomof="label" margin-top="20" style="textinput">
@@ -362,24 +362,24 @@
               <textfield name="input" width="100%" height="100%" align="right" leftinset="10" style="darktext" size="20" alignment="left" valignment="center" placeholder="Customer ID" onreturnkeypressed="next" returnkeytype="search" _next="none" _action="search" ></textfield>
               <panel name="active" style="100" onclickup="labelactive" _field="SEARCH-CUSTNUMBER"></panel>
             </panel>-->
-            
+
             <panel name="search-btn" width="110" height="50" align="center" bottomof="search-address" margin-top="20">
               <object class="button" name="test" size="20" label="Search" action="search" />
             </panel>
           </panel>
-          
+
           <panel name="createnew" width="100%" height="150" valign="bottom" >
             <text name="label" width="100%" height="40" style="lighttext" size="30" alignment="center" text="Create a new estimate."></text>
-            
+
             <panel name="create" width="210" height="50" align="center" bottomof="label" margin-top="20">
               <object class="button" name="test" size="20" label="Start Estimate" action="create" value="newestimate" />
             </panel>
           </panel>
-          
+
         </panel>
       </panel><!-- end of choice -->
     </class>
-    
+
     <!-- !search results -->
     <class name="searchresult">
       <panel name="result-item[param:index]" width="100%" height="100">
@@ -394,7 +394,7 @@
         <panel name="divider" width="728" height="5" align="center" valign="bottom" background="#343434"></panel>
       </panel>
     </class>
-    
+
     <class name="results">
       <panel name="searchresults" alias="SEARCHRESULTS" width="100%" height="100%" ypos="101%" background="#e3e3e3">
         <panel name="searchhead" width="100%" height="74" background="#343434" >
@@ -407,7 +407,7 @@
         </list>
       </panel>
     </class>
-    
+
     <!-- !edit modal -->
     <class name="editpanel">
       <panel name="editpanel" alias="EDITPANEL" width="90%" height="70%" align="center" ypos="5%" background="e3e3e3" borderwidth="2" bordercolor="#343434" clip="yes" >
@@ -415,7 +415,7 @@
           <text name="title" width="100%" height="100%" leftinset="20" color="#ffffff" font="Futura-Medium" size="30" alignment="left" text="Edit"></text>
           <text name="close" width="80" height="80" align="right" color="#ffffff" font="Helvetica" size="30" alignment="center" text="X" onclickup="close-edit" clickuptarget="CONTAINER"></text>
         </panel>
-        
+
         <pager name="editpager" alias="EDITPAGER" width="[eval: [object:EDITPANEL.width] - 20]" height="[eval: [object:EDITPANEL.height] - 160]" xpos="20" ypos="80" orientation="vertical" paginate="no" >
           <panel name="1" width="100%" height="80" padding-right="20">
             <text name="label" width="50%" height="100%" color="#343434" font="Futura-Medium" size="24" alignment="left" text="First Name" ></text>
@@ -494,7 +494,7 @@
             </panel>
             <panel name="border" width="100%" height="1" valign="bottom" background="#343434"></panel>
           </panel>
-          
+
           <panel name="9" width="100%" height="80" padding-right="20">
             <text name="label" width="50%" height="100%" color="#343434" font="Futura-Medium" size="24" alignment="left" text="Zip or Postal Code" ></text>
             <panel name="edit-zip" alias="EDIT-ZIP" width="50%" height="50" align="right" valign="center" style="textinput">
@@ -505,30 +505,30 @@
             <panel name="border" width="100%" height="1" valign="bottom" background="#343434"></panel>
           </panel>
         </pager>
-        
+
         <panel name="modalcurtain" alias="MODALCURTAIN" width="100%" height="100%" alpha="0"></panel>
-        
+
         <panel name="us-list" alias="US-LIST" width="300" height="300" xpos="50%" ypos="100%" alpha="1" background="e3e3e3" borderwidth="1" bordercolor="#343434">
           <list name="statelist-edit" width="100%" height="100%" datasource="states" orientation="vertical" paginate="no">
             <object class="state-edit" index="[param:dataSourceIndex]" abbr="[param:code]" name="[param:name]"/>
           </list>
         </panel>
-        
+
         <panel name="can-list" alias="CAN-LIST" width="300" height="300" xpos="50%" ypos="100%" alpha="0" background="e3e3e3" borderwidth="1" bordercolor="#343434">
           <list name="provincelist-edit" width="100%" height="100%" datasource="provinces" orientation="vertical" paginate="no">
             <object class="province-edit" index="[param:dataSourceIndex]" abbr="[param:code]" name="[param:name]" />
           </list>
         </panel>
-        
+
         <panel name="editfooter" width="100%" height="80" valign="bottom" background="#343434" padding-right="20">
           <panel name="view-btn" width="130" height="50" align="right" valign="center">
             <object class="button" name="test" size="20" label="Update" action="editcustomer" value="" />
           </panel>
         </panel>
-        
+
       </panel>
     </class>
-    
+
     <!-- !Roof info classes -->
     <class name="roof area">
       <panel name="roof-area[param:index]" alias="ROOF-AREA[param:index]" width="100%" height="220" padding-right="20">
@@ -622,7 +622,7 @@
         </panel>
       </panel>
     </class><!-- <object class="roof area" index="1" /> -->
-    
+
     <class name="inspection">
       <panel name="inspection" alias="INSPECTION" width="100%" height="160">
         <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="15" alignment="left" text="EXISTING ROOF INFORMATION"></text>
@@ -660,7 +660,7 @@
               <panel name="border" width="100%" height="1" valign="bottom" background="#888888"></panel>
             </panel>
           </pager>
-          
+
           <panel name="rooftypedrop" alias="ROOFTYPEDROP" width="100%" height="100%" alpha="0">
             <text name="drophead" width="100%" height="30" style="lighttext" size="18" alignment="center" text="Roof Types"></text>
             <panel name="border" width="100%" height="1" background="#888888" ypos="30"></panel>
@@ -694,7 +694,7 @@
         </panel>
       </panel>
     </class><!-- <object class="inspection" /> -->
-    
+
     <class name="fascia">
       <panel name="fascia" alias="FASCIA" width="100%" height="220">
         <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="20" alignment="left" text="Existing Fascia Information"></text>
@@ -723,7 +723,7 @@
         <panel name="drop" width="45%" height="170" bottomof="subtitle" xpos="101%" alpha="0" style="textinput"></panel>
       </panel>
     </class><!-- <object class="fascia" /> -->
-    
+
     <class name="waste">
       <panel name="waste" alias="WASTE" width="100%" height="100">
         <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="15" alignment="left" text="ESTIMATE"></text>
@@ -739,7 +739,7 @@
         <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
       </panel>
     </class><!-- <object class="waste" /> -->
-    
+
     <class name="ridge">
       <panel name="ridge[param:index]" alias="RIDGE[param:index]" width="100%" height="160" padding-right="20">
         <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="15" alignment="left" text="RIDGE [param:index]"></text>
@@ -762,7 +762,7 @@
         <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
       </panel>
     </class><!-- <object class="ridge" index="1" /> -->
-    
+
     <class name="hip">
       <panel name="hip[param:index]" alias="HIP[param:index]" width="100%" height="160" padding-right="20">
         <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="15" alignment="left" text="HIP [param:index]"></text>
@@ -785,7 +785,7 @@
         <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
       </panel>
     </class><!-- <object class="hip" index="1" /> -->
-    
+
     <class name="valley">
       <panel name="valley[param:index]" alias="VALLEY[param:index]" width="100%" height="100" padding-right="20">
         <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="15" alignment="left" text="VALLEY [param:index]"></text>
@@ -804,7 +804,7 @@
         <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
       </panel>
     </class><!-- <object class="valley" index="1" /> -->
-    
+
     <class name="rake">
       <panel name="rake[param:index]" alias="RAKE[param:index]" width="100%" height="100" padding-right="20">
         <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="15" alignment="left" text="RAKE [param:index]"></text>
@@ -823,7 +823,7 @@
         <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
       </panel>
     </class><!-- <object class="rake" index="1" /> -->
-    
+
     <class name="eave">
       <panel name="eave[param:index]" alias="EAVE[param:index]" width="100%" height="100" padding-right="20">
         <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="15" alignment="left" text="EAVE [param:index]"></text>
@@ -842,7 +842,7 @@
         <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
       </panel>
     </class><!-- <object class="eave" index="1" /> -->
-    
+
     <class name="chimney">
       <panel name="protrusion[param:pindex]" alias="PROTRUSION[param:pindex]" width="100%" height="160" padding-right="20">
         <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="15" alignment="left" text="CHIMNEY [param:index]"></text>
@@ -871,7 +871,7 @@
         <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
       </panel>
     </class><!-- <object class="chimney" index="1" /> -->
-    
+
     <class name="skylight">
       <panel name="protrusion[param:pindex]" alias="PROTRUSION[param:pindex]" width="100%" height="160" padding-right="20">
         <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="15" alignment="left" text="SKYLIGHT [param:index]"></text>
@@ -900,7 +900,7 @@
         <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
       </panel>
     </class><!-- <object class="skylight" index="1" /> -->
-    
+
     <class name="3vent">
       <panel name="vent[param:index]" alias="VENT[param:index]" width="100%" height="100" padding-right="20">
         <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="15" alignment="left" text="3 INCH PLUMBING VENTS"></text>
@@ -921,7 +921,7 @@
         <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
       </panel>
     </class><!-- <object class="3vent" /> -->
-    
+
     <class name="2vent">
       <panel name="vent[param:index]" alias="VENT[param:index]" width="100%" height="100" padding-right="20">
         <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="15" alignment="left" text="2 INCH PLUMBING VENTS"></text>
@@ -942,7 +942,7 @@
         <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
       </panel>
     </class><!-- <object class="2vent" /> -->
-    
+
     <class name="15vent">
       <panel name="vent[param:index]" alias="VENT[param:index]" width="100%" height="100" padding-right="20">
         <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="15" alignment="left" text="1.5 INCH PLUMBING VENTS"></text>
@@ -963,7 +963,7 @@
         <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
       </panel>
     </class><!-- <object class="2vent" /> -->
-    
+
     <class name="customvent">
       <panel name="vent[param:index]" alias="VENT[param:index]" width="100%" height="160" padding-right="20">
         <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="15" alignment="left" text="CUSTOM VENT [param:index]"></text>
@@ -990,7 +990,7 @@
         <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
       </panel>
     </class><!-- <object class="customvent" index="1" /> -->
-    
+
     <class name="photo">
       <panel name="photo[param:index]" alias="PN[param:index]" width="100%" height="215">
         <panel name="imgbox" width="150" height="200" valign="center" clip="yes">
@@ -1006,13 +1006,13 @@
         <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
       </panel>
     </class><!-- <object class="photo" index="1" /> -->
-    
+
     <class name="roof-spacer">
       <panel name="roof-spacer" alias="ROOF-SPACER-[param:name]-[param:index]" width="100%" height="260" >
         <!--<text name="test" width="100%" height="100%" background="0232b2" color="#343434" font="Helvetica" size="20" alignment="center" text="ROOF-SPACER-[param:name]-[param:index]"></text>-->
       </panel>
     </class>
-    
+
     <!-- !product classes -->
 	<class name="product-pager" >
 		<pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no" >
@@ -1055,9 +1055,9 @@
           </panel>
         </panel>
     </class>
-    
+
     <class name="shingle-single">
-      
+
       <!--one column-->
         <panel name="[param:index]" width="100%" height="260" padding-left="20" padding-right="20">
           <panel name="col1" width="217" height="100%" >
@@ -1075,12 +1075,12 @@
 <!--           <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel> -->
         </panel>
     </class><!-- <object class="shingles"  /> -->
-    
+
 	<class name="color-pager">
       <pager name="colorpager" alias="COLORPAGER" width="100%" height="100%" orientation="vertical" paginate="no">
       </pager>
 	</class>
-	
+
 	<class name="three-colors" >
     <panel name="[param:index]" width="100%" height="320" padding-left="20" padding-right="20">
       <panel name="1" width="33.33%" height="100%" align="left">
@@ -1094,7 +1094,7 @@
           </panel>
         </panel>
       </panel>
-      
+
       <panel name="2" width="33.33%" height="100%" align="center" >
         <panel name="marginer" width="200" height="100%" align="center">
           <panel name="imgholder" width="200" height="200" background="000000" clip="yes" >
@@ -1120,7 +1120,7 @@
     </panel>
     <!-- <panel name="row3" width="100%" height="300" background="#0000ff"></panel> -->
 	</class>
-	
+
 	<class name="two-colors">
     <panel name="[param:index]" width="100%" height="320" padding-left="20" padding-right="20">
       <panel name="1" width="33.33%" height="100%" align="left">
@@ -1134,7 +1134,7 @@
           </panel>
         </panel>
       </panel>
-      
+
       <panel name="2" width="33.33%" height="100%" align="center" >
         <panel name="marginer" width="200" height="100%" align="center">
           <panel name="imgholder" width="200" height="200" background="000000" clip="yes" >
@@ -1148,7 +1148,7 @@
       </panel>
     </panel>
 	</class>
-	
+
 	<class name="one-color">
     <panel name="[param:index]" width="100%" height="320" padding-left="20" padding-right="20">
       <panel name="1" width="33.33%" height="100%" align="left">
@@ -1175,7 +1175,7 @@
         <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
       </panel>
     </class>
-    
+
 	<class name="accessory-category">
 		<panel name="category[panel:index]" width="100%" height="100">
 			<panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
@@ -1193,7 +1193,7 @@
         <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
       </panel>
     </class>
-    
+
     <class name="accessories">
       <!--two column-->
       <panel name="[param:index]" width="100%" fitheight="yes" padding-left="20" padding-right="20">
@@ -1218,7 +1218,7 @@
         </panel>
       </panel>
     </class>
-      
+
       <!--one column-->
 	  <class name="[param:index]" >
         <panel name="accessoriesrow2" width="100%" height="243" bottomof="accessoriesrow1" >
@@ -1233,7 +1233,7 @@
           <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
         </panel>
     </class><!-- <object class="accessories"  /> -->
-    
+
     <!--<class name="options">
       <panel name="optionsgroup1" width="100%" fitheight="yes">
         <panel name="optionsrow1" width="100%" height="237" >
@@ -1254,7 +1254,7 @@
             </panel>
           </panel>
         </panel>
-      
+
         <panel name="optionsrow2" width="100%" height="243" bottomof="optionsrow1" >
           <panel name="col1" width="217" height="100%" >
             <text name="name" width="100%" height="30" style="darktext" size="20" alignment="left" text="Option Name"></text>
@@ -1268,7 +1268,7 @@
         </panel>
       </panel>
     </class>--><!-- <object class="options"  /> -->
-    
+
     <!-- !services classes -->
     <class name="tearoff">
       <panel name="tearoff" alias="TEAROFF" width="100%" height="195">
@@ -1347,7 +1347,7 @@
         </panel>
       </panel>
     </class><!-- <object class="tearoff" /> -->
-    
+
     <class name="assetprotection">
       <panel name="assetprotection" alias="ASSETPROTECTION" width="100%" height="315">
         <panel name="landscaping" alias="LANDSCAPING" width="50" height="50" align="left" ypos="10" background="f3f3f3" cornerradius="25" borderwidth="1" bordercolor="#888888" clip="yes" onclickup="checkon" _action="landscaping">
@@ -1373,60 +1373,44 @@
         <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
       </panel>
     </class><!-- <object class="assetprotection" /> -->
-    
-    <class name="plywood">
-      <panel name="plywood" alias="PLYWOOD" width="100%" height="220">
-        <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="15" alignment="left" text="SELECT THE SHEATHING"></text>
-        <panel name="plywoodtype" alias="PLYWOODTYPE" width="226" height="50" align="left" bottomof="subtitle" style="textinput">
+
+    <class name="12cdx">
+      <panel name="plywood[param:index]" alias="PLYWOOD[param:index]" width="100%" height="160" padding-right="20" >
+        <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="15" alignment="left" text="1/2 INCH CDX"></text>
+        <panel name="deletebox" width="60" height="35" align="right" onclickup="plywood-delete-item" clickuptarget="CONTAINER" _target="PLYWOOD[param:index]" _indexname="plywoodindex" _spacername="PLYWOOD" _parent="PLYWOOD"  _section="PLYWOOD" _reset="add12cdx" _resettarget="12cdx">
+          <image name="icon" source="images/delete.png" width="20" height="20" align="center" valign="center"></image>
+        </panel>
+        <panel name="plywoodtype[param:index]" alias="PLYWOODTYPE[param:index]" width="226" height="50" align="left" bottomof="subtitle" style="textinput" alpha="0">
           <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
           <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Type"></text>
-          <textfield name="hidden" alpha="0" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" _next="none" _action="null"></textfield>
+          <textfield name="hidden" alpha="0" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" text="12CDX" placeholder="" onreturnkeypressed="next" returnkeytype="next" _next="none" _action="null"></textfield>
           <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" _next="none" _action="null"></textfield>
           <panel name="active" style="100" onclickup="dropon" _field="PLYWOODTYPE" _drop="PLYWOOD" _droptype="PLYWOODTYPE-DROP"></panel>
         </panel>
-        <panel name="measurement" alias="MEASUREMENT" width="226" height="50" align="left" bottomof="plywoodtype" margin-top="10" style="textinput">
+        <panel name="measurement[param:index]" alias="MEASUREMENT[param:index]" width="226" height="50" align="left" bottomof="subtitle" style="textinput">
           <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
           <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Measure by"></text>
           <textfield name="hidden" alpha="0" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null"></textfield>
           <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null"></textfield>
-          <panel name="active" style="100" onclickup="dropon" _field="MEASUREMENT" _drop="PLYWOOD" _droptype="MEASUREMENT-DROP"></panel>
+          <panel name="active" style="100" onclickup="dropon" _field="MEASUREMENT[param:index]" _drop="PLYWOOD[param:index]" _droptype="MEASUREMENT-DROP[param:index]"></panel>
         </panel>
-        <panel name="quantity" alias="QUANTITY" width="226" height="50" bottomof="measurement" margin-top="10" align="left" style="textinput">
+        <panel name="quantity" alias="QUANTITY[param:index]" width="226" height="50" bottomof="measurement[param:index]" margin-top="10" align="left" style="textinput">
           <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
           <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Quantity"></text>
           <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null" onchange="isNaN"></textfield>
-          <panel name="active" style="100" onclickup="labelactive" _field="QUANTITY"></panel>
+          <panel name="active" style="100" onclickup="labelactive" _field="QUANTITY[param:index]"></panel>
         </panel>
         <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
         <panel name="drop" width="45%" height="110" bottomof="subtitle" xpos="101%" alpha="0" style="textinput">
-          <pager name="plywoodtype-drop" alias="PLYWOODTYPE-DROP" width="100%" height="100%" orientation="vertical" paginate="no" alpha="0">
-            <panel name="plywood1" width="100%" height="40" _label="1/2 inch CDX" _size="12CDX" onclickup="setplywood">
-              <text name="name" width="100%" height="100%" style="darktext" size="18" alignment="center" text="1/2 inch CDX"></text>
-              <panel name="border" width="100%" height="1" valign="bottom" background="#888888"></panel>
-            </panel>
-            <panel name="plywood2" width="100%" height="40" _label="5/8 inch CDX" _size="12CDX" onclickup="setplywood">
-              <text name="name" width="100%" height="100%" style="darktext" size="18" alignment="center" text="5/8 inch CDX"></text>
-              <panel name="border" width="100%" height="1" valign="bottom" background="#888888"></panel>
-            </panel>
-            <panel name="plywood3" width="100%" height="40" _label="1/2 inch OSB" _size="12CDX" onclickup="setplywood">
-              <text name="name" width="100%" height="100%" style="darktext" size="18" alignment="center" text="1/2 inch OSB"></text>
-              <panel name="border" width="100%" height="1" valign="bottom" background="#888888"></panel>
-            </panel>
-            <panel name="plywood4" width="100%" height="40" _label="5/8 inch OSD" _size="12CDX" onclickup="setplywood">
-              <text name="name" width="100%" height="100%" style="darktext" size="18" alignment="center" text="5/8 inch OSD"></text>
-              <panel name="border" width="100%" height="1" valign="bottom" background="#888888"></panel>
-            </panel>
-          </pager>
-          
-          <panel name="measurement-drop" alias="MEASUREMENT-DROP" width="100%" height="100%" alpha="0">
+          <panel name="measurement-drop" alias="MEASUREMENT-DROP[param:index]" width="100%" height="100%" alpha="0">
             <text name="drophead" width="100%" height="30" style="lighttext" size="18" alignment="center" text="MEASUREMENT CHOICES"></text>
             <panel name="border" width="100%" height="1" background="#888888" ypos="30"></panel>
             <pager name="measurements" width="100%" height="[eval:[object:ROOFTYPEDROP.height] - 30]" ypos="30" orientation="vertical" paginate="no">
-              <panel name="measure1" width="100%" height="40" _measure="PerSheet" _label="Per Sheet" onclickup="setmeasurement">
+              <panel name="measure1" width="100%" height="40" _measure="PerSheet" _label="Per Sheet" _index="[param:index]" onclickup="setmeasurement">
                 <text name="name" width="100%" height="100%" style="darktext" size="18" alignment="center" text="Per Sheet"></text>
                 <panel name="border" width="100%" height="1" valign="bottom" background="#888888"></panel>
               </panel>
-              <panel name="measure2" width="100%" height="40" _measure="Linear" _label="Linear ft" onclickup="setmeasurement">
+              <panel name="measure2" width="100%" height="40" _measure="Linear" _label="Linear ft" _index="[param:index]" onclickup="setmeasurement">
                 <text name="name" width="100%" height="100%" style="darktext" size="18" alignment="center" text="Linear ft"></text>
                 <panel name="border" width="100%" height="1" valign="bottom" background="#888888"></panel>
               </panel>
@@ -1435,7 +1419,145 @@
         </panel>
       </panel>
     </class><!-- <object class="plywood" /> -->
-    
+
+    <class name="58cdx">
+      <panel name="plywood[param:index]" alias="PLYWOOD[param:index]" width="100%" height="160" padding-right="20">
+        <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="15" alignment="left" text="5/8 INCH CDX"></text>
+        <panel name="deletebox" width="60" height="35" align="right" onclickup="plywood-delete-item" clickuptarget="CONTAINER" _target="PLYWOOD[param:index]" _indexname="plywoodindex" _spacername="PLYWOOD" _parent="PLYWOOD"  _section="PLYWOOD" _reset="add58cdx" _resettarget="58cdx">
+          <image name="icon" source="images/delete.png" width="20" height="20" align="center" valign="center"></image>
+        </panel>
+        <panel name="plywoodtype[param:index]" alias="PLYWOODTYPE[param:index]" width="226" height="50" align="left" bottomof="subtitle" style="textinput" alpha="0">
+          <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
+          <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Type"></text>
+          <textfield name="hidden" alpha="0" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" text="58CDX" placeholder="" onreturnkeypressed="next" returnkeytype="next" _next="none" _action="null"></textfield>
+          <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" _next="none" _action="null"></textfield>
+          <panel name="active" style="100" onclickup="dropon" _field="PLYWOODTYPE" _drop="PLYWOOD" _droptype="PLYWOODTYPE-DROP"></panel>
+        </panel>
+        <panel name="measurement[param:index]" alias="MEASUREMENT[param:index]" width="226" height="50" align="left" bottomof="subtitle" style="textinput">
+          <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
+          <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Measure by"></text>
+          <textfield name="hidden" alpha="0" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null"></textfield>
+          <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null"></textfield>
+          <panel name="active" style="100" onclickup="dropon" _field="MEASUREMENT[param:index]" _drop="PLYWOOD[param:index]" _droptype="MEASUREMENT-DROP[param:index]"></panel>
+        </panel>
+        <panel name="quantity[param:index]" alias="QUANTITY[param:index]" width="226" height="50" bottomof="measurement[param:index]" margin-top="10" align="left" style="textinput">
+          <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
+          <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Quantity"></text>
+          <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null" onchange="isNaN"></textfield>
+          <panel name="active" style="100" onclickup="labelactive" _field="QUANTITY[param:index]"></panel>
+        </panel>
+        <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
+        <panel name="drop" width="45%" height="110" bottomof="subtitle" xpos="101%" alpha="0" style="textinput">
+          <panel name="measurement-drop" alias="MEASUREMENT-DROP[param:index]" width="100%" height="100%" alpha="0">
+            <text name="drophead" width="100%" height="30" style="lighttext" size="18" alignment="center" text="MEASUREMENT CHOICES"></text>
+            <panel name="border" width="100%" height="1" background="#888888" ypos="30"></panel>
+            <pager name="measurements" width="100%" height="[eval:[object:ROOFTYPEDROP.height] - 30]" ypos="30" orientation="vertical" paginate="no">
+              <panel name="measure1" width="100%" height="40" _measure="PerSheet" _label="Per Sheet" _index="[param:index]" onclickup="setmeasurement">
+                <text name="name" width="100%" height="100%" style="darktext" size="18" alignment="center" text="Per Sheet"></text>
+                <panel name="border" width="100%" height="1" valign="bottom" background="#888888"></panel>
+              </panel>
+              <panel name="measure2" width="100%" height="40" _measure="Linear" _label="Linear ft" _index="[param:index]" onclickup="setmeasurement">
+                <text name="name" width="100%" height="100%" style="darktext" size="18" alignment="center" text="Linear ft"></text>
+                <panel name="border" width="100%" height="1" valign="bottom" background="#888888"></panel>
+              </panel>
+            </pager>
+          </panel>
+        </panel>
+      </panel>
+    </class><!-- <object class="plywood" /> -->
+
+    <class name="12osb">
+      <panel name="plywood[param:index]" alias="PLYWOOD[param:index]" width="100%" height="160" padding-right="20">
+        <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="15" alignment="left" text="1/2 INCH OSB"></text>
+        <panel name="deletebox" width="60" height="35" align="right" onclickup="plywood-delete-item" clickuptarget="CONTAINER" _target="PLYWOOD[param:index]" _indexname="plywoodindex" _spacername="PLYWOOD" _parent="PLYWOOD"  _section="PLYWOOD" _reset="add12osb" _resettarget="12osb">
+          <image name="icon" source="images/delete.png" width="20" height="20" align="center" valign="center"></image>
+        </panel>
+        <panel name="plywoodtype[param:index]" alias="PLYWOODTYPE[param:index]" width="226" height="50" align="left" bottomof="subtitle" style="textinput" alpha="0">
+          <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
+          <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Type"></text>
+          <textfield name="hidden" alpha="0" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" text="12OSB" placeholder="" onreturnkeypressed="next" returnkeytype="next" _next="none" _action="null"></textfield>
+          <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" _next="none" _action="null"></textfield>
+          <panel name="active" style="100" onclickup="dropon" _field="PLYWOODTYPE" _drop="PLYWOOD" _droptype="PLYWOODTYPE-DROP"></panel>
+        </panel>
+        <panel name="measurement[param:index]" alias="MEASUREMENT[param:index]" width="226" height="50" align="left" bottomof="subtitle" style="textinput">
+          <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
+          <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Measure by"></text>
+          <textfield name="hidden" alpha="0" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null"></textfield>
+          <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null"></textfield>
+          <panel name="active" style="100" onclickup="dropon" _field="MEASUREMENT[param:index]" _drop="PLYWOOD[param:index]" _droptype="MEASUREMENT-DROP[param:index]"></panel>
+        </panel>
+        <panel name="quantity[param:index]" alias="QUANTITY[param:index]" width="226" height="50" bottomof="measurement[param:index]" margin-top="10" align="left" style="textinput">
+          <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
+          <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Quantity"></text>
+          <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null" onchange="isNaN"></textfield>
+          <panel name="active" style="100" onclickup="labelactive" _field="QUANTITY[param:index]"></panel>
+        </panel>
+        <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
+        <panel name="drop" width="45%" height="110" bottomof="subtitle" xpos="101%" alpha="0" style="textinput">
+          <panel name="measurement-drop" alias="MEASUREMENT-DROP[param:index]" width="100%" height="100%" alpha="0">
+            <text name="drophead" width="100%" height="30" style="lighttext" size="18" alignment="center" text="MEASUREMENT CHOICES"></text>
+            <panel name="border" width="100%" height="1" background="#888888" ypos="30"></panel>
+            <pager name="measurements" width="100%" height="[eval:[object:ROOFTYPEDROP.height] - 30]" ypos="30" orientation="vertical" paginate="no">
+              <panel name="measure1" width="100%" height="40" _measure="PerSheet" _label="Per Sheet" _index="[param:index]" onclickup="setmeasurement">
+                <text name="name" width="100%" height="100%" style="darktext" size="18" alignment="center" text="Per Sheet"></text>
+                <panel name="border" width="100%" height="1" valign="bottom" background="#888888"></panel>
+              </panel>
+              <panel name="measure2" width="100%" height="40" _measure="Linear" _label="Linear ft" _index="[param:index]" onclickup="setmeasurement">
+                <text name="name" width="100%" height="100%" style="darktext" size="18" alignment="center" text="Linear ft"></text>
+                <panel name="border" width="100%" height="1" valign="bottom" background="#888888"></panel>
+              </panel>
+            </pager>
+          </panel>
+        </panel>
+      </panel>
+    </class><!-- <object class="plywood" /> -->
+
+    <class name="58osb">
+      <panel name="plywood[param:index]" alias="PLYWOOD[param:index]" width="100%" height="160" padding-right="20">
+        <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="15" alignment="left" text="5/8 INCH OSB"></text>
+        <panel name="deletebox" width="60" height="35" align="right" onclickup="plywood-delete-item" clickuptarget="CONTAINER" _target="PLYWOOD[param:index]" _indexname="plywoodindex" _spacername="PLYWOOD" _parent="PLYWOOD" _section="PLYWOOD" _reset="add58osb" _resettarget="58osb">
+          <image name="icon" source="images/delete.png" width="20" height="20" align="center" valign="center"></image>
+        </panel>
+        <panel name="plywoodtype[param:index]" alias="PLYWOODTYPE[param:index]" width="226" height="50" align="left" bottomof="subtitle" style="textinput" alpha="0">
+          <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
+          <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Type"></text>
+          <textfield name="hidden" alpha="0" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" text="58OSB" placeholder="" onreturnkeypressed="next" returnkeytype="next" _next="none" _action="null"></textfield>
+          <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" _next="none" _action="null"></textfield>
+          <panel name="active" style="100" onclickup="dropon" _field="PLYWOODTYPE" _drop="PLYWOOD" _droptype="PLYWOODTYPE-DROP"></panel>
+        </panel>
+        <panel name="measurement[param:index]" alias="MEASUREMENT[param:index]" width="226" height="50" align="left" bottomof="subtitle" style="textinput">
+          <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
+          <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Measure by"></text>
+          <textfield name="hidden" alpha="0" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null"></textfield>
+          <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null"></textfield>
+          <panel name="active" style="100" onclickup="dropon" _field="MEASUREMENT[param:index]" _drop="PLYWOOD[param:index]" _droptype="MEASUREMENT-DROP[param:index]"></panel>
+        </panel>
+        <panel name="quantity[param:index]" alias="QUANTITY[param:index]" width="226" height="50" bottomof="measurement[param:index]" margin-top="10" align="left" style="textinput">
+          <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
+          <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Quantity"></text>
+          <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null" onchange="isNaN"></textfield>
+          <panel name="active" style="100" onclickup="labelactive" _field="QUANTITY[param:index]"></panel>
+        </panel>
+        <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
+        <panel name="drop" width="45%" height="110" bottomof="subtitle" xpos="101%" alpha="0" style="textinput">
+          <panel name="measurement-drop" alias="MEASUREMENT-DROP[param:index]" width="100%" height="100%" alpha="0">
+            <text name="drophead" width="100%" height="30" style="lighttext" size="18" alignment="center" text="MEASUREMENT CHOICES"></text>
+            <panel name="border" width="100%" height="1" background="#888888" ypos="30"></panel>
+            <pager name="measurements" width="100%" height="[eval:[object:ROOFTYPEDROP.height] - 30]" ypos="30" orientation="vertical" paginate="no">
+              <panel name="measure1" width="100%" height="40" _measure="PerSheet" _label="Per Sheet" _index="[param:index]" onclickup="setmeasurement">
+                <text name="name" width="100%" height="100%" style="darktext" size="18" alignment="center" text="Per Sheet"></text>
+                <panel name="border" width="100%" height="1" valign="bottom" background="#888888"></panel>
+              </panel>
+              <panel name="measure2" width="100%" height="40" _measure="Linear" _label="Linear ft" _index="[param:index]" onclickup="setmeasurement">
+                <text name="name" width="100%" height="100%" style="darktext" size="18" alignment="center" text="Linear ft"></text>
+                <panel name="border" width="100%" height="1" valign="bottom" background="#888888"></panel>
+              </panel>
+            </pager>
+          </panel>
+        </panel>
+      </panel>
+    </class><!-- <object class="plywood" /> -->
+
     <!-- !adjustments classes -->
     <class name="discount">
       <panel name="adjustment[param:aindex]" alias="ADJUSTMENT[param:aindex]" width="100%" height="237">
@@ -1448,14 +1570,14 @@
           <panel name="check" width="35" height="35" align="center" valign="center" background="#ed1c24" cornerradius="20" alpha="1" ></panel>
         </panel>
         <text name="checklabel-dollar" width="150" height="50" bottomof="subtitle" rightof="dollars-[param:aindex]" style="darktext" size="20" leftinset="10" alignment="left" text="$"></text>
-        
+
 
         <panel name="percent-[param:aindex]" alias="PERCENT-[param:aindex]" width="50" height="50" xpos="100" bottomof="subtitle" background="f3f3f3" cornerradius="2" borderwidth="1" bordercolor="#888888" clip="yes" onclickup="percent" _index="[param:aindex]" _type="ADJUSTMENT[param:aindex]" >
           <panel name="check" width="40" height="40" align="center" valign="center" background="#888888" cornerradius="20" alpha="0" ></panel>
         </panel>
         <text name="checklabel-percent" width="150" height="50" bottomof="subtitle" rightof="percent-[param:aindex]" style="darktext" size="20" leftinset="10" alignment="left" text="%"></text>
 -->
-        
+
         <panel name="adjustment" width="256" height="50" bottomof="subtitle" margin-top="10">
           <panel name="adjustmentamount[param:aindex]" alias="ADJUSTMENTAMOUNT[param:aindex]" width="226" height="50" align="left" style="textinput">
             <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
@@ -1465,19 +1587,19 @@
           </panel>
           <!--<text name="measure" width="30" height="100%" align="right" style="darktext" size="20" alignment="center" text="ft"></text>-->
         </panel>
-        
+
         <panel name="adjustmentnotes[param:aindex]" alias="ADJUSTMENTAMOUNTNOTES[param:aindex]" width="100%" height="115" bottomof="adjustment" margin-top="10" align="left" style="textinput">
           <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
           <textfield name="input" width="100%" height="100%" align="left" leftinset="20" style="darktext" size="20" alignment="left" valignment="center" placeholder="Notes" onreturnkeypressed="next" _next="none" _action="null" multiline="yes"></textfield>
           <panel name="active" style="100" onclickup="labelactive" _field="ADJUSTMENTAMOUNTNOTES"></panel>
         </panel>
-        
+
         <text name="adjusttype[param:aindex]" alias="ADJUSTTYPE[param:aindex]" width="0" height="0" color="#ffffff" font="Helvetica" size="1" alignment="left" text="Discount"></text>
-        
+
         <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
       </panel>
     </class><!-- <object class="discount" index="1" />-->
-    
+
     <class name="additionalcost">
       <panel name="adjustment[param:aindex]" alias="ADJUSTMENT[param:aindex]" width="100%" height="237">
         <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="15" alignment="left" text="ADDITIONAL COST [param:index]"></text>
@@ -1489,14 +1611,14 @@
           <panel name="check" width="35" height="35" align="center" valign="center" background="#ed1c24" cornerradius="20" alpha="1" ></panel>
         </panel>
         <text name="checklabel-dollar" width="150" height="50" bottomof="subtitle" rightof="dollars-[param:aindex]" style="darktext" size="20" leftinset="10" alignment="left" text="$"></text>
-        
+
 
         <panel name="percent-[param:aindex]" alias="PERCENT-[param:aindex]" width="50" height="50" xpos="100" bottomof="subtitle" background="f3f3f3" cornerradius="2" borderwidth="1" bordercolor="#888888" clip="yes" onclickup="percent" _index="[param:aindex]" _type="ADJUSTMENT[param:aindex]" >
           <panel name="check" width="40" height="40" align="center" valign="center" background="#888888" cornerradius="20" alpha="0" ></panel>
         </panel>
         <text name="checklabel-percent" width="150" height="50" bottomof="subtitle" rightof="percent-[param:aindex]" style="darktext" size="20" leftinset="10" alignment="left" text="%"></text>
 -->
-        
+
         <panel name="adjustment" width="256" height="50" bottomof="subtitle" margin-top="10">
           <panel name="adjustmentamount[param:aindex]" alias="ADJUSTMENTAMOUNT[param:aindex]" width="226" height="50" align="left" style="textinput">
             <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
@@ -1506,24 +1628,24 @@
           </panel>
           <!--<text name="measure" width="30" height="100%" align="right" style="darktext" size="20" alignment="center" text="ft"></text>-->
         </panel>
-        
+
         <panel name="adjustmentnotes[param:aindex]" alias="ADJUSTMENTAMOUNTNOTES[param:aindex]" width="100%" height="115" bottomof="adjustment" margin-top="10" align="left" style="textinput">
           <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
           <textfield name="input" width="100%" height="100%" align="left" leftinset="20" style="darktext" size="20" alignment="left" valignment="center" placeholder="Notes" onreturnkeypressed="next" _next="none" _action="null" multiline="yes"></textfield>
           <panel name="active" style="100" onclickup="labelactive" _field="ADJUSTMENTAMOUNTNOTES"></panel>
         </panel>
-        
+
         <text name="adjusttype[param:aindex]" alias="ADJUSTTYPE[param:aindex]" width="0" height="0" color="#ffffff" font="Helvetica" size="1" alignment="left" text="Additional Cost"></text>
-        
+
         <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
       </panel>
     </class><!-- <object class="additionalcost" index="1" /> -->
-    
+
     <!-- !Summary classes -->
     <class name="summary-pager">
       <pager name="summary-pager" alias="SUMMARY-PAGER" width="100%" height="100%" orientation="vertical" paginate="no"></pager>
     </class>
-    
+
     <class name="summary-cust">
       <panel name="summary-customer" alias="SUMMARY-CUSTOMER" width="100%" height="148" padding-right="20">
         <text name="subtitle" width="100%" height="40" font="Futura-Medium" color="#343434" size="25" alignment="left" text="Customer Info"></text>
@@ -1545,7 +1667,7 @@
         <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
       </panel>
     </class> <!-- <object class="summary-cust" cust1name="" cust1phone="" cust1email="" cust2name="" cust2phone="" cust2email="" street="" city="" state="" zip="" /> -->
-    
+
     <class name="summary-roof">
       <panel name="summary-roof" alias="SUMMARY-ROOF" width="100%" height="193" padding-right="20">
         <text name="subtitle" width="100%" height="40" font="Futura-Medium" color="#343434" size="25" alignment="left" text="Roof Info"></text>
@@ -1566,7 +1688,7 @@
         <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
       </panel>
     </class> <!-- <object class="summary-roof" area="" squares="" ridges="" hips="" rakes="" eaves="" valleys="" />-->
-    
+
     <class name="summary-products">
       <panel name="summary-products" alias="SUMMARY-PRODUCTS" width="100%" height="210" padding-right="20">
         <text name="subtitle" width="100%" height="40" font="Futura-Medium" color="#343434" size="25" alignment="left" text="Shingles"></text>
@@ -1583,29 +1705,29 @@
         <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
       </panel> <!--<object class="summary-products" swatch="" name="" color="" warranty=""  />-->
     </class>
-    
+
     <!-- !summary accessories -->
     <class name="summary-accessory-title">
       <text name="summary-accessory-title" alias="SUMMARY-ACCESSORY-TITLE" width="100%" height="40" padding-right="20" font="Futura-Medium" color="#343434" size="25" alignment="left" text="Accessories"></text>
     </class>
-    
+
     <class name="summary-accessory-subtitle">
       <text name="summary-accessory-subtitle[param:index]" alias="SUMMARY-ACCESSORY-SUBTITLE[param:index]" width="100%" height="30" padding-right="20" style="darktext" size="20" alignment="left" text="[param:subtitle]"></text>
     </class>
-    
+
     <class name="summary-accessory-item">
       <panel name="summary-accessory-item[param:index]" alias="SUMMARY-ACCESSORY-ITEM[param:index]" width="100%" height="30" padding-left="20">
         <text name="label" width="100%" height="100%" color="#343434" font="Futura-Medium" size="18" alignment="left" text="[param:label]"></text>
         <text name="count" width="100" height="100%" xpos="60%" color="#343434" font="Futura-Medium" size="18" alignment="right" text="[param:count]"></text>
       </panel>
     </class>
-    
+
     <class name="accessorydivide">
       <panel name="dividebox" alias="DIVIDEBOX" width="100%" height="15" padding-right="20">
         <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
       </panel>
     </class>
-    
+
     <class name="summary-services">
       <panel name="summary-services" alias="SUMMARY-SERVICES" width="100%" height="192" padding-right="20">
         <text name="subtitle" width="100%" height="40" font="Futura-Medium" color="#343434" size="25" alignment="left" text="Services"></text>
@@ -1625,7 +1747,7 @@
         </panel>
       </panel>
     </class> <!--<object class="summary-services" layers="" type="" landscape="" hardscape="" hvac="" pool="" misc="" />-->
-    
+
     <!-- !camera classes -->
     <class name="camera-view">
       <camera name="view" alias="CAMERA-VIEW" width="100%" height="100%" outputfile="dump/capture[var:camerafile].png" oncapture="output" />
@@ -1657,7 +1779,7 @@
             </panel>
         </panel>
     </class>
-    
+
     <class name="capture-preview">
         <panel name="capture-preview" alias="CAPTURE-PREVIEW" height="100%" width="100%" clip="yes" >
           <image fullpath="[param:source]" width="100%" align="center" valign="center"/>
@@ -1683,7 +1805,7 @@
             </panel>
         </panel>
     </class>
-    
+
     <class name="camera-roll">
         <panel name="camera-roll" alias="CAMERA-ROLL" width="100%" height="100%" >
             <list name="roll" datasource="camera-roll" width="100%" height="100%" step="5" paginate="no" orientation="vertical" align="center">
@@ -1691,17 +1813,17 @@
             </list>
         </panel>
     </class>
-    
+
     <class name="rollphoto">
       <image name="thephoto" alias="THEPHOTO" asset="" height="100%" align="center" ></image>
     </class>
-    
+
     <class name="cameraphoto">
       <panel name="container" height="100%" width="100%" clip="yes">
         <image name="thephoto" alias="THEPHOTO" fullpath="[param:photo]" width="100%" align="center" valign="center"></image>
       </panel>
     </class>
-    
+
     <class name="addnote">
       <panel name="addnote" alias="ADDNOTE" width="100%" height="100%" ypos="101%" background="#e3e3e3">
         <panel name="toolbar" width="100%" height="74" background="#343434">
@@ -1718,7 +1840,7 @@
     <class name="container">
   	<!-- !CONTAINER EDIT HERE -->
     <panel name="container" alias="CONTAINER" style="100" background="#e3e3e3">
-      
+
       <!-- !customer -->
       <panel name="customer" alias="CUSTOMER" width="100%" height="[eval: [object:CONTAINER.height] - 127]" ypos="127" alpha="1">
         <panel name="inner" style="100" >
@@ -1752,7 +1874,7 @@
               </panel>
               <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
             </panel>
-            
+
             <panel name="customer2" width="100%" height="160">
               <text name="subtitle" width="100%" height="35" style="darktext" size="20" alignment="left" text="Customer 2"></text>
               <panel name="col1" width="50%" height="100%" padding-right="10" bottomof="subtitle">
@@ -1781,7 +1903,7 @@
               </panel>
               <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
             </panel>
-            
+
             <panel name="address" alias="ADDRESS" width="100%" height="280">
               <text name="subtitle" width="100%" height="35" style="darktext" size="20" alignment="left" text="Property Address"></text>
               <!--<panel name="country" alias="COUNTRY" width="230" height="50" bottomof="subtitle" align="left" style="textinput">
@@ -1851,7 +1973,7 @@
               </panel>
               <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
             </panel>
-            
+
             <panel name="bottom" width="100%" height="209">
               <text name="subtitle" width="100%" height="35" style="darktext" size="20" alignment="left" text="Notes"></text>
               <panel name="notes" alias="NOTES" width="100%" height="114" bottomof="subtitle" align="left" style="textinput">
@@ -1863,16 +1985,16 @@
                 <object class="button" name="test" size="20" label="Save" action="saveCustomer" />
               </panel>
             </panel>
-            
+
             <panel name="spacer" width="100%" height="270"></panel>
-          
+
           </pager>
         </panel>
       </panel>
-      
+
       <!-- !roof info -->
       <panel name="roof" alias="ROOF" width="100%" height="[eval: [object:CONTAINER.height] - 127]" ypos="127" alpha="0">
-        
+
         <panel name="roof-sidebar" width="256" height="100%" background="#bfbfbf">
           <pager name="roof-sidebar-pager" alias="ROOF-SIDEBAR-PAGER" style="100" orientation="vertical" paginate="no">
             <object class="sidebar" alias="INSPECTION" label="Inspection" action="sidebar-roof" required="1" />
@@ -1890,7 +2012,7 @@
           </pager>
           <panel name="roof-sidebar-blocker" alias="ROOF-SIDEBAR-BLOCKER" style="100" xpos="-101%"></panel>
         </panel>
-        
+
         <panel name="roof-Inspection" alias="ROOF-INSPECTION" width="512" height="100%" align="right" alpha="0">
           <object class="title" title="Inspection" />
           <panel name="roofpagerbox" width="100%" height="[eval: [object:ROOF-INSPECTION.height] - 146]" ypos="79" >
@@ -1899,7 +2021,7 @@
             </pager>
           </panel>
         </panel>
-        
+
         <panel name="roof-Fascia" alias="ROOF-FASCIA" width="512" height="100%" align="right" alpha="0">
           <object class="title" title="Fascia"  />
           <panel name="roofpagerbox" width="100%" height="[eval: [object:ROOF-FASCIA.height] - 146]" ypos="79" >
@@ -1908,7 +2030,7 @@
             </pager>
           </panel>
         </panel>
-        
+
         <panel name="roof-Roof Area" alias="ROOF-ROOF AREA" width="512" height="100%" align="right" alpha="0" >
           <object class="titlebutton" title="Roof Areas" action="addarea" />
           <panel name="roofpagerbox" width="100%" height="[eval: [object:ROOF-ROOF AREA.height] - 146]" ypos="79" align="right" padding-left="20">
@@ -1917,16 +2039,16 @@
             </pager>
           </panel>
         </panel>
-        
+
         <panel name="roof-Waste" alias="ROOF-WASTE" width="512" height="100%" align="right" alpha="0">
           <object class="title" title="Waste"  />
           <panel name="roofpagerbox" width="100%" height="[eval: [object:ROOF-WASTE.height] - 146]" ypos="79" >
-            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no" padding-left="20" padding-right="20"> 
+            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no" padding-left="20" padding-right="20">
               <object class="waste" />
             </pager>
           </panel>
         </panel>
-        
+
         <panel name="roof-Ridge" alias="ROOF-RIDGE" width="512" height="100%" align="right" alpha="0">
           <object class="titlebutton" title="Ridges" action="addridge" />
           <panel name="roofpagerbox" width="100%" height="[eval: [object:ROOF-RIDGE.height] - 146]" ypos="79" align="right" padding-left="20" >
@@ -1935,7 +2057,7 @@
             </pager>
           </panel>
         </panel>
-        
+
         <panel name="roof-Hip" alias="ROOF-HIP" width="512" height="100%" align="right" alpha="0">
           <object class="titlebutton" title="Hips" action="addhip" />
           <panel name="roofpagerbox" width="100%" height="[eval: [object:ROOF-HIP.height] - 146]" ypos="79" align="right" padding-left="20" >
@@ -1944,7 +2066,7 @@
             </pager>
           </panel>
         </panel>
-        
+
         <panel name="roof-Valley" alias="ROOF-VALLEY" width="512" height="100%" align="right" alpha="0">
           <object class="titlebutton" title="Valley" action="addvalley" />
           <panel name="roofpagerbox" width="100%" height="[eval: [object:ROOF-VALLEY.height] - 146]" ypos="79" align="right" padding-left="20" >
@@ -1953,7 +2075,7 @@
             </pager>
           </panel>
         </panel>
-        
+
         <panel name="roof-Rake" alias="ROOF-RAKE" width="512" height="100%" align="right" alpha="0">
           <object class="titlebutton" title="Rakes" action="addrake" />
           <panel name="roofpagerbox" width="100%" height="[eval: [object:ROOF-RAKE.height] - 146]" ypos="79" align="right" padding-left="20" >
@@ -1962,7 +2084,7 @@
             </pager>
           </panel>
         </panel>
-        
+
         <panel name="roof-Eave" alias="ROOF-EAVE" width="512" height="100%" align="right" alpha="0">
           <object class="titlebutton" title="Eaves" action="addeave" />
           <panel name="roofpagerbox" width="100%" height="[eval: [object:ROOF-EAVE.height] - 146]" ypos="79" align="right" padding-left="20" >
@@ -1971,7 +2093,7 @@
             </pager>
           </panel>
         </panel>
-        
+
         <panel name="roof-Chimney" alias="ROOF-CHIMNEY" width="512" height="100%" align="right" alpha="0">
           <object class="titlebutton" title="Chimneys &amp; Skylights" action="addprotrusion" />
           <panel name="roofpagerbox" width="100%" height="[eval: [object:ROOF-CHIMNEY.height] - 146]" ypos="79" align="right" padding-left="20" >
@@ -1981,7 +2103,7 @@
             </pager>
           </panel>
         </panel>
-        
+
         <panel name="roof-vent" alias="ROOF-VENT" width="512" height="100%" align="right" alpha="0">
           <object class="titlebutton" title="Plumbing Vents" action="addvent" />
           <panel name="roofpagerbox" width="100%" height="[eval: [object:ROOF-VENT.height] - 146]" ypos="79" align="right" padding-left="20" >
@@ -1993,7 +2115,7 @@
             </pager>
           </panel>
         </panel>
-        
+
         <panel name="roof-Photo" alias="ROOF-PHOTO" width="512" height="100%" align="right" alpha="0">
           <object class="titlebutton" title="Photos &amp; Notes" action="addphoto" />
           <panel name="roofpagerbox" width="100%" height="[eval: [object:ROOF-PHOTO.height] - 146]" ypos="79" align="right" padding-left="20" >
@@ -2002,7 +2124,7 @@
             </list>
           </panel>
         </panel>
-        
+
         <panel name="roof-save-modal" alias="ROOF-SAVE-MODAL" width="100%" height="100%" align="right" alpha="0">
           <panel name="modal" width="200" height="120" align="center" ypos="35%" shadowradius="60" shadowxoffset="1" shadowyoffset="1" shadowopacity=".1" >
             <panel name="bg" width="100%" height="100%" background="#ffffff" alpha="1" cornerradius="10" borderwidth="1" bordercolor="#e3e3e3"></panel>
@@ -2010,15 +2132,15 @@
             <wait name="wait" width="100%" height="70" ypos="50" color="#343434"></wait>
           </panel>
         </panel>
-        
+
         <panel name="bottombar" alias="BOTTOMBAR" width="100%" height="67" valign="bottom" background="#343434" padding-right="20">
           <panel name="estimate" width="100" height="50" align="right" valign="center" >
             <object class="button" name="test" size="20" label="Save" action="save-roof" />
           </panel>
         </panel>
-        
+
       </panel><!-- end of roof info -->
-      
+
       <!-- !products -->
       <panel name="products" alias="PRODUCTS" width="100%" height="[eval: [object:CONTAINER.height] - 127]" ypos="127" alpha="0">
         <panel name="products-sidebar" width="256" height="100%" background="#bfbfbf">
@@ -2031,7 +2153,7 @@
           <panel name="products-step-blocker" alias="PRODUCTS-STEP-BLOCKER" width="100%" height="130" ypos="65" ></panel>
           <panel name="products-sidebar-blocker" alias="PRODUCTS-SIDEBAR-BLOCKER" style="100" xpos="-101%"></panel>
         </panel>
-        
+
         <panel name="products-Shingle" alias="PRODUCTS-SHINGLES" width="512" height="100%" align="right" padding-bottom="20" alpha="0">
           <object class="title" title="Shingles"  />
           <panel name="productpagerbox" alias="PRODUCT-PAGER-BOX" width="100%" height="[eval: [object:PRODUCTS-SHINGLES.height] - 79]" ypos="79" >
@@ -2039,7 +2161,7 @@
             </pager>
           </panel>
         </panel>
-        
+
         <panel name="products-Warranty" alias="PRODUCTS-WARRANTY" width="512" height="100%" align="right" alpha="0">
           <object class="title" title="Select a Warranty"  />
           <panel name="warrantypagerbox" alias="WARRANTY-PAGER-BOX" width="100%" height="[eval: [object:PRODUCTS-WARRANTY.height] - 79]" ypos="79" >
@@ -2048,7 +2170,7 @@
             </list>
           </panel>
         </panel>
-        
+
         <panel name="products-Accessories" alias="PRODUCTS-ACCESSORIES" width="512" height="100%" align="right" alpha="0">
           <object class="title" title="Accessories"  />
           <panel name="productpagerbox" alias="ACCESSORIES-PAGER-BOX" width="100%" height="[eval: [object:PRODUCTS-ACCESSORIES.height] - 79]" ypos="79" >
@@ -2059,7 +2181,7 @@
             </list>
           </panel>
         </panel>
-        
+
         <!--<panel name="products-Options" alias="PRODUCTS-OPTIONS" width="512" height="100%" align="right" padding-left="20" padding-right="20" alpha="0">
           <object class="title" title="Options"  />
           <panel name="productpagerbox" width="100%" height="[eval: [object:PRODUCTS-OPTIONS.height] - 79]" ypos="79" >
@@ -2069,7 +2191,7 @@
           </panel>
         </panel>-->
       </panel>
-      
+
       <!-- !services -->
       <panel name="services" alias="SERVICES" width="100%" height="[eval: [object:CONTAINER.height] - 127]" ypos="127" alpha="0">
         <panel name="services-sidebar" width="256" height="100%" background="#bfbfbf">
@@ -2080,7 +2202,7 @@
           </pager>
           <panel name="services-sidebar-blocker" alias="SERVICES-SIDEBAR-BLOCKER" style="100" xpos="-101%"></panel>
         </panel>
-        
+
         <panel name="services-Tear Off" alias="SERVICES-TEAROFF" width="512" height="100%" align="right" alpha="0">
           <object class="title" title="Tear Off"  />
           <panel name="servicespagerbox" width="100%" height="[eval: [object:SERVICES-TEAROFF.height] - 79]" ypos="79" >
@@ -2089,7 +2211,7 @@
             </pager>
           </panel>
         </panel>
-        
+
         <panel name="services-Asset Protection" alias="SERVICES-ASSETPROTECTION" width="512" height="100%" align="right" alpha="0">
           <object class="title" title="Asset Protection"  />
           <panel name="servicespagerbox" width="100%" height="[eval: [object:SERVICES-ASSETPROTECTION.height] - 79]" ypos="79" >
@@ -2098,23 +2220,23 @@
             </pager>
           </panel>
         </panel>
-        
+
         <panel name="services-Plywood Sheathing" alias="SERVICES-PLYWOOD" width="512" height="100%" align="right" alpha="0">
-          <object class="title" title="Plywood Sheathing"  />
-          <panel name="servicespagerbox" width="100%" height="[eval: [object:SERVICES-PLYWOOD.height] - 79]" ypos="79" >
-            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no" padding-left="20" padding-right="20" >
-              <object class="plywood" />
+          <object class="titlebutton" title="Plywood Sheathing" action="addplywood" />
+          <panel name="servicespagerbox" width="100%" height="[eval: [object:SERVICES-PLYWOOD.height] - 79]" ypos="79" align="right" padding-left="20" >
+            <pager name="pager" width="100%" height="100%" orientation="vertical" paginate="no" >
+              <!--<object class="plywood" />-->
             </pager>
           </panel>
         </panel>
-        
+
         <panel name="services-bottombar" alias="SERVICES-BOTTOMBAR" width="100%" height="67" valign="bottom" background="#343434" padding-right="20">
           <panel name="estimate" width="100" height="50" align="right" valign="center" >
             <object class="button" name="test" size="20" label="Save" action="save-fake-service" />
           </panel>
         </panel>
       </panel>
-      
+
       <!-- !adjustments -->
       <panel name="adjustments" alias="ADJUSTMENTS" width="100%" height="[eval: [object:CONTAINER.height] - 127]" ypos="127" alpha="0">
         <panel name="adjustmentsbox" alias="ADJUSTMENTSBOX" width="100%" height="100%" align="right" alpha="1">
@@ -2127,7 +2249,7 @@
           </panel>
         </panel>
       </panel>
-      
+
       <!-- !summary -->
       <panel name="summary" alias="SUMMARY" width="100%" height="[eval: [object:CONTAINER.height] - 127]" ypos="127" alpha="0">
         <panel name="summarybox" alias="SUMMARYBOX" width="100%" height="100%" align="right" alpha="1" padding-left="20">
@@ -2136,7 +2258,7 @@
           </panel>
           <panel name="summarypagerbox" alias="SUMMARYPAGERBOX" width="100%" height="[eval: [object:SUMMARY.height] - 146]" ypos="79" >
             <pager name="summary-pager" alias="SUMMARY-PAGER" width="100%" height="100%" orientation="vertical" paginate="no">
-              
+
             </pager>
           </panel>
         </panel>
@@ -2146,7 +2268,7 @@
           </panel>
         </panel>
       </panel>
-      
+
       <!-- !top level nav -->
       <pager name="nav" alias="NAV" width="100%" height="53" ypos="74" alpha="1" background="#343434" orientation="horizontal" paginate="no">
         <panel name="nav-customer" alias="NAV-CUSTOMER" width="128" height="100%" onclickup="nav" _this="CUSTOMER">
@@ -2158,7 +2280,7 @@
           <text name="closed" width="100%" height="100%" color="#b0afaf" font="Futura-Medium" size="20" alignment="center" text="Customer" alpha="0"></text>
           <panel name="sel" width="100%" height="6" style="brand" valign="bottom"></panel>
         </panel>
-        
+
         <panel name="nav-roof" alias="NAV-ROOF" width="123" height="100%" onclickup="nav" _this="ROOF">
           <text name="open" width="100%" height="100%" color="#ffffff" font="Futura-Medium" size="18" alignment="center" text="Roof Info" leftinset="20">
             <panel name="step" width="20" height="20" cornerradius="10" background="#666666" valign="center" xpos="8">
@@ -2168,7 +2290,7 @@
           <text name="closed" width="100%" height="100%" color="#b0afaf" font="Futura-Medium" size="20" alignment="center" text="Roof Info" alpha="0"></text>
           <panel name="sel" width="100%" height="3" style="brand" ypos="101%"></panel>
         </panel>
-        
+
         <panel name="nav-products" alias="NAV-PRODUCTS" width="123" height="100%" onclickup="nav" _this="PRODUCTS">
           <text name="open" width="100%" height="100%" color="#ffffff" font="Futura-Medium" size="18" alignment="center" text="Products" leftinset="20">
             <panel name="step" width="20" height="20" cornerradius="10" background="#666666" valign="center" xpos="8">
@@ -2178,7 +2300,7 @@
           <text name="closed" width="100%" height="100%" color="#b0afaf" font="Futura-Medium" size="20" alignment="center" text="Products" alpha="0"></text>
           <panel name="sel" width="100%" height="3" style="brand" ypos="101%"></panel>
         </panel>
-        
+
         <panel name="nav-services" alias="NAV-SERVICES" width="118" height="100%" onclickup="nav" _this="SERVICES">
           <text name="open" width="100%" height="100%" color="#ffffff" font="Futura-Medium" size="18" alignment="center" text="Services" leftinset="20">
             <panel name="step" width="20" height="20" cornerradius="10" background="#666666" valign="center" xpos="8">
@@ -2188,7 +2310,7 @@
           <text name="closed" width="100%" height="100%" color="#b0afaf" font="Futura-Medium" size="20" alignment="center" text="Services" alpha="0"></text>
           <panel name="sel" width="100%" height="3" style="brand" ypos="101%"></panel>
         </panel>
-        
+
         <panel name="nav-adjustments" alias="NAV-ADJUSTMENTS" width="153" height="100%" onclickup="nav" _this="ADJUSTMENTS">
           <text name="open" width="100%" height="100%" color="#ffffff" font="Futura-Medium" size="18" alignment="center" text="Adjustments" leftinset="20">
             <panel name="step" width="20" height="20" cornerradius="10" background="#666666" valign="center" xpos="8">
@@ -2198,7 +2320,7 @@
           <text name="closed" width="100%" height="100%" color="#b0afaf" font="Futura-Medium" size="20" alignment="center" text="Adjustments" alpha="0"></text>
           <panel name="sel" width="100%" height="3" style="brand" ypos="101%"></panel>
         </panel>
-        
+
         <panel name="nav-summary" alias="NAV-SUMMARY" width="123" height="100%" onclickup="nav" _this="SUMMARY">
           <text name="open" width="100%" height="100%" color="#ffffff" font="Futura-Medium" size="18" alignment="center" text="Summary" leftinset="20">
             <panel name="step" width="20" height="20" cornerradius="10" background="#666666" valign="center" xpos="8">
@@ -2211,7 +2333,7 @@
       </pager>
       <panel name="step-navblock" alias="STEP-NAVBLOCK" width="100%" height="53" ypos="74" xpos="128" onclickup="null" ></panel>
       <panel name="navblock" alias="NAVBLOCK" width="100%" height="53" ypos="74" xpos="101%" onclickup="null"></panel>
-      
+
       <!-- !camera roll -->
       <panel name="cameraroll" alias="CAMERAROLL" width="100%" height="100%" ypos="101%" background="#e3e3e3">
         <panel name="toolbar" width="100%" height="60" background="#343434">
@@ -2220,14 +2342,14 @@
         <wait name="wait" width="100%" height="964" valign="bottom" alpha="0" color="#ed1c24"/>
         <panel name="camera-list" width="100%" height="964" valign="bottom"></panel>
       </panel>
-      
+
       <panel name="camerabox" alias="CAMERABOX" width="100%" height="100%" ypos="101%" background="#e3e3e3">
-        
+
       </panel>
-     
+
     </panel>
     </class>
-	
+
 	<class name="pdf">
 	  <panel name="pdf-container" alias="PDF-CONTAINER" width="100%" height="100%" ypos="101%" background="#ff0000" >
       <panel name="toolbar" width="100%" height="74" background="#343434">
@@ -2240,38 +2362,38 @@
       </panel>
 	  </panel>
 	</class>
-    
+
   </classes>
- 
+
   <!-- !MAIN ############ -->
   <main>
     <panel name="main" alias="MAIN" width="100%" height="100%" alpha="1" background="#e3e3e3">
   		<object class="container" />
   	</panel>
     <!-- end of container -->
-    
+
     <!-- !curtain -->
     <panel name="curtain" alias="CURTAIN" style="100" alpha="0" onclickup="curtainaction" >
       <panel name="color" style="100" background="#ffffff" alpha="0"></panel>
-      
+
       <panel name="profilemenu" alias="PROFILEMENU" width="200" height="100" xpos="548" ypos="70" background="ed1c24" alpha="0" cornerradius="2">
         <text name="logout" width="100%" height="50" leftinset="10" color="#ffffff" font="Futura-Medium" size="20" alignment="left" text="Log Out" onclickup="logout"></text>
         <text name="additional-btn" width="100%" height="50" valign="bottom" leftinset="10" color="#ffffff" font="Futura-Medium" size="20" alignment="left" text="Close Estimate" onclickup="cancel-est"></text>
         <panel name="divide" width="100%" height="1" valign="center" background="ffffff" alpha=".7"></panel>
       </panel>
-      
+
       <panel name="adjustmenu" alias="ADJUSTMENU" width="200" height="100" xpos="548" ypos="200" style="brand" alpha="0" cornerradius="2">
         <text name="discount-btn" width="100%" height="50" leftinset="10" color="#ffffff" font="Futura-Medium" size="20" alignment="left" text="Discount" onclickup="adddiscount"></text>
         <text name="additional-btn" width="100%" height="50" valign="bottom" leftinset="10" color="#ffffff" font="Futura-Medium" size="20" alignment="left" text="Additional Cost" onclickup="addcost"></text>
         <panel name="divide" width="100%" height="1" valign="center" background="ffffff" alpha=".7"></panel>
       </panel>
-      
+
       <panel name="protrusionmenu" alias="PROTRUSIONMENU" width="200" height="100" xpos="548" ypos="200" style="brand" alpha="0" cornerradius="2">
         <text name="chimney-btn" width="100%" height="50" leftinset="10" color="#ffffff" font="Futura-Medium" size="20" alignment="left" text="Chimney" onclickup="addchimney"></text>
         <text name="skylight-btn" width="100%" height="50" valign="bottom" leftinset="10" color="#ffffff" font="Futura-Medium" size="20" alignment="left" text="Skylight" onclickup="addskylight"></text>
         <panel name="divide" width="100%" height="1" valign="center" background="ffffff" alpha=".7"></panel>
       </panel>
-      
+
       <panel name="ventmenu" alias="VENTMENU" width="200" height="150" xpos="548" ypos="200" style="brand" alpha="0" cornerradius="2">
         <text name="3-btn" width="100%" height="50" leftinset="10" color="#ffffff" font="Futura-Medium" size="20" alignment="left" text="3 Inch Vent" onclickup="add3vent"></text>
         <text name="2-btn" width="100%" height="50" bottomof="3-btn" leftinset="10" color="#ffffff" font="Futura-Medium" size="20" alignment="left" text="2 Inch Vent" onclickup="add2vent"></text>
@@ -2281,13 +2403,25 @@
         <panel name="divide" width="100%" height="1" bottomof="2-btn" background="ffffff" alpha=".7"></panel>
 <!--         <panel name="divide" width="100%" height="1" bottomof="15-btn" background="ffffff" alpha=".7"></panel> -->
       </panel>
-      
+
+      <panel name="plywoodmenu" alias="PLYWOODMENU" width="200" height="200" xpos="548" ypos="200" style="brand" alpha="0" cornerradius="2">
+        <text name="12cdx" width="100%" height="50" leftinset="10" color="#ffffff" font="Futura-Medium" size="20" alignment="left" text="1/2 Inch CDX" onclickup="add12cdx"></text>
+        <text name="58cdx" width="100%" height="50" bottomof="12cdx" leftinset="10" color="#ffffff" font="Futura-Medium" size="20" alignment="left" text="5/8 Inch CDX" onclickup="add58cdx"></text>
+        <text name="12osb" width="100%" height="50" bottomof="58cdx" leftinset="10" color="#ffffff" font="Futura-Medium" size="20" alignment="left" text="1/2 Inch OSB" onclickup="add12osb"></text>
+        <text name="58osb" width="100%" height="50" bottomof="12osb" leftinset="10" color="#ffffff" font="Futura-Medium" size="20" alignment="left" text="5/8 Inch OSB" onclickup="add58osb"></text>
+<!--         <text name="custom-btn" width="100%" height="50" bottomof="15-btn" leftinset="10" color="#ffffff" font="Futura-Medium" size="20" alignment="left" text="Custom Vent" onclickup="addcustomvent"></text> -->
+        <panel name="divide" width="100%" height="1" bottomof="12cdx" background="ffffff" alpha=".7"></panel>
+        <panel name="divide" width="100%" height="1" bottomof="58cdx" background="ffffff" alpha=".7"></panel>
+        <panel name="divide" width="100%" height="1" bottomof="12osb" background="ffffff" alpha=".7"></panel>
+<!--         <panel name="divide" width="100%" height="1" bottomof="15-btn" background="ffffff" alpha=".7"></panel> -->
+      </panel>
+
       <panel name="cameramenu" alias="CAMERAMENU" width="200" height="100" xpos="548" ypos="200" style="brand" alpha="0" cornerradius="2">
         <text name="roll-btn" width="100%" height="50" leftinset="10" color="#ffffff" font="Futura-Medium" size="20" alignment="left" text="Camera Roll" onclickup="addroll"></text>
         <text name="camera-btn" width="100%" height="50" valign="bottom" leftinset="10" color="#ffffff" font="Futura-Medium" size="20" alignment="left" text="Take a Photo" onclickup="addcamera"></text>
         <panel name="divide" width="100%" height="1" valign="center" background="ffffff" alpha=".7"></panel>
       </panel>
-      
+
       <panel name="shinglecolor" alias="SHINGLECOLOR" width="90%" height="70%" alpha="0" align="center" ypos="18%" background="#e3e3e3" onclickup="colordismiss" borderwidth="2" bordercolor="#343434" shadowradius="3" shadowxoffset="0" shadowyoffset="0" shadowopacity=".3">
         <text name="label" width="100%" height="80" leftinset="20" background="#343434" color="#ffffff" font="Futura-Medium" size="40" alignment="left" text="Select a Color"></text>
         <text name="shingle" width="100%" height="60" bottomof="label" style="darktext" leftinset="20" size="30" alignment="left" text="Slateline"></text>
@@ -2332,7 +2466,7 @@
                   </panel>
                 </panel>
               </panel>
-              
+
               <panel name="2" width="33.33%" height="100%" align="center" >
                 <panel name="marginer" width="200" height="100%" align="center">
                   <panel name="imgholder" width="200" height="200" background="000000"></panel>
@@ -2356,7 +2490,7 @@
           </pager>
         </panel>
       </panel>
-      
+
       <panel name="accessorylist" alias="ACCESSORYLIST" width="60%" height="44%" alpha="0" align="center" ypos="18%" background="#e3e3e3" onclickup="accessorydismiss" borderwidth="2" bordercolor="#343434" shadowradius="3" shadowxoffset="0" shadowyoffset="0" shadowopacity=".3">
         <text name="label" width="100%" height="80" leftinset="20" background="#343434" color="#ffffff" font="Futura-Medium" size="40" alignment="left" text="Select an Accessory"></text>
         <text name="accessorytype" width="100%" height="60" bottomof="label" style="darktext" leftinset="20" size="30" alignment="left" text="Ventilation"></text>
@@ -2384,9 +2518,9 @@
           </pager>
         </panel>
       </panel>
-      
+
     </panel>
-    
+
     <panel name="ac-sel-modal" alias="AC-SEL-MODAL" width="100%" height="100%" align="right" alpha="0">
       <panel name="modal" width="200" height="120" align="center" ypos="35%" shadowradius="60" shadowxoffset="1" shadowyoffset="1" shadowopacity=".1" >
         <panel name="bg" width="100%" height="100%" background="#ffffff" alpha="1" cornerradius="10" borderwidth="1" bordercolor="#e3e3e3"></panel>
@@ -2394,7 +2528,7 @@
         <!--<wait name="wait" width="100%" height="70" ypos="50" color="#343434"></wait>-->
       </panel>
     </panel>
-    
+
     <panel name="header" alias="HEADER" width="100%" height="74" padding-right="10" alpha="1" background="#bfbfbf">
       <image name="logo" source="images/logo.png" height="48" xpos="10" valign="center"></image>
       <panel name="profile" width="50%" height="100%" align="right" >
@@ -2406,24 +2540,24 @@
         <text name="username" width="100%" height="fit" xpos="46" bottomof="welcome" margin-top="3" leftof="logout" margin-right="10" color="#343434" font="Futura-Medium" size="17" alignment="right" text="User"></text>
       </panel>
     </panel>
-      
+
     <panel name="registerbox" alias="REGISTERBOX" width="100%" height="100%" alpha="0"></panel>
-      
+
     <panel name="splash" alias="SPLASH" width="100%" height="100%">
 	    <image name="image" source="graphics/splash.png"></image>
     </panel>
-      
+
 	  <panel name="upload-curtain" alias="UPLOAD-CURTAIN" width="100%" height="100%" alpha="0" >
 	  	<panel name="bg" width="100%" height="100%" background="#000000" alpha=".5" ></panel>
 	  	<wait name="wait" width="100%" height="100%"></wait>
 	  	<text name="photo-progress" width="100%" height="fit" ypos="600" color="#ffffff" font="Futura-MediumItalic" size="24" alignment="center" text="Uploading Photo NUMBER..."></text>
 	  </panel>
-	  
+
   </main>
-  
+
   <!-- !ACTIONS ########### -->
   <actions>
-   
+
     <action name="oninit" oninit="yes">
 		  <assign property="var:search" value="" />
 		  <assign property="var:loaded" value="no" />
@@ -2456,20 +2590,20 @@
         <assign property="preferences:remember" value="no" />
       </if>
     </action>
-   
+
     <action name="onresume" onresume="yes">
-      
+
     </action>
-    
+
     <!-- !button actions -->
     <action name="touched">
       <alpha value=".4" time=".1" target="bg" />
     </action>
-    
+
     <action name="released">
       <alpha value="0" time=".2" target="bg" />
     </action>
-    
+
     <!-- !textfield actions -->
     <action name="labelactive">
       <alpha value="0" time=".1" target="../bg" />
@@ -2480,7 +2614,7 @@
         <play action="labelinactive" />
       </if>
     </action>
-    
+
     <action name="labelinactive">
       <sync>
         <alpha value="1" time=".2" target="[var:prevfield]/bg" />
@@ -2488,7 +2622,7 @@
         <assign property="var:prevfield" value="[var:currentfield]" />
       </sync>
     </action>
-    
+
     <action name="next">
       <alpha value="1" time=".2" target="../bg" />
       <alpha value="1" target="../active" />
@@ -2497,7 +2631,7 @@
           <keyboard visible="no" />
           <play action="_action" />
         </sync>
-        
+
         <else>
           <alpha value="0" time=".1" target="_next/bg" />
           <alpha value="0" target="_next/active" />
@@ -2509,61 +2643,61 @@
         <scroll page="3" target="CUSTOMER/inner/scroller" />
       </if>
     </action>
-    
+
     <action name="saveup">
       <translate ypos="566" time=".25" curve="easeout" target="BOTTOMBAR" />
       <!--<alert message="save up" />-->
     </action>
-    
+
     <action name="savedown">
       <translate valign="bottom" time=".25" curve="linear" target="BOTTOMBAR" />
       <!--<alert message="save down" />-->
     </action>
-    
+
     <!-- !radio actions -->
     <action name="checkon">
       <scale width="[eval: ('_action' == 'remember' ? '24' : '40')]" height="[eval: ('_action' == 'remember' ? '24' : '40')]" align="center" valign="center" time=".1" alpha="1" target="check" />
       <set onclickup="checkoff" />
       <play action="_action" _value="yes" />
     </action>
-    
+
     <action name="checkoff">
       <scale width="0" height="0" align="center" valign="center" time=".1" alpha="0" target="check" />
       <set onclickup="checkon" />
       <play action="_action" _value="no" />
     </action>
-    
+
     <action name="tearoff-mask-off">
       <alpha value="0" time=".1" target="TEAROFF-MASK" />
       <scale width="[eval: ('_action' == 'remember' ? '24' : '40')]" height="[eval: ('_action' == 'remember' ? '24' : '40')]" align="center" valign="center" time=".1" alpha="1" target="TEAROFFSERVICE/check" />
       <set onclickup="checkoff" target="TEAROFFSERVICE" />
       <play action="tearoff" _value="yes" />
     </action>
-    
+
     <action name="checkonindexed">
       <scale width="40" height="40" align="center" valign="center" time=".1" alpha="1" target="check" />
       <set onclickup="checkoffindexed" />
       <play action="_action" _value="yes" _index="_index" />
     </action>
-    
+
     <action name="checkoffindexed">
       <scale width="0" height="0" align="center" valign="center" time=".1" alpha="0" target="check" />
       <set onclickup="checkonindexed" />
       <play action="_action" _value="no" _index="_index" />
     </action>
-    
+
     <action name="dollars">
       <scale width="0" height="0" align="center" valign="center" time=".1" alpha="0" target="_type/percent-_index/check" />
       <scale width="40" height="40" align="center" valign="center" time=".1" alpha="1" target="_type/dollars-_index/check" />
       <assign property="var:units-_index" value="dollars" />
     </action>
-    
+
     <action name="percent">
       <scale width="40" height="40" align="center" valign="center" time=".1" alpha="1" target="_type/percent-_index/check" />
       <scale width="0" height="0" align="center" valign="center" time=".1" alpha="0" target="_type/dollars-_index/check" />
       <assign property="var:units-_index" value="percent" />
     </action>
-    
+
     <action name="countryus">
         <scale width="0" height="0" align="center" valign="center" time=".1" alpha="0" target="CANADA/check" />
         <scale width="40" height="40" align="center" valign="center" time=".1" alpha="1" target="USA/check" />
@@ -2571,7 +2705,7 @@
         <alpha value="1" time=".1" target="US" />
         <assign property="var:country" value="US" />
     </action>
-    
+
     <action name="countrycan">
         <scale width="40" height="40" align="center" valign="center" time=".1" alpha="1" target="CANADA/check" />
         <scale width="0" height="0" align="center" valign="center" time=".1" alpha="0" target="USA/check" />
@@ -2579,7 +2713,7 @@
         <alpha value="1" time=".1" target="CAN" />
         <assign property="var:country" value="Canada" />
     </action>
-    
+
     <action name="edit-countryus">
         <scale width="0" height="0" align="center" valign="center" time=".1" alpha="0" target="EDIT-CANADA/check" />
         <scale width="40" height="40" align="center" valign="center" time=".1" alpha="1" target="EDIT-USA/check" />
@@ -2587,7 +2721,7 @@
         <alpha value="1" time=".1" target="US-LIST" />
         <assign property="var:edit-country" value="US" />
     </action>
-    
+
     <action name="edit-countrycan">
         <scale width="40" height="40" align="center" valign="center" time=".1" alpha="1" target="EDIT-CANADA/check" />
         <scale width="0" height="0" align="center" valign="center" time=".1" alpha="0" target="EDIT-USA/check" />
@@ -2595,17 +2729,17 @@
         <alpha value="1" time=".1" target="CAN-LIST" />
         <assign property="var:edit-country" value="Canada" />
     </action>
-    
+
     <action name="ridgeradio">
       <assign property="var:ridgevent-_index" value="_value" />
       <!--<alert message="[var:ridgevent-_index] _index" />-->
     </action>
-    
+
     <action name="hipradio">
       <assign property="var:hipvent-_index" value="_value" />
       <!--<alert message="[var:hipvent-_index] _index" />-->
     </action>
-    
+
     <!-- !web browser -->
     <action name="openweb">
       <sync>
@@ -2616,7 +2750,7 @@
         <translate ypos="0" time=".3" curve="easeout" target="WEB" />
       </sync>
     </action>
-    
+
     <action name="closeweb">
       <sync>
         <alpha value="0" target="REGISTERBOX" />
@@ -2624,7 +2758,7 @@
         <delete target="WEB" />
       </sync>
     </action>
-    
+
     <!-- !register actions -->
     <action name="openregisterview">
       <sync>
@@ -2632,7 +2766,7 @@
         <play action="openweb" _value="http://162.209.101.177" _title="Register" />
       </sync>
     </action>
-    
+
     <!-- !sign in actions -->
     <action name="signin">
       <play action="released" />
@@ -2662,7 +2796,7 @@
         </else>
       </if>
     </action>
-    
+
     <action name="signin-complete" datasource="login" datasourceevent="querycomplete">
 		<alpha value="0" time=".2" target="SPLASH" />
 		<if lhs="[datasource:login.1.ResponseCode]" operator="e" rhs="100">
@@ -2693,15 +2827,15 @@
 			<assign property="var:loaded" value="yes" />
 		</if>
     </action>
-    
+
     <action name="login-error" datasource="login" datasourceevent="datasourceerror" >
 		<alert title="Network Error" message="There was a problem connecting to the server.  Please check your network connection and try again." />
     </action>
-		
+
     <action name="remember">
       <assign property="preferences:remember" value="_value" />
     </action>
-    
+
     <action name="tearoff">
       <sync>
         <assign property="var:tearoff" value="[eval: ('[var:tearoff]' == 'no' ? 'yes' : 'no')]" />
@@ -2713,9 +2847,9 @@
             <assign property="object:TYPE/input.text" value="" />
           </else>
         </if>
-      </sync>      
+      </sync>
     </action>
-    
+
     <action name="tearoff-on">
       <sync>
         <assign property="var:tearoff" value="yes" />
@@ -2723,7 +2857,7 @@
         <alpha value="0" time=".1" target="TEAROFF-MASK" />
       </sync>
     </action>
-    
+
     <action name="tearoff-off">
       <sync>
         <if lhs="var:tearoff" operator="e" rhs="yes">
@@ -2735,27 +2869,27 @@
         </if>
       </sync>
     </action>
-    
+
     <action name="landscaping">
       <assign property="var:landscaping" value="[eval: ('[var:landscaping]' == 'no' ? 'yes' : 'no')]" />
     </action>
-    
+
     <action name="hardscaping">
       <assign property="var:hardscaping" value="[eval: ('[var:hardscaping]' == 'no' ? 'yes' : 'no')]" />
     </action>
-    
+
     <action name="hvac">
       <assign property="var:hvac" value="[eval: ('[var:hvac]' == 'no' ? 'yes' : 'no')]" />
     </action>
-    
+
     <action name="pool">
       <assign property="var:pool" value="[eval: ('[var:pool]' == 'no' ? 'yes' : 'no')]" />
     </action>
-    
+
     <action name="misc">
       <assign property="var:misc" value="[eval: ('[var:misc]' == 'no' ? 'yes' : 'no')]" />
     </action>
-    
+
     <!-- !search actions -->
     <action name="search">
       <sync>
@@ -2786,17 +2920,17 @@
 		</if>
       </sync>
     </action>
-    
+
     <action name="get-estimate-complete" datasource="getEstimate" datasourceevent="querycomplete" >
 		<assign property="object:SEARCHRESULTS/searchhead/label.text" value="Search Results" />
         <assign property="object:SEARCH-LASTNAME/input.text" value="" />
         <assign property="object:SEARCH-ADDRESS/input.text" value="" />
     </action>
-    
+
     <action name="get-estimate-error" datasource="getEstimate" datasourceevent="datasourceerror" >
 		<alert title="Network Error" message="There was a problem connecting to the server.  Please check your network connection and try again." />
     </action>
-    
+
     <action name="closeresults">
       <sync>
 		  <assign property="var:search" value="" />
@@ -2805,7 +2939,7 @@
         <alpha value="1" time=".2" target="HEADER" />
       </sync>
     </action>
-    
+
     <action name="viewestimate">
       <play action="released" />
 	  <if lhs="[datasource:getEstimate._value.EstimatePdf]" operator="ne" rhs="">
@@ -2818,15 +2952,15 @@
 		  </else>
 	  </if>
     </action>
-    
+
     <action name="edit">
-      <play action="released" /> 
+      <play action="released" />
 <!-- 	  <create class="editpanel" target="CONTAINER" />  -->
       <assign property="datasource:states.source" value="res://states.xml" />
       <assign property="datasource:provinces.source" value="res://provinces.xml" />
 	  <assign property="var:edit-customerId" value="[datasource:getEstimate._value.CustomerId]" />
 	  <create class="editpanel" fname="[datasource:getEstimate._value.CustomerFirstName]" lname="[datasource:getEstimate._value.CustomerLastName]" address1="[datasource:getEstimate._value.Address1]" city="[datasource:getEstimate._value.City]" state="[datasource:getEstimate._value.StateProvince]" zip="[datasource:getEstimate._value.PostalCode]" phone="[datasource:getEstimate._value.PhoneNumber]" email="[datasource:getEstimate._value.Email]"  target="CONTAINER" />
-	  <if lhs="[datasource:getEstimate._value.Country]" operator="ne" rhs="US"> 
+	  <if lhs="[datasource:getEstimate._value.Country]" operator="ne" rhs="US">
 		  <play action="edit-countrycan" />
 		  <else>
 			  <assign property="var:edit-country" value="US" />
@@ -2834,7 +2968,7 @@
 	  </if>
 <!-- 	  <alert message="index is _value, CustomerId is [datasource:getEstimate._value.CustomerId]" /> -->
     </action>
-    
+
     <action name="editcustomer" >
 		<play action="released" />
 		<assign property="var:edit-fname"    value="[object:EDIT-FNAME/input.text]" />
@@ -2851,7 +2985,7 @@
 <!-- 		<alert message="postContent is [template:editCustomer.content]" /> -->
 <!-- 		<email subject="edit customer post content" body="[template:editCustomer.content]" toaddress="mlong@rarewire.com" /> -->
     </action>
-    
+
     <action name="edit-complete" datasource="editCustomer" datasourceevent="querycomplete" >
 		<alert title="Success" message="Customer Record Updated" />
 		<alpha value="0" target="UPLOAD-CURTAIN" />
@@ -2860,7 +2994,7 @@
 			<play action="close-edit" />
 		</if>
     </action>
-    
+
     <!-- !Edit modal actions -->
     <action name="close-edit">
       <sync>
@@ -2868,7 +3002,7 @@
         <delete target="EDITPANEL" />
       </sync>
     </action>
-    
+
     <action name="edit-state-list">
       <sync>
         <if lhs="[var:edit-country]" operator="e" rhs="US">
@@ -2881,14 +3015,14 @@
         </if>
       </sync>
     </action>
-    
+
     <action name="hideeditcurtain">
       <sync>
-        
+
         <alpha value="0" target="MODALCURTAIN" />
       </sync>
     </action>
-    
+
     <!-- ! create actions -->
     <action name="create">
       <sync>
@@ -2900,7 +3034,7 @@
         </if>-->
       </sync>
     </action>
-    
+
     <action name="newestimate">
 		  <sync>
 		    <play action="resetSummaryVars"/>
@@ -2915,9 +3049,9 @@
         <assign property="var:loaded" value="yes" />
       </sync>
     </action>
-    
-    
-    
+
+
+
     <action name="addarea">
       <sync>
         <assign property="var:areaindex" value="[eval: [var:areaindex] + 1]" />
@@ -2934,7 +3068,7 @@
         <alpha value="1" time=".1" target="ROOF-SIDEBAR-PAGER/Roof Areas/required" />
       </sync>
     </action>
-    
+
     <action name="addridge">
       <sync>
         <assign property="var:ridgeindex" value="[eval: [var:ridgeindex] + 1]" />
@@ -2950,7 +3084,7 @@
         <alpha value="0" time=".1" target="ROOF-SIDEBAR-PAGER/Ridges/saved-check" />
       </sync>
     </action>
-    
+
     <action name="addhip">
       <sync>
         <assign property="var:hipindex" value="[eval: [var:hipindex] + 1]" />
@@ -2964,7 +3098,7 @@
         <alpha value="0" time=".1" target="ROOF-SIDEBAR-PAGER/Hips/saved-check" />
       </sync>
     </action>
-    
+
     <action name="addvalley">
       <sync>
         <assign property="var:valleyindex" value="[eval: [var:valleyindex] + 1]" />
@@ -2978,7 +3112,7 @@
         <alpha value="0" time=".1" target="ROOF-SIDEBAR-PAGER/Valleys/saved-check" />
       </sync>
     </action>
-    
+
     <action name="addrake">
       <sync>
         <assign property="var:rakeindex" value="[eval: [var:rakeindex] + 1]" />
@@ -2992,7 +3126,7 @@
         <alpha value="0" time=".1" target="ROOF-SIDEBAR-PAGER/Rakes/saved-check" />
       </sync>
     </action>
-    
+
     <action name="addeave">
       <sync>
         <assign property="var:eaveindex" value="[eval: [var:eaveindex] + 1]" />
@@ -3006,14 +3140,14 @@
         <alpha value="0" time=".1" target="ROOF-SIDEBAR-PAGER/Eaves/saved-check" />
       </sync>
     </action>
-    
+
     <!-- !header drop down -->
     <action name="profiledrop">
       <play action="clearcurtain" />
       <alpha value="1" time=".25" target="PROFILEMENU" />
       <assign property="var:curtainaction" value="hideprofilemenu" />
     </action>
-    
+
     <action name="hideprofilemenu">
       <sync>
         <alpha value="0" time=".25" target="PROFILEMENU" />
@@ -3021,14 +3155,14 @@
         <assign property="var:curtainaction" value="null" />
       </sync>
     </action>
-    
+
     <!-- !chimney and skylights -->
     <action name="addprotrusion">
       <play action="clearcurtain" />
       <alpha value="1" time=".25" target="PROTRUSIONMENU" />
       <assign property="var:curtainaction" value="hideprotrusion" />
     </action>
-    
+
     <action name="hideprotrusion">
       <sync>
         <alpha value="0" time=".25" target="PROTRUSIONMENU" />
@@ -3036,7 +3170,7 @@
         <assign property="var:curtainaction" value="null" />
       </sync>
     </action>
-    
+
     <action name="addchimney">
       <sync>
         <alpha value="0" time=".25" target="PROTRUSIONMENU" />
@@ -3055,7 +3189,7 @@
         <alpha value="0" time=".1" target="ROOF-SIDEBAR-PAGER/Chimney &amp; Skylights/saved-check" />
       </sync>
     </action>
-    
+
     <action name="addskylight">
       <sync>
         <alpha value="0" time=".25" target="PROTRUSIONMENU" />
@@ -3074,14 +3208,14 @@
         <alpha value="0" time=".1" target="ROOF-SIDEBAR-PAGER/Chimney &amp; Skylights/saved-check" />
       </sync>
     </action>
-    
+
     <!-- !plumbing vents -->
     <action name="addvent">
       <play action="clearcurtain" />
       <alpha value="1" time=".25" target="VENTMENU" />
       <assign property="var:curtainaction" value="hidevent" />
     </action>
-    
+
     <action name="hidevent">
       <sync>
         <alpha value="0" time=".25" target="VENTMENU" />
@@ -3089,7 +3223,7 @@
         <assign property="var:curtainaction" value="null" />
       </sync>
     </action>
-    
+
     <action name="add3vent">
       <sync>
         <alpha value="0" time=".25" target="VENT" />
@@ -3106,7 +3240,7 @@
         </if>-->
       </sync>
     </action>
-    
+
     <action name="add2vent">
       <sync>
         <alpha value="0" time=".25" target="VENTMENU" />
@@ -3123,7 +3257,7 @@
         </if>-->
       </sync>
     </action>
-    
+
     <action name="add15vent">
       <sync>
         <alpha value="0" time=".25" target="VENTMENU" />
@@ -3140,7 +3274,7 @@
         </if>-->
       </sync>
     </action>
-    
+
     <action name="addcustomvent">
       <sync>
         <alpha value="0" time=".25" target="VENTMENU" />
@@ -3155,14 +3289,14 @@
         </if>-->
       </sync>
     </action>
-    
+
     <!-- !add photo -->
     <action name="addphoto">
       <play action="clearcurtain" />
       <alpha value="1" time=".25" target="CAMERAMENU" />
       <assign property="var:curtainaction" value="hidephoto" />
     </action>
-    
+
     <action name="hidephoto">
       <sync>
         <alpha value="0" time=".25" target="CAMERAMENU" />
@@ -3170,7 +3304,7 @@
         <assign property="var:curtainaction" value="null" />
       </sync>
     </action>
-    
+
     <action name="addroll">
       <sync>
         <assign property="var:photoActive" value="1" />
@@ -3188,7 +3322,7 @@
     <action name="roll-queryComplete" datasource="camera-roll">
       <alpha value="0" time=".1" target="CAMERAROLL/wait" />
     </action>
-    
+
     <action name="addcamera">
       <sync>
         <assign property="var:camerafile" value="[system:uuid]" />
@@ -3199,7 +3333,7 @@
         <alpha value="0" target="HEADER" />
       </sync>
     </action>
-    
+
     <action name="closeroll">
       <sync>
         <translate ypos="101%" time=".25" curve="easeout" target="CAMERAROLL" />
@@ -3217,7 +3351,7 @@
         <play action="addnote" />
       </sync>
     </action>
-    
+
     <action name="addnote">
       <sync>
         <create class="addnote" target="CONTAINER" />
@@ -3235,7 +3369,7 @@
         <keyboard visible="yes" target="THENOTE" />
       </sync>
     </action>
-    
+
     <action name="savenote">
       <sync>
         <assign property="var:thenote" encoding="url" value="[object:THENOTE.text]" />
@@ -3246,7 +3380,7 @@
       </sync>
     </action>
 
-    <action name="db-that-photo"> 
+    <action name="db-that-photo">
       <!-- <alert message="[var:thenote]" /> -->
       <assign property="datasource:photosdb.query" value="INSERT INTO PHOTOS (PHOTO, NOTE) values ('[var:photo-url]', '[var:thenote]')" />
     </action>
@@ -3274,7 +3408,7 @@
         <assign property="var:photoActive" value="0" />
       </if>
     </action>
-    
+
     <action name="cancelcamera">
       <sync>
         <translate ypos="101%" time=".25" curve="easeout" target="CAMERABOX" />
@@ -3285,14 +3419,14 @@
     <action name="snap-down">
       <assign property="object:inner.background" value="#252525" />
     </action>
-    
+
     <action name="snap-photo">
       <sync>
         <event type="captureStillImage" target="CAMERA-VIEW" />
         <assign property="object:CAMERA-CONTROLCENTER/snap/inner.background" value="#ed1c24" />
       </sync>
     </action>
-    
+
     <action name="output">
       <translate ypos="100%" time=".15" target="CAMERA-CONTROLCENTER" />
       <sync>
@@ -3300,7 +3434,7 @@
         <translate ypos="0" time=".15" target="CAMERA-TOOLBAR" />
       </sync>
     </action>
-    
+
     <action name="capture-cancel">
       <translate ypos="-70" time=".15" target="CAMERA-TOOLBAR" />
       <sync>
@@ -3323,14 +3457,81 @@
         <!--<play action="db-that-photo" />-->
       </sync>
     </action>
-    
+
+    <!-- !add plywood sheathing -->
+    <action name="addplywood">
+      <play action="clearcurtain" />
+      <alpha value="1" time=".25" target="PLYWOODMENU" />
+      <assign property="var:curtainaction" value="hideplywood" />
+    </action>
+
+    <action name="hideplywood">
+      <sync>
+        <alpha value="0" time=".25" target="PLYWOODMENU" />
+        <play action="hideclearcurtain" />
+        <assign property="var:curtainaction" value="null" />
+      </sync>
+    </action>
+
+    <action name="add12cdx">
+      <sync>
+        <assign property="var:plywoodindex" value="[eval: [var:plywoodindex] + 1]" />
+        <create class="12cdx" target="SERVICES-PLYWOOD/servicespagerbox/pager" index="[var:plywoodindex]" />
+        <set onclickup="null" target="PLYWOODMENU/12cdx" />
+        <play action="plywooddeletebutton" />
+        <play action="hideplywood" />
+      </sync>
+    </action>
+
+    <action name="add58cdx">
+      <sync>
+        <assign property="var:plywoodindex" value="[eval: [var:plywoodindex] + 1]" />
+        <create class="58cdx" target="SERVICES-PLYWOOD/servicespagerbox/pager" index="[var:plywoodindex]" />
+        <set onclickup="null" target="PLYWOODMENU/58cdx" />
+        <play action="plywooddeletebutton" />
+        <play action="hideplywood" />
+      </sync>
+    </action>
+
+    <action name="add12osb">
+      <sync>
+        <assign property="var:plywoodindex" value="[eval: [var:plywoodindex] + 1]" />
+        <create class="12osb" target="SERVICES-PLYWOOD/servicespagerbox/pager" index="[var:plywoodindex]" />
+        <set onclickup="null" target="PLYWOODMENU/12osb" />
+        <play action="plywooddeletebutton" />
+        <play action="hideplywood" />
+      </sync>
+    </action>
+
+    <action name="add58osb">
+      <sync>
+        <assign property="var:plywoodindex" value="[eval: [var:plywoodindex] + 1]" />
+        <create class="58osb" target="SERVICES-PLYWOOD/servicespagerbox/pager" index="[var:plywoodindex]" />
+        <set onclickup="null" target="PLYWOODMENU/58osb" />
+        <play action="plywooddeletebutton" />
+        <play action="hideplywood" />
+      </sync>
+    </action>
+
+    <action name="plywooddeletebutton">
+      <sync>
+        <if lhs="[var:plywoodindex]" operator="gt" rhs="1">
+          <delete target="ROOF-SPACER-PLYWOOD-[eval: [var:plywoodindex] - 1]" />
+          <create class="roof-spacer" index="[var:plywoodindex]" name="PLYWOOD" target="SERVICES-PLYWOOD/servicespagerbox/pager" />
+          <assign property="var:PLYWOODspacerindex" value="[var:plywoodindex]" />
+          <alpha value="0" time=".1" target="PLYWOOD[eval: [var:plywoodindex] - 1]/deletebox" />
+        </if>
+        <alpha value="0" time=".1" target="SERVICES-SIDEBAR-PAGER/Plywood Sheathing/saved-check" />
+      </sync>
+    </action>
+
     <!-- !add adjustments -->
     <action name="addadjustment">
       <play action="clearcurtain" />
       <alpha value="1" time=".25" target="ADJUSTMENU" />
       <assign property="var:curtainaction" value="hideadjustment" />
     </action>
-    
+
     <action name="hideadjustment">
       <sync>
         <alpha value="0" time=".25" target="ADJUSTMENU" />
@@ -3338,7 +3539,7 @@
         <assign property="var:curtainaction" value="null" />
       </sync>
     </action>
-    
+
     <action name="adddiscount">
       <sync>
 	  	<assign property="var:adjustment" value="discount" />
@@ -3356,7 +3557,7 @@
         </if>
       </sync>
     </action>
-    
+
     <action name="addcost">
       <sync>
 	  	<assign property="var:adjustment" value="cost" />
@@ -3374,7 +3575,7 @@
         </if>
       </sync>
     </action>
-    
+
      <!-- !NAV actions -->
     <action name="nav">
       <sync>
@@ -3400,17 +3601,20 @@
           <assign property="var:squarestotal" value="0" />
           <assign property="var:leakbarrier" value="[eval: [var:ridgestotal] + [var:hipstotal] + [var:valleystotal] + [var:rakestotal] + [var:eavestotal]]" />
           <assign property="var:starterstrips" value="[eval: [var:rakestotal] + [var:eavestotal]]" />
-
+          <assign property="var:wasteAdjust" value="[eval: [var:waste] / 100 + 1 ]" />
           <loop lhs="[var:summaryarea]" operator="lt" rhs="[var:areaindex]">
             <assign property="var:summaryarea" value="[eval: [var:summaryarea] + 1]" />
-            <assign property="var:totalareaTemp" value="[eval: [var:totalarea] + [var:area[var:summaryarea]total] ]" />
-            <assign property="var:totalarea" value="[eval: Math.ceil([var:totalareaTemp]) ]" />
+            <assign property="var:totalareaTemp" value="[eval: [var:totalareaTemp] + [var:area[var:summaryarea]total] ]" />
+            <assign property="var:totalwithWaste" value="[eval: [var:totalareaTemp] * [var:wasteAdjust]]" />
+            <assign property="var:totalarea" value="[eval: Math.ceil([var:totalwithWaste]) ]" />
+            <!--<alert title="total area" message="[var:totalwithWaste]" />-->
           </loop>
           <if lhs="[var:totalarea]" operator="e" rhs="">
             <assign property="var:squarestotal" value="N/A" />
             <else>
               <assign property="var:squarestotalTemp" value="[eval: [var:totalarea] / 100 ]" />
               <assign property="var:squarestotal" value="[eval: Math.ceil([var:squarestotalTemp])]" />
+              <!--<alert title="squares" message="[var:squarestotal]" />-->
             </else>
           </if>
           <!--<alert title="Squares" message="[var:squarestotal]" />-->
@@ -3432,7 +3636,7 @@
 	            </else>
 	          </if>
           </if>
-        </if> 
+        </if>
         <if lhs="_this" operator="e" rhs="SUMMARY">
           <if lhs="[var:accessoryCount]" operator="gte" rhs="[var:accessories]">
           <play action="summarycalc" />
@@ -3451,7 +3655,7 @@
         <assign property="var:navwas" value="_this" />
       </sync>
     </action>
-    
+
     <action name="summarycalc">
       <sync>
         <!-- <alert message="area total [var:totalarea] squares total [var:squarestotal] ridges total [var:ridgestotal] hips total [var:hipstotal] rakes total [var:rakestotal] eaves total [var:eavestotal] valleys total [var:valleystotal]" /> -->
@@ -3459,32 +3663,32 @@
         <play action="summaryproducts" />
       </sync>
     </action>
-    
+
     <action name="summaryproducts">
       <sync>
         <create target="SUMMARY-PAGER" class="summary-products" swatch="[datasource:productsdb-list.1.IMAGE]" color="[datasource:productsdb-list.1.COLOR]" warranty="[var:warrantyname]" />
         <play action="summaryaccessories" />
       </sync>
     </action>
-    
+
     <action name="summaryaccessories">
       <sync>
         <create class="summary-accessory-title" target="SUMMARY-PAGER" />
         <!--<create class="summary-accessory-subtitle" target="SUMMARY-PAGER" subtitle="Roof Deck Protection" />
         <create class="summary-accessory-item" target="SUMMARY-PAGER" label="Tiger Blood Titan Pizza Pussy Santa Ultra Bad-Ass Protection" count="5" />-->
-        
+
         <assign property="var:sumac-loop" value="Leak Barrier" />
         <!--<alert message="[datasource:accessoriesdb-list.1.TYPE]" />-->
         <play action="start-summaryaccessoriesloop" />
       </sync>
     </action>
-    
+
     <action name="start-summaryaccessoriesloop">
       <sync>
         <assign property="datasource:accessoriesdb-count.query" value="SELECT * FROM ACCESSORIES WHERE TYPE='[var:sumac-loop]';" />
       </sync>
     </action>
-    
+
     <action name="summary-roofdeck" datasource="accessoriesdb-count" datasourceevent="querycomplete">
       <if lhs="[var:loaded]" operator="e" rhs="yes">
         <sync>
@@ -3497,12 +3701,12 @@
               <create class="summary-accessory-item" target="SUMMARY-PAGER" index="[var:summary-[var:sumac-loop]-index]" label="[datasource:accessoriesdb-count.[var:summary-[var:sumac-loop]-index].NAME]" count="[datasource:accessoriesdb-count.[var:summary-[var:sumac-loop]-index].QUANTITY]" />
             </loop>
           </if>
-          
+
           <play action="[var:sumac-loop]-done" />
         </sync>
       </if>
     </action>
-    
+
     <action name="Leak Barrier-done">
       <sync>
         <assign property="var:sumac-loop" value="Roof Deck Protection" />
@@ -3511,7 +3715,7 @@
         <!--<alert title="Leak Barrier-done" message="done" />-->
       </sync>
     </action>
-    
+
     <action name="Roof Deck Protection-done">
       <sync>
         <assign property="var:sumac-loop" value="Starter Strips" />
@@ -3520,7 +3724,7 @@
         <!--<alert title="Roof Deck Protection-done" message="done" />-->
       </sync>
     </action>
-    
+
     <action name="Starter Strips-done">
       <sync>
         <assign property="var:sumac-loop" value="Ventilation" />
@@ -3529,7 +3733,7 @@
         <!--<alert title="Starter Strips-done" message="done" />-->
       </sync>
     </action>
-    
+
     <action name="Ventilation-done">
       <sync>
         <assign property="var:sumac-loop" value="Ridge Cap" />
@@ -3538,7 +3742,7 @@
         <!--<alert title="Ventilation-done" message="done" />-->
       </sync>
     </action>
-    
+
     <action name="Ridge Cap-done">
       <sync>
         <assign property="var:sumac-loop" value="Miscellaneous Accessory" />
@@ -3547,7 +3751,7 @@
         <play action="start-summaryaccessoriesloop" />
       </sync>
     </action>
-    
+
     <action name="Miscellaneous Accessory-done">
       <sync>
         <assign property="var:sumac-loop" value="Leak Barrier" />
@@ -3556,7 +3760,7 @@
         <play action="close-summaryaccessories" />
       </sync>
     </action>
-    
+
     <action name="close-summaryaccessories">
       <sync>
         <create class="accessorydivide" target="SUMMARY-PAGER" />
@@ -3564,14 +3768,14 @@
         <!--<assign property="datasource:accessoriesdb-delete.query" value="DELETE FROM ACCESSORIES;" />-->
       </sync>
     </action>
-    
+
     <action name="summaryservices">
       <sync>
         <!-- <alert message="summary services" />  -->
         <create target="SUMMARY-PAGER" class="summary-services" layers="[datasource:tearoffdb-list.1.LAYERS]" type="[datasource:tearoffdb-list.1.MATERIAL]" landscape="[datasource:assetprotectiondb-list.1.LANDSCAPING]" hardscape="[datasource:assetprotectiondb-list.1.HARDSCAPING]" hvac="[datasource:assetprotectiondb-list.1.HVAC]" pool="[datasource:assetprotectiondb-list.1.POOL]" misc="[datasource:assetprotectiondb-list.1.MISC]"  />
       </sync>
     </action>
-    
+
 	<action name="resetSummaryVars" >
 		<assign property="var:summaryarea" value="" />
 		<assign property="var:totalarea" value="" />
@@ -3584,7 +3788,7 @@
 		<assign property="var:eavestotal" value="" />
 		<assign property="var:valleystotal" value="" />
 	</action>
-	
+
 	<action name="resetRoofIndices" >
 		<assign property="var:areaindex" value="" />
 		<assign property="var:ridgeindex" value="" />
@@ -3597,7 +3801,7 @@
 		<assign property="var:skylightindex" value="" />
 		<assign property="var:ventindex" value="" />
 	</action>
-	
+
 	<action name="resetAccessoryVars">
   	<assign property="var:leakbarrier" value="0" />
   	<assign property="var:squarestotal" value="0" />
@@ -3608,11 +3812,11 @@
 	</action>
 
     <action name="savedCUSTOMER"></action>
-    
+
     <action name="savedROOF"></action>
-    
+
     <action name="savedPRODUCTS"></action>
-    
+
     <action name="savedSERVICES">
       <sync>
         <if lhs="[datasource:tearoffdb-list.dataSourceResultCount]" operator="gt" rhs="0">
@@ -3625,27 +3829,12 @@
         </if>
       </sync>
     </action>
-    
+
     <action name="savedSERVICES2" datasource="tearoffdb-delete" datasourceevent="querycomplete">
       <if lhs="[var:loaded]" operator="e" rhs="yes">
         <sync>
           <if lhs="[datasource:assetprotectiondb-list.dataSourceResultCount]" operator="gt" rhs="0">
             <assign property="datasource:assetprotectiondb-delete.query" value="DELETE FROM PROTECTION;" />
-            <!--<alert title="asset protection" message="from the if and deleting [datasource:assetprotectiondb-list.dataSourceResultCount]" />-->
-            <else>
-              <play action="savedSERVICES3" />
-              <!--<alert message="from the else, nothing to delete" />-->
-            </else>
-          </if>
-        </sync>
-      </if>
-    </action>
-    
-    <action name="savedSERVICES3" datasource="assetprotectiondb-delete" datasourceevent="querycomplete">
-      <if lhs="[var:loaded]" operator="e" rhs="yes">
-        <sync>
-          <if lhs="[datasource:plywooddb-list.dataSourceResultCount]" operator="gt" rhs="0">
-            <assign property="datasource:plywooddb-delete.query" value="DELETE FROM PLYWOOD;" />
             <!--<alert title="asset protection" message="from the if and deleting [datasource:assetprotectiondb-list.dataSourceResultCount]" />-->
             <else>
               <play action="savedSERVICES-save" />
@@ -3655,38 +3844,31 @@
         </sync>
       </if>
     </action>
-    
+
     <action name="savedSERVICES-save" datasource="assetprotectiondb-delete" datasourceevent="querycomplete">
       <!-- <alert title="tear off" message="tear off:[var:tearoff] [object:LAYERS/input.text] [object:TYPE/input.text]" /> -->
       <!-- <alert title="asset protection" message="landscaping:[var:landscaping] hardscaping:[var:hardscaping] hvac:[var:hvac] pool:[var:pool] misc[var:misc]" />-->
       <if lhs="[var:loaded]" operator="e" rhs="yes">
         <assign property="datasource:tearoffdb.query" value="INSERT INTO TEAROFF (TEAROFF, LAYERS, MATERIAL) VALUES ('[var:tearoff]', '[object:LAYERS/input.text]', '[object:TYPE/input.text]');" />
         <assign property="datasource:assetprotectiondb.query" value="INSERT INTO PROTECTION (LANDSCAPING, HARDSCAPING, HVAC, POOL, MISC) VALUES ('[var:landscaping]', '[var:hardscaping]', '[var:hvac]', '[var:pool]', '[var:misc]');" />
-        <assign property="datasource:plywooddb.query" value="INSERT INTO PLYWOOD (WOOD, MEASUREMENT, QUANTITY) VALUES ('[object:PLYWOODTYPE/hidden.text]', '[object:MEASUREMENT/hidden.text]', '[object:QUANTITY/input.text]');" />
+        <!--<assign property="datasource:plywooddb.query" value="INSERT INTO PLYWOOD (WOOD, MEASUREMENT, QUANTITY) VALUES ('[object:PLYWOODTYPE/hidden.text]', '[object:MEASUREMENT/hidden.text]', '[object:QUANTITY/input.text]');" />-->
       </if>
     </action>
-    
+
     <action name="tearoffquery" datasource="tearoffdb" datasourceevent="querycomplete">
       <sync>
         <assign property="datasource:tearoffdb-list.query" value="SELECT * FROM TEAROFF;" />
         <!--<alert message="tear off saved [datasource:tearoffdb-list.dataSourceResultCount]" />-->
       </sync>
     </action>
-    
+
     <action name="protectionsquery" datasource="assetprotectiondb" datasourceevent="querycomplete">
       <sync>
         <assign property="datasource:assetprotectiondb-list.query" value="SELECT * FROM PROTECTION;" />
         <!--<alert message="asset protection saved" />-->
       </sync>
     </action>
-    
-    <action name="plywoodquery" datasource="plywooddb" datasourceevent="querycomplete">
-      <sync>
-        <assign property="datasource:plywooddb-list.query" value="SELECT * FROM PLYWOOD;" />
-        <!--<alert message="[datasource:plywooddb-list.1.WOOD] [datasource:plywooddb-list.1.MEASUREMENT] [datasource:plywooddb-list.1.QUANTITY]" />-->
-      </sync>
-    </action>
-    
+
     <action name="savedADJUSTMENTS">
       <sync>
         <if lhs="[datasource:adjustmentsdb-list.dataSourceResultCount]" operator="gt" rhs="0">
@@ -3699,7 +3881,7 @@
         </if>
       </sync>
     </action>
-    
+
     <action name="savedADJUSTMENTS-save" datasource="adjustmentsdb-delete" datasourceevent="querycomplete">
       <if lhs="[var:loaded]" operator="e" rhs="yes">
         <sync>
@@ -3710,7 +3892,7 @@
         </sync>
       </if>
     </action>
-    
+
     <action name="adjustmentsquery" datasource="adjustmentsdb" datasourceevent="querycomplete">
       <sync>
         <if lhs="[var:adjustmentindexloop]" operator="lt" rhs="[var:adjustmentindex]">
@@ -3722,15 +3904,15 @@
         </if>
       </sync>
     </action>
-    
+
     <!--<action name="adjustments-total" datasource="adjustmentsdb-list" datasourceevent="querycomplete">
       <alert title="adjustments total" message="[datasource:adjustmentsdb-list.dataSourceResultCount]" />
     </action>-->
-    
+
     <action name="savedSUMMARY">
       <!--<alert title="save" message="[var:nav]" />-->
     </action>
-    
+
     <!-- !customer actions -->
     <!-- !customer actions -->
     <action name="saveCustomer">
@@ -3749,7 +3931,7 @@
 		        </if>
 		      </sync>
     </action>
-    
+
     <action name="saveCustomer-save" datasource="customersdb-delete" datasourceevent="querycomplete">
       <if lhs="[var:loaded]" operator="e" rhs="yes">
         <sync>
@@ -3759,7 +3941,7 @@
         </sync>
       </if>
     </action>
-    
+
     <action name="roofinfo-alert">
       <alert title="Stop right there." message="You must have Inspection and 1 Roof Area saved before moving on." />
     </action>
@@ -3804,7 +3986,7 @@
 			</if>
 		</if>
     </action>
-    
+
 	<action name="create-customer-complete" datasource="createCustomer" datasourceevent="querycomplete">
 		<if lhs="[datasource:createCustomer.1.ResponseCode]" operator="e" rhs="100">
 			<assign property="var:customerCreated" value="yes" />
@@ -3863,7 +4045,7 @@
 		<alert title="Network Error" message="There was a problem connecting to the server.  Please check your network connection and try again." />
 	     <alpha value="0" time=".1" target="UPLOAD-CURTAIN" />
 	</action>
-	
+
     <!-- !sidebar-roof actions -->
     <action name="sidebar-roof">
       <sync>
@@ -3880,7 +4062,7 @@
         <assign property="var:roofarrow" value="_form" />
       </sync>
     </action>
-    
+
     <!-- !sidebar-product actions -->
     <action name="sidebar-products">
       <sync>
@@ -3896,7 +4078,7 @@
         <assign property="var:productarrow" value="_form" />
       </sync>
     </action>
-    
+
     <!-- !sidebar-services actions -->
     <action name="sidebar-services">
       <sync>
@@ -3912,7 +4094,7 @@
         <assign property="var:servicesarrow" value="_form" />
       </sync>
     </action>
-    
+
     <!-- !Save roof actions -->
     <action name="save-roof">
       <play action="released" />
@@ -3920,7 +4102,7 @@
       <play action="[var:roof]" />
       <play action="roof-saving-modal" />
     </action>
-    
+
     <action name="INSPECTION">
       <sync>
         <if lhs="[datasource:inspectiondb-list.dataSourceResultCount]" operator="gt" rhs="0">
@@ -3938,7 +4120,7 @@
         </if>
       </sync>
     </action>
-    
+
     <action name="INSPECTION-save" datasource="inspectiondb-delete" datasourceevent="querycomplete">
       <if lhs="[var:loaded]" operator="e" rhs="yes">
         <!--<alert title="inspection" message="rooftype [object:ROOFTYPE/input.text] floors [object:FLOORS/input.text]" />-->
@@ -3952,7 +4134,7 @@
         </if>
       </if>
     </action>
-    
+
     <action name="inspection-query" datasource="inspectiondb" datasourceevent="querycomplete">
       <assign property="datasource:inspectiondb-list.query" value="SELECT * FROM INSPECTION;" />
       <play action="roof-saving-modal-hide" />
@@ -3963,11 +4145,11 @@
         </sync>
       </if>
     </action>
-    
+
     <action name="FASCIA">
 <!--       <alert message="FASCIA" /> -->
     </action>
-    
+
     <action name="ROOF AREA">
       <sync>
         <if lhs="[datasource:roofareasdb-list.dataSourceResultCount]" operator="gt" rhs="0">
@@ -3978,7 +4160,7 @@
         </if>
       </sync>
     </action>
-    
+
     <action name="ROOF AREA-save" datasource="roofareadb-delete" datasourceevent="querycomplete">
       <if lhs="[var:loaded]" operator="e" rhs="yes">
         <sync>
@@ -4025,10 +4207,10 @@
         <assign property="var:areaindexloop" value="[eval: [var:areaindexloop] + 1]" />
 <!--         <alert message="var:slope-[var:areaindexloop] is [var:slope-[var:areaindexloop]]" /> -->
         <assign property="datasource:roofareasdb.query" value="INSERT INTO ROOFAREAS (LENGTH, WIDTH, SLOPE) values ('[object:RL[var:areaindexloop]/input.text]', '[object:RW[var:areaindexloop]/input.text]', '[var:slope-[var:areaindexloop]]');" />
-        
+
       </sync>
     </action>
-    
+
     <!--<action name="roofarealoop">
       <sync>
         <if lhs="[var:areaindexloop]" operator="lt" rhs="[var:areaindex]">
@@ -4042,7 +4224,7 @@
         </if>
       </sync>
     </action>-->
-    
+
     <action name="roofareaquery" datasource="roofareasdb" datasourceevent="querycomplete">
       <sync>
         <if lhs="[var:areaindexloop]" operator="lt" rhs="[var:areaindex]">
@@ -4064,7 +4246,7 @@
         <!--<alert message="[var:areaindexloop]" />-->
       </sync>
     </action>
-    
+
     <action name="WASTE">
       <sync>
         <if lhs="[datasource:wastedb-list.dataSourceResultCount]" operator="gt" rhs="0">
@@ -4077,21 +4259,22 @@
         </if>
       </sync>
     </action>
-    
+
     <action name="WASTE-save" datasource="wastedb-delete" datasourceevent="querycomplete">
       <!--<alert message="[object:WASTEPERCENT/input.text]" />-->
       <if lhs="[var:loaded]" operator="e" rhs="yes">
         <if lhs="[eval:'[object:WASTEPERCENT/input.text]' != '']" operator="e" rhs="true">
           <assign property="datasource:wastedb.query" value="INSERT INTO WASTE (PERCENT) values ('[object:WASTEPERCENT/input.text]');" />
+          <assign property="var:waste" value="[object:WASTEPERCENT/input.text]" />
 <!--           <alert message="[object:WASTEPERCENT/input.text]" /> -->
           <else>
             <alert title="Incomplete Form" message="Please fill out all fields" />
             <play action="roof-saving-modal-hide" />
-          </else> 
+          </else>
         </if>
       </if>
     </action>
-    
+
     <action name="wastequery" datasource="wastedb" datasourceevent="querycomplete">
       <assign property="datasource:wastedb-list.query" value="SELECT * FROM WASTE" />
       <play action="roof-saving-modal-hide" />
@@ -4099,7 +4282,7 @@
         <alpha value="1" time=".1" target="ROOF-SIDEBAR-PAGER/Waste/saved-check" />
       </if>
     </action>
-    
+
     <action name="RIDGE">
       <sync>
         <assign property="var:ridgestotal" value="0" />
@@ -4111,7 +4294,7 @@
         </if>
       </sync>
     </action>
-    
+
     <action name="RIDGE-save" datasource="ridgesdb-delete" datasourceevent="querycomplete">
       <if lhs="[var:loaded]" operator="e" rhs="yes">
         <sync>
@@ -4150,8 +4333,8 @@
 <!--         <alert message="[object:RIDGELENGTH[var:ridgeindexloop]/input.text] ridgevent: [var:ridgevent-[var:ridgeindexloop]] " /> -->
         <assign property="datasource:ridgesdb.query" value="INSERT INTO RIDGES (LENGTH, VENTS) values ('[object:RIDGELENGTH[var:ridgeindexloop]/input.text]', '[var:ridgevent-[var:ridgeindexloop]]');" />
       </sync>
-    </action>    
-    
+    </action>
+
     <action name="ridgequery" datasource="ridgesdb" datasourceevent="querycomplete">
       <sync>
         <if lhs="[var:ridgeindexloop]" operator="lt" rhs="[var:ridgeindex]">
@@ -4170,7 +4353,7 @@
         </if>
       </sync>
     </action>
-    
+
     <action name="ridgevent-total" datasource="ridgeventsdb-list" datasourceevent="querycomplete">
       <if lhs="[var:loaded]" operator="e" rhs="yes">
         <sync>
@@ -4182,7 +4365,7 @@
         </sync>
       </if>
     </action>
-    
+
     <action name="HIP">
       <sync>
         <!-- <alert message="pre-saved removed [datasource:hipsdb-list.dataSourceResultCount]" />-->
@@ -4197,7 +4380,7 @@
         </if>
       </sync>
     </action>
-    
+
     <action name="HIP-save" datasource="hipsdb-delete" datasourceevent="querycomplete">
       <if lhs="[var:loaded]" operator="e" rhs="yes">
         <sync>
@@ -4236,8 +4419,8 @@
 <!--         <alert message="[object:HIPLENGTH[var:hipindexloop]/input.text]" /> -->
         <assign property="datasource:hipsdb.query" value="INSERT INTO HIPS (LENGTH, VENTS) values ('[object:HIPLENGTH[var:hipindexloop]/input.text]', '[var:hipvent-[var:hipindexloop]]');" />
       </sync>
-    </action>  
-    
+    </action>
+
     <action name="hipquery" datasource="hipsdb" datasourceevent="querycomplete">
       <sync>
         <if lhs="[var:hipindexloop]" operator="lt" rhs="[var:hipindex]">
@@ -4256,7 +4439,7 @@
         </if>
       </sync>
     </action>
-    
+
     <action name="hipvent-total" datasource="hipventsdb-list" datasourceevent="querycomplete">
       <if lhs="[var:loaded]" operator="e" rhs="yes">
         <sync>
@@ -4268,7 +4451,7 @@
         </sync>
       </if>
     </action>
-    
+
     <action name="VALLEY">
       <sync>
         <!-- <alert message="pre-saved removed [datasource:valleysdb-list.dataSourceResultCount]" />-->
@@ -4283,7 +4466,7 @@
         </if>
       </sync>
     </action>
-    
+
     <action name="VALLEY-save" datasource="valleysdb-delete" datasourceevent="querycomplete">
       <if lhs="[var:loaded]" operator="e" rhs="yes">
         <sync>
@@ -4322,8 +4505,8 @@
 <!--         <alert message="[object:VALLEYLENGTH[var:valleyindexloop]/input.text]" /> -->
         <assign property="datasource:valleysdb.query" value="INSERT INTO VALLEYS (LENGTH) values ('[object:VALLEYLENGTH[var:valleyindexloop]/input.text]')" />
       </sync>
-    </action>  
-    
+    </action>
+
     <action name="valleyquery" datasource="valleysdb" datasourceevent="querycomplete">
       <sync>
         <if lhs="[var:valleyindexloop]" operator="lt" rhs="[var:valleyindex]">
@@ -4340,7 +4523,7 @@
         </if>
       </sync>
     </action>
-    
+
     <action name="RAKE">
       <sync>
         <!-- <alert message="pre-saved removed [datasource:rakesdb-list.dataSourceResultCount]" />-->
@@ -4355,7 +4538,7 @@
         </if>
       </sync>
     </action>
-    
+
     <action name="RAKE-save" datasource="rakesdb-delete" datasourceevent="querycomplete">
       <if lhs="[var:loaded]" operator="e" rhs="yes">
         <sync>
@@ -4394,8 +4577,8 @@
 <!--         <alert message="[object:RAKELENGTH[var:rakeindexloop]/input.text]" /> -->
         <assign property="datasource:rakesdb.query" value="INSERT INTO RAKES (LENGTH) values ('[object:RAKELENGTH[var:rakeindexloop]/input.text]')" />
       </sync>
-    </action> 
-    
+    </action>
+
     <action name="rakequery" datasource="rakesdb" datasourceevent="querycomplete">
       <sync>
         <if lhs="[var:rakeindexloop]" operator="lt" rhs="[var:rakeindex]">
@@ -4412,7 +4595,7 @@
         </if>
       </sync>
     </action>
-    
+
     <action name="EAVE">
       <sync>
         <!-- <alert message="pre-saved removed [datasource:eavesdb-list.dataSourceResultCount]" />-->
@@ -4427,7 +4610,7 @@
         </if>
       </sync>
     </action>
-    
+
     <action name="EAVE-save" datasource="eavesdb-delete" datasourceevent="querycomplete">
       <if lhs="[var:loaded]" operator="e" rhs="yes">
         <sync>
@@ -4466,8 +4649,8 @@
 <!--         <alert message="[object:EAVELENGTH[var:eaveindexloop]/input.text]" /> -->
         <assign property="datasource:eavesdb.query" value="INSERT INTO EAVES (LENGTH) values ('[object:EAVELENGTH[var:eaveindexloop]/input.text]')" />
       </sync>
-    </action> 
-    
+    </action>
+
     <action name="eavequery" datasource="eavesdb" datasourceevent="querycomplete">
       <sync>
         <if lhs="[var:eaveindexloop]" operator="lt" rhs="[var:eaveindex]">
@@ -4484,7 +4667,7 @@
         </if>
       </sync>
     </action>
-    
+
     <action name="CHIMNEY">
       <sync>
         <!--<alert message="pre-saved removed [datasource:protrusionsdb-list.dataSourceResultCount]" />-->
@@ -4498,7 +4681,7 @@
         </if>
       </sync>
     </action>
-    
+
     <action name="CHIMNEY-save" datasource="protrusionsdb-delete" datasourceevent="querycomplete">
       <if lhs="[var:loaded]" operator="e" rhs="yes">
         <sync>
@@ -4536,8 +4719,8 @@
         <assign property="datasource:protrusionsdb.query" value="INSERT INTO PROTRUSIONS (LENGTH, WIDTH, TYPE) values ('[object:PROTRUSIONLENGTH[var:protrusionindexloop]/input.text]', '[object:PROTRUSIONWIDTH[var:protrusionindexloop]/input.text]', '[object:TYPE[var:protrusionindexloop].text]');" />
 <!--         <alert message="Type:[object:TYPE[var:protrusionindexloop].text] Length:[object:PROTRUSIONLENGTH[var:protrusionindexloop]/input.text] Width:[object:PROTRUSIONWIDTH[var:protrusionindexloop]/input.text]" /> -->
       </sync>
-    </action> 
-    
+    </action>
+
     <action name="chimneyquery" datasource="protrusionsdb" datasourceevent="querycomplete">
       <sync>
         <if lhs="[var:protrusionindexloop]" operator="lt" rhs="[var:protrusionindex]">
@@ -4554,7 +4737,7 @@
         </if>
       </sync>
     </action>
-    
+
     <action name="VENT">
       <sync>
         <!--<alert message="pre-saved removed [datasource:ventsdb-list.dataSourceResultCount]" />-->
@@ -4568,7 +4751,7 @@
         </if>
       </sync>
     </action>
-    
+
     <action name="VENT-save" datasource="ventsdb-delete" datasourceevent="querycomplete">
       <if lhs="[var:loaded]" operator="e" rhs="yes">
         <sync>
@@ -4606,8 +4789,8 @@
 <!--         <alert message="Size:[object:VENTSIZE[var:ventindexloop]/input.text] Quantity:[object:VENTQUANTITY[var:ventindexloop]/input.text]" /> -->
         <assign property="datasource:ventsdb.query" value="INSERT INTO VENTS (SIZE, QUANTITY) values ('[object:VENTSIZE[var:ventindexloop]/input.text]', '[object:VENTQUANTITY[var:ventindexloop]/input.text]');" />
       </sync>
-    </action>  
-    
+    </action>
+
     <action name="ventquery" datasource="ventsdb" datasourceevent="querycomplete">
       <sync>
         <if lhs="[var:ventindexloop]" operator="lt" rhs="[var:ventindex]">
@@ -4624,12 +4807,12 @@
         </if>
       </sync>
     </action>
-    
+
     <action name="PHOTO">
       <!--       <alert message="PHOTO" /> -->
       <play action="roof-saving-modal-hide" />
     </action>
-    
+
     <!-- !drop down actions -->
     <action name="dropon">
       <alpha value="1" time=".1" target="_droptype" />
@@ -4638,7 +4821,7 @@
       <assign property="var:droptype" value="_droptype" />
       <set onclickup="dropoff" />
     </action>
-    
+
     <action name="dropoff">
       <translate xpos="101%" time=".25" curve="easeout" target="_drop/drop" />
       <alpha value="0" time=".25" target="_drop/drop" />
@@ -4646,7 +4829,7 @@
       <assign property="var:droptype" value="null" />
       <set onclickup="dropon" target="_target" />
     </action>
-    
+
     <action name="setstate">
       <sync>
         <assign property="object:STATE/input.text" value="_abbr" />
@@ -4654,14 +4837,14 @@
         <play action="dropoff" _drop="ADDRESS" _target="STATE/active" />
       </sync>
     </action>
-    
+
     <action name="setprovince">
       <sync>
         <assign property="object:PROVINCE/input.text" value="_abbr" />
         <play action="dropoff" _drop="ADDRESS" _target="PROVINCE/active" />
       </sync>
     </action>
-    
+
     <action name="setstate-edit">
       <sync>
         <assign property="object:EDIT-STATE/input.text" value="_abbr" />
@@ -4669,7 +4852,7 @@
         <translate ypos="100%" time=".25" curve="easeout" target="US-LIST" />
       </sync>
     </action>
-    
+
     <action name="setprovince-edit">
       <sync>
         <assign property="object:EDIT-STATE/input.text" value="_abbr" />
@@ -4677,21 +4860,21 @@
         <translate ypos="100%" time=".25" curve="easeout" target="CAN-LIST" />
       </sync>
     </action>
-    
+
     <action name="setrooftype">
       <sync>
         <assign property="object:ROOFTYPE/input.text" value="_type" />
         <play action="dropoff" _drop="INSPECTION" _target="ROOFTYPE/active" />
       </sync>
     </action>
-    
+
     <action name="setfloor">
       <sync>
         <assign property="object:FLOORS/input.text" value="_floors" />
         <play action="dropoff" _drop="INSPECTION" _target="FLOORS/active" />
       </sync>
     </action>
-    
+
     <action name="setfactor">
       <sync>
         <assign property="var:slopeindex" value="_slopeindex" />
@@ -4700,21 +4883,21 @@
         <play action="dropoff" _drop="ROOF-AREA[var:slopeindex]" _target="SLOPE[var:slopeindex]/active" />
       </sync>
     </action>
-    
+
     <action name="setlayers">
       <sync>
         <assign property="object:LAYERS/input.text" value="_layers" />
         <play action="dropoff" _drop="TEAROFF" _target="LAYERS/active" />
       </sync>
     </action>
-    
+
     <action name="setmaterial">
       <sync>
         <assign property="object:TYPE/input.text" value="_material" />
         <play action="dropoff" _drop="TEAROFF" _target="TYPE/active" />
       </sync>
     </action>
-    
+
     <action name="setplywood">
       <sync>
         <assign property="object:PLYWOODTYPE/input.text" value="_label" />
@@ -4722,15 +4905,16 @@
         <play action="dropoff" _drop="PLYWOOD" _target="PLYWOODTYPE/active" />
       </sync>
     </action>
-    
+
     <action name="setmeasurement">
       <sync>
-        <assign property="object:MEASUREMENT/input.text" value="_label" />
-        <assign property="object:MEASUREMENT/hidden.text" value="_measure" />
-        <play action="dropoff" _drop="PLYWOOD" _target="MEASUREMENT/active" />
+        <assign property="var:setMeasureIndex" value="_index" />
+        <assign property="object:MEASUREMENT[var:setMeasureIndex]/input.text" value="_label" />
+        <assign property="object:MEASUREMENT[var:setMeasureIndex]/hidden.text" value="_measure" />
+        <play action="dropoff" _drop="PLYWOOD[var:setMeasureIndex]" _target="MEASUREMENT[var:setMeasureIndex]/active" />
       </sync>
     </action>
-    
+
     <!-- !shingle actions -->
 		<action name="get-products-complete" datasource="getProducts" datasourceevent="querycomplete" >
 			<delete target="PRODUCT-PAGER-BOX/pager" />
@@ -4741,7 +4925,7 @@
 			<create class="product-family" target="PRODUCT-PAGER-BOX/pager" index="[var:productIterateCount]" category="[datasource:getProducts.[var:productIterateCount].ProductFamily]" />
 			<play action="prep-products" />
 		</action>
-		
+
 		<action name="prep-products" >
 			<assign property="var:currentCategory" value="[datasource:getProducts.[var:productIterateCount].ProductFamily]" />
 <!-- 			<alert message="prep-products var:currentCategory is [var:currentCategory] var:productIterateCount is [var:productIterateCount] var:productCount is [var:productCount]" /> -->
@@ -4776,7 +4960,7 @@
 				</if>
 			</if>
 		</action>
-		
+
 		<action name="create-two" >
 			<create class="shingles" index="[var:productIterateCount]" target="PRODUCT-PAGER-BOX/pager" />
 			<assign property="var:productIterateCount" value="[eval: [var:productIterateCount]+2]" />
@@ -4794,13 +4978,13 @@
 			</if>
 			<play action="prep-products" />
 		</action>
-		
-		
+
+
 		<action name="get-products-error" datasource="getProducts" datasourceevent="datasourceerror" >
 			<alert title="Network Error" message="There was a problem connecting to the server.  Please check your network connection and try again." />
 			<alpha value="0" time=".3" target="UPLOAD-CURTAIN" />
 		</action>
-    
+
     <action name="selectshingle">
       <!-- 		<assign property="var:colorCount" value="4" /> -->
       <assign property="var:shingle" value="[datasource:getProducts._value.ProductId]" />
@@ -4808,7 +4992,7 @@
       <assign property="var:shingleName" value="[datasource:getProducts._value.ProductName]" />
       <assign property="object:SHINGLECOLOR/shingle.text" value="[var:shingleName]" />
       <play action="released" />
-      
+
       <!--<alpha value="0" time="0" target="button" />
       <alpha value="1" time=".2" target="selected" />
       <if lhs="[var:selectedshingle]" operator="gt" rhs="0">
@@ -4822,14 +5006,14 @@
       <assign property="var:selectedshingle" value="_index" />
       <assign property="var:shingle-col" value="_col" />
       <assign property="var:shingle-row" value="_rowindex" />
-      
+
       <delete target="COLORPAGER" />
       <assign property="var:shingleSelected" value="_value" />
       <assign property="var:colorCount" value="[eval:JSON.parse('[datasource:getProducts._value.Color]').length]" />
 <!-- 	  <alert message="value is _value eval:JSON.parse('[datasource:getProducts._value.Color]').length is [eval:JSON.parse('[datasource:getProducts._value.Color]').length]" /> -->
       <if lhs="[eval:JSON.parse('[datasource:getProducts._value.Color]').length]" operator="ne" rhs="">
         <assign property="var:colorCreateCount" value="0" />
-        <create class="color-pager" target="SHINGLECOLOR/inner" /> 
+        <create class="color-pager" target="SHINGLECOLOR/inner" />
         <loop lhs="[var:colorCreateCount]" operator="lt" rhs="[var:colorCount]" >
         	<if lhs="[eval: [var:colorCount]-[var:colorCreateCount]]" operator="e" rhs="1">
         		<create class="one-color" target="COLORPAGER" index="[var:colorCreateCount]"/>
@@ -4859,7 +5043,7 @@
         </else>
       </if>
     </action>
-    
+
     <action name="colordismiss">
       <translate ypos="18%" time=".25" curve="easeout" target="SHINGLECOLOR" />
       <sync>
@@ -4867,7 +5051,7 @@
         <play action="focus" />
       </sync>
     </action>
-    
+
     <action name="setcolor">
       <play action="released" />
       <sync>
@@ -4875,7 +5059,7 @@
           <!--<alert title="set color" message="[var:warranty-set]" />-->
   	  	  <play action="reset-accessory-vars" />
 	  	  </if>
-	  	  
+
 	  	  <alpha value="0" time="0" target="PRODUCT-PAGER-BOX/pager/[var:shingle-row]/col[var:shingle-col]/shingle-btn/test/button" />
         <alpha value="1" time=".2" target="PRODUCT-PAGER-BOX/pager/[var:shingle-row]/col[var:shingle-col]/shingle-btn/test/selected" />
         <if lhs="[var:prev-selectedshingle]" operator="gt" rhs="0">
@@ -4885,7 +5069,7 @@
         <assign property="var:prev-selectedshingle" value="[var:selectedshingle]" />
         <assign property="var:prev-shingle-col" value="[var:shingle-col]" />
         <assign property="var:prev-shingle-row" value="[var:shingle-row]" />
-        
+
 	  	  <assign property="var:warranty-set" value="no" />
 	  	  <assign property="var:productImage" value="_image" />
         <!-- 	  	<alert message="var:productImage is [var:productImage]" /> -->
@@ -4900,7 +5084,7 @@
         <assign property="object:UPLOAD-CURTAIN/photo-progress.text" value="Retrieving Warranties" />
       </sync>
     </action>
-    
+
     <action name="reset-accessory-vars">
       <sync>
         <loop lhs="[var:clear-acc-index]" operator="lt" rhs="[var:acc-count-increment]">
@@ -4939,7 +5123,7 @@
         <assign property="var:warrantycheck" value="" />
       </sync>
     </action>
-    
+
     <!-- !warranty actions -->
 	  <action name="warranties-complete" datasource="getWarranties" datasourceevent="querycomplete" >
       <!-- 		<alert message="warranties complete content is [datasource:getWarranties.0.content]" /> -->
@@ -4951,7 +5135,7 @@
 	  <action name="warranties-error" datasource="getWarranties" datasourceevent="datasourceerror" >
 	  	<alert title="Network Error" message="There was a problem connecting to the server.  Please check your network connection and try again." />
 	  </action>
-	
+
 	  <action name="selectwarranty">
       <sync>
         <play action="released" />
@@ -4970,7 +5154,7 @@
         <!--<alert title="var accessories" message="var [var:accessories] : underscore _accessories" />-->
         <assign property="var:warrantyname" value="_title" />
         <assign property="var:warrantycheck" encoding="url" value="_title" />
-		<alert message="var:warrantycheck is [var:warrantycheck]" />
+		<!--<alert message="var:warrantycheck is [var:warrantycheck]" />-->
         <alpha value="1" time=".1" target="UPLOAD-CURTAIN" />
         <assign property="object:UPLOAD-CURTAIN/photo-progress.text" value="Retrieving Accessories" />
         <if lhs="[var:warrantycheck]" operator="e" rhs="GAF%C2%AE%20Golden%20Pledge%C2%AE%20Limited%20Warranty">
@@ -5011,7 +5195,7 @@
         </if>
       </sync>
     </action>
-    
+
     <action name="selectwarranty-save" datasource="productsdb-delete" datasourceevent="querycomplete">
       <if lhs="[var:loaded]" operator="e" rhs="yes">
         <play action="released" />
@@ -5029,15 +5213,15 @@
         <translate ypos="195" curve="linear" target="PRODUCTS-STEP-BLOCKER" />
       </if>
     </action>
-    
+
     <action name="productquery" datasource="productsdb" datasourceevent="querycomplete">
       <assign property="datasource:productsdb-list.query" value="SELECT * FROM PRODUCTS ORDER BY ID DESC;" />
     </action>
-    
+
     <action name="productlistquery" datasource="productsdb-list" datasourceevent="querycomplete" >
 <!--         <alert message="products-list complete image is [database:productsdb-list.1.IMAGE], shingle is [database:productsdb-list.1.SHINGLE] color is [database:productsdb-list.1.COLOR] warranty is [database:productsdb-list.1.WARRANTY]" /> -->
     </action>
-    
+
     <!-- !accessory actions -->
     <action name="accessories-done" datasource="getAccessories" datasourceevent="querycomplete" >
       <play action="sidebar-products" _alias="ACCESSORIES" _form="Accessories" />
@@ -5187,7 +5371,7 @@
       <translate valign="center" time=".25" curve="easeout" target="ACCESSORYLIST" />
       <assign property="var:curtainaction" value="accessorydismiss" />
     </action>
-    
+
     <action name="selectaccessory-delete-prev" datasource="accessoriesdb-deletelist" datasourceevent="querycomplete">
       <if lhs="[var:loaded]" operator="e" rhs="yes">
         <sync>
@@ -5201,7 +5385,7 @@
         </sync>
       </if>
     </action>
-    
+
     <action name="selectaccessory-delete-prev2" datasource="accessoriesdb-deletelist-ridgevent" datasourceevent="querycomplete">
       <if lhs="[var:loaded]" operator="e" rhs="yes">
         <sync>
@@ -5216,7 +5400,7 @@
         </sync>
       </if>
     </action>
-    
+
     <action name="selectaccessory-delete-prev2" datasource="accessoriesdb-deletelist-hipvent" datasourceevent="querycomplete">
       <if lhs="[var:loaded]" operator="e" rhs="yes">
         <sync>
@@ -5231,7 +5415,7 @@
         </sync>
       </if>
     </action>
-    
+
     <action name="gen-delete" datasource="accessoriesdb-gen-delete" datasourceevent="querycomplete">
       <if lhs="[var:loaded]" operator="e" rhs="yes">
         <sync>
@@ -5240,16 +5424,16 @@
         </sync>
       </if>
     </action>
-    
+
     <action name="selectaccessory-save">
       <play action="released" />
       <if lhs="[object:ACCESSORYQUANTITY/input.text]" operator="ne" rhs="">
 <!--         <assign property="var:accessoryCount" value="[eval:[var:accessoryCount]+1]" /> -->
-        <assign property="var:accessory-[var:accessoryCount]-Quantity" value="[object:ACCESSORYQUANTITY/input.text]" />			  
+        <assign property="var:accessory-[var:accessoryCount]-Quantity" value="[object:ACCESSORYQUANTITY/input.text]" />
         <assign property="var:accessory-[var:accessoryCount]" value="[datasource:getAccessories.[var:accessorySelected].AccessoryId]" />
         <assign property="var:accessory-[var:accessoryCount]-Name" value="[datasource:getAccessories.[var:accessorySelected].AccessoryName]" />
         <assign property="var:accessory-[var:accessoryCount]-Type" value="[datasource:getAccessories.[var:accessorySelected].AccessoryCategory]" />
-        
+
         <if lhs="[object:ACCESSORYQUANTITY/input.text]" operator="gt" rhs="0">
           <else>
             <play action="accessorydismiss" />
@@ -5264,7 +5448,7 @@
               <alert message="misc accessory" />
             </if>-->
           </else>
-        
+
           <if lhs="[datasource:getAccessories.[var:accessorySelected].AccessoryCategory]" operator="e" rhs="Leak Barrier">
             <assign property="datasource:accessoriesdb-deletelist.query" value="SELECT * FROM ACCESSORIES WHERE TYPE='[datasource:getAccessories.[var:accessorySelected].AccessoryCategory]';" />
             <!--<alert title="1" message="[datasource:getAccessories.[var:accessorySelected].AccessoryCategory]" />-->
@@ -5323,7 +5507,7 @@
         </else>
       </if>
     </action>
-    
+
     <action name="accessorydismiss">
 		  <keyboard visible="no" target="ACCESSORYQUANTITY/input" />
       <translate ypos="18%" time=".25" curve="easeout" target="ACCESSORYLIST" />
@@ -5335,7 +5519,7 @@
         <play action="focus" />
       </sync>
     </action>
-    
+
     <action name="accessoriesdb-insert" datasource="accessoriesdb-delete" datasourceevent="querycomplete">
       <!--<alert message="accessoriesdb-insert" />-->
       <if lhs="[var:loaded]" operator="e" rhs="yes">
@@ -5349,12 +5533,12 @@
         </if>
       </if>
     </action>
-    
+
     <action name="accessoriesdb-complete" datasource="accessoriesdb" datasourceevent="querycomplete" >
 		  <assign property="datasource:accessoriesdb-list.query" value="SELECT * FROM ACCESSORIES ORDER BY ID DESC;" />
 		  <!--<alert title="accessory db total" message="[datasource:accessoriesdb-list.dataSourceResultCount]" />-->
     </action>
-    
+
     <action name="accessoriesdb-list-complete" datasource="accessoriesdb-list" datasourceevent="querycomplete" >
       <sync>
         <!--<alert title="Current Accessory Category" message="[var:cur-acc-cat]" />-->
@@ -5394,7 +5578,7 @@
           <if lhs="[var:cur-ventilation-index]" operator="!=" rhs="[var:prev-ventilation-index]">
             <alpha value="0" time="0" target="ACCESSORIES-PAGER-BOX/pager/accessory[var:cur-ventilation-index]/accessory-btn/test/button" />
             <alpha value="1" time=".2" target="ACCESSORIES-PAGER-BOX/pager/accessory[var:cur-ventilation-index]/accessory-btn/test/selected" />
-            
+
             <if lhs="[eval:('[datasource:getAccessories.[var:cur-ventilation-index].AccessoryName]').indexOf('Cobra')]" operator="gte" rhs="0">
               <if lhs="[eval:('[datasource:getAccessories.[var:cur-ventilation-index].AccessoryName]').indexOf('Hip Vent')]" operator="gte" rhs="0">
                 <!--<alert title="hip vent yes = 0" message="[eval:('[datasource:getAccessories.[var:cur-ventilation-index].AccessoryName]').indexOf('Hip Vent')]" />-->
@@ -5415,7 +5599,7 @@
                 </else>
               </if>
             </if>
-            
+
           </if>
         </if>
         <if lhs="[var:cur-acc-cat]" operator="e" rhs="Ridge Cap">
@@ -5443,12 +5627,12 @@
 	  <assign property="var:accessoryCount" value="[datasource:accessoriesdb-list.dataSourceResultCount]" />
 <!-- 	  <alert message="var:accessoryCount is now [var:accessoryCount], var:accessories is [var:accessories]" /> -->
     </action>
-    
+
     <!-- !options actions -->
     <action name="selectoptions">
       <play action="released" />
     </action>
-    
+
     <!-- !summary -->
     <action name="estimate">
 <!--
@@ -5491,7 +5675,7 @@
         </if>
       </sync>
     </action>
-    
+
     <action name="formatRoofMeasurements" >
       <loop lhs="[var:roofMeasurementsIterateCount]" operator="lte" rhs="[datasource:roofareasdb-list.dataSourceResultCount]" >
       	<assign property="var:roofMeasurementsJSON" value="[var:roofMeasurementsJSON][eval:[var:roofMeasurementsIterateCount] == 1 ? '':','][template:roofMeasurements.content]" />
@@ -5501,7 +5685,7 @@
       <assign property="var:roofMeasurementsObject" value="&quot;RoofMeasurements&quot;: [[var:roofMeasurementsJSON]]" />
       <play action="prepRidgeMeasurements" />
     </action>
-	
+
 		<action name="prepRidgeMeasurements" >
 			<if lhs="[datasource:ridgesdb-list.dataSourceResultCount]" operator="gt" rhs="0">
 				<assign property="var:ridgeMeasurementsIterateCount" value="1" />
@@ -5513,7 +5697,7 @@
 				</else>
 			</if>
 		</action>
-		
+
 		<action name="formatRidgeMeasurements" >
 			<loop lhs="[var:ridgeMeasurementsIterateCount]" operator="lte" rhs="[datasource:ridgesdb-list.dataSourceResultCount]" >
 				<assign property="var:ridgeMeasurementsJSON" value="[var:ridgeMeasurementsJSON][eval:[var:ridgeMeasurementsIterateCount] == 1 ? '':','][template:ridgeMeasurements.content]" />
@@ -5522,7 +5706,7 @@
 			<assign property="var:ridgeMeasurementsObject" value="&quot;RidgeMeasurements&quot;: [[var:ridgeMeasurementsJSON]]" />
 			<play action="prepHips" />
 		</action>
-			
+
 		<action name="prepHips" >
 			<if lhs="[datasource:hipsdb-list.dataSourceResultCount]" operator="gt" rhs="0">
 				<assign property="var:hipsIterateCount" value="1" />
@@ -5534,7 +5718,7 @@
 				</else>
 			</if>
 		</action>
-		
+
 		<action name="formatHips" >
 			<loop lhs="[var:hipsIterateCount]" operator="lte" rhs="[datasource:hipsdb-list.dataSourceResultCount]" >
 				<assign property="var:hipsJSON" value="[var:hipsJSON][eval:[var:hipsIterateCount] == 1 ? '':','][template:hips.content]" />
@@ -5555,7 +5739,7 @@
 				</else>
 			</if>
 		</action>
-		
+
 		<action name="formatValleys" >
 			<loop lhs="[var:valleysIterateCount]" operator="lte" rhs="[datasource:valleysdb-list.dataSourceResultCount]" >
 				<assign property="var:valleysJSON" value="[var:valleysJSON][eval:[var:valleysIterateCount] == 1 ? '':','][template:valleys.content]" />
@@ -5576,7 +5760,7 @@
 				</else>
 			</if>
 		</action>
-		
+
 		<action name="formatRakes" >
 			<loop lhs="[var:rakesIterateCount]" operator="lte" rhs="[datasource:rakesdb-list.dataSourceResultCount]" >
 				<assign property="var:rakesJSON" value="[var:rakesJSON][eval:[var:rakesIterateCount] == 1 ? '':','][template:rakes.content]" />
@@ -5597,7 +5781,7 @@
 				</else>
 			</if>
 		</action>
-		
+
 		<action name="formatEaves" >
 			<loop lhs="[var:eavesIterateCount]" operator="lte" rhs="[datasource:eavesdb-list.dataSourceResultCount]" >
 				<assign property="var:eavesJSON" value="[var:eavesJSON][eval:[var:eavesIterateCount] == 1 ? '':','][template:eaves.content]" />
@@ -5618,7 +5802,7 @@
 				</else>
 			</if>
 		</action>
-		
+
 		<action name="formatSkylights" >
 			<loop lhs="[var:skylightsIterateCount]" operator="lte" rhs="[datasource:protrusionsdb-list.dataSourceResultCount]" >
 				<assign property="var:skylightsJSON" value="[var:skylightsJSON][eval:[var:skylightsIterateCount] == 1 ? '':','][template:skylights.content]" />
@@ -5627,7 +5811,7 @@
 			<assign property="var:skylightsObject" value="&quot;Skylights&quot;: [[var:skylightsJSON]]" />
 			<play action="prepPlumbingVents" />
 		</action>
-		
+
 		<action name="prepPlumbingVents" >
 			<if lhs="[datasource:ventsdb-list.dataSourceResultCount]" operator="gt" rhs="0">
 				<assign property="var:plumbingVentsIterateCount" value="1" />
@@ -5639,7 +5823,7 @@
 				</else>
 			</if>
 		</action>
-		
+
 		<action name="formatPlumbingVents" >
 			<loop lhs="[var:plumbingVentsIterateCount]" operator="lte" rhs="[datasource:ventsdb-list.dataSourceResultCount]" >
 				<assign property="var:plumbingVentsJSON" value="[var:plumbingVentsJSON][eval:[var:plumbingVentsIterateCount] == 1 ? '':','][template:plumbingVents.content]" />
@@ -5656,7 +5840,7 @@
 			<assign property="datasource:updateMeasurements.source" value="https://162.209.101.177/api/UpdateMeasurements" />
 <!-- 			<email subject="measurements" body="measurements\n\n[var:measurementsJSON]" toaddress="mlong@rarewire.com" /> -->
 		</action>
-		
+
 		<action name="updateMeasurements-complete" datasource="updateMeasurements" datasourceevent="querycomplete" >
 			<if lhs="[datasource:updateMeasurements.1.ResponseCode]" operator="e" rhs="100">
 <!-- 				<alert message="updateMeasurements-complete content [datasource:updateMeasurements.0.content]" /> -->
@@ -5687,7 +5871,7 @@
 				  </else>
 			</if>
 		</action>
-	
+
 		<action name="updateMeasurements-error" datasource="updateMeasurements" datasourceevent="datasourceerror" >
 				<assign property="var:measurementsJSON" value="" />
 				<assign property="var:roofMeasurementsJSON" value="" />
@@ -5700,7 +5884,7 @@
 				<assign property="var:plumbingVentsJSON" value="" />
 			<alert title="Network Error" message="There was a problem connecting to the server.  Please check your network connection and try again." />
 		</action>
-		
+
 		<!-- !prepPhotos -->
 		<action name="prepPhotos">
 			<assign property="var:photoCount" value="[datasource:photosdb-list.dataSourceResultCount]" />
@@ -5717,7 +5901,7 @@
 				</else>
 			</if>
 		</action>
-		
+
 		<action name="upload-photo" >
 			<if lhs="[var:photoIterateCount]" operator="lte" rhs="[var:photoCount]">
 				<assign property="object:UPLOAD-CURTAIN/photo-progress.text" value="Uploading Photo [var:photoIterateCount]" />
@@ -5731,7 +5915,7 @@
 				</else>
 			</if>
 		</action>
-		
+
 		<action name="photoupload-complete" datasource="uploadPhoto" datasourceevent="querycomplete" >
 <!-- 				<alert message="upload [var:photoIterateCount] complete [datasource:uploadPhoto.0.content]" /> -->
 <!-- 			<if lhs="[datasource:uploadPhoto.0.content]" operator="e" rhs="100"> -->
@@ -5742,7 +5926,7 @@
 		<action name="photoupload-error" datasource="uploadPhoto" datasourceevent="datasourceerror" >
 			<alert title="Network Error" message="There was a problem connecting to the server.  Please check your network connection and try again." />
 		</action>
-		
+
 		<!-- !formatEstimate -->
 		<action name="formatEstimate" >
 			<if lhs="[datasource:productsdb-list.dataSourceResultCount]" operator="gt" rhs="0">
@@ -5768,7 +5952,7 @@
 				</else>
 			</if>
 		</action>
-    
+
 		<action name="formatAccessories" >
 <!-- 			<alert message="formatAccessories var:accessoriesIterateCount is [var:accessoriesIterateCount] datasource:accessoriesdb-list.dataSourceResultCount is [datasource:accessoriesdb-list.dataSourceResultCount]" /> -->
 			<loop lhs="[var:accessoriesIterateCount]" operator="lte" rhs="[datasource:nonMiscAccessoriesdb-list.dataSourceResultCount]" >
@@ -5793,7 +5977,7 @@
 				</else>
 			</if>
 		</action>
-    
+
 		<action name="formatMiscAccessories" >
 <!-- 			<alert message="formatMiscAccessories var:miscAccessoriesIterateCount is [var:miscAccessoriesIterateCount] datasource:miscAccessoriesdb-list.dataSourceResultCount is [datasource:miscAccessoriesdb-list.dataSourceResultCount]" /> -->
 			<loop lhs="[var:miscAccessoriesIterateCount]" operator="lte" rhs="[datasource:miscAccessoriesdb-list.dataSourceResultCount]" >
@@ -5817,7 +6001,7 @@
 				</else>
 			</if>
 		</action>
-    
+
 		<action name="formatAdjustments" >
 <!-- 			<alert message="formatAdjustments" /> -->
 			<loop lhs="[var:adjustmentsIterateCount]" operator="lte" rhs="[datasource:adjustmentsdb-list.dataSourceResultCount]" >
@@ -5828,14 +6012,14 @@
 <!-- 			<alert message="var:accessoriesJSON is [var:accessoriesJSON] var:adjustmentsJSON is [var:adjustmentsJSON]" /> -->
 			<play action="finishEstimate" />
 		</action>
-		
+
 		<action name="finishEstimate" >
 			<assign property="var:estimateJSON" value="[template:estimateJSON.content]" />
 			<assign property="datasource:generateEstimate.postContent" value="[var:estimateJSON]" />
 			<assign property="datasource:generateEstimate.source" value="https://162.209.101.177/api/GenerateEstimate" />
       <!-- <email subject="estimate and measurements json" body="estimate\n\n[var:estimateJSON]" toaddress="dwalruff@rarewire.com" /> -->
 		</action>
-		
+
 		<action name="estimate-complete" datasource="generateEstimate" datasourceevent="querycomplete">
 			<assign property="object:UPLOAD-CURTAIN/photo-progress.text" value="Retrieving Estimate..." />
 			<assign property="var:estimateJSON" value="" />
@@ -5862,19 +6046,19 @@
 			<assign property="var:adjustmentsJSON" value="" />
 			<alert title="Network Error" message="There was a problem connecting to the server.  Please check your network connection and try again." />
 		</action>
-		
+
 		<action name="download-pdf">
 <!-- 			<assign property="datasource:getEstimatePdf.source" value="https://162.209.101.177/api/GetEstimatePdf?CustomerId=219" /> -->
 <!-- 			<alert message="download-pdf" /> -->
 			<download url="https://162.209.101.177/api/GetEstimatePdf?CustomerId=[var:customerId]" filename="estimate.pdf" authenticate="getEstimatePdf" downloadcomplete="file-downloaded" />
 <!-- 			<alert message="downloading pdf url is https://162.209.101.177/api/GetEstimatePdf?CustomerId=[var:customerId]" /> -->
 		</action>
-		
+
 <!--
 		<action name="getEstimatePdf-complete" datasource="getEstimatePdf" datasourceevent="querycomplete" >
 			<alert message="getEstimatePdf complete" />
 		</action>
-		
+
 -->
 		<action name="file-downloaded" >
 			<alpha value="0" target="UPLOAD-CURTAIN" />
@@ -5885,7 +6069,7 @@
 
 		<action name="sendestimate" >
 			<email subject="Your Estimate" body="Here is your estimate" toaddress="" attachment="estimate.pdf" mimetype="application/pdf" />
-		</action>		
+		</action>
 
 		<action name="closepdf" >
 			<sync>
@@ -5905,7 +6089,7 @@
         <assign property="var:curtainaction" value="hide-usermenu" />
       </sync>
     </action>
-    
+
     <action name="hide-usermenu">
       <sync>
         <alpha value="0" time=".25" target="PROFILEMENU" />
@@ -5913,13 +6097,13 @@
         <assign property="var:curtainaction" value="null" />
       </sync>
     </action>
-    
+
     <!-- !cancel estimate -->
     <action name="cancel-est">
       <play action="hide-usermenu" />
       <alert title="End this estimate?" message="Are you sure you want to end this estimate? If you have not completed your estimate all information entered will be lost." buttononetitle="Cancel" buttononeaction="null" buttontwotitle="Yes, end it." buttontwoaction="confirm-cancel"/>
     </action>
-    
+
     <action name="confirm-cancel">
       <assign property="var:loaded" value="no" />
       <play action="clear-dbs" />
@@ -5934,7 +6118,7 @@
 		  <create class="choice" target="CONTAINER" />
 		  <play action="resetblockers" />
     </action>
-    
+
     <!-- !logout -->
     <action name="logout">
       <play action="hide-usermenu" />
@@ -5956,12 +6140,12 @@
 		  <play action="resetblockers" />
       <!--       <alert message="this would be the logic to log out the user" /> -->
     </action>
-    
+
     <action name="resetblockers">
       <translate xpos="128" curve="linear" target="STEP-NAVBLOCK" />
       <translate ypos="65" curve="linear" target="PRODUCTS-STEP-BLOCKER" />
     </action>
-    
+
     <action name="clear-dbs" >
       <sync>
       	<assign property="datasource:customersdb-delete.query" value="DELETE FROM CUSTOMERS;" />
@@ -5984,7 +6168,7 @@
       	<assign property="datasource:plywooddb-delete.query" value="DELETE FROM PLYWOOD;" />
       </sync>
     </action>
-	
+
     <action name="clear-data" >
       <assign property="var:customerCreated" value="" />
       <assign property="var:warranty-set" value="no" />
@@ -6068,8 +6252,9 @@
       <assign property="var:shingle-col" value="var:shingle-col" />
       <assign property="var:shingle-row" value="var:shingle-row" />
       <assign property="var:warrantycheck" value="" />
+      <assign property="var:plywoodsave-index" value="" />
     </action>
-    
+
     <action name="clear-var" >
 		<assign property="var:customerCreated" value="" />
 	    <assign property="var:warranty-set" value="no" />
@@ -6144,6 +6329,7 @@
       <assign property="var:shingle-col" value="var:shingle-col" />
       <assign property="var:shingle-row" value="var:shingle-row" />
       <assign property="var:warrantycheck" value="" />
+      <assign property="var:plywoodsave-index" value="" />
     </action>
 
     <!-- !delete actions -->
@@ -6158,7 +6344,7 @@
         <alert title="Delete _target" message="Are you sure?" buttononetitle="Yes" buttononeaction="confirm-delete" buttontwotitle="No" buttontwoaction="null"/>
       </sync>
     </action>
-    
+
     <action name="confirm-delete">
       <sync>
         <if lhs="[var:[var:indexname]]" operator="e" rhs="2"><!-- deletes spacer from pager -->
@@ -6179,7 +6365,7 @@
         </if>
       </sync>
     </action>
-    
+
     <!-- !delete chimneys and skylights actions -->
     <action name="delete-chimney-item">
       <sync>
@@ -6189,13 +6375,13 @@
         <assign property="var:deleteindex" value="_index" />
         <assign property="var:parent" value="_parent" /><!-- parent of delete button -->
         <assign property="var:section" value="_section" /><!-- section that the item that is being deleted is in -->
-        
+
         <assign property="var:delete-protrusiontype" value="_protrusiontype" /><!-- Non-main incrementing var name -->
         <assign property="var:protrusiontype-index" value="_protrusiontype-index" /><!-- Non main index -->
         <alert title="Delete _target" message="Are you sure?" buttononetitle="Yes" buttononeaction="confirm-chimney-delete" buttontwotitle="No" buttontwoaction="null"/>
       </sync>
     </action>
-    
+
     <action name="confirm-chimney-delete">
       <sync>
         <if lhs="[var:[var:indexname]]" operator="e" rhs="2"><!-- deletes spacer from pager -->
@@ -6219,7 +6405,7 @@
         </if>
       </sync>
     </action>
-    
+
     <!-- !adjustments actions  discounts and additional costs -->
     <action name="delete-adjustment-item">
       <sync>
@@ -6229,13 +6415,13 @@
         <assign property="var:deleteindex" value="_index" />
         <assign property="var:parent" value="_parent" /><!-- parent of delete button -->
         <assign property="var:section" value="_section" /><!-- section that the item that is being deleted is in -->
-        
+
         <assign property="var:delete-adjustmenttype" value="_adjustmenttype" /><!-- Non-main incrementing var name -->
         <assign property="var:adjustmenttype-index" value="_adjustmenttype-index" /><!-- Non main index -->
         <alert title="Delete _target" message="Are you sure?" buttononetitle="Yes" buttononeaction="confirm-adjustment-delete" buttontwotitle="No" buttontwoaction="null"/>
       </sync>
     </action>
-    
+
     <action name="confirm-adjustment-delete">
       <sync>
         <if lhs="[var:[var:indexname]]" operator="e" rhs="2"><!-- deletes spacer from pager -->
@@ -6259,7 +6445,7 @@
         </if>
       </sync>
     </action>
-    
+
     <!-- delete plumbing vents -->
     <action name="delete-vent">
       <sync>
@@ -6270,7 +6456,7 @@
         <alert title="Delete _label" message="Are you sure?" buttononetitle="Yes" buttononeaction="confirm-delete-vent" buttontwotitle="No" buttontwoaction="null"/>
       </sync>
     </action>
-    
+
     <action name="confirm-delete-vent">
       <delete target="[var:deleteVentTarget]" />
       <set onclickup="[var:ventAction]" target="VENTMENU/[var:ventActionTarget]" />
@@ -6279,7 +6465,45 @@
         <!--<alert message="[var:parent][eval: [var:[var:indexname]] - 1]/deletebox" />-->
       </if>
     </action>
-    
+
+    <!-- !plywood delete actions -->
+    <action name="plywood-delete-item">
+      <sync>
+        <assign property="var:deletetarget" value="_target" />
+        <assign property="var:indexname" value="_indexname" />
+        <assign property="var:spacername" value="_spacername" />
+        <assign property="var:deleteindex" value="_index" />
+        <assign property="var:parent" value="_parent" />
+        <assign property="var:section" value="_section" />
+        <assign property="var:resetonclickup" value="_reset" />
+        <assign property="var:plywoodActionTarget" value="_resettarget" />
+        <alert title="Delete _target" message="Are you sure?" buttononetitle="Yes" buttononeaction="plywood-confirm-delete" buttontwotitle="No" buttontwoaction="null"/>
+      </sync>
+    </action>
+
+    <action name="plywood-confirm-delete">
+      <sync>
+        <if lhs="[var:[var:indexname]]" operator="e" rhs="2"><!-- deletes spacer from pager -->
+          <delete target="ROOF-SPACER-[var:spacername]-2" />
+          <assign property="var:[spacername]spacerindex" value="1" />
+          <else>
+            <delete target="ROOF-SPACER-[var:spacername]-[var:[var:indexname]]" />
+          </else>
+        </if>
+        <delete target="[var:deletetarget]" /><!-- deletes actual item -->
+        <set onclickup="[var:resetonclickup]" target="PLYWOODMENU/[var:plywoodActionTarget]" />
+        <!--<alert title="[var:resetonclickup]" message="[var:plywoodActionTarget]" />-->
+        <if lhs="[var:[var:indexname]]" operator="gte" rhs="1"><!-- alphas on the delete button in last item in pager -->
+          <alpha value="1" time=".1" target="[var:parent][eval: [var:[var:indexname]] - 1]/deletebox" />
+        </if>
+        <assign property="var:[var:indexname]" value="[eval: [var:[var:indexname]] - 1 ]" /><!-- decrements index to reflect item has been deleted -->
+        <if lhs="[var:[var:indexname]]" operator="gt" rhs="1"><!-- creates new spacer at the end with proper index -->
+          <create class="roof-spacer" index="[var:[var:indexname]]" name="[var:spacername]" target="ROOF-[var:section]/roofpagerbox/pager" />
+          <assign property="var:[spacername]spacerindex" value="[var:[var:indexname]]" />
+        </if>
+      </sync>
+    </action>
+
     <!-- Delete photos -->
     <action name="delete-photo">
       <sync>
@@ -6287,19 +6511,19 @@
         <alert title="Delete Photo" message="Are you sure you want to delete this photo?" buttononetitle="Yes" buttononeaction="confirm-delete-photo" buttontwotitle="No" buttontwoaction="null" />
       </sync>
     </action>
-    
+
     <action name="confirm-delete-photo">
       <assign property="datasource:photosdb-delete.query" value="DELETE FROM PHOTOS WHERE ID='[var:photo-index]';" />
       <!--<alert title="Deleting this photo" message="[var:photo-index]" />-->
     </action>
-    
+
     <action name="photo-deleted" datasource="photosdb-delete" datasourceevent="querycomplete">
       <if lhs="[var:loaded]" operator="e" rhs="yes">
         <assign property="datasource:photosdb-list.query" value="SELECT * FROM PHOTOS;" />
         <!--<alert message="[datasource:photosdb-list.dataSourceResultCount]" />-->
       </if>
     </action>
-    
+
     <action name="photo-list" datasource="photosdb-list" datasourceevent="querycomplete">
       <if lhs="[var:loaded]" operator="e" rhs="yes">
         <!--<alert title="list complete" message="[datasource:photosdb-list.dataSourceResultCount]" />-->
@@ -6308,25 +6532,25 @@
         </if>
       </if>
     </action>
-    
+
     <!-- !roof save modal -->
     <action name="roof-saving-modal">
       <alpha value="1" time=".15" target="ROOF-SAVE-MODAL" />
     </action>
-    
+
     <action name="roof-saving-modal-hide">
       <alpha value="0" delay=".3" time=".15" target="ROOF-SAVE-MODAL" />
     </action>
-    
+
     <!-- !tearoff required -->
     <action name="warranty-message">
       <alert message="The warranty you have selected requires tear off." />
     </action>
-    
+
     <action name="warranty-select-message">
       <alert title="You changed your shingle selection" message="Please select a new warranty." />
     </action>
-    
+
     <action name="tearoff-go">
       <sync>
         <if lhs="[object:LAYERS/input.text]" operator="ne" rhs="">
@@ -6337,32 +6561,95 @@
         </if>
       </sync>
     </action>
-    
-    <!-- !fake saving for services -->
+
+    <!-- !saving for services -->
     <action name="save-fake-service">
       <play action="released" />
-      <alpha value="1" time=".1" target="SERVICES-SIDEBAR-PAGER/[var:servicesarrow]/saved-check" />
+      <if lhs="[var:servicesarrow]" operator="e" rhs="Plywood Sheathing">
+        <play action="plywood-predelete" />
+        <play action="roof-saving-modal" />
+        <else>
+          <alpha value="1" time=".1" target="SERVICES-SIDEBAR-PAGER/[var:servicesarrow]/saved-check" />
+        </else>
+      </if>
     </action>
-    
+
+    <action name="plywood-predelete">
+      <sync>
+        <if lhs="[datasource:plywooddb-list.dataSourceResultCount]" operator="gt" rhs="0">
+          <assign property="datasource:plywooddb-delete.query" value="DELETE FROM PLYWOOD;" />
+          <!--<alert message="from the if and deleting [datasource:inspectiondb-list.dataSourceResultCount]" />-->
+          <else>
+            <if lhs="[var:plywoodindex]" operator="gte" rhs="1">
+              <play action="plywoodsave-loop" />
+              <else>
+                <alert message="Nothing to save" />
+              </else>
+            </if>
+          </else>
+        </if>
+      </sync>
+    </action>
+
+    <action name="plywoodsave-loop" datasource="plywooddb-delete" datasourceevent="querycomplete">
+      <if lhs="[var:loaded]" operator="e" rhs="yes">
+        <if lhs="[var:plywoodindex]" operator="gt" rhs="0">
+          <sync>
+            <assign property="var:plywoodsave-index" value="[eval: [var:plywoodsave-index] + 1]" />
+            <play action="plywoodsave-save" />
+          </sync>
+          <else>
+            <play action="roof-saving-modal-hide" />
+            <alert title="Incomplete Form" message="Please fill out all fields" />
+          </else>
+        </if>
+      </if>
+    </action>
+
+    <action name="plywoodsave-save">
+      <sync>
+        <assign property="datasource:plywooddb.query" value="INSERT INTO PLYWOOD (WOOD, MEASUREMENT, QUANTITY) VALUES ('[object:PLYWOODTYPE[var:plywoodsave-index]/hidden.text]', '[object:MEASUREMENT[var:plywoodsave-index]/hidden.text]', '[object:QUANTITY[var:plywoodsave-index]/input.text]');" />
+      </sync>
+    </action>
+
+    <action name="plywood-query" datasource="plywooddb" datasourceevent="querycomplete">
+      <if lhs="[var:loaded]" operator="e" rhs="yes">
+        <if lhs="[var:plywoodsave-index]" operator="lt" rhs="[var:plywoodindex]">
+          <play action="plywoodsave-loop" />
+          <else>
+            <assign property="datasource:plywooddb-list.query" value="SELECT * FROM PLYWOOD;" />
+            <play action="roof-saving-modal-hide" />
+            <alpha value="1" time=".1" target="SERVICES-SIDEBAR-PAGER/[var:servicesarrow]/saved-check" />
+          </else>
+        </if>
+      </if>
+    </action>
+
+    <!--<action name="plywood-count" datasource="plywooddb-list" datasourceevent="querycomplete">
+      <if lhs="[var:loaded]" operator="e" rhs="yes">
+        <alert title="plywood saved 1" message="[datasource:plywooddb-list.1.WOOD] [datasource:plywooddb-list.1.MEASUREMENT] [datasource:plywooddb-list.1.QUANTITY]" />
+      </if>
+    </action>-->
+
     <!-- !curtain action -->
     <action name="curtainaction">
       <play action="[var:curtainaction]" />
     </action>
-    
+
     <action name="clearcurtain">
       <alpha value="1" target="CURTAIN" />
     </action>
-    
+
     <action name="hideclearcurtain">
       <alpha value="0" target="CURTAIN" />
     </action>
-    
+
     <action name="blur">
       <alpha value="1" time=".25" target="CURTAIN" />
       <blur time=".25" radius=".5" quality="90" matte="#ffffff" target="CONTAINER" />
       <alpha value=".4" time=".25" target="CURTAIN/color" />
     </action>
-    
+
     <action name="focus">
       <alpha value="0" time=".25" target="CURTAIN" />
       <focus time=".25" target="CONTAINER" />
@@ -6374,7 +6661,7 @@
         <alert title="Input Error" message="Please only enter numeric values [eval:[object:text].slice(-1);]" />
       </if>
     </action>
-    
+
     <action name="roof-isNaN">
       <!--<if lhs="[var:warranty-set]" operator="e" rhs="yes">
         <play action="product-reset" />
@@ -6392,14 +6679,14 @@
         <alert title="Input Error" message="Please only enter numeric values [eval:[object:text].slice(-1);]" />
       </if>
     </action>
-    
+
     <action name="roof-change">
       <sync>
         <alpha value="0" time=".1" target="ROOF-SIDEBAR-PAGER/[var:roofarrow]/saved-check" />
         <alpha value="1" time=".1" target="ROOF-SIDEBAR-PAGER/[var:roofarrow]/required" />
       </sync>
     </action>
-    
+
     <action name="product-reset">
       <sync>
         <assign property="var:warranty-set" value="no" />
@@ -6414,7 +6701,7 @@
   	    <play action="reset-accessory-vars" />
       </sync>
     </action>
-    
+
     <action name="null"></action>
 
 <!--
