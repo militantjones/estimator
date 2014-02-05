@@ -1354,22 +1354,57 @@
           <panel name="check" width="0" height="0" align="center" valign="center" background="#ed1c24" cornerradius="20" alpha="1" ></panel>
         </panel>
         <text name="checklabel" width="150" height="50" ypos="10" rightof="landscaping" style="darktext" size="20" leftinset="10" alignment="left" text="Landscaping"></text>
+        <panel name="landscapePrice" alias="LANDSCAPEPRICE" width="226" height="50" ypos="10" align="right" style="textinput" alpha="0">
+          <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
+          <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Cost"></text>
+          <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null" onchange="isNaN"></textfield>
+          <panel name="active" style="100" onclickup="labelactive" _field="LANDSCAPEPRICE"></panel>
+        </panel>
+
         <panel name="hardscaping" alias="HARDSCAPING" width="50" height="50" align="left" bottomof="landscaping" margin-top="10" background="f3f3f3" cornerradius="25" borderwidth="1" bordercolor="#888888" clip="yes" onclickup="checkon" _action="hardscaping">
           <panel name="check" width="0" height="0" align="center" valign="center" background="#ed1c24" cornerradius="20" alpha="1" ></panel>
         </panel>
         <text name="checklabel" width="150" height="50" bottomof="landscaping" margin-top="10" rightof="hardscaping" style="darktext" size="20" leftinset="10" alignment="left" text="Hardscaping"></text>
+        <panel name="hardscapePrice" alias="HARDSCAPEPRICE" width="226" height="50" bottomof="landscaping" margin-top="10" align="right" style="textinput" alpha="0">
+          <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
+          <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Cost"></text>
+          <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null" onchange="isNaN"></textfield>
+          <panel name="active" style="100" onclickup="labelactive" _field="HARDSCAPEPRICE"></panel>
+        </panel>
+
         <panel name="hvac" alias="HVAC" width="50" height="50" align="left" bottomof="hardscaping" margin-top="10" background="f3f3f3" cornerradius="25" borderwidth="1" bordercolor="#888888" clip="yes" onclickup="checkon" _action="hvac">
           <panel name="check" width="0" height="0" align="center" valign="center" background="#ed1c24" cornerradius="20" alpha="1" ></panel>
         </panel>
         <text name="checklabel" width="150" height="50" bottomof="hardscaping" margin-top="10" rightof="hvac" style="darktext" size="20" leftinset="10" alignment="left" text="HVAC"></text>
+        <panel name="hvacPrice" alias="HVACPRICE" width="226" height="50" bottomof="hardscaping" margin-top="10" align="right" style="textinput" alpha="0">
+          <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
+          <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Cost"></text>
+          <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null" onchange="isNaN"></textfield>
+          <panel name="active" style="100" onclickup="labelactive" _field="HVACPRICE"></panel>
+        </panel>
+
         <panel name="pool" alias="POOL" width="50" height="50" align="left" bottomof="hvac" margin-top="10" background="f3f3f3" cornerradius="25" borderwidth="1" bordercolor="#888888" clip="yes" onclickup="checkon" _action="pool">
           <panel name="check" width="0" height="0" align="center" valign="center" background="#ed1c24" cornerradius="20" alpha="1" ></panel>
         </panel>
         <text name="checklabel" width="150" height="50" bottomof="hvac" margin-top="10" rightof="pool" style="darktext" size="20" leftinset="10" alignment="left" text="Pool"></text>
+        <panel name="poolPrice" alias="POOLPRICE" width="226" height="50" bottomof="hvac" margin-top="10" align="right" style="textinput" alpha="0">
+          <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
+          <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Cost"></text>
+          <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null" onchange="isNaN"></textfield>
+          <panel name="active" style="100" onclickup="labelactive" _field="POOLPRICE"></panel>
+        </panel>
+
         <panel name="misc" alias="MISC" width="50" height="50" align="left" bottomof="pool" margin-top="10" background="f3f3f3" cornerradius="25" borderwidth="1" bordercolor="#888888" clip="yes" onclickup="checkon" _action="misc">
           <panel name="check" width="0" height="0" align="center" valign="center" background="#ed1c24" cornerradius="20" alpha="1" ></panel>
         </panel>
         <text name="checklabel" width="150" height="50" bottomof="pool" margin-top="10" rightof="misc" style="darktext" size="20" leftinset="10" alignment="left" text="Misc"></text>
+        <panel name="miscPrice" alias="MISCPRICE" width="226" height="50" bottomof="pool" margin-top="10" align="right" style="textinput" alpha="0">
+          <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
+          <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Cost"></text>
+          <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null" onchange="isNaN"></textfield>
+          <panel name="active" style="100" onclickup="labelactive" _field="MISCPRICE"></panel>
+        </panel>
+
         <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
       </panel>
     </class><!-- <object class="assetprotection" /> -->
@@ -2871,23 +2906,53 @@
     </action>
 
     <action name="landscaping">
-      <assign property="var:landscaping" value="[eval: ('[var:landscaping]' == 'no' ? 'yes' : 'no')]" />
+      <sync>
+        <assign property="var:landscaping" value="[eval: ('[var:landscaping]' == 'no' ? 'yes' : 'no')]" />
+        <alpha value="[eval: ('[var:landscaping]' == 'no' ? '0' : '1')]" time=".25" target="LANDSCAPEPRICE" />
+        <if lhs="[var:landscaping]" operator="e" rhs="no">
+          <assign property="object:LANDSCAPEPRICE/input.text" value="" />
+        </if>
+      </sync>
     </action>
 
     <action name="hardscaping">
-      <assign property="var:hardscaping" value="[eval: ('[var:hardscaping]' == 'no' ? 'yes' : 'no')]" />
+      <sync>
+        <assign property="var:hardscaping" value="[eval: ('[var:hardscaping]' == 'no' ? 'yes' : 'no')]" />
+        <alpha value="[eval: ('[var:hardscaping]' == 'no' ? '0' : '1')]" time=".25" target="HARDSCAPEPRICE" />
+        <if lhs="[var:hardscaping]" operator="e" rhs="no">
+          <assign property="object:HARDSCAPEPRICE/input.text" value="" />
+        </if>
+      </sync>
     </action>
 
     <action name="hvac">
-      <assign property="var:hvac" value="[eval: ('[var:hvac]' == 'no' ? 'yes' : 'no')]" />
+      <sync>
+        <assign property="var:hvac" value="[eval: ('[var:hvac]' == 'no' ? 'yes' : 'no')]" />
+        <alpha value="[eval: ('[var:hvac]' == 'no' ? '0' : '1')]" time=".25" target="HVACPRICE" />
+        <if lhs="[var:hvac]" operator="e" rhs="no">
+          <assign property="object:HVACPRICE/input.text" value="" />
+        </if>
+      </sync>
     </action>
 
     <action name="pool">
-      <assign property="var:pool" value="[eval: ('[var:pool]' == 'no' ? 'yes' : 'no')]" />
+      <sync>
+        <assign property="var:pool" value="[eval: ('[var:pool]' == 'no' ? 'yes' : 'no')]" />
+        <alpha value="[eval: ('[var:pool]' == 'no' ? '0' : '1')]" time=".25" target="POOLPRICE" />
+        <if lhs="[var:pool]" operator="e" rhs="no">
+          <assign property="object:POOLPRICE/input.text" value="" />
+        </if>
+      </sync>
     </action>
 
     <action name="misc">
-      <assign property="var:misc" value="[eval: ('[var:misc]' == 'no' ? 'yes' : 'no')]" />
+      <sync>
+        <assign property="var:misc" value="[eval: ('[var:misc]' == 'no' ? 'yes' : 'no')]" />
+        <alpha value="[eval: ('[var:misc]' == 'no' ? '0' : '1')]" time=".25" target="MISCPRICE" />
+        <if lhs="[var:misc]" operator="e" rhs="no">
+          <assign property="object:MISCPRICE/input.text" value="" />
+        </if>
+      </sync>
     </action>
 
     <!-- !search actions -->
