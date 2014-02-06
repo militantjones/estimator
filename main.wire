@@ -123,6 +123,11 @@
     <datasource name="adjustmentsdb" source="sql://ADJUSTMENTS" query="CREATE TABLE IF NOT EXISTS ADJUSTMENTS (ID INTEGER PRIMARY KEY AUTOINCREMENT, TYPE, UNITS, AMOUNT, NOTES);" providertype="sql" />
     <datasource name="adjustmentsdb-list" source="sql://ADJUSTMENTS" query="SELECT * FROM ADJUSTMENTS ORDER BY ID DESC;" providertype="sql" />
     <datasource name="adjustmentsdb-delete" source="sql://ADJUSTMENTS" query="" providertype="sql" />
+    <datasource name="adjustmentsdb-landscape" source="sql://ADJUSTMENTS" query="" providertype="sql" />
+    <datasource name="adjustmentsdb-hardscape" source="sql://ADJUSTMENTS" query="" providertype="sql" />
+    <datasource name="adjustmentsdb-hvac" source="sql://ADJUSTMENTS" query="" providertype="sql" />
+    <datasource name="adjustmentsdb-pool" source="sql://ADJUSTMENTS" query="" providertype="sql" />
+    <datasource name="adjustmentsdb-misc" source="sql://ADJUSTMENTS" query="" providertype="sql" />
 
 	<!-- !TEXTTEMPLATES -->
 	<texttemplate name="login"><![CDATA[{"UserName":"[var:username]","Password":"[var:password]"}]]></texttemplate>
@@ -1354,22 +1359,57 @@
           <panel name="check" width="0" height="0" align="center" valign="center" background="#ed1c24" cornerradius="20" alpha="1" ></panel>
         </panel>
         <text name="checklabel" width="150" height="50" ypos="10" rightof="landscaping" style="darktext" size="20" leftinset="10" alignment="left" text="Landscaping"></text>
+        <panel name="landscapePrice" alias="LANDSCAPEPRICE" width="226" height="50" ypos="10" align="right" style="textinput" alpha="0">
+          <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
+          <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Cost"></text>
+          <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null" onchange="isNaN"></textfield>
+          <panel name="active" style="100" onclickup="labelactive" _field="LANDSCAPEPRICE"></panel>
+        </panel>
+
         <panel name="hardscaping" alias="HARDSCAPING" width="50" height="50" align="left" bottomof="landscaping" margin-top="10" background="f3f3f3" cornerradius="25" borderwidth="1" bordercolor="#888888" clip="yes" onclickup="checkon" _action="hardscaping">
           <panel name="check" width="0" height="0" align="center" valign="center" background="#ed1c24" cornerradius="20" alpha="1" ></panel>
         </panel>
         <text name="checklabel" width="150" height="50" bottomof="landscaping" margin-top="10" rightof="hardscaping" style="darktext" size="20" leftinset="10" alignment="left" text="Hardscaping"></text>
+        <panel name="hardscapePrice" alias="HARDSCAPEPRICE" width="226" height="50" bottomof="landscaping" margin-top="10" align="right" style="textinput" alpha="0">
+          <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
+          <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Cost"></text>
+          <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null" onchange="isNaN"></textfield>
+          <panel name="active" style="100" onclickup="labelactive" _field="HARDSCAPEPRICE"></panel>
+        </panel>
+
         <panel name="hvac" alias="HVAC" width="50" height="50" align="left" bottomof="hardscaping" margin-top="10" background="f3f3f3" cornerradius="25" borderwidth="1" bordercolor="#888888" clip="yes" onclickup="checkon" _action="hvac">
           <panel name="check" width="0" height="0" align="center" valign="center" background="#ed1c24" cornerradius="20" alpha="1" ></panel>
         </panel>
         <text name="checklabel" width="150" height="50" bottomof="hardscaping" margin-top="10" rightof="hvac" style="darktext" size="20" leftinset="10" alignment="left" text="HVAC"></text>
+        <panel name="hvacPrice" alias="HVACPRICE" width="226" height="50" bottomof="hardscaping" margin-top="10" align="right" style="textinput" alpha="0">
+          <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
+          <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Cost"></text>
+          <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null" onchange="isNaN"></textfield>
+          <panel name="active" style="100" onclickup="labelactive" _field="HVACPRICE"></panel>
+        </panel>
+
         <panel name="pool" alias="POOL" width="50" height="50" align="left" bottomof="hvac" margin-top="10" background="f3f3f3" cornerradius="25" borderwidth="1" bordercolor="#888888" clip="yes" onclickup="checkon" _action="pool">
           <panel name="check" width="0" height="0" align="center" valign="center" background="#ed1c24" cornerradius="20" alpha="1" ></panel>
         </panel>
         <text name="checklabel" width="150" height="50" bottomof="hvac" margin-top="10" rightof="pool" style="darktext" size="20" leftinset="10" alignment="left" text="Pool"></text>
+        <panel name="poolPrice" alias="POOLPRICE" width="226" height="50" bottomof="hvac" margin-top="10" align="right" style="textinput" alpha="0">
+          <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
+          <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Cost"></text>
+          <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null" onchange="isNaN"></textfield>
+          <panel name="active" style="100" onclickup="labelactive" _field="POOLPRICE"></panel>
+        </panel>
+
         <panel name="misc" alias="MISC" width="50" height="50" align="left" bottomof="pool" margin-top="10" background="f3f3f3" cornerradius="25" borderwidth="1" bordercolor="#888888" clip="yes" onclickup="checkon" _action="misc">
           <panel name="check" width="0" height="0" align="center" valign="center" background="#ed1c24" cornerradius="20" alpha="1" ></panel>
         </panel>
         <text name="checklabel" width="150" height="50" bottomof="pool" margin-top="10" rightof="misc" style="darktext" size="20" leftinset="10" alignment="left" text="Misc"></text>
+        <panel name="miscPrice" alias="MISCPRICE" width="226" height="50" bottomof="pool" margin-top="10" align="right" style="textinput" alpha="0">
+          <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
+          <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Cost"></text>
+          <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null" onchange="isNaN"></textfield>
+          <panel name="active" style="100" onclickup="labelactive" _field="MISCPRICE"></panel>
+        </panel>
+
         <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
       </panel>
     </class><!-- <object class="assetprotection" /> -->
@@ -2871,23 +2911,53 @@
     </action>
 
     <action name="landscaping">
-      <assign property="var:landscaping" value="[eval: ('[var:landscaping]' == 'no' ? 'yes' : 'no')]" />
+      <sync>
+        <assign property="var:landscaping" value="[eval: ('[var:landscaping]' == 'no' ? 'yes' : 'no')]" />
+        <alpha value="[eval: ('[var:landscaping]' == 'no' ? '0' : '1')]" time=".25" target="LANDSCAPEPRICE" />
+        <if lhs="[var:landscaping]" operator="e" rhs="no">
+          <assign property="object:LANDSCAPEPRICE/input.text" value="" />
+        </if>
+      </sync>
     </action>
 
     <action name="hardscaping">
-      <assign property="var:hardscaping" value="[eval: ('[var:hardscaping]' == 'no' ? 'yes' : 'no')]" />
+      <sync>
+        <assign property="var:hardscaping" value="[eval: ('[var:hardscaping]' == 'no' ? 'yes' : 'no')]" />
+        <alpha value="[eval: ('[var:hardscaping]' == 'no' ? '0' : '1')]" time=".25" target="HARDSCAPEPRICE" />
+        <if lhs="[var:hardscaping]" operator="e" rhs="no">
+          <assign property="object:HARDSCAPEPRICE/input.text" value="" />
+        </if>
+      </sync>
     </action>
 
     <action name="hvac">
-      <assign property="var:hvac" value="[eval: ('[var:hvac]' == 'no' ? 'yes' : 'no')]" />
+      <sync>
+        <assign property="var:hvac" value="[eval: ('[var:hvac]' == 'no' ? 'yes' : 'no')]" />
+        <alpha value="[eval: ('[var:hvac]' == 'no' ? '0' : '1')]" time=".25" target="HVACPRICE" />
+        <if lhs="[var:hvac]" operator="e" rhs="no">
+          <assign property="object:HVACPRICE/input.text" value="" />
+        </if>
+      </sync>
     </action>
 
     <action name="pool">
-      <assign property="var:pool" value="[eval: ('[var:pool]' == 'no' ? 'yes' : 'no')]" />
+      <sync>
+        <assign property="var:pool" value="[eval: ('[var:pool]' == 'no' ? 'yes' : 'no')]" />
+        <alpha value="[eval: ('[var:pool]' == 'no' ? '0' : '1')]" time=".25" target="POOLPRICE" />
+        <if lhs="[var:pool]" operator="e" rhs="no">
+          <assign property="object:POOLPRICE/input.text" value="" />
+        </if>
+      </sync>
     </action>
 
     <action name="misc">
-      <assign property="var:misc" value="[eval: ('[var:misc]' == 'no' ? 'yes' : 'no')]" />
+      <sync>
+        <assign property="var:misc" value="[eval: ('[var:misc]' == 'no' ? 'yes' : 'no')]" />
+        <alpha value="[eval: ('[var:misc]' == 'no' ? '0' : '1')]" time=".25" target="MISCPRICE" />
+        <if lhs="[var:misc]" operator="e" rhs="no">
+          <assign property="object:MISCPRICE/input.text" value="" />
+        </if>
+      </sync>
     </action>
 
     <!-- !search actions -->
@@ -3640,6 +3710,7 @@
         <if lhs="_this" operator="e" rhs="SUMMARY">
           <if lhs="[var:accessoryCount]" operator="gte" rhs="[var:accessories]">
           <play action="summarycalc" />
+          <play action="adjustments-save" />
           <create class="summary-cust" target="SUMMARY-PAGER" cust1name="[datasource:customersdb-list.1.FNAME] [datasource:customersdb-list.1.LNAME]" cust1phone="[datasource:customersdb-list.1.PHONE]" cust1email="[datasource:customersdb-list.1.EMAIL]" cust2name="[datasource:customersdb-list.1.FNAME2] [datasource:customersdb-list.1.LNAME2]" cust2phone="[datasource:customersdb-list.1.PHONE2]" cust2email="[datasource:customersdb-list.1.EMAIL2]" street="[datasource:customersdb-list.1.STREET]" city="[datasource:customersdb-list.1.CITY]" state="[datasource:customersdb-list.1.STATE]" zip="[datasource:customersdb-list.1.POSTAL]"  />
           <else>
           	<alert message="You must select [eval:[var:accessories]-[var:accessoryCount]] more accessories before proceeding" />
@@ -3839,35 +3910,33 @@
           <assign property="datasource:tearoffdb-delete.query" value="DELETE FROM TEAROFF;" />
           <!--<alert title="tearoff" message="from the if and deleting [datasource:tearoffdb-list.dataSourceResultCount]" />-->
           <else>
-            <play action="savedSERVICES2" />
+            <play action="savedSERVICES-save" />
             <!--<alert message="from the else, nothing to delete" />-->
           </else>
         </if>
       </sync>
     </action>
 
-    <action name="savedSERVICES2" datasource="tearoffdb-delete" datasourceevent="querycomplete">
+    <!--<action name="savedSERVICES2" datasource="tearoffdb-delete" datasourceevent="querycomplete">
       <if lhs="[var:loaded]" operator="e" rhs="yes">
         <sync>
           <if lhs="[datasource:assetprotectiondb-list.dataSourceResultCount]" operator="gt" rhs="0">
             <assign property="datasource:assetprotectiondb-delete.query" value="DELETE FROM PROTECTION;" />
-            <!--<alert title="asset protection" message="from the if and deleting [datasource:assetprotectiondb-list.dataSourceResultCount]" />-->
             <else>
               <play action="savedSERVICES-save" />
-              <!--<alert message="from the else, nothing to delete" />-->
             </else>
           </if>
         </sync>
       </if>
-    </action>
+    </action>-->
 
     <action name="savedSERVICES-save" datasource="assetprotectiondb-delete" datasourceevent="querycomplete">
       <!-- <alert title="tear off" message="tear off:[var:tearoff] [object:LAYERS/input.text] [object:TYPE/input.text]" /> -->
       <!-- <alert title="asset protection" message="landscaping:[var:landscaping] hardscaping:[var:hardscaping] hvac:[var:hvac] pool:[var:pool] misc[var:misc]" />-->
       <if lhs="[var:loaded]" operator="e" rhs="yes">
         <assign property="datasource:tearoffdb.query" value="INSERT INTO TEAROFF (TEAROFF, LAYERS, MATERIAL) VALUES ('[var:tearoff]', '[object:LAYERS/input.text]', '[object:TYPE/input.text]');" />
-        <assign property="datasource:assetprotectiondb.query" value="INSERT INTO PROTECTION (LANDSCAPING, HARDSCAPING, HVAC, POOL, MISC) VALUES ('[var:landscaping]', '[var:hardscaping]', '[var:hvac]', '[var:pool]', '[var:misc]');" />
-        <!--<assign property="datasource:plywooddb.query" value="INSERT INTO PLYWOOD (WOOD, MEASUREMENT, QUANTITY) VALUES ('[object:PLYWOODTYPE/hidden.text]', '[object:MEASUREMENT/hidden.text]', '[object:QUANTITY/input.text]');" />-->
+        <!--<assign property="datasource:assetprotectiondb.query" value="INSERT INTO PROTECTION (LANDSCAPING, HARDSCAPING, HVAC, POOL, MISC) VALUES ('[var:landscaping]', '[var:hardscaping]', '[var:hvac]', '[var:pool]', '[var:misc]');" />
+        <assign property="datasource:plywooddb.query" value="INSERT INTO PLYWOOD (WOOD, MEASUREMENT, QUANTITY) VALUES ('[object:PLYWOODTYPE/hidden.text]', '[object:MEASUREMENT/hidden.text]', '[object:QUANTITY/input.text]');" />-->
       </if>
     </action>
 
@@ -3886,13 +3955,19 @@
     </action>
 
     <action name="savedADJUSTMENTS">
+
+    </action>
+
+    <action name="savedSUMMARY"></action>
+
+    <action name="adjustments-save">
       <sync>
         <if lhs="[datasource:adjustmentsdb-list.dataSourceResultCount]" operator="gt" rhs="0">
           <assign property="datasource:adjustmentsdb-delete.query" value="DELETE FROM ADJUSTMENTS;" />
-          <!--<alert title="adjustments" message="from the if and deleting [datasource:adjustmentsdb-list.dataSourceResultCount]" />-->
+          <!--<alert title="adjustments-save" message="from the if and deleting [datasource:adjustmentsdb-list.dataSourceResultCount]" />-->
           <else>
             <play action="savedADJUSTMENTS-save" />
-            <!--<alert message="from the else, nothing to delete" />-->
+            <!--<alert title="adjustments-save" message="from the else, nothing to delete" />-->
           </else>
         </if>
       </sync>
@@ -3914,22 +3989,99 @@
         <if lhs="[var:adjustmentindexloop]" operator="lt" rhs="[var:adjustmentindex]">
           <play action="savedADJUSTMENTS-save" />
           <else>
-            <assign property="datasource:adjustmentsdb-list.query" value="SELECT * FROM ADJUSTMENTS;" />
+            <!--<assign property="datasource:adjustmentsdb-list.query" value="SELECT * FROM ADJUSTMENTS;" />-->
             <assign property="var:adjustmentindexloop" value="0" />
+            <play action="landscaping-save" />
+            <!--<alert message="adjustments query" />-->
           </else>
         </if>
       </sync>
+    </action>
+
+    <action name="landscaping-save">
+      <sync>
+        <!--<alert title="landscaping" message="[var:landscaping]" />-->
+        <if lhs="[var:landscaping]" operator="e" rhs="yes">
+          <assign property="datasource:adjustmentsdb-landscape.query" value="INSERT INTO ADJUSTMENTS (TYPE, AMOUNT, NOTES) values ('Additional Cost', '[object:LANDSCAPEPRICE/input.text]', 'Landscaping');" />
+          <else>
+            <play action="hardscape-save" />
+            <!--<alert message="landscape save else" />-->
+          </else>
+        </if>
+      </sync>
+    </action>
+
+    <action name="hardscape-save" datasource="adjustmentsdb-landscape" datasourceevent="querycomplete">
+      <if lhs="[var:loaded]" operator="e" rhs="yes">
+        <!--<alert title="hardscaping" message="[var:hardscaping]" />-->
+        <sync>
+          <if lhs="[var:hardscaping]" operator="e" rhs="yes">
+            <assign property="datasource:adjustmentsdb-hardscape.query" value="INSERT INTO ADJUSTMENTS (TYPE, AMOUNT, NOTES) values ('Additional Cost', '[object:HARDSCAPEPRICE/input.text]', 'Hardscaping');" />
+            <else>
+              <play action="hvac-save" />
+              <!--<alert message="hardscape save else" />-->
+            </else>
+          </if>
+        </sync>
+      </if>
+    </action>
+
+    <action name="hvac-save" datasource="adjustmentsdb-hardscape" datasourceevent="querycomplete">
+      <if lhs="[var:loaded]" operator="e" rhs="yes">
+        <!--<alert title="hvac" message="[var:hvac]" />-->
+        <sync>
+          <if lhs="[var:hvac]" operator="e" rhs="yes">
+            <assign property="datasource:adjustmentsdb-hvac.query" value="INSERT INTO ADJUSTMENTS (TYPE, AMOUNT, NOTES) values ('Additional Cost', '[object:HVACPRICE/input.text]', 'HVAC');" />
+            <else>
+              <play action="pool-save" />
+              <!--<alert message="pool save else" />-->
+            </else>
+          </if>
+        </sync>
+      </if>
+    </action>
+
+    <action name="pool-save" datasource="adjustmentsdb-hvac" datasourceevent="querycomplete">
+      <if lhs="[var:loaded]" operator="e" rhs="yes">
+        <!--<alert title="pool" message="[var:pool]" />-->
+        <sync>
+          <if lhs="[var:pool]" operator="e" rhs="yes">
+            <assign property="datasource:adjustmentsdb-pool.query" value="INSERT INTO ADJUSTMENTS (TYPE, AMOUNT, NOTES) values ('Additional Cost', '[object:POOLPRICE/input.text]', 'POOL');" />
+            <else>
+              <play action="misc-save" />
+              <!--<alert message="misc save else" />-->
+            </else>
+          </if>
+        </sync>
+      </if>
+    </action>
+
+    <action name="misc-save" datasource="adjustmentsdb-pool" datasourceevent="querycomplete">
+      <if lhs="[var:loaded]" operator="e" rhs="yes">
+        <!--<alert title="misc" message="[var:misc]" />-->
+        <sync>
+          <if lhs="[var:misc]" operator="e" rhs="yes">
+            <assign property="datasource:adjustmentsdb-misc.query" value="INSERT INTO ADJUSTMENTS (TYPE, AMOUNT, NOTES) values ('Additional Cost', '[object:MISCPRICE/input.text]', 'MISC');" />
+            <else>
+              <play action="adjustment-final" />
+            </else>
+          </if>
+        </sync>
+      </if>
+    </action>
+
+    <action name="adjustment-final" datasource="adjustmentsdb-misc" datasourceevent="querycomplete">
+      <if lhs="[var:loaded]" operator="e" rhs="yes">
+        <sync>
+          <assign property="datasource:adjustmentsdb-list.query" value="SELECT * FROM ADJUSTMENTS;" />
+        </sync>
+      </if>
     </action>
 
     <!--<action name="adjustments-total" datasource="adjustmentsdb-list" datasourceevent="querycomplete">
       <alert title="adjustments total" message="[datasource:adjustmentsdb-list.dataSourceResultCount]" />
     </action>-->
 
-    <action name="savedSUMMARY">
-      <!--<alert title="save" message="[var:nav]" />-->
-    </action>
-
-    <!-- !customer actions -->
     <!-- !customer actions -->
     <action name="saveCustomer">
           <play action="released" />
@@ -6271,6 +6423,17 @@
       <assign property="var:shingle-row" value="var:shingle-row" />
       <assign property="var:warrantycheck" value="" />
       <assign property="var:plywoodsave-index" value="" />
+      <!-- adjustments -->
+      <loop lhs="[var:clear-adj-index]" operator="lt" rhs="[var:adjustment]">
+        <assign property="var:clear-adj-index" value="[eval: [var:clear-adj-index] + 1 ]" />
+        <assign property="var:units-[var:clear-adj-index]" value="" />
+      </loop>
+      <assign property="var:temp-adjustnote" value="" />
+      <assign property="var:adjustmentindexloop" value="" />
+      <assign property="var:adjustment" value="" />
+      <assign property="var:discountindex" value="" />
+      <assign property="var:costindex" value="" />
+      <assign property="var:adjustmentindex" value="" />
     </action>
 
     <action name="clear-var" >
@@ -6350,6 +6513,16 @@
       <assign property="var:shingle-row" value="var:shingle-row" />
       <assign property="var:warrantycheck" value="" />
       <assign property="var:plywoodsave-index" value="" />
+      <loop lhs="[var:clear-adj-index]" operator="lt" rhs="[var:adjustment]">
+        <assign property="var:clear-adj-index" value="[eval: [var:clear-adj-index] + 1 ]" />
+        <assign property="var:units-[var:clear-adj-index]" value="" />
+      </loop>
+      <assign property="var:temp-adjustnote" value="" />
+      <assign property="var:adjustmentindexloop" value="" />
+      <assign property="var:adjustment" value="" />
+      <assign property="var:discountindex" value="" />
+      <assign property="var:costindex" value="" />
+      <assign property="var:adjustmentindex" value="" />
     </action>
 
     <!-- !delete actions -->
