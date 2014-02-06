@@ -3659,7 +3659,7 @@
     <action name="summarycalc">
       <sync>
         <!-- <alert message="area total [var:totalarea] squares total [var:squarestotal] ridges total [var:ridgestotal] hips total [var:hipstotal] rakes total [var:rakestotal] eaves total [var:eavestotal] valleys total [var:valleystotal]" /> -->
-        <create class="summary-roof" target="SUMMARY-PAGER" area="[eval:'[var:totalarea]' != '' ? '[var:totalarea] sq ft':'N/A']" squares="[var:squarestotal]" ridges="[eval:'[var:ridgestotal]' != '' ? '[var:ridgestotal] ft':'N/A']" hips="[eval:'[var:hipstotal]' != '' ? '[var:hipstotal] ft':'N/A']" rakes="[eval:'[var:rakestotal]' != '' ? '[var:rakestotal] ft':'N/A']" eaves="[eval:'[var:eavestotal]' != '' ? '[var:eavestotal] ft':'N/A']" valleys="[eval:'[var:valleystotal]' != '' ? '[var:valleystotal] ft':'N/A']"  />
+        <create class="summary-roof" target="SUMMARY-PAGER" area="[eval:'[var:totalarea]' != '' ? '[var:totalarea] sq ft':'N/A']" squares="[var:squarestotal]" ridges="[eval:'[var:ridgestotal]' != '0' ? '[var:ridgestotal] ft':'N/A']" hips="[eval:'[var:hipstotal]' != '' ? '[var:hipstotal] ft':'N/A']" rakes="[eval:'[var:rakestotal]' != '' ? '[var:rakestotal] ft':'N/A']" eaves="[eval:'[var:eavestotal]' != '' ? '[var:eavestotal] ft':'N/A']" valleys="[eval:'[var:valleystotal]' != '' ? '[var:valleystotal] ft':'N/A']"  />
         <play action="summaryproducts" />
       </sync>
     </action>
@@ -3772,7 +3772,23 @@
     <action name="summaryservices">
       <sync>
         <!-- <alert message="summary services" />  -->
-        <create target="SUMMARY-PAGER" class="summary-services" layers="[datasource:tearoffdb-list.1.LAYERS]" type="[datasource:tearoffdb-list.1.MATERIAL]" landscape="[datasource:assetprotectiondb-list.1.LANDSCAPING]" hardscape="[datasource:assetprotectiondb-list.1.HARDSCAPING]" hvac="[datasource:assetprotectiondb-list.1.HVAC]" pool="[datasource:assetprotectiondb-list.1.POOL]" misc="[datasource:assetprotectiondb-list.1.MISC]"  />
+<if lhs="[datasource:tearoffdb-list.dataSourceResultCount]" operator="gt" rhs="0">
+			<assign property="var:layers" value="[datasource:tearoffdb-list.1.LAYERS]" />
+			<assign property="var:type" value="[datasource:tearoffdb-list.1.MATERIAL]" />
+			<else>
+				<assign property="var:layers" value="N/A" />
+				<assign property="var:type" value="N/A" />
+			</else>
+		</if>
+		<if lhs="[datasource:assetprotectiondb-list.dataSourceResultCount]" operator="gt" rhs="0">
+			<assign property="var:landscaping" value="[datasource:assetprotectiondb-list.1.LANDSCAPING]" />
+			<assign property="var:hardscaping" value="[datasource:assetprotectiondb-list.1.HARDSCAPING]" />
+			<assign property="var:hvac" value="[datasource:assetprotectiondb-list.1.HVAC]" />
+			<assign property="var:pool" value="[datasource:assetprotectiondb-list.1.POOL]" />
+			<assign property="var:misc" value="[datasource:assetprotectiondb-list.1.MISC]" />
+		</if>
+<!--         <create target="SUMMARY-PAGER" class="summary-services" layers="layers" type="type" landscape="landscape" hardscape="hardscape" hvac="hvac" pool="pool" misc="misc"  /> -->
+        <create target="SUMMARY-PAGER" class="summary-services" layers="[var:layers]" type="[var:type]" landscape="[var:landscaping]" hardscape="[var:hardscaping]" hvac="[var:hvac]" pool="[var:pool]" misc="[var:misc]"  />
       </sync>
     </action>
 
@@ -6170,7 +6186,9 @@
     </action>
 
     <action name="clear-data" >
-      <assign property="var:customerCreated" value="" />
+		<assign property="var:layers" value="" />
+		<assign property="var:type" value="" />
+		<assign property="var:customerCreated" value="" />
       <assign property="var:warranty-set" value="no" />
       <assign property="var:roofMeasurementsJSON" value="" />
       <assign property="var:ridgeMeasurementsJSON" value="" />
@@ -6256,6 +6274,8 @@
     </action>
 
     <action name="clear-var" >
+		<assign property="var:layers" value="" />
+		<assign property="var:type" value="" />
 		<assign property="var:customerCreated" value="" />
 	    <assign property="var:warranty-set" value="no" />
 	    <assign property="var:roofMeasurementsJSON" value="" />
