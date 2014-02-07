@@ -172,8 +172,11 @@
 	<texttemplate name="adjustments"><![CDATA[
 		{"PriceAjustmentsId":"[eval:[var:adjustmentsIterateCount]-1]","Description":"[eval:decodeURI('[datasource:adjustmentsdb-list.[var:adjustmentsIterateCount].NOTES]')]","Price":"[eval:'[datasource:adjustmentsdb-list.[var:adjustmentsIterateCount].TYPE]' == 'Discount' ? '-':''][datasource:adjustmentsdb-list.[var:adjustmentsIterateCount].AMOUNT]"}
 	]]></texttemplate>
+	<texttemplate name="plywood"><![CDATA[
+		{"PlywoodSheathingType":"[datasource:plywooddb-list.[var:plywoodIterateCount].WOOD]","MeasurementType":"[datasource:plywooddb-list.[var:plywoodIterateCount].MEASUREMENT]","Quantity":"[datasource:plywooddb-list.[var:plywoodIterateCount].QUANTITY]"}
+	]]></texttemplate>
 	<texttemplate name="estimateJSON"><![CDATA[
-		{"CustomerId":"[var:customerId]","ProductId":"[var:shingle]","WarrantyId":"[var:warranty]",[var:accessoriesObject],[var:miscAccessoriesObject],[var:adjustmentsObject],"AdditionalCost":{"TearOffLayers":[var:tearOffLayers],"TearOffType":"[var:tearOffType]","NumberOfStories":[var:numberOfFloors]}}
+		{"CustomerId":"[var:customerId]","ProductId":"[var:shingle]","WarrantyId":"[var:warranty]",[var:accessoriesObject],[var:miscAccessoriesObject],[var:adjustmentsObject],"AdditionalCost":{[var:plywoodObject],"TearOffLayers":[var:tearOffLayers],"TearOffType":"[var:tearOffType]","NumberOfStories":[var:numberOfFloors]}}
 	]]></texttemplate>
 
   </datasources>
@@ -1446,7 +1449,7 @@
             <text name="drophead" width="100%" height="30" style="lighttext" size="18" alignment="center" text="MEASUREMENT CHOICES"></text>
             <panel name="border" width="100%" height="1" background="#888888" ypos="30"></panel>
             <pager name="measurements" width="100%" height="[eval:[object:ROOFTYPEDROP.height] - 30]" ypos="30" orientation="vertical" paginate="no">
-              <panel name="measure1" width="100%" height="40" _measure="PerSheet" _label="Per Sheet" _index="[param:index]" onclickup="setmeasurement">
+              <panel name="measure1" width="100%" height="40" _measure="BySheet" _label="Per Sheet" _index="[param:index]" onclickup="setmeasurement">
                 <text name="name" width="100%" height="100%" style="darktext" size="18" alignment="center" text="Per Sheet"></text>
                 <panel name="border" width="100%" height="1" valign="bottom" background="#888888"></panel>
               </panel>
@@ -1492,7 +1495,7 @@
             <text name="drophead" width="100%" height="30" style="lighttext" size="18" alignment="center" text="MEASUREMENT CHOICES"></text>
             <panel name="border" width="100%" height="1" background="#888888" ypos="30"></panel>
             <pager name="measurements" width="100%" height="[eval:[object:ROOFTYPEDROP.height] - 30]" ypos="30" orientation="vertical" paginate="no">
-              <panel name="measure1" width="100%" height="40" _measure="PerSheet" _label="Per Sheet" _index="[param:index]" onclickup="setmeasurement">
+              <panel name="measure1" width="100%" height="40" _measure="BySheet" _label="Per Sheet" _index="[param:index]" onclickup="setmeasurement">
                 <text name="name" width="100%" height="100%" style="darktext" size="18" alignment="center" text="Per Sheet"></text>
                 <panel name="border" width="100%" height="1" valign="bottom" background="#888888"></panel>
               </panel>
@@ -1538,7 +1541,7 @@
             <text name="drophead" width="100%" height="30" style="lighttext" size="18" alignment="center" text="MEASUREMENT CHOICES"></text>
             <panel name="border" width="100%" height="1" background="#888888" ypos="30"></panel>
             <pager name="measurements" width="100%" height="[eval:[object:ROOFTYPEDROP.height] - 30]" ypos="30" orientation="vertical" paginate="no">
-              <panel name="measure1" width="100%" height="40" _measure="PerSheet" _label="Per Sheet" _index="[param:index]" onclickup="setmeasurement">
+              <panel name="measure1" width="100%" height="40" _measure="BySheet" _label="Per Sheet" _index="[param:index]" onclickup="setmeasurement">
                 <text name="name" width="100%" height="100%" style="darktext" size="18" alignment="center" text="Per Sheet"></text>
                 <panel name="border" width="100%" height="1" valign="bottom" background="#888888"></panel>
               </panel>
@@ -1584,7 +1587,7 @@
             <text name="drophead" width="100%" height="30" style="lighttext" size="18" alignment="center" text="MEASUREMENT CHOICES"></text>
             <panel name="border" width="100%" height="1" background="#888888" ypos="30"></panel>
             <pager name="measurements" width="100%" height="[eval:[object:ROOFTYPEDROP.height] - 30]" ypos="30" orientation="vertical" paginate="no">
-              <panel name="measure1" width="100%" height="40" _measure="PerSheet" _label="Per Sheet" _index="[param:index]" onclickup="setmeasurement">
+              <panel name="measure1" width="100%" height="40" _measure="BySheet" _label="Per Sheet" _index="[param:index]" onclickup="setmeasurement">
                 <text name="name" width="100%" height="100%" style="darktext" size="18" alignment="center" text="Per Sheet"></text>
                 <panel name="border" width="100%" height="1" valign="bottom" background="#888888"></panel>
               </panel>
@@ -3843,7 +3846,7 @@
     <action name="summaryservices">
       <sync>
         <!-- <alert message="summary services" />  -->
-<if lhs="[datasource:tearoffdb-list.dataSourceResultCount]" operator="gt" rhs="0">
+		<if lhs="[datasource:tearoffdb-list.dataSourceResultCount]" operator="gt" rhs="0">
 			<assign property="var:layers" value="[datasource:tearoffdb-list.1.LAYERS]" />
 			<assign property="var:type" value="[datasource:tearoffdb-list.1.MATERIAL]" />
 			<else>
@@ -3964,7 +3967,7 @@
       <sync>
         <if lhs="[datasource:adjustmentsdb-list.dataSourceResultCount]" operator="gt" rhs="0">
           <assign property="datasource:adjustmentsdb-delete.query" value="DELETE FROM ADJUSTMENTS;" />
-          <!--<alert title="adjustments-save" message="from the if and deleting [datasource:adjustmentsdb-list.dataSourceResultCount]" />-->
+<!--           <alert title="adjustments-save" message="from the if and deleting [datasource:adjustmentsdb-list.dataSourceResultCount]" /> -->
           <else>
             <play action="savedADJUSTMENTS-save" />
             <!--<alert title="adjustments-save" message="from the else, nothing to delete" />-->
@@ -3978,8 +3981,14 @@
         <sync>
           <assign property="var:adjustmentindexloop" value="[eval: [var:adjustmentindexloop] + 1]" />
           <assign property="var:temp-adjustnote" encoding="url" value="[object:ADJUSTMENTAMOUNTNOTES[var:adjustmentindexloop]/input.text]" />
-          <!--<alert message="units:[var:units-[var:adjustmentindexloop]] adjustments type:[object:ADJUSTTYPE[var:adjustmentindexloop].text] amount:[object:ADJUSTMENTAMOUNT[var:adjustmentindexloop]/input.text] notes:[object:ADJUSTMENTAMOUNTNOTES[var:adjustmentindexloop]/input.text] " />-->
-          <assign property="datasource:adjustmentsdb.query" value="INSERT INTO ADJUSTMENTS (TYPE, UNITS, AMOUNT, NOTES) values ('[object:ADJUSTTYPE[var:adjustmentindexloop].text]', '[var:units-[var:adjustmentindexloop]]', '[object:ADJUSTMENTAMOUNT[var:adjustmentindexloop]/input.text]', '[var:temp-adjustnote]');" />
+<!--           <alert message="units:[var:units-[var:adjustmentindexloop]] adjustments type:[object:ADJUSTTYPE[var:adjustmentindexloop].text] amount:[object:ADJUSTMENTAMOUNT[var:adjustmentindexloop]/input.text] notes:[object:ADJUSTMENTAMOUNTNOTES[var:adjustmentindexloop]/input.text] " /> -->
+			<if lhs="[object:ADJUSTTYPE[var:adjustmentindexloop].text]" operator="ne" rhs="">
+				<assign property="datasource:adjustmentsdb.query" value="INSERT INTO ADJUSTMENTS (TYPE, UNITS, AMOUNT, NOTES) values ('[object:ADJUSTTYPE[var:adjustmentindexloop].text]', '[var:units-[var:adjustmentindexloop]]', '[object:ADJUSTMENTAMOUNT[var:adjustmentindexloop]/input.text]', '[var:temp-adjustnote]');" />
+				<else>
+		            <assign property="var:adjustmentindexloop" value="0" />
+		            <play action="landscaping-save" />
+				</else>
+			</if>
         </sync>
       </if>
     </action>
@@ -4078,9 +4087,11 @@
       </if>
     </action>
 
-    <!--<action name="adjustments-total" datasource="adjustmentsdb-list" datasourceevent="querycomplete">
+<!--
+    <action name="adjustments-total" datasource="adjustmentsdb-list" datasourceevent="querycomplete">
       <alert title="adjustments total" message="[datasource:adjustmentsdb-list.dataSourceResultCount]" />
-    </action>-->
+    </action>
+-->
 
     <!-- !customer actions -->
     <action name="saveCustomer">
@@ -6164,28 +6175,51 @@
 				<play action="formatAdjustments" />
 				<else>
 					<assign property="var:adjustmentsObject" value="&quot;PriceAjustments&quot;: []" />
-<!-- 					<alert message="var:accessoriesObject is [var:accessoriesObject] var:adjustmentsObject is [var:adjustmentsObject]" /> -->
-					<play action="finishEstimate" />
+<!-- 					<alert title="adjustments db empty" message="var:accessoriesObject is [var:accessoriesObject] var:adjustmentsObject is [var:adjustmentsObject]" /> -->
+					<play action="prepPlywood" />
 				</else>
 			</if>
 		</action>
 
 		<action name="formatAdjustments" >
-<!-- 			<alert message="formatAdjustments" /> -->
+<!-- 			<alert message="formatAdjustments adjustmentsdb-list count is [datasource:adjustmentsdb-list.dataSourceResultCount]" /> -->
 			<loop lhs="[var:adjustmentsIterateCount]" operator="lte" rhs="[datasource:adjustmentsdb-list.dataSourceResultCount]" >
 				<assign property="var:adjustmentsJSON" value="[var:adjustmentsJSON][eval:[var:adjustmentsIterateCount] == 1 ? '':','][template:adjustments.content]" />
 				<assign property="var:adjustmentsIterateCount" value="[eval: [var:adjustmentsIterateCount] +1]" />
 			</loop>
 			<assign property="var:adjustmentsObject" value="&quot;PriceAjustments&quot;: [[var:adjustmentsJSON]]" />
 <!-- 			<alert message="var:accessoriesJSON is [var:accessoriesJSON] var:adjustmentsJSON is [var:adjustmentsJSON]" /> -->
-			<play action="finishEstimate" />
+			<play action="prepPlywood" />
 		</action>
 
+		<action name="prepPlywood" >
+<!-- 			<alert message="prepPlywood count is [datasource:plywooddb-list.dataSourceResultCount]" /> -->
+			<if lhs="[datasource:plywooddb-list.dataSourceResultCount]" operator="gt" rhs="0">
+				<assign property="var:plywoodIterateCount" value="1" />
+				<play action="formatPlywood" />
+				<else>
+					<assign property="var:plywoodObject" value="&quot;PlywoodSheathings&quot;: []" />
+<!-- 					<alert message="var:accessoriesObject is [var:accessoriesObject] var:adjustmentsObject is [var:adjustmentsObject]" /> -->
+					<play action="finishEstimate" />
+				</else>
+			</if>
+		</action>
+
+		<action name="formatPlywood" >
+<!-- 			<alert message="formatPlywood" /> -->
+			<loop lhs="[var:plywoodIterateCount]" operator="lte" rhs="[datasource:plywooddb-list.dataSourceResultCount]" >
+				<assign property="var:plywoodJSON" value="[var:plywoodJSON][eval:[var:plywoodIterateCount] == 1 ? '':','][template:plywood.content]" />
+				<assign property="var:plywoodIterateCount" value="[eval: [var:plywoodIterateCount] +1]" />
+			</loop>
+			<assign property="var:plywoodObject" value="&quot;PlywoodSheathings&quot;: [[var:plywoodJSON]]" />
+<!-- 			<alert message="var:accessoriesJSON is [var:accessoriesJSON] var:adjustmentsJSON is [var:adjustmentsJSON]" /> -->
+			<play action="finishEstimate" />
+		</action>
 		<action name="finishEstimate" >
 			<assign property="var:estimateJSON" value="[template:estimateJSON.content]" />
 			<assign property="datasource:generateEstimate.postContent" value="[var:estimateJSON]" />
 			<assign property="datasource:generateEstimate.source" value="https://162.209.101.177/api/GenerateEstimate" />
-      <!-- <email subject="estimate and measurements json" body="estimate\n\n[var:estimateJSON]" toaddress="dwalruff@rarewire.com" /> -->
+<!-- 			<email subject="estimate and measurements json" body="estimate\n\n[var:estimateJSON]" toaddress="mlong@rarewire.com" /> -->
 		</action>
 
 		<action name="estimate-complete" datasource="generateEstimate" datasourceevent="querycomplete">
@@ -6194,6 +6228,7 @@
 			<assign property="var:accessoriesJSON" value="" />
 			<assign property="var:miscAccessoriesJSON" value="" />
 			<assign property="var:adjustmentsJSON" value="" />
+			<assign property="var:estimateView" value="new" />
 			<if lhs="[datasource:generateEstimate.1.ResponseCode]" operator="e" rhs="100">
 <!-- 				<alert message="estimate received" /> -->
 				<sync delay="5" >
@@ -6236,10 +6271,13 @@
 		</action>
 
 		<action name="sendestimate" >
-			<email subject="Your Estimate" body="Here is your estimate" toaddress="" attachment="estimate.pdf" mimetype="application/pdf" />
+			<email subject="Your Estimate" body="Here is your estimate" toaddress="[var:email]" cc="[preferences:username]" attachment="estimate.pdf" mimetype="application/pdf" />
 		</action>
 
 		<action name="closepdf" >
+			<if lhs="[var:estimateView]" operator="e" rhs="new">
+				<alert message="If you wish to create a new esimate for this customer tap the appropriate section above." />
+			</if>
 			<sync>
 				<translate ypos="101%" time=".3" curve="linear" target="PDF-CONTAINER" />
 				<delete target="PDF-CONTAINER" />
@@ -6338,6 +6376,7 @@
     </action>
 
     <action name="clear-data" >
+			<assign property="var:estimateView" value="" />
 		<assign property="var:layers" value="" />
 		<assign property="var:type" value="" />
 		<assign property="var:customerCreated" value="" />
@@ -6437,6 +6476,7 @@
     </action>
 
     <action name="clear-var" >
+			<assign property="var:estimateView" value="new" />
 		<assign property="var:layers" value="" />
 		<assign property="var:type" value="" />
 		<assign property="var:customerCreated" value="" />
