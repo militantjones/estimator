@@ -1362,7 +1362,7 @@
         <panel name="landscapePrice" alias="LANDSCAPEPRICE" width="226" height="50" ypos="10" align="right" style="textinput" alpha="0">
           <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
           <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Cost"></text>
-          <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null" onchange="isNaN"></textfield>
+          <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" onshow="service-saveup" onhide="service-savedown" _next="none" _action="null" onchange="isNaN"></textfield>
           <panel name="active" style="100" onclickup="labelactive" _field="LANDSCAPEPRICE"></panel>
         </panel>
 
@@ -1373,7 +1373,7 @@
         <panel name="hardscapePrice" alias="HARDSCAPEPRICE" width="226" height="50" bottomof="landscaping" margin-top="10" align="right" style="textinput" alpha="0">
           <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
           <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Cost"></text>
-          <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null" onchange="isNaN"></textfield>
+          <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" onshow="service-saveup" onhide="service-savedown" _next="none" _action="null" onchange="isNaN"></textfield>
           <panel name="active" style="100" onclickup="labelactive" _field="HARDSCAPEPRICE"></panel>
         </panel>
 
@@ -1384,7 +1384,7 @@
         <panel name="hvacPrice" alias="HVACPRICE" width="226" height="50" bottomof="hardscaping" margin-top="10" align="right" style="textinput" alpha="0">
           <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
           <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Cost"></text>
-          <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null" onchange="isNaN"></textfield>
+          <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" onshow="service-saveup" onhide="service-savedown" _next="none" _action="null" onchange="isNaN"></textfield>
           <panel name="active" style="100" onclickup="labelactive" _field="HVACPRICE"></panel>
         </panel>
 
@@ -1395,7 +1395,7 @@
         <panel name="poolPrice" alias="POOLPRICE" width="226" height="50" bottomof="hvac" margin-top="10" align="right" style="textinput" alpha="0">
           <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
           <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Cost"></text>
-          <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null" onchange="isNaN"></textfield>
+          <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" onshow="service-saveup" onhide="service-savedown" _next="none" _action="null" onchange="isNaN"></textfield>
           <panel name="active" style="100" onclickup="labelactive" _field="POOLPRICE"></panel>
         </panel>
 
@@ -1406,7 +1406,7 @@
         <panel name="miscPrice" alias="MISCPRICE" width="226" height="50" bottomof="pool" margin-top="10" align="right" style="textinput" alpha="0">
           <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
           <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Cost"></text>
-          <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null" onchange="isNaN"></textfield>
+          <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" onshow="service-saveup" onhide="service-savedown" _next="none" _action="null" onchange="isNaN"></textfield>
           <panel name="active" style="100" onclickup="labelactive" _field="MISCPRICE"></panel>
         </panel>
 
@@ -1437,7 +1437,7 @@
         <panel name="quantity" alias="QUANTITY[param:index]" width="226" height="50" bottomof="measurement[param:index]" margin-top="10" align="left" style="textinput">
           <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
           <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Quantity"></text>
-          <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null" onchange="isNaN"></textfield>
+          <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" onshow="service-saveup" onhide="service-savedown" _next="none" _action="null" onchange="isNaN"></textfield>
           <panel name="active" style="100" onclickup="labelactive" _field="QUANTITY[param:index]"></panel>
         </panel>
         <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
@@ -1483,7 +1483,7 @@
         <panel name="quantity[param:index]" alias="QUANTITY[param:index]" width="226" height="50" bottomof="measurement[param:index]" margin-top="10" align="left" style="textinput">
           <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
           <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Quantity"></text>
-          <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null" onchange="isNaN"></textfield>
+          <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" onshow="service-saveup" onhide="service-savedown" _next="none" _action="null" onchange="isNaN"></textfield>
           <panel name="active" style="100" onclickup="labelactive" _field="QUANTITY[param:index]"></panel>
         </panel>
         <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
@@ -1529,7 +1529,7 @@
         <panel name="quantity[param:index]" alias="QUANTITY[param:index]" width="226" height="50" bottomof="measurement[param:index]" margin-top="10" align="left" style="textinput">
           <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
           <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Quantity"></text>
-          <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null" onchange="isNaN"></textfield>
+          <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" onshow="service-saveup" onhide="service-savedown" _next="none" _action="null" onchange="isNaN"></textfield>
           <panel name="active" style="100" onclickup="labelactive" _field="QUANTITY[param:index]"></panel>
         </panel>
         <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
@@ -1575,7 +1575,7 @@
         <panel name="quantity[param:index]" alias="QUANTITY[param:index]" width="226" height="50" bottomof="measurement[param:index]" margin-top="10" align="left" style="textinput">
           <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
           <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Quantity"></text>
-          <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" _next="none" _action="null" onchange="isNaN"></textfield>
+          <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" returnkeytype="next" kbtype="numberpad" onshow="service-saveup" onhide="service-savedown" _next="none" _action="null" onchange="isNaN"></textfield>
           <panel name="active" style="100" onclickup="labelactive" _field="QUANTITY[param:index]"></panel>
         </panel>
         <panel name="divider" width="100%" height="1" valign="bottom" background="#343434"></panel>
@@ -2608,6 +2608,7 @@
       <assign property="var:hvac" value="no" />
       <assign property="var:pool" value="no" />
       <assign property="var:misc" value="no" />
+      <assign property="var:waste" value="0" />
       <assign property="var:navstep-areas" value="no" />
       <assign property="var:navstep-inspect" value="no" />
       <create class="signin" target="CONTAINER" />
@@ -2691,6 +2692,16 @@
 
     <action name="savedown">
       <translate valign="bottom" time=".25" curve="linear" target="BOTTOMBAR" />
+      <!--<alert message="save down" />-->
+    </action>
+
+    <action name="service-saveup">
+      <translate ypos="566" time=".25" curve="easeout" target="SERVICES-BOTTOMBAR" />
+      <!--<alert message="save up" />-->
+    </action>
+
+    <action name="service-savedown">
+      <translate valign="bottom" time=".25" curve="linear" target="SERVICES-BOTTOMBAR" />
       <!--<alert message="save down" />-->
     </action>
 
