@@ -2690,8 +2690,8 @@
     <action name="saveup">
       <translate ypos="566" time=".25" curve="easeout" target="BOTTOMBAR" />
       <assign property="var:kbactive" value="_kbactive" />
-      <alert message="_kbactive" />
-      <!--<alert message="save up" />-->
+      <!--<alert message="_kbactive" />
+      <alert message="save up" />-->
     </action>
 
     <action name="savedown">
@@ -2715,7 +2715,7 @@
         <if lhs="[var:kbactive]" operator="ne" rhs="null">
           <keyboard visible="no" target="[var:kbactive]" />
           <assign property="var:kbactive" value="null" />
-          <alert message="kb hide" />
+          <!--<alert message="kb hide" />-->
         </if>
       </sync>
     </action>
@@ -2940,8 +2940,10 @@
       <sync>
         <assign property="var:landscaping" value="[eval: ('[var:landscaping]' == 'no' ? 'yes' : 'no')]" />
         <alpha value="[eval: ('[var:landscaping]' == 'no' ? '0' : '1')]" time=".25" target="LANDSCAPEPRICE" />
+        <keyboard visible="yes" target="LANDSCAPEPRICE/input" />
         <if lhs="[var:landscaping]" operator="e" rhs="no">
           <assign property="object:LANDSCAPEPRICE/input.text" value="" />
+          <keyboard visible="no" target="LANDSCAPEPRICE/input" />
         </if>
       </sync>
     </action>
@@ -2950,8 +2952,10 @@
       <sync>
         <assign property="var:hardscaping" value="[eval: ('[var:hardscaping]' == 'no' ? 'yes' : 'no')]" />
         <alpha value="[eval: ('[var:hardscaping]' == 'no' ? '0' : '1')]" time=".25" target="HARDSCAPEPRICE" />
+        <keyboard visible="yes" target="HARDSCAPEPRICE/input" />
         <if lhs="[var:hardscaping]" operator="e" rhs="no">
           <assign property="object:HARDSCAPEPRICE/input.text" value="" />
+          <keyboard visible="no" target="HARDSCAPEPRICE/input" />
         </if>
       </sync>
     </action>
@@ -2960,8 +2964,10 @@
       <sync>
         <assign property="var:hvac" value="[eval: ('[var:hvac]' == 'no' ? 'yes' : 'no')]" />
         <alpha value="[eval: ('[var:hvac]' == 'no' ? '0' : '1')]" time=".25" target="HVACPRICE" />
+        <keyboard visible="yes" target="HVACPRICE/input" />
         <if lhs="[var:hvac]" operator="e" rhs="no">
           <assign property="object:HVACPRICE/input.text" value="" />
+          <keyboard visible="no" target="HVACPRICE/input" />
         </if>
       </sync>
     </action>
@@ -2970,8 +2976,10 @@
       <sync>
         <assign property="var:pool" value="[eval: ('[var:pool]' == 'no' ? 'yes' : 'no')]" />
         <alpha value="[eval: ('[var:pool]' == 'no' ? '0' : '1')]" time=".25" target="POOLPRICE" />
+        <keyboard visible="yes" target="POOLPRICE/input" />
         <if lhs="[var:pool]" operator="e" rhs="no">
           <assign property="object:POOLPRICE/input.text" value="" />
+          <keyboard visible="no" target="POOLPRICE/input" />
         </if>
       </sync>
     </action>
@@ -2980,8 +2988,10 @@
       <sync>
         <assign property="var:misc" value="[eval: ('[var:misc]' == 'no' ? 'yes' : 'no')]" />
         <alpha value="[eval: ('[var:misc]' == 'no' ? '0' : '1')]" time=".25" target="MISCPRICE" />
+        <keyboard visible="yes" target="MISCPRICE/input" />
         <if lhs="[var:misc]" operator="e" rhs="no">
           <assign property="object:MISCPRICE/input.text" value="" />
+          <keyboard visible="no" target="MISCPRICE/input" />
         </if>
       </sync>
     </action>
