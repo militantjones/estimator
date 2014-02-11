@@ -101,6 +101,7 @@
     <datasource name="accessoriesdb-deletelist" source="sql://ACCESSORIES" query="" providertype="sql" />
     <datasource name="accessoriesdb-deletelist-ridgevent" source="sql://ACCESSORIES" query="" providertype="sql" />
     <datasource name="accessoriesdb-deletelist-hipvent" source="sql://ACCESSORIES" query="" providertype="sql" />
+    <datasource name="accessoriesdb-deletelist-fascia" source="sql://ACCESSORIES" query="" providertype="sql" />
     <datasource name="accessoriesdb-delete" source="sql://ACCESSORIES" query="" providertype="sql" />
     <datasource name="accessoriesdb-gen-delete" source="sql://ACCESSORIES" query="" providertype="sql" />
     <datasource name="accessoriesdb-count" source="sql://ACCESSORIES" query="" providertype="sql" />
@@ -1013,7 +1014,7 @@
     </class><!-- <object class="photo" index="1" /> -->
 
     <class name="roof-spacer">
-      <panel name="roof-spacer" alias="ROOF-SPACER-[param:name]-[param:index]" width="100%" height="260" >
+      <panel name="roof-spacer" alias="ROOF-SPACER-[param:name]-[param:index]" width="100%" height="320" >
         <!--<text name="test" width="100%" height="100%" background="0232b2" color="#343434" font="Helvetica" size="20" alignment="center" text="ROOF-SPACER-[param:name]-[param:index]"></text>-->
       </panel>
     </class>
@@ -2689,9 +2690,6 @@
 
     <action name="saveup">
       <translate ypos="566" time=".25" curve="easeout" target="BOTTOMBAR" />
-      <assign property="var:kbactive" value="_kbactive" />
-      <!--<alert message="_kbactive" />
-      <alert message="save up" />-->
     </action>
 
     <action name="savedown">
@@ -3586,6 +3584,11 @@
         <set onclickup="null" target="PLYWOODMENU/12cdx" />
         <play action="plywooddeletebutton" />
         <play action="hideplywood" />
+        <!--<if lhs="[var:plywoodindex]" operator="gt" rhs="1">
+          <delete target="ROOF-SPACER-PLYWOOD-[eval: [var:plywoodindex] - 1]" />
+          <create class="roof-spacer" index="[var:plywoodindex]" name="PLYWOOD" target="SERVICES-PLYWOOD/servicespagerbox/pager" />
+          <alpha value="0" time=".1" target="PLYWOOD[eval: [var:plywoodindex] - 1]/deletebox" />
+        </if>-->
       </sync>
     </action>
 
@@ -3596,6 +3599,11 @@
         <set onclickup="null" target="PLYWOODMENU/58cdx" />
         <play action="plywooddeletebutton" />
         <play action="hideplywood" />
+        <!--<if lhs="[var:plywoodindex]" operator="gt" rhs="1">
+          <delete target="ROOF-SPACER-PLYWOOD-[eval: [var:plywoodindex] - 1]" />
+          <create class="roof-spacer" index="[var:plywoodindex]" name="PLYWOOD" target="SERVICES-PLYWOOD/servicespagerbox/pager" />
+          <alpha value="0" time=".1" target="PLYWOOD[eval: [var:plywoodindex] - 1]/deletebox" />
+        </if>-->
       </sync>
     </action>
 
@@ -3606,6 +3614,11 @@
         <set onclickup="null" target="PLYWOODMENU/12osb" />
         <play action="plywooddeletebutton" />
         <play action="hideplywood" />
+        <!--<if lhs="[var:plywoodindex]" operator="gt" rhs="1">
+          <delete target="ROOF-SPACER-PLYWOOD-[eval: [var:plywoodindex] - 1]" />
+          <create class="roof-spacer" index="[var:plywoodindex]" name="PLYWOOD" target="SERVICES-PLYWOOD/servicespagerbox/pager" />
+          <alpha value="0" time=".1" target="PLYWOOD[eval: [var:plywoodindex] - 1]/deletebox" />
+        </if>-->
       </sync>
     </action>
 
@@ -3616,6 +3629,11 @@
         <set onclickup="null" target="PLYWOODMENU/58osb" />
         <play action="plywooddeletebutton" />
         <play action="hideplywood" />
+        <!--<if lhs="[var:plywoodindex]" operator="gt" rhs="1">
+          <delete target="ROOF-SPACER-PLYWOOD-[eval: [var:plywoodindex] - 1]" />
+          <create class="roof-spacer" index="[var:plywoodindex]" name="PLYWOOD" target="SERVICES-PLYWOOD/servicespagerbox/pager" />
+          <alpha value="0" time=".1" target="PLYWOOD[eval: [var:plywoodindex] - 1]/deletebox" />
+        </if>-->
       </sync>
     </action>
 
@@ -3689,6 +3707,7 @@
         <assign property="object:NAV-[var:nav]/open/step.background" value="#666666" />
         <translate valign="bottom" time=".1" curve="linear" target="sel" />
         <assign property="object:open/step.background" value="#ed1c24" />
+        <keyboard visible="no" />
       </sync>
       <sync>
         <play action="saved[var:nav]" />
@@ -3879,9 +3898,10 @@
     <action name="summaryservices">
       <sync>
         <!-- <alert message="summary services" />  -->
-        <if lhs="[datasource:tearoffdb-list.dataSourceResultCount]" operator="gt" rhs="0">
+        <if lhs="[datasource:tearoffdb-list.dataSourceResultCount]" operator="gte" rhs="1">
           <assign property="var:layers" value="[datasource:tearoffdb-list.1.LAYERS]" />
           <assign property="var:type" value="[datasource:tearoffdb-list.1.MATERIAL]" />
+          <!--<alert title="tear off set" message="[datasource:tearoffdb-list.1.LAYERS] [datasource:tearoffdb-list.1.MATERIAL]" />-->
           <else>
           	<assign property="var:layers" value="N/A" />
           	<assign property="var:type" value="N/A" />
@@ -3942,7 +3962,7 @@
 
     <action name="savedSERVICES">
       <sync>
-        <if lhs="[datasource:tearoffdb-list.dataSourceResultCount]" operator="gt" rhs="0">
+        <if lhs="[datasource:tearoffdb-list.dataSourceResultCount]" operator="gte" rhs="1">
           <assign property="datasource:tearoffdb-delete.query" value="DELETE FROM TEAROFF;" />
           <!--<alert title="tearoff" message="from the if and deleting [datasource:tearoffdb-list.dataSourceResultCount]" />-->
           <else>
@@ -3953,26 +3973,14 @@
       </sync>
     </action>
 
-    <!--<action name="savedSERVICES2" datasource="tearoffdb-delete" datasourceevent="querycomplete">
-      <if lhs="[var:loaded]" operator="e" rhs="yes">
-        <sync>
-          <if lhs="[datasource:assetprotectiondb-list.dataSourceResultCount]" operator="gt" rhs="0">
-            <assign property="datasource:assetprotectiondb-delete.query" value="DELETE FROM PROTECTION;" />
-            <else>
-              <play action="savedSERVICES-save" />
-            </else>
-          </if>
-        </sync>
-      </if>
-    </action>-->
+    <action name="save-tearoff">
 
-    <action name="savedSERVICES-save" datasource="assetprotectiondb-delete" datasourceevent="querycomplete">
-      <!-- <alert title="tear off" message="tear off:[var:tearoff] [object:LAYERS/input.text] [object:TYPE/input.text]" /> -->
-      <!-- <alert title="asset protection" message="landscaping:[var:landscaping] hardscaping:[var:hardscaping] hvac:[var:hvac] pool:[var:pool] misc[var:misc]" />-->
+    </action>
+
+    <action name="savedSERVICES-save" datasource="tearoffdb-delete" datasourceevent="querycomplete">
       <if lhs="[var:loaded]" operator="e" rhs="yes">
+        <!-- <alert message="INSERT INTO TEAROFF (TEAROFF, LAYERS, MATERIAL) VALUES ('[var:tearoff]', '[object:LAYERS/input.text]', '[object:TYPE/input.text]');" /> -->
         <assign property="datasource:tearoffdb.query" value="INSERT INTO TEAROFF (TEAROFF, LAYERS, MATERIAL) VALUES ('[var:tearoff]', '[object:LAYERS/input.text]', '[object:TYPE/input.text]');" />
-        <!--<assign property="datasource:assetprotectiondb.query" value="INSERT INTO PROTECTION (LANDSCAPING, HARDSCAPING, HVAC, POOL, MISC) VALUES ('[var:landscaping]', '[var:hardscaping]', '[var:hvac]', '[var:pool]', '[var:misc]');" />
-        <assign property="datasource:plywooddb.query" value="INSERT INTO PLYWOOD (WOOD, MEASUREMENT, QUANTITY) VALUES ('[object:PLYWOODTYPE/hidden.text]', '[object:MEASUREMENT/hidden.text]', '[object:QUANTITY/input.text]');" />-->
       </if>
     </action>
 
@@ -3990,10 +3998,7 @@
       </sync>
     </action>
 
-    <action name="savedADJUSTMENTS">
-
-    </action>
-
+    <action name="savedADJUSTMENTS"></action>
     <action name="savedSUMMARY"></action>
 
     <action name="adjustments-save">
@@ -4225,19 +4230,7 @@
         <set onclickup="roofinfo-alert" target="STEP-NAVBLOCK" />
         <assign property="object:NAV-CUSTOMER/open/step.background" value="#666666" />
         <assign property="object:NAV-ROOF/open/step.background" value="#ed1c24" />
-        <keyboard visible="no" target="CUST1-FNAME/input" />
-        <keyboard visible="no" target="CUST1-LNAME/input" />
-        <keyboard visible="no" target="CUST1-PHONE/input" />
-        <keyboard visible="no" target="CUST1-EMAIL/input" />
-        <keyboard visible="no" target="CUST2-FNAME/input" />
-        <keyboard visible="no" target="CUST2-LNAME/input" />
-        <keyboard visible="no" target="CUST2-PHONE/input" />
-        <keyboard visible="no" target="CUST2-EMAIL/input" />
-        <keyboard visible="no" target="STREET/input" />
-        <keyboard visible="no" target="CITY/input" />
-        <keyboard visible="no" target="ZIP/input" />
-        <keyboard visible="no" target="POSTAL/input" />
-        <keyboard visible="no" target="NOTES/input" />
+        <keyboard visible="no" />
       </sync>
 			<else>
 				<alert message="There was an error creating the customer.  Please verify that all information is correct and try again." />
@@ -4259,6 +4252,7 @@
         <alpha value="1" time=".25" target="ROOF-_alias" />
         <assign property="var:roof" value="_alias" />
         <translate xpos="-101%" curve="linear" target="ROOF-SIDEBAR-BLOCKER" />
+        <keyboard visible="no" />
       </sync>
       <sync>
         <translate xpos="101%" time=".1" curve="linear" target="ROOF-SIDEBAR-PAGER/[var:roofarrow]/arrow" />
@@ -4291,6 +4285,7 @@
         <alpha value="1" time=".25" target="SERVICES-_alias" />
         <assign property="var:services" value="_alias" />
         <translate xpos="-101%" curve="linear" target="SERVICES-SIDEBAR-BLOCKER" />
+        <keyboard visible="no" />
       </sync>
       <sync>
         <translate xpos="101%" time=".1" curve="linear" target="SERVICES-SIDEBAR-PAGER/[var:servicesarrow]/arrow" />
@@ -4305,6 +4300,7 @@
       <!--<alert message="[var:roof]" />-->
       <play action="[var:roof]" />
       <play action="roof-saving-modal" />
+      <keyboard visible="no" />
     </action>
 
     <action name="INSPECTION">
@@ -5609,10 +5605,27 @@
     <action name="selectaccessory-delete-prev2" datasource="accessoriesdb-deletelist-hipvent" datasourceevent="querycomplete">
       <if lhs="[var:loaded]" operator="e" rhs="yes">
         <sync>
+          <!--<alert title="current hip vent" message="[var:cur-hipvent]" />-->
           <if lhs="[datasource:accessoriesdb-list.dataSourceResultCount]" operator="gte" rhs="1">
-            <!--<alert title="count = [datasource:accessoriesdb-deletelist-hipvent.dataSourceResultCount]" message="DELETE FROM ACCESSORIES WHERE NAME='[var:cur-hipvent]';" />
-            <assign property="datasource:accessoriesdb-delete.query" value="DELETE FROM ACCESSORIES WHERE NAME='[var:cur-hipvent]';" />-->
+            <!--<alert title="count = [datasource:accessoriesdb-deletelist-hipvent.dataSourceResultCount]" message="DELETE FROM ACCESSORIES WHERE NAME='[var:cur-hipvent]';" />-->
+            <assign property="datasource:accessoriesdb-delete.query" value="DELETE FROM ACCESSORIES WHERE NAME='[var:cur-hipvent]';" />
             <assign property="var:prev-hipvent" value="[datasource:getAccessories._value.AccessoryName]" />
+            <else>
+              <play action="accessoriesdb-insert" />
+            </else>
+          </if>
+        </sync>
+      </if>
+    </action>
+
+    <action name="selectaccessory-delete-prev3" datasource="accessoriesdb-deletelist-fascia" datasourceevent="querycomplete">
+      <if lhs="[var:loaded]" operator="e" rhs="yes">
+        <sync>
+          <!--<alert title="current fascia" message="[var:cur-fascia]" />-->
+          <if lhs="[datasource:accessoriesdb-list.dataSourceResultCount]" operator="gte" rhs="1">
+            <!--<alert title="count = [datasource:accessoriesdb-deletelist-hipvent.dataSourceResultCount]" message="DELETE FROM ACCESSORIES WHERE NAME='[var:cur-hipvent]';" />-->
+            <assign property="datasource:accessoriesdb-delete.query" value="DELETE FROM ACCESSORIES WHERE NAME='[var:cur-fascia]';" />
+            <assign property="var:prev-fascia" value="[datasource:getAccessories._value.AccessoryName]" />
             <else>
               <play action="accessoriesdb-insert" />
             </else>
@@ -5663,16 +5676,23 @@
             <if lhs="[eval:('[datasource:getAccessories.[var:cur-ventilation-index].AccessoryName]').indexOf('Cobra')]" operator="gte" rhs="0">
               <!--<assign property="var:autocoverage" value="[eval: [object:ACCESSORYQUANTITY/input.text] * [var:coverage] ]" />-->
               <if lhs="[eval:('[datasource:getAccessories.[var:cur-ventilation-index].AccessoryName]').indexOf('Hip Vent')]" operator="gte" rhs="0">
-                <assign property="var:autocoverage" value="[eval: [object:ACCESSORYQUANTITY/input.text] * [var:coverage] ]" />
-                <!--<assign property="datasource:accessoriesdb-deletelist-hipvent.query" value="SELECT * FROM ACCESSORIES WHERE NAME='[var:cur-hipvent]';" />-->
-                <play action="accessoriesdb-insert" />
+                <sync>
+                  <assign property="var:cur-hipvent" value="[datasource:getAccessories.[var:accessorySelected].AccessoryName]" />
+                  <assign property="var:autocoverage" value="[eval: [object:ACCESSORYQUANTITY/input.text] * [var:coverage] ]" />
+                  <assign property="datasource:accessoriesdb-deletelist-hipvent.query" value="SELECT * FROM ACCESSORIES WHERE NAME='[var:cur-hipvent]';" />
+                </sync>
+                <!--<play action="accessoriesdb-insert" />-->
                 <else>
                   <play action="null" />
                   <!--<alert title="fascia = [eval:('[datasource:getAccessories.[var:cur-ventilation-index].AccessoryName]').indexOf('FasciaFlow')]" message="[datasource:getAccessories.[var:cur-ventilation-index].AccessoryName]" />-->
                   <if lhs="[eval:('[datasource:getAccessories.[var:cur-ventilation-index].AccessoryName]').indexOf('FasciaFlow')]" operator="gte" rhs="0">
-                    <!--<alert title="fascia flow" message="name [var:accessory-[var:accessoryCount]-Name], type [var:accessory-[var:accessoryCount]-Type], count [var:accessory-[var:accessoryCount]], quantity [var:accessory-[var:accessoryCount]-Quantity]" />-->
-                    <play action="accessoriesdb-insert" />
-                    <assign property="var:autocoverage" value="[eval: [object:ACCESSORYQUANTITY/input.text] * [var:coverage] ]" />
+                    <!--<alert title="fascia flow" message="name [var:accessory-[var:accessoryCount]-Name], type [var:accessory-[var:accessoryCount]-Type], count [var:accessory-[var:accessoryCount]], quantity [var:accessory-[var:accessoryCount]-Quantity]" />
+                    <play action="accessoriesdb-insert" />-->
+                    <sync>
+                      <assign property="var:cur-fascia" value="[datasource:getAccessories.[var:accessorySelected].AccessoryName]" />
+                      <assign property="var:autocoverage" value="[eval: [object:ACCESSORYQUANTITY/input.text] * [var:coverage] ]" />
+                      <assign property="datasource:accessoriesdb-deletelist-fascia.query" value="SELECT * FROM ACCESSORIES WHERE NAME='[var:cur-fascia]';" />
+                    </sync>
                     <else>
                       <assign property="datasource:accessoriesdb-deletelist-ridgevent.query" value="SELECT * FROM ACCESSORIES WHERE NAME='[var:cur-ridgevent]';" />
                       <assign property="var:autocoverage" value="[eval: [object:ACCESSORYQUANTITY/input.text] * [var:coverage] ]" />
@@ -6368,6 +6388,9 @@
 		<assign property="var:customerCreated" value="" />
       <assign property="var:warranty-set" value="no" />
       <assign property="var:roofMeasurementsJSON" value="" />
+      <assign property="var:wasteAdjust" value="" />
+      <assign property="var:waste" value="" />
+      <assign property="var:wasteFactor" value="" />
       <assign property="var:ridgeMeasurementsJSON" value="" />
       <assign property="var:hipsJSON" value="" />
       <assign property="var:valleysJSON" value="" />
@@ -6467,6 +6490,9 @@
 		<assign property="var:customerCreated" value="" />
 	    <assign property="var:warranty-set" value="no" />
 	    <assign property="var:roofMeasurementsJSON" value="" />
+	    <assign property="var:wasteAdjust" value="" />
+      <assign property="var:waste" value="" />
+      <assign property="var:wasteFactor" value="" />
 	    <assign property="var:ridgeMeasurementsJSON" value="" />
 	    <assign property="var:hipsJSON" value="" />
 	    <assign property="var:valleysJSON" value="" />
