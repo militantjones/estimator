@@ -172,8 +172,11 @@
 	<texttemplate name="adjustments"><![CDATA[
 		{"PriceAjustmentsId":"[eval:[var:adjustmentsIterateCount]-1]","Description":"[eval:decodeURI('[datasource:adjustmentsdb-list.[var:adjustmentsIterateCount].NOTES]')]","Price":"[eval:'[datasource:adjustmentsdb-list.[var:adjustmentsIterateCount].TYPE]' == 'Discount' ? '-':''][datasource:adjustmentsdb-list.[var:adjustmentsIterateCount].AMOUNT]"}
 	]]></texttemplate>
+	<texttemplate name="plywood"><![CDATA[
+		{"PlywoodSheathingType":"[datasource:plywooddb-list.[var:plywoodIterateCount].WOOD]","MeasurementType":"[datasource:plywooddb-list.[var:plywoodIterateCount].MEASUREMENT]","Quantity":"[datasource:plywooddb-list.[var:plywoodIterateCount].QUANTITY]"}
+	]]></texttemplate>
 	<texttemplate name="estimateJSON"><![CDATA[
-		{"CustomerId":"[var:customerId]","ProductId":"[var:shingle]","WarrantyId":"[var:warranty]",[var:accessoriesObject],[var:miscAccessoriesObject],[var:adjustmentsObject],"AdditionalCost":{"TearOffLayers":[var:tearOffLayers],"TearOffType":"[var:tearOffType]","NumberOfStories":[var:numberOfFloors]}}
+		{"CustomerId":"[var:customerId]","ProductId":"[var:shingle]","WarrantyId":"[var:warranty]",[var:accessoriesObject],[var:miscAccessoriesObject],[var:adjustmentsObject],"AdditionalCost":{[var:plywoodObject],"TearOffLayers":[var:tearOffLayers],"TearOffType":"[var:tearOffType]","NumberOfStories":[var:numberOfFloors]}}
 	]]></texttemplate>
 
   </datasources>
@@ -1446,7 +1449,7 @@
             <text name="drophead" width="100%" height="30" style="lighttext" size="18" alignment="center" text="MEASUREMENT CHOICES"></text>
             <panel name="border" width="100%" height="1" background="#888888" ypos="30"></panel>
             <pager name="measurements" width="100%" height="[eval:[object:ROOFTYPEDROP.height] - 30]" ypos="30" orientation="vertical" paginate="no">
-              <panel name="measure1" width="100%" height="40" _measure="PerSheet" _label="Per Sheet" _index="[param:index]" onclickup="setmeasurement">
+              <panel name="measure1" width="100%" height="40" _measure="BySheet" _label="Per Sheet" _index="[param:index]" onclickup="setmeasurement">
                 <text name="name" width="100%" height="100%" style="darktext" size="18" alignment="center" text="Per Sheet"></text>
                 <panel name="border" width="100%" height="1" valign="bottom" background="#888888"></panel>
               </panel>
@@ -1492,7 +1495,7 @@
             <text name="drophead" width="100%" height="30" style="lighttext" size="18" alignment="center" text="MEASUREMENT CHOICES"></text>
             <panel name="border" width="100%" height="1" background="#888888" ypos="30"></panel>
             <pager name="measurements" width="100%" height="[eval:[object:ROOFTYPEDROP.height] - 30]" ypos="30" orientation="vertical" paginate="no">
-              <panel name="measure1" width="100%" height="40" _measure="PerSheet" _label="Per Sheet" _index="[param:index]" onclickup="setmeasurement">
+              <panel name="measure1" width="100%" height="40" _measure="BySheet" _label="Per Sheet" _index="[param:index]" onclickup="setmeasurement">
                 <text name="name" width="100%" height="100%" style="darktext" size="18" alignment="center" text="Per Sheet"></text>
                 <panel name="border" width="100%" height="1" valign="bottom" background="#888888"></panel>
               </panel>
@@ -1538,7 +1541,7 @@
             <text name="drophead" width="100%" height="30" style="lighttext" size="18" alignment="center" text="MEASUREMENT CHOICES"></text>
             <panel name="border" width="100%" height="1" background="#888888" ypos="30"></panel>
             <pager name="measurements" width="100%" height="[eval:[object:ROOFTYPEDROP.height] - 30]" ypos="30" orientation="vertical" paginate="no">
-              <panel name="measure1" width="100%" height="40" _measure="PerSheet" _label="Per Sheet" _index="[param:index]" onclickup="setmeasurement">
+              <panel name="measure1" width="100%" height="40" _measure="BySheet" _label="Per Sheet" _index="[param:index]" onclickup="setmeasurement">
                 <text name="name" width="100%" height="100%" style="darktext" size="18" alignment="center" text="Per Sheet"></text>
                 <panel name="border" width="100%" height="1" valign="bottom" background="#888888"></panel>
               </panel>
@@ -1584,7 +1587,7 @@
             <text name="drophead" width="100%" height="30" style="lighttext" size="18" alignment="center" text="MEASUREMENT CHOICES"></text>
             <panel name="border" width="100%" height="1" background="#888888" ypos="30"></panel>
             <pager name="measurements" width="100%" height="[eval:[object:ROOFTYPEDROP.height] - 30]" ypos="30" orientation="vertical" paginate="no">
-              <panel name="measure1" width="100%" height="40" _measure="PerSheet" _label="Per Sheet" _index="[param:index]" onclickup="setmeasurement">
+              <panel name="measure1" width="100%" height="40" _measure="BySheet" _label="Per Sheet" _index="[param:index]" onclickup="setmeasurement">
                 <text name="name" width="100%" height="100%" style="darktext" size="18" alignment="center" text="Per Sheet"></text>
                 <panel name="border" width="100%" height="1" valign="bottom" background="#888888"></panel>
               </panel>
@@ -3052,6 +3055,7 @@
 		  <alpha value="1" time=".2" target="UPLOAD-CURTAIN" />
 		  <assign property="object:UPLOAD-CURTAIN/photo-progress.text" value="Retrieving Estimate..." />
 	      <assign property="var:customerId" value="[datasource:getEstimate._value.CustomerId]" />
+	      <assign property="var:customerIndex" value="_value" />
 		  <play action="download-pdf" />
 		  <else>
 			  <alert message="No estimate found for this user." />
@@ -4015,7 +4019,13 @@
           <assign property="var:adjustmentindexloop" value="[eval: [var:adjustmentindexloop] + 1]" />
           <assign property="var:temp-adjustnote" encoding="url" value="[object:ADJUSTMENTAMOUNTNOTES[var:adjustmentindexloop]/input.text]" />
           <!--<alert message="units:[var:units-[var:adjustmentindexloop]] adjustments type:[object:ADJUSTTYPE[var:adjustmentindexloop].text] amount:[object:ADJUSTMENTAMOUNT[var:adjustmentindexloop]/input.text] notes:[object:ADJUSTMENTAMOUNTNOTES[var:adjustmentindexloop]/input.text] " />-->
-          <assign property="datasource:adjustmentsdb.query" value="INSERT INTO ADJUSTMENTS (TYPE, UNITS, AMOUNT, NOTES) values ('[object:ADJUSTTYPE[var:adjustmentindexloop].text]', '[var:units-[var:adjustmentindexloop]]', '[object:ADJUSTMENTAMOUNT[var:adjustmentindexloop]/input.text]', '[var:temp-adjustnote]');" />
+		  <if lhs="[object:ADJUSTTYPE[var:adjustmentindexloop].text]" operator="ne" rhs="">
+				<assign property="datasource:adjustmentsdb.query" value="INSERT INTO ADJUSTMENTS (TYPE, UNITS, AMOUNT, NOTES) values ('[object:ADJUSTTYPE[var:adjustmentindexloop].text]', '[var:units-[var:adjustmentindexloop]]', '[object:ADJUSTMENTAMOUNT[var:adjustmentindexloop]/input.text]', '[var:temp-adjustnote]');" />
+				<else>
+		            <assign property="var:adjustmentindexloop" value="0" />
+		            <play action="landscaping-save" />
+				</else>
+			</if>
         </sync>
       </if>
     </action>
@@ -6182,7 +6192,7 @@
 				<else>
 					<assign property="var:adjustmentsObject" value="&quot;PriceAjustments&quot;: []" />
 <!-- 					<alert message="var:accessoriesObject is [var:accessoriesObject] var:adjustmentsObject is [var:adjustmentsObject]" /> -->
-					<play action="finishEstimate" />
+					<play action="prepPlywood" />
 				</else>
 			</if>
 		</action>
@@ -6195,8 +6205,34 @@
 			</loop>
 			<assign property="var:adjustmentsObject" value="&quot;PriceAjustments&quot;: [[var:adjustmentsJSON]]" />
 <!-- 			<alert message="var:accessoriesJSON is [var:accessoriesJSON] var:adjustmentsJSON is [var:adjustmentsJSON]" /> -->
+			<play action="prepPlywood" />
+		</action>
+		
+		<action name="prepPlywood" >
+<!-- 			<alert message="prepPlywood count is [datasource:plywooddb-list.dataSourceResultCount]" /> -->
+			<if lhs="[datasource:plywooddb-list.dataSourceResultCount]" operator="gt" rhs="0">
+				<assign property="var:plywoodIterateCount" value="1" />
+				<play action="formatPlywood" />
+				<else>
+					<assign property="var:plywoodObject" value="&quot;PlywoodSheathings&quot;: []" />
+<!-- 					<alert message="var:accessoriesObject is [var:accessoriesObject] var:adjustmentsObject is [var:adjustmentsObject]" /> -->
+					<play action="finishEstimate" />
+				</else>
+			</if>
+		</action>
+
+		<action name="formatPlywood" >
+<!-- 			<alert message="formatPlywood var:plywoodIterateCount is [var:plywoodIterateCount] datasource:plywooddb-list.dataSourceResultCount is [datasource:plywooddb-list.dataSourceResultCount]" /> -->
+			<loop lhs="[var:plywoodIterateCount]" operator="lte" rhs="[datasource:plywooddb-list.dataSourceResultCount]" >
+<!-- 				<alert message="var:plywoodIterateCount is [var:plywoodIterateCount] {&quot;PlywoodSheathingType&quot;:&quot;[datasource:plywooddb-list.[var:plywoodIterateCount].WOOD]&quot;,&quot;MeasurementType&quot;:&quot;[datasource:plywooddb-list.[var:plywoodIterateCount].MEASUREMENT]&quot;,&quot;Quantity&quot;:&quot;[datasource:plywooddb-list.[var:plywoodIterateCount].QUANTITY]&quot;}" /> -->
+				<assign property="var:plywoodJSON" value="[var:plywoodJSON][eval:[var:plywoodIterateCount] == 1 ? '':','][template:plywood.content]" />
+				<assign property="var:plywoodIterateCount" value="[eval: [var:plywoodIterateCount] + 1]" />
+			</loop>
+			<assign property="var:plywoodObject" value="&quot;PlywoodSheathings&quot;: [[var:plywoodJSON]]" />
+			<alert message="var:accessoriesJSON is [var:accessoriesJSON] var:adjustmentsJSON is [var:adjustmentsJSON]" />
 			<play action="finishEstimate" />
 		</action>
+		
 
 		<action name="finishEstimate" >
 			<assign property="var:estimateJSON" value="[template:estimateJSON.content]" />
@@ -6211,6 +6247,7 @@
 			<assign property="var:accessoriesJSON" value="" />
 			<assign property="var:miscAccessoriesJSON" value="" />
 			<assign property="var:adjustmentsJSON" value="" />
+			<assign property="var:plywoodJSON" value="" />
 			<if lhs="[datasource:generateEstimate.1.ResponseCode]" operator="e" rhs="100">
 <!-- 				<alert message="estimate received" /> -->
 				<sync delay="5" >
@@ -6253,7 +6290,7 @@
 		</action>
 
 		<action name="sendestimate" >
-			<email subject="Your Estimate" body="Here is your estimate" toaddress="" attachment="estimate.pdf" mimetype="application/pdf" />
+			<email subject="Your Estimate" body="Here is your estimate" toaddress="[eval: '[var:search]' == 'on' ? '[datasource:getEstimate.[var:customerIndex].Email]':'[var:email]']" cc="[preferences:username]" attachment="estimate.pdf" mimetype="application/pdf" />
 		</action>
 
 		<action name="closepdf" >
@@ -6263,6 +6300,7 @@
 			</sync>
 			<if lhs="[var:search]" operator="ne" rhs="on">
 				<alpha value="1" target="HEADER" />
+				<alert message="If you wish to create another estimate for this customer, tap the appropriate section above." />
 			</if>
 		</action>
 
@@ -6380,6 +6418,7 @@
       <assign property="var:accessoriesJSON" value="" />
       <assign property="var:miscAccessoriesJSON" value="" />
       <assign property="var:adjustmentsJSON" value="" />
+	  <assign property="var:plywoodJSON" value="" />
       <assign property="var:search" value="" />
       <assign property="var:db-action" value="" />
       <assign property="var:accessories" value="0" />
@@ -6479,6 +6518,7 @@
 	    <assign property="var:accessoriesJSON" value="" />
 	    <assign property="var:miscAccessoriesJSON" value="" />
 	    <assign property="var:adjustmentsJSON" value="" />
+			<assign property="var:plywoodJSON" value="" />
 	    <assign property="var:product" value="" />
       <assign property="var:search" value="" />
       <assign property="var:db-action" value="" />
@@ -6843,11 +6883,13 @@
       </if>
     </action>
 
-    <!--<action name="plywood-count" datasource="plywooddb-list" datasourceevent="querycomplete">
+<!--
+    <action name="plywood-count" datasource="plywooddb-list" datasourceevent="querycomplete">
       <if lhs="[var:loaded]" operator="e" rhs="yes">
-        <alert title="plywood saved 1" message="[datasource:plywooddb-list.1.WOOD] [datasource:plywooddb-list.1.MEASUREMENT] [datasource:plywooddb-list.1.QUANTITY]" />
+        <alert title="plywood saved 1" message="count [datasource:plywooddb-list.dataSourceResultCount] [datasource:plywooddb-list.1.WOOD] [datasource:plywooddb-list.1.MEASUREMENT] [datasource:plywooddb-list.1.QUANTITY]" />
       </if>
-    </action>-->
+    </action>
+-->
 
     <!-- !curtain action -->
     <action name="curtainaction">
