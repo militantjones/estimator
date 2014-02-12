@@ -4024,13 +4024,13 @@
           <assign property="var:adjustmentindexloop" value="[eval: [var:adjustmentindexloop] + 1]" />
           <assign property="var:temp-adjustnote" encoding="url" value="[object:ADJUSTMENTAMOUNTNOTES[var:adjustmentindexloop]/input.text]" />
           <!--<alert message="units:[var:units-[var:adjustmentindexloop]] adjustments type:[object:ADJUSTTYPE[var:adjustmentindexloop].text] amount:[object:ADJUSTMENTAMOUNT[var:adjustmentindexloop]/input.text] notes:[object:ADJUSTMENTAMOUNTNOTES[var:adjustmentindexloop]/input.text] " />-->
-		  <if lhs="[object:ADJUSTTYPE[var:adjustmentindexloop].text]" operator="ne" rhs="">
-				<assign property="datasource:adjustmentsdb.query" value="INSERT INTO ADJUSTMENTS (TYPE, UNITS, AMOUNT, NOTES) values ('[object:ADJUSTTYPE[var:adjustmentindexloop].text]', '[var:units-[var:adjustmentindexloop]]', '[object:ADJUSTMENTAMOUNT[var:adjustmentindexloop]/input.text]', '[var:temp-adjustnote]');" />
-				<else>
-		            <assign property="var:adjustmentindexloop" value="0" />
-		            <play action="landscaping-save" />
-				</else>
-			</if>
+          <if lhs="[object:ADJUSTTYPE[var:adjustmentindexloop].text]" operator="ne" rhs="">
+            <assign property="datasource:adjustmentsdb.query" value="INSERT INTO ADJUSTMENTS (TYPE, UNITS, AMOUNT, NOTES) values ('[object:ADJUSTTYPE[var:adjustmentindexloop].text]', '[var:units-[var:adjustmentindexloop]]', '[object:ADJUSTMENTAMOUNT[var:adjustmentindexloop]/input.text]', '[var:temp-adjustnote]');" />
+            <else>
+		          <assign property="var:adjustmentindexloop" value="0" />
+		          <play action="landscaping-save" />
+            </else>
+          </if>
         </sync>
       </if>
     </action>
@@ -6227,7 +6227,7 @@
 <!-- 			<alert message="var:accessoriesJSON is [var:accessoriesJSON] var:adjustmentsJSON is [var:adjustmentsJSON]" /> -->
 			<play action="prepPlywood" />
 		</action>
-		
+
 		<action name="prepPlywood" >
 <!-- 			<alert message="prepPlywood count is [datasource:plywooddb-list.dataSourceResultCount]" /> -->
 			<if lhs="[datasource:plywooddb-list.dataSourceResultCount]" operator="gt" rhs="0">
@@ -6252,7 +6252,7 @@
 <!-- 			<alert message="var:accessoriesJSON is [var:accessoriesJSON] var:adjustmentsJSON is [var:adjustmentsJSON]" /> -->
 			<play action="finishEstimate" />
 		</action>
-		
+
 
 		<action name="finishEstimate" >
 			<assign property="var:estimateJSON" value="[template:estimateJSON.content]" />
@@ -6619,6 +6619,7 @@
     <!-- !delete actions -->
     <action name="delete-item">
       <sync>
+        <keyboard visible="no" />
         <assign property="var:deletetarget" value="_target" />
         <assign property="var:indexname" value="_indexname" />
         <assign property="var:spacername" value="_spacername" />
@@ -6653,13 +6654,13 @@
     <!-- !delete chimneys and skylights actions -->
     <action name="delete-chimney-item">
       <sync>
+        <keyboard visible="no" />
         <assign property="var:deletetarget" value="_target" /><!-- item to be deleted -->
         <assign property="var:indexname" value="_indexname" /><!-- name of indexing var -->
         <assign property="var:spacername" value="_spacername" /><!-- part of var name, not numeric -->
         <assign property="var:deleteindex" value="_index" />
         <assign property="var:parent" value="_parent" /><!-- parent of delete button -->
         <assign property="var:section" value="_section" /><!-- section that the item that is being deleted is in -->
-
         <assign property="var:delete-protrusiontype" value="_protrusiontype" /><!-- Non-main incrementing var name -->
         <assign property="var:protrusiontype-index" value="_protrusiontype-index" /><!-- Non main index -->
         <alert title="Delete _target" message="Are you sure?" buttononetitle="Yes" buttononeaction="confirm-chimney-delete" buttontwotitle="No" buttontwoaction="null"/>
@@ -6693,13 +6694,13 @@
     <!-- !adjustments actions  discounts and additional costs -->
     <action name="delete-adjustment-item">
       <sync>
+        <keyboard visible="no" />
         <assign property="var:deletetarget" value="_target" /><!-- item to be deleted -->
         <assign property="var:indexname" value="_indexname" /><!-- name of indexing var -->
         <assign property="var:spacername" value="_spacername" /><!-- part of var name, not numeric -->
         <assign property="var:deleteindex" value="_index" />
         <assign property="var:parent" value="_parent" /><!-- parent of delete button -->
         <assign property="var:section" value="_section" /><!-- section that the item that is being deleted is in -->
-
         <assign property="var:delete-adjustmenttype" value="_adjustmenttype" /><!-- Non-main incrementing var name -->
         <assign property="var:adjustmenttype-index" value="_adjustmenttype-index" /><!-- Non main index -->
         <alert title="Delete _target" message="Are you sure?" buttononetitle="Yes" buttononeaction="confirm-adjustment-delete" buttontwotitle="No" buttontwoaction="null"/>
@@ -6733,6 +6734,7 @@
     <!-- delete plumbing vents -->
     <action name="delete-vent">
       <sync>
+        <keyboard visible="no" />
         <assign property="var:indexname" value="_indexname" /><!-- name of indexing var -->
         <assign property="var:deleteVentTarget" value="_target" />
         <assign property="var:ventAction" value="_ventaction" />
@@ -6753,6 +6755,7 @@
     <!-- !plywood delete actions -->
     <action name="plywood-delete-item">
       <sync>
+        <keyboard visible="no" />
         <assign property="var:deletetarget" value="_target" />
         <assign property="var:indexname" value="_indexname" />
         <assign property="var:spacername" value="_spacername" />
@@ -6767,22 +6770,22 @@
 
     <action name="plywood-confirm-delete">
       <sync>
-        <if lhs="[var:[var:indexname]]" operator="e" rhs="2"><!-- deletes spacer from pager -->
+        <if lhs="[var:[var:indexname]]" operator="e" rhs="2">
           <delete target="ROOF-SPACER-[var:spacername]-2" />
           <assign property="var:[spacername]spacerindex" value="1" />
           <else>
             <delete target="ROOF-SPACER-[var:spacername]-[var:[var:indexname]]" />
           </else>
         </if>
-        <delete target="[var:deletetarget]" /><!-- deletes actual item -->
+        <!--<alert title="delete target" message="[var:deletetarget]" />-->
+        <delete target="[var:deletetarget]" />
         <set onclickup="[var:resetonclickup]" target="PLYWOODMENU/[var:plywoodActionTarget]" />
-        <!--<alert title="[var:resetonclickup]" message="[var:plywoodActionTarget]" />-->
-        <if lhs="[var:[var:indexname]]" operator="gte" rhs="1"><!-- alphas on the delete button in last item in pager -->
+        <if lhs="[var:[var:indexname]]" operator="gte" rhs="1">
           <alpha value="1" time=".1" target="[var:parent][eval: [var:[var:indexname]] - 1]/deletebox" />
         </if>
-        <assign property="var:[var:indexname]" value="[eval: [var:[var:indexname]] - 1 ]" /><!-- decrements index to reflect item has been deleted -->
-        <if lhs="[var:[var:indexname]]" operator="gt" rhs="1"><!-- creates new spacer at the end with proper index -->
-          <create class="roof-spacer" index="[var:[var:indexname]]" name="[var:spacername]" target="ROOF-[var:section]/roofpagerbox/pager" />
+        <assign property="var:[var:indexname]" value="[eval: [var:[var:indexname]] - 1 ]" />
+        <if lhs="[var:[var:indexname]]" operator="gt" rhs="1">
+          <create class="roof-spacer" index="[var:[var:indexname]]" name="[var:spacername]" target="SERVICES-[var:section]/servicespagerbox/pager" />
           <assign property="var:[spacername]spacerindex" value="[var:[var:indexname]]" />
         </if>
       </sync>
@@ -6849,6 +6852,7 @@
     <!-- !saving for services -->
     <action name="save-fake-service">
       <play action="released" />
+      <keyboard visible="no" />
       <if lhs="[var:servicesarrow]" operator="e" rhs="Plywood Sheathing">
         <play action="plywood-predelete" />
         <play action="roof-saving-modal" />
@@ -6864,12 +6868,8 @@
           <assign property="datasource:plywooddb-delete.query" value="DELETE FROM PLYWOOD;" />
           <!--<alert message="from the if and deleting [datasource:inspectiondb-list.dataSourceResultCount]" />-->
           <else>
-            <if lhs="[var:plywoodindex]" operator="gte" rhs="1">
-              <play action="plywoodsave-loop" />
-              <else>
-                <alert message="Nothing to save" />
-              </else>
-            </if>
+            <play action="plywoodsave-loop" />
+            <!--<alert message="from the else, nothing to delete" />-->
           </else>
         </if>
       </sync>
@@ -6884,7 +6884,7 @@
           </sync>
           <else>
             <play action="roof-saving-modal-hide" />
-            <alert title="Incomplete Form" message="Please fill out all fields" />
+            <alert title="Incomplete Form" message="Nothing to save." />
           </else>
         </if>
       </if>
@@ -6904,18 +6904,17 @@
             <assign property="datasource:plywooddb-list.query" value="SELECT * FROM PLYWOOD;" />
             <play action="roof-saving-modal-hide" />
             <alpha value="1" time=".1" target="SERVICES-SIDEBAR-PAGER/[var:servicesarrow]/saved-check" />
+            <assign property="var:plywoodsave-index" value="0" />
           </else>
         </if>
       </if>
     </action>
 
-<!--
-    <action name="plywood-count" datasource="plywooddb-list" datasourceevent="querycomplete">
+    <!--<action name="plywood-count" datasource="plywooddb-list" datasourceevent="querycomplete">
       <if lhs="[var:loaded]" operator="e" rhs="yes">
-        <alert title="plywood saved 1" message="count [datasource:plywooddb-list.dataSourceResultCount] [datasource:plywooddb-list.1.WOOD] [datasource:plywooddb-list.1.MEASUREMENT] [datasource:plywooddb-list.1.QUANTITY]" />
+        <alert title="plywood saved" message="count [datasource:plywooddb-list.dataSourceResultCount]" />
       </if>
-    </action>
--->
+    </action>-->
 
     <!-- !curtain action -->
     <action name="curtainaction">
