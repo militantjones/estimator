@@ -3158,8 +3158,6 @@
       </sync>
     </action>
 
-
-
     <action name="addarea">
       <sync>
         <assign property="var:areaindex" value="[eval: [var:areaindex] + 1]" />
@@ -3728,7 +3726,7 @@
           <assign property="var:totalareaTemp" value="0" />
           <assign property="var:squarestotalTemp" value="0" />
           <assign property="var:squarestotal" value="0" />
-          <assign property="var:leakbarrier" value="[eval: [var:ridgestotal] + [var:hipstotal] + [var:valleystotal] + [var:rakestotal] + [var:eavestotal]]" />
+          <assign property="var:leakbarrier" value="[eval: [var:hipstotal] + [var:valleystotal] + [var:rakestotal] + [var:eavestotal]]" />
           <assign property="var:starterstrips" value="[eval: [var:rakestotal] + [var:eavestotal]]" />
           <assign property="var:wasteAdjust" value="[eval: [var:waste] / 100 + 1 ]" />
           <loop lhs="[var:summaryarea]" operator="lt" rhs="[var:areaindex]">
@@ -5361,34 +5359,24 @@
         <assign property="var:selectedwarranty" value="_index" />
         <assign property="var:warranty" value="_value" />
         <assign property="var:accessories" value="_accessories" />
-        <!--<alert title="var accessories" message="var [var:accessories] : underscore _accessories" />-->
         <assign property="var:warrantyname" value="_title" />
         <assign property="var:warrantycheck" encoding="url" value="_title" />
-		<!--<alert message="var:warrantycheck is [var:warrantycheck]" />-->
         <alpha value="1" time=".1" target="UPLOAD-CURTAIN" />
         <assign property="object:UPLOAD-CURTAIN/photo-progress.text" value="Retrieving Accessories" />
         <if lhs="[var:warrantycheck]" operator="e" rhs="GAF%C2%AE%20Golden%20Pledge%C2%AE%20Limited%20Warranty">
           <alpha value="1" target="TEAROFF-BLOCK" />
-          <!--<alpha value="0" time=".1" target="TEAROFF-MASK" />
-          <scale width="[eval: ('_action' == 'remember' ? '24' : '40')]" height="[eval: ('_action' == 'remember' ? '24' : '40')]" align="center" valign="center" time=".1" alpha="1" target="TEAROFFSERVICE/check" />
-          <set onclickup="checkoff" target="TEAROFFSERVICE" />
-          <alpha value="1" target="TEAROFF-BLOCK" />
-          <assign property="var:tearoff" value="no" />
-          <play action="tearoff" _value="yes" />-->
-          <play action="tearoff-on" />
+          <if lhs="var:tearoff" operator="ne" rhs="yes">
+            <play action="tearoff-on" />
+            <!--<alert title="golden on" message="[var:tearoff]" />-->
+          </if>
           <translate xpos="492" curve="linear" target="STEP-NAVBLOCK" />
           <set onclickup="warranty-message" target="STEP-NAVBLOCK" />
           <set onchange="tearoff-go" target="LAYERS/input" />
           <set onchange="tearoff-go" target="TYPE/input" />
-          <!--<alert message="fields mask is off, checkbox is on and blocked" />-->
           <else>
-            <!--<alert message="check block is off, field mask is on" />-->
-            <!--<alpha value="1" time=".1" target="TEAROFF-MASK" />
-            <scale width="0" height="0" align="center" valign="center" time=".1" alpha="0" target="TEAROFFSERVICE/check" />
-            <set onclickup="checkon" target="TEAROFFSERVICE" />-->
             <alpha value="0" target="TEAROFF-BLOCK" />
-            <play action="tearoff-off" />
-            <!--<play action="tearoff" _value="no" />-->
+            <!--<play action="tearoff-off" />-->
+            <!--<alert title="golden off" message="[var:tearoff]" />-->
             <translate xpos="101%" curve="linear" target="STEP-NAVBLOCK" />
             <set onclickup="null" target="STEP-NAVBLOCK" />
             <set onchange="null" target="LAYERS/input" />
@@ -6258,7 +6246,7 @@
 			<assign property="var:estimateJSON" value="[template:estimateJSON.content]" />
 			<assign property="datasource:generateEstimate.postContent" value="[var:estimateJSON]" />
 			<assign property="datasource:generateEstimate.source" value="https://162.209.101.177/api/GenerateEstimate" />
-      <!-- <email subject="estimate and measurements json" body="estimate\n\n[var:estimateJSON]" toaddress="dwalruff@rarewire.com" /> -->
+      <!--<email subject="estimate and measurements json" body="estimate\n\n[var:estimateJSON]" toaddress="dwalruff@rarewire.com" />-->
 		</action>
 
 		<action name="estimate-complete" datasource="generateEstimate" datasourceevent="querycomplete">
