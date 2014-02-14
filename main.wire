@@ -1288,7 +1288,7 @@
         <panel name="layers" alias="LAYERS" width="226" height="50" align="left" bottomof="tearoffservice" margin-top="10" style="textinput">
           <panel name="bg" style="100" background="f3f3f3" alhpa="1"></panel>
           <text name="label" width="90%" height="100%" xpos="10" style="lighttext" size="20" alignment="left" text="Layers"></text>
-          <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" placeholder="" onreturnkeypressed="next" _next="none" _action="null" onchange="tearoff-go"></textfield>
+          <textfield name="input" width="100%" height="100%" align="left" rightinset="10" style="darktext" size="20" alignment="right" valignment="center" text="0" onreturnkeypressed="next" _next="none" _action="null" onchange="tearoff-go"></textfield>
           <panel name="active" style="100" onclickup="dropon" _field="LAYERS" _drop="TEAROFF" _droptype="LAYERSDROP"></panel>
         </panel>
         <panel name="type" alias="TYPE" width="226" height="50" align="left" bottomof="layers" margin-top="10" style="textinput">
@@ -2910,7 +2910,7 @@
           <alpha value="0" time=".1" target="TEAROFF-MASK" />
           <else>
             <alpha value="1" time=".1" target="TEAROFF-MASK" />
-            <assign property="object:LAYERS/input.text" value="" />
+            <assign property="object:LAYERS/input.text" value="0" />
             <assign property="object:TYPE/input.text" value="" />
           </else>
         </if>
@@ -2931,7 +2931,7 @@
           <assign property="var:tearoff" value="no" />
           <scale width="0" height="0" align="center" valign="center" time=".1" alpha="0" target="check" />
           <alpha value="1" time=".1" target="TEAROFF-MASK" />
-          <assign property="object:LAYERS/input.text" value="" />
+          <assign property="object:LAYERS/input.text" value="0" />
           <assign property="object:TYPE/input.text" value="" />
         </if>
       </sync>
@@ -6142,6 +6142,7 @@
 					<assign property="var:tearOffType" value="[datasource:tearoffdb-list.1.MATERIAL]" />
 					<else>
 						<assign property="var:tearOffLayers" value="0" />
+						<assign property="var:tearOffType" value="0" />
 					</else>
 				</if>
 			</if>
@@ -6415,7 +6416,7 @@
       <assign property="var:warranty-set" value="no" />
       <assign property="var:roofMeasurementsJSON" value="" />
       <assign property="var:wasteAdjust" value="" />
-      <assign property="var:waste" value="" />
+      <assign property="var:waste" value="0" />
       <assign property="var:wasteFactor" value="" />
       <assign property="var:ridgeMeasurementsJSON" value="" />
       <assign property="var:hipsJSON" value="" />
@@ -6518,7 +6519,7 @@
 	    <assign property="var:warranty-set" value="no" />
 	    <assign property="var:roofMeasurementsJSON" value="" />
 	    <assign property="var:wasteAdjust" value="" />
-      <assign property="var:waste" value="" />
+      <assign property="var:waste" value="0" />
       <assign property="var:wasteFactor" value="" />
 	    <assign property="var:ridgeMeasurementsJSON" value="" />
 	    <assign property="var:hipsJSON" value="" />
@@ -6828,7 +6829,7 @@
 
     <action name="tearoff-go">
       <sync>
-        <if lhs="[object:LAYERS/input.text]" operator="ne" rhs="">
+        <if lhs="[object:LAYERS/input.text]" operator="gt" rhs="0">
           <if lhs="[object:TYPE/input.text]" operator="ne" rhs="">
             <translate xpos="101%" curve="linear" target="STEP-NAVBLOCK" />
             <set onchange="null" target="NAVBLOCK" />
