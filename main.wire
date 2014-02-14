@@ -6238,7 +6238,7 @@
 				<assign property="var:plywoodIterateCount" value="[eval: [var:plywoodIterateCount] + 1]" />
 			</loop>
 			<assign property="var:plywoodObject" value="&quot;PlywoodSheathings&quot;: [[var:plywoodJSON]]" />
-			<alert message="var:accessoriesJSON is [var:accessoriesJSON] var:adjustmentsJSON is [var:adjustmentsJSON]" />
+			<!-- <alert message="var:accessoriesJSON is [var:accessoriesJSON] var:adjustmentsJSON is [var:adjustmentsJSON]" />-->
 			<play action="finishEstimate" />
 		</action>
 
