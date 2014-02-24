@@ -3161,6 +3161,7 @@
     <action name="addarea">
       <sync>
         <assign property="var:areaindex" value="[eval: [var:areaindex] + 1]" />
+        <assign property="var:areaindex2" value="[var:areaindex]" />
         <create class="roof area" index="[var:areaindex]" target="ROOF-ROOF AREA/roofpagerbox/pager" />
         <!--<alert message="[var:areaindex]" />-->
         <if lhs="[var:areaindex]" operator="gt" rhs="1">
@@ -4361,20 +4362,22 @@
 
     <action name="areaValidationLoop">
       <if lhs="[var:areaValidationIndex]" operator="lt" rhs="[var:areaindex]">
-        <assign property="var:areaValidationIndex" value="[eval: [var:areaValidationIndex] + 1]" />
-        <if lhs="[eval:'[object:RL[var:areaValidationIndex]/input.text]' != '' &amp;&amp; '[object:RW[var:areaValidationIndex]/input.text]' != '' &amp;&amp; '[var:slope-[var:areaValidationIndex]]' != '']" operator="e" rhs="true">
-            <play action="areaValidationLoop" />
-            <sync>
-              <assign property="var:area[var:areaValidationIndex]total" value="[eval: '[object:RW[var:areaValidationIndex]/input.text]' * '[object:RL[var:areaValidationIndex]/input.text]' ]" />
-              <assign property="var:area[var:areaValidationIndex]total" value="[eval: '[var:area[var:areaValidationIndex]total]' * '[var:slope-[var:areaValidationIndex]]' ]" />
-              <!--<alert title="total area" message="[var:area[var:areaValidationIndex]total]" />-->
-            </sync>
-            <else>
-              <alert title="Incomplete Form" message="Please fill out all fields" />
-              <assign property="var:areaValidationIndex" value="0" />
-              <play action="roof-saving-modal-hide" />
-            </else>
-        </if>
+        <sync>
+          <assign property="var:areaValidationIndex" value="[eval: [var:areaValidationIndex] + 1]" />
+          <if lhs="[eval:'[object:RL[var:areaValidationIndex]/input.text]' != '' &amp;&amp; '[object:RW[var:areaValidationIndex]/input.text]' != '' &amp;&amp; '[var:slope-[var:areaValidationIndex]]' != '']" operator="e" rhs="true">
+              <play action="areaValidationLoop" />
+              <sync>
+                <assign property="var:area[var:areaValidationIndex]total" value="[eval: '[object:RW[var:areaValidationIndex]/input.text]' * '[object:RL[var:areaValidationIndex]/input.text]' ]" />
+                <assign property="var:area[var:areaValidationIndex]total" value="[eval: '[var:area[var:areaValidationIndex]total]' * '[var:slope-[var:areaValidationIndex]]' ]" />
+                <!--<alert title="total area" message="[var:area[var:areaValidationIndex]total]" />-->
+              </sync>
+              <else>
+                <alert title="Incomplete Form" message="Please fill out all fields" />
+                <assign property="var:areaValidationIndex" value="0" />
+                <play action="roof-saving-modal-hide" />
+              </else>
+          </if>
+        </sync>
         <else>
           <play action="roofareas-db-add" />
           <assign property="var:navstep-areas" value="yes" />
@@ -4389,25 +4392,10 @@
     <action name="roofareas-db-add">
       <sync>
         <assign property="var:areaindexloop" value="[eval: [var:areaindexloop] + 1]" />
-<!--         <alert message="var:slope-[var:areaindexloop] is [var:slope-[var:areaindexloop]]" /> -->
+        <!-- <alert message="var:slope-[var:areaindexloop] is [var:slope-[var:areaindexloop]]" /> -->
         <assign property="datasource:roofareasdb.query" value="INSERT INTO ROOFAREAS (LENGTH, WIDTH, SLOPE) values ('[object:RL[var:areaindexloop]/input.text]', '[object:RW[var:areaindexloop]/input.text]', '[var:slope-[var:areaindexloop]]');" />
-
       </sync>
     </action>
-
-    <!--<action name="roofarealoop">
-      <sync>
-        <if lhs="[var:areaindexloop]" operator="lt" rhs="[var:areaindex]">
-          <assign property="var:areaindexloop" value="[eval: [var:areaindexloop] + 1]" />
-          <alert message="Length [object:RL[var:areaindexloop]/input.text] Width [object:RW[var:areaindexloop]/input.text] Slope [object:SLOPE[var:areaindexloop]/input.text] " />
-          <assign property="var:areaquerys" value="[var:areaquerys], ('[object:RL[var:areaindexloop]/input.text]', '[object:RW[var:areaindexloop]/input.text]', '[object:SLOPE[var:areaindexloop]/input.text]')" />
-          <play action="roofarealoop" />
-          <else>
-            <play action="ROOF AREA" />
-          </else>
-        </if>
-      </sync>
-    </action>-->
 
     <action name="roofareaquery" datasource="roofareasdb" datasourceevent="querycomplete">
       <sync>
@@ -4954,7 +4942,7 @@
       <sync>
         <if lhs="[var:ventValidationIndex]" operator="lt" rhs="[var:ventindex]">
           <assign property="var:ventValidationIndex" value="[eval: [var:ventValidationIndex] + 1]" />
-          <alert title="vent field [var:ventValidationIndex]" message="[object:VENTQUANTITY[var:ventValidationIndex]/input.text]" />
+          <!--<alert title="vent field [var:ventValidationIndex]" message="[object:VENTQUANTITY[var:ventValidationIndex]/input.text]" />-->
           <if lhs="[eval:'[object:VENTQUANTITY[var:ventValidationIndex]/input.text]' != '']" operator="e" rhs="true">
             <play action="ventValidationLoop" />
             <else>
@@ -6445,6 +6433,21 @@
       <assign property="var:prevfield" value="0" />
       <assign property="var:nav" value="CUSTOMER" />
       <assign property="var:product" value="" />
+      <sync>
+        <loop lhs="[var:areaclear-index]" operator="lt" rhs="[var:areaindex2]">
+          <assign property="var:areaclear-index" value="[eval: [var:areaclear-index] + 1]" />
+          <assign property="var:slope-[var:areaclear-index]" value="" />
+        </loop>
+        <assign property="var:areaindex2" value="" />
+      </sync>
+      <assign property="var:areaValidationIndex" value="0" />
+      <assign property="var:ventValidationIndex" value="0" />
+      <assign property="var:chimneyValidationIndex" value="0" />
+      <assign property="var:eaveValidationIndex" value="0" />
+      <assign property="var:rakeValidationIndex" value="0" />
+      <assign property="var:valleyValidationIndex" value="0" />
+      <assign property="var:hipValidationIndex" value="0" />
+      <assign property="var:ridgeValidationIndex" value="0" />
       <assign property="preferences:remember" value="" />
       <assign property="preferences:username" value="" />
       <assign property="preferences:password" value="" />
@@ -6541,6 +6544,21 @@
 	    <assign property="var:adjustmentsJSON" value="" />
 			<assign property="var:plywoodJSON" value="" />
 	    <assign property="var:product" value="" />
+	    <sync>
+        <loop lhs="[var:areaclear-index]" operator="lt" rhs="[var:areaindex2]">
+          <assign property="var:areaclear-index" value="[eval: [var:areaclear-index] + 1]" />
+          <assign property="var:slope-[var:areaclear-index]" value="" />
+        </loop>
+        <assign property="var:areaindex2" value="" />
+      </sync>
+	    <assign property="var:areaValidationIndex" value="0" />
+      <assign property="var:ventValidationIndex" value="0" />
+      <assign property="var:chimneyValidationIndex" value="0" />
+      <assign property="var:eaveValidationIndex" value="0" />
+      <assign property="var:rakeValidationIndex" value="0" />
+      <assign property="var:valleyValidationIndex" value="0" />
+      <assign property="var:hipValidationIndex" value="0" />
+      <assign property="var:ridgeValidationIndex" value="0" />
       <assign property="var:search" value="" />
       <assign property="var:db-action" value="" />
       <assign property="var:accessories" value="0" />
@@ -6795,6 +6813,7 @@
           <create class="roof-spacer" index="[var:[var:indexname]]" name="[var:spacername]" target="SERVICES-[var:section]/servicespagerbox/pager" />
           <assign property="var:[spacername]spacerindex" value="[var:[var:indexname]]" />
         </if>
+        <alpha value="0" time=".1" target="SERVICES-SIDEBAR-PAGER/Plywood Sheathing/saved-check" />
       </sync>
     </action>
 
@@ -6989,7 +7008,7 @@
       <sync>
         <assign property="var:warranty-set" value="no" />
         <assign property="var:selectedwarranty" value="0" />
-        <alert title="sidebar-products" message="old = [var:product]  new = Shingles" />
+        <!--<alert title="sidebar-products" message="old = [var:product]  new = Shingles" />-->
         <play action="sidebar-products" _alias="[var:product]" _form="Shingles" />
         <alpha value="0" target="PRODUCTS-WARRANTY" />
         <alpha value="0" target="PRODUCTS-ACCESSORIES" />
