@@ -542,7 +542,7 @@
     <class name="roof area">
       <panel name="roof-area[param:index]" alias="ROOF-AREA[param:index]" width="100%" height="220" padding-right="20">
         <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="15" alignment="left" text="ROOF AREA [param:index]"></text>
-        <panel name="deletebox" width="60" height="35" align="right" onclickup="delete-item" clickuptarget="CONTAINER" _target="ROOF-AREA[param:index]" _indexname="areaindex" _spacername="AREA" _parent="ROOF-AREA" _section="ROOF AREA">
+        <panel name="deletebox" width="60" height="35" align="right" onclickup="delete-item" clickuptarget="CONTAINER" _target="ROOF-AREA[param:index]" _indexname="areaindex" _spacername="AREA" _parent="ROOF-AREA" _section="ROOF AREA" _check="Roof Areas">
           <image name="icon" source="images/delete.png" width="20" height="20" align="center" valign="center"></image>
         </panel>
         <panel name="length" width="256" height="50" bottomof="subtitle">
@@ -752,7 +752,7 @@
     <class name="ridge">
       <panel name="ridge[param:index]" alias="RIDGE[param:index]" width="100%" height="160" padding-right="20">
         <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="15" alignment="left" text="RIDGE [param:index]"></text>
-        <panel name="deletebox" width="60" height="35" align="right" onclickup="delete-item" clickuptarget="CONTAINER" _target="RIDGE[param:index]" _indexname="ridgeindex" _spacername="RIDGE" _parent="RIDGE"  _section="RIDGE">
+        <panel name="deletebox" width="60" height="35" align="right" onclickup="delete-item" clickuptarget="CONTAINER" _target="RIDGE[param:index]" _indexname="ridgeindex" _spacername="RIDGE" _parent="RIDGE"  _section="RIDGE" _check="Ridges">
           <image name="icon" source="images/delete.png" width="20" height="20" align="center" valign="center"></image>
         </panel>
         <panel name="ridge" width="256" height="50" bottomof="subtitle">
@@ -775,7 +775,7 @@
     <class name="hip">
       <panel name="hip[param:index]" alias="HIP[param:index]" width="100%" height="160" padding-right="20">
         <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="15" alignment="left" text="HIP [param:index]"></text>
-        <panel name="deletebox" width="60" height="35" align="right" onclickup="delete-item" clickuptarget="CONTAINER" _target="HIP[param:index]" _indexname="hipindex" _spacername="HIP" _parent="HIP" _section="HIP">
+        <panel name="deletebox" width="60" height="35" align="right" onclickup="delete-item" clickuptarget="CONTAINER" _target="HIP[param:index]" _indexname="hipindex" _spacername="HIP" _parent="HIP" _section="HIP" _check="Hips">
           <image name="icon" source="images/delete.png" width="20" height="20" align="center" valign="center"></image>
         </panel>
         <panel name="hip" width="256" height="50" bottomof="subtitle">
@@ -798,7 +798,7 @@
     <class name="valley">
       <panel name="valley[param:index]" alias="VALLEY[param:index]" width="100%" height="100" padding-right="20">
         <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="15" alignment="left" text="VALLEY [param:index]"></text>
-        <panel name="deletebox" width="60" height="35" align="right" onclickup="delete-item" clickuptarget="CONTAINER" _target="VALLEY[param:index]" _indexname="valleyindex" _spacername="VALLEY" _parent="VALLEY" _section="VALLEY">
+        <panel name="deletebox" width="60" height="35" align="right" onclickup="delete-item" clickuptarget="CONTAINER" _target="VALLEY[param:index]" _indexname="valleyindex" _spacername="VALLEY" _parent="VALLEY" _section="VALLEY" _check="Valleys">
           <image name="icon" source="images/delete.png" width="20" height="20" align="center" valign="center"></image>
         </panel>
         <panel name="valley" width="256" height="50" bottomof="subtitle">
@@ -817,7 +817,7 @@
     <class name="rake">
       <panel name="rake[param:index]" alias="RAKE[param:index]" width="100%" height="100" padding-right="20">
         <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="15" alignment="left" text="RAKE [param:index]"></text>
-        <panel name="deletebox" width="60" height="35" align="right" onclickup="delete-item" clickuptarget="CONTAINER" _target="RAKE[param:index]" _indexname="rakeindex" _spacername="RAKE" _parent="RAKE" _section="RAKE">
+        <panel name="deletebox" width="60" height="35" align="right" onclickup="delete-item" clickuptarget="CONTAINER" _target="RAKE[param:index]" _indexname="rakeindex" _spacername="RAKE" _parent="RAKE" _section="RAKE" _check="Rakes">
           <image name="icon" source="images/delete.png" width="20" height="20" align="center" valign="center"></image>
         </panel>
         <panel name="rake" width="256" height="50" bottomof="subtitle">
@@ -836,7 +836,7 @@
     <class name="eave">
       <panel name="eave[param:index]" alias="EAVE[param:index]" width="100%" height="100" padding-right="20">
         <text name="subtitle" width="100%" height="35" font="Futura-Medium" color="#343434" size="15" alignment="left" text="EAVE [param:index]"></text>
-        <panel name="deletebox" width="60" height="35" align="right" onclickup="delete-item" clickuptarget="CONTAINER" _target="EAVE[param:index]" _indexname="eaveindex" _spacername="EAVE" _parent="EAVE" _section="EAVE">
+        <panel name="deletebox" width="60" height="35" align="right" onclickup="delete-item" clickuptarget="CONTAINER" _target="EAVE[param:index]" _indexname="eaveindex" _spacername="EAVE" _parent="EAVE" _section="EAVE" _check="Eaves">
           <image name="icon" source="images/delete.png" width="20" height="20" align="center" valign="center"></image>
         </panel>
         <panel name="eave" width="256" height="50" bottomof="subtitle">
@@ -1097,7 +1097,7 @@
           <panel name="imgholder" width="200" height="200" background="000000" clip="yes" >
             <image name="shingle" height="100%" url="[eval: '[datasource:getProducts.[var:shingleSelected].ProductFamily]' == 'TruSlate®' ? 'http://162.209.101.177/Content/SlateImages/':'http://www.gaf.com/All_Images/']/[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Image]?w=200&amp;h=200"></image>
           </panel>
-          <text name="colorlabel" width="100%" height="40" bottomof="imgholder" style="darktext" size="fit" maxsize="20" alignment="left" text="[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Name]"></text>
+          <text name="colorlabel" width="100%" height="40" bottomof="imgholder" style="darktext" size="16" alignment="left" text="[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Name]"></text>
           <panel name="search-btn" width="200" height="50" align="right" bottomof="colorlabel">
             <object class="button" name="test" size="20" label="Select" action="setcolor" value="[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Name]" image="http://www.gaf.com/All_Images/[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Image]" />
           </panel>
@@ -1109,7 +1109,7 @@
           <panel name="imgholder" width="200" height="200" background="000000" clip="yes" >
             <image name="shingle" height="100%" url="[eval: '[datasource:getProducts.[var:shingleSelected].ProductFamily]' == 'TruSlate®' ? 'http://162.209.101.177/Content/SlateImages/':'http://www.gaf.com/All_Images/']/[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+1]]/Image]?w=200&amp;h=200"></image>
           </panel>
-          <text name="colorlabel" width="100%" height="40" bottomof="imgholder" style="darktext" size="fit" maxsize="20" alignment="left" text="[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+1]]/Name]"></text>
+          <text name="colorlabel" width="100%" height="40" bottomof="imgholder" style="darktext" size="fit" maxsize="16" alignment="left" text="[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+1]]/Name]"></text>
           <panel name="search-btn" width="200" height="50" align="right" bottomof="colorlabel">
             <object class="button" name="test" size="20" label="Select" action="setcolor" value="[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+1]]/Name]" image="http://www.gaf.com/All_Images/[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+1]]/Image]" />
           </panel>
@@ -1120,7 +1120,7 @@
           <panel name="imgholder" width="200" height="200" background="000000" clip="yes" >
             <image name="shingle" height="100%" url="[eval: '[datasource:getProducts.[var:shingleSelected].ProductFamily]' == 'TruSlate®' ? 'http://162.209.101.177/Content/SlateImages/':'http://www.gaf.com/All_Images/']/[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+2]]/Image]?w=200&amp;h=200"></image>
           </panel>
-          <text name="colorlabel" width="100%" height="40" bottomof="imgholder" style="darktext" size="fit" maxsize="20" alignment="left" text="[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+2]]/Name]"></text>
+          <text name="colorlabel" width="100%" height="40" bottomof="imgholder" style="darktext" size="fit" maxsize="16" alignment="left" text="[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+2]]/Name]"></text>
           <panel name="search-btn" width="200" height="50" align="right" bottomof="colorlabel">
             <object class="button" name="test" size="20" label="Select" action="setcolor" value="[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+2]]/Name]" image="http://www.gaf.com/All_Images/[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+2]]/Image]" />
           </panel>
@@ -1137,7 +1137,7 @@
           <panel name="imgholder" width="200" height="200" background="000000" clip="yes" >
             <image name="shingle" height="100%" url="[eval: '[datasource:getProducts.[var:shingleSelected].ProductFamily]' == 'TruSlate®' ? 'http://162.209.101.177/Content/SlateImages/':'http://www.gaf.com/All_Images/']/[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Image]?w=200&amp;h=200"></image>
           </panel>
-          <text name="colorlabel" width="100%" height="40" bottomof="imgholder" style="darktext" size="20" alignment="left" text="[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Name]"></text>
+          <text name="colorlabel" width="100%" height="40" bottomof="imgholder" style="darktext" size="fit" maxsize="16" alignment="left" text="[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Name]"></text>
           <panel name="search-btn" width="200" height="50" align="right" bottomof="colorlabel">
             <object class="button" name="test" size="20" label="Select" action="setcolor" value="[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Name]" image="http://www.gaf.com/All_Images/[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Image]" />
           </panel>
@@ -1149,7 +1149,7 @@
           <panel name="imgholder" width="200" height="200" background="000000" clip="yes" >
             <image name="shingle" height="100%" url="[eval: '[datasource:getProducts.[var:shingleSelected].ProductFamily]' == 'TruSlate®' ? 'http://162.209.101.177/Content/SlateImages/':'http://www.gaf.com/All_Images/']/[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+1]]/Image]?w=200&amp;h=200"></image>
           </panel>
-          <text name="colorlabel" width="100%" height="40" bottomof="imgholder" style="darktext" size="20" alignment="left" text="[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+1]]/Name]"></text>
+          <text name="colorlabel" width="100%" height="40" bottomof="imgholder" style="darktext" size="fit" maxsize="16" alignment="left" text="[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+1]]/Name]"></text>
           <panel name="search-btn" width="200" height="50" align="right" bottomof="colorlabel">
             <object class="button" name="test" size="20" label="Select" action="setcolor" value="[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+1]]/Name]" image="http://www.gaf.com/All_Images/[datasource:getProducts.[var:shingleSelected].Color[[eval:[var:colorCreateCount]+1]]/Image]"/>
           </panel>
@@ -1165,7 +1165,7 @@
           <panel name="imgholder" width="200" height="200" background="000000" clip="yes" >
             <image name="shingle" height="100%" url="[eval: '[datasource:getProducts.[var:shingleSelected].ProductFamily]' == 'TruSlate®' ? 'http://162.209.101.177/Content/SlateImages/':'http://www.gaf.com/All_Images/']/[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Image]?w=200&amp;h=200"></image>
           </panel>
-          <text name="colorlabel" width="100%" height="40" bottomof="imgholder" style="darktext" size="20" alignment="left" text="[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Name]"></text>
+          <text name="colorlabel" width="100%" height="40" bottomof="imgholder" style="darktext" size="fit" maxsize="16" alignment="left" text="[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Name]"></text>
           <panel name="search-btn" width="200" height="50" align="right" bottomof="colorlabel">
             <object class="button" name="test" size="20" label="Select" action="setcolor" value="[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Name]" image="http://www.gaf.com/All_Images/[datasource:getProducts.[var:shingleSelected].Color[[var:colorCreateCount]]/Image]"/>
           </panel>
@@ -1692,7 +1692,7 @@
 
     <class name="summary-cust">
       <panel name="summary-customer" alias="SUMMARY-CUSTOMER" width="100%" height="148" padding-right="20">
-        <text name="subtitle" width="100%" height="40" font="Futura-Medium" color="#343434" size="25" alignment="left" text="Customer Info"></text>
+        <text name="subtitle" width="100%" height="40" font="Futura-Medium" color="#343434" size="15" alignment="left" text="CUSTOMER INFO"></text>
         <panel name="col1" width="33.33%" height="93" bottomof="subtitle">
           <text name="cust1-name" width="100%" height="35" style="darktext" size="20" alignment="left" text="[param:cust1name]"></text>
           <text name="cust1-phone" width="100%" height="30" bottomof="cust1-name" style="darktext" size="15" alignment="left" text="[param:cust1phone]"></text>
@@ -1714,7 +1714,7 @@
 
     <class name="summary-roof">
       <panel name="summary-roof" alias="SUMMARY-ROOF" width="100%" height="193" padding-right="20">
-        <text name="subtitle" width="100%" height="40" font="Futura-Medium" color="#343434" size="25" alignment="left" text="Roof Info"></text>
+        <text name="subtitle" width="100%" height="40" font="Futura-Medium" color="#343434" size="15" alignment="left" text="ROOF INFO"></text>
         <panel name="col1" width="50%" height="108" bottomof="subtitle">
           <text name="roof-area" width="100%" height="35" style="darktext" size="20" alignment="left" text="Total Area: [param:area]"></text>
           <text name="roof-squares" width="100%" height="35" bottomof="roof-area" style="darktext" size="20" alignment="left" text="Squares Needed: [param:squares]"></text>
@@ -1735,8 +1735,8 @@
 
     <class name="summary-products">
       <panel name="summary-products" alias="SUMMARY-PRODUCTS" width="100%" height="210" padding-right="20">
-        <text name="subtitle" width="100%" height="40" font="Futura-Medium" color="#343434" size="25" alignment="left" text="Shingles"></text>
-        <text name="subtitle2" width="50%" height="40" xpos="50%" font="Futura-Medium" color="#343434" size="25" alignment="left" text="Warranty"></text>
+        <text name="subtitle" width="100%" height="40" font="Futura-Medium" color="#343434" size="15" alignment="left" text="SHINGLES"></text>
+        <text name="subtitle2" width="50%" height="40" xpos="50%" font="Futura-Medium" color="#343434" size="15" alignment="left" text="WARRANTY"></text>
         <panel name="col1" width="50%" height="150" ypos="45">
           <panel name="shingletile" width="150" height="100%" background="#000000">
             <image name="swatch" url="[param:swatch]?w=300&amp;h=300" width="100%"></image>
@@ -1752,7 +1752,7 @@
 
     <!-- !summary accessories -->
     <class name="summary-accessory-title">
-      <text name="summary-accessory-title" alias="SUMMARY-ACCESSORY-TITLE" width="100%" height="40" padding-right="20" font="Futura-Medium" color="#343434" size="25" alignment="left" text="Accessories"></text>
+      <text name="summary-accessory-title" alias="SUMMARY-ACCESSORY-TITLE" width="100%" height="40" padding-right="20" font="Futura-Medium" color="#343434" size="15" alignment="left" text="ACCESSORIES"></text>
     </class>
 
     <class name="summary-accessory-subtitle">
@@ -1774,7 +1774,7 @@
 
     <class name="summary-services">
       <panel name="summary-services" alias="SUMMARY-SERVICES" width="100%" height="192" padding-right="20">
-        <text name="subtitle" width="100%" height="40" font="Futura-Medium" color="#343434" size="25" alignment="left" text="Services"></text>
+        <text name="subtitle" width="100%" height="40" font="Futura-Medium" color="#343434" size="15" alignment="left" text="SERVICES"></text>
         <panel name="col1" width="50%" height="90" ypos="45">
           <text name="tearoff-label" width="100%" height="30" style="darktext" size="20" alignment="left" text="Tear Off"></text>
           <text name="layers" width="100%" height="20" bottomof="tearoff-label" size="15" alignment="left" text="Layers: [param:layers]"></text>
@@ -3340,10 +3340,6 @@
         <alpha value="0" time=".1" target="VENT[eval: [var:ventindex] - 1]/deletebox" />
         <alpha value="0" time=".1" target="ROOF-SIDEBAR-PAGER/Plumbing Vents/saved-check" />
         <keyboard visible="yes" target="VENTQUANTITY[var:ventindex]/input" />
-        <!--<if lhs="[var:ventindex]" operator="gt" rhs="1">
-          <delete target="ROOF-SPACER-VENT-[eval: [var:ventindex] - 1]" />
-          <create class="roof-spacer" index="[var:ventindex]" name="VENT" target="ROOF-VENT/roofpagerbox/pager" />
-        </if>-->
       </sync>
     </action>
 
@@ -3357,10 +3353,6 @@
         <alpha value="0" time=".1" target="VENT[eval: [var:ventindex] - 1]/deletebox" />
         <alpha value="0" time=".1" target="ROOF-SIDEBAR-PAGER/Plumbing Vents/saved-check" />
         <keyboard visible="yes" target="VENTQUANTITY[var:ventindex]/input" />
-        <!--<if lhs="[var:ventindex]" operator="gt" rhs="1">
-          <delete target="ROOF-SPACER-VENT-[eval: [var:ventindex] - 1]" />
-          <create class="roof-spacer" index="[var:ventindex]" name="VENT" target="ROOF-VENT/roofpagerbox/pager" />
-        </if>-->
       </sync>
     </action>
 
@@ -3374,10 +3366,6 @@
         <alpha value="0" time=".1" target="VENT[eval: [var:ventindex] - 1]/deletebox" />
         <alpha value="0" time=".1" target="ROOF-SIDEBAR-PAGER/Plumbing Vents/saved-check" />
         <keyboard visible="yes" target="VENTQUANTITY[var:ventindex]/input" />
-        <!--<if lhs="[var:ventindex]" operator="gt" rhs="1">
-          <delete target="ROOF-SPACER-VENT-[eval: [var:ventindex] - 1]" />
-          <create class="roof-spacer" index="[var:ventindex]" name="VENT" target="ROOF-VENT/roofpagerbox/pager" />
-        </if>-->
       </sync>
     </action>
 
@@ -3389,10 +3377,6 @@
         <play action="hidevent" />
         <alpha value="0" time=".1" target="VENT[eval: [var:ventindex] - 1]/deletebox" />
         <alpha value="0" time=".1" target="ROOF-SIDEBAR-PAGER/Plumbing Vents/saved-check" />
-        <!--<if lhs="[var:ventindex]" operator="gt" rhs="1">
-          <delete target="ROOF-SPACER-VENT-[eval: [var:ventindex] - 1]" />
-          <create class="roof-spacer" index="[var:ventindex]" name="VENT" target="ROOF-VENT/roofpagerbox/pager" />
-        </if>-->
       </sync>
     </action>
 
@@ -3586,11 +3570,6 @@
         <set onclickup="null" target="PLYWOODMENU/12cdx" />
         <play action="plywooddeletebutton" />
         <play action="hideplywood" />
-        <!--<if lhs="[var:plywoodindex]" operator="gt" rhs="1">
-          <delete target="ROOF-SPACER-PLYWOOD-[eval: [var:plywoodindex] - 1]" />
-          <create class="roof-spacer" index="[var:plywoodindex]" name="PLYWOOD" target="SERVICES-PLYWOOD/servicespagerbox/pager" />
-          <alpha value="0" time=".1" target="PLYWOOD[eval: [var:plywoodindex] - 1]/deletebox" />
-        </if>-->
       </sync>
     </action>
 
@@ -3601,11 +3580,6 @@
         <set onclickup="null" target="PLYWOODMENU/58cdx" />
         <play action="plywooddeletebutton" />
         <play action="hideplywood" />
-        <!--<if lhs="[var:plywoodindex]" operator="gt" rhs="1">
-          <delete target="ROOF-SPACER-PLYWOOD-[eval: [var:plywoodindex] - 1]" />
-          <create class="roof-spacer" index="[var:plywoodindex]" name="PLYWOOD" target="SERVICES-PLYWOOD/servicespagerbox/pager" />
-          <alpha value="0" time=".1" target="PLYWOOD[eval: [var:plywoodindex] - 1]/deletebox" />
-        </if>-->
       </sync>
     </action>
 
@@ -3616,11 +3590,6 @@
         <set onclickup="null" target="PLYWOODMENU/12osb" />
         <play action="plywooddeletebutton" />
         <play action="hideplywood" />
-        <!--<if lhs="[var:plywoodindex]" operator="gt" rhs="1">
-          <delete target="ROOF-SPACER-PLYWOOD-[eval: [var:plywoodindex] - 1]" />
-          <create class="roof-spacer" index="[var:plywoodindex]" name="PLYWOOD" target="SERVICES-PLYWOOD/servicespagerbox/pager" />
-          <alpha value="0" time=".1" target="PLYWOOD[eval: [var:plywoodindex] - 1]/deletebox" />
-        </if>-->
       </sync>
     </action>
 
@@ -3631,11 +3600,6 @@
         <set onclickup="null" target="PLYWOODMENU/58osb" />
         <play action="plywooddeletebutton" />
         <play action="hideplywood" />
-        <!--<if lhs="[var:plywoodindex]" operator="gt" rhs="1">
-          <delete target="ROOF-SPACER-PLYWOOD-[eval: [var:plywoodindex] - 1]" />
-          <create class="roof-spacer" index="[var:plywoodindex]" name="PLYWOOD" target="SERVICES-PLYWOOD/servicespagerbox/pager" />
-          <alpha value="0" time=".1" target="PLYWOOD[eval: [var:plywoodindex] - 1]/deletebox" />
-        </if>-->
       </sync>
     </action>
 
@@ -3726,6 +3690,18 @@
           <assign property="var:totalareaTemp" value="0" />
           <assign property="var:squarestotalTemp" value="0" />
           <assign property="var:squarestotal" value="0" />
+          <if lhs="[var:hipstotal]" operator="e" rhs="">
+            <assign property="var:hipstotal" value="0" />
+          </if>
+          <if lhs="[var:valleystotal]" operator="e" rhs="">
+            <assign property="var:valleystotal" value="0" />
+          </if>
+          <if lhs="[var:rakestotal]" operator="e" rhs="">
+            <assign property="var:rakestotal" value="0" />
+          </if>
+          <if lhs="[var:eavestotal]" operator="e" rhs="">
+            <assign property="var:eavestotal" value="0" />
+          </if>
           <assign property="var:leakbarrier" value="[eval: [var:hipstotal] + [var:valleystotal] + [var:rakestotal] + [var:eavestotal]]" />
           <assign property="var:starterstrips" value="[eval: [var:rakestotal] + [var:eavestotal]]" />
           <assign property="var:wasteAdjust" value="[eval: [var:waste] / 100 + 1 ]" />
@@ -3787,7 +3763,7 @@
     <action name="summarycalc">
       <sync>
         <!-- <alert message="area total [var:totalarea] squares total [var:squarestotal] ridges total [var:ridgestotal] hips total [var:hipstotal] rakes total [var:rakestotal] eaves total [var:eavestotal] valleys total [var:valleystotal]" /> -->
-        <create class="summary-roof" target="SUMMARY-PAGER" area="[eval:'[var:totalarea]' != '' ? '[var:totalarea] sq ft':'N/A']" squares="[var:squarestotal]" ridges="[eval:'[var:ridgestotal]' != '0' ? '[var:ridgestotal] ft':'N/A']" hips="[eval:'[var:hipstotal]' != '' ? '[var:hipstotal] ft':'N/A']" rakes="[eval:'[var:rakestotal]' != '' ? '[var:rakestotal] ft':'N/A']" eaves="[eval:'[var:eavestotal]' != '' ? '[var:eavestotal] ft':'N/A']" valleys="[eval:'[var:valleystotal]' != '' ? '[var:valleystotal] ft':'N/A']"  />
+        <create class="summary-roof" target="SUMMARY-PAGER" area="[eval:'[var:totalarea]' != '' ? '[var:totalarea] sq ft':'N/A']" squares="[var:squarestotal]" ridges="[eval:'[var:ridgestotal]' != '0' ? '[var:ridgestotal] ft':'N/A']" hips="[eval:'[var:hipstotal]' != '0' ? '[var:hipstotal] ft':'N/A']" rakes="[eval:'[var:rakestotal]' != '0' ? '[var:rakestotal] ft':'N/A']" eaves="[eval:'[var:eavestotal]' != '0' ? '[var:eavestotal] ft':'N/A']" valleys="[eval:'[var:valleystotal]' != '0' ? '[var:valleystotal] ft':'N/A']"  />
         <play action="summaryproducts" />
       </sync>
     </action>
@@ -4975,20 +4951,23 @@
     </action>
 
     <action name="ventValidationLoop">
-      <if lhs="[var:ventValidationIndex]" operator="lt" rhs="[var:ventindex]">
-        <assign property="var:ventValidationIndex" value="[eval: [var:ventValidationIndex] + 1]" />
-        <if lhs="[eval:'[object:VENTQUANTITY[var:ventValidationIndex]/input.text]' != '']" operator="e" rhs="true">
+      <sync>
+        <if lhs="[var:ventValidationIndex]" operator="lt" rhs="[var:ventindex]">
+          <assign property="var:ventValidationIndex" value="[eval: [var:ventValidationIndex] + 1]" />
+          <alert title="vent field [var:ventValidationIndex]" message="[object:VENTQUANTITY[var:ventValidationIndex]/input.text]" />
+          <if lhs="[eval:'[object:VENTQUANTITY[var:ventValidationIndex]/input.text]' != '']" operator="e" rhs="true">
             <play action="ventValidationLoop" />
             <else>
               <alert title="Incomplete Form" message="Please fill out all fields" />
               <assign property="var:ventValidationIndex" value="0" />
               <play action="roof-saving-modal-hide" />
             </else>
+          </if>
+          <else>
+            <play action="vent-db-add" />
+          </else>
         </if>
-        <else>
-          <play action="vent-db-add" />
-        </else>
-      </if>
+      </sync>
     </action>
 
     <action name="vent-db-add">
@@ -5023,19 +5002,36 @@
 
     <!-- !drop down actions -->
     <action name="dropon">
-      <alpha value="1" time=".1" target="_droptype" />
-      <translate align="right" time=".25" curve="easeout" target="_drop/drop" />
-      <alpha value="1" time=".25" target="_drop/drop" />
-      <assign property="var:droptype" value="_droptype" />
-      <set onclickup="dropoff" />
+      <sync>
+        <if lhs="[var:dropactive]" operator="e" rhs="yes">
+          <!--<alert title="from the if" message="[var:dropactive] [var:drop] [var:field]" />-->
+          <translate xpos="101%" time=".25" curve="easeout" target="[var:drop]/drop" />
+          <alpha value=".2" time=".1" target="_drop/drop" />
+          <alpha value="0" target="[var:droptype]" />
+          <set onclickup="dropon" target="[var:field]/active" />
+        </if>
+        <alpha value="1" time=".1" target="_droptype" />
+        <alpha value="1" target="_drop/drop" />
+        <translate align="right" time=".25" curve="easeout" target="_drop/drop" />
+
+        <assign property="var:droptype" value="_droptype" />
+        <set onclickup="dropoff" />
+        <assign property="var:dropactive" value="yes" />
+        <assign property="var:drop" value="_drop" />
+        <assign property="var:field" value="_field" />
+      </sync>
     </action>
 
     <action name="dropoff">
-      <translate xpos="101%" time=".25" curve="easeout" target="_drop/drop" />
-      <alpha value="0" time=".25" target="_drop/drop" />
-      <alpha value="0" time=".25" target="[var:droptype]" />
-      <assign property="var:droptype" value="null" />
-      <set onclickup="dropon" target="_target" />
+      <sync>
+        <translate xpos="101%" time=".25" curve="easeout" target="_drop/drop" />
+        <alpha value="0" time=".25" target="_drop/drop" />
+        <alpha value="0" time=".25" target="[var:droptype]" />
+        <assign property="var:droptype" value="null" />
+        <set onclickup="dropon" target="_target" />
+        <assign property="var:dropactive" value="no" />
+        <assign property="var:drop" value="" />
+      </sync>
     </action>
 
     <action name="setstate">
@@ -6242,6 +6238,7 @@
 		</action>
 
 
+		<!-- !finish estimate -->
 		<action name="finishEstimate" >
 			<assign property="var:estimateJSON" value="[template:estimateJSON.content]" />
 			<assign property="datasource:generateEstimate.postContent" value="[var:estimateJSON]" />
@@ -6409,9 +6406,13 @@
     </action>
 
     <action name="clear-data" >
-		<assign property="var:layers" value="" />
-		<assign property="var:type" value="" />
-		<assign property="var:customerCreated" value="" />
+		  <assign property="var:plywoodsave-index" value="" />
+      <assign property="var:plywoodindex" value="" />
+      <assign property="var:plywoodIterateCount" value="" />
+      <assign property="var:plywoodObject" value="" />
+      <assign property="var:layers" value="" />
+      <assign property="var:type" value="" />
+      <assign property="var:customerCreated" value="" />
       <assign property="var:warranty-set" value="no" />
       <assign property="var:roofMeasurementsJSON" value="" />
       <assign property="var:wasteAdjust" value="" />
@@ -6429,7 +6430,7 @@
       <assign property="var:accessoriesJSON" value="" />
       <assign property="var:miscAccessoriesJSON" value="" />
       <assign property="var:adjustmentsJSON" value="" />
-	  <assign property="var:plywoodJSON" value="" />
+      <assign property="var:plywoodJSON" value="" />
       <assign property="var:search" value="" />
       <assign property="var:db-action" value="" />
       <assign property="var:accessories" value="0" />
@@ -6497,7 +6498,9 @@
       <assign property="var:shingle-col" value="var:shingle-col" />
       <assign property="var:shingle-row" value="var:shingle-row" />
       <assign property="var:warrantycheck" value="" />
-      <assign property="var:plywoodsave-index" value="" />
+      <assign property="var:selectedwarranty" value="" />
+
+      <assign property="var:services" value="" />
       <!-- adjustments -->
       <loop lhs="[var:clear-adj-index]" operator="lt" rhs="[var:adjustment]">
         <assign property="var:clear-adj-index" value="[eval: [var:clear-adj-index] + 1 ]" />
@@ -6512,9 +6515,13 @@
     </action>
 
     <action name="clear-var" >
-		<assign property="var:layers" value="" />
-		<assign property="var:type" value="" />
-		<assign property="var:customerCreated" value="" />
+		  <assign property="var:plywoodsave-index" value="" />
+      <assign property="var:plywoodindex" value="" />
+      <assign property="var:plywoodIterateCount" value="" />
+      <assign property="var:plywoodObject" value="" />
+		  <assign property="var:layers" value="" />
+		  <assign property="var:type" value="" />
+		  <assign property="var:customerCreated" value="" />
 	    <assign property="var:warranty-set" value="no" />
 	    <assign property="var:roofMeasurementsJSON" value="" />
 	    <assign property="var:wasteAdjust" value="" />
@@ -6591,7 +6598,8 @@
       <assign property="var:shingle-col" value="var:shingle-col" />
       <assign property="var:shingle-row" value="var:shingle-row" />
       <assign property="var:warrantycheck" value="" />
-      <assign property="var:plywoodsave-index" value="" />
+      <assign property="var:selectedwarranty" value="" />
+      <assign property="var:services" value="" />
       <loop lhs="[var:clear-adj-index]" operator="lt" rhs="[var:adjustment]">
         <assign property="var:clear-adj-index" value="[eval: [var:clear-adj-index] + 1 ]" />
         <assign property="var:units-[var:clear-adj-index]" value="" />
@@ -6614,6 +6622,7 @@
         <assign property="var:deleteindex" value="_index" />
         <assign property="var:parent" value="_parent" />
         <assign property="var:section" value="_section" />
+        <assign property="var:check" value="_check" />
         <alert title="Delete _target" message="Are you sure?" buttononetitle="Yes" buttononeaction="confirm-delete" buttontwotitle="No" buttontwoaction="null"/>
       </sync>
     </action>
@@ -6635,6 +6644,13 @@
         <if lhs="[var:[var:indexname]]" operator="gt" rhs="1"><!-- creates new spacer at the end with proper index -->
           <create class="roof-spacer" index="[var:[var:indexname]]" name="[var:spacername]" target="ROOF-[var:section]/roofpagerbox/pager" />
           <assign property="var:[spacername]spacerindex" value="[var:[var:indexname]]" />
+        </if>
+        <if lhs="[var:check]" operator="e" rhs="Roof Areas">
+          <alpha value="0" time=".1" target="ROOF-SIDEBAR-PAGER/Roof Areas/saved-check" />
+          <alpha value="1" time=".1" target="ROOF-SIDEBAR-PAGER/Roof Areas/required" />
+          <else>
+            <alpha value="0" time=".1" target="ROOF-SIDEBAR-PAGER/[var:check]/saved-check" />
+          </else>
         </if>
       </sync>
     </action>
@@ -6676,6 +6692,7 @@
           <create class="roof-spacer" index="[var:[var:indexname]]" name="[var:spacername]" target="ROOF-[var:section]/roofpagerbox/pager" />
           <assign property="var:[spacername]spacerindex" value="[var:[var:indexname]]" />
         </if>
+        <alpha value="0" time=".1" target="ROOF-SIDEBAR-PAGER/Chimney &amp; Skylights/saved-check" />
       </sync>
     </action>
 
@@ -6734,10 +6751,12 @@
     <action name="confirm-delete-vent">
       <delete target="[var:deleteVentTarget]" />
       <set onclickup="[var:ventAction]" target="VENTMENU/[var:ventActionTarget]" />
+      <assign property="var:ventindex" value="[eval: [var:ventindex] - 1]" />
       <if lhs="[var:[var:indexname]]" operator="gte" rhs="1"><!-- alphas on the delete button in last item in pager -->
         <alpha value="1" time=".1" target="VENT[eval: [var:[var:indexname]] - 1]/deletebox" />
         <!--<alert message="[var:parent][eval: [var:[var:indexname]] - 1]/deletebox" />-->
       </if>
+      <alpha value="0" time=".1" target="ROOF-SIDEBAR-PAGER/Plumbing Vents/saved-check" />
     </action>
 
     <!-- !plywood delete actions -->
@@ -6899,9 +6918,15 @@
     </action>
 
     <!--<action name="plywood-count" datasource="plywooddb-list" datasourceevent="querycomplete">
-      <if lhs="[var:loaded]" operator="e" rhs="yes">
         <alert title="plywood saved" message="count [datasource:plywooddb-list.dataSourceResultCount]" />
-      </if>
+    </action>-->
+
+    <action name="plywood-count" datasource="plywooddb-delete" datasourceevent="querycomplete">
+      <assign property="datasource:plywooddb-list.query" value="SELECT * FROM PLYWOOD;" />
+    </action>
+
+    <!--<action name="plywood-sort-test"  datasource="plywooddb-list" datasourceevent="querycomplete">
+      <alert title="plywood deleted" message="count=[datasource:plywooddb.dataSourceResultCount] var:plywoodsave-index=[var:plywoodsave-index] var:plywoodindex=[var:plywoodindex] var:plywoodIterateCount=[var:plywoodIterateCount] var:plywoodObject=[var:plywoodObject] var:plywoodJSON=[var:plywoodJSON]" />
     </action>-->
 
     <!-- !curtain action -->
