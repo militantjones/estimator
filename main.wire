@@ -2865,38 +2865,39 @@
     </action>
 
     <action name="signin-complete" datasource="login" datasourceevent="querycomplete">
-		<alpha value="0" time=".2" target="SPLASH" />
-		<if lhs="[datasource:login.1.ResponseCode]" operator="e" rhs="100">
-			<assign property="preferences:username" value="[var:username]" />
-			<assign property="preferences:password" value="[var:password]" />
-			<assign property="preferences:token" value="[datasource:login.1.Token]" />
-			<assign property="preferences:contractorId" value="[datasource:login.1.ContractorId]" />
-			<assign property="preferences:contractorType" value="[datasource:login.1.ContractorType]" />
-			<assign property="preferences:trueSlate" value="[datasource:login.1.TrueSlate]" />
-			<assign property="httpheader:token-contractorid.Token" value="[preferences:token]" />
-			<assign property="httpheader:token-contractorid.ContractorId" value="[preferences:contractorId]" />
-			<assign property="object:HEADER/profile/username.text" value="[preferences:username]" />
-      <sync>
-        <alpha value="0" time="0" target="SIGNIN/column" />
-        <translate ypos="101%" time=".25" target="SIGNIN/logo" />
-        <create class="choice" target="CONTAINER" />
-        <alpha value="1" time=".3" target="CHOICE" />
-        <alpha value="0" time=".3" target="SIGNIN" />
-      </sync>
-<!--        <alert message="you have signed in username:[preferences:username] password:[preferences:password] remembered:[preferences:remember]" /> -->
-			<else>
+      <alpha value="0" time=".2" target="SPLASH" />
+      <if lhs="[datasource:login.1.ResponseCode]" operator="e" rhs="100">
+        <assign property="preferences:username" value="[var:username]" />
+        <assign property="preferences:password" value="[var:password]" />
+        <assign property="preferences:token" value="[datasource:login.1.Token]" />
+        <assign property="preferences:contractorId" value="[datasource:login.1.ContractorId]" />
+        <assign property="preferences:contractorType" value="[datasource:login.1.ContractorType]" />
+        <assign property="preferences:trueSlate" value="[datasource:login.1.TrueSlate]" />
+        <assign property="httpheader:token-contractorid.Token" value="[preferences:token]" />
+        <assign property="httpheader:token-contractorid.ContractorId" value="[preferences:contractorId]" />
+        <assign property="object:HEADER/profile/username.text" value="[preferences:username]" />
         <sync>
-				  <alert message="Invalid username and/or password. Please check your credentials and try again.  If you have not yet created an account, tap the Register button to do so." />
-          <translate ypos="134" time=".25" target="SIGNIN/logo" />
-          <alpha value="1" time=".15" target="SIGNIN/column" />
+          <alpha value="0" time="0" target="SIGNIN/column" />
+          <translate ypos="101%" time=".25" target="SIGNIN/logo" />
+          <create class="choice" target="CONTAINER" />
+          <alpha value="1" time=".3" target="CHOICE" />
+          <alpha value="0" time=".3" target="SIGNIN" />
         </sync>
-			</else>
-			<assign property="var:loaded" value="yes" />
-		</if>
+        <!--<alert message="you have signed in username:[preferences:username] password:[preferences:password] remembered:[preferences:remember]" /> -->
+        <else>
+          <sync>
+        	  <alert message="Invalid username and/or password. Please check your credentials and try again.  If you have not yet created an account, tap the Register button to do so." />
+            <translate ypos="134" time=".25" target="SIGNIN/logo" />
+            <alpha value="1" time=".15" target="SIGNIN/column" />
+          </sync>
+        </else>
+        <assign property="var:loaded" value="yes" />
+      </if>
     </action>
 
     <action name="login-error" datasource="login" datasourceevent="datasourceerror" >
-		<alert title="Network Error" message="There was a problem connecting to the server.  Please check your network connection and try again." />
+		  <alert title="Network Error" message="There was a problem connecting to the server.  Please check your network connection and try again." />
+		  <alpha value="0" time=".3" target="UPLOAD-CURTAIN" />
     </action>
 
     <action name="remember">
@@ -3029,13 +3030,14 @@
     </action>
 
     <action name="get-estimate-complete" datasource="getEstimate" datasourceevent="querycomplete" >
-		<assign property="object:SEARCHRESULTS/searchhead/label.text" value="Search Results" />
-        <assign property="object:SEARCH-LASTNAME/input.text" value="" />
-        <assign property="object:SEARCH-ADDRESS/input.text" value="" />
+		  <assign property="object:SEARCHRESULTS/searchhead/label.text" value="Search Results" />
+      <assign property="object:SEARCH-LASTNAME/input.text" value="" />
+      <assign property="object:SEARCH-ADDRESS/input.text" value="" />
     </action>
 
     <action name="get-estimate-error" datasource="getEstimate" datasourceevent="datasourceerror" >
-		<alert title="Network Error" message="There was a problem connecting to the server.  Please check your network connection and try again." />
+		  <alert title="Network Error" message="There was a problem connecting to the server.  Please check your network connection and try again." />
+		  <alpha value="0" time=".3" target="UPLOAD-CURTAIN" />
     </action>
 
     <action name="closeresults">
@@ -3049,58 +3051,58 @@
 
     <action name="viewestimate">
       <play action="released" />
-	  <if lhs="[datasource:getEstimate._value.EstimatePdf]" operator="ne" rhs="">
-		  <alpha value="1" time=".2" target="UPLOAD-CURTAIN" />
-		  <assign property="object:UPLOAD-CURTAIN/photo-progress.text" value="Retrieving Estimate..." />
-	      <assign property="var:customerId" value="[datasource:getEstimate._value.CustomerId]" />
-	      <assign property="var:customerIndex" value="_value" />
-		  <play action="download-pdf" />
-		  <else>
-			  <alert message="No estimate found for this user." />
-		  </else>
-	  </if>
+      <if lhs="[datasource:getEstimate._value.EstimatePdf]" operator="ne" rhs="">
+        <alpha value="1" time=".2" target="UPLOAD-CURTAIN" />
+        <assign property="object:UPLOAD-CURTAIN/photo-progress.text" value="Retrieving Estimate..." />
+          <assign property="var:customerId" value="[datasource:getEstimate._value.CustomerId]" />
+          <assign property="var:customerIndex" value="_value" />
+        <play action="download-pdf" />
+        <else>
+          <alert message="No estimate found for this user." />
+        </else>
+      </if>
     </action>
 
     <action name="edit">
       <play action="released" />
-<!-- 	  <create class="editpanel" target="CONTAINER" />  -->
+      <!-- <create class="editpanel" target="CONTAINER" />  -->
       <assign property="datasource:states.source" value="res://states.xml" />
       <assign property="datasource:provinces.source" value="res://provinces.xml" />
-	  <assign property="var:edit-customerId" value="[datasource:getEstimate._value.CustomerId]" />
-	  <create class="editpanel" fname="[datasource:getEstimate._value.CustomerFirstName]" lname="[datasource:getEstimate._value.CustomerLastName]" address1="[datasource:getEstimate._value.Address1]" city="[datasource:getEstimate._value.City]" state="[datasource:getEstimate._value.StateProvince]" zip="[datasource:getEstimate._value.PostalCode]" phone="[datasource:getEstimate._value.PhoneNumber]" email="[datasource:getEstimate._value.Email]"  target="CONTAINER" />
-	  <if lhs="[datasource:getEstimate._value.Country]" operator="ne" rhs="US">
-		  <play action="edit-countrycan" />
-		  <else>
-			  <assign property="var:edit-country" value="US" />
-		  </else>
-	  </if>
-<!-- 	  <alert message="index is _value, CustomerId is [datasource:getEstimate._value.CustomerId]" /> -->
+      <assign property="var:edit-customerId" value="[datasource:getEstimate._value.CustomerId]" />
+      <create class="editpanel" fname="[datasource:getEstimate._value.CustomerFirstName]" lname="[datasource:getEstimate._value.CustomerLastName]" address1="[datasource:getEstimate._value.Address1]" city="[datasource:getEstimate._value.City]" state="[datasource:getEstimate._value.StateProvince]" zip="[datasource:getEstimate._value.PostalCode]" phone="[datasource:getEstimate._value.PhoneNumber]" email="[datasource:getEstimate._value.Email]"  target="CONTAINER" />
+      <if lhs="[datasource:getEstimate._value.Country]" operator="ne" rhs="US">
+        <play action="edit-countrycan" />
+        <else>
+          <assign property="var:edit-country" value="US" />
+        </else>
+      </if>
+      <!-- <alert message="index is _value, CustomerId is [datasource:getEstimate._value.CustomerId]" /> -->
     </action>
 
     <action name="editcustomer" >
-		<play action="released" />
-		<assign property="var:edit-fname"    value="[object:EDIT-FNAME/input.text]" />
-		<assign property="var:edit-lname"    value="[object:EDIT-LNAME/input.text]" />
-		<assign property="var:edit-email"    value="[object:EDIT-EMAIL/input.text]" />
-		<assign property="var:edit-phone"    value="[object:EDIT-PHONE/input.text]" />
-		<assign property="var:edit-address1" value="[object:EDIT-STREET/input.text]" />
-		<assign property="var:edit-city"     value="[object:EDIT-CITY/input.text]" />
-		<assign property="var:edit-state"    value="[object:EDIT-STATE/input.text]" />
-		<assign property="var:edit-zip" value="[object:EDIT-ZIP/input.text]" />
-<!-- 		<alert message="object object:EDIT-STREET/input.text is [object:EDIT-STREET/input.text] var:edit-address1 is [var:edit-address1]" /> -->
-		<assign property="datasource:editCustomer.postContent" value="[template:editCustomer.content]" />
-		<assign property="datasource:editCustomer.source" value="https://162.209.101.177/api/EditCustomer" />
-<!-- 		<alert message="postContent is [template:editCustomer.content]" /> -->
-<!-- 		<email subject="edit customer post content" body="[template:editCustomer.content]" toaddress="mlong@rarewire.com" /> -->
+		  <play action="released" />
+		  <assign property="var:edit-fname"    value="[object:EDIT-FNAME/input.text]" />
+		  <assign property="var:edit-lname"    value="[object:EDIT-LNAME/input.text]" />
+		  <assign property="var:edit-email"    value="[object:EDIT-EMAIL/input.text]" />
+		  <assign property="var:edit-phone"    value="[object:EDIT-PHONE/input.text]" />
+		  <assign property="var:edit-address1" value="[object:EDIT-STREET/input.text]" />
+		  <assign property="var:edit-city"     value="[object:EDIT-CITY/input.text]" />
+		  <assign property="var:edit-state"    value="[object:EDIT-STATE/input.text]" />
+		  <assign property="var:edit-zip" value="[object:EDIT-ZIP/input.text]" />
+      <!-- 		<alert message="object object:EDIT-STREET/input.text is [object:EDIT-STREET/input.text] var:edit-address1 is [var:edit-address1]" /> -->
+		  <assign property="datasource:editCustomer.postContent" value="[template:editCustomer.content]" />
+		  <assign property="datasource:editCustomer.source" value="https://162.209.101.177/api/EditCustomer" />
+      <!-- 		<alert message="postContent is [template:editCustomer.content]" /> -->
+      <!-- 		<email subject="edit customer post content" body="[template:editCustomer.content]" toaddress="mlong@rarewire.com" /> -->
     </action>
 
     <action name="edit-complete" datasource="editCustomer" datasourceevent="querycomplete" >
-		<alert title="Success" message="Customer Record Updated" />
-		<alpha value="0" target="UPLOAD-CURTAIN" />
-		<if lhs="[var:customerCreated]" operator="ne" rhs="yes">
-	        <assign property="datasource:getEstimate.source" value="[var:searchquery]" />
-			<play action="close-edit" />
-		</if>
+		  <alert title="Success" message="Customer Record Updated" />
+		  <alpha value="0" target="UPLOAD-CURTAIN" />
+		  <if lhs="[var:customerCreated]" operator="ne" rhs="yes">
+	          <assign property="datasource:getEstimate.source" value="[var:searchquery]" />
+		  	<play action="close-edit" />
+		  </if>
     </action>
 
     <!-- !Edit modal actions -->
@@ -3126,7 +3128,6 @@
 
     <action name="hideeditcurtain">
       <sync>
-
         <alpha value="0" target="MODALCURTAIN" />
       </sync>
     </action>
@@ -3136,10 +3137,6 @@
       <sync>
         <play action="released" />
         <play action="_value" />
-        <!--<alert message="_value" />-->
-        <!--<if lhs="[var:warranty-set]" operator="e" rhs="yes">
-          <play action="product-reset" />
-        </if>-->
       </sync>
     </action>
 
@@ -4225,7 +4222,7 @@
 
 	<action name="create-customer-error" datasource="createCustomer" datasourceevent="datasourceerror">
 		<alert title="Network Error" message="There was a problem connecting to the server.  Please check your network connection and try again." />
-	     <alpha value="0" time=".1" target="UPLOAD-CURTAIN" />
+    <alpha value="0" time=".1" target="UPLOAD-CURTAIN" />
 	</action>
 
     <!-- !sidebar-roof actions -->
@@ -5326,6 +5323,7 @@
 
 	  <action name="warranties-error" datasource="getWarranties" datasourceevent="datasourceerror" >
 	  	<alert title="Network Error" message="There was a problem connecting to the server.  Please check your network connection and try again." />
+	  	<alpha value="0" time=".3" target="UPLOAD-CURTAIN" />
 	  </action>
 
 	  <action name="selectwarranty">
@@ -5413,6 +5411,7 @@
 
     <action name="accessories-error" datasource="getAccessories" datasourceevent="datasourceerror" >
       <alert title="Network Error" message="There was a problem connecting to the server.  Please check your network connection and try again." />
+      <alpha value="0" time=".3" target="UPLOAD-CURTAIN" />
     </action>
 
     <action name="selectaccessories">
@@ -6042,34 +6041,35 @@
 				<assign property="var:skylightsJSON" value="" />
 				<assign property="var:plumbingVentsJSON" value="" />
 				<play action="prepPhotos" />
-				  <else>
-<!-- 					<play action="prepPhotos" /> -->
-				  	<alpha value="0" target="UPLOAD-CURTAIN" />
-				  	<alert message="There was a problem updating your measurements, please verify that all information is present and accurate [datasource:updateMeasurements.1.MeasurementId]" />
-					<assign property="var:measurementsJSON" value="" />
-					<assign property="var:roofMeasurementsJSON" value="" />
-					<assign property="var:ridgeMeasurementsJSON" value="" />
-					<assign property="var:hipsJSON" value="" />
-					<assign property="var:valleysJSON" value="" />
-					<assign property="var:rakesJSON" value="" />
-					<assign property="var:eavesJSON" value="" />
-					<assign property="var:skylightsJSON" value="" />
-					<assign property="var:plumbingVentsJSON" value="" />
-				  </else>
+				<else>
+<!-- 		  	<play action="prepPhotos" /> -->
+				  <alpha value="0" target="UPLOAD-CURTAIN" />
+				  <alert message="There was a problem updating your measurements, please verify that all information is present and accurate [datasource:updateMeasurements.1.MeasurementId]" />
+				  <assign property="var:measurementsJSON" value="" />
+				  <assign property="var:roofMeasurementsJSON" value="" />
+				  <assign property="var:ridgeMeasurementsJSON" value="" />
+				  <assign property="var:hipsJSON" value="" />
+				  <assign property="var:valleysJSON" value="" />
+				  <assign property="var:rakesJSON" value="" />
+				  <assign property="var:eavesJSON" value="" />
+				  <assign property="var:skylightsJSON" value="" />
+				  <assign property="var:plumbingVentsJSON" value="" />
+				</else>
 			</if>
 		</action>
 
 		<action name="updateMeasurements-error" datasource="updateMeasurements" datasourceevent="datasourceerror" >
-				<assign property="var:measurementsJSON" value="" />
-				<assign property="var:roofMeasurementsJSON" value="" />
-				<assign property="var:ridgeMeasurementsJSON" value="" />
-				<assign property="var:hipsJSON" value="" />
-				<assign property="var:valleysJSON" value="" />
-				<assign property="var:rakesJSON" value="" />
-				<assign property="var:eavesJSON" value="" />
-				<assign property="var:skylightsJSON" value="" />
-				<assign property="var:plumbingVentsJSON" value="" />
+		  <assign property="var:measurementsJSON" value="" />
+		  <assign property="var:roofMeasurementsJSON" value="" />
+		  <assign property="var:ridgeMeasurementsJSON" value="" />
+		  <assign property="var:hipsJSON" value="" />
+		  <assign property="var:valleysJSON" value="" />
+		  <assign property="var:rakesJSON" value="" />
+		  <assign property="var:eavesJSON" value="" />
+		  <assign property="var:skylightsJSON" value="" />
+		  <assign property="var:plumbingVentsJSON" value="" />
 			<alert title="Network Error" message="There was a problem connecting to the server.  Please check your network connection and try again." />
+			<alpha value="0" time=".3" target="UPLOAD-CURTAIN" />
 		</action>
 
 		<!-- !prepPhotos -->
@@ -6104,14 +6104,16 @@
 		</action>
 
 		<action name="photoupload-complete" datasource="uploadPhoto" datasourceevent="querycomplete" >
-<!-- 				<alert message="upload [var:photoIterateCount] complete [datasource:uploadPhoto.0.content]" /> -->
-<!-- 			<if lhs="[datasource:uploadPhoto.0.content]" operator="e" rhs="100"> -->
-				<assign property="var:photoIterateCount" value="[eval: [var:photoIterateCount]+1]" />
-				<play action="upload-photo" />
-<!-- 			</if> -->
+      <!-- <alert message="upload [var:photoIterateCount] complete [datasource:uploadPhoto.0.content]" /> -->
+      <!-- <if lhs="[datasource:uploadPhoto.0.content]" operator="e" rhs="100"> -->
+			<assign property="var:photoIterateCount" value="[eval: [var:photoIterateCount]+1]" />
+			<play action="upload-photo" />
+      <!-- </if> -->
 		</action>
+
 		<action name="photoupload-error" datasource="uploadPhoto" datasourceevent="datasourceerror" >
 			<alert title="Network Error" message="There was a problem connecting to the server.  Please check your network connection and try again." />
+			<alpha value="0" time=".3" target="UPLOAD-CURTAIN" />
 		</action>
 
 		<!-- !formatEstimate -->
@@ -6261,6 +6263,7 @@
 			<assign property="var:miscAccessoriesJSON" value="" />
 			<assign property="var:adjustmentsJSON" value="" />
 			<alert title="Network Error" message="There was a problem connecting to the server.  Please check your network connection and try again." />
+			<alpha value="0" time=".3" target="UPLOAD-CURTAIN" />
 		</action>
 
 		<action name="download-pdf">
