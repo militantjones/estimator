@@ -102,6 +102,7 @@
     <datasource name="accessoriesdb-deletelist-ridgevent" source="sql://ACCESSORIES" query="" providertype="sql" />
     <datasource name="accessoriesdb-deletelist-hipvent" source="sql://ACCESSORIES" query="" providertype="sql" />
     <datasource name="accessoriesdb-deletelist-fascia" source="sql://ACCESSORIES" query="" providertype="sql" />
+    <datasource name="accessoriesdb-deletelist-masterflow" source="sql://ACCESSORIES" query="" providertype="sql" />
     <datasource name="accessoriesdb-delete" source="sql://ACCESSORIES" query="" providertype="sql" />
     <datasource name="accessoriesdb-gen-delete" source="sql://ACCESSORIES" query="" providertype="sql" />
     <datasource name="accessoriesdb-count" source="sql://ACCESSORIES" query="" providertype="sql" />
@@ -5549,6 +5550,9 @@
         <assign property="var:cur-ventilation-index" value="_value" />
         <assign property="object:ACCESSORY-UNIT.text" value="Units" />
       </if>
+      <if lhs="[eval:('[datasource:getAccessories._value.AccessoryName]').indexOf('Master Flow')]" operator="gte" rhs="0">
+        <assign property="var:cur-masterflow" value="[datasource:getAccessories._value.AccessoryName]" />
+      </if>
       <alpha value="1" time=".25" target="ACCESSORYLIST" />
       <translate valign="center" time=".25" curve="easeout" target="ACCESSORYLIST" />
       <assign property="var:curtainaction" value="accessorydismiss" />
@@ -5583,7 +5587,21 @@
       </if>
     </action>
 
-    <action name="selectaccessory-delete-prev2" datasource="accessoriesdb-deletelist-hipvent" datasourceevent="querycomplete">
+    <action name="selectaccessory-delete-prev3" datasource="accessoriesdb-deletelist-masterflow" datasourceevent="querycomplete">
+      <if lhs="[var:loaded]" operator="e" rhs="yes">
+        <sync>
+          <if lhs="[datasource:accessoriesdb-deletelist-masterflow.dataSourceResultCount]" operator="gt" rhs="0">
+            <assign property="datasource:accessoriesdb-delete.query" value="DELETE FROM ACCESSORIES WHERE NAME='[var:cur-masterflow]';" />
+            <else>
+              <play action="accessoriesdb-insert" />
+            </else>
+          </if>
+          <!--<alert title="count = [datasource:accessoriesdb-deletelist-masterflow.dataSourceResultCount]" message="DELETE FROM ACCESSORIES WHERE NAME='[var:cur-masterflow]';" />-->
+        </sync>
+      </if>
+    </action>
+
+    <action name="selectaccessory-delete-prev4" datasource="accessoriesdb-deletelist-hipvent" datasourceevent="querycomplete">
       <if lhs="[var:loaded]" operator="e" rhs="yes">
         <sync>
           <!--<alert title="current hip vent" message="[var:cur-hipvent]" />-->
@@ -5599,7 +5617,7 @@
       </if>
     </action>
 
-    <action name="selectaccessory-delete-prev3" datasource="accessoriesdb-deletelist-fascia" datasourceevent="querycomplete">
+    <action name="selectaccessory-delete-prev5" datasource="accessoriesdb-deletelist-fascia" datasourceevent="querycomplete">
       <if lhs="[var:loaded]" operator="e" rhs="yes">
         <sync>
           <!--<alert title="current fascia" message="[var:cur-fascia]" />-->
@@ -5682,7 +5700,9 @@
                 </else>
               </if>
               <else>
-                <play action="accessoriesdb-insert" />
+                <!--<play action="accessoriesdb-insert" />-->
+                <!--<alert title="master flow" message="[var:cur-masterflow]" />-->
+                <assign property="datasource:accessoriesdb-deletelist-masterflow.query" value="SELECT * FROM ACCESSORIES WHERE NAME='[var:cur-masterflow]';" />
                 <assign property="var:autocoverage" value="[object:ACCESSORYQUANTITY/input.text]" />
               </else>
             </if>
@@ -6234,7 +6254,7 @@
 			<assign property="var:estimateJSON" value="[template:estimateJSON.content]" />
 			<assign property="datasource:generateEstimate.postContent" value="[var:estimateJSON]" />
 			<assign property="datasource:generateEstimate.source" value="https://162.209.101.177/api/GenerateEstimate" />
-      <!--<email subject="estimate and measurements json" body="estimate\n\n[var:estimateJSON]" toaddress="dwalruff@rarewire.com" />-->
+      <email subject="estimate and measurements json" body="estimate\n\n[var:estimateJSON]" toaddress="dwalruff@rarewire.com" />
 		</action>
 
 		<action name="estimate-complete" datasource="generateEstimate" datasourceevent="querycomplete">
