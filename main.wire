@@ -20,8 +20,8 @@
 
   	<datasource name="login" source="" query="/" providertype="json" httpmethod="post" httpheader="login"/>
     <datasource name="createCustomer" source="" query="/" providertype="json" httpmethod="post" httpheader="token-contractorid"/>
-	<datasource name="editCustomer" source="" query="/" providertype="json" httpmethod="put" httpheader="token-contractorid"/>
-	<datasource name="getEstimate" source="" query="/CustomerDetails" providertype="json" httpmethod="get" httpheader="token-contractorid"/>
+    <datasource name="editCustomer" source="" query="/" providertype="json" httpmethod="put" httpheader="token-contractorid"/>
+    <datasource name="getEstimate" source="" query="/CustomerDetails" providertype="json" httpmethod="get" httpheader="token-contractorid"/>
     <datasource name="getProducts" source="" query="/Products" providertype="json" httpmethod="get" httpheader="token-contractorid"/>
     <datasource name="getAccessories" source="" query="/Accessories" providertype="json" httpmethod="get" httpheader="token-contractorid"/>
     <datasource name="getWarranties" source="" query="/Warranties" providertype="json" httpmethod="get" httpheader="token-contractorid"/>
@@ -29,7 +29,7 @@
     <datasource name="uploadPhoto" source="" query="/" providertype="json" httpmethod="post" httpheader="formSubmit" />
     <datasource name="updateMeasurements" source="" query="/" providertype="json" httpmethod="put" httpheader="token-contractorid" />
     <datasource name="generateEstimate" source="" query="/" providertype="json" httpmethod="post" httpheader="token-contractorid" />
-	<datasource name="getEstimatePdf" source="" query="/" providertype="json" httpmethod="get" httpheader="token-contractorid" />
+    <datasource name="getEstimatePdf" source="" query="/" providertype="json" httpmethod="get" httpheader="token-contractorid" />
 
     <httpheader name="login" Content-Type="application/json" />
     <httpheader name="token-contractorid" Content-Type="application/json" Token="[preferences:token]" ContractorId="[preferences:contractorId]" />
@@ -2592,8 +2592,11 @@
 
 	  <panel name="upload-curtain" alias="UPLOAD-CURTAIN" width="100%" height="100%" alpha="0" >
 	  	<panel name="bg" width="100%" height="100%" background="#000000" alpha=".5" ></panel>
-	  	<wait name="wait" width="100%" height="100%"></wait>
-	  	<text name="photo-progress" width="100%" height="fit" ypos="600" color="#ffffff" font="Futura-MediumItalic" size="24" alignment="center" text="Uploading Photo NUMBER..."></text>
+	  	<panel name="modal" width="200" height="150" align="center" ypos="35%" shadowradius="60" shadowxoffset="1" shadowyoffset="1" shadowopacity=".1" >
+	  	  <panel name="bg" width="100%" height="100%" background="#ffffff" alpha="1" cornerradius="10" borderwidth="1" bordercolor="#ffffff"></panel>
+	  	  <wait name="wait" width="100%" height="50" ypos="80" color="343434"></wait>
+	  	  <text name="photo-progress" width="100%" height="fit" ypos="10" color="#343434" font="Futura-MediumItalic" size="24" alignment="center" text="Uploading Photo NUMBER..."></text>
+	  	</panel>
 	  </panel>
 
   </main>
@@ -3054,7 +3057,7 @@
       <play action="released" />
       <if lhs="[datasource:getEstimate._value.EstimatePdf]" operator="ne" rhs="">
         <alpha value="1" time=".2" target="UPLOAD-CURTAIN" />
-        <assign property="object:UPLOAD-CURTAIN/photo-progress.text" value="Retrieving Estimate..." />
+        <assign property="object:UPLOAD-CURTAIN/modal/photo-progress.text" value="Retrieving Estimate..." />
           <assign property="var:customerId" value="[datasource:getEstimate._value.CustomerId]" />
           <assign property="var:customerIndex" value="_value" />
         <play action="download-pdf" />
@@ -3703,6 +3706,8 @@
           </if>
           <assign property="var:leakbarrier" value="[eval: [var:hipstotal] + [var:valleystotal] + [var:rakestotal] + [var:eavestotal]]" />
           <assign property="var:starterstrips" value="[eval: [var:rakestotal] + [var:eavestotal]]" />
+          <assign property="var:ridgecaps" value="[eval: [var:ridgestotal] + [var: hipstotal]]" />
+          <!--<alert title="ridgecaps" message="[var:ridgecaps]" />-->
           <assign property="var:wasteAdjust" value="[eval: [var:waste] / 100 + 1 ]" />
           <loop lhs="[var:summaryarea]" operator="lt" rhs="[var:areaindex]">
             <assign property="var:summaryarea" value="[eval: [var:summaryarea] + 1]" />
@@ -3723,7 +3728,7 @@
         </if>
         <if lhs="_this" operator="e" rhs="PRODUCTS">
           <if lhs="[var:product]" operator="e" rhs="">
-            <assign property="object:UPLOAD-CURTAIN/photo-progress.text" value="Retrieving Products..." />
+            <assign property="object:UPLOAD-CURTAIN/modal/photo-progress.text" value="Retrieving Products..." />
             <alpha value="1" time=".3" target="UPLOAD-CURTAIN" />
             <assign property="datasource:getProducts.source" value="https://162.209.101.177/api/GetProducts?AppSource=1" />
           </if>
@@ -4110,7 +4115,7 @@
     <action name="saveCustomer">
           <play action="released" />
 		      <sync>
-				<assign property="object:UPLOAD-CURTAIN/photo-progress.text" value="[eval:'[var:customerCreated]' == 'yes' ? 'Updating':'Creating'] Customer" />
+				<assign property="object:UPLOAD-CURTAIN/modal/photo-progress.text" value="[eval:'[var:customerCreated]' == 'yes' ? 'Updating':'Creating'] Customer" />
 				<alpha value="1" time=".3" target="UPLOAD-CURTAIN" />
 		        <!--<alert title="customers saved" message="[datasource:customersdb-list.dataSourceResultCount]" />-->
 		        <if lhs="[datasource:customersdb-list.dataSourceResultCount]" operator="gt" rhs="0">
@@ -5229,7 +5234,7 @@
 <!--         	<alert message="https://162.209.101.177/api/GetWarranties?productId=[var:shingle]" /> -->
         	<play action="sidebar-products" _alias="WARRANTY" _form="Warranty" />
 	        <alpha value="1" time=".1" target="UPLOAD-CURTAIN" />
-	        <assign property="object:UPLOAD-CURTAIN/photo-progress.text" value="Retrieving Warranties" />
+	        <assign property="object:UPLOAD-CURTAIN/modal/photo-progress.text" value="Retrieving Warranties" />
         </else>
       </if>
     </action>
@@ -5271,7 +5276,7 @@
         <play action="colordismiss" />
         <play action="sidebar-products" _alias="WARRANTY" _form="Warranty" />
         <alpha value="1" time=".1" target="UPLOAD-CURTAIN" />
-        <assign property="object:UPLOAD-CURTAIN/photo-progress.text" value="Retrieving Warranties" />
+        <assign property="object:UPLOAD-CURTAIN/modal/photo-progress.text" value="Retrieving Warranties" />
       </sync>
     </action>
 
@@ -5319,7 +5324,7 @@
       <!-- 		<alert message="warranties complete content is [datasource:getWarranties.0.content]" /> -->
       <translate ypos="130" curve="linear" target="PRODUCTS-STEP-BLOCKER" />
       <alpha value="0" time=".1" target="UPLOAD-CURTAIN" />
-      <assign property="object:UPLOAD-CURTAIN/photo-progress.text" value="" />
+      <assign property="object:UPLOAD-CURTAIN/modal/photo-progress.text" value="" />
 	  </action>
 
 	  <action name="warranties-error" datasource="getWarranties" datasourceevent="datasourceerror" >
@@ -5345,7 +5350,7 @@
         <assign property="var:warrantyname" value="_title" />
         <assign property="var:warrantycheck" encoding="url" value="_title" />
         <alpha value="1" time=".1" target="UPLOAD-CURTAIN" />
-        <assign property="object:UPLOAD-CURTAIN/photo-progress.text" value="Retrieving Accessories" />
+        <assign property="object:UPLOAD-CURTAIN/modal/photo-progress.text" value="Retrieving Accessories" />
         <if lhs="[var:warrantycheck]" operator="e" rhs="GAF%C2%AE%20Golden%20Pledge%C2%AE%20Limited%20Warranty">
           <alpha value="1" target="TEAROFF-BLOCK" />
           <if lhs="var:tearoff" operator="ne" rhs="yes">
@@ -5407,7 +5412,7 @@
     <action name="accessories-done" datasource="getAccessories" datasourceevent="querycomplete" >
       <play action="sidebar-products" _alias="ACCESSORIES" _form="Accessories" />
       <alpha value="0" time=".1" target="UPLOAD-CURTAIN" />
-      <assign property="object:UPLOAD-CURTAIN/photo-progress.text" value="" />
+      <assign property="object:UPLOAD-CURTAIN/modal/photo-progress.text" value="" />
     </action>
 
     <action name="accessories-error" datasource="getAccessories" datasourceevent="datasourceerror" >
@@ -5528,12 +5533,12 @@
         </if>
       </if>
       <if lhs="[datasource:getAccessories._value.AccessoryCategory]" operator="e" rhs="Ridge Cap">
-        <if lhs="[var:ridgestotal]" operator="gte" rhs="1">
+        <if lhs="[var:ridgecaps]" operator="gte" rhs="1">
           <!--<play action="blur" />-->
-          <assign property="object:UNITMEASURE.text" value="[var:ridgestotal] ft needed" />
+          <assign property="object:UNITMEASURE.text" value="[var:ridgecaps] ft needed" />
           <assign property="object:UNITEQUALS.text" value="1 = _coverage ft _units" />
           <assign property="var:cur-ridgecap-index" value="_value" />
-          <assign property="var:autoquantity" value="[eval: Math.ceil([var:ridgestotal] / _coverage ) ]" />
+          <assign property="var:autoquantity" value="[eval: Math.ceil([var:ridgecaps] / _coverage ) ]" />
           <assign property="object:ACCESSORYQUANTITY/input.text" value="[var:autoquantity]" />
           <assign property="object:ACCESSORY-UNIT.text" value="Units" />
           <!--<assign property="object:ACCESSORY-AUTOQUANTITY.text" value="[var:autoquantity] Units" />-->
@@ -5857,7 +5862,7 @@
     <action name="estimate">
       <play action="released" />
       <alpha value="1" target="UPLOAD-CURTAIN" />
-      <assign property="object:UPLOAD-CURTAIN/photo-progress.text" value="Sending Roof Measurements..." />
+      <assign property="object:UPLOAD-CURTAIN/modal/photo-progress.text" value="Sending Roof Measurements..." />
       <assign property="datasource:miscAccessoriesdb-list.query" value="SELECT * FROM ACCESSORIES WHERE TYPE ='Miscellaneous Accessory'" />
       <assign property="datasource:nonMiscAccessoriesdb-list.query" value="SELECT * FROM ACCESSORIES WHERE TYPE != 'Miscellaneous Accessory' AND ID != '';" />
       <sync>
@@ -6099,11 +6104,11 @@
 			<assign property="httpheader:formSubmit.Token" value="[preferences:token]" />
 			<assign property="httpheader:formSubmit.ContractorId" value="[preferences:contractorId]" />
 			<if lhs="[var:photoCount]" operator="gt" rhs="0">
-				<assign property="object:UPLOAD-CURTAIN/photo-progress.text" value="Uploading Photo [var:photoIterateCount]" />
+				<assign property="object:UPLOAD-CURTAIN/modal/photo-progress.text" value="Uploading Photo [var:photoIterateCount]" />
 				<play action="upload-photo" />
 				<else>
 <!-- 					<alert message="photosdb empty" /> -->
-					<assign property="object:UPLOAD-CURTAIN/photo-progress.text" value="Generating Estimate..." />
+					<assign property="object:UPLOAD-CURTAIN/modal/photo-progress.text" value="Generating Estimate..." />
 					<play action="formatEstimate" />
 				</else>
 			</if>
@@ -6111,13 +6116,13 @@
 
 		<action name="upload-photo" >
 			<if lhs="[var:photoIterateCount]" operator="lte" rhs="[var:photoCount]">
-				<assign property="object:UPLOAD-CURTAIN/photo-progress.text" value="Uploading Photo [var:photoIterateCount]" />
+				<assign property="object:UPLOAD-CURTAIN/modal/photo-progress.text" value="Uploading Photo [var:photoIterateCount]" />
 				<assign property="httpheader:formSubmit.CustomerId" value="[var:customerId]" />
 				<assign property="datasource:uploadPhoto.postFile" value="[datasource:photosdb-list.[var:photoIterateCount].PHOTO]"/>
 				<assign property="datasource:uploadPhoto.source" value="https://162.209.101.177/api/UploadPhoto" />
 				<else>
 <!-- 					<alert message="all photos have been uploaded." /> -->
-					<assign property="object:UPLOAD-CURTAIN/photo-progress.text" value="Generating Estimate..." />
+					<assign property="object:UPLOAD-CURTAIN/modal/photo-progress.text" value="Generating Estimate..." />
 					<play action="formatEstimate" />
 				</else>
 			</if>
@@ -6253,11 +6258,11 @@
 			<assign property="var:estimateJSON" value="[template:estimateJSON.content]" />
 			<assign property="datasource:generateEstimate.postContent" value="[var:estimateJSON]" />
 			<assign property="datasource:generateEstimate.source" value="https://162.209.101.177/api/GenerateEstimate" />
-      <email subject="estimate and measurements json" body="estimate\n\n[var:estimateJSON]" toaddress="dwalruff@rarewire.com" />
+      <!--<email subject="estimate and measurements json" body="estimate\n\n[var:estimateJSON]" toaddress="dwalruff@rarewire.com" />-->
 		</action>
 
 		<action name="estimate-complete" datasource="generateEstimate" datasourceevent="querycomplete">
-			<assign property="object:UPLOAD-CURTAIN/photo-progress.text" value="Retrieving Estimate..." />
+			<assign property="object:UPLOAD-CURTAIN/modal/photo-progress.text" value="Retrieving Estimate..." />
 			<assign property="var:estimateJSON" value="" />
 			<assign property="var:accessoriesJSON" value="" />
 			<assign property="var:miscAccessoriesJSON" value="" />
@@ -6429,6 +6434,7 @@
       <assign property="var:wasteAdjust" value="" />
       <assign property="var:waste" value="0" />
       <assign property="var:wasteFactor" value="" />
+      <assign property="var:ridgecaps" value="" />
       <assign property="var:ridgeMeasurementsJSON" value="" />
       <assign property="var:hipsJSON" value="" />
       <assign property="var:valleysJSON" value="" />
@@ -6547,6 +6553,7 @@
       <assign property="var:plywoodObject" value="" />
 		  <assign property="var:layers" value="" />
 		  <assign property="var:type" value="" />
+		  <assign property="var:ridgecaps" value="" />
 		  <assign property="var:customerCreated" value="" />
 	    <assign property="var:warranty-set" value="no" />
 	    <assign property="var:roofMeasurementsJSON" value="" />
